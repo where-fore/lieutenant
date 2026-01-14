@@ -1,0 +1,221 @@
+
+
+
+necessary
+-----------
+set up a pick-three autobattler basic prototype:
+	-you have stats, enemy has stats
+	-you fight procedurally, dealing your damage to their hp and vice versa, until someone wins
+	-afterwards, you pick a bonus (probably just start with +dmg or +hp)
+	-this impacts stats, and back to step 1
+	
+	-probably draw some 1-bit art (tiny rogues trait icons, as inspiration)
+
+from there refocus and read/organize all then notes below into a selection of paths forward, and do pro/con on each of them schell-style
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+lots of brainstorming notes from before, unorganized:
+--------------------------------------------------------
+--------------------------------------------------------
+--------------------------------------------------------
+
+ftl like combat - auto battler but you choose where your attacks will go
+	fencing, attack certain body parts?
+	mount & blade commander - choose what part of the battle to send your troops?
+	magic rune stuff - choose what part of their alchemy circle to attack?
+	angry birds/jenga - choose what part of their structure to attack?
+	literally ftl, ship battler
+		-pirate ship! attack crew, sails, or hull?
+			and you could be exploring islands, fight mythological sea creatures && enemy pirates && sea police?
+			choose which islands to sail to (different resources), choose different skills to train/books to read (better vs different enemies)
+			enemies: hull (hp), crew (doing bad stuff to you), sails (move speed
+			what about instead each vector has a cost: hull = less treasure, crew = less reinforcements, sails = less ship sell price? this is also hull
+				non-hull are ftl-like rooms, where hitting them reduces stats. sails reduce dodge/armor, crew reduce their output
+				pirate have all, sails slow down enemy, shoot crew to remove their cannons/archers/mages, shoot hull to damage hp
+				sea monsters have no sails so sense of dread/running away, shoot crew/eyes/tentacles to make weaker (they have utility? squids shoot ink?), shoot hull/body to damage hp
+				automaton ships (not sure, ghosts? robots?): no crew so fixed damage, but 
+				
+	
+something something nile river, time limit is the river flooding
+
+
+all of the above:
+	water is going to flood, this archipelago will be cleansed
+	..but there's a bit of time to pirate first!
+	go to islands to steal treasure!
+	fight off other pirates, and more!
+	fight off the super sea beast when it comes to swallow the land... and live to tell the tale
+	
+	go to islands, get some gold (random and/or difficulty?), and some power (new spell? new cannon?)
+	ftl like combat - hit any part of the enemy, deal hull damage. you choose which part to hit (stat to drain etc). autobattler
+	pick 3 reward from island
+	pick new island to travel to
+	
+	
+	
+	
+	
+	
+	
+	
+mythology themes:
+note these are llm chatbot summaries, they could be completely made up
+
+The Lost Lands of Lyonesse: a massive archipelago mysteriously swallowed by the sea in a single night. Some versions blame the sins of the inhabitants; others imply a supernatural tide.
+The Kumulipo and Namaka: an archipelago born from Kumulipo's fire, but Namaka is a sea goddess who constantly tries to flood the lava islands away.
+The Wave Curse of Teonimanu: Teonimanu was a high volcanic island, when eight massive waves struck the island one by one until it slid off its underwater shelf and vanished into the abyss.
+The Tide Jewels of Ryūjin: Ryūjin possesses the Kanju (Ebb-Tide Jewel) and the Manju (Flood-Tide Jewel). By dropping these gems into the ocean, he can instantly cause the sea to surge over the islands or retreat.
+
+
+1. The Lost Lands of Lyonesse (Cornish/Arthurian)
+
+In British folklore, Lyonesse was a massive archipelago or peninsula off the coast of Cornwall. According to legend, it was a land of 140 churches and fertile plains.
+
+    The Cataclysm: It was swallowed by the sea in a single night.
+
+    The Cause: Some versions blame the sins of the inhabitants; others imply a supernatural tide.
+
+    Artistic Hook: The bells of the "drowned churches" are said to still ring under the water during storms. You could play with the contrast of ecclesiastical architecture and kelp forests.
+
+
+2. The Kumulipo and Namaka (Hawaiian)
+
+Hawaiian mythology is centered on an archipelago born from fire, but it has a powerful deity of the sea, Nāmakaokahaʻi (Namaka), who is the elder sister of Pelé.
+
+    The Conflict: Namaka is a sea goddess who constantly tries to flood the lands her sister creates with lava.
+
+    The Cataclysm: The myth cycle represents a constant battle between the rising land and the encroaching, angry ocean.
+
+    Artistic Hook: The meeting of steam, obsidian, and deep blue water. You could depict a goddess whose "skirt" is the entire ocean rising to swallow the peaks.
+
+
+3. The Wave Curse of Teonimanu (Solomon Islands)
+
+This is a "lost island" legend that scientists believe actually happened. Teonimanu was a high volcanic island in the Solomon archipelago that vanished entirely.
+
+    The Cause: Legend says a man named Roraimenu was cuckolded by his wife, who fled back to Teonimanu. In a fit of rage, he purchased a "wave curse" and planted a magical branch on the island.
+
+    The Cataclysm: As soon as he paddled away, eight massive, sentient waves (The "Wave-Children") struck the island one by one until it slid off its underwater shelf and vanished into the abyss.
+
+    Artistic Hook: Depicting the eight distinct waves as having personality or faces, systematically dismantling a lush island while the vengeful husband watches from a distant peak.
+
+
+4. The Tide Jewels of Ryūjin (Japanese)
+
+Japanese mythology is inherently an archipelago story, and the sea is ruled by the Dragon King, Ryūjin, from his underwater palace, Ryūgū-jō.
+
+    The Mechanism: Ryūjin possesses the Kanju (Ebb-Tide Jewel) and the Manju (Flood-Tide Jewel). By dropping these gems into the ocean, he can instantly cause the sea to surge over the islands or retreat.
+
+    The Irate God: In several stories, Ryūjin uses the Jewels to wipe out invading fleets or punish those who steal from his palace.
+
+    Artistic Hook: The physical jewels as the source of the flood. You could draw a literal "wall of water" frozen in place by a glowing gem, with the Dragon King’s serpent-like body silhouetted within the wave.
+
+
+
+
+
+
+
+
+
+
+he-is-watching-like autobattling roguelike project
+stats and builds: different build patterns that get tested against different enemies
+adventure and challenge: uncovering new enemies and not knowing how long you'll survive
+
+goal is to successfully iterate an original, fun game into existence.
+	strong project management (somehow juggle thorough design doc + iterative testing?)
+	fun game in the end (lots of sid-meier playtesting, use game design literature to check, lots of community playtesting)
+
+
+stats
+--------------------
+basic archetypes:
+strength/fighter - basic big boy beefy basic stat checker. high damage, some armor, low speed
+dexterity/rogue - basic glass cannon. very high damage with special moves, no armor, medium speed
+wisdom/ranger - ranged class, has clear strengths and weaknesses. medium damage, no armor, high speed
+intelligence/mage - niche, has explosive strengths and damning weakness. cripples enemies with status effects, but has no stats if the status doesn't cripple the enemy
+
+flat damage/armor - lets the basic fighter essentially win/lose with clarity. complicated status effects can be boiled down to a stat check (eg. thorns is just extra attack damage)
+long campaign with little recovery - lets speed be a source of regen/mitigation, not just a damage buff
+specific bosses - lets you return to runs with knowledge and think up counters
+--------------------
+
+
+general design thoughts
+--------------------
+make sure to start with the fighter - if the basic gameplay doesn't feel good, the gimmicks will definitely not. (and helps with scope creep)
+
+probably autobattle + slay-the-spire map
+
+will struggle with game-feel and agency, if it's just "pick from 3 (but really just pick the one that fits your build)" and then autobattle
+
+want to make sure players read the enemies weaknesses/strengths and play to them - so maybe start each battle by letting the player pick which weapon to use? loadout 1 vs 2? sword and shield fighter picks sword (+damage) or shield (+armor); two handed chooses charge (+speed) or stance (+damage)?
+	have familiar enemies with prefixes - a wolf is a basic enemy, fast wolf has high speed, large wolf has high health. bandit is a basic high speed/no retaliation enemy, archer bandit is even faster, pair of bandits even stronger
+
+meaningful choices: re: showing the bow options to a player who already picked the sword stuff. why show them if they are not viable options?
+	there are lots of answers to this question, just make sure it's answered thoroughly
+		can sell for gold, pillars/brotato-like where "range" effects melee and ranged identically, etc
+
+
+
+random notess
+--------------------
+He is Watching suffered from negative choice progression by diluting the ability to make a build with cool new archetypes. maybe instead use "characters" with different drop templates? playing the mage guy lets you see the "core set" items, and "wizard" items
+have the little map curve like horizon's gate water globe :D to avoid weird fog of war
+one-row map, instead of a slay-the-spire style? looks cool. the shorter side could be more difficult (fewer spaces for campfires, all combat?), but i think that'd be unintuitive - a player would easily think the shorter path is easier
+16px black background style sounds cool
+have some weather effects in the background like thunder or falling leaves based on the "zone"?
+
+aesthetics: not basic forest fantasy, probably. interested in slightly obscure cultures - sumerian? egyptian? check out civ games? old english/nordic folklore?
+
+have the final boss be someone/thing that follows you and chooses the paths you didn't take? a San Juan-inspired "choose what's best for you... AND not best for your opponent"
+	treasure hunters? fight over the last treasure?
+
+one event: witch's hut with riddles?
+
+this can be paper prototyped to figure out fun events/levers to work with
+
+big specific risks (spade invaders shoot the saucer or stay locked in): have the boss/opponent start stronger than you, and you can challenge them whenever. both of you are growing in power, them exponentially and you linearly. they are strong, then you, then them. you have to choose when to risk it all (also works to self select difficulty, opposite of bullet heavens where you live longer if better) (this can also let veteran players compete on speedruns AND high scores, because both are impressive)
+
+slay the spire map mechanic, but diegetic:
+	tavern / rumourmonger gives boss tips (i heard the terrible beast has a thorny hide)
+	in town, choose 3 "things to do", boss tip could be one.
+	see past failed adventurers (this dead rogue has thorns all over his thick armour)
+
+attribute changes how the character looks - subtly and over time
+	change the sprite/model not immediately after increasing stat, next load screen or something
+	like in fable 1, in the jail scene you notice how ripped your strength build is - or how your mages jail clothes float with magic
+	can also save pictures of your character (at the end of their roguelite journey?) in combat, and maybe even have player pick from some to put on their tombstone etc
