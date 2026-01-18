@@ -10,12 +10,28 @@ config_version=5
 
 [application]
 
-config/name="New Game Project"
-run/main_scene="uid://4pqund3nukl7"
+config/name="Pick Three"
+run/main_scene="uid://dnpbs1bryt1kn"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=320
+window/size/viewport_height=180
+window/stretch/mode="viewport"
+window/stretch/aspect="keep_width"
+window/stretch/scale_mode="integer"
+
+[gui]
+
+theme/custom="uid://wymfijcko1gs"
+
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)
+2d/snap/snap_2d_transforms_to_pixel=true
+2d/snap/snap_2d_vertices_to_pixel=true
