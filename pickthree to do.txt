@@ -9,7 +9,7 @@ set up a pick-three autobattler basic prototype:
 	-afterwards, you pick a bonus (probably just start with +dmg or +hp)
 	-this impacts stats, and back to step 1
 	
-	-probably draw some 1-bit art (tiny rogues trait icons, as inspiration)
+	-have rock/paper/scissors damage types to prototype specializing
 
 from there refocus and read/organize all then notes below into a selection of paths forward, and do pro/con on each of them schell-style
 
@@ -29,6 +29,9 @@ combatants signal to managers what they are doing
 
 
 
+turn manager - decides whose turn it is, and tells them, and waits for their response
+player/enemy game objects - just has a script with current stats. when signalled it's their turn, signal their damage dealt, signal turn ended
+turn manager hears turn ended, now next turn
 
 
 
@@ -57,10 +60,25 @@ lots of brainstorming notes from before, unorganized:
 --------------------------------------------------------
 --------------------------------------------------------
 --------------------------------------------------------
-boast, like "oh  hell": visit the oracle and predict your fate for rewards
+
+islands: interior has a certain type of enemy (that has certain specific strengths/weaknesses), with big rewards. outside has small rewards, available without combat. you can gather the small rewards, and fight for the big rewards
+then off to new island
+(if i want you to only sometimes try for the big reward, provide some obivously-out-leveled islands early on to align expectations)
+
+small rewards = ingredients of some sort: metal bars to smith into gear, magic runes to affix to your ship/spellbook, etc
+big rewards = premade cool things, build arounds, which you can melt down into gold for a guaranteed reward
 
 
 
+
+
+
+boast, like "oh hell": visit the oracle and predict your fate for rewards
+
+morrowind-like armor rating: each slot has a % chance to be hit, and reduces damage by armor value - so more complete armor reduces spike damage
+	have armor with a downside (spell cast penalty or speed penalty or something), so there's a tradeoff
+
+draw-steel-negotiation / daggerheart result tables: no + bad, yes + good, no + good etc etc
 
 
 
@@ -104,9 +122,10 @@ all of the above:
 	
 	
 	
-	
-	
 mythology themes:
+	
+https://en.wikipedia.org/wiki/Goetia
+
 note these are llm chatbot summaries, they could be completely made up
 
 The Lost Lands of Lyonesse: a massive archipelago mysteriously swallowed by the sea in a single night. Some versions blame the sins of the inhabitants; others imply a supernatural tide.

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dnpbs1bryt1kn"]
+[gd_scene load_steps=10 format=3 uid="uid://dnpbs1bryt1kn"]
 
 [ext_resource type="Texture2D" uid="uid://cbp6sg330uwef" path="res://sprites/player.png" id="1_0wfyh"]
 [ext_resource type="Theme" uid="uid://8g0oubdd3ix7" path="res://ui/marginTheme.tres" id="1_o5qli"]
@@ -7,7 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="3_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://d0rwa3cc00ngr" path="res://sprites/enemy.png" id="3_sugp2"]
 [ext_resource type="Texture2D" uid="uid://jm7ccvlf38y4" path="res://sprites/sword.png" id="4_tbgi4"]
-[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="8_tipki"]
+[ext_resource type="PackedScene" uid="uid://dsn3r7gjwvoov" path="res://scenes/combatant.tscn" id="9_85g3d"]
+[ext_resource type="Script" uid="uid://c4226uk3kd0at" path="res://scripts/turn_manager.gd" id="9_choun"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_o6xl0")
@@ -39,6 +40,8 @@ grow_vertical = 2
 [node name="Sprite" type="TextureRect" parent="Combat UI/Stats/Player"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture = ExtResource("1_0wfyh")
 stretch_mode = 5
 
@@ -48,6 +51,7 @@ size_flags_horizontal = 0
 
 [node name="Health" type="MarginContainer" parent="Combat UI/Stats/Player/Stats"]
 layout_mode = 2
+size_flags_horizontal = 0
 theme = ExtResource("1_o5qli")
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
@@ -68,10 +72,11 @@ expand_mode = 1
 [node name="Label" type="Label" parent="Combat UI/Stats/Player/Stats/Health/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "12"
+text = "??"
 
 [node name="Damage" type="MarginContainer" parent="Combat UI/Stats/Player/Stats"]
 layout_mode = 2
+size_flags_horizontal = 0
 theme = ExtResource("1_o5qli")
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
@@ -91,7 +96,7 @@ expand_mode = 1
 
 [node name="Label" type="Label" parent="Combat UI/Stats/Player/Stats/Damage/HBoxContainer"]
 layout_mode = 2
-text = "2"
+text = "??"
 
 [node name="Enemy" type="VBoxContainer" parent="Combat UI/Stats"]
 layout_mode = 1
@@ -117,6 +122,7 @@ size_flags_horizontal = 0
 
 [node name="Health" type="MarginContainer" parent="Combat UI/Stats/Enemy/Stats"]
 layout_mode = 2
+size_flags_horizontal = 0
 theme = ExtResource("1_o5qli")
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
@@ -137,10 +143,11 @@ expand_mode = 1
 [node name="Label" type="Label" parent="Combat UI/Stats/Enemy/Stats/Health/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "8"
+text = "??"
 
 [node name="Damage" type="MarginContainer" parent="Combat UI/Stats/Enemy/Stats"]
 layout_mode = 2
+size_flags_horizontal = 0
 theme = ExtResource("1_o5qli")
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
@@ -162,22 +169,48 @@ expand_mode = 1
 
 [node name="Label" type="Label" parent="Combat UI/Stats/Enemy/Stats/Damage/HBoxContainer"]
 layout_mode = 2
-text = "1"
+text = "??"
 
 [node name="Button" type="Button" parent="Combat UI"]
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 0.75
 anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_bottom = 0.75
 offset_left = -38.5
 offset_top = -41.0
 offset_right = 38.5
 offset_bottom = 41.0
 grow_horizontal = 2
 grow_vertical = 2
-icon = ExtResource("8_tipki")
+focus_mode = 0
+icon = ExtResource("4_tbgi4")
 icon_alignment = 1
 expand_icon = true
+
+[node name="Label" type="Label" parent="Combat UI/Button"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 8
+text = "begin combat"
+
+[node name="TurnManager" type="Node2D" parent="."]
+script = ExtResource("9_choun")
+
+[node name="Player Combatant" parent="." instance=ExtResource("9_85g3d")]
+health = 20
+
+[node name="Enemy Combatant" parent="." instance=ExtResource("9_85g3d")]
+health = 6
+damage = 1
 
 [connection signal="pressed" from="Combat UI/Button" to="." method="_on_button_pressed"]
