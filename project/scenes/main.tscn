@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://d0rwa3cc00ngr" path="res://sprites/enemy.png" id="3_sugp2"]
 [ext_resource type="Texture2D" uid="uid://jm7ccvlf38y4" path="res://sprites/sword.png" id="4_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://dsn3r7gjwvoov" path="res://scenes/combatant.tscn" id="9_85g3d"]
-[ext_resource type="Script" uid="uid://c4226uk3kd0at" path="res://scripts/turn_manager.gd" id="9_choun"]
+[ext_resource type="Script" uid="uid://c4226uk3kd0at" path="res://scripts/combat_manager.gd" id="9_choun"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_o6xl0")
@@ -201,16 +201,18 @@ offset_right = 20.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 8
-text = "begin combat"
+text = "combat"
 
-[node name="TurnManager" type="Node2D" parent="."]
+[node name="Combat Manager" type="Node2D" parent="."]
 script = ExtResource("9_choun")
 
-[node name="Player Combatant" parent="." instance=ExtResource("9_85g3d")]
+[node name="Player Combatant" parent="Combat Manager" instance=ExtResource("9_85g3d")]
+this_is_the_player = true
 health = 20
-is_the_player = true
+attack = 2
 
-[node name="Enemy Combatant" parent="." instance=ExtResource("9_85g3d")]
+[node name="Enemy Combatant" parent="Combat Manager" instance=ExtResource("9_85g3d")]
 health = 6
+attack = 1
 
 [connection signal="pressed" from="Combat UI/Button" to="." method="_on_button_pressed"]

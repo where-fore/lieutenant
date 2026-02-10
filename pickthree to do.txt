@@ -34,17 +34,16 @@ player/enemy game objects - just has a script with current stats. when signalled
 turn manager hears turn ended, now next turn
 
 
+i should add a "end combat" button to the ui, at least for testing, cause ill get into infinite loops easily
+	also a failsafe in the code of course
 
 
+currently i'm not type checking the attacker signals for them being combatants
+
+the main manager shouldn't be referencing the player/enemies, the combat manager should be (and sending it up)
 
 
-
-
-
-
-
-
-
+add a "debug events" and "debug label" that sends relevant updates during process - whose turn it is from combat manager, etc
 
 
 

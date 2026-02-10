@@ -1,15 +1,25 @@
 extends Node2D
 
-@export var health = 10 as int
+@export var this_is_the_player = false as bool
+func is_the_player() -> bool: return this_is_the_player
+
+@export var health = 1337 as int
 func get_health() -> int: return health
 
-@export var attack = 2 as int
+@export var attack = 1337 as int
 func get_attack() -> int: return attack
 
-@export var is_the_player = false as bool
 
-func deal_damage(value):
+func take_damage(value):
 	health -= value
 	
-	if is_the_player: HudEvents.player_damaged.emit()
+	if is_the_player(): HudEvents.player_damaged.emit()
 	else: HudEvents.enemy_damaged.emit()
+
+
+func take_turn():
+	#attack
+	CombatEvents.attack_launched.emit(self, attack)
+	
+	#all done
+	CombatEvents.turn_finished.emit()

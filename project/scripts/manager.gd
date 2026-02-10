@@ -1,7 +1,7 @@
 extends Node2D
 
-@onready var player_combatant = $"Player Combatant" as Node2D
-@onready var enemy_combatant = $"Enemy Combatant" as Node2D
+@onready var player_combatant = $"Combat Manager/Player Combatant" as Node2D
+@onready var enemy_combatant = $"Combat Manager/Enemy Combatant" as Node2D
 
 @onready var ui_manager = $"Combat UI"
 
@@ -11,4 +11,4 @@ func _ready() -> void:
 
 
 func _on_button_pressed() -> void:
-	HudEvents.player_damaged.emit()
+	HudEvents.turn_button_pressed.emit()

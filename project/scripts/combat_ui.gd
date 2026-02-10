@@ -17,11 +17,9 @@ func _ready() -> void:
 
 func update_player_health():
 	player_health_label.text = str(int(current_player.get_health()))
-	print_debug("updated player hp")
 
 func update_enemy_health():
 	enemy_health_label.text = str(int(current_enemy.get_health()))
-	print_debug("updated enemy hp")
 
 #func increment_label(label, delta):
 	#label.text = str(int(label.text) + delta)
