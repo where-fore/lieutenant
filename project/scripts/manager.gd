@@ -11,4 +11,4 @@ func _ready() -> void:
 
 
 func _on_button_pressed() -> void:
-	HudEvents.enemy_damaged.emit(-2)
+	HudEvents.player_damaged.emit()

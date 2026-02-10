@@ -74,7 +74,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "??"
 
-[node name="Damage" type="MarginContainer" parent="Combat UI/Stats/Player/Stats"]
+[node name="Attack" type="MarginContainer" parent="Combat UI/Stats/Player/Stats"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("1_o5qli")
@@ -83,10 +83,10 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Combat UI/Stats/Player/Stats/Damage"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Combat UI/Stats/Player/Stats/Attack"]
 layout_mode = 2
 
-[node name="Icon" type="TextureRect" parent="Combat UI/Stats/Player/Stats/Damage/HBoxContainer"]
+[node name="Icon" type="TextureRect" parent="Combat UI/Stats/Player/Stats/Attack/HBoxContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -94,7 +94,7 @@ size_flags_vertical = 4
 texture = ExtResource("4_tbgi4")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="Combat UI/Stats/Player/Stats/Damage/HBoxContainer"]
+[node name="Label" type="Label" parent="Combat UI/Stats/Player/Stats/Attack/HBoxContainer"]
 layout_mode = 2
 text = "??"
 
@@ -145,7 +145,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "??"
 
-[node name="Damage" type="MarginContainer" parent="Combat UI/Stats/Enemy/Stats"]
+[node name="Attack" type="MarginContainer" parent="Combat UI/Stats/Enemy/Stats"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("1_o5qli")
@@ -154,12 +154,12 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Combat UI/Stats/Enemy/Stats/Damage"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Combat UI/Stats/Enemy/Stats/Attack"]
 layout_mode = 2
 theme_override_constants/separation = 4
 alignment = 1
 
-[node name="Icon" type="TextureRect" parent="Combat UI/Stats/Enemy/Stats/Damage/HBoxContainer"]
+[node name="Icon" type="TextureRect" parent="Combat UI/Stats/Enemy/Stats/Attack/HBoxContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -167,7 +167,7 @@ size_flags_vertical = 4
 texture = ExtResource("4_tbgi4")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="Combat UI/Stats/Enemy/Stats/Damage/HBoxContainer"]
+[node name="Label" type="Label" parent="Combat UI/Stats/Enemy/Stats/Attack/HBoxContainer"]
 layout_mode = 2
 text = "??"
 
@@ -208,9 +208,9 @@ script = ExtResource("9_choun")
 
 [node name="Player Combatant" parent="." instance=ExtResource("9_85g3d")]
 health = 20
+is_the_player = true
 
 [node name="Enemy Combatant" parent="." instance=ExtResource("9_85g3d")]
 health = 6
-damage = 1
 
 [connection signal="pressed" from="Combat UI/Button" to="." method="_on_button_pressed"]
