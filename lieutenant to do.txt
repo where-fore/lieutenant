@@ -19,6 +19,21 @@ from there refocus and read/organize all then notes below into a selection of pa
 working notes
 -----------
 -----------
+discord:
+grab some inspirations
+	tiny rogues final boss recording
+	rad codex stuff, mostly horizon's gate open world vs dungeons
+
+translate this design doc to discord
+
+invite the homies
+
+set up github bot?
+
+
+
+
+
 font has whitespace at the top, either offset the font theme, or get a new font
 
 
@@ -59,6 +74,9 @@ lots of brainstorming notes from before, unorganized:
 --------------------------------------------------------
 --------------------------------------------------------
 --------------------------------------------------------
+
+big design question: roguelike - should each run be individual, or should they lead into each other. unlock more options, or build metaprogression power.
+
 
 islands: interior has a certain type of enemy (that has certain specific strengths/weaknesses), with big rewards. outside has small rewards, available without combat. you can gather the small rewards, and fight for the big rewards
 then off to new island
