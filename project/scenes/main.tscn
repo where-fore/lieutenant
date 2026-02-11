@@ -208,7 +208,7 @@ script = ExtResource("9_choun")
 
 [node name="Player Combatant" parent="Combat Manager" instance=ExtResource("9_85g3d")]
 this_is_the_player = true
-health = 20
+health = 25
 attack = 2
 
 [node name="Enemy Combatant" parent="Combat Manager" instance=ExtResource("9_85g3d")]
