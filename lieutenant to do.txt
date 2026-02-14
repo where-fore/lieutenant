@@ -10,30 +10,26 @@ set up a pick-three autobattler basic prototype:
 	-this impacts stats, and back to step 1
 	
 	-have rock/paper/scissors damage types to prototype specializing
+	
+	-
 
-from there refocus and read/organize all then notes below into a selection of paths forward, and do pro/con on each of them schell-style
 
+look at some schell lenses for the combat system
+
+
+
+discord:
+grab some inspirations
+	tiny rogues final boss recording
+	rad codex stuff, mostly horizon's gate open world vs dungeons
+	darkest dungeon
+https://docs.github.com/en/webhooks fix the webhook posting the actions and the push
 
 
 
 working notes
 -----------
 -----------
-discord:
-grab some inspirations
-	tiny rogues final boss recording
-	rad codex stuff, mostly horizon's gate open world vs dungeons
-
-translate this design doc to discord
-
-invite the homies
-
-set up github bot?
-
-
-
-
-
 font has whitespace at the top, either offset the font theme, or get a new font
 
 
@@ -70,6 +66,7 @@ add a "debug events" and "debug label" that sends relevant updates during proces
 
 
 
+--------------------------------------------------------
 lots of brainstorming notes from before, unorganized:
 --------------------------------------------------------
 --------------------------------------------------------
