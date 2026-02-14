@@ -12,3 +12,12 @@ func _ready() -> void:
 
 func _on_button_pressed() -> void:
 	HudEvents.turn_button_pressed.emit()
+
+
+# debug stuff
+@onready var label = $"Debug UI/Turn"
+var prefix = "turn: " as String
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	label.text = prefix + str($"Combat Manager".turn)
