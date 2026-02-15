@@ -11,7 +11,7 @@ func _ready() -> void:
 
 
 func _on_button_pressed() -> void:
-	HudEvents.turn_button_pressed.emit()
+	HudEvents.combat_button_pressed.emit()
 
 
 # debug stuff

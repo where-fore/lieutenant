@@ -15,6 +15,12 @@ func take_damage(value):
 	
 	if is_the_player(): HudEvents.player_damaged.emit()
 	else: HudEvents.enemy_damaged.emit()
+	
+	if health <= 0: perish()
+
+
+func perish():
+	print_debug("combatant died")
 
 
 func take_turn():

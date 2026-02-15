@@ -13,7 +13,7 @@ var turn = precombat
 func _ready() -> void:
 	CombatEvents.attack_launched.connect(handle_attack)
 	CombatEvents.turn_finished.connect(pass_turn)
-	HudEvents.turn_button_pressed.connect(start_turn)
+	HudEvents.combat_button_pressed.connect(start_turn)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -31,6 +31,12 @@ func pass_turn():
 	#swap turns
 	if turn == player_turn: turn = enemy_turn
 	elif turn == enemy_turn: turn = player_turn
+	
+	var wait_time = 0.6 #seconds
+	await get_tree().create_timer(wait_time).timeout
+	
+	if current_player.health > 0 and current_enemy.health > 0:
+		start_turn()
 
 
 func start_turn():
