@@ -14,6 +14,12 @@ func increase_player_health(delta):
 func increase_player_attack(delta):
 	player_base_attack += delta
 
+func increase_enemy_health(delta):
+	enemy_base_health += delta
+
+func increase_enemy_attack(delta):
+	enemy_base_attack += delta
+
 func get_player_stats() -> Array:
 	return [player_base_health, player_base_attack]
 
@@ -26,11 +32,16 @@ func _ready() -> void:
 	HudEvents.ask_for_combatant_base_stats.connect(send_base_stats)
 	StatEvents.health_increased.connect(increase_player_health)
 	StatEvents.attack_increased.connect(increase_player_attack)
+	StatEvents.enemy_stat_scale.connect(grow_enemies)
 
 
 func send_base_stats():
 	HudEvents.send_combatant_base_stats.emit(get_player_stats(), get_enemy_stats())
 
+
+func grow_enemies():
+	increase_enemy_health(10)
+	increase_enemy_attack(1)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

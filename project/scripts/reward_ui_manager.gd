@@ -12,6 +12,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
+
 func change_to():
 	visible = true
 
@@ -21,9 +22,13 @@ func change_from():
 
 func _on_sword_sprite_pressed() -> void:
 	StatEvents.attack_increased.emit(attack_per_upgrade)
-	HudEvents.reward_chosen.emit()
-
+	reward_selected()
 
 func _on_heart_sprite_pressed() -> void:
-	HudEvents.reward_chosen.emit()
 	StatEvents.health_increased.emit(health_per_upgrade)
+	reward_selected()
+
+func reward_selected():
+	StatEvents.enemy_stat_scale.emit()
+	HudEvents.reward_chosen.emit()
+	

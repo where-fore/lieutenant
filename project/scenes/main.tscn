@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cbp6sg330uwef" path="res://sprites/player.png" id="1_0wfyh"]
 [ext_resource type="Theme" uid="uid://8g0oubdd3ix7" path="res://ui/marginTheme.tres" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://scripts/game_manager.gd" id="1_o6xl0"]
-[ext_resource type="Script" uid="uid://df5yy5wtfly3o" path="res://scripts/combat_ui.gd" id="1_tefeu"]
+[ext_resource type="Script" uid="uid://df5yy5wtfly3o" path="res://scripts/combat_ui_manager.gd" id="1_tefeu"]
 [ext_resource type="Script" uid="uid://cknq3emhm8aah" path="res://scripts/ui_manager.gd" id="2_choun"]
 [ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="3_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://d0rwa3cc00ngr" path="res://sprites/enemy.png" id="3_sugp2"]

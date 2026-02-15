@@ -42,6 +42,8 @@ font sucks: has whitespace at the top, also the "L"'s are fucked; lots of random
 
 the scene changes should be fully fledged - main manager deletes/instantiates the combat ui and manager and combatants, deletes/instantiates reward screen, etc
 
+ui only updating on signals may be good practice, but it could also update every frame?
+
 
 discord:
 grab and post some inspirations
