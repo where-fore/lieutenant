@@ -7,13 +7,16 @@ var player_turn = "Player"
 var enemy_turn = "Enemy"
 var precombat = "Precombat"
 var turn = precombat
+var combat_ongoing = false as bool
+var can_start_combat = true as bool
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	CombatEvents.attack_launched.connect(handle_attack)
 	CombatEvents.turn_finished.connect(pass_turn)
-	HudEvents.combat_button_pressed.connect(start_turn)
+	HudEvents.combat_button_pressed.connect(start_combat)
+	CombatEvents.combatant_died.connect(stop_combat)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -32,10 +35,22 @@ func pass_turn():
 	if turn == player_turn: turn = enemy_turn
 	elif turn == enemy_turn: turn = player_turn
 	
-	var wait_time = 0.6 #seconds
-	await get_tree().create_timer(wait_time).timeout
 	
-	if current_player.health > 0 and current_enemy.health > 0:
+	if combat_ongoing:
+		var wait_time = 0.6 #seconds
+		await get_tree().create_timer(wait_time).timeout
+		
+		start_turn()
+
+
+func stop_combat():
+	combat_ongoing = false
+
+
+func start_combat():
+	if not combat_ongoing and can_start_combat:
+		can_start_combat = false
+		combat_ongoing = true
 		start_turn()
 
 
