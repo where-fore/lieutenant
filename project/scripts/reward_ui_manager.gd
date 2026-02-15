@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+var attack_per_upgrade = 2
+var health_per_upgrade = 20
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -18,8 +20,10 @@ func change_from():
 
 
 func _on_sword_sprite_pressed() -> void:
+	StatEvents.attack_increased.emit(attack_per_upgrade)
 	HudEvents.reward_chosen.emit()
 
 
 func _on_heart_sprite_pressed() -> void:
 	HudEvents.reward_chosen.emit()
+	StatEvents.health_increased.emit(health_per_upgrade)

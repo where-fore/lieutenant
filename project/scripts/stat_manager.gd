@@ -24,6 +24,8 @@ func get_enemy_stats() -> Array:
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	HudEvents.ask_for_combatant_base_stats.connect(send_base_stats)
+	StatEvents.health_increased.connect(increase_player_health)
+	StatEvents.attack_increased.connect(increase_player_attack)
 
 
 func send_base_stats():
