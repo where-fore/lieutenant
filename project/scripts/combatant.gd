@@ -30,7 +30,7 @@ func take_turn():
 	#all done
 	CombatEvents.turn_finished.emit()
 
-
+#this gets called by the manager
 func initialize_stats(base_health, base_attack):
 	health = base_health
 	if is_the_player(): HudEvents.player_health_update.emit()

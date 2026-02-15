@@ -32,19 +32,10 @@ https://docs.github.com/en/webhooks fix the webhook posting the actions and the 
 working notes
 -----------
 -----------
-font has whitespace at the top, either offset the font theme, or get a new font
 
+have the rewards screen buttons send you to a new combat (dont do stat changes yet)
+do stat changes, it is now yet
 
-ui manager calls down to children
-game manager calls to combatants whose turn it is
-combatants signal to managers what they are doing
-
-
-
-
-turn manager - decides whose turn it is, and tells them, and waits for their response
-player/enemy game objects - just has a script with current stats. when signalled it's their turn, signal their damage dealt, signal turn ended
-turn manager hears turn ended, now next turn
 
 
 i should add a "end combat" button to the ui, at least for testing, cause ill get into infinite loops easily
@@ -53,10 +44,6 @@ i should add a "end combat" button to the ui, at least for testing, cause ill ge
 
 currently i'm not type checking the attacker signals for them being combatants
 
-the main manager shouldn't be referencing the player/enemies, the combat manager should be (and sending it up)
-
-
-add a "debug events" and "debug label" that sends relevant updates during process - whose turn it is from combat manager, etc
 
 
 
@@ -70,6 +57,9 @@ stat_manager.gd should do some sort of "increase stat" and the stat name and del
 
 the signal busses aren't really organized by their title very well, codify that distinction
 
+all this is_this_the_player(), and "update player health" nonsense is bad - combatant should have "update health" only, and fire signals like that, somehow. maybe they always fire the "is_this_the_player", or other origin, with their signals?
+
+font sucks: has whitespace at the top, also the "L"'s are fucked; lots of random spacing issues
 
 
 --------------------------------------------------------

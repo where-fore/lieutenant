@@ -26,3 +26,6 @@ signal ask_for_combatant_base_stats()
 
 @warning_ignore("unused_signal")
 signal send_combatant_base_stats(player_stat_array, enemy_stat_array)
+
+@warning_ignore("unused_signal")
+signal change_to_combat_screen()

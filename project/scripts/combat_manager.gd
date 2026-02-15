@@ -18,10 +18,14 @@ var artifical_delay_between_turns = 0.6
 func _ready() -> void:
 	CombatEvents.attack_launched.connect(handle_attack)
 	CombatEvents.turn_finished.connect(pass_turn)
-	HudEvents.combat_button_pressed.connect(get_combatant_stats)
-	HudEvents.send_combatant_base_stats.connect(pre_combat)
+	HudEvents.send_combatant_base_stats.connect(set_combatant_stats)
 	CombatEvents.combatant_died.connect(stop_combat)
-
+	HudEvents.combat_button_pressed.connect(start_combat)
+	HudEvents.change_to_combat_screen.connect(pre_combat)
+	
+	#wait for everything else to load
+	await owner.ready
+	pre_combat()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -52,14 +56,20 @@ func stop_combat():
 	HudEvents.combat_won.emit()
 
 
+func pre_combat():
+	get_combatant_stats()
+	turn = precombat
+	combat_ongoing = false
+	can_start_combat = true
+	
+
 func get_combatant_stats():
 	HudEvents.ask_for_combatant_base_stats.emit()
 
 
-func pre_combat(player_stat_array, enemy_stat_array):
+func set_combatant_stats(player_stat_array, enemy_stat_array):
 	current_player.initialize_stats(player_stat_array[0], player_stat_array[1])
 	current_enemy.initialize_stats(enemy_stat_array[0], enemy_stat_array[1])
-	start_combat()
 
 
 func start_combat():
@@ -67,8 +77,6 @@ func start_combat():
 		can_start_combat = false
 		combat_ongoing = true
 		start_turn()
-	
-	
 
 
 func start_turn():

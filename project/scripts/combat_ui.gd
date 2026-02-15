@@ -29,11 +29,16 @@ func update_player_attack():
 func update_enemy_attack():
 	enemy_attack_label.text = str(int(current_enemy.get_attack()))
 
-#func increment_label(label, delta):
-	#label.text = str(int(label.text) + delta)
 
+func change_to():
+	HudEvents.change_to_combat_screen.emit()
+	visible = true
+
+func change_from():
+	visible = false
+
+#this is called in the main manager
 func initialize_labels(player_combatant, enemy_combatant):
-	#this is called in the main manager
 	
 	#save these combatant objects for future reference
 	current_player = player_combatant

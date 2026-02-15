@@ -9,11 +9,17 @@ func _ready() -> void:
 	combat_ui_manager.visible = true
 	
 	HudEvents.combat_won.connect(end_combat_as_victory)
+	HudEvents.reward_chosen.connect(end_rewards_screen)
 
 
 func end_combat_as_victory():
-	reward_ui_manager.visible = true
-	combat_ui_manager.visible = false
+	reward_ui_manager.change_to()
+	combat_ui_manager.change_from()
+
+
+func end_rewards_screen():
+	reward_ui_manager.change_from()
+	combat_ui_manager.change_to()
 
 
 func initialize_combat_labels(player_combatant, enemy_combatant):

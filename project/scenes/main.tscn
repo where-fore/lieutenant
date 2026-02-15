@@ -275,19 +275,23 @@ expand_mode = 1
 layout_mode = 2
 text = "??"
 
-[node name="Button" type="Button" parent="UI Manager/Combat UI"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
+[node name="Combat Button" type="Button" parent="UI Manager/Combat UI"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.95
+anchor_right = 0.5
+anchor_bottom = 0.95
+offset_left = -38.5
 offset_top = -82.0
-offset_right = 77.0
+offset_right = 38.5
+grow_horizontal = 2
 grow_vertical = 0
 focus_mode = 0
 icon = ExtResource("4_tbgi4")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Label" type="Label" parent="UI Manager/Combat UI/Button"]
+[node name="Label" type="Label" parent="UI Manager/Combat UI/Combat Button"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -315,4 +319,4 @@ script = ExtResource("12_eb6dy")
 
 [connection signal="pressed" from="UI Manager/Reward UI/Control/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/Sword Sprite" to="UI Manager/Reward UI" method="_on_sword_sprite_pressed"]
 [connection signal="pressed" from="UI Manager/Reward UI/Control/VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer2/Heart Sprite" to="UI Manager/Reward UI" method="_on_heart_sprite_pressed"]
-[connection signal="pressed" from="UI Manager/Combat UI/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="UI Manager/Combat UI/Combat Button" to="." method="_on_button_pressed"]

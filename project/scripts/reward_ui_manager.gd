@@ -10,6 +10,12 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
+func change_to():
+	visible = true
+
+func change_from():
+	visible = false
+
 
 func _on_sword_sprite_pressed() -> void:
 	HudEvents.reward_chosen.emit()
