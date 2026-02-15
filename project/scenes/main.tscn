@@ -27,7 +27,90 @@ size_flags_vertical = 1
 theme_override_font_sizes/font_size = 8
 text = "turn: ????"
 
+[node name="Reward UI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="Reward UI"]
+layout_mode = 3
+anchor_left = 0.2
+anchor_top = 0.2
+anchor_right = 0.8
+anchor_bottom = 0.8
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Reward UI/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -25.0
+offset_right = 80.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Reward UI/Control/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Title" type="Label" parent="Reward UI/Control/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Victory.
+Choose your boon."
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Reward UI/Control/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Reward UI/Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Reward UI/Control/VBoxContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Sword Sprite" type="TextureButton" parent="Reward UI/Control/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = ExtResource("4_tbgi4")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Reward UI/Control/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Damage"
+
+[node name="MarginContainer2" type="MarginContainer" parent="Reward UI/Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Reward UI/Control/VBoxContainer/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="Heart Sprite" type="TextureButton" parent="Reward UI/Control/VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer2"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = ExtResource("3_jyhfs")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Reward UI/Control/VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer2"]
+layout_mode = 2
+text = "Health"
+
 [node name="Combat UI" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("1_tefeu")
 
 [node name="Stats" type="Control" parent="Combat UI"]

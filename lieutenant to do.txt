@@ -11,7 +11,9 @@ set up a pick-three autobattler basic prototype:
 	
 	-have rock/paper/scissors damage types to prototype specializing
 	
-	-
+	-debug window showing whose turn it is, and maybe a next turn override
+	
+	-basic crt filter for feel, if it's easy
 
 
 look at some schell lenses for the combat system
@@ -23,7 +25,7 @@ grab some inspirations
 	tiny rogues final boss recording
 	rad codex stuff, mostly horizon's gate open world vs dungeons
 	darkest dungeon
-https://docs.github.com/en/webhooks fix the webhook posting the actions and the push
+https://docs.github.com/en/webhooks fix the webhook posting the actions and the push - probably a custom discord bot? or edit the actually web-push yaml to not "be a push"
 
 
 

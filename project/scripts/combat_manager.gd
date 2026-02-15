@@ -7,8 +7,11 @@ var player_turn = "Player"
 var enemy_turn = "Enemy"
 var precombat = "Precombat"
 var turn = precombat
+
 var combat_ongoing = false as bool
 var can_start_combat = true as bool
+
+var artifical_delay_between_turns = 0.6
 
 
 # Called when the node enters the scene tree for the first time.
@@ -37,8 +40,7 @@ func pass_turn():
 	
 	
 	if combat_ongoing:
-		var wait_time = 0.6 #seconds
-		await get_tree().create_timer(wait_time).timeout
+		await get_tree().create_timer(artifical_delay_between_turns).timeout
 		
 		start_turn()
 
