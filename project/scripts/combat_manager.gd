@@ -11,8 +11,10 @@ var turn = precombat
 var combat_ongoing = false as bool
 var can_start_combat = true as bool
 
-var first_turn_delay = 0.6
-@onready var current_turn_delay = first_turn_delay
+var first_turn_delay = 1
+var first_turn = true
+var middle_turn_delay = 0.4
+var near_end_delay = 1
 
 
 # Called when the node enters the scene tree for the first time.
@@ -47,9 +49,22 @@ func pass_turn():
 	
 	
 	if combat_ongoing:
-		await get_tree().create_timer(first_turn_delay).timeout
-		
+		await turn_animation()
 		start_turn()
+
+
+func turn_animation():
+	var near_end = (current_enemy.health <= 2* current_player.attack) or (current_player.health <= 2* current_enemy.attack)
+	
+	if first_turn: 
+		first_turn = false
+		return get_tree().create_timer(first_turn_delay).timeout
+		
+	elif not first_turn and not near_end:
+		return get_tree().create_timer(middle_turn_delay).timeout
+	
+	elif near_end: 
+		return get_tree().create_timer(near_end_delay).timeout
 
 
 func stop_combat():
@@ -62,6 +77,7 @@ func pre_combat():
 	turn = precombat
 	combat_ongoing = false
 	can_start_combat = true
+	first_turn = true
 	
 
 func get_combatant_stats():

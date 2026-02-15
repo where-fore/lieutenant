@@ -20,6 +20,7 @@ script = ExtResource("1_o6xl0")
 script = ExtResource("2_choun")
 
 [node name="Debug UI" type="CanvasLayer" parent="UI Manager"]
+visible = false
 
 [node name="Turn" type="Label" parent="UI Manager/Debug UI"]
 anchors_preset = -1
@@ -119,6 +120,7 @@ text = "Health"
 
 [node name="Combat UI" type="CanvasLayer" parent="UI Manager"]
 script = ExtResource("1_tefeu")
+turn_sprite = ExtResource("4_tbgi4")
 
 [node name="Stats" type="Control" parent="UI Manager/Combat UI"]
 layout_mode = 3
