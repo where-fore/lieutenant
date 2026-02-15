@@ -4,8 +4,8 @@
 necessary
 -----------
 set up a pick-three autobattler basic prototype:
-	-you have stats, enemy has stats
-	-you fight procedurally, dealing your damage to their hp and vice versa, until someone wins
+			-you have stats, enemy has stats
+			-you fight procedurally, dealing your damage to their hp and vice versa, until someone wins
 	-afterwards, you pick a bonus (probably just start with +dmg or +hp)
 	-this impacts stats, and back to step 1
 	
@@ -64,7 +64,11 @@ add a "debug events" and "debug label" that sends relevant updates during proces
 
 
 
+things i know are hacky and should be cleaned up:
+--------------------------------------------------------
+stat_manager.gd should do some sort of "increase stat" and the stat name and delta, from a list of stats. some sort of class somewhere?
 
+the signal busses aren't really organized by their title very well, codify that distinction
 
 
 
