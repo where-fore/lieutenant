@@ -3,7 +3,9 @@
 
 necessary
 -----------
-set up a pick-three autobattler basic prototype:	
+set up a pick-three autobattler basic prototype:
+	-instead of going to victory every time, have a failure condition
+
 	-have rock/paper/scissors damage types to prototype specializing
 	
 	-basic crt filter for feel, if it's easy
@@ -45,6 +47,7 @@ the scene changes should be fully fledged - main manager deletes/instantiates th
 ui only updating on signals may be good practice, but it could also update every frame?
 
 
+
 discord:
 grab and post some inspirations
 	tiny rogues final boss recording - go over stats
@@ -65,6 +68,8 @@ lots of brainstorming notes from before, unorganized:
 --------------------------------------------------------
 --------------------------------------------------------
 --------------------------------------------------------
+
+discarding your hand to draw a new one is a scary feeling, not knowing if it will be better, could train
 
 big design question: roguelike - should each run be individual, or should they lead into each other. unlock more options, or build metaprogression power.
 

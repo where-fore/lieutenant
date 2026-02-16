@@ -1,11 +1,17 @@
 extends Node2D
 
+var player_starting_health = 25
+@onready var player_base_health = player_starting_health
+var player_starting_attack = 2
+@onready var player_base_attack = player_starting_attack
 
-var player_base_health = 25 as int
-var player_base_attack = 2 as int
+var enemy_starting_health = 10
+@onready var enemy_base_health = enemy_starting_health
+var enemy_starting_attack = 5
+@onready var enemy_base_attack = enemy_starting_attack
 
-var enemy_base_health = 10 as int
-var enemy_base_attack = 1 as int
+var enemy_growth_health = 10
+var enemy_growth_attack = 1
 
 
 func increase_player_health(delta):
@@ -27,12 +33,20 @@ func get_enemy_stats() -> Array:
 	return [enemy_base_health, enemy_base_attack]
 
 
+func reset_to_starting_stats():
+	player_base_health = player_starting_health
+	player_base_attack = player_starting_attack
+	enemy_base_health = enemy_starting_health
+	enemy_base_attack = enemy_starting_attack
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	HudEvents.ask_for_combatant_base_stats.connect(send_base_stats)
 	StatEvents.health_increased.connect(increase_player_health)
 	StatEvents.attack_increased.connect(increase_player_attack)
 	StatEvents.enemy_stat_scale.connect(grow_enemies)
+	HudEvents.combat_lost.connect(reset_to_starting_stats)
 
 
 func send_base_stats():
@@ -40,8 +54,8 @@ func send_base_stats():
 
 
 func grow_enemies():
-	increase_enemy_health(10)
-	increase_enemy_attack(1)
+	increase_enemy_health(enemy_growth_health)
+	increase_enemy_attack(enemy_growth_attack)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

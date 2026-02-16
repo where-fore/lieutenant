@@ -19,6 +19,9 @@ signal combat_button_pressed()
 signal combat_won()
 
 @warning_ignore("unused_signal")
+signal combat_lost()
+
+@warning_ignore("unused_signal")
 signal reward_chosen()
 
 @warning_ignore("unused_signal")

@@ -67,9 +67,10 @@ func turn_animation():
 		return get_tree().create_timer(near_end_delay).timeout
 
 
-func stop_combat():
+func stop_combat(combatant_who_died):
 	combat_ongoing = false
-	HudEvents.combat_won.emit()
+	if combatant_who_died.is_the_player(): HudEvents.combat_lost.emit()
+	elif not combatant_who_died.is_the_player(): HudEvents.combat_won.emit()
 
 
 func pre_combat():

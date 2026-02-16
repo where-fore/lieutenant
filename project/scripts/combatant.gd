@@ -20,7 +20,7 @@ func take_damage(value):
 
 
 func perish():
-	CombatEvents.combatant_died.emit()
+	CombatEvents.combatant_died.emit(self)
 
 
 func take_turn():
