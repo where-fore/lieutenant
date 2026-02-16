@@ -4,7 +4,6 @@
 necessary
 -----------
 set up a pick-three autobattler basic prototype:
-	-instead of going to victory every time, have a failure condition
 
 	-have rock/paper/scissors damage types to prototype specializing
 	

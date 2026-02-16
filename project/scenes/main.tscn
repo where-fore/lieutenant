@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://dnpbs1bryt1kn"]
+[gd_scene load_steps=15 format=3 uid="uid://dnpbs1bryt1kn"]
 
 [ext_resource type="Texture2D" uid="uid://cbp6sg330uwef" path="res://sprites/player.png" id="1_0wfyh"]
 [ext_resource type="Theme" uid="uid://8g0oubdd3ix7" path="res://ui/marginTheme.tres" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://scripts/game_manager.gd" id="1_o6xl0"]
 [ext_resource type="Script" uid="uid://df5yy5wtfly3o" path="res://scripts/combat_ui_manager.gd" id="1_tefeu"]
 [ext_resource type="Script" uid="uid://cknq3emhm8aah" path="res://scripts/ui_manager.gd" id="2_choun"]
+[ext_resource type="Shader" uid="uid://bey6fsvgi1mh7" path="res://crt_shader.gdshader" id="2_trceg"]
 [ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="3_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://d0rwa3cc00ngr" path="res://sprites/enemy.png" id="3_sugp2"]
 [ext_resource type="Script" uid="uid://xqr3pvl5dnbd" path="res://scripts/reward_ui_manager.gd" id="3_ya4ey"]
@@ -13,8 +14,46 @@
 [ext_resource type="Script" uid="uid://c4226uk3kd0at" path="res://scripts/combat_manager.gd" id="9_choun"]
 [ext_resource type="Script" uid="uid://drid3rj23mqkf" path="res://scripts/stat_manager.gd" id="12_eb6dy"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_trceg"]
+shader = ExtResource("2_trceg")
+shader_parameter/overlay = true
+shader_parameter/scanlines_opacity = 0.4
+shader_parameter/scanlines_width = 0.25
+shader_parameter/grille_opacity = 0.2000000095
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/pixelate = false
+shader_parameter/roll = false
+shader_parameter/roll_speed = 0.5
+shader_parameter/roll_size = 4.00000019
+shader_parameter/roll_variation = 0.10000000149012
+shader_parameter/distort_intensity = 0.05
+shader_parameter/noise_opacity = 0.4
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.02000000095
+shader_parameter/aberration = 0.0050000477375000685
+shader_parameter/brightness = 1.8
+shader_parameter/discolor = false
+shader_parameter/warp_amount = 0.0
+shader_parameter/clip_warp = true
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.30000001425
+
 [node name="Main" type="Node2D"]
 script = ExtResource("1_o6xl0")
+
+[node name="CRT Filter" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="ColorRect" type="ColorRect" parent="CRT Filter"]
+material = SubResource("ShaderMaterial_trceg")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
 
 [node name="UI Manager" type="Node2D" parent="."]
 script = ExtResource("2_choun")
@@ -188,7 +227,6 @@ theme_override_font_sizes/font_size = 8
 text = "Restart"
 
 [node name="Combat UI" type="CanvasLayer" parent="UI Manager"]
-visible = false
 script = ExtResource("1_tefeu")
 turn_sprite = ExtResource("4_tbgi4")
 

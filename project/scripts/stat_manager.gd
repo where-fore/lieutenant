@@ -7,7 +7,7 @@ var player_starting_attack = 2
 
 var enemy_starting_health = 10
 @onready var enemy_base_health = enemy_starting_health
-var enemy_starting_attack = 5
+var enemy_starting_attack = 4
 @onready var enemy_base_attack = enemy_starting_attack
 
 var enemy_growth_health = 10
