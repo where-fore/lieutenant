@@ -7,12 +7,12 @@ var player_turn = "Player"
 var enemy_turn = "Enemy"
 var precombat = "Precombat"
 var turn = precombat
+var turn_number = 1
 
 var combat_ongoing = false as bool
 var can_start_combat = true as bool
 
-var first_turn_delay = 1
-var first_turn = true
+var opener_turn_delay = 1
 var middle_turn_delay = 0.4
 var near_end_delay = 1
 
@@ -46,6 +46,7 @@ func pass_turn():
 	#swap turns
 	if turn == player_turn: turn = enemy_turn
 	elif turn == enemy_turn: turn = player_turn
+	turn_number += 1
 	
 	
 	if combat_ongoing:
@@ -54,13 +55,13 @@ func pass_turn():
 
 
 func turn_animation():
-	var near_end = (current_enemy.health <= 2* current_player.attack) or (current_player.health <= 2* current_enemy.attack)
+	var near_end = (current_enemy.health <= 1* current_player.attack) or (current_player.health <= 1* current_enemy.attack)
 	
-	if first_turn: 
-		first_turn = false
-		return get_tree().create_timer(first_turn_delay).timeout
+	var slow_opener = turn_number <= 2 as bool
+	if slow_opener:
+		return get_tree().create_timer(opener_turn_delay).timeout
 		
-	elif not first_turn and not near_end:
+	elif not slow_opener and not near_end:
 		return get_tree().create_timer(middle_turn_delay).timeout
 	
 	elif near_end: 
@@ -78,7 +79,8 @@ func pre_combat():
 	turn = precombat
 	combat_ongoing = false
 	can_start_combat = true
-	first_turn = true
+	#reset turn counter
+	turn_number = 1
 	
 
 func get_combatant_stats():
