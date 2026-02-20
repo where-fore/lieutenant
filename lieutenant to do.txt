@@ -3,10 +3,20 @@
 
 necessary
 -----------
-	set up ui
-	set up scrolling log	
+	set up scrolling log
+		have the 12 labels initalize blank
+		attach events to things i want to log
+		have each label initalize a "last updated" index, and a global_index that upticks on update
+			eg. label1.last_updated = 1; label2.last_updated = 2. current_update = 3
+			on signal, find label with lowest index, set to global index, update label text with signal payload
+		
 	set up inventory system
-		change reward screen to add/remove item
+		have texturerects initalize as empty
+		on reward, add item to inventory
+		on add item to inventory, update stats
+		if inventory full, don't add any rewards?
+			not sure how these two should communicate, reward screen should say "inventory full"
+		on death, clear items
 	
 	
 
