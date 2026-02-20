@@ -162,6 +162,7 @@ layout_mode = 2
 text = "Health"
 
 [node name="Death UI" type="CanvasLayer" parent="UI Manager"]
+visible = false
 
 [node name="Control" type="Control" parent="UI Manager/Death UI"]
 layout_mode = 3
@@ -228,7 +229,6 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 8
 text = "Restart"
-horizontal_alignment = 1
 
 [node name="Combat UI" type="CanvasLayer" parent="UI Manager"]
 script = ExtResource("1_tefeu")

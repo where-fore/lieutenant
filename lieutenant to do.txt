@@ -1,10 +1,19 @@
-
-
-
-necessary
+to research:
 -----------
-	fix the font blurryness
+look up old might & magic, ultima, and others.. find more modern takes, or reason there's no modern takes
 
+look up ice-related mythologies, siberia etc
+
+look up more detailed signal bus architecture
+	and some more godot best practices for code maintenance
+
+figure out to do an inventory/monster database setup, ala hearthstone cards in unity
+
+
+
+
+necessary work
+-----------
 	set up scrolling log
 		have the 12 labels initalize blank
 		attach events to things i want to log
@@ -70,17 +79,15 @@ the getter-setters in eg. combatant health, the health variable should be unders
 
 combat log ui is a terrible scroll interface, fine for now but will have to be made better
 
+nodes aren't PascalCase ("Event Log")
+
+combat log just pulls the node name, not a specific title. maybe a combatant should have an @export (or extended class) with 
+
 
 
 
 to do, but lower priority:
 --------------------------------------------------------
-look up old might & magic, ultima, and others.. find more modern takes, or reason there's no modern takes
-
-look up ice-related mythologies, siberia etc
-
-look up more detailed signal bus architecture
-	and some more godot best practices for code maintenance
 
 discord:
 grab and post some inspirations

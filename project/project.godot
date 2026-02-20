@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 HudEvents="*res://scripts/autoload/hud_events.gd"
 CombatEvents="*res://scripts/autoload/combat_events.gd"
 StatEvents="*res://scripts/autoload/stat_events.gd"
+CombatLogEvents="*res://scripts/autoload/combat_log_events.gd"
 
 [display]
 
