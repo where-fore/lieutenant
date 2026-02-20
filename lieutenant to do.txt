@@ -3,14 +3,12 @@
 
 necessary
 -----------
-set up a pick-three autobattler basic prototype:
-
-	-have rock/paper/scissors damage types to prototype specializing
+	set up ui
+	set up scrolling log	
+	set up inventory system
+		change reward screen to add/remove item
 	
-	-basic crt filter for feel, if it's easy
-
-
-look at some schell lenses for the combat system
+	
 
 
 
@@ -18,41 +16,64 @@ look at some schell lenses for the combat system
 working notes
 -----------
 -----------
-i should add a "end combat" button to the ui, at least for testing, cause ill get into infinite loops easily
-	also a failsafe in the code of course
-
-
-currently i'm not type checking the attacker signals for them being combatants
 
 
 
 
+
+combat prototypes:
+--------------------------------------------------------
+standard autobattler:
+	-have rock/paper/scissors damage types to prototype specializing
+		-rock vs rock: rock dmg *1, paper dmg*2, scissors dmg*0.5?
+		-enemy grow by randomly incrementing one statistic, and gaining hp
+		
+		-maybe instead have a total power, and decide how much to commit to each category? and enemy does too? best of three?
+
+look at some schell lenses for the combat system
 
 
 
 
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
-stat_manager.gd should do some sort of "increase stat" and the stat name and delta, from a list of stats. some sort of class somewhere?
+stat_manager.gd should do some sort of "increase stat" and the stat name and delta, from a list of stats. some sort of global class somewhere?
 
 the signal busses aren't really organized by their title very well, codify that distinction
 
 all this is_this_the_player(), and "update player health" nonsense is bad - combatant should have "update health" only, and fire signals like that, somehow. maybe they always fire the "is_this_the_player", or other origin, with their signals?
+	a "combatant" that handles most stuff, and "player" parent that listens to signals and sends more?
+	have a "player" class extended from "combatant" class? so i can check if is player, and if is combatant? not sure how this oop works in godot
 
 font sucks: has whitespace at the top, also the "L"'s are fucked; lots of random spacing issues
 
 the scene changes should be fully fledged - main manager deletes/instantiates the combat ui and manager and combatants, deletes/instantiates reward screen, etc
 
-ui only updating on signals may be good practice, but it could also update every frame?
+ui only updating on signals may be good practice, but it could also update every frame? currently i have to remember to put a signal whenever anything changes ->> i should wrap the signal *into* the change functions
+
+i should add a "end combat" button to the ui, at least for testing, cause ill get into infinite loops easily
+	also a failsafe in the code of course
+
+the getter-setters in eg. combatant health, the health variable should be underscored so i don't edit them without the function
 
 
+
+
+to do, but lower priority:
+--------------------------------------------------------
+look up old might & magic, ultima, and others.. find more modern takes, or reason there's no modern takes
+
+look up ice-related mythologies, siberia etc
+
+look up more detailed signal bus architecture
+	and some more godot best practices for code maintenance
 
 discord:
 grab and post some inspirations
-	tiny rogues final boss recording - go over stats
 	rad codex stuff, mostly horizon's gate open world vs dungeons. classes and art vibes
 	darkest dungeon
 https://docs.github.com/en/webhooks fix the webhook posting the actions and the push - probably a custom discord bot? or edit the actually web-push yaml to not "be a push"
+	maybe solved with branches? don't worry about fixing this before co-working github setup
 
 
 

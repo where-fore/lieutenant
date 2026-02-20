@@ -1,13 +1,13 @@
 extends CanvasLayer
 
-@onready var player_health_label = $"Stats/Player/Stats/Health/HBoxContainer/Label" as Label
-@onready var enemy_health_label = $"Stats/Enemy/Stats/Health/HBoxContainer/Label" as Label
+@onready var player_health_label = $"Control/Player/Stats/Health/HBoxContainer/Label" as Label
+@onready var enemy_health_label = $"Control/Enemy/Stats/Health/HBoxContainer/Label" as Label
 
-@onready var player_attack_label = $"Stats/Player/Stats/Attack/HBoxContainer/Label" as Label
-@onready var enemy_attack_label = $"Stats/Enemy/Stats/Attack/HBoxContainer/Label" as Label
+@onready var player_attack_label = $"Control/Player/Stats/Attack/HBoxContainer/Label" as Label
+@onready var enemy_attack_label = $"Control/Enemy/Stats/Attack/HBoxContainer/Label" as Label
 
-@onready var player_sprite = $"Stats/Player/Sprite"
-@onready var enemy_sprite = $"Stats/Enemy/Sprite"
+@onready var player_sprite = $"Control/Player/Sprite"
+@onready var enemy_sprite = $"Control/Enemy/Sprite"
 @export var turn_sprite: Texture2D
 @onready var original_player_sprite = player_sprite.texture
 @onready var original_enemy_sprite = enemy_sprite.texture
