@@ -3,6 +3,8 @@
 
 necessary
 -----------
+	fix the font blurryness
+
 	set up scrolling log
 		have the 12 labels initalize blank
 		attach events to things i want to log
