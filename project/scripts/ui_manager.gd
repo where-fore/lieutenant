@@ -8,6 +8,7 @@ extends Node2D
 func _ready() -> void:
 	reward_ui_manager.visible = false
 	combat_ui_manager.visible = true
+	death_ui.visible = false
 	
 	HudEvents.combat_won.connect(end_combat_as_victory)
 	HudEvents.combat_lost.connect(end_combat_as_failure)
