@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dnpbs1bryt1kn"]
+[gd_scene load_steps=18 format=3 uid="uid://dnpbs1bryt1kn"]
 
 [ext_resource type="Texture2D" uid="uid://cbp6sg330uwef" path="res://sprites/player.png" id="1_0wfyh"]
 [ext_resource type="Theme" uid="uid://8g0oubdd3ix7" path="res://ui/marginTheme.tres" id="1_o5qli"]
@@ -16,7 +16,6 @@
 [ext_resource type="Texture2D" uid="uid://bddfprulsphw2" path="res://sprites/ui_bar_horizontal.png" id="11_jkv2x"]
 [ext_resource type="Script" uid="uid://drid3rj23mqkf" path="res://scripts/stat_manager.gd" id="12_eb6dy"]
 [ext_resource type="Texture2D" uid="uid://cy3cnq2hse2h8" path="res://sprites/box.png" id="13_jbj1t"]
-[ext_resource type="PackedScene" uid="uid://bcpbow4g2ovuk" path="res://scenes/combat_log_label.tscn" id="13_muem4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_trceg"]
 shader = ExtResource("2_trceg")
@@ -455,63 +454,58 @@ stretch_mode = 1
 
 [node name="Top Section" type="Control" parent="UI Manager/Side HUD/Control"]
 layout_mode = 1
-anchor_left = 0.08
-anchor_top = 0.01
-anchor_right = 0.98
-anchor_bottom = 0.475
+anchor_left = 0.07
+anchor_top = 0.005
+anchor_right = 0.99
+anchor_bottom = 0.48
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Combat Log" type="VBoxContainer" parent="UI Manager/Side HUD/Control/Top Section"]
+[node name="ScrollContainer" type="ScrollContainer" parent="UI Manager/Side HUD/Control/Top Section"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 0
 
-[node name="Label1" parent="UI Manager/Side HUD/Control/Top Section/Combat Log" instance=ExtResource("13_muem4")]
+[node name="MarginContainer" type="MarginContainer" parent="UI Manager/Side HUD/Control/Top Section/ScrollContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
 
-[node name="Label2" parent="UI Manager/Side HUD/Control/Top Section/Combat Log" instance=ExtResource("13_muem4")]
+[node name="Label" type="Label" parent="UI Manager/Side HUD/Control/Top Section/ScrollContainer/MarginContainer"]
+custom_minimum_size = Vector2(10, 12)
 layout_mode = 2
-
-[node name="Label3" parent="UI Manager/Side HUD/Control/Top Section/Combat Log" instance=ExtResource("13_muem4")]
-layout_mode = 2
-
-[node name="Label4" parent="UI Manager/Side HUD/Control/Top Section/Combat Log" instance=ExtResource("13_muem4")]
-layout_mode = 2
-
-[node name="Label5" parent="UI Manager/Side HUD/Control/Top Section/Combat Log" instance=ExtResource("13_muem4")]
-layout_mode = 2
-
-[node name="Label6" parent="UI Manager/Side HUD/Control/Top Section/Combat Log" instance=ExtResource("13_muem4")]
-layout_mode = 2
-
-[node name="Label7" parent="UI Manager/Side HUD/Control/Top Section/Combat Log" instance=ExtResource("13_muem4")]
-layout_mode = 2
-
-[node name="Label8" parent="UI Manager/Side HUD/Control/Top Section/Combat Log" instance=ExtResource("13_muem4")]
-layout_mode = 2
-
-[node name="Label9" parent="UI Manager/Side HUD/Control/Top Section/Combat Log" instance=ExtResource("13_muem4")]
-layout_mode = 2
-
-[node name="Label10" parent="UI Manager/Side HUD/Control/Top Section/Combat Log" instance=ExtResource("13_muem4")]
-layout_mode = 2
-
-[node name="Label11" parent="UI Manager/Side HUD/Control/Top Section/Combat Log" instance=ExtResource("13_muem4")]
-layout_mode = 2
-
-[node name="Label12" parent="UI Manager/Side HUD/Control/Top Section/Combat Log" instance=ExtResource("13_muem4")]
-layout_mode = 2
-
-[node name="Label13" parent="UI Manager/Side HUD/Control/Top Section/Combat Log" instance=ExtResource("13_muem4")]
-layout_mode = 2
-
-[node name="Label14" parent="UI Manager/Side HUD/Control/Top Section/Combat Log" instance=ExtResource("13_muem4")]
-layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 8
+text = "Enemy deals 8 damage.
+You deal 6 damage.
+Your sword gleams in the sunlight.
+Enemy deals 6 damage.
+Enemy deals 8 damage.
+You deal 6 damage.
+Your sword gleams in the sunlight.
+Enemy deals 6 damage.
+Enemy deals 8 damage.
+You deal 6 damage.
+Your sword gleams in the sunlight.
+Enemy deals 6 damage.
+Enemy deals 8 damage.
+You deal 6 damage.
+Your sword gleams in the sunlight.
+Enemy deals 6 damage.
+Enemy deals 8 damage.
+You deal 6 damage.
+Your sword gleams in the sunlight.
+Enemy deals 6 damage.
+"
+autowrap_mode = 3
 
 [node name="Bottom Section" type="Control" parent="UI Manager/Side HUD/Control"]
 layout_mode = 1

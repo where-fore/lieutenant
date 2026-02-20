@@ -68,6 +68,8 @@ i should add a "end combat" button to the ui, at least for testing, cause ill ge
 
 the getter-setters in eg. combatant health, the health variable should be underscored so i don't edit them without the function
 
+combat log ui is a terrible scroll interface, fine for now but will have to be made better
+
 
 
 
