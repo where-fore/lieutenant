@@ -24,10 +24,16 @@ figure out to do an inventory/monster database setup, ala hearthstone cards in u
 		return all_items.pick_random()
 	-
 
+new font that works looks good below 8px
+
 
 necessary work
 -----------
 	have a tooltip for the items?
+	
+	let player replace/discard items?
+		discard on click
+		replace on inventory full?
 	
 	time controls on combat - players don't realize it's an autobattler
 	
@@ -59,7 +65,7 @@ would like to make the combat log a lil nicer
 combat prototypes:
 --------------------------------------------------------
 standard autobattler:
-	-have rock/paper/scissors damage types to prototype specializing
+	-have rock/paper/scissors damage types to prototype specializing -> probably flavour to runescape combat triangle
 		-rock vs rock: rock dmg *1, paper dmg*2, scissors dmg*0.5?
 		-enemy grow by randomly incrementing one statistic, and gaining hp
 		
@@ -72,6 +78,7 @@ look at some schell lenses for the combat system
 
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+
 hmmm my inventory events has two events, "item equipped" and "send item to inventory". when in the reward screen, i called "item equipped" which really short circuited the logic, since that bypassed the inventory system and just sent the output. not sure how to avoid
 	i could just structure the event script with comments, into "requests" and "signals"
 	i could name the signals better
