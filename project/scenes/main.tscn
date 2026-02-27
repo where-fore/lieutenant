@@ -533,6 +533,7 @@ grow_vertical = 2
 columns = 2
 script = ExtResource("14_dp3eg")
 test_item = ExtResource("15_0ld40")
+should_test = true
 
 [node name="Inventory Slot1" parent="UI Manager/Side HUD/Control/Bottom Section/Inventory" instance=ExtResource("14_muem4")]
 layout_mode = 2

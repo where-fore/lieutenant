@@ -10,7 +10,7 @@ size_flags_vertical = 6
 texture = ExtResource("1_bxqf6")
 script = ExtResource("2_bbig2")
 
-[node name="Inventory Item" type="TextureRect" parent="."]
+[node name="ItemSprite" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 1
 anchors_preset = 8

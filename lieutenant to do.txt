@@ -12,27 +12,7 @@ figure out to do an inventory/monster database setup, ala hearthstone cards in u
 	https://m.youtube.com/watch?v=rCu8vQrdDDI - composition for scalable data
 	https://m.youtube.com/watch?v=SB0QrnI_-IQ - modular weapon system example
 	https://m.youtube.com/watch?v=ZwPbuL0iatE - custom script templates
-	
-	tldr: new script:
-	-	
-	extends Resource
-	class_name ItemData
-	
-	@export var item_name: String = "Generic Item"
-	@export var weight: int = 1
-	@export var texture: Texture2D
-	-	
-	
-	create new resource of type ItemData:
-	-
-	extends ItemData
-	class_name WeaponData
 
-	@export_group("Combat Stats")
-	@export var damage: int = 5
-	@export var attack_speed: float = 1.0
-	@export var crit_chance: float = 0.05
-	-
 	
 	create a database array as a global autoload?:
 	-
@@ -44,17 +24,19 @@ figure out to do an inventory/monster database setup, ala hearthstone cards in u
 		return all_items.pick_random()
 	-
 
+
 necessary work
 -----------
 	set up inventory system
-		have texturerects initalize as empty
 		on reward, add item to inventory
+			inventory manager listens for signal, calls equip function
+			this means the reward systems needs to know what item to pass on
+				have reward system with an export ItemData for now, and a RewardsBasic array later
 		on add item to inventory, update stats
-		if inventory full, don't add any rewards?
-			not sure how these two should communicate, reward screen should say "inventory full"
+			inventory slot signals up the ItemData, stat manager hears the signal and reads the ItemData
 		on death, clear items
 		
-		have a working tooltip
+		have a working tooltip?
 	
 	
 	swap project resolution
