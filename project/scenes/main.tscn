@@ -18,7 +18,7 @@
 [ext_resource type="Script" uid="uid://d3defuvio82cj" path="res://scripts/event_log.gd" id="13_muem4"]
 [ext_resource type="Script" uid="uid://dfj0skb38br" path="res://scenes/inventory_manager.gd" id="14_dp3eg"]
 [ext_resource type="PackedScene" uid="uid://cto8ggdg8cw8x" path="res://scenes/inventory_slot.tscn" id="14_muem4"]
-[ext_resource type="Resource" uid="uid://d2argrohlttq2" path="res://scripts/item system/items/rock.tres" id="15_0ld40"]
+[ext_resource type="Script" uid="uid://cio5dheq3p8mc" path="res://scripts/item system/item_data.gd" id="15_yc10j"]
 [ext_resource type="Resource" uid="uid://7pnk7lt0msvw" path="res://scripts/item system/items/iron sword.tres" id="17_gqmmt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_trceg"]
@@ -532,12 +532,10 @@ grow_horizontal = 2
 grow_vertical = 2
 columns = 2
 script = ExtResource("14_dp3eg")
-test_item = ExtResource("15_0ld40")
-should_test = true
+starting_items = Array[ExtResource("15_yc10j")]([ExtResource("17_gqmmt")])
 
 [node name="Inventory Slot1" parent="UI Manager/Side HUD/Control/Bottom Section/Inventory" instance=ExtResource("14_muem4")]
 layout_mode = 2
-item_in_slot = ExtResource("17_gqmmt")
 
 [node name="Inventory Slot2" parent="UI Manager/Side HUD/Control/Bottom Section/Inventory" instance=ExtResource("14_muem4")]
 layout_mode = 2

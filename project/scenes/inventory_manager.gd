@@ -2,14 +2,23 @@ extends GridContainer
 
 var inventory_slots : Array[Node] = []
 
-@export var test_item: ItemData
-@export var should_test: bool
+@export var starting_items: Array[ItemData]
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	find_inventory_slots()
-	if should_test: equip(test_item)
+	populate_starter_items()
+	
+	#on combat lost, clear inventory
+	HudEvents.combat_lost.connect(perish)
+
+	#science be here
+	
+	#await get_tree().create_timer(5).timeout
+	#equip(starting_items[0])
+	
+	#science be over
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -36,3 +45,19 @@ func equip(item_to_equip:ItemData):
 	var slot_to_equip_to: InventorySlot = find_first_empty_slot()
 	if slot_to_equip_to: slot_to_equip_to.equip_item(item_to_equip)
 	else: print_debug("inventory full")
+
+
+func perish():
+	clear_inventory()
+	populate_starter_items()
+	
+
+
+func clear_inventory():
+	for slot:InventorySlot in inventory_slots:
+		slot.unequip_item()
+
+
+func populate_starter_items():
+	for item in starting_items:
+		equip(item)
