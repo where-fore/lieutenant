@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cto8ggdg8cw8x"]
+[gd_scene load_steps=4 format=3 uid="uid://cto8ggdg8cw8x"]
 
 [ext_resource type="Texture2D" uid="uid://cy3cnq2hse2h8" path="res://sprites/box.png" id="1_bxqf6"]
 [ext_resource type="Script" uid="uid://b7iav2fchhdor" path="res://scripts/inventory_slot.gd" id="2_bbig2"]
+[ext_resource type="Resource" uid="uid://7pnk7lt0msvw" path="res://scripts/item system/iron sword.tres" id="3_hddt5"]
 
 [node name="Inventory Slot1" type="TextureRect"]
 custom_minimum_size = Vector2(48, 48)
@@ -9,6 +10,7 @@ size_flags_horizontal = 6
 size_flags_vertical = 6
 texture = ExtResource("1_bxqf6")
 script = ExtResource("2_bbig2")
+testing_item = ExtResource("3_hddt5")
 
 [node name="Inventory Item" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(40, 40)
