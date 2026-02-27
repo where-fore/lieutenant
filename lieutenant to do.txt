@@ -94,6 +94,8 @@ look at some schell lenses for the combat system
 
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+currently manually editing .tres files for items - should switch to json output and reading (or similar) if we have a large scale
+
 using async and deferred calls and shit, i should have a much better understanding of when code gets called (instances get created), and maybe even a "timing manager" that signals when to fire events in order
 
 stat_manager.gd should do some sort of "increase stat" and the stat name and delta, from a list of stats. some sort of global class somewhere?

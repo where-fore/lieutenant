@@ -12,5 +12,10 @@ func _process(_delta: float) -> void:
 	if item_in_slot:
 		slot_sprite.texture = item_in_slot.item_sprite
 
-func add_test_item(item_to_test_with):
-	item_in_slot = item_to_test_with
+
+func equip_item(item_to_equip):
+	item_in_slot = item_to_equip
+
+
+func is_empty() -> bool:
+	return item_in_slot == null
