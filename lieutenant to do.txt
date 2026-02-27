@@ -27,18 +27,7 @@ figure out to do an inventory/monster database setup, ala hearthstone cards in u
 
 necessary work
 -----------
-	set up inventory system
-		on reward, add item to inventory
-			inventory manager listens for signal, calls equip function
-			this means the reward systems needs to know what item to pass on
-				have reward system with an export ItemData for now, and a RewardsBasic array later
-		on add item to inventory, update stats
-			inventory slot signals up the ItemData, stat manager hears the signal and reads the ItemData
-		
-		have a working tooltip?
-	
-	
-	swap project resolution
+	have a tooltip for the items?
 	
 	time controls on combat - players don't realize it's an autobattler
 	
