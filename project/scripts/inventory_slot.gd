@@ -14,14 +14,17 @@ func _ready() -> void:
 func equip_item(item_to_equip):
 	item_in_slot = item_to_equip
 	update_sprite()
-	InventoryEvents.item_equipped.emit(item_to_equip)
-	print("sent")
+	InventoryEvents.item_successfully_equipped.emit(item_to_equip)
 
 func unequip_item():
-	var old_item = item_in_slot
+	#this is null if the slot was empty
+	var old_item:ItemData = item_in_slot
+	
 	item_in_slot = null
 	update_sprite()
-	InventoryEvents.item_unequipped.emit(old_item)
+	
+	if old_item:
+		InventoryEvents.item_successfully_unequipped.emit(old_item)
 
 
 func is_empty() -> bool:

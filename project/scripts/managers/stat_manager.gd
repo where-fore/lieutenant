@@ -10,8 +10,10 @@ var enemy_starting_health = 10
 var enemy_starting_attack = 4
 @onready var enemy_base_attack = enemy_starting_attack
 
-var enemy_growth_health = 50
-var enemy_growth_attack = 20
+var enemy_growth_health = 40
+var enemy_growth_attack = 21
+
+var player_attack_bonus: int
 
 
 func increase_player_health(delta):
@@ -27,7 +29,7 @@ func increase_enemy_attack(delta):
 	enemy_base_attack += delta
 
 func get_player_stats() -> Array:
-	return [player_base_health, player_base_attack]
+	return [player_base_health, player_base_attack + player_attack_bonus]
 
 func get_enemy_stats() -> Array:
 	return [enemy_base_health, enemy_base_attack]
@@ -47,16 +49,15 @@ func _ready() -> void:
 	StatEvents.attack_increased.connect(increase_player_attack)
 	StatEvents.enemy_stat_scale.connect(grow_enemies)
 	HudEvents.combat_lost.connect(reset_to_starting_stats)
-	InventoryEvents.item_equipped.connect(interpret_new_item)
-	InventoryEvents.item_unequipped.connect(remove_item_stats)
+	InventoryEvents.item_successfully_equipped.connect(interpret_new_item)
+	InventoryEvents.item_successfully_unequipped.connect(interpret_removed_item)
 
 
 func interpret_new_item(item:ItemData):
-	print("heard")
-	if item.damage: increase_player_attack(item.damage)
+	if item.damage: player_attack_bonus += item.damage
 
-func remove_item_stats(item:ItemData):
-	if item.damage: increase_player_attack(item.damage * -1)
+func interpret_removed_item(item:ItemData):
+	if item.damage: player_attack_bonus -= item.damage
 
 
 func send_base_stats():

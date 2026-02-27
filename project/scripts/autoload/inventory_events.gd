@@ -1,7 +1,10 @@
 extends Node
 
 @warning_ignore("unused_signal")
-signal item_equipped(item:ItemData)
+signal item_successfully_equipped(item:ItemData)
 
 @warning_ignore("unused_signal")
-signal item_unequipped(item:ItemData)
+signal item_successfully_unequipped(item:ItemData)
+
+@warning_ignore("unused_signal")
+signal send_item_to_inventory(item:ItemData)

@@ -3,9 +3,13 @@ extends CanvasLayer
 var attack_per_upgrade = 2
 var health_per_upgrade = 20
 
+@export var attack_upgrade_item: WeaponData
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	if not attack_upgrade_item:
+		push_error("Critical Error: no attack reward item assigned")
+		return
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -21,7 +25,7 @@ func change_from():
 
 
 func _on_sword_sprite_pressed() -> void:
-	StatEvents.attack_increased.emit(attack_per_upgrade)
+	InventoryEvents.send_item_to_inventory.emit(attack_upgrade_item)
 	reward_selected()
 
 func _on_heart_sprite_pressed() -> void:

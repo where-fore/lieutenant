@@ -9,9 +9,8 @@ var inventory_slots : Array[Node] = []
 func _ready() -> void:
 	find_inventory_slots()
 	TimingEvents.everythings_ready.connect(on_scene_ready)
-	
-	#on combat lost, clear inventory
 	HudEvents.combat_lost.connect(perish)
+	InventoryEvents.send_item_to_inventory.connect(equip)
 
 	#science be here
 	
