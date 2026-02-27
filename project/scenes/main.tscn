@@ -532,7 +532,7 @@ grow_horizontal = 2
 grow_vertical = 2
 columns = 2
 script = ExtResource("14_dp3eg")
-starting_items = Array[ExtResource("15_yc10j")]([ExtResource("17_gqmmt")])
+starting_items = Array[ExtResource("15_yc10j")]([ExtResource("17_gqmmt"), ExtResource("17_gqmmt")])
 
 [node name="Inventory Slot1" parent="UI Manager/Side HUD/Control/Bottom Section/Inventory" instance=ExtResource("14_muem4")]
 layout_mode = 2

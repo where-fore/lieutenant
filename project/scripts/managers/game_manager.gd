@@ -8,6 +8,9 @@ extends Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	ui_manager.initialize_combat_labels(player_combatant, enemy_combatant)
+	
+	#this gets called when this node is readied - and since it's the root node, this is after all children are ready
+	TimingEvents.everythings_ready.emit()
 
 
 func _on_button_pressed() -> void:

@@ -2,7 +2,7 @@ extends Node2D
 
 var player_starting_health = 25
 @onready var player_base_health = player_starting_health
-var player_starting_attack = 2
+var player_starting_attack = 0
 @onready var player_base_attack = player_starting_attack
 
 var enemy_starting_health = 10
@@ -10,8 +10,8 @@ var enemy_starting_health = 10
 var enemy_starting_attack = 4
 @onready var enemy_base_attack = enemy_starting_attack
 
-var enemy_growth_health = 10
-var enemy_growth_attack = 1
+var enemy_growth_health = 50
+var enemy_growth_attack = 20
 
 
 func increase_player_health(delta):
@@ -47,6 +47,16 @@ func _ready() -> void:
 	StatEvents.attack_increased.connect(increase_player_attack)
 	StatEvents.enemy_stat_scale.connect(grow_enemies)
 	HudEvents.combat_lost.connect(reset_to_starting_stats)
+	InventoryEvents.item_equipped.connect(interpret_new_item)
+	InventoryEvents.item_unequipped.connect(remove_item_stats)
+
+
+func interpret_new_item(item:ItemData):
+	print("heard")
+	if item.damage: increase_player_attack(item.damage)
+
+func remove_item_stats(item:ItemData):
+	if item.damage: increase_player_attack(item.damage * -1)
 
 
 func send_base_stats():

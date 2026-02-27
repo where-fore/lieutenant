@@ -34,7 +34,6 @@ necessary work
 				have reward system with an export ItemData for now, and a RewardsBasic array later
 		on add item to inventory, update stats
 			inventory slot signals up the ItemData, stat manager hears the signal and reads the ItemData
-		on death, clear items
 		
 		have a working tooltip?
 	
@@ -76,11 +75,11 @@ look at some schell lenses for the combat system
 
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+the timing of "on_scene_ready" architecture in inventory_manager.gd should be project wide
+
 currently manually editing .tres files for items - should switch to json output and reading (or similar) if we have a large scale
 
 using async and deferred calls and shit, i should have a much better understanding of when code gets called (instances get created), and maybe even a "timing manager" that signals when to fire events in order
-
-stat_manager.gd should do some sort of "increase stat" and the stat name and delta, from a list of stats. some sort of global class somewhere?
 
 the signal busses aren't really organized by their title very well, codify that distinction
 
