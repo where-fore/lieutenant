@@ -82,7 +82,6 @@ theme_override_font_sizes/font_size = 8
 text = "turn: ????"
 
 [node name="Reward UI" type="CanvasLayer" parent="UI Manager"]
-visible = false
 script = ExtResource("3_ya4ey")
 attack_upgrade_item = ExtResource("17_gqmmt")
 
@@ -440,7 +439,7 @@ grow_vertical = 2
 [node name="Horizontal Bar" type="TextureRect" parent="UI Manager/Side HUD/Control"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.05
+anchor_left = 0.08
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
