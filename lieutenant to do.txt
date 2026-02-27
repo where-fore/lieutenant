@@ -8,12 +8,44 @@ look up more detailed signal bus architecture
 	and some more godot best practices for code maintenance
 
 figure out to do an inventory/monster database setup, ala hearthstone cards in unity
+	https://docs.godotengine.org/en/stable/tutorials/scripting/resources.html#doc-resources - ala unity serialized object
+	https://m.youtube.com/watch?v=rCu8vQrdDDI - composition for scalable data
+	https://m.youtube.com/watch?v=SB0QrnI_-IQ - modular weapon system example
+	https://m.youtube.com/watch?v=ZwPbuL0iatE - custom script templates
+	
+	tldr: new script:
+	-	
+	extends Resource
+	class_name ItemData
+	
+	@export var item_name: String = "Generic Item"
+	@export var weight: int = 1
+	@export var texture: Texture2D
+	-	
+	
+	create new resource of type ItemData:
+	-
+	extends ItemData
+	class_name WeaponData
 
+	@export_group("Combat Stats")
+	@export var damage: int = 5
+	@export var attack_speed: float = 1.0
+	@export var crit_chance: float = 0.05
+	-
+	
+	create a database array as a global autoload?:
+	-
+	extends Node
 
-
+	@export var all_items: Array[ItemData] = []
+	
+	func get_random_item() -> ItemData:
+		return all_items.pick_random()
+	-
 
 necessary work
------------		
+-----------
 	set up inventory system
 		have texturerects initalize as empty
 		on reward, add item to inventory
@@ -21,6 +53,13 @@ necessary work
 		if inventory full, don't add any rewards?
 			not sure how these two should communicate, reward screen should say "inventory full"
 		on death, clear items
+		
+		have a working tooltip
+	
+	
+	swap project resolution
+	
+	time controls on combat - players don't realize it's an autobattler
 	
 	
 
@@ -29,6 +68,10 @@ necessary work
 
 working notes
 -----------
+would like to make the combat log a lil nicer
+-add random chance for flavour text, mostly to break up the paragraph of autobattling, but also for fun
+-add death/victory messages
+
 -----------
 
 
@@ -51,6 +94,8 @@ look at some schell lenses for the combat system
 
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+using async and deferred calls and shit, i should have a much better understanding of when code gets called (instances get created), and maybe even a "timing manager" that signals when to fire events in order
+
 stat_manager.gd should do some sort of "increase stat" and the stat name and delta, from a list of stats. some sort of global class somewhere?
 
 the signal busses aren't really organized by their title very well, codify that distinction

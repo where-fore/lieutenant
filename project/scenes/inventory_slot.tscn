@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://cto8ggdg8cw8x"]
+
+[ext_resource type="Texture2D" uid="uid://cy3cnq2hse2h8" path="res://sprites/box.png" id="1_bxqf6"]
+[ext_resource type="Script" uid="uid://b7iav2fchhdor" path="res://scripts/inventory_slot.gd" id="2_bbig2"]
+
+[node name="Inventory Slot1" type="TextureRect"]
+custom_minimum_size = Vector2(48, 48)
+size_flags_horizontal = 6
+size_flags_vertical = 6
+texture = ExtResource("1_bxqf6")
+script = ExtResource("2_bbig2")
+
+[node name="Inventory Item" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
