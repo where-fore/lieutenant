@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=3 format=3 uid="uid://7pnk7lt0msvw"]
+
+[ext_resource type="Script" uid="uid://b01qdb2qos8o4" path="res://scripts/item system/weapon_data.gd" id="2_hu7gv"]
+[ext_resource type="Texture2D" uid="uid://jm7ccvlf38y4" path="res://sprites/sword.png" id="2_o4ota"]
+
+[resource]
+script = ExtResource("2_hu7gv")
+item_name = "Iron Sword"
+item_sprite = ExtResource("2_o4ota")
