@@ -2,11 +2,13 @@ extends GridContainer
 
 var inventory_slots : Array[Node] = []
 
+@export var test_item:ItemData
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	find_inventory_slots()
 	for slot in inventory_slots:
-		slot.add_test_item()
+		slot.add_test_item(test_item)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

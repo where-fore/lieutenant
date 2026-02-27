@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dnpbs1bryt1kn"]
+[gd_scene load_steps=21 format=3 uid="uid://dnpbs1bryt1kn"]
 
 [ext_resource type="Texture2D" uid="uid://cbp6sg330uwef" path="res://sprites/player.png" id="1_0wfyh"]
 [ext_resource type="Theme" uid="uid://8g0oubdd3ix7" path="res://ui/marginTheme.tres" id="1_o5qli"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" uid="uid://d3defuvio82cj" path="res://scripts/event_log.gd" id="13_muem4"]
 [ext_resource type="Script" uid="uid://dfj0skb38br" path="res://scenes/inventory_manager.gd" id="14_dp3eg"]
 [ext_resource type="PackedScene" uid="uid://cto8ggdg8cw8x" path="res://scenes/inventory_slot.tscn" id="14_muem4"]
+[ext_resource type="Resource" uid="uid://d2argrohlttq2" path="res://scripts/item system/items/rock.tres" id="15_0ld40"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_trceg"]
 shader = ExtResource("2_trceg")
@@ -530,6 +531,7 @@ grow_horizontal = 2
 grow_vertical = 2
 columns = 2
 script = ExtResource("14_dp3eg")
+test_item = ExtResource("15_0ld40")
 
 [node name="Inventory Slot1" parent="UI Manager/Side HUD/Control/Bottom Section/Inventory" instance=ExtResource("14_muem4")]
 layout_mode = 2
