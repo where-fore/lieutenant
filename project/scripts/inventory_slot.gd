@@ -5,6 +5,8 @@ class_name InventorySlot
 
 @onready var slot_sprite = $"ItemSprite"
 
+var tooltip_text_base = "Increases attack by "
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -15,6 +17,7 @@ func equip_item(item_to_equip):
 	item_in_slot = item_to_equip
 	update_sprite()
 	InventoryEvents.item_successfully_equipped.emit(item_to_equip)
+	tooltip_text = tooltip_text_base + str(item_in_slot.damage)
 
 func unequip_item():
 	#this is null if the slot was empty
@@ -25,6 +28,8 @@ func unequip_item():
 	
 	if old_item:
 		InventoryEvents.item_successfully_unequipped.emit(old_item)
+	
+	tooltip_text = ""
 
 
 func is_empty() -> bool:
