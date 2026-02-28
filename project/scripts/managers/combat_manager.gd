@@ -9,8 +9,7 @@ var precombat = "Precombat"
 var turn = precombat
 var turn_number = 1
 
-var combat_ongoing = false as bool
-var can_start_combat = true as bool
+var can_start_combat = true
 
 var opener_turn_delay = 1
 var middle_turn_delay = 0.4
@@ -49,7 +48,7 @@ func pass_turn():
 	turn_number += 1
 	
 	
-	if combat_ongoing:
+	if CombatEvents.combat_ongoing:
 		await turn_animation()
 		start_turn()
 
@@ -69,7 +68,7 @@ func turn_animation():
 
 
 func stop_combat(combatant_who_died):
-	combat_ongoing = false
+	CombatEvents.combat_ongoing = false
 	if combatant_who_died.is_the_player(): HudEvents.combat_lost.emit()
 	elif not combatant_who_died.is_the_player(): HudEvents.combat_won.emit()
 
@@ -77,7 +76,7 @@ func stop_combat(combatant_who_died):
 func pre_combat():
 	get_combatant_stats()
 	turn = precombat
-	combat_ongoing = false
+	CombatEvents.combat_ongoing = false
 	can_start_combat = true
 	#reset turn counter
 	turn_number = 1
@@ -93,9 +92,9 @@ func set_combatant_stats(player_stat_array, enemy_stat_array):
 
 
 func start_combat():
-	if not combat_ongoing and can_start_combat:
+	if not CombatEvents.combat_ongoing and can_start_combat:
 		can_start_combat = false
-		combat_ongoing = true
+		CombatEvents.combat_ongoing = true
 		start_turn()
 
 

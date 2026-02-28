@@ -14,3 +14,5 @@ signal enemy_turn_should_start()
 
 @warning_ignore("unused_signal")
 signal combatant_died(combatant_who_died)
+
+var combat_ongoing: bool = false

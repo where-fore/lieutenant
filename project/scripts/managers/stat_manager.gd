@@ -55,9 +55,11 @@ func _ready() -> void:
 
 func interpret_new_item(item:ItemData):
 	if item.damage: player_attack_bonus += item.damage
+	send_base_stats()
 
 func interpret_removed_item(item:ItemData):
 	if item.damage: player_attack_bonus -= item.damage
+	send_base_stats()
 
 
 func send_base_stats():
