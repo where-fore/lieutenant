@@ -28,15 +28,9 @@ new font that works looks good below 8px
 
 
 necessary work
------------
-	have a tooltip for the items?
-	
+-----------	
 	have non-inventory buffs? like the hp aura?
-	
-	let player replace/discard items?
-		discard on click
-		replace on inventory full?
-	
+		
 	time controls on combat - players don't realize it's an autobattler
 	
 	

@@ -5,7 +5,7 @@ class_name InventorySlot
 
 @onready var slot_sprite = $"ItemSprite"
 
-var tooltip_text_base = "Increases attack by "
+var tooltip_text_base = "Increases\nattack by "
 
 @onready var delete_confirmation_panel = $Panel
 @onready var delete_confirmation_timer = $Timer
@@ -24,6 +24,7 @@ func equip_item(item_to_equip):
 	item_in_slot = item_to_equip
 	update_sprite()
 	InventoryEvents.item_successfully_equipped.emit(item_to_equip)
+	InventoryEvents.slot_updated.emit()
 	tooltip_text = tooltip_text_base + str(item_in_slot.damage)
 
 func unequip_item():
@@ -35,6 +36,7 @@ func unequip_item():
 	
 	if old_item:
 		InventoryEvents.item_successfully_unequipped.emit(old_item)
+		InventoryEvents.slot_updated.emit()
 	
 	tooltip_text = ""
 

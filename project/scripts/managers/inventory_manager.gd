@@ -7,22 +7,16 @@ var inventory_slots : Array[Node] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	find_inventory_slots()
+	find_inventory_slot_nodes()
 	TimingEvents.everythings_ready.connect(on_scene_ready)
 	HudEvents.combat_lost.connect(perish)
 	InventoryEvents.send_item_to_inventory.connect(equip)
-
-	#science be here
-	
-	#await get_tree().create_timer(5).timeout
-	#equip(starting_items[0])
-	
-	#science be over
+	InventoryEvents.slot_updated.connect(update_inventory_full_status)
 
 func on_scene_ready():
 	populate_starter_items()
 
-func find_inventory_slots():
+func find_inventory_slot_nodes():
 	var class_to_check_for = "InventorySlot"
 	var found_nodes = self.find_children("*", class_to_check_for, false)
 	for node in found_nodes:
@@ -38,7 +32,8 @@ func find_first_empty_slot():
 func equip(item_to_equip:ItemData):
 	var slot_to_equip_to: InventorySlot = find_first_empty_slot()
 	if slot_to_equip_to: slot_to_equip_to.equip_item(item_to_equip)
-	else: print_debug("inventory full")
+	else: pass #print_debug("inventory full")
+	update_inventory_full_status()
 
 func perish():
 	clear_inventory()
@@ -51,3 +46,8 @@ func clear_inventory():
 func populate_starter_items():
 	for item in starting_items:
 		equip(item)
+
+func update_inventory_full_status():
+	if find_first_empty_slot() == null: InventoryEvents.inventory_is_full = true
+	else: InventoryEvents.inventory_is_full = false
+	InventoryEvents.full_status_updated.emit()
