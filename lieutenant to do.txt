@@ -28,10 +28,7 @@ new font that works looks good below 8px
 
 
 necessary work
------------	
-	have non-inventory buffs? like the hp aura?
-		
-	time controls on combat - players don't realize it's an autobattler
+-----------
 	
 	
 
@@ -40,15 +37,17 @@ necessary work
 
 working notes
 -----------
+
+
+
+
+
+
+
+
 would like to make the combat log a lil nicer
 -add random chance for flavour text, mostly to break up the paragraph of autobattling, but also for fun
 -add death/victory messages
-
-
-
-
-
-
 
 
 
@@ -74,6 +73,7 @@ look at some schell lenses for the combat system
 
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+have non-inventory buffs visible? like the hp aura?
 
 hmmm my inventory events has two events, "item equipped" and "send item to inventory". when in the reward screen, i called "item equipped" which really short circuited the logic, since that bypassed the inventory system and just sent the output. not sure how to avoid
 	i could just structure the event script with comments, into "requests" and "signals"

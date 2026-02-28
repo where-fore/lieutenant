@@ -8,30 +8,52 @@ var enemy_turn = "Enemy"
 var precombat = "Precombat"
 var turn = precombat
 var turn_number = 1
+var turn_finished = false
 
 var can_start_combat = true
 
 var opener_turn_delay = 1
-var middle_turn_delay = 0.4
+var middle_turn_delay = 0.2
 var near_end_delay = 1
+
+var step_mode = "step mode"
+var play_mode = "play mode"
+var turn_mode = step_mode
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	CombatEvents.attack_launched.connect(handle_attack)
-	CombatEvents.turn_finished.connect(pass_turn)
+	CombatEvents.turn_finished.connect(finish_turn)
 	HudEvents.send_combatant_base_stats.connect(set_combatant_stats)
 	CombatEvents.combatant_died.connect(stop_combat)
 	HudEvents.combat_button_pressed.connect(start_combat)
 	HudEvents.change_to_combat_screen.connect(pre_combat)
+	CombatEvents.pause_button_pressed.connect(pause_button_pressed)
+	CombatEvents.step_button_pressed.connect(step_button_pressed)
+	CombatEvents.play_button_pressed.connect(play_button_pressed)
 	
 	#wait for everything else to load
 	await owner.ready
 	pre_combat()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
+
+func pause_button_pressed():
+	turn_mode = step_mode
+
+func step_button_pressed():
+	turn_mode = step_mode
+	if turn == precombat:
+		start_turn()
+	else:
+		next_turn()
+
+func play_button_pressed():
+	turn_mode = play_mode
+	if turn == precombat:
+		start_turn()
+	else:
+		next_turn()
 
 
 func handle_attack(attacker, amount):
@@ -41,16 +63,25 @@ func handle_attack(attacker, amount):
 		current_player.take_damage(amount)
 
 
-func pass_turn():
-	#swap turns
-	if turn == player_turn: turn = enemy_turn
-	elif turn == enemy_turn: turn = player_turn
-	turn_number += 1
-	
-	
-	if CombatEvents.combat_ongoing:
+func finish_turn():
+	turn_finished = true
+	if turn_mode == play_mode:
 		await turn_animation()
-		start_turn()
+		next_turn()
+	
+
+func next_turn():
+	if turn_finished == true:
+		turn_finished = false
+		
+		#swap turns
+		if turn == player_turn: turn = enemy_turn
+		elif turn == enemy_turn: turn = player_turn
+		turn_number += 1
+		
+		
+		if CombatEvents.combat_ongoing:
+			start_turn()
 
 
 func turn_animation():
@@ -95,7 +126,6 @@ func start_combat():
 	if not CombatEvents.combat_ongoing and can_start_combat:
 		can_start_combat = false
 		CombatEvents.combat_ongoing = true
-		start_turn()
 
 
 func start_turn():

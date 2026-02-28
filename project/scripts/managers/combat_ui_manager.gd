@@ -6,6 +6,15 @@ extends CanvasLayer
 @onready var player_attack_label = $"Control/Player/Stats/Attack/HBoxContainer/Label" as Label
 @onready var enemy_attack_label = $"Control/Enemy/Stats/Attack/HBoxContainer/Label" as Label
 
+@onready var combat_button = $"Control/Combat Button"
+
+@onready var turn_buttons = $"Control/Turn Buttons"
+@onready var pause_button_border = $"Control/Turn Buttons/Pause Button/TextureRect"
+#i removed the texture here from the step border, cause i realized turns are basically instant and this doesn't do anything
+#could add button pressed feedback instead of this border stuff
+@onready var step_button_border = $"Control/Turn Buttons/Step Button/TextureRect"
+@onready var play_button_border = $"Control/Turn Buttons/Play Button/TextureRect"
+
 @onready var player_sprite = $"Control/Player/Sprite"
 @onready var enemy_sprite = $"Control/Enemy/Sprite"
 @export var turn_sprite: Texture2D
@@ -24,6 +33,8 @@ func _ready() -> void:
 	CombatEvents.turn_finished.connect(update_turn_indicator)
 	HudEvents.combat_button_pressed.connect(set_first_turn_indicator)
 	
+	turn_buttons.visible = false
+	
 
 func set_first_turn_indicator():
 	player_sprite.texture = turn_sprite
@@ -39,6 +50,8 @@ func update_turn_indicator():
 	
 	if enemy_sprite.texture == turn_sprite: enemy_sprite.texture = original_enemy_sprite
 	elif enemy_sprite.texture == original_enemy_sprite: enemy_sprite.texture = turn_sprite
+	
+	step_button_border.visible = false
 
 
 func update_player_health():
@@ -57,6 +70,11 @@ func update_enemy_attack():
 func change_to():
 	HudEvents.change_to_combat_screen.emit()
 	clear_turn_indicator()
+	combat_button.visible = true
+	pause_button_border.visible = false
+	step_button_border.visible = false
+	play_button_border.visible = false
+	turn_buttons.visible = false
 	visible = true
 
 func change_from():
@@ -74,3 +92,27 @@ func initialize_labels(player_combatant, enemy_combatant):
 	update_enemy_health()
 	update_player_attack()
 	update_enemy_attack()
+
+
+func _on_combat_button_pressed() -> void:
+	HudEvents.combat_button_pressed.emit()
+	combat_button.visible = false
+	turn_buttons.visible = true
+
+func _on_pause_button_pressed() -> void:
+	step_button_border.visible = false
+	pause_button_border.visible = true
+	play_button_border.visible = false
+	CombatEvents.pause_button_pressed.emit()
+
+func _on_step_button_pressed() -> void:
+	step_button_border.visible = true
+	pause_button_border.visible = false
+	play_button_border.visible = false
+	CombatEvents.step_button_pressed.emit()
+
+func _on_play_button_pressed() -> void:
+	step_button_border.visible = false
+	pause_button_border.visible = false
+	play_button_border.visible = true
+	CombatEvents.play_button_pressed.emit()
