@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CombatantData" load_steps=2 format=3 uid="uid://db67tcemmn527"]
+
+[ext_resource type="Script" uid="uid://djic85a1uq1k7" path="res://scripts/combatant system/combatant_data.gd" id="1_nxb6w"]
+
+[resource]
+script = ExtResource("1_nxb6w")
+name = "Our Hero"
+base_health = 25
+health_scaling = 0
+base_attack = 0
+attack_scaling = 0

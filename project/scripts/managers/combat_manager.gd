@@ -25,7 +25,6 @@ var turn_mode = step_mode
 func _ready() -> void:
 	CombatEvents.attack_launched.connect(handle_attack)
 	CombatEvents.turn_finished.connect(finish_turn)
-	HudEvents.send_combatant_base_stats.connect(set_combatant_stats)
 	CombatEvents.combatant_died.connect(stop_combat)
 	HudEvents.combat_button_pressed.connect(start_combat)
 	HudEvents.change_to_combat_screen.connect(pre_combat)
@@ -85,7 +84,7 @@ func next_turn():
 
 
 func turn_animation():
-	var near_end = (current_enemy.health <= 1* current_player.attack) or (current_player.health <= 1* current_enemy.attack)
+	var near_end = (current_enemy.current_stats[Stats.health] <= 1* current_player.current_stats[Stats.attack]) or (current_player.current_stats[Stats.health] <= 1* current_enemy.current_stats[Stats.attack])
 	
 	var slow_opener = turn_number <= 2 as bool
 	if slow_opener:
@@ -105,22 +104,12 @@ func stop_combat(combatant_who_died):
 
 
 func pre_combat():
-	get_combatant_stats()
+	StatEvents.initalize_combat_stats.emit()
 	turn = precombat
 	CombatEvents.combat_ongoing = false
 	can_start_combat = true
 	#reset turn counter
 	turn_number = 1
-	
-
-func get_combatant_stats():
-	HudEvents.ask_for_combatant_base_stats.emit()
-
-
-func set_combatant_stats(player_stat_array, enemy_stat_array):
-	current_player.initialize_stats(player_stat_array[0], player_stat_array[1])
-	current_enemy.initialize_stats(enemy_stat_array[0], enemy_stat_array[1])
-
 
 func start_combat():
 	if not CombatEvents.combat_ongoing and can_start_combat:
