@@ -38,60 +38,11 @@ necessary work
 working notes
 -----------
 
-enemies as resource: base damage, hp, texture, name
-	turn the "enemy growth" into a bonus aura
+	enemies do not load textures, or their combat log name
+	bonus points: have an enemy who gains 1 attack every combat turn	
 	
-		bonus points: have an enemy who gains 1 attack every combat turn
-		bonus points: have enemies with unique scaling coefficients
-			maybe change the "bonus scaling" into a global "combats won" and scale from that
-			
 	have an enemy database like the item one, to pick from random?
-		bonus points: have a "hard" category
-
-
-	restructure "combatant.gd" into composition:
-		parent either enemy or player, with their own functions - listen to below signals and sends out "player_health_damaged" instead of type checking the source
-			combat stat status component that signals up to parent (health reached zero) (parent hears and can interpret however they want)
-				im imagining simply a statDictionary, 
-			turn taking component that signals up to parent
-			resource reading component that signals up base stats and functions
-		restructure all the outgoing signals to be source agnostic
-		
-		
-		when i make a new enemy, i'll call "instantiate combatant(resource)" - which will take a combatant base scene, which requires a resource, and starts it with a resource
-
-	currently the stat manager has base stats, and tells the combatant what to initalize with
-	i want the combatant to have base stats and initalize themselves - then tell the stat manager? if they need to know?
-		combatant reads the resource file, stat manager takes that base, adds on auras and other non-combatant stuff
-		
-		
-	initialize_stats on combatant should not be here at all - it should simply be the stat manager. it should increase current by aura, and then signal to the hud, no combatant involved
-	
-#this gets called by the manager
-func initialize_stats(base_health, base_attack):
-	current_health = base_health
-	if is_the_player(): HudEvents.player_health_update.emit(current_health)
-	else: HudEvents.enemy_health_update.emit(current_health)
-	
-	current_attack = base_attack
-	if is_the_player(): HudEvents.player_attack_update.emit(current_attack)
-	else: HudEvents.enemy_attack_update.emit(current_attack)
-	
-	
-	
-	so i should have:
-		combatant data: base health, scaling factor
-		stat manager: auras like training and items, adds to base health
-		on combat start - set combatant current health, to aura health + data base
-	
-	stat manager should have an aura dictionary
-	and it should append/sum that into  the base stat dictionary
-	
-	
-	
-	currently enemy stats do not get reset on combat end, nor updated on reward
-	not sure about respawning
-	enemies do not load textures
+		bonus points: have a "boss" category
 	
 
 

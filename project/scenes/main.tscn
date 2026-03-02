@@ -26,7 +26,7 @@
 [ext_resource type="Script" uid="uid://cio5dheq3p8mc" path="res://scripts/item system/item_data.gd" id="15_yc10j"]
 [ext_resource type="Resource" uid="uid://7pnk7lt0msvw" path="res://scripts/item system/items/iron sword.tres" id="17_gqmmt"]
 [ext_resource type="Resource" uid="uid://db67tcemmn527" path="res://scripts/combatant system/player/base_player.tres" id="26_2wyq8"]
-[ext_resource type="Resource" uid="uid://b7irak0oy4iir" path="res://scripts/combatant system/enemies/skeleton_lich.tres" id="26_vxglm"]
+[ext_resource type="Resource" uid="uid://5jw1ftlsj3v3" path="res://scripts/combatant system/enemies/skeleton_warrior.tres" id="26_vxglm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_trceg"]
 shader = ExtResource("2_trceg")
@@ -606,7 +606,7 @@ grow_horizontal = 2
 grow_vertical = 2
 columns = 2
 script = ExtResource("14_dp3eg")
-starting_items = Array[ExtResource("15_yc10j")]([ExtResource("15_0ld40"), ExtResource("15_0ld40"), ExtResource("15_0ld40"), ExtResource("15_0ld40"), ExtResource("15_0ld40"), ExtResource("15_0ld40")])
+starting_items = Array[ExtResource("15_yc10j")]([ExtResource("15_0ld40"), ExtResource("15_0ld40"), ExtResource("15_0ld40"), ExtResource("15_0ld40"), ExtResource("15_0ld40")])
 
 [node name="Inventory Slot1" parent="UI Manager/Side HUD/Control/Bottom Section/Inventory" instance=ExtResource("14_muem4")]
 layout_mode = 2
@@ -637,7 +637,7 @@ baseData = ExtResource("26_vxglm")
 
 [node name="Player Combatant" parent="Combat Manager/Stat Manager" instance=ExtResource("9_85g3d")]
 baseData = ExtResource("26_2wyq8")
-this_is_the_player = true
+_this_is_the_player = true
 
 [connection signal="pressed" from="UI Manager/Reward UI/Control/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/Sword Sprite" to="UI Manager/Reward UI" method="_on_sword_sprite_pressed"]
 [connection signal="pressed" from="UI Manager/Reward UI/Control/VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer2/Heart Sprite" to="UI Manager/Reward UI" method="_on_heart_sprite_pressed"]

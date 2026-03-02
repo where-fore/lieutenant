@@ -2,8 +2,8 @@ extends Node2D
 
 @export var baseData: CombatantData
 
-@export var this_is_the_player = false as bool
-func is_the_player() -> bool: return this_is_the_player
+@export var _this_is_the_player = false as bool
+func is_the_player() -> bool: return _this_is_the_player
 
 var base_stats = {}
 var current_stats = {}
@@ -17,6 +17,8 @@ func _ready() -> void:
 	base_stats[Stats.health] = baseData.base_health
 	base_stats[Stats.attack] = baseData.base_attack
 	reset_current_stats_to_base()
+	
+	HudEvents.ask_for_enemy_sprite.connect(send_sprite_to_ui)
 
 func take_damage(value):
 	current_stats[Stats.health] -= value
@@ -39,6 +41,8 @@ func scale_stats_to_combats():
 func perish():
 	CombatEvents.combatant_died.emit(self)
 
+func send_sprite_to_ui():
+	if not is_the_player(): HudEvents.send_enemy_sprite.emit(baseData.texture)
 
 func take_turn():
 	#attack

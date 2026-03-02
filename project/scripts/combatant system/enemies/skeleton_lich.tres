@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="CombatantData" load_steps=2 format=3 uid="uid://b7irak0oy4iir"]
+[gd_resource type="Resource" script_class="CombatantData" load_steps=3 format=3 uid="uid://b7irak0oy4iir"]
 
 [ext_resource type="Script" uid="uid://djic85a1uq1k7" path="res://scripts/combatant system/combatant_data.gd" id="1_5lc33"]
+[ext_resource type="Texture2D" uid="uid://d32hfowrtsk7q" path="res://sprites/enemy_lich.png" id="2_xk3ak"]
 
 [resource]
 script = ExtResource("1_5lc33")
@@ -9,3 +10,4 @@ base_health = 30
 health_scaling = 30
 base_attack = 1
 attack_scaling = 1
+texture = ExtResource("2_xk3ak")

@@ -8,3 +8,4 @@ var scaling_coefficient = 1
 @export var health_scaling:int = 1337
 @export var base_attack:int = 80085
 @export var attack_scaling:int = 80085
+@export var texture:Texture2D

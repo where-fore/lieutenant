@@ -1,10 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dsn3r7gjwvoov"]
+[gd_scene load_steps=2 format=3 uid="uid://dsn3r7gjwvoov"]
 
 [ext_resource type="Script" uid="uid://c1tek44st0xc7" path="res://scripts/combatant system/combatant.gd" id="1_ufeq6"]
-[ext_resource type="Script" uid="uid://ct0maohxby87i" path="res://scripts/combatant system/stat_status.gd" id="2_8cehy"]
 
 [node name="Combatant" type="Node2D"]
 script = ExtResource("1_ufeq6")
-
-[node name="StatStatus" type="Node2D" parent="."]
-script = ExtResource("2_8cehy")
