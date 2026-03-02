@@ -36,10 +36,12 @@ func interpret_removed_item(item:ItemData):
 	update_precombat_stats()
 
 func update_precombat_stats():
+	current_player.reset_current_stats_to_base()
 	current_player.merge_aura_and_base_stats(player_aura_dictionary)
 	HudEvents.player_health_update.emit(current_player.current_stats[Stats.health])
 	HudEvents.player_attack_update.emit(current_player.current_stats[Stats.attack])
 	
+	current_enemy.reset_current_stats_to_base()
 	current_enemy.merge_aura_and_base_stats(enemy_aura_dictionary)
 	HudEvents.enemy_health_update.emit(current_enemy.current_stats[Stats.health])
 	HudEvents.enemy_attack_update.emit(current_enemy.current_stats[Stats.attack])

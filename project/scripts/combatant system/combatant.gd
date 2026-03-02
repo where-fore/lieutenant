@@ -16,7 +16,7 @@ func _ready() -> void:
 		
 	base_stats[Stats.health] = baseData.base_health
 	base_stats[Stats.attack] = baseData.base_attack
-	current_stats = base_stats.duplicate()
+	reset_current_stats_to_base()
 
 func take_damage(value):
 	current_stats[Stats.health] -= value
@@ -26,6 +26,8 @@ func take_damage(value):
 	
 	if current_stats[Stats.health] <= 0: perish()
 
+func reset_current_stats_to_base():
+	current_stats = base_stats.duplicate()
 
 func perish():
 	CombatEvents.combatant_died.emit(self)
