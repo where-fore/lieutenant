@@ -27,7 +27,14 @@ func take_damage(value):
 	if current_stats[Stats.health] <= 0: perish()
 
 func reset_current_stats_to_base():
+	scale_stats_to_combats()
 	current_stats = base_stats.duplicate()
+
+func scale_stats_to_combats():
+	if baseData.health_scaling:
+		base_stats[Stats.health] = baseData.base_health + (baseData.health_scaling * StatEvents.encounters_defeated_for_scaling)
+	if baseData.attack_scaling:
+		base_stats[Stats.attack] = baseData.base_attack + (baseData.attack_scaling * StatEvents.encounters_defeated_for_scaling)
 
 func perish():
 	CombatEvents.combatant_died.emit(self)

@@ -26,7 +26,7 @@
 [ext_resource type="Script" uid="uid://cio5dheq3p8mc" path="res://scripts/item system/item_data.gd" id="15_yc10j"]
 [ext_resource type="Resource" uid="uid://7pnk7lt0msvw" path="res://scripts/item system/items/iron sword.tres" id="17_gqmmt"]
 [ext_resource type="Resource" uid="uid://db67tcemmn527" path="res://scripts/combatant system/player/base_player.tres" id="26_2wyq8"]
-[ext_resource type="Resource" uid="uid://5jw1ftlsj3v3" path="res://scripts/combatant system/enemies/skeleton_warrior.tres" id="26_vxglm"]
+[ext_resource type="Resource" uid="uid://b7irak0oy4iir" path="res://scripts/combatant system/enemies/skeleton_lich.tres" id="26_vxglm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_trceg"]
 shader = ExtResource("2_trceg")
