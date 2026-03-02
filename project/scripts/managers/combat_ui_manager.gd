@@ -15,11 +15,11 @@ extends CanvasLayer
 @onready var step_button_border = $"Control/Turn Buttons/Step Button/TextureRect"
 @onready var play_button_border = $"Control/Turn Buttons/Play Button/TextureRect"
 
-@onready var player_sprite = $"Control/Player/Sprite"
-@onready var enemy_sprite = $"Control/Enemy/Sprite"
+@onready var player_sprite_display = $"Control/Player/Sprite"
+@onready var enemy_sprite_display = $"Control/Enemy/Sprite"
 @export var turn_sprite: Texture2D
-@onready var original_player_sprite = player_sprite.texture
-@onready var original_enemy_sprite = enemy_sprite.texture
+@onready var original_player_sprite = player_sprite_display.texture
+@onready var original_enemy_sprite = enemy_sprite_display.texture
 
 var current_player = null
 var current_enemy = null
@@ -32,24 +32,28 @@ func _ready() -> void:
 	HudEvents.enemy_attack_update.connect(update_enemy_attack)
 	CombatEvents.turn_finished.connect(update_turn_indicator)
 	HudEvents.combat_button_pressed.connect(set_first_turn_indicator)
+	HudEvents.send_enemy_sprite.connect(update_enemy_sprite)
+	TimingEvents.everythings_ready.connect(on_scene_ready)
 	
 	turn_buttons.visible = false
-	
+
+func on_scene_ready():
+	HudEvents.ask_for_enemy_sprite.emit()
 
 func set_first_turn_indicator():
-	player_sprite.texture = turn_sprite
-	enemy_sprite.texture = original_enemy_sprite
+	player_sprite_display.texture = turn_sprite
+	enemy_sprite_display.texture = original_enemy_sprite
 
 func clear_turn_indicator():
-	player_sprite.texture = original_player_sprite
-	enemy_sprite.texture = original_enemy_sprite
+	player_sprite_display.texture = original_player_sprite
+	enemy_sprite_display.texture = original_enemy_sprite
 
 func update_turn_indicator():
-	if player_sprite.texture == turn_sprite: player_sprite.texture = original_player_sprite
-	elif player_sprite.texture == original_player_sprite: player_sprite.texture = turn_sprite
+	if player_sprite_display.texture == turn_sprite: player_sprite_display.texture = original_player_sprite
+	elif player_sprite_display.texture == original_player_sprite: player_sprite_display.texture = turn_sprite
 	
-	if enemy_sprite.texture == turn_sprite: enemy_sprite.texture = original_enemy_sprite
-	elif enemy_sprite.texture == original_enemy_sprite: enemy_sprite.texture = turn_sprite
+	if enemy_sprite_display.texture == turn_sprite: enemy_sprite_display.texture = original_enemy_sprite
+	elif enemy_sprite_display.texture == original_enemy_sprite: enemy_sprite_display.texture = turn_sprite
 	
 	step_button_border.visible = false
 
@@ -65,6 +69,10 @@ func update_player_attack(value):
 
 func update_enemy_attack(value):
 	enemy_attack_label.text = str(int(value))
+	
+func update_enemy_sprite(new_texture):
+	original_enemy_sprite = new_texture
+	enemy_sprite_display.texture = original_enemy_sprite
 
 
 func change_to():

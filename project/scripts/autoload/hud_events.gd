@@ -25,10 +25,9 @@ signal combat_lost()
 signal reward_chosen()
 
 @warning_ignore("unused_signal")
-signal ask_for_combatant_base_stats()
-
-@warning_ignore("unused_signal")
-signal send_combatant_base_stats(player_stat_array, enemy_stat_array)
-
-@warning_ignore("unused_signal")
 signal change_to_combat_screen()
+
+@warning_ignore("unused_signal")
+signal ask_for_enemy_sprite()
+@warning_ignore("unused_signal")
+signal send_enemy_sprite(sprite:Texture2D)

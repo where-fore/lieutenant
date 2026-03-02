@@ -38,24 +38,12 @@ necessary work
 working notes
 -----------
 
-enemies as resource: base damage, hp, texture, name
-	turn the "enemy growth" into a bonus aura
+	enemies do not load textures, or their combat log name
+	bonus points: have an enemy who gains 1 attack every combat turn	
 	
-		bonus points: have an enemy who gains 1 attack every combat turn
-		bonus points: have enemies with unique scaling coefficients
-			maybe change the "bonus scaling" into a global "combats won" and scale from that
-			
 	have an enemy database like the item one, to pick from random?
-		bonus points: have a "hard" category
-
-
-	restructure "combatant.gd" into composition:
-		parent either enemy or player, with their own functions - listen to below signals and sends out "player_health_damaged" instead of type checking the source
-			health component that signals up to parent (health reached zero) (parent hears and can interpret however they want)
-			turn taking component that signals up to parent
-			resource reading component that signals up base stats and functions
-		restructure all the outgoing signals to be source agnostic
-
+		bonus points: have a "boss" category
+	
 
 
 would like to make the combat log a lil nicer
@@ -86,6 +74,8 @@ look at some schell lenses for the combat system
 
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+change my string references (turn manager looking at player/enemy/precombat) into string names https://docs.godotengine.org/en/stable/classes/class_stringname.html
+
 clarify 'base stats' - esp in statmanager.gd. base as in "before combat damage/temporary effects" or base as in "before items" ?
 
 when reorganizing signals, consider what tense to use - "combat_won" only makes sense if i assume to have a consistently player-focused tense. i think i should use an unbiased tense? player_defeats_encounter?

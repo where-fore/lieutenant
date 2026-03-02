@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CombatantData" load_steps=3 format=3 uid="uid://fatceu4s1agu"]
+
+[ext_resource type="Script" uid="uid://djic85a1uq1k7" path="res://scripts/combatant system/combatant_data.gd" id="1_l25jk"]
+[ext_resource type="Texture2D" uid="uid://dnn7pip1p0838" path="res://sprites/enemy_berserker.png" id="2_vc80m"]
+
+[resource]
+script = ExtResource("1_l25jk")
+name = "Skeleton Berserker"
+base_health = 5
+health_scaling = 5
+base_attack = 6
+attack_scaling = 6
+texture = ExtResource("2_vc80m")

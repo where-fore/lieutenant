@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CombatantData" load_steps=3 format=3 uid="uid://5jw1ftlsj3v3"]
+
+[ext_resource type="Script" uid="uid://djic85a1uq1k7" path="res://scripts/combatant system/combatant_data.gd" id="1_6ls0l"]
+[ext_resource type="Texture2D" uid="uid://bsrydb513iq5s" path="res://sprites/enemy_skull.png" id="2_rrl1d"]
+
+[resource]
+script = ExtResource("1_6ls0l")
+name = "Skeleton Warrior"
+base_health = 10
+health_scaling = 10
+base_attack = 2
+attack_scaling = 2
+texture = ExtResource("2_rrl1d")
