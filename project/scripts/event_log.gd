@@ -15,7 +15,7 @@ func clear_log():
 	
 
 func interpret_damage_dealt(source_object, amount):
-	var source_name = source_object.name
+	var source_name = source_object.baseData.name
 	amount = str(amount)
 	var text_to_add = source_name + " " + "deals" + " " + amount + " " + "damage."
 	append_to_label(text_to_add)
