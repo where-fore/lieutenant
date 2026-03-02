@@ -29,20 +29,22 @@ new font that works looks good below 8px
 
 necessary work
 -----------
+turn animation sometimes goes very quickly? not sure exact steps to reproduce, but probably something about the animation firing/awaiting at the wrong time
 	
-	
+pick random (entropy?) enemy to fight
 
 
 
 
 working notes
 -----------
+need to clean up old enemies
 
-	enemies do not load textures, or their combat log name
-	bonus points: have an enemy who gains 1 attack every combat turn	
-	
-	have an enemy database like the item one, to pick from random?
-		bonus points: have a "boss" category
+
+
+
+bonus points: have an enemy who gains 1 attack every combat turn	
+bonus points: have a "boss" category every eg. 5 combats?
 	
 
 
@@ -68,12 +70,20 @@ standard autobattler:
 		-maybe instead have a total power, and decide how much to commit to each category? and enemy does too? best of three?
 
 look at some schell lenses for the combat system
+	current_player.reset_current_stats_to_base()
+	current_player.merge_aura_and_base_stats(player_aura_dictionary)
 
 
 
 
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+player combatant should be instantiaed et al. too just like the enemies
+
+statevents.send_auras_to_combatants doesn't scale to multiple combatants
+
+combatant: the signal that sends out when a stat is updated, should be on a function wrapper for editing that value; not just tacked onto functions that edit that value
+
 change my string references (turn manager looking at player/enemy/precombat) into string names https://docs.godotengine.org/en/stable/classes/class_stringname.html
 
 clarify 'base stats' - esp in statmanager.gd. base as in "before combat damage/temporary effects" or base as in "before items" ?

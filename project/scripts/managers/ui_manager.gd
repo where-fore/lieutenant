@@ -35,5 +35,6 @@ func initialize_combat_labels(player_combatant, enemy_combatant):
 
 
 func _on_restart_button_pressed() -> void:
+	TimingEvents.restart_the_game.emit()
 	death_ui.visible = false
 	combat_ui_manager.change_to()

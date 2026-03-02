@@ -9,7 +9,8 @@ var inventory_slots : Array[Node] = []
 func _ready() -> void:
 	find_inventory_slot_nodes()
 	TimingEvents.everythings_ready.connect(on_scene_ready)
-	HudEvents.combat_lost.connect(perish)
+	InventoryEvents.clear_all_to_restart.connect(clear_inventory)
+	InventoryEvents.rebuild_all_to_restart.connect(populate_starter_items)
 	InventoryEvents.send_item_to_inventory.connect(equip)
 	InventoryEvents.slot_updated.connect(update_inventory_full_status)
 
@@ -35,9 +36,6 @@ func equip(item_to_equip:ItemData):
 	else: pass #print_debug("inventory full")
 	update_inventory_full_status()
 
-func perish():
-	clear_inventory()
-	populate_starter_items()
 
 func clear_inventory():
 	for slot:InventorySlot in inventory_slots:

@@ -25,3 +25,6 @@ signal play_button_pressed()
 signal combatant_died(combatant_who_died)
 
 var combat_ongoing: bool = false
+
+@warning_ignore("unused_signal")
+signal enemy_ready()

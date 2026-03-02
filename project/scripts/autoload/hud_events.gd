@@ -28,6 +28,4 @@ signal reward_chosen()
 signal change_to_combat_screen()
 
 @warning_ignore("unused_signal")
-signal ask_for_enemy_sprite()
-@warning_ignore("unused_signal")
 signal send_enemy_sprite(sprite:Texture2D)

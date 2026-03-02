@@ -11,14 +11,17 @@ var current_stats = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if baseData == null:
-		push_error("no combatant data set before initalization")
-		
+	StatEvents.send_auras_to_combatants.connect(recalculate_stats)
+	
+	setup()
+
+func setup():
 	base_stats[Stats.health] = baseData.base_health
 	base_stats[Stats.attack] = baseData.base_attack
 	reset_current_stats_to_base()
+	send_sprite_to_ui()
+	CombatEvents.enemy_ready.emit()
 	
-	HudEvents.ask_for_enemy_sprite.connect(send_sprite_to_ui)
 
 func take_damage(value):
 	current_stats[Stats.health] -= value
@@ -50,6 +53,19 @@ func take_turn():
 	
 	#all done
 	CombatEvents.turn_finished.emit()
+
+func recalculate_stats(playerAuraDictionary, enemyAuraDictionary):
+	reset_current_stats_to_base()
+	
+	if _this_is_the_player:
+		merge_aura_and_base_stats(playerAuraDictionary)
+		HudEvents.player_health_update.emit(current_stats[Stats.health])
+		HudEvents.player_attack_update.emit(current_stats[Stats.attack])
+	
+	elif not _this_is_the_player:
+		merge_aura_and_base_stats(enemyAuraDictionary)
+		HudEvents.enemy_health_update.emit(current_stats[Stats.health])
+		HudEvents.enemy_attack_update.emit(current_stats[Stats.attack])
 
 func merge_aura_and_base_stats(auraDictionary:Dictionary[String,int]):
 	for stat in auraDictionary:

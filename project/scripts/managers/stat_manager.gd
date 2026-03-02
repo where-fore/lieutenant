@@ -2,7 +2,6 @@ extends Node2D
 
 
 @onready var current_player = $"Player Combatant"
-@onready var current_enemy = $"Enemy Combatant"
 
 var player_aura_dictionary:Dictionary[String,int]
 var enemy_aura_dictionary:Dictionary[String,int]
@@ -14,11 +13,11 @@ func _ready() -> void:
 	HudEvents.combat_won.connect(grow_enemies)
 	StatEvents.health_increased.connect(increase_player_health)
 	StatEvents.attack_increased.connect(increase_player_attack)
-	HudEvents.combat_lost.connect(reset_to_starting_stats)
+	StatEvents.restart_game.connect(reset_to_starting_stats)
 	InventoryEvents.item_successfully_equipped.connect(interpret_new_item)
 	InventoryEvents.item_successfully_unequipped.connect(interpret_removed_item)
 
-func reset_to_starting_stats():	
+func reset_to_starting_stats():
 	StatEvents.encounters_defeated_for_scaling = 0
 	player_aura_dictionary.clear()
 	enemy_aura_dictionary.clear()
@@ -36,15 +35,7 @@ func interpret_removed_item(item:ItemData):
 	update_precombat_stats()
 
 func update_precombat_stats():
-	current_player.reset_current_stats_to_base()
-	current_player.merge_aura_and_base_stats(player_aura_dictionary)
-	HudEvents.player_health_update.emit(current_player.current_stats[Stats.health])
-	HudEvents.player_attack_update.emit(current_player.current_stats[Stats.attack])
-	
-	current_enemy.reset_current_stats_to_base()
-	current_enemy.merge_aura_and_base_stats(enemy_aura_dictionary)
-	HudEvents.enemy_health_update.emit(current_enemy.current_stats[Stats.health])
-	HudEvents.enemy_attack_update.emit(current_enemy.current_stats[Stats.attack])
+	StatEvents.send_auras_to_combatants.emit(player_aura_dictionary, enemy_aura_dictionary)
 
 func grow_enemies():
 	StatEvents.encounters_defeated_for_scaling += 1

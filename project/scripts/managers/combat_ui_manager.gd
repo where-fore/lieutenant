@@ -38,7 +38,7 @@ func _ready() -> void:
 	turn_buttons.visible = false
 
 func on_scene_ready():
-	HudEvents.ask_for_enemy_sprite.emit()
+	pass
 
 func set_first_turn_indicator():
 	player_sprite_display.texture = turn_sprite

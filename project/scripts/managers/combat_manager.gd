@@ -1,20 +1,22 @@
 extends Node2D
 
+@export var combatant_base_scene:PackedScene
 @onready var current_player = $"Stat Manager/Player Combatant"
-@onready var current_enemy = $"Stat Manager/Enemy Combatant"
+var current_enemy
+@export var random_enemy_selection:EnemyCollection
 
 var player_turn = "Player"
 var enemy_turn = "Enemy"
 var precombat = "Precombat"
 var turn = precombat
-var turn_number = 1
+var turn_number = 0
 var turn_finished = false
 
 var can_start_combat = true
 
 var opener_turn_delay = 1
 var middle_turn_delay = 0.2
-var near_end_delay = 1
+var near_end_delay = 0.8
 
 var step_mode = "step mode"
 var play_mode = "play mode"
@@ -31,10 +33,7 @@ func _ready() -> void:
 	CombatEvents.pause_button_pressed.connect(pause_button_pressed)
 	CombatEvents.step_button_pressed.connect(step_button_pressed)
 	CombatEvents.play_button_pressed.connect(play_button_pressed)
-	
-	#wait for everything else to load
-	await owner.ready
-	pre_combat()
+	TimingEvents.everythings_ready.connect(pre_combat)
 
 
 func pause_button_pressed():
@@ -76,7 +75,6 @@ func next_turn():
 		#swap turns
 		if turn == player_turn: turn = enemy_turn
 		elif turn == enemy_turn: turn = player_turn
-		turn_number += 1
 		
 		
 		if CombatEvents.combat_ongoing:
@@ -99,17 +97,42 @@ func turn_animation():
 
 func stop_combat(combatant_who_died):
 	CombatEvents.combat_ongoing = false
-	if combatant_who_died.is_the_player(): HudEvents.combat_lost.emit()
-	elif not combatant_who_died.is_the_player(): HudEvents.combat_won.emit()
+	if combatant_who_died.is_the_player():
+		HudEvents.combat_lost.emit()
+		
+	elif not combatant_who_died.is_the_player():
+		HudEvents.combat_won.emit()
+		#delete the old loser from memory
+		combatant_who_died.queue_free()
 
 
 func pre_combat():
+	choose_enemy()
+	
+	#now i wait for the enemy to be created, so i can continue
+	#this is a dangerous idea - this could cause the program to hang forever if somehow this fails
+	#await CombatEvents.enemy_ready
+	#alright so hopefully we're all good...
+	
 	StatEvents.initalize_combat_stats.emit()
 	turn = precombat
 	CombatEvents.combat_ongoing = false
 	can_start_combat = true
-	#reset turn counter
-	turn_number = 1
+	reset_turn_counter()
+
+func choose_enemy():
+	#pick data
+	var new_enemy_data = random_enemy_selection.enemies.pick_random()
+	#create a lil memory boi
+	var new_enemy_node = combatant_base_scene.instantiate()
+	#assign data to our boi
+	new_enemy_node.baseData = new_enemy_data
+	#make our boi into real thing
+	add_child(new_enemy_node)
+	#call function on our real thing
+	new_enemy_node.setup()
+	
+	current_enemy = new_enemy_node
 
 func start_combat():
 	if not CombatEvents.combat_ongoing and can_start_combat:
@@ -118,6 +141,8 @@ func start_combat():
 
 
 func start_turn():
+	turn_number += 1
+	
 	if turn == precombat:
 		turn = player_turn
 		current_player.take_turn()
@@ -127,3 +152,6 @@ func start_turn():
 		
 	elif turn == enemy_turn: 
 		current_enemy.take_turn()
+
+func reset_turn_counter():
+	turn_number = 0
