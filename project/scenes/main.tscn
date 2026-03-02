@@ -7,13 +7,13 @@
 [ext_resource type="Script" uid="uid://cknq3emhm8aah" path="res://scripts/managers/ui_manager.gd" id="2_choun"]
 [ext_resource type="Shader" uid="uid://bey6fsvgi1mh7" path="res://crt_shader.gdshader" id="2_trceg"]
 [ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="3_jyhfs"]
-[ext_resource type="Texture2D" uid="uid://d0rwa3cc00ngr" path="res://sprites/enemy.png" id="3_sugp2"]
 [ext_resource type="Script" uid="uid://xqr3pvl5dnbd" path="res://scripts/managers/reward_ui_manager.gd" id="3_ya4ey"]
 [ext_resource type="Texture2D" uid="uid://jm7ccvlf38y4" path="res://sprites/sword.png" id="4_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://dsn3r7gjwvoov" path="res://scenes/combatant.tscn" id="9_85g3d"]
 [ext_resource type="Script" uid="uid://c4226uk3kd0at" path="res://scripts/managers/combat_manager.gd" id="9_choun"]
 [ext_resource type="Texture2D" uid="uid://yruocle2m8id" path="res://sprites/ui_bar.png" id="11_a8y0u"]
 [ext_resource type="Texture2D" uid="uid://bddfprulsphw2" path="res://sprites/ui_bar_horizontal.png" id="11_jkv2x"]
+[ext_resource type="Texture2D" uid="uid://bsrydb513iq5s" path="res://sprites/enemy_skull.png" id="11_og1vs"]
 [ext_resource type="Script" uid="uid://drid3rj23mqkf" path="res://scripts/managers/stat_manager.gd" id="12_eb6dy"]
 [ext_resource type="Texture2D" uid="uid://c428mv3lvximd" path="res://sprites/play.png" id="12_jscy8"]
 [ext_resource type="Texture2D" uid="uid://ciouurklba10y" path="res://sprites/pause.png" id="12_y6deb"]
@@ -344,7 +344,7 @@ grow_vertical = 2
 [node name="Sprite" type="TextureRect" parent="UI Manager/Combat UI/Control/Enemy"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-texture = ExtResource("3_sugp2")
+texture = ExtResource("11_og1vs")
 stretch_mode = 5
 
 [node name="Stats" type="VBoxContainer" parent="UI Manager/Combat UI/Control/Enemy"]

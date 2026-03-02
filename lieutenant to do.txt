@@ -38,7 +38,15 @@ necessary work
 working notes
 -----------
 
-
+enemies as resource: base damage, hp, texture, name
+	draw some sprites
+	turn the "enemy growth" into a bonus aura
+	setup the enemy resource class structure, a lot like the item structure
+		bonus points: have an enemy who gains 1 attack every turn
+		bonus points: have enemies with unique scaling coefficients
+			maybe change the "bonus scaling" into a global "combats won" and scale from that
+	have an enemy database like the item one, to pick from random?
+		bonus points: have a "hard" category
 
 
 
@@ -134,6 +142,12 @@ lots of brainstorming notes from before, unorganized:
 --------------------------------------------------------
 --------------------------------------------------------
 --------------------------------------------------------
+"merchant" who doesn't have any inventory, but has connections - tells you where the item will be dropped, if you pay now (or maybe half up front? let's you save gold by being powerful ie. killing the delivery guard)
+
+everything as blood theme - health as your main resource. if auto battler fights are boring because you know who wins - make the amount you win by important. you still get progression from getter stronger, even though you're still winning the deterministic fights, you're winning them more and more so you can do the cool blood ritual stuff
+vampire build - max hp tiny, heal from attacks, lethal hits bleed into attack damage
+"tank" type as a vampire/demon/drain tank - has no mitigation, but can heal damage at a better than 1:1 ratio by hurting allies (eg. deal 5 to ally to heal 10, making dealing 10 damage to the tank actually hurt the team for 5, 50% dr)
+hmmm and the vampire lieutenant makes the roguelike part diegetic, your mist form returns to the coffin to try again and recruit a new squad
 
 discarding your hand to draw a new one is a scary feeling, not knowing if it will be better, could train
 
