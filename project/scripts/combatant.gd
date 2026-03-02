@@ -13,8 +13,8 @@ func get_attack() -> int: return attack
 func take_damage(value):
 	health -= value
 	
-	if is_the_player(): HudEvents.player_health_update.emit()
-	else: HudEvents.enemy_health_update.emit()
+	if is_the_player(): HudEvents.player_health_update.emit(health)
+	else: HudEvents.enemy_health_update.emit(health)
 	
 	if health <= 0: perish()
 
@@ -33,9 +33,9 @@ func take_turn():
 #this gets called by the manager
 func initialize_stats(base_health, base_attack):
 	health = base_health
-	if is_the_player(): HudEvents.player_health_update.emit()
-	else: HudEvents.enemy_health_update.emit()
+	if is_the_player(): HudEvents.player_health_update.emit(health)
+	else: HudEvents.enemy_health_update.emit(health)
 	
 	attack = base_attack
-	if is_the_player(): HudEvents.player_attack_update.emit()
-	else: HudEvents.enemy_attack_update.emit()
+	if is_the_player(): HudEvents.player_attack_update.emit(attack)
+	else: HudEvents.enemy_attack_update.emit(attack)

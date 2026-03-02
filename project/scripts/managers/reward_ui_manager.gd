@@ -43,6 +43,5 @@ func _on_heart_sprite_pressed() -> void:
 	reward_selected()
 
 func reward_selected():
-	StatEvents.enemy_stat_scale.emit()
 	HudEvents.reward_chosen.emit()
 	

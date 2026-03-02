@@ -39,17 +39,22 @@ working notes
 -----------
 
 enemies as resource: base damage, hp, texture, name
-	draw some sprites
 	turn the "enemy growth" into a bonus aura
-	setup the enemy resource class structure, a lot like the item structure
-		bonus points: have an enemy who gains 1 attack every turn
+	
+		bonus points: have an enemy who gains 1 attack every combat turn
 		bonus points: have enemies with unique scaling coefficients
 			maybe change the "bonus scaling" into a global "combats won" and scale from that
+			
 	have an enemy database like the item one, to pick from random?
 		bonus points: have a "hard" category
 
 
-
+	restructure "combatant.gd" into composition:
+		parent either enemy or player, with their own functions - listen to below signals and sends out "player_health_damaged" instead of type checking the source
+			health component that signals up to parent (health reached zero) (parent hears and can interpret however they want)
+			turn taking component that signals up to parent
+			resource reading component that signals up base stats and functions
+		restructure all the outgoing signals to be source agnostic
 
 
 
@@ -81,6 +86,15 @@ look at some schell lenses for the combat system
 
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+clarify 'base stats' - esp in statmanager.gd. base as in "before combat damage/temporary effects" or base as in "before items" ?
+
+when reorganizing signals, consider what tense to use - "combat_won" only makes sense if i assume to have a consistently player-focused tense. i think i should use an unbiased tense? player_defeats_encounter?
+
+reorganize this list below lmao
+
+should probably have a "reset and clean up game" signal, instead of latching on something arbitrary like combat lost
+
+
 have non-inventory buffs visible? like the hp aura?
 
 hmmm my inventory events has two events, "item equipped" and "send item to inventory". when in the reward screen, i called "item equipped" which really short circuited the logic, since that bypassed the inventory system and just sent the output. not sure how to avoid
@@ -142,6 +156,10 @@ lots of brainstorming notes from before, unorganized:
 --------------------------------------------------------
 --------------------------------------------------------
 --------------------------------------------------------
+uncertainty in output variance - more like blackjack than roulette, allow skill expression in card counting. likely requires regular choices with new information. "the fates do not play dice in this world. what seems random is simply misunderstood"
+
+when populating item rewards, have a few earmarked as "oracle rewards" - and you can pray to choose an item to encounter (which will be the oracle rewards). have the amount of time in the future to find the oracle reward be contingent on how much you sacrifice to the oracle?
+
 "merchant" who doesn't have any inventory, but has connections - tells you where the item will be dropped, if you pay now (or maybe half up front? let's you save gold by being powerful ie. killing the delivery guard)
 
 everything as blood theme - health as your main resource. if auto battler fights are boring because you know who wins - make the amount you win by important. you still get progression from getter stronger, even though you're still winning the deterministic fights, you're winning them more and more so you can do the cool blood ritual stuff

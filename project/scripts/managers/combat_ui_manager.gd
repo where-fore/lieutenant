@@ -54,17 +54,17 @@ func update_turn_indicator():
 	step_button_border.visible = false
 
 
-func update_player_health():
-	player_health_label.text = str(int(current_player.get_health()))
+func update_player_health(value):
+	player_health_label.text = str(int(value))
 
-func update_enemy_health():
-	enemy_health_label.text = str(int(current_enemy.get_health()))
+func update_enemy_health(value):
+	enemy_health_label.text = str(int(value))
 
-func update_player_attack():
-	player_attack_label.text = str(int(current_player.get_attack()))
+func update_player_attack(value):
+	player_attack_label.text = str(int(value))
 
-func update_enemy_attack():
-	enemy_attack_label.text = str(int(current_enemy.get_attack()))
+func update_enemy_attack(value):
+	enemy_attack_label.text = str(int(value))
 
 
 func change_to():
@@ -80,19 +80,6 @@ func change_to():
 func change_from():
 	clear_turn_indicator()
 	visible = false
-
-#this is called in the main manager
-func initialize_labels(player_combatant, enemy_combatant):
-	
-	#save these combatant objects for future reference
-	current_player = player_combatant
-	current_enemy = enemy_combatant
-	
-	update_player_health()
-	update_enemy_health()
-	update_player_attack()
-	update_enemy_attack()
-
 
 func _on_combat_button_pressed() -> void:
 	HudEvents.combat_button_pressed.emit()

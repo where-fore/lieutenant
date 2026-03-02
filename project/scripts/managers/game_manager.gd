@@ -1,17 +1,12 @@
 extends Node2D
 
-@onready var player_combatant = $"Combat Manager/Player Combatant" as Node2D
-@onready var enemy_combatant = $"Combat Manager/Enemy Combatant" as Node2D
-
-
-@onready var ui_manager = $"UI Manager"
-
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	ui_manager.initialize_combat_labels(player_combatant, enemy_combatant)
+func _ready() -> void:	
 	
 	#this gets called when this node is readied - and since it's the root node, this is after all children are ready
 	TimingEvents.everythings_ready.emit()
+
+
 
 # debug stuff
 @onready var label = $"UI Manager/Debug UI/Turn"

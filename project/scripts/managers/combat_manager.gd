@@ -1,7 +1,7 @@
 extends Node2D
 
-@onready var current_player = $"Player Combatant"
-@onready var current_enemy = $"Enemy Combatant"
+@onready var current_player = $"Stat Manager/Player Combatant"
+@onready var current_enemy = $"Stat Manager/Enemy Combatant"
 
 var player_turn = "Player"
 var enemy_turn = "Enemy"
