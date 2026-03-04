@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var combatant_base_scene:PackedScene
-@onready var current_player = $"Stat Manager/Player Combatant"
+@onready var current_player = $StatManager/PlayerCombatant
 var current_enemy
 @export var random_enemy_selection:EnemyCollection
 

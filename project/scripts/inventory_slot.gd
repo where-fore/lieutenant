@@ -3,7 +3,7 @@ class_name InventorySlot
 
 @export var item_in_slot: ItemData
 
-@onready var slot_sprite = $"ItemSprite"
+@onready var slot_sprite = $ItemSprite
 
 var tooltip_text_base = "Increases\nattack by "
 

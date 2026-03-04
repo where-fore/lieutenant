@@ -1,22 +1,22 @@
 extends CanvasLayer
 
-@onready var player_health_label = $"Control/Player/Stats/Health/HBoxContainer/Label" as Label
-@onready var enemy_health_label = $"Control/Enemy/Stats/Health/HBoxContainer/Label" as Label
+@onready var player_health_label = $Control/Player/Stats/Health/HBoxContainer/Label as Label
+@onready var enemy_health_label = $Control/Enemy/Stats/Health/HBoxContainer/Label as Label
 
-@onready var player_attack_label = $"Control/Player/Stats/Attack/HBoxContainer/Label" as Label
-@onready var enemy_attack_label = $"Control/Enemy/Stats/Attack/HBoxContainer/Label" as Label
+@onready var player_attack_label = $Control/Player/Stats/Attack/HBoxContainer/Label as Label
+@onready var enemy_attack_label = $Control/Enemy/Stats/Attack/HBoxContainer/Label as Label
 
-@onready var combat_button = $"Control/Combat Button"
+@onready var combat_button = $Control/CombatButton
 
-@onready var turn_buttons = $"Control/Turn Buttons"
-@onready var pause_button_border = $"Control/Turn Buttons/Pause Button/TextureRect"
+@onready var turn_buttons = $Control/TurnButtons
+@onready var pause_button_border = $Control/TurnButtons/PauseButton/TextureRect
 #i removed the texture here from the step border, cause i realized turns are basically instant and this doesn't do anything
 #could add button pressed feedback instead of this border stuff
-@onready var step_button_border = $"Control/Turn Buttons/Step Button/TextureRect"
-@onready var play_button_border = $"Control/Turn Buttons/Play Button/TextureRect"
+@onready var step_button_border = $Control/TurnButtons/StepButton/TextureRect
+@onready var play_button_border = $Control/TurnButtons/PlayButton/TextureRect
 
-@onready var player_sprite_display = $"Control/Player/Sprite"
-@onready var enemy_sprite_display = $"Control/Enemy/Sprite"
+@onready var player_sprite_display = $Control/Player/Sprite
+@onready var enemy_sprite_display = $Control/Enemy/Sprite
 @export var turn_sprite: Texture2D
 @onready var original_player_sprite = player_sprite_display.texture
 @onready var original_enemy_sprite = enemy_sprite_display.texture

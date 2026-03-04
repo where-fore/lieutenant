@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cbp6sg330uwef" path="res://sprites/player.png" id="1_0wfyh"]
 [ext_resource type="Theme" uid="uid://8g0oubdd3ix7" path="res://ui/marginTheme.tres" id="1_o5qli"]
-[ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://scripts/managers/game_manager.gd" id="1_o6xl0"]
+[ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://scripts/managers/main.gd" id="1_o6xl0"]
 [ext_resource type="Script" uid="uid://df5yy5wtfly3o" path="res://scripts/managers/combat_ui_manager.gd" id="1_tefeu"]
 [ext_resource type="Script" uid="uid://cknq3emhm8aah" path="res://scripts/managers/ui_manager.gd" id="2_choun"]
 [ext_resource type="Shader" uid="uid://bey6fsvgi1mh7" path="res://crt_shader.gdshader" id="2_trceg"]
@@ -56,10 +56,10 @@ shader_parameter/vignette_opacity = 0.30000001425
 [node name="Main" type="Node2D"]
 script = ExtResource("1_o6xl0")
 
-[node name="CRT Filter" type="CanvasLayer" parent="."]
+[node name="CRTFilter" type="CanvasLayer" parent="."]
 layer = 100
 
-[node name="ColorRect" type="ColorRect" parent="CRT Filter"]
+[node name="ColorRect" type="ColorRect" parent="CRTFilter"]
 material = SubResource("ShaderMaterial_trceg")
 anchors_preset = 15
 anchor_right = 1.0
@@ -70,13 +70,13 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
 
-[node name="UI Manager" type="Node2D" parent="."]
+[node name="UIManager" type="Node2D" parent="."]
 script = ExtResource("2_choun")
 
-[node name="Debug UI" type="CanvasLayer" parent="UI Manager"]
+[node name="DebugUI" type="CanvasLayer" parent="UIManager"]
 visible = false
 
-[node name="Turn" type="Label" parent="UI Manager/Debug UI"]
+[node name="Turn" type="Label" parent="UIManager/DebugUI"]
 anchors_preset = -1
 anchor_left = 0.01
 anchor_top = 0.01
@@ -88,12 +88,12 @@ size_flags_vertical = 1
 theme_override_font_sizes/font_size = 8
 text = "turn: ????"
 
-[node name="Reward UI" type="CanvasLayer" parent="UI Manager"]
+[node name="RewardUI" type="CanvasLayer" parent="UIManager"]
 visible = false
 script = ExtResource("3_ya4ey")
 attack_upgrade_item = ExtResource("17_gqmmt")
 
-[node name="Control" type="Control" parent="UI Manager/Reward UI"]
+[node name="Control" type="Control" parent="UIManager/RewardUI"]
 layout_mode = 3
 anchor_left = 0.2
 anchor_top = 0.2
@@ -102,7 +102,7 @@ anchor_bottom = 0.8
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI Manager/Reward UI/Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UIManager/RewardUI/Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -117,70 +117,70 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="UI Manager/Reward UI/Control/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UIManager/RewardUI/Control/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Title" type="Label" parent="UI Manager/Reward UI/Control/VBoxContainer/MarginContainer"]
+[node name="Title" type="Label" parent="UIManager/RewardUI/Control/VBoxContainer/MarginContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "Victory.
 Choose your boon."
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI Manager/Reward UI/Control/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UIManager/RewardUI/Control/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="UI Manager/Reward UI/Control/VBoxContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UIManager/RewardUI/Control/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI Manager/Reward UI/Control/VBoxContainer/HBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UIManager/RewardUI/Control/VBoxContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Sword Sprite" type="TextureButton" parent="UI Manager/Reward UI/Control/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+[node name="SwordSprite" type="TextureButton" parent="UIManager/RewardUI/Control/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 texture_normal = ExtResource("4_tbgi4")
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="UI Manager/Reward UI/Control/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="UIManager/RewardUI/Control/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "New
 Sword"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="UI Manager/Reward UI/Control/VBoxContainer/HBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="UIManager/RewardUI/Control/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="UI Manager/Reward UI/Control/VBoxContainer/HBoxContainer/MarginContainer2"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="UIManager/RewardUI/Control/VBoxContainer/HBoxContainer/MarginContainer2"]
 layout_mode = 2
 
-[node name="Heart Sprite" type="TextureButton" parent="UI Manager/Reward UI/Control/VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer2"]
+[node name="HeartSprite" type="TextureButton" parent="UIManager/RewardUI/Control/VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer2"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 texture_normal = ExtResource("3_jyhfs")
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="UI Manager/Reward UI/Control/VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer2"]
+[node name="Label" type="Label" parent="UIManager/RewardUI/Control/VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer2"]
 layout_mode = 2
 text = "Rest"
 horizontal_alignment = 1
 
-[node name="Death UI" type="CanvasLayer" parent="UI Manager"]
+[node name="DeathUI" type="CanvasLayer" parent="UIManager"]
 visible = false
 
-[node name="Control" type="Control" parent="UI Manager/Death UI"]
+[node name="Control" type="Control" parent="UIManager/DeathUI"]
 layout_mode = 3
 anchor_left = 0.2
 anchor_top = 0.2
@@ -189,7 +189,7 @@ anchor_bottom = 0.8
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI Manager/Death UI/Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UIManager/DeathUI/Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -204,34 +204,34 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="UI Manager/Death UI/Control/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UIManager/DeathUI/Control/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Title" type="Label" parent="UI Manager/Death UI/Control/VBoxContainer/MarginContainer"]
+[node name="Title" type="Label" parent="UIManager/DeathUI/Control/VBoxContainer/MarginContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "You have
 perished"
 horizontal_alignment = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="UI Manager/Death UI/Control/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="UIManager/DeathUI/Control/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Restart Button" type="TextureButton" parent="UI Manager/Death UI/Control/VBoxContainer/MarginContainer2"]
+[node name="RestartButton" type="TextureButton" parent="UIManager/DeathUI/Control/VBoxContainer/MarginContainer2"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 texture_normal = ExtResource("3_jyhfs")
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="UI Manager/Death UI/Control/VBoxContainer/MarginContainer2/Restart Button"]
+[node name="Label" type="Label" parent="UIManager/DeathUI/Control/VBoxContainer/MarginContainer2/RestartButton"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -247,18 +247,18 @@ theme_override_font_sizes/font_size = 8
 text = "Restart"
 horizontal_alignment = 1
 
-[node name="Combat UI" type="CanvasLayer" parent="UI Manager"]
+[node name="CombatUI" type="CanvasLayer" parent="UIManager"]
 script = ExtResource("1_tefeu")
 turn_sprite = ExtResource("4_tbgi4")
 
-[node name="Control" type="Control" parent="UI Manager/Combat UI"]
+[node name="Control" type="Control" parent="UIManager/CombatUI"]
 layout_mode = 3
 anchor_right = 0.71
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Player" type="VBoxContainer" parent="UI Manager/Combat UI/Control"]
+[node name="Player" type="VBoxContainer" parent="UIManager/CombatUI/Control"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.4
@@ -271,7 +271,7 @@ offset_bottom = 56.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Sprite" type="TextureRect" parent="UI Manager/Combat UI/Control/Player"]
+[node name="Sprite" type="TextureRect" parent="UIManager/CombatUI/Control/Player"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -279,11 +279,11 @@ size_flags_vertical = 4
 texture = ExtResource("1_0wfyh")
 stretch_mode = 5
 
-[node name="Stats" type="VBoxContainer" parent="UI Manager/Combat UI/Control/Player"]
+[node name="Stats" type="VBoxContainer" parent="UIManager/CombatUI/Control/Player"]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Health" type="MarginContainer" parent="UI Manager/Combat UI/Control/Player/Stats"]
+[node name="Health" type="MarginContainer" parent="UIManager/CombatUI/Control/Player/Stats"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("1_o5qli")
@@ -292,10 +292,10 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI Manager/Combat UI/Control/Player/Stats/Health"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UIManager/CombatUI/Control/Player/Stats/Health"]
 layout_mode = 2
 
-[node name="Icon" type="TextureRect" parent="UI Manager/Combat UI/Control/Player/Stats/Health/HBoxContainer"]
+[node name="Icon" type="TextureRect" parent="UIManager/CombatUI/Control/Player/Stats/Health/HBoxContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -303,12 +303,12 @@ size_flags_vertical = 4
 texture = ExtResource("3_jyhfs")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="UI Manager/Combat UI/Control/Player/Stats/Health/HBoxContainer"]
+[node name="Label" type="Label" parent="UIManager/CombatUI/Control/Player/Stats/Health/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "??"
 
-[node name="Attack" type="MarginContainer" parent="UI Manager/Combat UI/Control/Player/Stats"]
+[node name="Attack" type="MarginContainer" parent="UIManager/CombatUI/Control/Player/Stats"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("1_o5qli")
@@ -317,10 +317,10 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI Manager/Combat UI/Control/Player/Stats/Attack"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UIManager/CombatUI/Control/Player/Stats/Attack"]
 layout_mode = 2
 
-[node name="Icon" type="TextureRect" parent="UI Manager/Combat UI/Control/Player/Stats/Attack/HBoxContainer"]
+[node name="Icon" type="TextureRect" parent="UIManager/CombatUI/Control/Player/Stats/Attack/HBoxContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -328,11 +328,11 @@ size_flags_vertical = 4
 texture = ExtResource("4_tbgi4")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="UI Manager/Combat UI/Control/Player/Stats/Attack/HBoxContainer"]
+[node name="Label" type="Label" parent="UIManager/CombatUI/Control/Player/Stats/Attack/HBoxContainer"]
 layout_mode = 2
 text = "??"
 
-[node name="Enemy" type="VBoxContainer" parent="UI Manager/Combat UI/Control"]
+[node name="Enemy" type="VBoxContainer" parent="UIManager/CombatUI/Control"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.6
@@ -344,17 +344,17 @@ offset_right = 60.0
 offset_bottom = 56.0
 grow_vertical = 2
 
-[node name="Sprite" type="TextureRect" parent="UI Manager/Combat UI/Control/Enemy"]
+[node name="Sprite" type="TextureRect" parent="UIManager/CombatUI/Control/Enemy"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 texture = ExtResource("11_og1vs")
 stretch_mode = 5
 
-[node name="Stats" type="VBoxContainer" parent="UI Manager/Combat UI/Control/Enemy"]
+[node name="Stats" type="VBoxContainer" parent="UIManager/CombatUI/Control/Enemy"]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Health" type="MarginContainer" parent="UI Manager/Combat UI/Control/Enemy/Stats"]
+[node name="Health" type="MarginContainer" parent="UIManager/CombatUI/Control/Enemy/Stats"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("1_o5qli")
@@ -363,10 +363,10 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI Manager/Combat UI/Control/Enemy/Stats/Health"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UIManager/CombatUI/Control/Enemy/Stats/Health"]
 layout_mode = 2
 
-[node name="Icon" type="TextureRect" parent="UI Manager/Combat UI/Control/Enemy/Stats/Health/HBoxContainer"]
+[node name="Icon" type="TextureRect" parent="UIManager/CombatUI/Control/Enemy/Stats/Health/HBoxContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -374,12 +374,12 @@ size_flags_vertical = 4
 texture = ExtResource("3_jyhfs")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="UI Manager/Combat UI/Control/Enemy/Stats/Health/HBoxContainer"]
+[node name="Label" type="Label" parent="UIManager/CombatUI/Control/Enemy/Stats/Health/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "??"
 
-[node name="Attack" type="MarginContainer" parent="UI Manager/Combat UI/Control/Enemy/Stats"]
+[node name="Attack" type="MarginContainer" parent="UIManager/CombatUI/Control/Enemy/Stats"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("1_o5qli")
@@ -388,12 +388,12 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI Manager/Combat UI/Control/Enemy/Stats/Attack"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UIManager/CombatUI/Control/Enemy/Stats/Attack"]
 layout_mode = 2
 theme_override_constants/separation = 4
 alignment = 1
 
-[node name="Icon" type="TextureRect" parent="UI Manager/Combat UI/Control/Enemy/Stats/Attack/HBoxContainer"]
+[node name="Icon" type="TextureRect" parent="UIManager/CombatUI/Control/Enemy/Stats/Attack/HBoxContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -401,11 +401,11 @@ size_flags_vertical = 4
 texture = ExtResource("4_tbgi4")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="UI Manager/Combat UI/Control/Enemy/Stats/Attack/HBoxContainer"]
+[node name="Label" type="Label" parent="UIManager/CombatUI/Control/Enemy/Stats/Attack/HBoxContainer"]
 layout_mode = 2
 text = "??"
 
-[node name="Combat Button" type="Button" parent="UI Manager/Combat UI/Control"]
+[node name="CombatButton" type="Button" parent="UIManager/CombatUI/Control"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -422,7 +422,7 @@ icon = ExtResource("4_tbgi4")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Label" type="Label" parent="UI Manager/Combat UI/Control/Combat Button"]
+[node name="Label" type="Label" parent="UIManager/CombatUI/Control/CombatButton"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -437,7 +437,7 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 8
 text = "combat"
 
-[node name="Turn Buttons" type="HBoxContainer" parent="UI Manager/Combat UI/Control"]
+[node name="TurnButtons" type="HBoxContainer" parent="UIManager/CombatUI/Control"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.25
@@ -448,7 +448,7 @@ offset_bottom = 16.0
 grow_horizontal = 2
 alignment = 1
 
-[node name="Pause Button" type="TextureButton" parent="UI Manager/Combat UI/Control/Turn Buttons"]
+[node name="PauseButton" type="TextureButton" parent="UIManager/CombatUI/Control/TurnButtons"]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -456,7 +456,7 @@ toggle_mode = true
 texture_normal = ExtResource("12_y6deb")
 stretch_mode = 5
 
-[node name="TextureRect" type="TextureRect" parent="UI Manager/Combat UI/Control/Turn Buttons/Pause Button"]
+[node name="TextureRect" type="TextureRect" parent="UIManager/CombatUI/Control/TurnButtons/PauseButton"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -466,14 +466,14 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("13_2wyq8")
 
-[node name="Step Button" type="TextureButton" parent="UI Manager/Combat UI/Control/Turn Buttons"]
+[node name="StepButton" type="TextureButton" parent="UIManager/CombatUI/Control/TurnButtons"]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_horizontal = 3
 texture_normal = ExtResource("13_og1vs")
 stretch_mode = 5
 
-[node name="TextureRect" type="TextureRect" parent="UI Manager/Combat UI/Control/Turn Buttons/Step Button"]
+[node name="TextureRect" type="TextureRect" parent="UIManager/CombatUI/Control/TurnButtons/StepButton"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -482,7 +482,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Play Button" type="TextureButton" parent="UI Manager/Combat UI/Control/Turn Buttons"]
+[node name="PlayButton" type="TextureButton" parent="UIManager/CombatUI/Control/TurnButtons"]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -490,7 +490,7 @@ toggle_mode = true
 texture_normal = ExtResource("12_jscy8")
 stretch_mode = 5
 
-[node name="TextureRect" type="TextureRect" parent="UI Manager/Combat UI/Control/Turn Buttons/Play Button"]
+[node name="TextureRect" type="TextureRect" parent="UIManager/CombatUI/Control/TurnButtons/PlayButton"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -500,9 +500,9 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("13_2wyq8")
 
-[node name="Side HUD" type="CanvasLayer" parent="UI Manager"]
+[node name="SideHUD" type="CanvasLayer" parent="UIManager"]
 
-[node name="Control" type="Control" parent="UI Manager/Side HUD"]
+[node name="Control" type="Control" parent="UIManager/SideHUD"]
 layout_mode = 3
 anchor_left = 0.7
 anchor_right = 1.0
@@ -510,7 +510,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Horizontal Bar" type="TextureRect" parent="UI Manager/Side HUD/Control"]
+[node name="HorizontalBar" type="TextureRect" parent="UIManager/SideHUD/Control"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.06
@@ -524,7 +524,7 @@ grow_vertical = 2
 texture = ExtResource("11_jkv2x")
 stretch_mode = 1
 
-[node name="Side Bar" type="TextureRect" parent="UI Manager/Side HUD/Control"]
+[node name="SideBar" type="TextureRect" parent="UIManager/SideHUD/Control"]
 layout_mode = 1
 anchors_preset = -1
 anchor_bottom = 1.0
@@ -533,7 +533,7 @@ grow_vertical = 2
 texture = ExtResource("11_a8y0u")
 stretch_mode = 1
 
-[node name="Top Section" type="Control" parent="UI Manager/Side HUD/Control"]
+[node name="TopSection" type="Control" parent="UIManager/SideHUD/Control"]
 layout_mode = 1
 anchor_left = 0.07
 anchor_top = 0.005
@@ -542,7 +542,7 @@ anchor_bottom = 0.48
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Event Log" type="ScrollContainer" parent="UI Manager/Side HUD/Control/Top Section"]
+[node name="EventLog" type="ScrollContainer" parent="UIManager/SideHUD/Control/TopSection"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -551,7 +551,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("13_muem4")
 
-[node name="MarginContainer" type="MarginContainer" parent="UI Manager/Side HUD/Control/Top Section/Event Log"]
+[node name="MarginContainer" type="MarginContainer" parent="UIManager/SideHUD/Control/TopSection/EventLog"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -560,7 +560,7 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="Label" type="Label" parent="UI Manager/Side HUD/Control/Top Section/Event Log/MarginContainer"]
+[node name="Label" type="Label" parent="UIManager/SideHUD/Control/TopSection/EventLog/MarginContainer"]
 custom_minimum_size = Vector2(10, 12)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -589,7 +589,7 @@ Enemy deals 6 damage.
 "
 autowrap_mode = 3
 
-[node name="Bottom Section" type="Control" parent="UI Manager/Side HUD/Control"]
+[node name="BottomSection" type="Control" parent="UIManager/SideHUD/Control"]
 layout_mode = 1
 anchor_left = 0.08
 anchor_top = 0.525
@@ -598,7 +598,7 @@ anchor_bottom = 0.99
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Inventory" type="GridContainer" parent="UI Manager/Side HUD/Control/Bottom Section"]
+[node name="Inventory" type="GridContainer" parent="UIManager/SideHUD/Control/BottomSection"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -609,43 +609,43 @@ columns = 2
 script = ExtResource("14_dp3eg")
 starting_items = Array[ExtResource("15_yc10j")]([ExtResource("15_0ld40"), ExtResource("15_0ld40"), ExtResource("15_0ld40"), ExtResource("15_0ld40"), ExtResource("15_0ld40")])
 
-[node name="Inventory Slot1" parent="UI Manager/Side HUD/Control/Bottom Section/Inventory" instance=ExtResource("14_muem4")]
+[node name="Inventory Slot1" parent="UIManager/SideHUD/Control/BottomSection/Inventory" instance=ExtResource("14_muem4")]
 layout_mode = 2
 
-[node name="Inventory Slot2" parent="UI Manager/Side HUD/Control/Bottom Section/Inventory" instance=ExtResource("14_muem4")]
+[node name="Inventory Slot2" parent="UIManager/SideHUD/Control/BottomSection/Inventory" instance=ExtResource("14_muem4")]
 layout_mode = 2
 
-[node name="Inventory Slot3" parent="UI Manager/Side HUD/Control/Bottom Section/Inventory" instance=ExtResource("14_muem4")]
+[node name="Inventory Slot3" parent="UIManager/SideHUD/Control/BottomSection/Inventory" instance=ExtResource("14_muem4")]
 layout_mode = 2
 
-[node name="Inventory Slot4" parent="UI Manager/Side HUD/Control/Bottom Section/Inventory" instance=ExtResource("14_muem4")]
+[node name="Inventory Slot4" parent="UIManager/SideHUD/Control/BottomSection/Inventory" instance=ExtResource("14_muem4")]
 layout_mode = 2
 
-[node name="Inventory Slot5" parent="UI Manager/Side HUD/Control/Bottom Section/Inventory" instance=ExtResource("14_muem4")]
+[node name="Inventory Slot5" parent="UIManager/SideHUD/Control/BottomSection/Inventory" instance=ExtResource("14_muem4")]
 layout_mode = 2
 
-[node name="Inventory Slot6" parent="UI Manager/Side HUD/Control/Bottom Section/Inventory" instance=ExtResource("14_muem4")]
+[node name="Inventory Slot6" parent="UIManager/SideHUD/Control/BottomSection/Inventory" instance=ExtResource("14_muem4")]
 layout_mode = 2
 
-[node name="Combat Manager" type="Node2D" parent="."]
+[node name="CombatManager" type="Node2D" parent="."]
 script = ExtResource("9_choun")
 combatant_base_scene = ExtResource("9_85g3d")
 random_enemy_selection = ExtResource("24_2f3dj")
 
-[node name="Stat Manager" type="Node2D" parent="Combat Manager"]
+[node name="StatManager" type="Node2D" parent="CombatManager"]
 script = ExtResource("12_eb6dy")
 
-[node name="Player Combatant" parent="Combat Manager/Stat Manager" instance=ExtResource("9_85g3d")]
+[node name="PlayerCombatant" parent="CombatManager/StatManager" instance=ExtResource("9_85g3d")]
 baseData = ExtResource("26_2wyq8")
 _this_is_the_player = true
 
 [node name="TimingManager" type="Node2D" parent="."]
 script = ExtResource("28_2f3dj")
 
-[connection signal="pressed" from="UI Manager/Reward UI/Control/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/Sword Sprite" to="UI Manager/Reward UI" method="_on_sword_sprite_pressed"]
-[connection signal="pressed" from="UI Manager/Reward UI/Control/VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer2/Heart Sprite" to="UI Manager/Reward UI" method="_on_heart_sprite_pressed"]
-[connection signal="pressed" from="UI Manager/Death UI/Control/VBoxContainer/MarginContainer2/Restart Button" to="UI Manager" method="_on_restart_button_pressed"]
-[connection signal="pressed" from="UI Manager/Combat UI/Control/Combat Button" to="UI Manager/Combat UI" method="_on_combat_button_pressed"]
-[connection signal="pressed" from="UI Manager/Combat UI/Control/Turn Buttons/Pause Button" to="UI Manager/Combat UI" method="_on_pause_button_pressed"]
-[connection signal="pressed" from="UI Manager/Combat UI/Control/Turn Buttons/Step Button" to="UI Manager/Combat UI" method="_on_step_button_pressed"]
-[connection signal="pressed" from="UI Manager/Combat UI/Control/Turn Buttons/Play Button" to="UI Manager/Combat UI" method="_on_play_button_pressed"]
+[connection signal="pressed" from="UIManager/RewardUI/Control/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/SwordSprite" to="UIManager/RewardUI" method="_on_sword_sprite_pressed"]
+[connection signal="pressed" from="UIManager/RewardUI/Control/VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer2/HeartSprite" to="UIManager/RewardUI" method="_on_heart_sprite_pressed"]
+[connection signal="pressed" from="UIManager/DeathUI/Control/VBoxContainer/MarginContainer2/RestartButton" to="UIManager" method="_on_restart_button_pressed"]
+[connection signal="pressed" from="UIManager/CombatUI/Control/CombatButton" to="UIManager/CombatUI" method="_on_combat_button_pressed"]
+[connection signal="pressed" from="UIManager/CombatUI/Control/TurnButtons/PauseButton" to="UIManager/CombatUI" method="_on_pause_button_pressed"]
+[connection signal="pressed" from="UIManager/CombatUI/Control/TurnButtons/StepButton" to="UIManager/CombatUI" method="_on_step_button_pressed"]
+[connection signal="pressed" from="UIManager/CombatUI/Control/TurnButtons/PlayButton" to="UIManager/CombatUI" method="_on_play_button_pressed"]

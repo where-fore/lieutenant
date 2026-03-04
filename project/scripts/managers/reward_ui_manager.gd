@@ -5,7 +5,7 @@ var health_per_upgrade = 20
 
 @export var attack_upgrade_item: WeaponData
 
-@onready var item_reward_button_parent = $"Control/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"
+@onready var item_reward_button_parent = $Control/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

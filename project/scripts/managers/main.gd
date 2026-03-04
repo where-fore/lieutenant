@@ -13,9 +13,9 @@ func _ready() -> void:
 
 
 # debug stuff
-@onready var label = $"UI Manager/Debug UI/Turn"
+@onready var label = $UIManager/DebugUI/Turn
 var prefix = "turn: " as String
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	label.text = prefix + str($"Combat Manager".turn)
+	label.text = prefix + str($CombatManager.turn)

@@ -1,8 +1,8 @@
 extends Node2D
 
-@onready var combat_ui_manager = $"Combat UI"
-@onready var reward_ui_manager = $"Reward UI"
-@onready var death_ui = $"Death UI"
+@onready var combat_ui_manager = $CombatUI
+@onready var reward_ui_manager = $RewardUI
+@onready var death_ui = $DeathUI
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

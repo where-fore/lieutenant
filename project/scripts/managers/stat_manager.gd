@@ -1,7 +1,7 @@
 extends Node2D
 
 
-@onready var current_player = $"Player Combatant"
+@onready var current_player = $PlayerCombatant
 
 var player_aura_dictionary:Dictionary[String,int]
 var enemy_aura_dictionary:Dictionary[String,int]

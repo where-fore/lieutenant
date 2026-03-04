@@ -24,30 +24,33 @@ figure out to do an inventory/monster database setup, ala hearthstone cards in u
 		return all_items.pick_random()
 	-
 
-new font that works looks good below 8px
+new font that works looks good below 8px, and doesn't have random whitespace
 
 
 necessary work
 -----------
-turn animation sometimes goes very quickly? not sure exact steps to reproduce, but probably something about the animation firing/awaiting at the wrong time
-	
-pick random (entropy?) enemy to fight
+have non-inventory buffs visible - like the hp aura
+have a non-equipped invetory - maybe later though
 
+special items/enemies:
+	look at he is coming for examples of things i want to implement:
+		start of combat, steal one attack
+		debilitating status effect?
+		enemy whose attack grows every turn - maybe a boss/elite every x combats?
+	maybe define a start of combat, start of turn, after attack, end of turn? and check items then? signal to inventory manager, it runs through slot by slot
+	
+	overhaul reward screen:
+		pull from random items
+		have item tooltips
+		probably keep "rest" or similarly basic stat booster if you don't want any items
+	
+	
+	quickly implement that scaling coefficient on enemies
 
 
 
 working notes
 -----------
-need to clean up old enemies
-
-
-
-
-bonus points: have an enemy who gains 1 attack every combat turn	
-bonus points: have a "boss" category every eg. 5 combats?
-	
-
-
 would like to make the combat log a lil nicer
 -add random chance for flavour text, mostly to break up the paragraph of autobattling, but also for fun
 -add death/victory messages
@@ -62,73 +65,72 @@ would like to make the combat log a lil nicer
 
 combat prototypes:
 --------------------------------------------------------
-standard autobattler:
-	-have rock/paper/scissors damage types to prototype specializing -> probably flavour to runescape combat triangle
-		-rock vs rock: rock dmg *1, paper dmg*2, scissors dmg*0.5?
-		-enemy grow by randomly incrementing one statistic, and gaining hp
-		
-		-maybe instead have a total power, and decide how much to commit to each category? and enemy does too? best of three?
-
 look at some schell lenses for the combat system
-	current_player.reset_current_stats_to_base()
-	current_player.merge_aura_and_base_stats(player_aura_dictionary)
+
+if i just make it more complicated (so it's less easy to eyeball the result) is that enough uncertainty? 2+ party members whose builds interact, enemies who attack a certain one (highest speed, highest rarity, etc)? 10-30x the numbers so it's less granular?
 
 
 
 
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
-player combatant should be instantiaed et al. too just like the enemies
+swap to static typing - https://m.youtube.com/watch?v=UsCKd6MQetY
 
-statevents.send_auras_to_combatants doesn't scale to multiple combatants
-
-combatant: the signal that sends out when a stat is updated, should be on a function wrapper for editing that value; not just tacked onto functions that edit that value
-
-change my string references (turn manager looking at player/enemy/precombat) into string names https://docs.godotengine.org/en/stable/classes/class_stringname.html
-
-clarify 'base stats' - esp in statmanager.gd. base as in "before combat damage/temporary effects" or base as in "before items" ?
-
-when reorganizing signals, consider what tense to use - "combat_won" only makes sense if i assume to have a consistently player-focused tense. i think i should use an unbiased tense? player_defeats_encounter?
-
-reorganize this list below lmao
-
-should probably have a "reset and clean up game" signal, instead of latching on something arbitrary like combat lost
-
-
-have non-inventory buffs visible? like the hp aura?
-
-hmmm my inventory events has two events, "item equipped" and "send item to inventory". when in the reward screen, i called "item equipped" which really short circuited the logic, since that bypassed the inventory system and just sent the output. not sure how to avoid
-	i could just structure the event script with comments, into "requests" and "signals"
-	i could name the signals better
-
-the timing of "on_scene_ready" architecture in inventory_manager.gd should be project wide
-
-currently manually editing .tres files for items - should switch to json output and reading (or similar) if we have a large scale
-
-using async and deferred calls and shit, i should have a much better understanding of when code gets called (instances get created), and maybe even a "timing manager" that signals when to fire events in order
-
-the signal busses aren't really organized by their title very well, codify that distinction
+timing architecture:
+	the timing of "on_scene_ready" architecture in inventory_manager.gd should be project wide
+	using async and deferred calls and shit, i should have a much better understanding of when code gets called (instances get created), and maybe even a "timing manager" that signals when to fire events in order
+	
 
 all this is_this_the_player(), and "update player health" nonsense is bad - combatant should have "update health" only, and fire signals like that, somehow. maybe they always fire the "is_this_the_player", or other origin, with their signals?
 	a "combatant" that handles most stuff, and "player" parent that listens to signals and sends more?
 	have a "player" class extended from "combatant" class? so i can check if is player, and if is combatant? not sure how this oop works in godot
 
-font sucks: has whitespace at the top, also the "L"'s are fucked; lots of random spacing issues
+
+signals are a bit disorganized:
+	the signal busses aren't really organized by their title very well, codify that distinction
+	when reorganizing signals, consider what tense to use - "combat_won" only makes sense if i assume to have a consistently player-focused tense. i think i should use an unbiased tense? player_defeats_encounter?
+	
+	combatant: the signal that sends out when a stat is updated, should be on a function wrapper for editing that value; not just tacked onto functions that edit that value
+	ui only updating on signals may be good practice, but it could also update every frame? currently i have to remember to put a signal whenever anything changes ->> i should wrap the signal *into* the change functions
+	
+	statevents.send_auras_to_combatants doesn't scale to multiple combatants
+
+
+setup that json-like database
+
+debug/crash failsafes
+	currently i have two obvious crash conditions:
+		auto battle combat never decides to swap turns
+			can have a "kill combat" button that is turnagnostic - maybe it resets the combat? exit to main menu (saves game?)
+		instantiated enemies never get created and they don't tell the combat to start
+			same fix as above? restart the combat?
+
 
 the scene changes should be fully fledged - main manager deletes/instantiates the combat ui and manager and combatants, deletes/instantiates reward screen, etc
+	player combatant should be instantiaed et al. too just like the enemies
+	
+	hm now that i think about it, there isn't an obvious reason for this. i don't run timers or process on anything, so them being invisible is fine?
+		but it future proofs me for if i want to run timers or processes - especially with animations
 
-ui only updating on signals may be good practice, but it could also update every frame? currently i have to remember to put a signal whenever anything changes ->> i should wrap the signal *into* the change functions
 
-i should add a "end combat" button to the ui, at least for testing, cause ill get into infinite loops easily
-	also a failsafe in the code of course
+have things be more readable - by future me, and richard:
+	_get_configuration_warnings() to popup on gui when things aren't setup right
+	do a code pass, try to explain it on video
+	
+i've got some hard reference to children in scripts, which rely on their string name
+	# Fastest. Doesn't break if node is moved in the Scene tree dock.
+	# Node must be selected in the inspector as it's an exported property.
+	@export var child: Node
+	func lookup_and_cache_for_future_access():
+		print(child)
+	and then add a configuration warning if nothing is selected
+
+clarify 'base stats' - esp in statmanager.gd. base as in "before combat damage/temporary effects" or base as in "before items" ?
+
+change my string references (turn manager looking at player/enemy/precombat) into string names https://docs.godotengine.org/en/stable/classes/class_stringname.html
 
 the getter-setters in eg. combatant health, the health variable should be underscored so i don't edit them without the function
 
-combat log ui is a terrible scroll interface, fine for now but will have to be made better
-
-nodes aren't PascalCase ("Event Log")
-
-combat log just pulls the node name, not a specific title. maybe a combatant should have an @export (or extended class) with 
 
 
 
