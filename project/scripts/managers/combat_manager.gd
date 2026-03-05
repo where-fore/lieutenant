@@ -1,9 +1,12 @@
 extends Node2D
 
-@export var combatant_base_scene:PackedScene
-@onready var current_player = $StatManager/PlayerCombatant
 var current_enemy
+@export var combatant_base_scene:PackedScene
 @export var random_enemy_selection:EnemyCollection
+
+var current_player
+@export var player_base_scene:PackedScene
+@export var player_base_stats:CombatantData
 
 var player_turn = "Player"
 var enemy_turn = "Enemy"
@@ -107,12 +110,10 @@ func stop_combat(combatant_who_died):
 
 
 func pre_combat():
+	spawn_player()
 	choose_enemy()
-	
-	#now i wait for the enemy to be created, so i can continue
-	#this is a dangerous idea - this could cause the program to hang forever if somehow this fails
-	#await CombatEvents.enemy_ready
-	#alright so hopefully we're all good...
+	#this is a bit dangerous - i'm now assuming that worked. would love some sort of call back?
+	#can't put it in the setup function since that fires before this function reaches await()
 	
 	StatEvents.initalize_combat_stats.emit()
 	turn = precombat
@@ -127,12 +128,26 @@ func choose_enemy():
 	var new_enemy_node = combatant_base_scene.instantiate()
 	#assign data to our boi
 	new_enemy_node.baseData = new_enemy_data
-	#make our boi into real thing
+	#make our boi into real boy
 	add_child(new_enemy_node)
-	#call function on our real thing
+	#call function on our real boy
 	new_enemy_node.setup()
 	
 	current_enemy = new_enemy_node
+
+
+func spawn_player():
+	#create a lil memory boi
+	var new_player_data = player_base_scene.instantiate()
+	#assign data to our boi
+	new_player_data.baseData = player_base_stats
+	#make our boi into real boy
+	add_child(new_player_data)
+	#call function on our real boy
+	#(noting it is true they are the player)
+	new_player_data.setup(true)
+	
+	current_player = new_player_data
 
 func start_combat():
 	if not CombatEvents.combat_ongoing and can_start_combat:
