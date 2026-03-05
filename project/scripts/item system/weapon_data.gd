@@ -1,4 +1,4 @@
 extends ItemData
 class_name WeaponData
 
-@export var damage: int = 2
+@export var damage: int = 1337

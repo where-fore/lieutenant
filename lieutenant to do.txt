@@ -8,25 +8,6 @@ items to implement:
 	armor that gives 1 hp after attacked
 	
 
-weapon data
-on_attack()
-pass
-
-
-vamp sword
-extend weapon data
-on_attack()
-effects.vamp(1)
-
-
-weapon effects
-vamp(x)
-steal x hp
-
-
-
-
-
 
 --------------------------------------------------------
 work to do
@@ -108,6 +89,10 @@ if i just make it more complicated (so it's less easy to eyeball the result) is 
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+vamp sword calls take_damage(-10) to heal 10, maybe there should be a heal function?
+
+currently my inventory is global - should each combatant have their own inventory? given i'm planning to have more than one
+
 combatant_data scaling coefficient is an int - but i should be able to divide by a float. i should decide on how i want int rounding to work project wide, probably
 
 timing architecture:

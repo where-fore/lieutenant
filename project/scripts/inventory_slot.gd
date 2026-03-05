@@ -26,6 +26,7 @@ func equip_item(item_to_equip: ItemData) -> void:
 	InventoryEvents.item_successfully_equipped.emit(item_to_equip)
 	InventoryEvents.slot_updated.emit()
 	tooltip_text = tooltip_text_base + str(item_in_slot.damage)
+	if item_in_slot.custom_tooltip: tooltip_text += "\n" + item_in_slot.custom_tooltip
 
 func unequip_item() -> void:
 	#this is null if the slot was empty
