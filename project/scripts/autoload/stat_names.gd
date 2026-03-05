@@ -1,4 +1,4 @@
 extends Node
 
-const health = &"health"
-const attack = &"attack"
+const health: StringName = &"health"
+const attack: StringName = &"attack"

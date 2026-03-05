@@ -14,38 +14,38 @@ func _ready() -> void:
 	InventoryEvents.send_item_to_inventory.connect(equip)
 	InventoryEvents.slot_updated.connect(update_inventory_full_status)
 
-func on_scene_ready():
+func on_scene_ready() -> void:
 	populate_starter_items()
 
-func find_inventory_slot_nodes():
-	var class_to_check_for = "InventorySlot"
-	var found_nodes = self.find_children("*", class_to_check_for, false)
-	for node in found_nodes:
+func find_inventory_slot_nodes() -> void:
+	var class_to_check_for: StringName = &"InventorySlot"
+	var found_nodes: Array[Node] = self.find_children("*", class_to_check_for, false)
+	for node: Node in found_nodes:
 		inventory_slots.append(node as InventorySlot)
 
 #returns an InventorySlot class if it finds one empty, or null if none available
-func find_first_empty_slot():
+func find_first_empty_slot() -> InventorySlot:
 	for slot: InventorySlot in inventory_slots:
 		if slot.is_empty(): return slot
 	#if we get this far, ie. iterated through all slots
 	return null
 
-func equip(item_to_equip:ItemData):
+func equip(item_to_equip:ItemData) -> void:
 	var slot_to_equip_to: InventorySlot = find_first_empty_slot()
 	if slot_to_equip_to: slot_to_equip_to.equip_item(item_to_equip)
 	else: pass #print_debug("inventory full")
 	update_inventory_full_status()
 
 
-func clear_inventory():
+func clear_inventory() -> void:
 	for slot:InventorySlot in inventory_slots:
 		slot.unequip_item()
 
-func populate_starter_items():
-	for item in starting_items:
+func populate_starter_items() -> void:
+	for item: ItemData in starting_items:
 		equip(item)
 
-func update_inventory_full_status():
+func update_inventory_full_status() -> void:
 	if find_first_empty_slot() == null: InventoryEvents.inventory_is_full = true
 	else: InventoryEvents.inventory_is_full = false
 	InventoryEvents.full_status_updated.emit()

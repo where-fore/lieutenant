@@ -13,8 +13,8 @@ func _ready() -> void:
 
 
 # debug stuff
-@onready var label = $UIManager/DebugUI/Turn
-var prefix = "turn: " as String
+@onready var label: Label = $UIManager/DebugUI/Turn
+var prefix: String = "turn: "
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

@@ -1,29 +1,30 @@
 extends Node2D
 
-var current_enemy
+var current_enemy: Combatant
 @export var combatant_base_scene:PackedScene
 @export var random_enemy_selection:EnemyCollection
 
-var current_player
+var current_player: Combatant
 @export var player_base_scene:PackedScene
 @export var player_base_stats:CombatantData
 
-var player_turn = "Player"
-var enemy_turn = "Enemy"
-var precombat = "Precombat"
-var turn = precombat
-var turn_number = 0
-var turn_finished = false
+var player_turn: StringName = &"Player"
+var enemy_turn: StringName = &"Enemy"
+var precombat: StringName = &"Precombat"
+var turn: StringName = precombat
+var turn_number: int = 0
+var turn_finished: bool = false
 
-var can_start_combat = true
+var can_start_combat: bool = true
 
-var opener_turn_delay = 1
-var middle_turn_delay = 0.2
-var near_end_delay = 0.8
+#animation data
+var opener_turn_delay: float = 1
+var middle_turn_delay: float = 0.2
+var near_end_delay: float = 0.8
 
-var step_mode = "step mode"
-var play_mode = "play mode"
-var turn_mode = step_mode
+var step_mode: StringName = &"step mode"
+var play_mode: StringName = &"play mode"
+var turn_mode: StringName = step_mode
 
 
 # Called when the node enters the scene tree for the first time.
@@ -39,55 +40,56 @@ func _ready() -> void:
 	TimingEvents.everythings_ready.connect(pre_combat)
 
 
-func pause_button_pressed():
+func pause_button_pressed() -> void:
 	turn_mode = step_mode
 
-func step_button_pressed():
+func step_button_pressed() -> void:
 	turn_mode = step_mode
 	if turn == precombat:
 		start_turn()
-	else:
+	elif turn_finished == true:
 		next_turn()
 
-func play_button_pressed():
+func play_button_pressed() -> void:
 	turn_mode = play_mode
 	if turn == precombat:
 		start_turn()
-	else:
+	elif turn_finished == true:
 		next_turn()
 
 
-func handle_attack(attacker, amount):
+func handle_attack(attacker: Combatant, amount: int) -> void:
 	if attacker.is_the_player():
 		current_enemy.take_damage(amount)
 	else:
 		current_player.take_damage(amount)
 
 
-func finish_turn():
-	turn_finished = true
-	if turn_mode == play_mode:
+func finish_turn() -> void:
+	#animate, unless step mode where you skip animations
+	if turn_mode != step_mode:
 		await turn_animation()
+	
+	turn_finished = true
+	
+	if turn_mode == play_mode:
 		next_turn()
 	
 
-func next_turn():
-	if turn_finished == true:
-		turn_finished = false
-		
-		#swap turns
-		if turn == player_turn: turn = enemy_turn
-		elif turn == enemy_turn: turn = player_turn
-		
-		
-		if CombatEvents.combat_ongoing:
-			start_turn()
-
-
-func turn_animation():
-	var near_end = (current_enemy.current_stats[Stats.health] <= 1* current_player.current_stats[Stats.attack]) or (current_player.current_stats[Stats.health] <= 1* current_enemy.current_stats[Stats.attack])
+func next_turn() -> void:
+	#swap turns
+	if turn == player_turn: turn = enemy_turn
+	elif turn == enemy_turn: turn = player_turn
 	
-	var slow_opener = turn_number <= 2 as bool
+	
+	if CombatEvents.combat_ongoing:
+		start_turn()
+
+
+func turn_animation() -> Signal:
+	var near_end: bool = (current_enemy.current_stats[Stats.health] <= 1* current_player.current_stats[Stats.attack]) or (current_player.current_stats[Stats.health] <= 1* current_enemy.current_stats[Stats.attack])
+	var slow_opener: bool = turn_number <= 2
+	var failsafe: float = 0.2
 	if slow_opener:
 		return get_tree().create_timer(opener_turn_delay).timeout
 		
@@ -96,9 +98,13 @@ func turn_animation():
 	
 	elif near_end: 
 		return get_tree().create_timer(near_end_delay).timeout
+	
+	else:
+		push_warning("no turn animation state chosen; using failsafe")
+		return get_tree().create_timer(failsafe).timeout
 
 
-func stop_combat(combatant_who_died):
+func stop_combat(combatant_who_died:Combatant) -> void:
 	CombatEvents.combat_ongoing = false
 	if combatant_who_died.is_the_player():
 		HudEvents.combat_lost.emit()
@@ -109,9 +115,9 @@ func stop_combat(combatant_who_died):
 		combatant_who_died.queue_free()
 
 
-func pre_combat():
-	spawn_player()
-	choose_enemy()
+func pre_combat() -> void:
+	current_player = spawn_player()
+	current_enemy = choose_enemy()
 	#this is a bit dangerous - i'm now assuming that worked. would love some sort of call back?
 	#can't put it in the setup function since that fires before this function reaches await()
 	
@@ -119,13 +125,14 @@ func pre_combat():
 	turn = precombat
 	CombatEvents.combat_ongoing = false
 	can_start_combat = true
+	turn_finished = true
 	reset_turn_counter()
 
-func choose_enemy():
+func choose_enemy() -> Combatant:
 	#pick data
-	var new_enemy_data = random_enemy_selection.enemies.pick_random()
+	var new_enemy_data: CombatantData = random_enemy_selection.enemies.pick_random()
 	#create a lil memory boi
-	var new_enemy_node = combatant_base_scene.instantiate()
+	var new_enemy_node: Combatant = combatant_base_scene.instantiate()
 	#assign data to our boi
 	new_enemy_node.baseData = new_enemy_data
 	#make our boi into real boy
@@ -133,29 +140,30 @@ func choose_enemy():
 	#call function on our real boy
 	new_enemy_node.setup()
 	
-	current_enemy = new_enemy_node
+	return new_enemy_node
 
 
-func spawn_player():
+func spawn_player() -> Combatant:
 	#create a lil memory boi
-	var new_player_data = player_base_scene.instantiate()
+	var new_player_node: Combatant = player_base_scene.instantiate()
 	#assign data to our boi
-	new_player_data.baseData = player_base_stats
+	new_player_node.baseData = player_base_stats
 	#make our boi into real boy
-	add_child(new_player_data)
+	add_child(new_player_node)
 	#call function on our real boy
 	#(noting it is true they are the player)
-	new_player_data.setup(true)
+	new_player_node.setup(true)
 	
-	current_player = new_player_data
+	return new_player_node
 
-func start_combat():
+func start_combat() -> void:
 	if not CombatEvents.combat_ongoing and can_start_combat:
 		can_start_combat = false
 		CombatEvents.combat_ongoing = true
 
 
-func start_turn():
+func start_turn() -> void:
+	turn_finished = false
 	turn_number += 1
 	
 	if turn == precombat:
@@ -168,5 +176,5 @@ func start_turn():
 	elif turn == enemy_turn: 
 		current_enemy.take_turn()
 
-func reset_turn_counter():
+func reset_turn_counter() -> void:
 	turn_number = 0

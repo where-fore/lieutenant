@@ -1,11 +1,11 @@
 extends CanvasLayer
 
-var attack_per_upgrade = 2
-var health_per_upgrade = 20
+var attack_per_upgrade: int = 2
+var health_per_upgrade: int = 20
 
 @export var attack_upgrade_item: WeaponData
 
-@onready var item_reward_button_parent = $Control/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer
+@onready var item_reward_button_parent: Container = $Control/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -20,14 +20,14 @@ func _process(_delta: float) -> void:
 	pass
 
 
-func change_to():
+func change_to() -> void:
 	update_item_reward_availability()
 	visible = true
 
-func change_from():
+func change_from() -> void:
 	visible = false
 
-func update_item_reward_availability():
+func update_item_reward_availability() -> void:
 	if InventoryEvents.inventory_is_full:
 		item_reward_button_parent.modulate = Color(0.3,0.3,0.3)
 	else:
@@ -42,6 +42,6 @@ func _on_heart_sprite_pressed() -> void:
 	StatEvents.health_increased.emit(health_per_upgrade)
 	reward_selected()
 
-func reward_selected():
+func reward_selected() -> void:
 	HudEvents.reward_chosen.emit()
 	
