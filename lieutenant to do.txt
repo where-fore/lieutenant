@@ -1,5 +1,48 @@
+--------------------------------------------------------
+working notes
+--------------------------------------------------------
+
+
+
+
+
+
+
+
+--------------------------------------------------------
+necessary work
+--------------------------------------------------------
+have non-inventory buffs visible - like the hp aura
+have a non-equipped invetory - maybe later though
+
+special items/enemies:
+	look at he is coming for examples of things i want to implement:
+		start of combat, steal one attack
+		debilitating status effect?
+		enemy whose attack grows every turn - maybe a boss/elite every x combats?
+	maybe define a start of combat, start of turn, after attack, end of turn? and check items then? signal to inventory manager, it runs through slot by slot
+	
+	overhaul reward screen:
+		pull from random items
+		have item tooltips
+		probably keep "rest" or similarly basic stat booster if you don't want any items
+	
+	
+	quickly implement that scaling coefficient on enemies
+
+
+would like to make the combat log a lil nicer
+-add random chance for flavour text, mostly to break up the paragraph of autobattling, but also for fun
+-add death/victory messages
+
+
+
+
+
+
+--------------------------------------------------------
 to research:
------------
+--------------------------------------------------------
 look up old might & magic, ultima, and others.. find more modern takes, or reason there's no modern takes
 
 look up ice-related mythologies, siberia etc
@@ -27,48 +70,13 @@ figure out to do an inventory/monster database setup, ala hearthstone cards in u
 	-
 
 new font that works looks good below 8px, and doesn't have random whitespace
-
-
-necessary work
------------
-have non-inventory buffs visible - like the hp aura
-have a non-equipped invetory - maybe later though
-
-special items/enemies:
-	look at he is coming for examples of things i want to implement:
-		start of combat, steal one attack
-		debilitating status effect?
-		enemy whose attack grows every turn - maybe a boss/elite every x combats?
-	maybe define a start of combat, start of turn, after attack, end of turn? and check items then? signal to inventory manager, it runs through slot by slot
-	
-	overhaul reward screen:
-		pull from random items
-		have item tooltips
-		probably keep "rest" or similarly basic stat booster if you don't want any items
-	
-	
-	quickly implement that scaling coefficient on enemies
-
-
-
-working notes
------------
-was in the middle of player_instantiation - i want the player combatant to not be hard coded, and to be able to be loaded in.
-
-
-
-would like to make the combat log a lil nicer
--add random chance for flavour text, mostly to break up the paragraph of autobattling, but also for fun
--add death/victory messages
-
-
-
------------
+	maybe richards job
 
 
 
 
 
+--------------------------------------------------------
 combat prototypes:
 --------------------------------------------------------
 look at some schell lenses for the combat system
@@ -77,10 +85,10 @@ if i just make it more complicated (so it's less easy to eyeball the result) is 
 
 
 
-
+--------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
-swap to static typing - https://m.youtube.com/watch?v=UsCKd6MQetY
+combatant_data scaling coefficient is an int - but i should be able to divide by a float. i should decide on how i want int rounding to work project wide, probably
 
 timing architecture:
 	the timing of "on_scene_ready" architecture in inventory_manager.gd should be project wide
@@ -144,7 +152,7 @@ the getter-setters in eg. combatant health, the health variable should be unders
 
 
 
-
+--------------------------------------------------------
 to do, but lower priority:
 --------------------------------------------------------
 
@@ -167,9 +175,7 @@ clean up the github webhook:
 
 
 --------------------------------------------------------
-lots of brainstorming notes from before, unorganized:
---------------------------------------------------------
---------------------------------------------------------
+disorganized brainstorm - will have weird overlaps with design doc and discord
 --------------------------------------------------------
 uncertainty in output variance - more like blackjack than roulette, allow skill expression in card counting. likely requires regular choices with new information. "the fates do not play dice in this world. what seems random is simply misunderstood"
 

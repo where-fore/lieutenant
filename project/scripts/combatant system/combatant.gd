@@ -9,6 +9,11 @@ func is_the_player() -> bool: return _this_is_the_player
 var base_stats: Dictionary = {}
 var current_stats: Dictionary = {}
 
+#controls global scaling - can set to 0 for no scaling, 5 for hyper scaling etc
+#this currently has to be an int, but i'd expect to be able to half the scaling factor ie. 0.5
+#can refactor some other things to round - but i haven't decided how i want to round things yet
+var scaling_coefficient: int = 1
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -40,9 +45,11 @@ func reset_current_stats_to_base() -> void:
 
 func scale_stats_to_combats() -> void:
 	if baseData.health_scaling:
-		base_stats[Stats.health] = baseData.base_health + (baseData.health_scaling * StatEvents.encounters_defeated_for_scaling)
+		var health_scaling_factor: int = StatEvents.encounters_defeated_for_scaling * scaling_coefficient
+		base_stats[Stats.health] = baseData.base_health + (baseData.health_scaling * health_scaling_factor)
 	if baseData.attack_scaling:
-		base_stats[Stats.attack] = baseData.base_attack + (baseData.attack_scaling * StatEvents.encounters_defeated_for_scaling)
+		var attack_scaling_factor: int = StatEvents.encounters_defeated_for_scaling * scaling_coefficient
+		base_stats[Stats.attack] = baseData.base_attack + (baseData.attack_scaling * attack_scaling_factor)
 
 func perish() -> void:
 	CombatEvents.combatant_died.emit(self)
