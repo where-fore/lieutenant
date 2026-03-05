@@ -3,7 +3,7 @@ class_name ItemData
 
 @export var item_name: String = "Generic Item"
 @export var item_sprite: Texture2D
-@export var custom_tooltip: String = ""
+var custom_tooltip: String = ""
 @export var custom_aura: Aura
 
 
@@ -14,3 +14,6 @@ func on_attack(_source:Combatant) -> void:
 
 func add_custom_tooltip(custom_tooltip_text: String) -> void:
 	custom_tooltip += custom_tooltip_text
+
+func _ready() -> void:
+	if item_sprite == null: push_error("Item in inventory has no sprite: " + item_name)

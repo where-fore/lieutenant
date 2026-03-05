@@ -5,7 +5,7 @@ class_name InventorySlot
 
 @onready var slot_sprite: TextureRect = $ItemSprite
 
-var tooltip_text_base: String = "Increases attack by "
+var weapon_tooltip_text_base: String = "Increases attack by "
 
 @onready var delete_confirmation_panel: Control = $Panel
 @onready var delete_confirmation_timer: Timer = $Timer
@@ -29,7 +29,7 @@ func equip_item(item_to_equip: ItemData) -> void:
 
 func update_tooltip() -> void:
 	tooltip_text = item_in_slot.item_name
-	if item_in_slot is WeaponData: tooltip_text += "\n" + tooltip_text_base + str(item_in_slot.damage)
+	if item_in_slot is WeaponData: tooltip_text += "\n" + weapon_tooltip_text_base + str(item_in_slot.damage)
 	if item_in_slot.custom_tooltip: tooltip_text += "\n" + item_in_slot.custom_tooltip
 
 func unequip_item() -> void:

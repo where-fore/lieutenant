@@ -1,7 +1,7 @@
 extends WeaponData
 class_name VampSword
 
-var life_gain: int = 4
+var life_gain: int = 2
 var tooltip: String = "Enjoy %s health on bloodshed" % life_gain
 
 func on_attack(source:Combatant) -> void:
