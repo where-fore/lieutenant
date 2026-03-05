@@ -6,8 +6,65 @@ special debug enemy selection: have a super lich with 100 hp or something
 items to implement:
 	sword that gains you 1 attack after attack
 	armor that gives 1 hp after attacked
-	
 
+
+temporary auras during combat
+first instinct is a literal construct called temporary auras that i can append to, and that clears on combat end
+
+
+currently aura's are stringName,int pairs - i want them to be full fledged classes with lots of info: names, tooltips, icons, stat/value buff pairings as before, but also maybe multiple pairings, durations
+the core functionality of base hp from card + auras is correct, but i need auras to be much more flexible than they are right now
+
+
+
+okay so we have a aura, which is a dictionary of stat/value pairs, separated into multiple dictionaries, the "display dictionary" with the name icon etc, and the "additive stat dictionary" with each stat value pair, the "multiplicative stat dictionary" with the same stat names:
+display_dictionary = {
+name = "Paladin's Might"
+icon = icon/path/paladin
+}
+additive_dictionary = {
+health = +5
+armor = +2
+}
+multiplicative_dictionary = {
+health = +0.1
+}
+
+we have multiple auras, "Paladin's Might", "Crashing Tides", in an array of auras on the player:
+auras = []
+on_item_equip():
+	auras.append(Auras.PaladinsMight.duplicate())
+	auras.append(Auras.CrashingTides.duplicate())
+
+we can iterate through the array of auras to grab each aura, and we can iterate through each auras "stat dictionary" to see what it's supposed to add to our huge lump aura
+
+combatant when recalculating, takes two huge lump auras which is are dictionaries of stat/value modifiers. it applies the "additive" lump aura first, then "multiplicative" lump aura second.
+
+var new_big_additive_aura = {}
+var new_big_multiplicative_aura = {}
+merge_auras_in(all_my_auras:Array[aura])
+	for aura in all_my_auras:
+		for stat in aura.additive_dictionary:
+			if new_big_additive_aura.has(statName):
+				new_big_additive_aura[stat_name] = new_big_additive_aura.get(stat_name, 0) + value
+				
+		for stat in aura.multiplicative_dictionary:
+			if new_big_multiplicative_aura.has(statName):
+				if statName: new_big_multiplicative_aura[statName] += value
+			else:
+				new_big_multiplicative_aura[statName] = value
+				
+then in combatant
+func merge_aura_and_base_stats(additive_aura, multiplicative_aura) -> void:
+	for stat in additive_aura:
+		if base_stats.has(stat):
+			current_stats[stat] = auraDictionary[stat] + base_stats[stat]
+		else:
+			current_stats[stat] = auraDictionary[stat]
+	for stat in multiplicative_aura:
+		if base_stats.has(stat):
+			current_stats[stat] *= 1 + auraDictionary[stat]
+		
 
 --------------------------------------------------------
 work to do

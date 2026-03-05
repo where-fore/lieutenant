@@ -5,6 +5,6 @@
 
 [resource]
 script = ExtResource("2_m7ok0")
-damage = 4
+damage = 8
 item_name = "Vampiric Blade"
 item_sprite = ExtResource("1_1ev63")
