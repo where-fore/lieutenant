@@ -631,13 +631,11 @@ layout_mode = 2
 script = ExtResource("9_choun")
 combatant_base_scene = ExtResource("9_85g3d")
 random_enemy_selection = ExtResource("24_2f3dj")
+player_base_scene = ExtResource("9_85g3d")
+player_base_stats = ExtResource("26_2wyq8")
 
 [node name="StatManager" type="Node2D" parent="CombatManager"]
 script = ExtResource("12_eb6dy")
-
-[node name="PlayerCombatant" parent="CombatManager/StatManager" instance=ExtResource("9_85g3d")]
-baseData = ExtResource("26_2wyq8")
-_this_is_the_player = true
 
 [node name="TimingManager" type="Node2D" parent="."]
 script = ExtResource("28_2f3dj")

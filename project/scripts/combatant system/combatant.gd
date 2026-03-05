@@ -15,7 +15,9 @@ func _ready() -> void:
 	
 	setup()
 
-func setup():
+func setup(should_be_the_player:bool = false):
+	if should_be_the_player: _this_is_the_player = true
+	
 	base_stats[Stats.health] = baseData.base_health
 	base_stats[Stats.attack] = baseData.base_attack
 	reset_current_stats_to_base()

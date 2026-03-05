@@ -7,6 +7,8 @@ look up ice-related mythologies, siberia etc
 look up more detailed signal bus architecture
 	and some more godot best practices for code maintenance
 
+some tdd stuff
+
 figure out to do an inventory/monster database setup, ala hearthstone cards in unity
 	https://docs.godotengine.org/en/stable/tutorials/scripting/resources.html#doc-resources - ala unity serialized object
 	https://m.youtube.com/watch?v=rCu8vQrdDDI - composition for scalable data
@@ -51,6 +53,10 @@ special items/enemies:
 
 working notes
 -----------
+was in the middle of player_instantiation - i want the player combatant to not be hard coded, and to be able to be loaded in.
+
+
+
 would like to make the combat log a lil nicer
 -add random chance for flavour text, mostly to break up the paragraph of autobattling, but also for fun
 -add death/victory messages
@@ -84,6 +90,7 @@ timing architecture:
 all this is_this_the_player(), and "update player health" nonsense is bad - combatant should have "update health" only, and fire signals like that, somehow. maybe they always fire the "is_this_the_player", or other origin, with their signals?
 	a "combatant" that handles most stuff, and "player" parent that listens to signals and sends more?
 	have a "player" class extended from "combatant" class? so i can check if is player, and if is combatant? not sure how this oop works in godot
+	combat manager spawns the player with an export variable for their stat sheet - that sounds terrible, i should be checking the properties of that player to read their base stats, the combat manager doesn't care
 
 
 signals are a bit disorganized:
@@ -97,6 +104,7 @@ signals are a bit disorganized:
 
 
 setup that json-like database
+
 
 debug/crash failsafes
 	currently i have two obvious crash conditions:
@@ -116,13 +124,15 @@ the scene changes should be fully fledged - main manager deletes/instantiates th
 have things be more readable - by future me, and richard:
 	_get_configuration_warnings() to popup on gui when things aren't setup right
 	do a code pass, try to explain it on video
-	
+
+
 i've got some hard reference to children in scripts, which rely on their string name
 	# Fastest. Doesn't break if node is moved in the Scene tree dock.
 	# Node must be selected in the inspector as it's an exported property.
 	@export var child: Node
 	func lookup_and_cache_for_future_access():
 		print(child)
+		
 	and then add a configuration warning if nothing is selected
 
 clarify 'base stats' - esp in statmanager.gd. base as in "before combat damage/temporary effects" or base as in "before items" ?
@@ -142,9 +152,12 @@ discord:
 grab and post some inspirations
 	rad codex stuff, mostly horizon's gate open world vs dungeons. classes and art vibes
 	darkest dungeon
-https://docs.github.com/en/webhooks fix the webhook posting the actions and the push - probably a custom discord bot? or edit the actually web-push yaml to not "be a push"
-	maybe solved with branches? don't worry about fixing this before co-working github setup
 
+clean up the github webhook:
+	it double posts for web pushed builds
+	it double posts for local branches
+	it doesn't include the commit description
+	https://docs.github.com/en/webhooks
 
 
 
