@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="VampSword" load_steps=3 format=3 uid="uid://b7hiehj5fulcw"]
+
+[ext_resource type="Texture2D" uid="uid://cfy62c1r28yji" path="res://sprites/vamp_blade.png" id="1_1ev63"]
+[ext_resource type="Script" uid="uid://c2tcd3u1qdcyq" path="res://scripts/item system/items/vamp sword/vamp_sword.gd" id="2_m7ok0"]
+
+[resource]
+script = ExtResource("2_m7ok0")
+item_name = "Vampiric Blade"
+item_sprite = ExtResource("1_1ev63")

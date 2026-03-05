@@ -13,9 +13,18 @@ func _ready() -> void:
 	InventoryEvents.rebuild_all_to_restart.connect(populate_starter_items)
 	InventoryEvents.send_item_to_inventory.connect(equip)
 	InventoryEvents.slot_updated.connect(update_inventory_full_status)
+	@warning_ignore("untyped_declaration")
+	CombatEvents.attack_launched.connect(func(attacker:Combatant, _other_arg): on_attack(attacker))
 
 func on_scene_ready() -> void:
 	populate_starter_items()
+
+func on_attack(source: Combatant) -> void:
+	if source.is_the_player():
+		for slot: InventorySlot in inventory_slots: 
+			if slot.is_empty(): continue
+			if slot.item_in_slot:
+				slot.item_in_slot.on_attack(source)
 
 func find_inventory_slot_nodes() -> void:
 	var class_to_check_for: StringName = &"InventorySlot"
@@ -35,7 +44,6 @@ func equip(item_to_equip:ItemData) -> void:
 	if slot_to_equip_to: slot_to_equip_to.equip_item(item_to_equip)
 	else: pass #print_debug("inventory full")
 	update_inventory_full_status()
-
 
 func clear_inventory() -> void:
 	for slot:InventorySlot in inventory_slots:

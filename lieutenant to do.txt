@@ -2,7 +2,26 @@
 working notes
 --------------------------------------------------------
 
+special debug enemy selection: have a super lich with 100 hp or something
+items to implement:
+	sword that gains you 1 attack after attack
+	armor that gives 1 hp after attacked
+	
 
+weapon data
+on_attack()
+pass
+
+
+vamp sword
+extend weapon data
+on_attack()
+effects.vamp(1)
+
+
+weapon effects
+vamp(x)
+steal x hp
 
 
 
@@ -10,10 +29,8 @@ working notes
 
 
 --------------------------------------------------------
-necessary work
+work to do
 --------------------------------------------------------
-have non-inventory buffs visible - like the hp aura
-have a non-equipped invetory - maybe later though
 
 special items/enemies:
 	look at he is coming for examples of things i want to implement:
@@ -26,16 +43,19 @@ special items/enemies:
 		pull from random items
 		have item tooltips
 		probably keep "rest" or similarly basic stat booster if you don't want any items
-	
-	
-	quickly implement that scaling coefficient on enemies
+		
+		have three buttons - two items (not duplicates), and one rest
+		have a database of a few items to randomly pull from
 
 
+maybes:
+---------
 would like to make the combat log a lil nicer
 -add random chance for flavour text, mostly to break up the paragraph of autobattling, but also for fun
 -add death/victory messages
 
-
+have non-inventory buffs visible - like the hp aura
+have a non-equipped invetory - maybe later though
 
 
 
