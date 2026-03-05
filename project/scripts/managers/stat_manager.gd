@@ -20,7 +20,7 @@ func reset_to_starting_stats() -> void:
 	enemy_aura_dictionary.clear()
 
 func interpret_new_item(item:ItemData) -> void:
-	if item.damage:
+	if item is WeaponData:
 		var to_add: int = item.damage
 		add_to_aura_dictionary(player_aura_dictionary, Stats.attack, to_add)
 	update_precombat_stats()

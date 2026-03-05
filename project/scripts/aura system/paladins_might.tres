@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cxjgiskeq8yu4"]
+
+[ext_resource type="Script" uid="uid://dxmb3vmgbvydx" path="res://scripts/aura system/paladins_might.gd" id="1_lf3fo"]
+
+[resource]
+script = ExtResource("1_lf3fo")

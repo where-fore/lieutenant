@@ -28,7 +28,8 @@ func equip_item(item_to_equip: ItemData) -> void:
 	update_tooltip()
 
 func update_tooltip() -> void:
-	tooltip_text = item_in_slot.item_name + "\n" + tooltip_text_base + str(item_in_slot.damage)
+	tooltip_text = item_in_slot.item_name
+	if item_in_slot is WeaponData: tooltip_text += "\n" + tooltip_text_base + str(item_in_slot.damage)
 	if item_in_slot.custom_tooltip: tooltip_text += "\n" + item_in_slot.custom_tooltip
 
 func unequip_item() -> void:

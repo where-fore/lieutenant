@@ -4,6 +4,7 @@ class_name ItemData
 @export var item_name: String = "Generic Item"
 @export var item_sprite: Texture2D
 @export var custom_tooltip: String = ""
+@export var custom_aura: Aura
 
 
 #derived subclasses hook onto these functions

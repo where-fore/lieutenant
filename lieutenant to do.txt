@@ -5,7 +5,7 @@ working notes
 special debug enemy selection: have a super lich with 100 hp or something
 items to implement:
 	sword that gains you 1 attack after attack
-	armor that gives 1 hp after attacked
+	armor that doubles your hp
 
 
 temporary auras during combat
