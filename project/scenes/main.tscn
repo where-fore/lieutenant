@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=34 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Texture2D" uid="uid://cbp6sg330uwef" path="res://sprites/player.png" id="1_0wfyh"]
 [ext_resource type="Theme" uid="uid://8g0oubdd3ix7" path="res://ui/marginTheme.tres" id="1_o5qli"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="3_jyhfs"]
 [ext_resource type="Script" uid="uid://xqr3pvl5dnbd" path="res://scripts/managers/reward_ui_manager.gd" id="3_ya4ey"]
 [ext_resource type="Texture2D" uid="uid://jm7ccvlf38y4" path="res://sprites/sword.png" id="4_tbgi4"]
+[ext_resource type="Resource" uid="uid://d01di3t1tassr" path="res://scripts/aura system/auras/rest.tres" id="5_qkpxi"]
 [ext_resource type="PackedScene" uid="uid://dsn3r7gjwvoov" path="res://scenes/combatant.tscn" id="9_85g3d"]
 [ext_resource type="Script" uid="uid://c4226uk3kd0at" path="res://scripts/managers/combat_manager.gd" id="9_choun"]
 [ext_resource type="Texture2D" uid="uid://yruocle2m8id" path="res://sprites/ui_bar.png" id="11_a8y0u"]
@@ -94,6 +95,7 @@ text = "turn: ????"
 [node name="RewardUI" type="CanvasLayer" parent="UIManager"]
 visible = false
 script = ExtResource("3_ya4ey")
+rest_aura = ExtResource("5_qkpxi")
 attack_upgrade_item = ExtResource("17_gqmmt")
 
 [node name="Control" type="Control" parent="UIManager/RewardUI"]

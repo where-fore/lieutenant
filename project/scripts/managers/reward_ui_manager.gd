@@ -1,8 +1,6 @@
 extends CanvasLayer
 
-var attack_per_upgrade: int = 2
-var health_per_upgrade: int = 20
-
+@export var rest_aura: Aura
 @export var attack_upgrade_item: WeaponData
 
 @onready var item_reward_button_parent: Container = $Control/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer
@@ -39,8 +37,7 @@ func _on_sword_sprite_pressed() -> void:
 	reward_selected()
 
 func _on_heart_sprite_pressed() -> void:
-	push_error("this button does nothing, for i broke it. it needs to be an aura")
-	#StatEvents.health_increased.emit(health_per_upgrade)
+	StatEvents.give_aura_to_player.emit(rest_aura)
 	reward_selected()
 
 func reward_selected() -> void:

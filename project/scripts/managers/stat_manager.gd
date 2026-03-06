@@ -14,6 +14,7 @@ func _ready() -> void:
 	StatEvents.initalize_combat_stats.connect(update_precombat_stats)
 	HudEvents.combat_won.connect(grow_enemies)
 	StatEvents.restart_game.connect(reset_to_starting_stats)
+	StatEvents.give_aura_to_player.connect(apply_new_aura_to_player)
 	InventoryEvents.item_successfully_equipped.connect(interpret_new_item)
 	InventoryEvents.item_successfully_unequipped.connect(interpret_removed_item)
 
@@ -25,9 +26,13 @@ func reset_to_starting_stats() -> void:
 func grow_enemies() -> void:
 	StatEvents.encounters_defeated_for_scaling += 1
 
+func apply_new_aura_to_player(new_aura:Aura) -> void:
+	var new_personal_aura:Aura = new_aura.create_aura()
+	player_aura_dictionary[new_personal_aura.unique_id] = new_personal_aura
+	update_precombat_stats()
 
 func interpret_new_item(item:ItemData) -> void:
-	var item_aura: Aura = item.get_aura()
+	var item_aura:Aura = item.get_aura()
 	player_aura_dictionary[item_aura.unique_id] = item_aura
 	
 	var item_custom_aura:Aura = item.get_custom_aura()

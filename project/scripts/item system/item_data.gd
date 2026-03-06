@@ -6,7 +6,7 @@ class_name ItemData
 var custom_tooltip: String = ""
 @export var _custom_aura_template: Aura
 var _custom_aura: Aura
-var _aura: Aura
+var _runtime_aura: Aura
 var my_additive_stat_dictionary:Dictionary[StringName, int] = {}
 var my_multiplicative_stat_dictionary:Dictionary[StringName, int] = {}
 
@@ -24,16 +24,14 @@ func add_custom_tooltip(custom_tooltip_text: String) -> void:
 	custom_tooltip += custom_tooltip_text
 
 func get_aura() -> Aura:
-	if _aura: return _aura
+	if _runtime_aura: return _runtime_aura
 	else:
 		initialize_my_aura()
-		return _aura
+		return _runtime_aura
 
 func initialize_my_aura() -> void:
 	setup_item_stats()
-	_aura = Aura.new()
-	_aura.additive_dictionary = my_additive_stat_dictionary.duplicate() as Dictionary[StringName, int]
-	_aura.multiplicative_dictionary = my_multiplicative_stat_dictionary.duplicate() as Dictionary[StringName, int]
+	_runtime_aura = Aura.new().create_aura(my_additive_stat_dictionary, my_multiplicative_stat_dictionary)
 
 func get_custom_aura() -> Aura:
 	if _custom_aura: return _custom_aura
@@ -43,8 +41,4 @@ func get_custom_aura() -> Aura:
 		return _custom_aura
 
 func initialize_my_custom_aura() -> void:
-	_custom_aura = Aura.new()
-	_custom_aura_template.setup_aura_stats()
-	_custom_aura.additive_dictionary = _custom_aura_template.additive_dictionary.duplicate() as Dictionary[StringName, int]
-	_custom_aura.multiplicative_dictionary = _custom_aura_template.multiplicative_dictionary.duplicate() as Dictionary[StringName, int]
-	_custom_aura.unique_id = _custom_aura_template.unique_id
+	_custom_aura = _custom_aura_template.create_aura()
