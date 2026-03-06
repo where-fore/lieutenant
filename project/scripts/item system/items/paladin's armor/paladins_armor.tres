@@ -8,4 +8,4 @@
 script = ExtResource("1_cy13u")
 item_name = "Fallen Paladin's Armor"
 item_sprite = ExtResource("1_uqy3p")
-custom_aura = ExtResource("1_l81gs")
+_custom_aura_template = ExtResource("1_l81gs")

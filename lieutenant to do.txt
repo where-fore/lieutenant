@@ -10,6 +10,23 @@ items to implement:
 i should degenerate that "interpret item" "+ attack" into the aura system
 
 
+
+where i left off:
+refactoring stat changes into auras
+currently i have simply a damage field on items, and i would rather an aura field. the aura has lots of information, and can get merged by code, instead of my inventory manager having to handle each stat individually
+this would also let me have temporary auras, which i can clear based on duration
+
+i want my "paladin's might" multi stat buff, and my "crashing waves" ramping buff to work
+paladin's might is just a lot of stats that aren't damage
+crashing waves need to grow on attack and clear on combat end
+
+	probably have temporary auras with a lil flag that sets them to end on combat, and listen for combat end signal, and delete themselves? or the stat manager checks all auras for end of combat and deletes them?
+
+
+
+
+
+
 temporary auras during combat
 first instinct is a literal construct called temporary auras that i can append to, and that clears on combat end
 
@@ -148,6 +165,8 @@ if i just make it more complicated (so it's less easy to eyeball the result) is 
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+i think i prefer eg. "item_custom_aura:Aura" the type to be no space away from the colon?
+
 vamp sword calls take_damage(-10) to heal 10, maybe there should be a heal function?
 
 currently my inventory is global - should each combatant have their own inventory? given i'm planning to have more than one

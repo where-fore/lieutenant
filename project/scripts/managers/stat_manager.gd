@@ -1,15 +1,18 @@
 extends Node2D
 
-var player_aura_dictionary:Dictionary[StringName,int]
-var enemy_aura_dictionary:Dictionary[StringName,int]
+var player_aura_dictionary:Dictionary[String, Aura]
+var enemy_aura_dictionary:Dictionary[String, Aura]
+
+var player_final_additive_aura:Dictionary[StringName, int]
+var player_final_multiplicative_aura:Dictionary[StringName, int]
+var enemy_final_additive_aura:Dictionary[StringName, int]
+var enemy_final_multiplicative_aura:Dictionary[StringName, int]
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	StatEvents.initalize_combat_stats.connect(update_precombat_stats)
 	HudEvents.combat_won.connect(grow_enemies)
-	StatEvents.health_increased.connect(increase_player_health)
-	StatEvents.attack_increased.connect(increase_player_attack)
 	StatEvents.restart_game.connect(reset_to_starting_stats)
 	InventoryEvents.item_successfully_equipped.connect(interpret_new_item)
 	InventoryEvents.item_successfully_unequipped.connect(interpret_removed_item)
@@ -19,35 +22,51 @@ func reset_to_starting_stats() -> void:
 	player_aura_dictionary.clear()
 	enemy_aura_dictionary.clear()
 
-func interpret_new_item(item:ItemData) -> void:
-	if item is WeaponData:
-		var to_add: int = item.damage
-		add_to_aura_dictionary(player_aura_dictionary, Stats.attack, to_add)
-	update_precombat_stats()
-
-func interpret_removed_item(item:ItemData) -> void:
-	if item.damage:
-		var to_add: int = item.damage * -1
-		add_to_aura_dictionary(player_aura_dictionary, Stats.attack, to_add)
-	update_precombat_stats()
-
-func update_precombat_stats() -> void:
-	StatEvents.send_auras_to_combatants.emit(player_aura_dictionary, enemy_aura_dictionary)
-
 func grow_enemies() -> void:
 	StatEvents.encounters_defeated_for_scaling += 1
 
-func increase_player_health(delta: int) -> void:
-	add_to_aura_dictionary(player_aura_dictionary, Stats.health, delta)
 
-func increase_player_attack(delta: int) -> void:
-	add_to_aura_dictionary(player_aura_dictionary, Stats.attack, delta)
+func interpret_new_item(item:ItemData) -> void:
+	var item_aura: Aura = item.get_aura()
+	player_aura_dictionary[item_aura.unique_id] = item_aura
+	
+	var item_custom_aura:Aura = item.get_custom_aura()
+	if item_custom_aura:
+		player_aura_dictionary[item_custom_aura.unique_id] = item_custom_aura
+	
+	update_precombat_stats()
 
-func increase_enemy_health(delta: int) -> void:
-	add_to_aura_dictionary(enemy_aura_dictionary, Stats.health, delta)
+func interpret_removed_item(item:ItemData) -> void:
+	player_aura_dictionary.erase(item.get_aura().unique_id)
+	
+	var item_custom_aura:Aura = item.get_custom_aura()
+	if item_custom_aura: player_aura_dictionary.erase(item_custom_aura.unique_id)
+	
+	update_precombat_stats()
 
-func increase_enemy_attack(delta: int) -> void:
-	add_to_aura_dictionary(enemy_aura_dictionary, Stats.attack, delta)
+func update_precombat_stats() -> void:
+	merge_auras()
+	StatEvents.send_auras_to_combatants.emit(player_final_additive_aura, player_final_multiplicative_aura, enemy_final_additive_aura, enemy_final_multiplicative_aura)
+
+func merge_auras() -> void:
+	player_final_additive_aura.clear()
+	player_final_multiplicative_aura.clear()
+	enemy_final_additive_aura.clear()
+	enemy_final_multiplicative_aura.clear()
+
+	for aura_id:String in player_aura_dictionary:
+		for stat:StringName in player_aura_dictionary[aura_id].additive_dictionary:
+			add_to_aura_dictionary(player_final_additive_aura, stat, player_aura_dictionary[aura_id].additive_dictionary[stat])
+		
+		for stat:StringName in player_aura_dictionary[aura_id].multiplicative_dictionary:
+			add_to_aura_dictionary(player_final_multiplicative_aura, stat, player_aura_dictionary[aura_id].multiplicative_dictionary[stat])
+		
+	for aura_id:String in enemy_aura_dictionary:
+		for stat:StringName in enemy_aura_dictionary[aura_id].additive_dictionary:
+			add_to_aura_dictionary(enemy_final_additive_aura, stat, enemy_aura_dictionary[aura_id].additive_dictionary[stat])
+		
+		for stat:StringName in enemy_aura_dictionary[aura_id].multiplicative_dictionary:
+			add_to_aura_dictionary(enemy_final_multiplicative_aura, stat, enemy_aura_dictionary[aura_id].multiplicative_dictionary[stat])
 
 func add_to_aura_dictionary(dictionary_to_update:Dictionary[StringName,int], statName:StringName, value:int) -> void:
 	if dictionary_to_update.has(statName):

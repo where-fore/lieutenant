@@ -39,7 +39,8 @@ func _on_sword_sprite_pressed() -> void:
 	reward_selected()
 
 func _on_heart_sprite_pressed() -> void:
-	StatEvents.health_increased.emit(health_per_upgrade)
+	push_error("this button does nothing, for i broke it. it needs to be an aura")
+	#StatEvents.health_increased.emit(health_per_upgrade)
 	reward_selected()
 
 func reward_selected() -> void:
