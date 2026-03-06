@@ -10,80 +10,20 @@ items to implement:
 i should degenerate that "interpret item" "+ attack" into the aura system
 
 
+still need to:
 
-where i left off:
-refactoring stat changes into auras
-currently i have simply a damage field on items, and i would rather an aura field. the aura has lots of information, and can get merged by code, instead of my inventory manager having to handle each stat individually
-this would also let me have temporary auras, which i can clear based on duration
+temporary auras, for "crashing waves" attack on turn end
+	weapon:
+		on_attack()
+			increment_my_aura()
+			send_aura_update()
 
-i want my "paladin's might" multi stat buff, and my "crashing waves" ramping buff to work
-paladin's might is just a lot of stats that aren't damage
-crashing waves need to grow on attack and clear on combat end
+connect the rest function into some aura thing
+	prebuilt aura resource that the button calls?
+	
+fix not seeing duplicates
+	not sure here, probably something unique id related? have to investigate
 
-	probably have temporary auras with a lil flag that sets them to end on combat, and listen for combat end signal, and delete themselves? or the stat manager checks all auras for end of combat and deletes them?
-
-
-
-
-
-
-temporary auras during combat
-first instinct is a literal construct called temporary auras that i can append to, and that clears on combat end
-
-
-currently aura's are stringName,int pairs - i want them to be full fledged classes with lots of info: names, tooltips, icons, stat/value buff pairings as before, but also maybe multiple pairings, durations
-the core functionality of base hp from card + auras is correct, but i need auras to be much more flexible than they are right now
-
-
-
-okay so we have a aura, which is a dictionary of stat/value pairs, separated into multiple dictionaries, the "display dictionary" with the name icon etc, and the "additive stat dictionary" with each stat value pair, the "multiplicative stat dictionary" with the same stat names:
-display_dictionary = {
-name = "Paladin's Might"
-icon = icon/path/paladin
-}
-additive_dictionary = {
-health = +5
-armor = +2
-}
-multiplicative_dictionary = {
-health = +0.1
-}
-
-we have multiple auras, "Paladin's Might", "Crashing Tides", in an array of auras on the player:
-auras = []
-on_item_equip():
-	auras.append(Auras.PaladinsMight.duplicate())
-	auras.append(Auras.CrashingTides.duplicate())
-
-we can iterate through the array of auras to grab each aura, and we can iterate through each auras "stat dictionary" to see what it's supposed to add to our huge lump aura
-
-combatant when recalculating, takes two huge lump auras which is are dictionaries of stat/value modifiers. it applies the "additive" lump aura first, then "multiplicative" lump aura second.
-
-var new_big_additive_aura = {}
-var new_big_multiplicative_aura = {}
-merge_auras_in(all_my_auras:Array[aura])
-	for aura in all_my_auras:
-		for stat in aura.additive_dictionary:
-			if new_big_additive_aura.has(statName):
-				new_big_additive_aura[stat_name] = new_big_additive_aura.get(stat_name, 0) + value
-				
-		for stat in aura.multiplicative_dictionary:
-			if new_big_multiplicative_aura.has(statName):
-				if statName: new_big_multiplicative_aura[statName] += value
-			else:
-				new_big_multiplicative_aura[statName] = value
-				
-then in combatant
-func merge_aura_and_base_stats(additive_aura, multiplicative_aura) -> void:
-	for stat in additive_aura:
-		if base_stats.has(stat):
-			current_stats[stat] = auraDictionary[stat] + base_stats[stat]
-		else:
-			current_stats[stat] = auraDictionary[stat]
-	for stat in multiplicative_aura:
-		if base_stats.has(stat):
-			current_stats[stat] *= 1 + auraDictionary[stat]
-		
 
 --------------------------------------------------------
 work to do
@@ -165,6 +105,8 @@ if i just make it more complicated (so it's less easy to eyeball the result) is 
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+currently i'm updating the player stats on every item equipped, which maybe seems bad when i open combat and immediately equip 6 items?
+
 i think i prefer eg. "item_custom_aura:Aura" the type to be no space away from the colon?
 
 vamp sword calls take_damage(-10) to heal 10, maybe there should be a heal function?

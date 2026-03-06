@@ -1,6 +1,9 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cxjgiskeq8yu4"]
+[gd_resource type="Resource" script_class="Aura" load_steps=2 format=3 uid="uid://cxjgiskeq8yu4"]
 
-[ext_resource type="Script" uid="uid://dxmb3vmgbvydx" path="res://scripts/item system/items/paladin's armor/paladins_might.gd" id="1_lf3fo"]
+[ext_resource type="Script" uid="uid://yij3buadqnbh" path="res://scripts/item system/aura_base.gd" id="1_dqcu0"]
 
 [resource]
-script = ExtResource("1_lf3fo")
+script = ExtResource("1_dqcu0")
+health = 5
+attack = 2
+health_multiplier = 1
