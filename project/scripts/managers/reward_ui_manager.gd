@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 @export var rest_aura: Aura
-@export var attack_upgrade_item: WeaponData
+@export var attack_upgrade_item: Weapon
 
 @onready var item_reward_button_parent: Container = $Control/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer
 

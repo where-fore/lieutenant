@@ -31,8 +31,9 @@ func apply_new_aura_to_player(new_aura:Aura) -> void:
 	player_aura_dictionary[new_personal_aura.unique_id] = new_personal_aura
 	update_precombat_stats()
 
-func interpret_new_item(item:ItemData) -> void:
+func interpret_new_item(item:Item) -> void:
 	var item_aura:Aura = item.get_aura()
+	if player_aura_dictionary.has(item_aura.unique_id): print_debug("duplicate detected")
 	player_aura_dictionary[item_aura.unique_id] = item_aura
 	
 	var item_custom_aura:Aura = item.get_custom_aura()
@@ -41,7 +42,7 @@ func interpret_new_item(item:ItemData) -> void:
 	
 	update_precombat_stats()
 
-func interpret_removed_item(item:ItemData) -> void:
+func interpret_removed_item(item:Item) -> void:
 	player_aura_dictionary.erase(item.get_aura().unique_id)
 	
 	var item_custom_aura:Aura = item.get_custom_aura()

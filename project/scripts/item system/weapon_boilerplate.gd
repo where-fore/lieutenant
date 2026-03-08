@@ -1,4 +1,4 @@
-extends WeaponData
+extends Weapon
 #class_name here
 
 var custom_var: int = 4

@@ -1,7 +1,7 @@
 extends TextureButton
 class_name InventorySlot
 
-@export var item_in_slot: ItemData
+var item_in_slot: Item
 
 @onready var slot_sprite: TextureRect = $ItemSprite
 
@@ -20,21 +20,21 @@ func _ready() -> void:
 	delete_confirmation_panel.visible = false
 
 
-func equip_item(item_to_equip: ItemData) -> void:
-	item_in_slot = item_to_equip
+func equip_item(item_to_equip_template: Item) -> void:
+	item_in_slot = item_to_equip_template.duplicate(true)
 	update_sprite()
-	InventoryEvents.item_successfully_equipped.emit(item_to_equip)
+	InventoryEvents.item_successfully_equipped.emit(item_in_slot)
 	InventoryEvents.slot_updated.emit()
 	update_tooltip()
 
 func update_tooltip() -> void:
 	tooltip_text = item_in_slot.item_name
-	if item_in_slot is WeaponData: tooltip_text += "\n" + weapon_tooltip_text_base + str(item_in_slot.damage)
+	if item_in_slot is Weapon: tooltip_text += "\n" + weapon_tooltip_text_base + str(item_in_slot.damage)
 	if item_in_slot.custom_tooltip: tooltip_text += "\n" + item_in_slot.custom_tooltip
 
 func unequip_item() -> void:
 	#this is null if the slot was empty
-	var old_item:ItemData = item_in_slot
+	var old_item:Item = item_in_slot
 	
 	item_in_slot = null
 	update_sprite()

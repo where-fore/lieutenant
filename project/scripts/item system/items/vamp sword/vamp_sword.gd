@@ -1,4 +1,4 @@
-extends WeaponData
+extends Weapon
 class_name VampSword
 
 var life_gain: int = 2

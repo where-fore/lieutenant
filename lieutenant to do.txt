@@ -5,10 +5,6 @@ working notes
 special debug enemy selection: have a super lich with 100 hp or something
 items to implement:
 	sword that gains you 1 attack after attack
-	armor that doubles your hp
-
-i should degenerate that "interpret item" "+ attack" into the aura system
-
 
 still need to:
 
@@ -18,12 +14,23 @@ temporary auras, for "crashing waves" attack on turn end
 			increment_my_aura()
 			send_aura_update()
 
-connect the rest function into some aura thing
-	prebuilt aura resource that the button calls?
-	
-fix not seeing duplicates
-	not sure here, probably something unique id related? have to investigate
 
+
+okay so the stat managar doesn't care about items, it cares about auras
+the inventory manager should create a new instance of an aura when it gets a new item, and save that aura instance to the slot, and when the slot gets updated it work with the aura instance
+and the inventory manager should communicate auras up to the stat manager
+
+iventory maanager:
+on equip item():
+	slot.sprite update item.sprite
+	slot.aura[0] = item.create_aura()
+	slot.aura[1] = item.create_custom_aura()
+	update_stats_with_aura(slot.aura)
+
+on unequip item()
+	slot.sprite update blank.sprite
+	update_stats_with_removal_of_aura(slot.aura)
+	slot.aura = null
 
 --------------------------------------------------------
 work to do
@@ -54,6 +61,7 @@ would like to make the combat log a lil nicer
 have non-inventory buffs visible - like the hp aura
 have a non-equipped invetory - maybe later though
 
+being able to swap between combat log and aura list would be frickin sweet
 
 
 
@@ -105,6 +113,9 @@ if i just make it more complicated (so it's less easy to eyeball the result) is 
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+the unique id thing is instance_id + current clock time? sounds super fucked. does it even work on all clocks? what the hell is an instance id, and am i sure you can't create two instance_ids at the same second?
+	should probably deal with this when learning how to save the game
+
 currently i'm updating the player stats on every item equipped, which maybe seems bad when i open combat and immediately equip 6 items?
 
 i think i prefer eg. "item_custom_aura:Aura" the type to be no space away from the colon?

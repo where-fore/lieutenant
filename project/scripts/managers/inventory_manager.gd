@@ -2,17 +2,20 @@ extends GridContainer
 
 var inventory_slots : Array[Node] = []
 
-@export var starting_items: Array[ItemData]
+@export var starting_items: Array[Item]
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if starting_items.has(null): push_error("starting items has a null slot")
+	
 	find_inventory_slot_nodes()
 	TimingEvents.everythings_ready.connect(on_scene_ready)
 	InventoryEvents.clear_all_to_restart.connect(clear_inventory)
 	InventoryEvents.rebuild_all_to_restart.connect(populate_starter_items)
 	InventoryEvents.send_item_to_inventory.connect(equip)
 	InventoryEvents.slot_updated.connect(update_inventory_full_status)
+	#this is unreadable programmer shorthand for "throw away all arguments but the one i care about, "attacker"
 	@warning_ignore("untyped_declaration")
 	CombatEvents.attack_launched.connect(func(attacker:Combatant, _other_arg): on_attack(attacker))
 
@@ -39,7 +42,7 @@ func find_first_empty_slot() -> InventorySlot:
 	#if we get this far, ie. iterated through all slots
 	return null
 
-func equip(item_to_equip:ItemData) -> void:
+func equip(item_to_equip:Item) -> void:
 	var slot_to_equip_to: InventorySlot = find_first_empty_slot()
 	if slot_to_equip_to: slot_to_equip_to.equip_item(item_to_equip)
 	else: pass #print_debug("inventory full")
@@ -50,7 +53,7 @@ func clear_inventory() -> void:
 		slot.unequip_item()
 
 func populate_starter_items() -> void:
-	for item: ItemData in starting_items:
+	for item: Item in starting_items:
 		equip(item)
 
 func update_inventory_full_status() -> void:

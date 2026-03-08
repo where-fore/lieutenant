@@ -1,5 +1,5 @@
-extends ItemData
-class_name WeaponData
+extends Item
+class_name Weapon
 
 @export var damage: int = 0
 

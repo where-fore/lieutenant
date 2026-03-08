@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=33 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Texture2D" uid="uid://cbp6sg330uwef" path="res://sprites/player.png" id="1_0wfyh"]
 [ext_resource type="Theme" uid="uid://8g0oubdd3ix7" path="res://ui/marginTheme.tres" id="1_o5qli"]
@@ -23,7 +23,6 @@
 [ext_resource type="Texture2D" uid="uid://dqnu3pxst2rni" path="res://sprites/step.png" id="13_og1vs"]
 [ext_resource type="Script" uid="uid://dfj0skb38br" path="res://scripts/managers/inventory_manager.gd" id="14_dp3eg"]
 [ext_resource type="PackedScene" uid="uid://cto8ggdg8cw8x" path="res://scenes/inventory_slot.tscn" id="14_muem4"]
-[ext_resource type="Resource" uid="uid://d2argrohlttq2" path="res://scripts/item system/items/rock.tres" id="15_0ld40"]
 [ext_resource type="Script" uid="uid://cio5dheq3p8mc" path="res://scripts/item system/item_data.gd" id="15_yc10j"]
 [ext_resource type="Resource" uid="uid://7pnk7lt0msvw" path="res://scripts/item system/items/iron_sword.tres" id="17_gqmmt"]
 [ext_resource type="Resource" uid="uid://b7hiehj5fulcw" path="res://scripts/item system/items/vamp sword/vamp_sword.tres" id="22_yq6so"]
@@ -612,7 +611,7 @@ grow_horizontal = 2
 grow_vertical = 2
 columns = 2
 script = ExtResource("14_dp3eg")
-starting_items = Array[ExtResource("15_yc10j")]([ExtResource("22_yq6so"), ExtResource("15_0ld40"), ExtResource("24_tel4y"), ExtResource("23_fv21b")])
+starting_items = Array[ExtResource("15_yc10j")]([ExtResource("22_yq6so"), ExtResource("24_tel4y"), ExtResource("23_fv21b")])
 
 [node name="Inventory Slot1" parent="UIManager/SideHUD/Control/BottomSection/Inventory" instance=ExtResource("14_muem4")]
 layout_mode = 2

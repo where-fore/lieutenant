@@ -5,6 +5,6 @@
 
 [resource]
 script = ExtResource("1_oxnnp")
-damage = 4
+damage = 2
 item_name = "Crashing Waves"
 item_sprite = ExtResource("1_54fcf")
