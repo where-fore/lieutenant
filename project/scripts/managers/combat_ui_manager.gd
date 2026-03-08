@@ -45,7 +45,7 @@ func clear_turn_indicator() -> void:
 	player_sprite_display.texture = original_player_sprite
 	enemy_sprite_display.texture = original_enemy_sprite
 
-func update_turn_indicator() -> void:
+func update_turn_indicator(_source:Combatant) -> void:
 	if player_sprite_display.texture == turn_sprite: player_sprite_display.texture = original_player_sprite
 	elif player_sprite_display.texture == original_player_sprite: player_sprite_display.texture = turn_sprite
 	

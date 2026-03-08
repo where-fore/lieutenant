@@ -2,71 +2,28 @@
 working notes
 --------------------------------------------------------
 
-special debug enemy selection: have a super lich with 100 hp or something
-items to implement:
-	sword that gains you 1 attack after attack
-	armor that doubles your hp
-
-i should degenerate that "interpret item" "+ attack" into the aura system
-
-
-temporary auras during combat
-first instinct is a literal construct called temporary auras that i can append to, and that clears on combat end
-
-
-currently aura's are stringName,int pairs - i want them to be full fledged classes with lots of info: names, tooltips, icons, stat/value buff pairings as before, but also maybe multiple pairings, durations
-the core functionality of base hp from card + auras is correct, but i need auras to be much more flexible than they are right now
 
 
 
-okay so we have a aura, which is a dictionary of stat/value pairs, separated into multiple dictionaries, the "display dictionary" with the name icon etc, and the "additive stat dictionary" with each stat value pair, the "multiplicative stat dictionary" with the same stat names:
-display_dictionary = {
-name = "Paladin's Might"
-icon = icon/path/paladin
-}
-additive_dictionary = {
-health = +5
-armor = +2
-}
-multiplicative_dictionary = {
-health = +0.1
-}
 
-we have multiple auras, "Paladin's Might", "Crashing Tides", in an array of auras on the player:
-auras = []
-on_item_equip():
-	auras.append(Auras.PaladinsMight.duplicate())
-	auras.append(Auras.CrashingTides.duplicate())
 
-we can iterate through the array of auras to grab each aura, and we can iterate through each auras "stat dictionary" to see what it's supposed to add to our huge lump aura
 
-combatant when recalculating, takes two huge lump auras which is are dictionaries of stat/value modifiers. it applies the "additive" lump aura first, then "multiplicative" lump aura second.
 
-var new_big_additive_aura = {}
-var new_big_multiplicative_aura = {}
-merge_auras_in(all_my_auras:Array[aura])
-	for aura in all_my_auras:
-		for stat in aura.additive_dictionary:
-			if new_big_additive_aura.has(statName):
-				new_big_additive_aura[stat_name] = new_big_additive_aura.get(stat_name, 0) + value
-				
-		for stat in aura.multiplicative_dictionary:
-			if new_big_multiplicative_aura.has(statName):
-				if statName: new_big_multiplicative_aura[statName] += value
-			else:
-				new_big_multiplicative_aura[statName] = value
-				
-then in combatant
-func merge_aura_and_base_stats(additive_aura, multiplicative_aura) -> void:
-	for stat in additive_aura:
-		if base_stats.has(stat):
-			current_stats[stat] = auraDictionary[stat] + base_stats[stat]
-		else:
-			current_stats[stat] = auraDictionary[stat]
-	for stat in multiplicative_aura:
-		if base_stats.has(stat):
-			current_stats[stat] *= 1 + auraDictionary[stat]
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 --------------------------------------------------------
 work to do
@@ -90,13 +47,10 @@ special items/enemies:
 
 maybes:
 ---------
-would like to make the combat log a lil nicer
--add random chance for flavour text, mostly to break up the paragraph of autobattling, but also for fun
--add death/victory messages
-
 have non-inventory buffs visible - like the hp aura
 have a non-equipped invetory - maybe later though
 
+being able to swap between combat log and aura list would be frickin sweet
 
 
 
@@ -148,6 +102,25 @@ if i just make it more complicated (so it's less easy to eyeball the result) is 
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+these signals really are poorly named, i'm connecting to hudevents.change_to_combat_screen for my inventory restarting of combat auras? terrible
+
+
+itemData custom tooltip never gets made? it gets called by custom items hooking onto _init? sounds cringe
+
+a lot of my export variables could use some property list or export group love, to make them easier to read and work with
+	ideally im going to json soon, so no need if that happens
+
+hmmmm something is fishy about combatant damage - the combat manager calls for the combatants to take damage based on their attack, which seems bad cause the stat manager might care about custom auras reducing damage from goblins or something. also maybe damage taken should be saved on the player aura thing?
+
+hmm i think the inventory manager hooking onto "on attack" is bad timing - i don't know the order of operations between buffing attack and taking damage, should probably have an intermediate event
+
+the unique id thing is instance_id + current clock time? sounds super fucked. does it even work on all clocks? what the hell is an instance id, and am i sure you can't create two instance_ids at the same second?
+	should probably deal with this when learning how to save the game
+
+currently i'm updating the player stats on every item equipped, which maybe seems bad when i open combat and immediately equip 6 items?
+
+i think i prefer eg. "item_custom_aura:Aura" the type to be no space away from the colon?
+
 vamp sword calls take_damage(-10) to heal 10, maybe there should be a heal function?
 
 currently my inventory is global - should each combatant have their own inventory? given i'm planning to have more than one

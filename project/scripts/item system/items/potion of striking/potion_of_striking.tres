@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://cmd0khhdrwnj4"]
+
+[ext_resource type="Resource" uid="uid://dxk7h254yy613" path="res://scripts/item system/items/potion of striking/striking.tres" id="1_rht2n"]
+[ext_resource type="Texture2D" uid="uid://dp0i0qk412ipm" path="res://sprites/potion.png" id="2_vlg5s"]
+[ext_resource type="Script" uid="uid://cio5dheq3p8mc" path="res://scripts/item system/item_data.gd" id="3_ptjs5"]
+
+[resource]
+script = ExtResource("3_ptjs5")
+item_name = "Potion of Striking"
+item_sprite = ExtResource("2_vlg5s")
+aura_application_time = 1
+_custom_aura_template = ExtResource("1_rht2n")
+custom_tooltip = "You strike twice over"

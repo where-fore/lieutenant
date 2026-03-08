@@ -8,6 +8,8 @@ var current_player: Combatant
 @export var player_base_scene:PackedScene
 @export var player_base_stats:CombatantData
 
+var combatants:Array[Combatant]
+
 var player_turn: StringName = &"Player"
 var enemy_turn: StringName = &"Enemy"
 var precombat: StringName = &"Precombat"
@@ -57,15 +59,13 @@ func play_button_pressed() -> void:
 	elif turn_finished == true:
 		next_turn()
 
-
 func handle_attack(attacker: Combatant, amount: int) -> void:
 	if attacker.is_the_player():
 		current_enemy.take_damage(amount)
 	else:
 		current_player.take_damage(amount)
 
-
-func finish_turn() -> void:
+func finish_turn(_source:Combatant) -> void:
 	#animate, unless step mode where you skip animations
 	if turn_mode != step_mode:
 		await turn_animation()
@@ -74,7 +74,6 @@ func finish_turn() -> void:
 	
 	if turn_mode == play_mode:
 		next_turn()
-	
 
 func next_turn() -> void:
 	#swap turns
@@ -84,7 +83,6 @@ func next_turn() -> void:
 	
 	if CombatEvents.combat_ongoing:
 		start_turn()
-
 
 func turn_animation() -> Signal:
 	var near_end: bool = (current_enemy.current_stats[Stats.health] <= 1* current_player.current_stats[Stats.attack]) or (current_player.current_stats[Stats.health] <= 1* current_enemy.current_stats[Stats.attack])
@@ -106,6 +104,9 @@ func turn_animation() -> Signal:
 
 func stop_combat(combatant_who_died:Combatant) -> void:
 	CombatEvents.combat_ongoing = false
+	CombatEvents.combat_finished.emit()
+	combatants.clear()
+	
 	if combatant_who_died.is_the_player():
 		HudEvents.combat_lost.emit()
 		
@@ -114,10 +115,11 @@ func stop_combat(combatant_who_died:Combatant) -> void:
 		#delete the old loser from memory
 		combatant_who_died.queue_free()
 
-
 func pre_combat() -> void:
 	current_player = spawn_player()
+	combatants.append(current_player)
 	current_enemy = choose_enemy()
+	combatants.append(current_enemy)
 	#this is a bit dangerous - i'm now assuming that worked. would love some sort of call back?
 	#can't put it in the setup function since that fires before this function reaches await()
 	
@@ -142,7 +144,6 @@ func choose_enemy() -> Combatant:
 	
 	return new_enemy_node
 
-
 func spawn_player() -> Combatant:
 	#create a lil memory boi
 	var new_player_node: Combatant = player_base_scene.instantiate()
@@ -160,7 +161,7 @@ func start_combat() -> void:
 	if not CombatEvents.combat_ongoing and can_start_combat:
 		can_start_combat = false
 		CombatEvents.combat_ongoing = true
-
+		CombatEvents.combat_started.emit(combatants)
 
 func start_turn() -> void:
 	turn_finished = false

@@ -8,3 +8,4 @@ script = ExtResource("2_m7ok0")
 damage = 8
 item_name = "Vampiric Blade"
 item_sprite = ExtResource("1_1ev63")
+custom_tooltip = "You enjoy 2 life on bloodshed"

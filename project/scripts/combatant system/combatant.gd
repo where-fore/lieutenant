@@ -6,6 +6,8 @@ class_name Combatant
 @export var _this_is_the_player: bool = false
 func is_the_player() -> bool: return _this_is_the_player
 
+var damage_taken: int = 0
+
 var base_stats: Dictionary = {}
 var current_stats: Dictionary = {}
 
@@ -32,12 +34,13 @@ func setup(should_be_the_player:bool = false) -> void:
 	
 
 func take_damage(value: int) -> void:
-	current_stats[Stats.health] -= value
+	damage_taken += value
+	var current_hp:int = current_stats[Stats.health] - damage_taken
 	
-	if is_the_player(): HudEvents.player_health_update.emit(current_stats[Stats.health])
-	else: HudEvents.enemy_health_update.emit(current_stats[Stats.health])
+	if is_the_player(): HudEvents.player_health_update.emit(current_hp)
+	else: HudEvents.enemy_health_update.emit(current_hp)
 	
-	if current_stats[Stats.health] <= 0: perish()
+	if current_hp <= 0: perish()
 
 func reset_current_stats_to_base() -> void:
 	scale_stats_to_combats()
@@ -62,24 +65,31 @@ func take_turn() -> void:
 	CombatEvents.attack_launched.emit(self, current_stats[Stats.attack])
 	
 	#all done
-	CombatEvents.turn_finished.emit()
+	CombatEvents.turn_finished.emit(self)
 
-func recalculate_stats(playerAuraDictionary:Dictionary[StringName, int], enemyAuraDictionary:Dictionary[StringName, int]) -> void:
+func recalculate_stats(playerAuraAdditiveDictionary:Dictionary[StringName, int], playerAuraMultiplicativeDictionary:Dictionary[StringName, int], enemyAuraAdditiveDictionary:Dictionary[StringName, int], enemyAuraMultiplicativeDictionary:Dictionary[StringName, int]) -> void:
 	reset_current_stats_to_base()
-	
+
 	if _this_is_the_player:
-		merge_aura_and_base_stats(playerAuraDictionary)
-		HudEvents.player_health_update.emit(current_stats[Stats.health])
+		sum_aura_and_base_stats(playerAuraAdditiveDictionary)
+		multiply_aura_and_current_stats(playerAuraMultiplicativeDictionary)
+		HudEvents.player_health_update.emit(current_stats[Stats.health] - damage_taken)
 		HudEvents.player_attack_update.emit(current_stats[Stats.attack])
 	
 	elif not _this_is_the_player:
-		merge_aura_and_base_stats(enemyAuraDictionary)
-		HudEvents.enemy_health_update.emit(current_stats[Stats.health])
+		sum_aura_and_base_stats(enemyAuraAdditiveDictionary)
+		multiply_aura_and_current_stats(enemyAuraMultiplicativeDictionary)
+		HudEvents.enemy_health_update.emit(current_stats[Stats.health] - damage_taken)
 		HudEvents.enemy_attack_update.emit(current_stats[Stats.attack])
 
-func merge_aura_and_base_stats(auraDictionary:Dictionary[StringName,int]) -> void:
+func sum_aura_and_base_stats(auraDictionary:Dictionary[StringName,int]) -> void:
 	for stat: String in auraDictionary:
 		if base_stats.has(stat):
 			current_stats[stat] = auraDictionary[stat] + base_stats[stat]
 		else:
 			current_stats[stat] = auraDictionary[stat]
+
+func multiply_aura_and_current_stats(auraDictionary:Dictionary[StringName,int]) -> void:
+	for stat: String in auraDictionary:
+		if base_stats.has(stat):
+			current_stats[stat] *= (1+ auraDictionary[stat])

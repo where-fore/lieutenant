@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Aura" load_steps=2 format=3 uid="uid://dxk7h254yy613"]
+
+[ext_resource type="Script" uid="uid://yij3buadqnbh" path="res://scripts/aura system/aura_base.gd" id="1_srrol"]
+
+[resource]
+script = ExtResource("1_srrol")
+attack_multiplier = 1
+aura_name = "Striking"
+duration_type = 2
+base_duration = 1

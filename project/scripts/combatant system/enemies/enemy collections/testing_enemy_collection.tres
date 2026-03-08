@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="EnemyCollection" load_steps=4 format=3 uid="uid://bq7wotxutrq48"]
+
+[ext_resource type="Script" uid="uid://djic85a1uq1k7" path="res://scripts/combatant system/combatant_data.gd" id="1_vgjv3"]
+[ext_resource type="Resource" uid="uid://dxq81bv3lb6t7" path="res://scripts/combatant system/enemies/tester_lich.tres" id="2_7nrjy"]
+[ext_resource type="Script" uid="uid://kqwfksdvf463" path="res://scripts/combatant system/enemies/enemy collections/enemy_collection.gd" id="5_d5prn"]
+
+[resource]
+script = ExtResource("5_d5prn")
+enemies = Array[ExtResource("1_vgjv3")]([ExtResource("2_7nrjy")])

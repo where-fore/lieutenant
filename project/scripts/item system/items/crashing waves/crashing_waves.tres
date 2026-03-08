@@ -1,10 +1,13 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dbtlu04k56rem"]
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://dbtlu04k56rem"]
 
 [ext_resource type="Texture2D" uid="uid://he7jxdjo8v12" path="res://sprites/hook_sword.png" id="1_54fcf"]
+[ext_resource type="Resource" uid="uid://ddfia22edvxhu" path="res://scripts/item system/items/crashing waves/surging_waves.tres" id="1_h2rg1"]
 [ext_resource type="Script" uid="uid://cgp80wrc4hal4" path="res://scripts/item system/items/crashing waves/crashing_waves.gd" id="1_oxnnp"]
 
 [resource]
 script = ExtResource("1_oxnnp")
-damage = 4
+damage = 2
 item_name = "Crashing Waves"
 item_sprite = ExtResource("1_54fcf")
+_custom_aura_template = ExtResource("1_h2rg1")
+custom_tooltip = "You grow stronger as blood is shed"
