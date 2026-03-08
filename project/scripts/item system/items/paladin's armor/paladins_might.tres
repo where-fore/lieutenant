@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_dqcu0")
-health = 5
-attack = 2
-health_multiplier = 1
+attack = 10
+my_name = "Paladin's Might"
+duration_type = 2
+base_duration = 5

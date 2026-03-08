@@ -63,7 +63,7 @@ func handle_attack(attacker: Combatant, amount: int) -> void:
 	else:
 		current_player.take_damage(amount)
 
-func finish_turn() -> void:
+func finish_turn(_source:Combatant) -> void:
 	#animate, unless step mode where you skip animations
 	if turn_mode != step_mode:
 		await turn_animation()

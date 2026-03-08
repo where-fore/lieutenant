@@ -31,7 +31,7 @@ func get_aura() -> Aura:
 
 func initialize_my_aura() -> void:
 	setup_item_stats()
-	_runtime_aura = Aura.new().create_aura(my_additive_stat_dictionary, my_multiplicative_stat_dictionary)
+	_runtime_aura = Aura.new().create_aura(item_name, my_additive_stat_dictionary, my_multiplicative_stat_dictionary)
 
 func get_custom_aura() -> Aura:
 	if _custom_aura: return _custom_aura

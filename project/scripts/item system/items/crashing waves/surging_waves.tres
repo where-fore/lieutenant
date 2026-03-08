@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Aura" load_steps=2 format=3 uid="uid://ddfia22edvxhu"]
+
+[ext_resource type="Script" uid="uid://yij3buadqnbh" path="res://scripts/aura system/aura_base.gd" id="1_hqxjw"]
+
+[resource]
+script = ExtResource("1_hqxjw")
+my_name = "Surging Waves"
+duration_type = 1

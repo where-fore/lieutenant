@@ -2,11 +2,9 @@
 working notes
 --------------------------------------------------------
 
-special debug enemy selection: have a super lich with 100 hp or something
-items to implement:
-	sword that gains you 1 attack after attack
+probably do something about makes Aura.new.create_aura() maknig two auras - clean the first empty thing from memory or something
 
-still need to:
+
 
 temporary auras, for "crashing waves" attack on turn end
 	weapon:
@@ -38,6 +36,50 @@ okay so the big problem is "recalculate stats" is precombat stats like health - 
 	so refactor combatants to have health (max hp), and damage (current -health), which get summed together for the display health, and when damage > health: die()
 
 
+
+okay so my problem is that items can't instantiate auras
+	or if they can, they aren't related to the item
+		so change "custom aura" to "attached auras", an array
+			"custom aura" doesn't do anything right now, it's just some futureproof set dressing for an aura tooltip i haven't made and may never
+			"attached auras" can be cleared when the item is cleared
+		
+	an aura should be able to just make and apply an aura (on functions like on attack)
+		items don't know who they are attached to, and who should get the aura
+			okay so even now items are firing on generic inventory manager signals
+				maybe the inventory manager signals should have a source payload, and items have an "equipped by" field; and only fire if those are equal
+				also the item can send the aura to that "equipped by" source
+
+
+i could also keep "custom aura", and have the "custom aura" of surging waves clear itself on combat end....
+	have a temporary field, and if temporary then clear dictionaries on combat end?
+		this is very black and white, what if i want a custom aura of +5 damage and +1 damage per turn
+			well that's two auras anyways, the +5 damage and the stacking damage
+
+
+
+hmm so i can have the custom aura have a custom tick down fucntion
+	but so many auras im going to want boilerplate (lasts 5 turns, lasts whole combat but not next combat)
+		would be nice to be able to overwrite it for special auras that want to fire every attack (player and enemy), or something of the sort
+		
+	enum durationType = { PERMANENT, TURNS, SPECIAL }
+	base duration:int = 0
+	current duration:int
+	current duration = base
+	
+	on turn end:
+		if durationType = turns
+		current duration -= 1
+		if current duration = 0
+		stat.remove_this_aura
+		queue.free or whatever's similar
+
+
+i want my stat manager to go through the auras and check durations
+	maybe i should rename the stat manager to aura manager
+	anyways, it iterates through the aura dictionary and calls decerement on each
+		should the stat manager or the aura check if it's permanent?
+			probably the aura function
+	also the stat manager should apply owners. not sure when. on dictionary update?
 
 --------------------------------------------------------
 work to do
@@ -120,6 +162,11 @@ if i just make it more complicated (so it's less easy to eyeball the result) is 
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+itemData custom tooltip never gets made? it gets called by custom items hooking onto _init? sounds cringe
+
+a lot of my export variables could use some property list or export group love, to make them easier to read and work with
+	ideally im going to json soon, so no need if that happens
+
 hmmmm something is fishy about combatant damage - the combat manager calls for the combatants to take damage based on their attack, which seems bad cause the stat manager might care about custom auras reducing damage from goblins or something. also maybe damage taken should be saved on the player aura thing?
 
 hmm i think the inventory manager hooking onto "on attack" is bad timing - i don't know the order of operations between buffing attack and taking damage, should probably have an intermediate event

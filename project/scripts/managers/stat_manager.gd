@@ -17,6 +17,8 @@ func _ready() -> void:
 	StatEvents.restart_game.connect(reset_to_starting_stats)
 	StatEvents.give_aura_to_player.connect(apply_new_aura_to_player)
 	StatEvents.remove_aura_from_player.connect(remove_aura_from_player)
+	CombatEvents.turn_finished.connect(turn_end_duration_check)
+	StatEvents.expired_aura.connect(remove_expired_aura)
 
 func reset_to_starting_stats() -> void:
 	StatEvents.encounters_defeated_for_scaling = 0
@@ -75,3 +77,29 @@ func add_to_aura_dictionary(dictionary_to_update:Dictionary[StringName,int], sta
 		dictionary_to_update[statName] += value
 	else:
 		dictionary_to_update[statName] = value
+
+func turn_end_duration_check(whose_turn_just_ended:Combatant) -> void:
+	if whose_turn_just_ended.is_the_player():
+		for aura:Aura in player_aura_dictionary.values():
+			aura.decrement_duration_counter()
+	
+	if not whose_turn_just_ended.is_the_player():
+		for aura:Aura in enemy_aura_dictionary.values():
+			aura.decrement_duration_counter()
+
+func remove_expired_aura(expired_aura:Aura) -> void:
+	if not remove_aura_by_id(expired_aura.unique_id, player_aura_dictionary):
+		remove_aura_by_id(expired_aura.unique_id, enemy_aura_dictionary)
+
+func remove_aura_by_id(aura_id:String, aura_dictionary:Dictionary[String, Aura]) -> bool:
+	var removed:bool = false
+	
+	if aura_id in aura_dictionary.keys():
+		aura_dictionary.erase(aura_id)
+		removed = true
+	
+	if removed:
+		update_stats()
+		return true
+	else:
+		return false

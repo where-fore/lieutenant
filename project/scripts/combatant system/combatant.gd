@@ -65,7 +65,7 @@ func take_turn() -> void:
 	CombatEvents.attack_launched.emit(self, current_stats[Stats.attack])
 	
 	#all done
-	CombatEvents.turn_finished.emit()
+	CombatEvents.turn_finished.emit(self)
 
 func recalculate_stats(playerAuraAdditiveDictionary:Dictionary[StringName, int], playerAuraMultiplicativeDictionary:Dictionary[StringName, int], enemyAuraAdditiveDictionary:Dictionary[StringName, int], enemyAuraMultiplicativeDictionary:Dictionary[StringName, int]) -> void:
 	reset_current_stats_to_base()

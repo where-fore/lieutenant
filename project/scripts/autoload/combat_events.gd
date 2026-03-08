@@ -4,7 +4,7 @@ extends Node
 signal attack_launched(attacker:Combatant, amount:int)
 
 @warning_ignore("unused_signal")
-signal turn_finished()
+signal turn_finished(source:Combatant)
 
 @warning_ignore("unused_signal")
 signal player_turn_should_start()
