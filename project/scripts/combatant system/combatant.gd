@@ -69,17 +69,17 @@ func take_turn() -> void:
 
 func recalculate_stats(playerAuraAdditiveDictionary:Dictionary[StringName, int], playerAuraMultiplicativeDictionary:Dictionary[StringName, int], enemyAuraAdditiveDictionary:Dictionary[StringName, int], enemyAuraMultiplicativeDictionary:Dictionary[StringName, int]) -> void:
 	reset_current_stats_to_base()
-	
+
 	if _this_is_the_player:
 		sum_aura_and_base_stats(playerAuraAdditiveDictionary)
 		multiply_aura_and_current_stats(playerAuraMultiplicativeDictionary)
-		HudEvents.player_health_update.emit(current_stats[Stats.health])
+		HudEvents.player_health_update.emit(current_stats[Stats.health] - damage_taken)
 		HudEvents.player_attack_update.emit(current_stats[Stats.attack])
 	
 	elif not _this_is_the_player:
 		sum_aura_and_base_stats(enemyAuraAdditiveDictionary)
 		multiply_aura_and_current_stats(enemyAuraMultiplicativeDictionary)
-		HudEvents.enemy_health_update.emit(current_stats[Stats.health])
+		HudEvents.enemy_health_update.emit(current_stats[Stats.health] - damage_taken)
 		HudEvents.enemy_attack_update.emit(current_stats[Stats.attack])
 
 func sum_aura_and_base_stats(auraDictionary:Dictionary[StringName,int]) -> void:

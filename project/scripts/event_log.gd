@@ -7,6 +7,7 @@ func _ready() -> void:
 	clear_log()
 	
 	CombatEvents.attack_launched.connect(interpret_damage_dealt)
+	CombatLogEvents.aura_removed.connect(report_aura_removed)
 	HudEvents.change_to_combat_screen.connect(clear_log)
 
 
@@ -20,8 +21,13 @@ func interpret_damage_dealt(source_object: Combatant, amount: int) -> void:
 	var text_to_add: String = source_name + " " + "deals" + " " + damage + " " + "damage."
 	append_to_label(text_to_add)
 
+func report_aura_removed(aura:Aura) -> void:
+	var aura_name:String = aura.my_name
+	var text_to_add:String = aura_name + " fades from your spirit."
+	append_to_label(text_to_add)
+
 
 func append_to_label(text_to_append: String) -> void:
 	var linebreak: String = "\n"
 	if label.text == "": label.text += text_to_append
-	else:	label.text += linebreak + text_to_append
+	else: label.text += linebreak + text_to_append

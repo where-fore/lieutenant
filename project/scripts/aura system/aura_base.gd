@@ -53,4 +53,4 @@ func decrement_duration_counter() -> void:
 		current_duration -= 1
 		if current_duration <= 0:
 			StatEvents.expired_aura.emit(self)
-		print_debug("turn counter: " + str(current_duration))
+			CombatLogEvents.aura_removed.emit(self)
