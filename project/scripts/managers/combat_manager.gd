@@ -102,6 +102,8 @@ func turn_animation() -> Signal:
 
 func stop_combat(combatant_who_died:Combatant) -> void:
 	CombatEvents.combat_ongoing = false
+	CombatEvents.combat_finished.emit()
+	
 	if combatant_who_died.is_the_player():
 		HudEvents.combat_lost.emit()
 		

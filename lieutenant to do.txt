@@ -81,6 +81,26 @@ i want my stat manager to go through the auras and check durations
 			probably the aura function
 	also the stat manager should apply owners. not sure when. on dictionary update?
 
+
+okay so auras can tell when its their turn to decrement turn timers
+i need a category for "this combat" auras
+	the item manager needs to refresh "this combat" auras on combat start
+		for item slot
+			item slot.item in slot	
+				if item.custom aura.durationtype?
+					can i just do that?
+					create aura
+when the aura counter reaches 0
+	tell stat manager an aura died (aura id)
+		stat manager kills every aura in either dictionary with that aura_id
+
+
+
+
+
+aura.my_name is cringe
+
+
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
@@ -162,6 +182,9 @@ if i just make it more complicated (so it's less easy to eyeball the result) is 
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+these signals really are poorly named, i'm connecting to hudevents.change_to_combat_screen for my inventory restarting of combat auras? terrible
+
+
 itemData custom tooltip never gets made? it gets called by custom items hooking onto _init? sounds cringe
 
 a lot of my export variables could use some property list or export group love, to make them easier to read and work with

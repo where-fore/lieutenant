@@ -17,6 +17,16 @@ func on_attack(_source:Combatant) -> void:
 	pass
 
 #derived subclasses hook onto these functions
+func on_combat_start() -> void:
+	#print_debug(_source.baseData.name + " attacked with " + item_name)
+	pass
+
+#derived subclasses hook onto these functions
+func on_combat_end() -> void:
+	#print_debug(_source.baseData.name + " attacked with " + item_name)
+	pass
+
+#derived subclasses hook onto these functions
 func setup_item_stats() -> void:
 	pass
 

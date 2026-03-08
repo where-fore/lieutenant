@@ -19,6 +19,7 @@ func _ready() -> void:
 	StatEvents.remove_aura_from_player.connect(remove_aura_from_player)
 	CombatEvents.turn_finished.connect(turn_end_duration_check)
 	StatEvents.expired_aura.connect(remove_expired_aura)
+	CombatEvents.combatant_died.connect(remove_end_of_combat_auras)
 
 func reset_to_starting_stats() -> void:
 	StatEvents.encounters_defeated_for_scaling = 0
@@ -33,6 +34,7 @@ func apply_new_aura_to_player(new_aura:Aura) -> void:
 		#if the aura sent in is a file on the disk (ie. is a template, not an already instanced aura)
 		#then instance a new aura
 		new_aura = new_aura.create_aura()
+	if new_aura.unique_id in player_aura_dictionary.keys(): push_warning("overwriting aura: " + new_aura.my_name)
 	player_aura_dictionary[new_aura.unique_id] = new_aura
 	update_stats()
 	
@@ -44,7 +46,7 @@ func remove_aura_from_player(old_aura:Aura) -> void:
 	update_stats()
 
 func update_aura(_aura:Aura) -> void:
-	#i don't think i actually do anything? the aura should dynamically update?
+	#i don't think i actually do anything? the aura should have already dynamically updated?
 	#maybe this should only update one aura? but i have to recalculate it all anyways
 	update_stats()
 
@@ -87,19 +89,17 @@ func turn_end_duration_check(whose_turn_just_ended:Combatant) -> void:
 		for aura:Aura in enemy_aura_dictionary.values():
 			aura.decrement_duration_counter()
 
-func remove_expired_aura(expired_aura:Aura) -> void:
-	if not remove_aura_by_id(expired_aura.unique_id, player_aura_dictionary):
-		remove_aura_by_id(expired_aura.unique_id, enemy_aura_dictionary)
+func remove_end_of_combat_auras(_source:Combatant) -> void:
+	for aura:Aura in player_aura_dictionary.values():
+		aura.check_then_remove_combat_auras()
+	for aura:Aura in enemy_aura_dictionary.values():
+		aura.check_then_remove_combat_auras()
 
-func remove_aura_by_id(aura_id:String, aura_dictionary:Dictionary[String, Aura]) -> bool:
-	var removed:bool = false
-	
+func remove_expired_aura(expired_aura:Aura) -> void:
+	remove_aura_by_id(expired_aura.unique_id, player_aura_dictionary)
+	remove_aura_by_id(expired_aura.unique_id, enemy_aura_dictionary)
+
+func remove_aura_by_id(aura_id:String, aura_dictionary:Dictionary[String, Aura]) -> void:
 	if aura_id in aura_dictionary.keys():
 		aura_dictionary.erase(aura_id)
-		removed = true
-	
-	if removed:
 		update_stats()
-		return true
-	else:
-		return false

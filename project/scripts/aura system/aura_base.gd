@@ -52,5 +52,17 @@ func decrement_duration_counter() -> void:
 	if duration_type == DurationType.TURNS:
 		current_duration -= 1
 		if current_duration <= 0:
-			StatEvents.expired_aura.emit(self)
-			CombatLogEvents.aura_removed.emit(self)
+			expire_aura()
+
+func check_then_remove_combat_auras() -> void:
+	if duration_type == DurationType.THIS_COMBAT:
+		expire_aura()
+
+func check_then_start_combat_aura() -> Aura:
+	if duration_type == DurationType.THIS_COMBAT:
+		return create_aura()
+	else: return null
+
+func expire_aura() -> void:
+	StatEvents.expired_aura.emit(self)
+	CombatLogEvents.aura_removed.emit(self)
