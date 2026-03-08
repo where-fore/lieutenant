@@ -2,144 +2,27 @@
 working notes
 --------------------------------------------------------
 
-probably do something about makes Aura.new.create_aura() maknig two auras - clean the first empty thing from memory or something
-
-
-
-temporary auras, for "crashing waves" attack on turn end
-	weapon:
-		on_attack()
-			increment_my_aura()
-			send_aura_update()
-
-
-need a temporary aura that knows to clear on combat end
-increment attack on that aura
-
-update stats when incrementing aura
-	maybe aura.change(stat change, additive/multi)
-		add stat to relevent dictionary
-		stat event.aura update.emit(aura)
-	stat manager:
-	update_aura(aura)
-		#theoretically the instance was already changed, just need to recalc
-		update stats
-
-somehow remove this aura on combat end?
-	hook into combat finished
-		clear temporary auras
-			for aura in dict
-				if temporary, dict.clear[aura.uniqueid]
-
-
-okay so the big problem is "recalculate stats" is precombat stats like health - there is no tracking of damage taken, just a reduction in health
-	so refactor combatants to have health (max hp), and damage (current -health), which get summed together for the display health, and when damage > health: die()
-
-
-
-okay so my problem is that items can't instantiate auras
-	or if they can, they aren't related to the item
-		so change "custom aura" to "attached auras", an array
-			"custom aura" doesn't do anything right now, it's just some futureproof set dressing for an aura tooltip i haven't made and may never
-			"attached auras" can be cleared when the item is cleared
-		
-	an aura should be able to just make and apply an aura (on functions like on attack)
-		items don't know who they are attached to, and who should get the aura
-			okay so even now items are firing on generic inventory manager signals
-				maybe the inventory manager signals should have a source payload, and items have an "equipped by" field; and only fire if those are equal
-				also the item can send the aura to that "equipped by" source
-
-
-i could also keep "custom aura", and have the "custom aura" of surging waves clear itself on combat end....
-	have a temporary field, and if temporary then clear dictionaries on combat end?
-		this is very black and white, what if i want a custom aura of +5 damage and +1 damage per turn
-			well that's two auras anyways, the +5 damage and the stacking damage
-
-
-
-hmm so i can have the custom aura have a custom tick down fucntion
-	but so many auras im going to want boilerplate (lasts 5 turns, lasts whole combat but not next combat)
-		would be nice to be able to overwrite it for special auras that want to fire every attack (player and enemy), or something of the sort
-		
-	enum durationType = { PERMANENT, TURNS, SPECIAL }
-	base duration:int = 0
-	current duration:int
-	current duration = base
-	
-	on turn end:
-		if durationType = turns
-		current duration -= 1
-		if current duration = 0
-		stat.remove_this_aura
-		queue.free or whatever's similar
-
-
-i want my stat manager to go through the auras and check durations
-	maybe i should rename the stat manager to aura manager
-	anyways, it iterates through the aura dictionary and calls decerement on each
-		should the stat manager or the aura check if it's permanent?
-			probably the aura function
-	also the stat manager should apply owners. not sure when. on dictionary update?
-
-
-okay so auras can tell when its their turn to decrement turn timers
-i need a category for "this combat" auras
-	the item manager needs to refresh "this combat" auras on combat start
-		for item slot
-			item slot.item in slot	
-				if item.custom aura.durationtype?
-					can i just do that?
-					create aura
-when the aura counter reaches 0
-	tell stat manager an aura died (aura id)
-		stat manager kills every aura in either dictionary with that aura_id
 
 
 
 
 
-aura.my_name is cringe
-
-
-
-okay so two issues:
-	the crashing waves weapon boosts its aura dictionary, which doesn't get reset
-	
-emit remove signal
-	stat manager removes stats, recalculates
-inventory manages calls recheck signal
-	item says "i have a custom aura" and attaches it
-		it's the same custom aura with  +40 attack on it, so it has +40 attack and the scaling
-	
-so why isn't it scaling??
 
 
 
 
-oaky so check_then_start_combat_aura returns  a duplicate of the old one
-	old one here -> +40 attack
-
-the sword applies +5 attack to its old one
-	the new one is the in the dictionary, the one that got base stats copied
-	
-okay so i had two different ideas in my head:
-	sword applies an indepedent, duration based buff on combat start. that buff gets increased as you attack, and disappears on combat end
-	the sword has a special aura buff that increases as you attack. this aura is wiped to 0, but kept instantiated, on combat end/start
-	
-	currently i am doing #2, but then decoupling it.
-	
-	
-	okay i want my sword to reset, not my aura
 
 
 
 
-okay so i'm hard restarting every custom aura on combat start
 
-two problems
-	custom auras are added on item equip, which is at the start of the game, which means the temporary aura gets initatied on equip (not on combat start)
-		i should have custom auras behave differently based on duration, determined by itemdata? type of aura to proc?
-	temporary auras are persisting (they don't get durations zerod at combat end)
+
+
+
+
+
+
+
 
 
 --------------------------------------------------------
@@ -164,10 +47,6 @@ special items/enemies:
 
 maybes:
 ---------
-would like to make the combat log a lil nicer
--add random chance for flavour text, mostly to break up the paragraph of autobattling, but also for fun
--add death/victory messages
-
 have non-inventory buffs visible - like the hp aura
 have a non-equipped invetory - maybe later though
 

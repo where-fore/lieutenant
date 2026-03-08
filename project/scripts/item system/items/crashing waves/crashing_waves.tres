@@ -10,3 +10,4 @@ damage = 2
 item_name = "Crashing Waves"
 item_sprite = ExtResource("1_54fcf")
 _custom_aura_template = ExtResource("1_h2rg1")
+custom_tooltip = "You grow stronger as blood is shed"

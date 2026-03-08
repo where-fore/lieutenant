@@ -4,7 +4,5 @@
 
 [resource]
 script = ExtResource("1_dqcu0")
-health = 5
-attack = 2
 health_multiplier = 1
-my_name = "Paladin's Might"
+aura_name = "Paladin's Might"

@@ -10,6 +10,3 @@ func on_attack(source:Combatant) -> void:
 	#multiply by -1 to make it healing
 	source.take_damage(life_gain * -1)
 	pass
-
-func _init() -> void:
-	add_custom_tooltip(tooltip)

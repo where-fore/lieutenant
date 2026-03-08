@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_x6wav")
-health = 20
-my_name = "Well Rested"
+health = 10
+aura_name = "Well Rested"

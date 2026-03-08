@@ -4,8 +4,7 @@
 
 [resource]
 script = ExtResource("1_srrol")
-attack = 5
 attack_multiplier = 1
-my_name = "Striking"
+aura_name = "Striking"
 duration_type = 2
 base_duration = 1

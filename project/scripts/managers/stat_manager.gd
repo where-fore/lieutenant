@@ -34,7 +34,7 @@ func apply_new_aura_to_player(new_aura:Aura) -> void:
 		#if the aura sent in is a file on the disk (ie. is a template, not an already instanced aura)
 		#then instance a new aura
 		new_aura = new_aura.create_aura()
-	if new_aura.unique_id in player_aura_dictionary.keys(): push_warning("overwriting aura: " + new_aura.my_name)
+	if new_aura.unique_id in player_aura_dictionary.keys(): push_warning("overwriting aura: " + new_aura.aura_name)
 	player_aura_dictionary[new_aura.unique_id] = new_aura
 	update_stats()
 	

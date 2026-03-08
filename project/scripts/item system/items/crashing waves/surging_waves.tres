@@ -4,4 +4,4 @@
 
 [resource]
 script = ExtResource("1_hqxjw")
-my_name = "Surging Waves"
+aura_name = "Surging Waves"
