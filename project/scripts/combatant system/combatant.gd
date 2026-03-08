@@ -6,6 +6,8 @@ class_name Combatant
 @export var _this_is_the_player: bool = false
 func is_the_player() -> bool: return _this_is_the_player
 
+var damage_taken: int = 0
+
 var base_stats: Dictionary = {}
 var current_stats: Dictionary = {}
 
@@ -32,12 +34,13 @@ func setup(should_be_the_player:bool = false) -> void:
 	
 
 func take_damage(value: int) -> void:
-	current_stats[Stats.health] -= value
+	damage_taken += value
+	var current_hp:int = current_stats[Stats.health] - damage_taken
 	
-	if is_the_player(): HudEvents.player_health_update.emit(current_stats[Stats.health])
-	else: HudEvents.enemy_health_update.emit(current_stats[Stats.health])
+	if is_the_player(): HudEvents.player_health_update.emit(current_hp)
+	else: HudEvents.enemy_health_update.emit(current_hp)
 	
-	if current_stats[Stats.health] <= 0: perish()
+	if current_hp <= 0: perish()
 
 func reset_current_stats_to_base() -> void:
 	scale_stats_to_combats()

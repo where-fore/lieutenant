@@ -15,22 +15,29 @@ temporary auras, for "crashing waves" attack on turn end
 			send_aura_update()
 
 
+need a temporary aura that knows to clear on combat end
+increment attack on that aura
 
-okay so the stat managar doesn't care about items, it cares about auras
-the inventory manager should create a new instance of an aura when it gets a new item, and save that aura instance to the slot, and when the slot gets updated it work with the aura instance
-and the inventory manager should communicate auras up to the stat manager
+update stats when incrementing aura
+	maybe aura.change(stat change, additive/multi)
+		add stat to relevent dictionary
+		stat event.aura update.emit(aura)
+	stat manager:
+	update_aura(aura)
+		#theoretically the instance was already changed, just need to recalc
+		update stats
 
-iventory maanager:
-on equip item():
-	slot.sprite update item.sprite
-	slot.aura[0] = item.create_aura()
-	slot.aura[1] = item.create_custom_aura()
-	update_stats_with_aura(slot.aura)
+somehow remove this aura on combat end?
+	hook into combat finished
+		clear temporary auras
+			for aura in dict
+				if temporary, dict.clear[aura.uniqueid]
 
-on unequip item()
-	slot.sprite update blank.sprite
-	update_stats_with_removal_of_aura(slot.aura)
-	slot.aura = null
+
+okay so the big problem is "recalculate stats" is precombat stats like health - there is no tracking of damage taken, just a reduction in health
+	so refactor combatants to have health (max hp), and damage (current -health), which get summed together for the display health, and when damage > health: die()
+
+
 
 --------------------------------------------------------
 work to do
@@ -113,6 +120,8 @@ if i just make it more complicated (so it's less easy to eyeball the result) is 
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+hmm i think the inventory manager hooking onto "on attack" is bad timing - i don't know the order of operations between buffing attack and taking damage, should probably have an intermediate event
+
 the unique id thing is instance_id + current clock time? sounds super fucked. does it even work on all clocks? what the hell is an instance id, and am i sure you can't create two instance_ids at the same second?
 	should probably deal with this when learning how to save the game
 
