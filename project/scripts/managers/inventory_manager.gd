@@ -15,6 +15,8 @@ func _ready() -> void:
 	InventoryEvents.rebuild_all_to_restart.connect(populate_starter_items)
 	InventoryEvents.send_item_to_inventory.connect(equip)
 	InventoryEvents.slot_updated.connect(update_inventory_full_status)
+	InventoryEvents.item_successfully_equipped.connect(interpret_new_item)
+	InventoryEvents.item_successfully_unequipped.connect(interpret_removed_item)
 	#this is unreadable programmer shorthand for "throw away all arguments but the one i care about, "attacker"
 	@warning_ignore("untyped_declaration")
 	CombatEvents.attack_launched.connect(func(attacker:Combatant, _other_arg): on_attack(attacker))
@@ -60,3 +62,19 @@ func update_inventory_full_status() -> void:
 	if find_first_empty_slot() == null: InventoryEvents.inventory_is_full = true
 	else: InventoryEvents.inventory_is_full = false
 	InventoryEvents.full_status_updated.emit()
+
+func interpret_new_item(item:Item) -> void:
+	var item_aura:Aura = item.get_aura()
+	StatEvents.give_aura_to_player.emit(item_aura)
+	
+	var item_custom_aura:Aura = item.get_custom_aura()
+	if item_custom_aura:
+		StatEvents.give_aura_to_player.emit(item_custom_aura)
+
+func interpret_removed_item(item:Item) -> void:
+	var item_aura:Aura = item.get_aura()
+	StatEvents.remove_aura_from_player.emit(item_aura)
+	
+	var item_custom_aura:Aura = item.get_custom_aura()
+	if item_custom_aura:
+		StatEvents.remove_aura_from_player.emit(item_custom_aura)

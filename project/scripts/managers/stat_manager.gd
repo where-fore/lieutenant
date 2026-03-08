@@ -15,8 +15,7 @@ func _ready() -> void:
 	HudEvents.combat_won.connect(grow_enemies)
 	StatEvents.restart_game.connect(reset_to_starting_stats)
 	StatEvents.give_aura_to_player.connect(apply_new_aura_to_player)
-	InventoryEvents.item_successfully_equipped.connect(interpret_new_item)
-	InventoryEvents.item_successfully_unequipped.connect(interpret_removed_item)
+	StatEvents.remove_aura_from_player.connect(remove_aura_from_player)
 
 func reset_to_starting_stats() -> void:
 	StatEvents.encounters_defeated_for_scaling = 0
@@ -27,27 +26,18 @@ func grow_enemies() -> void:
 	StatEvents.encounters_defeated_for_scaling += 1
 
 func apply_new_aura_to_player(new_aura:Aura) -> void:
-	var new_personal_aura:Aura = new_aura.create_aura()
-	player_aura_dictionary[new_personal_aura.unique_id] = new_personal_aura
+	if new_aura.resource_path != "":
+		#if the aura sent in is a file on the disk (ie. is a template, not an already instanced aura)
+		#then instance a new aura
+		new_aura = new_aura.create_aura()
+	player_aura_dictionary[new_aura.unique_id] = new_aura
 	update_precombat_stats()
-
-func interpret_new_item(item:Item) -> void:
-	var item_aura:Aura = item.get_aura()
-	if player_aura_dictionary.has(item_aura.unique_id): print_debug("duplicate detected")
-	player_aura_dictionary[item_aura.unique_id] = item_aura
 	
-	var item_custom_aura:Aura = item.get_custom_aura()
-	if item_custom_aura:
-		player_aura_dictionary[item_custom_aura.unique_id] = item_custom_aura
-	
-	update_precombat_stats()
-
-func interpret_removed_item(item:Item) -> void:
-	player_aura_dictionary.erase(item.get_aura().unique_id)
-	
-	var item_custom_aura:Aura = item.get_custom_aura()
-	if item_custom_aura: player_aura_dictionary.erase(item_custom_aura.unique_id)
-	
+func remove_aura_from_player(old_aura:Aura) -> void:
+	if old_aura.resource_path != "":
+		#if the aura sent in is a file on the disk (ie. is a template, not an already instanced aura)
+		push_error("trying to remove an aura that is a template")
+	player_aura_dictionary.erase(old_aura.unique_id)
 	update_precombat_stats()
 
 func update_precombat_stats() -> void:
