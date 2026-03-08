@@ -33,3 +33,6 @@ func add_exports_to_dictionaries() -> void:
 	if attack: additive_dictionary[Stats.attack] = attack
 	if health_multiplier: multiplicative_dictionary[Stats.health] = health_multiplier
 	if attack_multiplier: multiplicative_dictionary[Stats.attack] = attack_multiplier
+
+func update_aura() -> void:
+	StatEvents.updated_aura.emit(self)

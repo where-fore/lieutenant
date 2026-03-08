@@ -11,7 +11,8 @@ var enemy_final_multiplicative_aura:Dictionary[StringName, int]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	StatEvents.initalize_combat_stats.connect(update_precombat_stats)
+	StatEvents.initalize_combat_stats.connect(update_stats)
+	StatEvents.updated_aura.connect(update_aura)
 	HudEvents.combat_won.connect(grow_enemies)
 	StatEvents.restart_game.connect(reset_to_starting_stats)
 	StatEvents.give_aura_to_player.connect(apply_new_aura_to_player)
@@ -31,16 +32,21 @@ func apply_new_aura_to_player(new_aura:Aura) -> void:
 		#then instance a new aura
 		new_aura = new_aura.create_aura()
 	player_aura_dictionary[new_aura.unique_id] = new_aura
-	update_precombat_stats()
+	update_stats()
 	
 func remove_aura_from_player(old_aura:Aura) -> void:
 	if old_aura.resource_path != "":
 		#if the aura sent in is a file on the disk (ie. is a template, not an already instanced aura)
 		push_error("trying to remove an aura that is a template")
 	player_aura_dictionary.erase(old_aura.unique_id)
-	update_precombat_stats()
+	update_stats()
 
-func update_precombat_stats() -> void:
+func update_aura(_aura:Aura) -> void:
+	#i don't think i actually do anything? the aura should dynamically update?
+	#maybe this should only update one aura? but i have to recalculate it all anyways
+	update_stats()
+
+func update_stats() -> void:
 	merge_auras()
 	StatEvents.send_auras_to_combatants.emit(player_final_additive_aura, player_final_multiplicative_aura, enemy_final_additive_aura, enemy_final_multiplicative_aura)
 

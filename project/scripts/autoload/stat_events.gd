@@ -16,3 +16,6 @@ var encounters_defeated_for_scaling: int = 0
 
 @warning_ignore("unused_signal")
 signal restart_game()
+
+@warning_ignore("unused_signal")
+signal updated_aura(aura:Aura)

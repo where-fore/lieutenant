@@ -120,6 +120,8 @@ if i just make it more complicated (so it's less easy to eyeball the result) is 
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+hmmmm something is fishy about combatant damage - the combat manager calls for the combatants to take damage based on their attack, which seems bad cause the stat manager might care about custom auras reducing damage from goblins or something. also maybe damage taken should be saved on the player aura thing?
+
 hmm i think the inventory manager hooking onto "on attack" is bad timing - i don't know the order of operations between buffing attack and taking damage, should probably have an intermediate event
 
 the unique id thing is instance_id + current clock time? sounds super fucked. does it even work on all clocks? what the hell is an instance id, and am i sure you can't create two instance_ids at the same second?
