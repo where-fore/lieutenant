@@ -57,9 +57,11 @@ func decrement_duration_counter() -> void:
 func check_then_remove_combat_auras() -> void:
 	if duration_type == DurationType.THIS_COMBAT:
 		expire_aura()
+	if duration_type == DurationType.TURNS:
+		expire_aura()
 
 func check_then_start_combat_aura() -> Aura:
-	if duration_type == DurationType.THIS_COMBAT:
+	if duration_type == DurationType.TURNS:
 		return create_aura()
 	else: return null
 

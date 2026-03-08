@@ -17,7 +17,7 @@ func _ready() -> void:
 	InventoryEvents.slot_updated.connect(update_inventory_full_status)
 	InventoryEvents.item_successfully_equipped.connect(interpret_new_item)
 	InventoryEvents.item_successfully_unequipped.connect(interpret_removed_item)
-	HudEvents.combat_button_pressed.connect(on_combat_start)
+	CombatEvents.combat_started.connect(on_combat_start)
 	CombatEvents.combat_finished.connect(on_combat_end)
 	#this is unreadable programmer shorthand for "throw away all arguments but the one i care about, "attacker"
 	@warning_ignore("untyped_declaration")
@@ -33,10 +33,14 @@ func on_attack(source: Combatant) -> void:
 			if slot.item_in_slot:
 				slot.item_in_slot.on_attack(source)
 
-func on_combat_start() -> void:
+func on_combat_start(_combatants:Array[Combatant]) -> void:
 	for slot: InventorySlot in inventory_slots:
 		if not slot.is_empty():
+			var restarted_aura:Aura = slot.item_in_slot.restart_custom_auras()
+			if restarted_aura: StatEvents.give_aura_to_player.emit(restarted_aura)
+			
 			slot.item_in_slot.on_combat_start()
+			
 
 func on_combat_end() -> void:
 	for slot: InventorySlot in inventory_slots:
@@ -80,9 +84,10 @@ func interpret_new_item(item:Item) -> void:
 	var item_aura:Aura = item.get_aura()
 	StatEvents.give_aura_to_player.emit(item_aura)
 	
-	var item_custom_aura:Aura = item.get_custom_aura()
-	if item_custom_aura:
-		StatEvents.give_aura_to_player.emit(item_custom_aura)
+	if item.applies_aura_on_equip():
+		var item_custom_aura:Aura = item.get_custom_aura()
+		if item_custom_aura:
+			StatEvents.give_aura_to_player.emit(item_custom_aura)
 
 func interpret_removed_item(item:Item) -> void:
 	var item_aura:Aura = item.get_aura()

@@ -8,6 +8,8 @@ var current_player: Combatant
 @export var player_base_scene:PackedScene
 @export var player_base_stats:CombatantData
 
+var combatants:Array[Combatant]
+
 var player_turn: StringName = &"Player"
 var enemy_turn: StringName = &"Enemy"
 var precombat: StringName = &"Precombat"
@@ -103,6 +105,7 @@ func turn_animation() -> Signal:
 func stop_combat(combatant_who_died:Combatant) -> void:
 	CombatEvents.combat_ongoing = false
 	CombatEvents.combat_finished.emit()
+	combatants.clear()
 	
 	if combatant_who_died.is_the_player():
 		HudEvents.combat_lost.emit()
@@ -114,7 +117,9 @@ func stop_combat(combatant_who_died:Combatant) -> void:
 
 func pre_combat() -> void:
 	current_player = spawn_player()
+	combatants.append(current_player)
 	current_enemy = choose_enemy()
+	combatants.append(current_enemy)
 	#this is a bit dangerous - i'm now assuming that worked. would love some sort of call back?
 	#can't put it in the setup function since that fires before this function reaches await()
 	
@@ -156,6 +161,7 @@ func start_combat() -> void:
 	if not CombatEvents.combat_ongoing and can_start_combat:
 		can_start_combat = false
 		CombatEvents.combat_ongoing = true
+		CombatEvents.combat_started.emit(combatants)
 
 func start_turn() -> void:
 	turn_finished = false

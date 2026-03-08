@@ -101,6 +101,47 @@ when the aura counter reaches 0
 aura.my_name is cringe
 
 
+
+okay so two issues:
+	the crashing waves weapon boosts its aura dictionary, which doesn't get reset
+	
+emit remove signal
+	stat manager removes stats, recalculates
+inventory manages calls recheck signal
+	item says "i have a custom aura" and attaches it
+		it's the same custom aura with  +40 attack on it, so it has +40 attack and the scaling
+	
+so why isn't it scaling??
+
+
+
+
+oaky so check_then_start_combat_aura returns  a duplicate of the old one
+	old one here -> +40 attack
+
+the sword applies +5 attack to its old one
+	the new one is the in the dictionary, the one that got base stats copied
+	
+okay so i had two different ideas in my head:
+	sword applies an indepedent, duration based buff on combat start. that buff gets increased as you attack, and disappears on combat end
+	the sword has a special aura buff that increases as you attack. this aura is wiped to 0, but kept instantiated, on combat end/start
+	
+	currently i am doing #2, but then decoupling it.
+	
+	
+	okay i want my sword to reset, not my aura
+
+
+
+
+okay so i'm hard restarting every custom aura on combat start
+
+two problems
+	custom auras are added on item equip, which is at the start of the game, which means the temporary aura gets initatied on equip (not on combat start)
+		i should have custom auras behave differently based on duration, determined by itemdata? type of aura to proc?
+	temporary auras are persisting (they don't get durations zerod at combat end)
+
+
 --------------------------------------------------------
 work to do
 --------------------------------------------------------

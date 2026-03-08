@@ -4,6 +4,10 @@ class_name Item
 @export var item_name: String = "Generic Item"
 @export var item_sprite: Texture2D
 var custom_tooltip: String = ""
+
+@export_group("Custom Auras")
+enum ApplyType { ON_EQUIP, ON_COMBAT_START, SPECIAL }
+@export var aura_application_time:ApplyType = ApplyType.ON_EQUIP
 @export var _custom_aura_template: Aura
 var _custom_aura: Aura
 var _runtime_aura: Aura
@@ -25,6 +29,13 @@ func on_combat_start() -> void:
 func on_combat_end() -> void:
 	#print_debug(_source.baseData.name + " attacked with " + item_name)
 	pass
+
+func restart_custom_auras() -> Aura:
+	if aura_application_time == ApplyType.ON_COMBAT_START:
+		if _custom_aura_template:
+			_custom_aura = null
+			return get_custom_aura()
+	return null
 
 #derived subclasses hook onto these functions
 func setup_item_stats() -> void:
@@ -52,3 +63,7 @@ func get_custom_aura() -> Aura:
 
 func initialize_my_custom_aura() -> void:
 	_custom_aura = _custom_aura_template.create_aura()
+
+func applies_aura_on_equip() -> bool:
+	if aura_application_time == ApplyType.ON_EQUIP: return true
+	else: return false
