@@ -16,6 +16,8 @@ var precombat:StringName = &"Precombat"
 var turn:StringName = precombat
 var turn_number:int = 0
 var turn_finished:bool = false
+var player_victorious:bool = false
+var player_lost:bool = false
 
 var can_start_combat:bool = true
 
@@ -33,7 +35,7 @@ var turn_mode:StringName = step_mode
 func _ready() -> void:
 	CombatEvents.attack_launched.connect(handle_attack)
 	CombatEvents.turn_finished.connect(finish_turn)
-	CombatEvents.combatant_died.connect(stop_combat)
+	CombatEvents.combatant_died.connect(handle_perishing_combatant)
 	HudEvents.combat_button_pressed.connect(start_combat)
 	HudEvents.change_to_combat_screen.connect(pre_combat)
 	CombatEvents.pause_button_pressed.connect(pause_button_pressed)
@@ -60,26 +62,30 @@ func play_button_pressed() -> void:
 		next_turn()
 
 func handle_attack(attacker:Combatant, amount:int) -> void:
-	if attacker.is_the_player():
+	if attacker.is_the_player:
 		current_enemy.take_damage(amount)
 	else:
 		current_player.take_damage(amount)
 
 func finish_turn(_source:Combatant) -> void:
-	#animate, unless step mode where you skip animations
-	if turn_mode != step_mode:
-		await turn_animation()
-	
-	turn_finished = true
-	
-	if turn_mode == play_mode:
-		next_turn()
+	if CombatEvents.combat_ongoing:
+		#animate, unless step mode where you skip animations
+		if turn_mode != step_mode:
+			await turn_animation()
+		
+		turn_finished = true
+		
+		if turn_mode == play_mode:
+			next_turn()
+	else:
+		turn_finished = true
+		stop_combat()
 
 func next_turn() -> void:
 	#swap turns
 	if turn == player_turn: turn = enemy_turn
 	elif turn == enemy_turn: turn = player_turn
-	
+	elif turn == precombat: push_error("somehow tried to take the next turn when it's still precombat")
 	
 	if CombatEvents.combat_ongoing:
 		start_turn()
@@ -101,26 +107,38 @@ func turn_animation() -> Signal:
 		push_warning("no turn animation state chosen; using failsafe")
 		return get_tree().create_timer(failsafe).timeout
 
+func handle_perishing_combatant(combatant_who_died:Combatant) -> void:
+	if combatant_who_died.is_the_player:
+		CombatEvents.combat_ongoing = false
+	
+	elif combatant_who_died.is_an_enemy:
+		combatants.erase(combatant_who_died)
+		var remaining_enemies:int = 0
+		for combatant:Combatant in combatants:
+			if combatant.is_an_enemy: remaining_enemies += 1
+		if remaining_enemies == 0:
+			CombatEvents.combat_ongoing = false
+			player_victorious = true
+			
 
-func stop_combat(combatant_who_died:Combatant) -> void:
+func stop_combat() -> void:
 	CombatEvents.combat_ongoing = false
 	CombatEvents.combat_finished.emit()
-	combatants.clear()
 	
-	if combatant_who_died.is_the_player():
-		HudEvents.combat_lost.emit()
-		
-	elif not combatant_who_died.is_the_player():
+	if player_victorious:
 		HudEvents.combat_won.emit()
-		#delete the old loser from memory
-		combatant_who_died.queue_free()
+	else:
+		HudEvents.combat_lost.emit()
+	
+	player_victorious = false
+	combatants.clear()
 
 func pre_combat() -> void:
 	current_player = spawn_player()
 	combatants.append(current_player)
 	current_enemy = choose_enemy()
 	combatants.append(current_enemy)
-	#this is a bit dangerous - i'm now assuming that worked. would love some sort of call back?
+	#this is a bit dangerous - i'm now assuming enemies and players are spawned. would love some sort of call back?
 	#can't put it in the setup function since that fires before this function reaches await()
 	
 	AuraEvents.initalize_combat_stats.emit()

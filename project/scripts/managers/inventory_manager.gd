@@ -27,7 +27,7 @@ func on_scene_ready() -> void:
 	populate_starter_items()
 
 func on_attack(source:Combatant) -> void:
-	if source.is_the_player():
+	if source.is_the_player:
 		for slot:InventorySlot in inventory_slots: 
 			if slot.is_empty(): continue
 			if slot.item_in_slot:

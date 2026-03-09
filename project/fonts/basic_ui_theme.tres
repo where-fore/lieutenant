@@ -4,7 +4,16 @@
 [ext_resource type="FontFile" uid="uid://j00qxyb7q58c" path="res://fonts/dogica font/TTF/dogicapixel.ttf" id="1_ohhbm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ohhbm"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
 bg_color = Color(0, 0, 0, 0.78431374)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.2051175, 0.20511743, 0.20511737, 1)
 
 [sub_resource type="FontVariation" id="FontVariation_4cyj1"]
 base_font = ExtResource("1_4cyj1")

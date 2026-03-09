@@ -81,11 +81,11 @@ func add_to_aura_dictionary(dictionary_to_update:Dictionary[StringName,int], sta
 		dictionary_to_update[statName] = value
 
 func turn_end_duration_check(whose_turn_just_ended:Combatant) -> void:
-	if whose_turn_just_ended.is_the_player():
+	if whose_turn_just_ended.is_the_player:
 		for aura:Aura in player_aura_dictionary.values():
 			aura.decrement_duration_counter()
 	
-	if not whose_turn_just_ended.is_the_player():
+	if whose_turn_just_ended.is_an_enemy:
 		for aura:Aura in enemy_aura_dictionary.values():
 			aura.decrement_duration_counter()
 
