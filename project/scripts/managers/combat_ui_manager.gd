@@ -1,10 +1,10 @@
 extends CanvasLayer
 
-@onready var player_health_label:Label = $Control/Player/Stats/Health/HBoxContainer/Label
-@onready var enemy_health_label:Label  = $Control/Enemy/Stats/Health/HBoxContainer/Label
+@onready var player_health_label:Label = $Control/Combatants/Player/Stats/Health/HBoxContainer/Label
+@onready var enemy_health_label:Label  = $Control/Combatants/Enemy/Stats/Health/HBoxContainer/Label
 
-@onready var player_attack_label:Label  = $Control/Player/Stats/Attack/HBoxContainer/Label
-@onready var enemy_attack_label:Label  = $Control/Enemy/Stats/Attack/HBoxContainer/Label
+@onready var player_attack_label:Label  = $Control/Combatants/Player/Stats/Attack/HBoxContainer/Label
+@onready var enemy_attack_label:Label  = $Control/Combatants/Enemy/Stats/Attack/HBoxContainer/Label
 
 @onready var combat_button:Button = $Control/CombatButton
 
@@ -15,8 +15,8 @@ extends CanvasLayer
 @onready var step_button_border:TextureRect = $Control/TurnButtons/StepButton/TextureRect
 @onready var play_button_border:TextureRect = $Control/TurnButtons/PlayButton/TextureRect
 
-@onready var player_sprite_display:TextureRect = $Control/Player/Sprite
-@onready var enemy_sprite_display:TextureRect = $Control/Enemy/Sprite
+@onready var player_sprite_display:TextureRect = $Control/Combatants/Player/Sprite
+@onready var enemy_sprite_display:TextureRect = $Control/Combatants/Enemy/Sprite
 @export var turn_sprite:Texture2D
 @onready var original_player_sprite:Texture2D = player_sprite_display.texture
 @onready var original_enemy_sprite:Texture2D = enemy_sprite_display.texture

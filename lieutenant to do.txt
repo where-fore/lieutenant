@@ -2,12 +2,6 @@
 working notes
 --------------------------------------------------------
 
-fix the ui moving left to right on 100+ hp
-
-
-
-
-
 
 
 
@@ -106,6 +100,8 @@ if i just make it more complicated (so it's less easy to eyeball the result) is 
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+ui has a bunch of minimum pixel sizes - this is probably a fine practice, but things like the combatants numbers getting fucked over 3 digits is not good
+
 these signals really are poorly named, i'm connecting to hudevents.change_to_combat_screen for my inventory restarting of combat auras? terrible
 
 a lot of my export variables could use some property list or export group love, to make them easier to read and work with

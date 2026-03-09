@@ -6,7 +6,7 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bxqf6"]
 
 [node name="Inventory Slot1" type="TextureButton"]
-custom_minimum_size = Vector2(36, 36)
+custom_minimum_size = Vector2(72, 72)
 offset_right = 36.0
 offset_bottom = 36.0
 size_flags_horizontal = 6
