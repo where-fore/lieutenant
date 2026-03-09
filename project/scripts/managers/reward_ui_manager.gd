@@ -1,9 +1,9 @@
 extends CanvasLayer
 
-@export var rest_aura: Aura
-@export var attack_upgrade_item: Weapon
+@export var rest_aura:Aura
+@export var attack_upgrade_item:Weapon
 
-@onready var item_reward_button_parent: Container = $Control/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer
+@onready var item_reward_button_parent:Container = $Control/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -14,7 +14,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
+func _process(_delta:float) -> void:
 	pass
 
 
@@ -37,7 +37,7 @@ func _on_sword_sprite_pressed() -> void:
 	reward_selected()
 
 func _on_heart_sprite_pressed() -> void:
-	StatEvents.give_aura_to_player.emit(rest_aura)
+	AuraEvents.give_aura_to_player.emit(rest_aura)
 	reward_selected()
 
 func reward_selected() -> void:

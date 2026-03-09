@@ -2,14 +2,7 @@
 working notes
 --------------------------------------------------------
 
-
-
-
-
-
-
-
-
+fix the ui moving left to right on 100+ hp
 
 
 
@@ -28,6 +21,17 @@ working notes
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
+make items randomly given
+	probably randomly choose "epic item" or "normal item"
+
+probably do the json stuff soon, so i can
+
+make a bunch of cool items and enemies
+	oh yeah do the enemy scripting
+
+
+some strange bug with turns automatically starting (esp when blitzing through combats)
+	im guessing i'm overriding the "wait for animations" when swapping to reward screen?
 
 special items/enemies:
 	look at he is coming for examples of things i want to implement:
@@ -104,9 +108,6 @@ things i know are hacky and should be cleaned up:
 --------------------------------------------------------
 these signals really are poorly named, i'm connecting to hudevents.change_to_combat_screen for my inventory restarting of combat auras? terrible
 
-
-itemData custom tooltip never gets made? it gets called by custom items hooking onto _init? sounds cringe
-
 a lot of my export variables could use some property list or export group love, to make them easier to read and work with
 	ideally im going to json soon, so no need if that happens
 
@@ -118,8 +119,7 @@ the unique id thing is instance_id + current clock time? sounds super fucked. do
 	should probably deal with this when learning how to save the game
 
 currently i'm updating the player stats on every item equipped, which maybe seems bad when i open combat and immediately equip 6 items?
-
-i think i prefer eg. "item_custom_aura:Aura" the type to be no space away from the colon?
+	maybe not as relevant when the inventory persists through the game
 
 vamp sword calls take_damage(-10) to heal 10, maybe there should be a heal function?
 
@@ -159,9 +159,7 @@ debug/crash failsafes
 			same fix as above? restart the combat?
 
 
-the scene changes should be fully fledged - main manager deletes/instantiates the combat ui and manager and combatants, deletes/instantiates reward screen, etc
-	player combatant should be instantiaed et al. too just like the enemies
-	
+the scene changes should be fully fledged - main manager deletes/instantiates the combat ui and manager and combatants, deletes/instantiates reward screen, etc	
 	hm now that i think about it, there isn't an obvious reason for this. i don't run timers or process on anything, so them being invisible is fine?
 		but it future proofs me for if i want to run timers or processes - especially with animations
 
@@ -181,8 +179,6 @@ i've got some hard reference to children in scripts, which rely on their string 
 	and then add a configuration warning if nothing is selected
 
 clarify 'base stats' - esp in statmanager.gd. base as in "before combat damage/temporary effects" or base as in "before items" ?
-
-change my string references (turn manager looking at player/enemy/precombat) into string names https://docs.godotengine.org/en/stable/classes/class_stringname.html
 
 the getter-setters in eg. combatant health, the health variable should be underscored so i don't edit them without the function
 

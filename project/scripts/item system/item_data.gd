@@ -1,15 +1,15 @@
 extends Resource
 class_name Item
 
-@export var item_name: String = "Generic Item"
-@export var item_sprite: Texture2D
+@export var item_name:String = "Generic Item"
+@export var item_sprite:Texture2D
 
 @export_group("Custom Auras")
 enum ApplyType { ON_EQUIP, ON_COMBAT_START, SPECIAL }
 @export var aura_application_time:ApplyType = ApplyType.ON_EQUIP
-@export var _custom_aura_template: Aura
-var _custom_aura: Aura
-var _runtime_aura: Aura
+@export var _custom_aura_template:Aura
+var _custom_aura:Aura
+var _runtime_aura:Aura
 var my_additive_stat_dictionary:Dictionary[StringName, int] = {}
 var my_multiplicative_stat_dictionary:Dictionary[StringName, int] = {}
 

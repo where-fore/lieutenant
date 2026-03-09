@@ -1,17 +1,17 @@
 extends TextureButton
 class_name InventorySlot
 
-var item_in_slot: Item
+var item_in_slot:Item
 
-@onready var slot_sprite: TextureRect = $ItemSprite
+@onready var slot_sprite:TextureRect = $ItemSprite
 
-var weapon_tooltip_text_base: String = "Increases attack by "
+var weapon_tooltip_text_base:String = "Increases attack by "
 
-@onready var delete_confirmation_panel: Control = $Panel
-@onready var delete_confirmation_timer: Timer = $Timer
-var delete_confirmation: bool = false
-var delete_timer_current: float = 0
-var delete_timer_max: float = 5
+@onready var delete_confirmation_panel:Control = $Panel
+@onready var delete_confirmation_timer:Timer = $Timer
+var delete_confirmation:bool = false
+var delete_timer_current:float = 0
+var delete_timer_max:float = 5
 
 
 # Called when the node enters the scene tree for the first time.
@@ -20,7 +20,7 @@ func _ready() -> void:
 	delete_confirmation_panel.visible = false
 
 
-func equip_item(item_to_equip_template: Item) -> void:
+func equip_item(item_to_equip_template:Item) -> void:
 	item_in_slot = item_to_equip_template.duplicate(true)
 	update_sprite()
 	InventoryEvents.item_successfully_equipped.emit(item_in_slot)

@@ -1,16 +1,16 @@
 extends Node
 
 @warning_ignore("unused_signal")
-signal player_health_update(value: int)
+signal player_health_update(value:int)
 
 @warning_ignore("unused_signal")
-signal enemy_health_update(value: int)
+signal enemy_health_update(value:int)
 
 @warning_ignore("unused_signal")
-signal player_attack_update(value: int)
+signal player_attack_update(value:int)
 
 @warning_ignore("unused_signal")
-signal enemy_attack_update(value: int)
+signal enemy_attack_update(value:int)
 
 @warning_ignore("unused_signal")
 signal combat_button_pressed()

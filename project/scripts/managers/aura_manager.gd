@@ -11,23 +11,23 @@ var enemy_final_multiplicative_aura:Dictionary[StringName, int]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	StatEvents.initalize_combat_stats.connect(update_stats)
-	StatEvents.updated_aura.connect(update_aura)
+	AuraEvents.initalize_combat_stats.connect(update_stats)
+	AuraEvents.updated_aura.connect(update_aura)
 	HudEvents.combat_won.connect(grow_enemies)
-	StatEvents.restart_game.connect(reset_to_starting_stats)
-	StatEvents.give_aura_to_player.connect(apply_new_aura_to_player)
-	StatEvents.remove_aura_from_player.connect(remove_aura_from_player)
+	AuraEvents.restart_game.connect(reset_to_starting_stats)
+	AuraEvents.give_aura_to_player.connect(apply_new_aura_to_player)
+	AuraEvents.remove_aura_from_player.connect(remove_aura_from_player)
 	CombatEvents.turn_finished.connect(turn_end_duration_check)
-	StatEvents.expired_aura.connect(remove_expired_aura)
+	AuraEvents.expired_aura.connect(remove_expired_aura)
 	CombatEvents.combatant_died.connect(remove_end_of_combat_auras)
 
 func reset_to_starting_stats() -> void:
-	StatEvents.encounters_defeated_for_scaling = 0
+	AuraEvents.encounters_defeated_for_scaling = 0
 	player_aura_dictionary.clear()
 	enemy_aura_dictionary.clear()
 
 func grow_enemies() -> void:
-	StatEvents.encounters_defeated_for_scaling += 1
+	AuraEvents.encounters_defeated_for_scaling += 1
 
 func apply_new_aura_to_player(new_aura:Aura) -> void:
 	if new_aura.resource_path != "":
@@ -52,7 +52,7 @@ func update_aura(_aura:Aura) -> void:
 
 func update_stats() -> void:
 	merge_auras()
-	StatEvents.send_auras_to_combatants.emit(player_final_additive_aura, player_final_multiplicative_aura, enemy_final_additive_aura, enemy_final_multiplicative_aura)
+	AuraEvents.send_auras_to_combatants.emit(player_final_additive_aura, player_final_multiplicative_aura, enemy_final_additive_aura, enemy_final_multiplicative_aura)
 
 func merge_auras() -> void:
 	player_final_additive_aura.clear()

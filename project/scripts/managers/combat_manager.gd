@@ -1,32 +1,32 @@
 extends Node2D
 
-var current_enemy: Combatant
+var current_enemy:Combatant
 @export var combatant_base_scene:PackedScene
 @export var random_enemy_selection:EnemyCollection
 
-var current_player: Combatant
+var current_player:Combatant
 @export var player_base_scene:PackedScene
 @export var player_base_stats:CombatantData
 
 var combatants:Array[Combatant]
 
-var player_turn: StringName = &"Player"
-var enemy_turn: StringName = &"Enemy"
-var precombat: StringName = &"Precombat"
-var turn: StringName = precombat
-var turn_number: int = 0
-var turn_finished: bool = false
+var player_turn:StringName = &"Player"
+var enemy_turn:StringName = &"Enemy"
+var precombat:StringName = &"Precombat"
+var turn:StringName = precombat
+var turn_number:int = 0
+var turn_finished:bool = false
 
-var can_start_combat: bool = true
+var can_start_combat:bool = true
 
 #animation data
-var opener_turn_delay: float = 1
-var middle_turn_delay: float = 0.2
-var near_end_delay: float = 0.8
+var opener_turn_delay:float = 1
+var middle_turn_delay:float = 0.2
+var near_end_delay:float = 0.8
 
-var step_mode: StringName = &"step mode"
-var play_mode: StringName = &"play mode"
-var turn_mode: StringName = step_mode
+var step_mode:StringName = &"step mode"
+var play_mode:StringName = &"play mode"
+var turn_mode:StringName = step_mode
 
 
 # Called when the node enters the scene tree for the first time.
@@ -59,7 +59,7 @@ func play_button_pressed() -> void:
 	elif turn_finished == true:
 		next_turn()
 
-func handle_attack(attacker: Combatant, amount: int) -> void:
+func handle_attack(attacker:Combatant, amount:int) -> void:
 	if attacker.is_the_player():
 		current_enemy.take_damage(amount)
 	else:
@@ -85,16 +85,16 @@ func next_turn() -> void:
 		start_turn()
 
 func turn_animation() -> Signal:
-	var near_end: bool = (current_enemy.current_stats[Stats.health] <= 1* current_player.current_stats[Stats.attack]) or (current_player.current_stats[Stats.health] <= 1* current_enemy.current_stats[Stats.attack])
-	var slow_opener: bool = turn_number <= 2
-	var failsafe: float = 0.2
+	var near_end:bool = (current_enemy.current_stats[Stats.health] <= 1* current_player.current_stats[Stats.attack]) or (current_player.current_stats[Stats.health] <= 1* current_enemy.current_stats[Stats.attack])
+	var slow_opener:bool = turn_number <= 2
+	var failsafe:float = 0.2
 	if slow_opener:
 		return get_tree().create_timer(opener_turn_delay).timeout
 		
 	elif not slow_opener and not near_end:
 		return get_tree().create_timer(middle_turn_delay).timeout
 	
-	elif near_end: 
+	elif near_end:
 		return get_tree().create_timer(near_end_delay).timeout
 	
 	else:
@@ -123,7 +123,7 @@ func pre_combat() -> void:
 	#this is a bit dangerous - i'm now assuming that worked. would love some sort of call back?
 	#can't put it in the setup function since that fires before this function reaches await()
 	
-	StatEvents.initalize_combat_stats.emit()
+	AuraEvents.initalize_combat_stats.emit()
 	turn = precombat
 	CombatEvents.combat_ongoing = false
 	can_start_combat = true
@@ -132,9 +132,9 @@ func pre_combat() -> void:
 
 func choose_enemy() -> Combatant:
 	#pick data
-	var new_enemy_data: CombatantData = random_enemy_selection.enemies.pick_random()
+	var new_enemy_data:CombatantData = random_enemy_selection.enemies.pick_random()
 	#create a lil memory boi
-	var new_enemy_node: Combatant = combatant_base_scene.instantiate()
+	var new_enemy_node:Combatant = combatant_base_scene.instantiate()
 	#assign data to our boi
 	new_enemy_node.baseData = new_enemy_data
 	#make our boi into real boy
@@ -146,7 +146,7 @@ func choose_enemy() -> Combatant:
 
 func spawn_player() -> Combatant:
 	#create a lil memory boi
-	var new_player_node: Combatant = player_base_scene.instantiate()
+	var new_player_node:Combatant = player_base_scene.instantiate()
 	#assign data to our boi
 	new_player_node.baseData = player_base_stats
 	#make our boi into real boy
@@ -174,7 +174,7 @@ func start_turn() -> void:
 	elif turn == player_turn:
 		current_player.take_turn()
 		
-	elif turn == enemy_turn: 
+	elif turn == enemy_turn:
 		current_enemy.take_turn()
 
 func reset_turn_counter() -> void:

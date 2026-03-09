@@ -1,13 +1,13 @@
 extends Resource
 class_name Aura
 
-@export var health: int = 0
-@export var attack: int = 0
-@export var health_multiplier: int = 0
-@export var attack_multiplier: int = 0
+@export var health:int = 0
+@export var attack:int = 0
+@export var health_multiplier:int = 0
+@export var attack_multiplier:int = 0
 
 @export var aura_name:String
-var unique_id: String
+var unique_id:String
 var additive_dictionary:Dictionary[StringName, int] = {}
 var multiplicative_dictionary:Dictionary[StringName, int] = {}
 
@@ -44,7 +44,7 @@ func add_exports_to_dictionaries() -> void:
 	if attack_multiplier: multiplicative_dictionary[Stats.attack] = attack_multiplier
 
 func update_aura() -> void:
-	StatEvents.updated_aura.emit(self)
+	AuraEvents.updated_aura.emit(self)
 
 func decrement_duration_counter() -> void:
 	if duration_type == DurationType.TURNS:
@@ -64,5 +64,5 @@ func check_then_start_combat_aura() -> Aura:
 	else: return null
 
 func expire_aura() -> void:
-	StatEvents.expired_aura.emit(self)
+	AuraEvents.expired_aura.emit(self)
 	CombatLogEvents.aura_removed.emit(self)

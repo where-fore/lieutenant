@@ -1,25 +1,25 @@
 extends Node2D
 class_name Combatant
 
-@export var baseData: CombatantData
+@export var baseData:CombatantData
 
-@export var _this_is_the_player: bool = false
+@export var _this_is_the_player:bool = false
 func is_the_player() -> bool: return _this_is_the_player
 
-var damage_taken: int = 0
+var damage_taken:int = 0
 
-var base_stats: Dictionary = {}
-var current_stats: Dictionary = {}
+var base_stats:Dictionary = {}
+var current_stats:Dictionary = {}
 
 #controls global scaling - can set to 0 for no scaling, 5 for hyper scaling etc
 #this currently has to be an int, but i'd expect to be able to half the scaling factor ie. 0.5
 #can refactor some other things to round - but i haven't decided how i want to round things yet
-var scaling_coefficient: int = 1
+var scaling_coefficient:int = 1
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	StatEvents.send_auras_to_combatants.connect(recalculate_stats)
+	AuraEvents.send_auras_to_combatants.connect(recalculate_stats)
 	
 	setup()
 
@@ -33,7 +33,7 @@ func setup(should_be_the_player:bool = false) -> void:
 	CombatEvents.enemy_ready.emit()
 	
 
-func take_damage(value: int) -> void:
+func take_damage(value:int) -> void:
 	damage_taken += value
 	var current_hp:int = current_stats[Stats.health] - damage_taken
 	
@@ -48,10 +48,10 @@ func reset_current_stats_to_base() -> void:
 
 func scale_stats_to_combats() -> void:
 	if baseData.health_scaling:
-		var health_scaling_factor: int = StatEvents.encounters_defeated_for_scaling * scaling_coefficient
+		var health_scaling_factor:int = AuraEvents.encounters_defeated_for_scaling * scaling_coefficient
 		base_stats[Stats.health] = baseData.base_health + (baseData.health_scaling * health_scaling_factor)
 	if baseData.attack_scaling:
-		var attack_scaling_factor: int = StatEvents.encounters_defeated_for_scaling * scaling_coefficient
+		var attack_scaling_factor:int = AuraEvents.encounters_defeated_for_scaling * scaling_coefficient
 		base_stats[Stats.attack] = baseData.base_attack + (baseData.attack_scaling * attack_scaling_factor)
 
 func perish() -> void:
@@ -83,13 +83,13 @@ func recalculate_stats(playerAuraAdditiveDictionary:Dictionary[StringName, int],
 		HudEvents.enemy_attack_update.emit(current_stats[Stats.attack])
 
 func sum_aura_and_base_stats(auraDictionary:Dictionary[StringName,int]) -> void:
-	for stat: String in auraDictionary:
+	for stat:String in auraDictionary:
 		if base_stats.has(stat):
 			current_stats[stat] = auraDictionary[stat] + base_stats[stat]
 		else:
 			current_stats[stat] = auraDictionary[stat]
 
 func multiply_aura_and_current_stats(auraDictionary:Dictionary[StringName,int]) -> void:
-	for stat: String in auraDictionary:
+	for stat:String in auraDictionary:
 		if base_stats.has(stat):
 			current_stats[stat] *= (1+ auraDictionary[stat])
