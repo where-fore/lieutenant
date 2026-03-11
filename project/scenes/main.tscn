@@ -124,6 +124,7 @@ layout_mode = 2
 alignment = 1
 
 [node name="BasicRewardButton" type="MarginContainer" parent="TimingManager/UIManager/RewardUI/Control/VBoxContainer/RewardButtons"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -146,6 +147,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="SearchButton" type="MarginContainer" parent="TimingManager/UIManager/RewardUI/Control/VBoxContainer/RewardButtons"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -169,7 +171,6 @@ Treasure"
 horizontal_alignment = 1
 
 [node name="SearchRewardButton" type="MarginContainer" parent="TimingManager/UIManager/RewardUI/Control/VBoxContainer/RewardButtons"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -189,6 +190,24 @@ stretch_mode = 5
 layout_mode = 2
 text = "You found:
 Cool Item"
+horizontal_alignment = 1
+
+[node name="SearchSkipButton" type="MarginContainer" parent="TimingManager/UIManager/RewardUI/Control/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="TextureButton" type="TextureButton" parent="TimingManager/UIManager/RewardUI/Control/VBoxContainer/SearchSkipButton"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture_normal = ExtResource("13_2wyq8")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="TimingManager/UIManager/RewardUI/Control/VBoxContainer/SearchSkipButton"]
+layout_mode = 2
+text = "Skip"
 horizontal_alignment = 1
 
 [node name="DeathUI" type="CanvasLayer" parent="TimingManager/UIManager"]
@@ -519,7 +538,7 @@ grow_horizontal = 2
 grow_vertical = 2
 columns = 2
 script = ExtResource("14_dp3eg")
-starting_items = Array[ExtResource("15_yc10j")]([ExtResource("17_gqmmt"), ExtResource("17_gqmmt"), ExtResource("24_fv21b")])
+starting_items = Array[ExtResource("15_yc10j")]([ExtResource("17_gqmmt"), ExtResource("17_gqmmt"), ExtResource("24_fv21b"), ExtResource("24_fv21b"), ExtResource("24_fv21b"), ExtResource("24_fv21b")])
 
 [node name="Inventory Slot1" parent="TimingManager/UIManager/SideHUD/Control/BottomSection/Inventory" instance=ExtResource("14_muem4")]
 layout_mode = 2
@@ -552,6 +571,7 @@ player_base_stats = ExtResource("26_2wyq8")
 [connection signal="pressed" from="TimingManager/UIManager/RewardUI/Control/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/TextureButton" to="TimingManager/UIManager/RewardUI" method="_on_basic_reward_button_pressed"]
 [connection signal="pressed" from="TimingManager/UIManager/RewardUI/Control/VBoxContainer/RewardButtons/SearchButton/VBoxContainer/TextureButton" to="TimingManager/UIManager/RewardUI" method="_on_search_button_pressed"]
 [connection signal="pressed" from="TimingManager/UIManager/RewardUI/Control/VBoxContainer/RewardButtons/SearchRewardButton/VBoxContainer/TextureButton" to="TimingManager/UIManager/RewardUI" method="_on_search_reward_button_pressed"]
+[connection signal="pressed" from="TimingManager/UIManager/RewardUI/Control/VBoxContainer/SearchSkipButton/TextureButton" to="TimingManager/UIManager/RewardUI" method="_on_search_skip_button_pressed"]
 [connection signal="pressed" from="TimingManager/UIManager/DeathUI/Control/VBoxContainer/MarginContainer2/RestartButton" to="TimingManager/UIManager" method="_on_restart_button_pressed"]
 [connection signal="pressed" from="TimingManager/UIManager/CombatUI/Control/CombatButton" to="TimingManager/UIManager/CombatUI" method="_on_combat_button_pressed"]
 [connection signal="pressed" from="TimingManager/UIManager/CombatUI/Control/TurnButtons/PauseButton" to="TimingManager/UIManager/CombatUI" method="_on_pause_button_pressed"]

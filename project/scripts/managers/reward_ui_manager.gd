@@ -11,8 +11,11 @@ extends CanvasLayer
 @onready var search_reward_button:TextureButton = $Control/VBoxContainer/RewardButtons/SearchRewardButton/VBoxContainer/TextureButton
 @onready var search_reward_button_container:MarginContainer = $Control/VBoxContainer/RewardButtons/SearchRewardButton
 @onready var search_reward_button_label:Label = $Control/VBoxContainer/RewardButtons/SearchRewardButton/VBoxContainer/Label
+@onready var search_skip_button_container:MarginContainer = $Control/VBoxContainer/SearchSkipButton
 
 @onready var search_reward_empty_texture:Texture2D = search_reward_button.texture_normal
+
+var search_reward_text_blurb:String = "The spoils of war"
 
 var current_basic_aura:Aura
 var current_search_reward:Item
@@ -25,12 +28,14 @@ func _ready() -> void:
 	if not basic_reward_list or not common_reward_list or not rare_reward_list:
 		push_error("Critical Error: no reward list assigned")
 		return
+	
 	InventoryEvents.full_status_updated.connect(update_inventory_full_indicator)
 
 func change_to() -> void:
 	basic_reward_button_container.visible = true
 	search_button_container.visible = true
 	search_reward_button_container.visible = false
+	search_skip_button_container.visible = true
 	generate_basic_reward()
 	visible = true
 
@@ -47,6 +52,7 @@ func search_for_rare_reward() -> void:
 	basic_reward_button_container.visible = false
 	search_button_container.visible = false
 	search_reward_button_container.visible = true
+	search_skip_button_container.visible = true
 	
 	search_reward_button_label.text = ""
 	search_reward_button.texture_normal = search_reward_empty_texture
@@ -59,36 +65,43 @@ func search_for_rare_reward() -> void:
 		current_search_reward = common_reward_list.items.pick_random()
 	else:
 		pass
-	
+		
 	if current_search_reward:
-		search_reward_button_label.text = "The spoils of war"
+		search_reward_button_label.text = search_reward_text_blurb
 		search_reward_button.texture_normal = current_search_reward.item_sprite
 		search_reward_button.tooltip_text = current_search_reward.get_tooltip()
 	else:
 		search_reward_button.texture_normal = search_reward_empty_texture
 		search_reward_button.tooltip_text = "Continue..."
 		search_reward_button_label.text = "Found nothing..."
+	
+	update_inventory_full_indicator()
 
 func update_inventory_full_indicator() -> void:
-	if InventoryEvents.inventory_is_full:
-		#item_reward_button_parent.modulate = Color(0.3,0.3,0.3)
-		pass
-	else:
-		#item_reward_button_parent.modulate = Color(1,1,1)
-		pass
+	if current_search_reward:
+		if InventoryEvents.inventory_is_full:
+			search_reward_button.modulate = Color(0.3,0.3,0.3)
+			search_reward_button_label.text = "Inventory Full"
+		else:
+			search_reward_button.modulate = Color(1,1,1)
+			search_reward_button_label.text = search_reward_text_blurb
 
 func _on_basic_reward_button_pressed() -> void:
 	AuraEvents.give_aura_to_player.emit(current_basic_aura)
-	reward_selected()
 	current_basic_aura = null
+	reward_selected()
 
 func _on_search_button_pressed() -> void:
 	search_for_rare_reward()
 
 func _on_search_reward_button_pressed() -> void:
 	if current_search_reward: InventoryEvents.send_item_to_inventory.emit(current_search_reward)
-	reward_selected()
 	current_search_reward = null
+	reward_selected()
+
+func _on_search_skip_button_pressed() -> void:
+	current_search_reward = null
+	reward_selected()
 
 func reward_selected() -> void:
 	HudEvents.reward_chosen.emit()
