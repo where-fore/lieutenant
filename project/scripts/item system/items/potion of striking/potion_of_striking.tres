@@ -10,4 +10,4 @@ item_name = "Potion of Striking"
 item_sprite = ExtResource("2_vlg5s")
 aura_application_time = 1
 _custom_aura_template = ExtResource("1_rht2n")
-custom_tooltip = "You strike twice over"
+custom_tooltip = "You strike twice over, briefly"

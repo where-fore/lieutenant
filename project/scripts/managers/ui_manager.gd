@@ -2,6 +2,8 @@ extends Node2D
 
 @onready var combat_ui_manager:Node = $CombatUI
 @onready var reward_ui_manager:Node = $RewardUI
+@onready var inventory_manager:Node = $InventoryManager
+@onready var inventory_slot_grid_container:GridContainer = $SideHUD/Control/BottomSection/Inventory
 @onready var death_ui:Node = $DeathUI
 
 # Called when the node enters the scene tree for the first time.
@@ -9,6 +11,8 @@ func _ready() -> void:
 	reward_ui_manager.visible = false
 	combat_ui_manager.visible = true
 	death_ui.visible = false
+	
+	inventory_manager.set_inventory_slot_parent(inventory_slot_grid_container)
 	
 	HudEvents.combat_won.connect(end_combat_as_victory)
 	HudEvents.combat_lost.connect(end_combat_as_failure)

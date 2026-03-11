@@ -23,7 +23,7 @@ var can_start_combat:bool = true
 
 #animation data
 var opener_turn_delay:float = 1
-var middle_turn_delay:float = 0.2
+var middle_turn_delay:float = 0.15
 var near_end_delay:float = 0.8
 
 var step_mode:StringName = &"step mode"
@@ -91,9 +91,13 @@ func next_turn() -> void:
 		start_turn()
 
 func turn_animation() -> Signal:
-	var near_end:bool = (current_enemy.current_stats[Stats.health] <= 1* current_player.current_stats[Stats.attack]) or (current_player.current_stats[Stats.health] <= 1* current_enemy.current_stats[Stats.attack])
+	var player_near_death:bool = current_player.get_damaged_health() <= 1* current_enemy.current_stats[Stats.attack]
+	var enemy_near_death:bool = current_enemy.get_damaged_health() <= 1* current_player.current_stats[Stats.attack]
+	var near_end:bool = player_near_death or enemy_near_death
+	
 	var slow_opener:bool = turn_number <= 2
 	var failsafe:float = 0.2
+	
 	if slow_opener:
 		return get_tree().create_timer(opener_turn_delay).timeout
 		

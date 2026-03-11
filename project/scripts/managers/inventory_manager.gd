@@ -1,15 +1,18 @@
-extends GridContainer
+extends Node2D
 
 var inventory_slots:Array[Node] = []
 
 @export var starting_items:Array[Item]
+
+var inventory_slot_parent:GridContainer
+func set_inventory_slot_parent(new_parent:GridContainer) -> void:
+	inventory_slot_parent = new_parent
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if starting_items.has(null): push_error("starting items has a null slot")
 	
-	find_inventory_slot_nodes()
 	TimingEvents.everythings_ready.connect(on_scene_ready)
 	InventoryEvents.clear_all_to_restart.connect(clear_inventory)
 	InventoryEvents.rebuild_all_to_restart.connect(populate_starter_items)
@@ -24,6 +27,7 @@ func _ready() -> void:
 	CombatEvents.attack_launched.connect(func(attacker:Combatant, _other_arg): on_attack(attacker))
 
 func on_scene_ready() -> void:
+	find_inventory_slot_nodes()
 	populate_starter_items()
 
 func on_attack(source:Combatant) -> void:
@@ -49,9 +53,10 @@ func on_combat_end() -> void:
 
 func find_inventory_slot_nodes() -> void:
 	var class_to_check_for:StringName = &"InventorySlot"
-	var found_nodes:Array[Node] = self.find_children("*", class_to_check_for, false)
+	var found_nodes:Array[Node] = inventory_slot_parent.find_children("*", class_to_check_for, false)
 	for node:Node in found_nodes:
 		inventory_slots.append(node as InventorySlot)
+	if not found_nodes: push_error("inventory manager didn't find any inventory slots")
 
 #returns an InventorySlot class if it finds one empty, or null if none available
 func find_first_empty_slot() -> InventorySlot:

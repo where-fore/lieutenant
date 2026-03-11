@@ -7,6 +7,8 @@ var is_the_player:bool = false
 var is_an_enemy:bool = true
 
 var damage_taken:int = 0
+func get_damaged_health() -> int:
+	return current_stats[Stats.health] - damage_taken
 
 var base_stats:Dictionary = {}
 var current_stats:Dictionary = {}
@@ -37,7 +39,8 @@ func setup(should_be_the_player:bool = false) -> void:
 
 func take_damage(value:int) -> void:
 	damage_taken += value
-	var current_hp:int = current_stats[Stats.health] - damage_taken
+	
+	var current_hp:int = get_damaged_health()
 	
 	if is_the_player: HudEvents.player_health_update.emit(current_hp)
 	else: HudEvents.enemy_health_update.emit(current_hp)
@@ -75,13 +78,13 @@ func recalculate_stats(playerAuraAdditiveDictionary:Dictionary[StringName, int],
 	if is_the_player:
 		sum_aura_and_base_stats(playerAuraAdditiveDictionary)
 		multiply_aura_and_current_stats(playerAuraMultiplicativeDictionary)
-		HudEvents.player_health_update.emit(current_stats[Stats.health] - damage_taken)
+		HudEvents.player_health_update.emit(get_damaged_health())
 		HudEvents.player_attack_update.emit(current_stats[Stats.attack])
 	
 	elif is_an_enemy:
 		sum_aura_and_base_stats(enemyAuraAdditiveDictionary)
 		multiply_aura_and_current_stats(enemyAuraMultiplicativeDictionary)
-		HudEvents.enemy_health_update.emit(current_stats[Stats.health] - damage_taken)
+		HudEvents.enemy_health_update.emit(get_damaged_health())
 		HudEvents.enemy_attack_update.emit(current_stats[Stats.attack])
 
 func sum_aura_and_base_stats(auraDictionary:Dictionary[StringName,int]) -> void:

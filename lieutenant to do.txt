@@ -2,16 +2,12 @@
 working notes
 --------------------------------------------------------
 
-inventory manager should be separate from the side ui thing
 
 
 
 
-one button, greyed out+message if inventory is full?
-one button to continue without looting
 
 
-change button size
 
 
 
@@ -27,29 +23,12 @@ work to do
 --------------------------------------------------------
 adding a custom cursor sounds easy and cool
 
-make items randomly given
-	probably randomly choose "epic item" or "normal item"
-
 probably do the json stuff soon, so i can
 
 make a bunch of cool items and enemies
-	oh yeah do the enemy scripting
+	setup the enemy scripting
+	look at he is coming for examples of things i want to implement
 
-
-special items/enemies:
-	look at he is coming for examples of things i want to implement:
-		start of combat, steal one attack
-		debilitating status effect?
-		enemy whose attack grows every turn - maybe a boss/elite every x combats?
-	maybe define a start of combat, start of turn, after attack, end of turn? and check items then? signal to inventory manager, it runs through slot by slot
-	
-	overhaul reward screen:
-		pull from random items
-		have item tooltips
-		probably keep "rest" or similarly basic stat booster if you don't want any items
-		
-		have three buttons - two items (not duplicates), and one rest
-		have a database of a few items to randomly pull from
 
 
 maybes:

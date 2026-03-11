@@ -79,6 +79,7 @@ mouse_filter = 2
 script = ExtResource("2_choun")
 
 [node name="RewardUI" type="CanvasLayer" parent="TimingManager/UIManager"]
+visible = false
 script = ExtResource("3_ya4ey")
 basic_reward_list = ExtResource("6_qkpxi")
 common_reward_list = ExtResource("7_5q0nq")
@@ -137,6 +138,8 @@ layout_mode = 2
 [node name="TextureButton" type="TextureButton" parent="TimingManager/UIManager/RewardUI/Control/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture_normal = ExtResource("4_tbgi4")
 stretch_mode = 5
 
@@ -160,6 +163,8 @@ layout_mode = 2
 [node name="TextureButton" type="TextureButton" parent="TimingManager/UIManager/RewardUI/Control/VBoxContainer/RewardButtons/SearchButton/VBoxContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture_normal = ExtResource("9_tel4y")
 stretch_mode = 5
 
@@ -183,6 +188,8 @@ layout_mode = 2
 [node name="TextureButton" type="TextureButton" parent="TimingManager/UIManager/RewardUI/Control/VBoxContainer/RewardButtons/SearchRewardButton/VBoxContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture_normal = ExtResource("13_2wyq8")
 stretch_mode = 5
 
@@ -202,6 +209,8 @@ theme_override_constants/margin_bottom = 10
 [node name="TextureButton" type="TextureButton" parent="TimingManager/UIManager/RewardUI/Control/VBoxContainer/SearchSkipButton"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture_normal = ExtResource("13_2wyq8")
 stretch_mode = 5
 
@@ -259,21 +268,21 @@ theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="RestartButton" type="TextureButton" parent="TimingManager/UIManager/DeathUI/Control/VBoxContainer/MarginContainer2"]
-custom_minimum_size = Vector2(96, 96)
+custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 texture_normal = ExtResource("3_jyhfs")
 stretch_mode = 5
 
 [node name="Label" type="Label" parent="TimingManager/UIManager/DeathUI/Control/VBoxContainer/MarginContainer2/RestartButton"]
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.95
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.95
-offset_left = -28.0
+anchor_bottom = 1.0
+offset_left = -46.0
 offset_top = -14.0
-offset_right = 28.0
+offset_right = 46.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 16
@@ -537,8 +546,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 columns = 2
-script = ExtResource("14_dp3eg")
-starting_items = Array[ExtResource("15_yc10j")]([ExtResource("17_gqmmt"), ExtResource("17_gqmmt"), ExtResource("24_fv21b"), ExtResource("24_fv21b"), ExtResource("24_fv21b"), ExtResource("24_fv21b")])
 
 [node name="Inventory Slot1" parent="TimingManager/UIManager/SideHUD/Control/BottomSection/Inventory" instance=ExtResource("14_muem4")]
 layout_mode = 2
@@ -557,6 +564,10 @@ layout_mode = 2
 
 [node name="Inventory Slot6" parent="TimingManager/UIManager/SideHUD/Control/BottomSection/Inventory" instance=ExtResource("14_muem4")]
 layout_mode = 2
+
+[node name="InventoryManager" type="Node2D" parent="TimingManager/UIManager"]
+script = ExtResource("14_dp3eg")
+starting_items = Array[ExtResource("15_yc10j")]([ExtResource("17_gqmmt"), ExtResource("17_gqmmt"), ExtResource("24_fv21b")])
 
 [node name="AuraManager" type="Node2D" parent="TimingManager"]
 script = ExtResource("12_eb6dy")
