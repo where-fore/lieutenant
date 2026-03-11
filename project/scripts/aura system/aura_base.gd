@@ -8,11 +8,12 @@ class_name Aura
 
 @export var aura_name:String
 var unique_id:String
+var visible:bool = false
 var additive_dictionary:Dictionary[StringName, int] = {}
 var multiplicative_dictionary:Dictionary[StringName, int] = {}
 
 @export_category("Duration")
-#note enum exports: enums are saved as integers in the list
+#note enum exports: enums are saved as simply integers
 #so given { PERMANENT, THIS_COMBAT, TURNS, SPECIAL }
 #so if an aura is export-selection as TURN, its enum is == 2 (index starts at 0)
 #which means if you then change to { PERMANENT, THIS_COMBAT, ANY_TURN, TURNS, SPECIAL }
@@ -22,9 +23,10 @@ enum DurationType {PERMANENT, THIS_COMBAT, TURNS, SPECIAL}
 @export var base_duration:int = 0
 var current_duration:int = 0
 
-func create_aura(name:String = "", additive_init:Dictionary[StringName, int] = {}, multiplicative_init:Dictionary[StringName, int] = {}) -> Aura:
+func create_aura(name:String = "", should_be_visible:bool = false, additive_init:Dictionary[StringName, int] = {}, multiplicative_init:Dictionary[StringName, int] = {}) -> Aura:
 	var this_aura:Aura = self.duplicate()
 	if name: this_aura.aura_name = name
+	if should_be_visible: this_aura.visible = should_be_visible
 	this_aura.unique_id = str(this_aura.get_instance_id()) + "_" + str(Time.get_time_string_from_system())
 	add_exports_to_dictionaries()
 	

@@ -4,6 +4,25 @@ working notes
 
 something about the potion printing to the combat log when you delete it?
 
+	prints precombat
+	only potion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 --------------------------------------------------------
 work to do
 --------------------------------------------------------

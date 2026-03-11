@@ -50,7 +50,7 @@ func get_aura() -> Aura:
 
 func initialize_my_aura() -> void:
 	setup_item_stats()
-	_runtime_aura = Aura.new().create_aura(item_name, my_additive_stat_dictionary, my_multiplicative_stat_dictionary)
+	_runtime_aura = Aura.new().create_aura(item_name, false, my_additive_stat_dictionary, my_multiplicative_stat_dictionary)
 
 func get_custom_aura() -> Aura:
 	if _custom_aura: return _custom_aura
@@ -60,8 +60,7 @@ func get_custom_aura() -> Aura:
 		return _custom_aura
 
 func initialize_my_custom_aura() -> void:
-	_custom_aura = _custom_aura_template.create_aura()
-	CombatLogEvents.aura_applied.emit(_custom_aura)
+	_custom_aura = _custom_aura_template.create_aura("", true)
 
 func applies_aura_on_equip() -> bool:
 	if aura_application_time == ApplyType.ON_EQUIP: return true

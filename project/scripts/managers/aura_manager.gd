@@ -35,6 +35,7 @@ func apply_new_aura_to_player(new_aura:Aura) -> void:
 		#then instance a new aura
 		new_aura = new_aura.create_aura()
 	if new_aura.unique_id in player_aura_dictionary.keys(): push_warning("overwriting aura: " + new_aura.aura_name)
+	if new_aura.visible: CombatLogEvents.aura_applied.emit(new_aura)
 	player_aura_dictionary[new_aura.unique_id] = new_aura
 	update_stats()
 	
