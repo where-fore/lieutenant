@@ -7,7 +7,7 @@ var item_in_slot:Item
 
 var weapon_tooltip_text_base:String = "Increases attack by "
 
-@onready var delete_confirmation_panel:Control = $Panel
+@onready var delete_confirmation_panel:Control = $DeleteConfirmation
 @onready var delete_confirmation_timer:Timer = $Timer
 var delete_confirmation:bool = false
 var delete_timer_current:float = 0

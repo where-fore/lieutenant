@@ -2,21 +2,7 @@
 working notes
 --------------------------------------------------------
 
-
-
-okay so combatant
-take turn
-finish turn
-
-the combatant can kill the enemy, win combat, fire all the "combat over let's swap screens" stuff on its take turn function
-then finish turn comes after
-
-
-
-
-
-
-
+something about the potion printing to the combat log when you delete it?
 
 --------------------------------------------------------
 work to do
@@ -29,13 +15,6 @@ probably do the json stuff soon, so i can
 make a bunch of cool items and enemies
 	oh yeah do the enemy scripting
 
-
-some strange bug with turns automatically starting (esp when blitzing through combats)
-	im guessing i'm overriding the "wait for animations" when swapping to reward screen?
-	maybe when i kill a mob it's instant instead of waiting for the animation?
-	maybe the combat is swapping to precombat or something when it finishes?
-		lots of failsafes aren't in place here
-	
 
 special items/enemies:
 	look at he is coming for examples of things i want to implement:
