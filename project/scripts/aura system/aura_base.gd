@@ -7,6 +7,8 @@ class_name Aura
 @export var attack_multiplier:int = 0
 
 @export var aura_name:String
+@export var aura_icon:Texture2D
+var tooltip_text:String = ""
 var unique_id:String
 var visible:bool = false
 var additive_dictionary:Dictionary[StringName, int] = {}
@@ -25,9 +27,11 @@ var current_duration:int = 0
 
 func create_aura(name:String = "", should_be_visible:bool = false, additive_init:Dictionary[StringName, int] = {}, multiplicative_init:Dictionary[StringName, int] = {}) -> Aura:
 	var this_aura:Aura = self.duplicate()
+	
 	if name: this_aura.aura_name = name
 	if should_be_visible: this_aura.visible = should_be_visible
 	this_aura.unique_id = str(this_aura.get_instance_id()) + "_" + str(Time.get_time_string_from_system())
+	
 	add_exports_to_dictionaries()
 	
 	if additive_init: this_aura.additive_dictionary = additive_init.duplicate()
@@ -36,6 +40,8 @@ func create_aura(name:String = "", should_be_visible:bool = false, additive_init
 	else: this_aura.multiplicative_dictionary = multiplicative_dictionary.duplicate()
 	
 	this_aura.current_duration = base_duration
+	
+	generate_tooltip_text(this_aura)
 
 	return this_aura
 
@@ -47,6 +53,14 @@ func add_exports_to_dictionaries() -> void:
 
 func update_aura() -> void:
 	AuraEvents.updated_aura.emit(self)
+
+func generate_tooltip_text(aura_to_update:Aura) -> void:
+	for stat_change:StringName in additive_dictionary:
+		var to_add:String = str(stat_change) + " increased by " + str(additive_dictionary[stat_change])
+		aura_to_update.tooltip_text += to_add
+	for stat_change:StringName in multiplicative_dictionary:
+		var to_add:String = str(stat_change) + " increased by " + str(multiplicative_dictionary[stat_change]*100) + "%"
+		aura_to_update.tooltip_text += to_add
 
 func decrement_duration_counter() -> void:
 	if duration_type == DurationType.TURNS:

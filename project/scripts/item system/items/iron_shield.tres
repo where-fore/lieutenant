@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Armor" load_steps=3 format=3 uid="uid://mgl2papmvrpi"]
+
+[ext_resource type="Texture2D" uid="uid://j2tdjoltugwd" path="res://sprites/small_shield.png" id="1_hqpt0"]
+[ext_resource type="Script" uid="uid://trcigagx6swg" path="res://scripts/item system/armor_data.gd" id="2_hqpt0"]
+
+[resource]
+script = ExtResource("2_hqpt0")
+health = 20
+item_name = "Iron Shield"
+item_sprite = ExtResource("1_hqpt0")

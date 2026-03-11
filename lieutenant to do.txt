@@ -2,17 +2,16 @@
 working notes
 --------------------------------------------------------
 
-something about the potion printing to the combat log when you delete it?
-
-	prints precombat
-	only potion
+inventory manager should be separate from the side ui thing
 
 
 
 
+one button, greyed out+message if inventory is full?
+one button to continue without looting
 
 
-
+change button size
 
 
 
@@ -26,6 +25,8 @@ something about the potion printing to the combat log when you delete it?
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
+adding a custom cursor sounds easy and cool
+
 make items randomly given
 	probably randomly choose "epic item" or "normal item"
 
@@ -108,6 +109,10 @@ if i just make it more complicated (so it's less easy to eyeball the result) is 
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+using pick_random(), but no random seed management
+
+"inventory is full" greying out items is case by case basis - should probably be in the item tooltip? when that comes. or maybe when hovering over, it turns the custom cursor into an X?
+
 ui has a bunch of minimum pixel sizes - this is probably a fine practice, but things like the combatants numbers getting fucked over 3 digits is not good
 
 these signals really are poorly named, i'm connecting to hudevents.change_to_combat_screen for my inventory restarting of combat auras? terrible

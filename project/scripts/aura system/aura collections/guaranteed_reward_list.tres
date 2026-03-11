@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AuraCollection" load_steps=5 format=3 uid="uid://darx60ijl1s4x"]
+
+[ext_resource type="Script" uid="uid://yij3buadqnbh" path="res://scripts/aura system/aura_base.gd" id="1_ys3e6"]
+[ext_resource type="Script" uid="uid://bspqjydfph1s3" path="res://scripts/aura system/aura collections/aura_collection.gd" id="2_alicd"]
+[ext_resource type="Resource" uid="uid://d01di3t1tassr" path="res://scripts/aura system/auras/rest.tres" id="2_ay6du"]
+[ext_resource type="Resource" uid="uid://c5675v64cpok" path="res://scripts/aura system/auras/sharpen.tres" id="3_fruf5"]
+
+[resource]
+script = ExtResource("2_alicd")
+auras = Array[ExtResource("1_ys3e6")]([ExtResource("2_ay6du"), ExtResource("3_fruf5")])
+metadata/_custom_type_script = "uid://bspqjydfph1s3"

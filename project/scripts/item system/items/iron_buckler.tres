@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Armor" load_steps=3 format=3 uid="uid://dc3nbw6fganoc"]
+
+[ext_resource type="Texture2D" uid="uid://dmvj1rmypyuid" path="res://sprites/small_buckler.png" id="1_s0edl"]
+[ext_resource type="Script" uid="uid://trcigagx6swg" path="res://scripts/item system/armor_data.gd" id="2_61ykn"]
+
+[resource]
+script = ExtResource("2_61ykn")
+health = 5
+item_name = "Iron Buckler"
+item_sprite = ExtResource("1_s0edl")

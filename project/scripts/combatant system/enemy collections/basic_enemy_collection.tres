@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://b7irak0oy4iir" path="res://scripts/combatant system/enemies/skeleton_lich.tres" id="2_x71nu"]
 [ext_resource type="Resource" uid="uid://5jw1ftlsj3v3" path="res://scripts/combatant system/enemies/skeleton_warrior.tres" id="3_w7txt"]
 [ext_resource type="Resource" uid="uid://fatceu4s1agu" path="res://scripts/combatant system/enemies/skeleton_berserker.tres" id="4_unjau"]
-[ext_resource type="Script" uid="uid://kqwfksdvf463" path="res://scripts/combatant system/enemies/enemy collections/enemy_collection.gd" id="5_5gwgs"]
+[ext_resource type="Script" uid="uid://kqwfksdvf463" path="res://scripts/combatant system/enemy collections/enemy_collection.gd" id="5_5gwgs"]
 
 [resource]
 script = ExtResource("5_5gwgs")

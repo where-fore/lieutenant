@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemCollection" load_steps=7 format=3 uid="uid://creejakuwck2j"]
+
+[ext_resource type="Script" uid="uid://cio5dheq3p8mc" path="res://scripts/item system/item_base.gd" id="1_ff4yi"]
+[ext_resource type="Resource" uid="uid://7pnk7lt0msvw" path="res://scripts/item system/items/iron_sword.tres" id="2_v1801"]
+[ext_resource type="Script" uid="uid://bk2w76iysf10v" path="res://scripts/item system/item collections/item_collection.gd" id="2_vm27g"]
+[ext_resource type="Resource" uid="uid://mgl2papmvrpi" path="res://scripts/item system/items/iron_shield.tres" id="3_u8sdo"]
+[ext_resource type="Resource" uid="uid://d2argrohlttq2" path="res://scripts/item system/items/rock.tres" id="4_u8sdo"]
+[ext_resource type="Resource" uid="uid://dc3nbw6fganoc" path="res://scripts/item system/items/iron_buckler.tres" id="5_fo22t"]
+
+[resource]
+script = ExtResource("2_vm27g")
+items = Array[ExtResource("1_ff4yi")]([ExtResource("2_v1801"), ExtResource("3_u8sdo"), ExtResource("4_u8sdo"), ExtResource("5_fo22t")])
+metadata/_custom_type_script = "uid://bk2w76iysf10v"

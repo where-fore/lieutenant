@@ -1,8 +1,10 @@
-[gd_resource type="Resource" script_class="Aura" load_steps=2 format=3 uid="uid://d01di3t1tassr"]
+[gd_resource type="Resource" script_class="Aura" load_steps=3 format=3 uid="uid://d01di3t1tassr"]
 
+[ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="1_p3em5"]
 [ext_resource type="Script" uid="uid://yij3buadqnbh" path="res://scripts/aura system/aura_base.gd" id="1_x6wav"]
 
 [resource]
 script = ExtResource("1_x6wav")
 health = 10
 aura_name = "Well Rested"
+aura_icon = ExtResource("1_p3em5")

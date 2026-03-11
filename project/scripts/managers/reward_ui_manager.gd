@@ -1,45 +1,94 @@
 extends CanvasLayer
 
-@export var rest_aura:Aura
-@export var attack_upgrade_item:Weapon
+@export var basic_reward_list:AuraCollection
+@export var common_reward_list:ItemCollection
+@export var rare_reward_list:ItemCollection
 
-@onready var item_reward_button_parent:Container = $Control/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer
+@onready var basic_reward_button:TextureButton = $Control/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/TextureButton
+@onready var basic_reward_button_container:MarginContainer = $Control/VBoxContainer/RewardButtons/BasicRewardButton
+@onready var search_button:TextureButton = $Control/VBoxContainer/RewardButtons/SearchButton/VBoxContainer/TextureButton
+@onready var search_button_container:MarginContainer = $Control/VBoxContainer/RewardButtons/SearchButton
+@onready var search_reward_button:TextureButton = $Control/VBoxContainer/RewardButtons/SearchRewardButton/VBoxContainer/TextureButton
+@onready var search_reward_button_container:MarginContainer = $Control/VBoxContainer/RewardButtons/SearchRewardButton
+@onready var search_reward_button_label:Label = $Control/VBoxContainer/RewardButtons/SearchRewardButton/VBoxContainer/Label
+
+@onready var search_reward_empty_texture:Texture2D = search_reward_button.texture_normal
+
+var current_basic_aura:Aura
+var current_search_reward:Item
+var rare_chance:int = 35
+var common_chance:int = 35
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if not attack_upgrade_item:
-		push_error("Critical Error: no attack reward item assigned")
+	if not basic_reward_list or not common_reward_list or not rare_reward_list:
+		push_error("Critical Error: no reward list assigned")
 		return
-	InventoryEvents.full_status_updated.connect(update_item_reward_availability)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta:float) -> void:
-	pass
-
+	InventoryEvents.full_status_updated.connect(update_inventory_full_indicator)
 
 func change_to() -> void:
-	update_item_reward_availability()
+	basic_reward_button_container.visible = true
+	search_button_container.visible = true
+	search_reward_button_container.visible = false
+	generate_basic_reward()
 	visible = true
 
 func change_from() -> void:
 	visible = false
 
-func update_item_reward_availability() -> void:
-	if InventoryEvents.inventory_is_full:
-		item_reward_button_parent.modulate = Color(0.3,0.3,0.3)
+func generate_basic_reward() -> void:
+	var reward:Aura = basic_reward_list.auras.pick_random().create_aura()
+	basic_reward_button.texture_normal = reward.aura_icon
+	basic_reward_button.tooltip_text = reward.tooltip_text
+	current_basic_aura = reward
+
+func search_for_rare_reward() -> void:
+	basic_reward_button_container.visible = false
+	search_button_container.visible = false
+	search_reward_button_container.visible = true
+	
+	search_reward_button_label.text = ""
+	search_reward_button.texture_normal = search_reward_empty_texture
+	search_reward_button.tooltip_text = ""
+	
+	var roll:int = randi_range(1,100)
+	if roll <= rare_chance:
+		current_search_reward = rare_reward_list.items.pick_random()
+	elif roll <= rare_chance + common_chance:
+		current_search_reward = common_reward_list.items.pick_random()
 	else:
-		item_reward_button_parent.modulate = Color(1,1,1)
+		pass
+	
+	if current_search_reward:
+		search_reward_button_label.text = "The spoils of war"
+		search_reward_button.texture_normal = current_search_reward.item_sprite
+		search_reward_button.tooltip_text = current_search_reward.get_tooltip()
+	else:
+		search_reward_button.texture_normal = search_reward_empty_texture
+		search_reward_button.tooltip_text = "Continue..."
+		search_reward_button_label.text = "Found nothing..."
 
+func update_inventory_full_indicator() -> void:
+	if InventoryEvents.inventory_is_full:
+		#item_reward_button_parent.modulate = Color(0.3,0.3,0.3)
+		pass
+	else:
+		#item_reward_button_parent.modulate = Color(1,1,1)
+		pass
 
-func _on_sword_sprite_pressed() -> void:
-	InventoryEvents.send_item_to_inventory.emit(attack_upgrade_item)
+func _on_basic_reward_button_pressed() -> void:
+	AuraEvents.give_aura_to_player.emit(current_basic_aura)
 	reward_selected()
+	current_basic_aura = null
 
-func _on_heart_sprite_pressed() -> void:
-	AuraEvents.give_aura_to_player.emit(rest_aura)
+func _on_search_button_pressed() -> void:
+	search_for_rare_reward()
+
+func _on_search_reward_button_pressed() -> void:
+	if current_search_reward: InventoryEvents.send_item_to_inventory.emit(current_search_reward)
 	reward_selected()
+	current_search_reward = null
 
 func reward_selected() -> void:
 	HudEvents.reward_chosen.emit()
-	

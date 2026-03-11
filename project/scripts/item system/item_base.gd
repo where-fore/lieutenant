@@ -52,6 +52,20 @@ func initialize_my_aura() -> void:
 	setup_item_stats()
 	_runtime_aura = Aura.new().create_aura(item_name, false, my_additive_stat_dictionary, my_multiplicative_stat_dictionary)
 
+func get_tooltip() -> String:
+	setup_item_stats()
+	
+	var tooltip_text:String = item_name
+	for stat_change:StringName in my_additive_stat_dictionary:
+		var to_add:String = str(stat_change) + " increased by " + str(my_additive_stat_dictionary[stat_change])
+		tooltip_text += "\n" + to_add
+	for stat_change:StringName in my_multiplicative_stat_dictionary:
+		var to_add:String = str(stat_change) + " increased by " + str(my_multiplicative_stat_dictionary[stat_change]*100) + "%"
+		tooltip_text += "\n" + to_add
+		
+	if custom_tooltip: tooltip_text += "\n" + custom_tooltip
+	return tooltip_text
+
 func get_custom_aura() -> Aura:
 	if _custom_aura: return _custom_aura
 	if not _custom_aura_template: return null

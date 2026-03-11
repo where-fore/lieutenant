@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemCollection" load_steps=7 format=3 uid="uid://dsrnxk0gdqpto"]
+
+[ext_resource type="Script" uid="uid://cio5dheq3p8mc" path="res://scripts/item system/item_base.gd" id="1_g6for"]
+[ext_resource type="Resource" uid="uid://cmd0khhdrwnj4" path="res://scripts/item system/items/potion of striking/potion_of_striking.tres" id="2_g6for"]
+[ext_resource type="Resource" uid="uid://k73i7jh0hrqm" path="res://scripts/item system/items/paladin's armor/paladins_armor.tres" id="3_gymat"]
+[ext_resource type="Resource" uid="uid://b7hiehj5fulcw" path="res://scripts/item system/items/vamp sword/vamp_sword.tres" id="4_qb2ba"]
+[ext_resource type="Resource" uid="uid://dbtlu04k56rem" path="res://scripts/item system/items/crashing waves/crashing_waves.tres" id="5_ddsxg"]
+[ext_resource type="Script" uid="uid://bk2w76iysf10v" path="res://scripts/item system/item collections/item_collection.gd" id="6_kojon"]
+
+[resource]
+script = ExtResource("6_kojon")
+items = Array[ExtResource("1_g6for")]([ExtResource("2_g6for"), ExtResource("3_gymat"), ExtResource("4_qb2ba"), ExtResource("5_ddsxg")])
+metadata/_custom_type_script = "uid://bk2w76iysf10v"
