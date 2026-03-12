@@ -2,11 +2,9 @@
 working notes
 --------------------------------------------------------
 
+aight i need to make that skip button a rectangle it's too cringe
 
-
-
-
-
+custom script enemies now
 
 
 
@@ -23,13 +21,13 @@ work to do
 --------------------------------------------------------
 adding a custom cursor sounds easy and cool
 
-probably do the json stuff soon, so i can
+probably do the json stuff soon
 
 make a bunch of cool items and enemies
 	setup the enemy scripting
 	look at he is coming for examples of things i want to implement
 
-
+save and load, spooky
 
 maybes:
 ---------
@@ -88,6 +86,10 @@ if i just make it more complicated (so it's less easy to eyeball the result) is 
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+why is my player aura dictionary a [StringName, Aura]? if i'm instantiating new auras, there is no need for unique id? and surely if i want to remove a specific aura (have two iron swords, unequip one), i can search the array for that specific aura?
+
+writing strings in the code, instead of a spreadsheet for localization etc
+
 using pick_random(), but no random seed management
 
 "inventory is full" greying out items is case by case basis - should probably be in the item tooltip? when that comes. or maybe when hovering over, it turns the custom cursor into an X?
@@ -134,9 +136,6 @@ signals are a bit disorganized:
 	ui only updating on signals may be good practice, but it could also update every frame? currently i have to remember to put a signal whenever anything changes ->> i should wrap the signal *into* the change functions
 	
 	statevents.send_auras_to_combatants doesn't scale to multiple combatants
-
-
-setup that json-like database
 
 
 debug/crash failsafes

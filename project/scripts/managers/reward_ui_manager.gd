@@ -11,7 +11,7 @@ extends CanvasLayer
 @onready var search_reward_button:TextureButton = $Control/VBoxContainer/RewardButtons/SearchRewardButton/VBoxContainer/TextureButton
 @onready var search_reward_button_container:MarginContainer = $Control/VBoxContainer/RewardButtons/SearchRewardButton
 @onready var search_reward_button_label:Label = $Control/VBoxContainer/RewardButtons/SearchRewardButton/VBoxContainer/Label
-@onready var search_skip_button_container:MarginContainer = $Control/VBoxContainer/SearchSkipButton
+@onready var search_skip_button_container:MarginContainer = $Control/VBoxContainer/SkipRewardButton
 
 @onready var search_reward_empty_texture:Texture2D = search_reward_button.texture_normal
 
@@ -19,7 +19,7 @@ var search_reward_text_blurb:String = "The spoils of war"
 
 var current_basic_aura:Aura
 var current_search_reward:Item
-var rare_chance:int = 35
+var rare_chance:int = 50
 var common_chance:int = 35
 
 
