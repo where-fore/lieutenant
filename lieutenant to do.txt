@@ -3,50 +3,6 @@ working notes
 --------------------------------------------------------
 
 
-okay so basic idea (copy the item system)
-combatant base class has take_turn()
-	which should fire start_of_turn()
-		which is a blank function, to be overriden by subclasses
-	then fire attacklaunched.emit as it does now
-	then after_attack()
-		which is a blank function to be overriden
-	then a end_of_turn()
-		another blank
-	then the turnfinished.emit
-
-and special scripts extend combatant and override those blank functions for their usecases
-
-
-currently i spawn enemies by picking from combatantData - but i need to pick from Combatants to allow special scripts
-	i could rewrite Combatant to have a stat setup like combatantData
-	i 
-
-
-
-okay so theoretically with json i
-	grab data into a dictonary or whatever, create new CombatantData and populate (this can just be handmade resources for now)
-	create new node, set script to CombatantForkForThisBoss, or generic Combatant (json has a script hardlink, resources can have an export script for now)
-	call its setup data, which takes the data from the json-written dictionary
-
-
-func choose_enemy() -> Combatant:
-	#pick data
-	var new_enemy_data:CombatantData = random_enemy_selection.enemies.pick_random()
-	
-	#create a lil memory boi
-	var new_enemy_node:Combatant = Combatant.new()
-		--> this should maybe be just node.new(), node.set_script(new_enemy_data.base_script)
-	
-	#assign data to our boi
-	new_enemy_node.baseData = new_enemy_data
-	
-	#make our boi into real boy
-	add_child(new_enemy_node)
-	
-	#call function on our real boy
-	new_enemy_node.setup()
-	
-	return new_enemy_node
 
 
 
@@ -55,9 +11,6 @@ func choose_enemy() -> Combatant:
 
 
 
-i should check if old combatants are getting deleted (old enemies at 0 hp, old players after restart or reward, etc)
-
-combatant setup() calls CombatEvents.enemy_ready.emit() .. even if it's the player being setup?
 
 
 
@@ -70,17 +23,16 @@ adding a custom cursor sounds easy and cool
 probably do the json stuff soon
 
 make a bunch of cool items and enemies
-	setup the enemy scripting
 	look at he is coming for examples of things i want to implement
 
 save and load, spooky
 
+make the aura view
+
+
 maybes:
 ---------
-have non-inventory buffs visible - like the hp aura
 have a non-equipped invetory - maybe later though
-
-being able to swap between combat log and aura list would be frickin sweet
 
 
 
@@ -132,6 +84,9 @@ if i just make it more complicated (so it's less easy to eyeball the result) is 
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+enemy custom auras are persisting as objects, not sure what they're attached to, but should probably yeet them. maybe the Aura.new()?
+	i think old players or enemies may be too
+
 why is my player aura dictionary a [StringName, Aura]? if i'm instantiating new auras, there is no need for unique id? and surely if i want to remove a specific aura (have two iron swords, unequip one), i can search the array for that specific aura?
 
 writing strings in the code, instead of a spreadsheet for localization etc

@@ -1,11 +1,12 @@
-[gd_resource type="Resource" script_class="EnemyCollection" load_steps=6 format=3 uid="uid://0xva3ic3hovq"]
+[gd_resource type="Resource" script_class="EnemyCollection" load_steps=7 format=3 uid="uid://0xva3ic3hovq"]
 
 [ext_resource type="Script" uid="uid://djic85a1uq1k7" path="res://scripts/combatant system/combatant_data.gd" id="1_5gwgs"]
 [ext_resource type="Resource" uid="uid://b7irak0oy4iir" path="res://scripts/combatant system/enemies/skeleton_lich.tres" id="2_x71nu"]
 [ext_resource type="Resource" uid="uid://5jw1ftlsj3v3" path="res://scripts/combatant system/enemies/skeleton_warrior.tres" id="3_w7txt"]
 [ext_resource type="Resource" uid="uid://fatceu4s1agu" path="res://scripts/combatant system/enemies/skeleton_berserker.tres" id="4_unjau"]
 [ext_resource type="Script" uid="uid://kqwfksdvf463" path="res://scripts/combatant system/enemy collections/enemy_collection.gd" id="5_5gwgs"]
+[ext_resource type="Resource" uid="uid://c4u0ffdr6vc06" path="res://scripts/combatant system/enemies/skeleton boss/skeleton_boss.tres" id="5_dmxuc"]
 
 [resource]
 script = ExtResource("5_5gwgs")
-enemies = Array[ExtResource("1_5gwgs")]([ExtResource("4_unjau"), ExtResource("3_w7txt"), ExtResource("2_x71nu")])
+enemies = Array[ExtResource("1_5gwgs")]([ExtResource("5_dmxuc"), ExtResource("2_x71nu"), ExtResource("3_w7txt"), ExtResource("4_unjau")])

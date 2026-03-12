@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CombatantData" load_steps=4 format=3 uid="uid://c4u0ffdr6vc06"]
+
+[ext_resource type="Script" uid="uid://d4f64b8bnbh23" path="res://scripts/combatant system/enemies/skeleton boss/skeleton_boss.gd" id="1_toicx"]
+[ext_resource type="Script" uid="uid://djic85a1uq1k7" path="res://scripts/combatant system/combatant_data.gd" id="2_jt2g0"]
+[ext_resource type="Texture2D" uid="uid://dth6v53udeute" path="res://sprites/enemy_boss.png" id="3_cv0hf"]
+
+[resource]
+script = ExtResource("2_jt2g0")
+name = "Skeleton Regent"
+base_health = 20
+health_scaling = 20
+base_attack = 5
+attack_scaling = 3
+texture = ExtResource("3_cv0hf")
+base_script = ExtResource("1_toicx")
+metadata/_custom_type_script = "uid://djic85a1uq1k7"

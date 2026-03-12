@@ -16,20 +16,6 @@ var my_multiplicative_stat_dictionary:Dictionary[StringName, int] = {}
 @export_group("Custom Tooltip")
 @export var custom_tooltip:String = ""
 
-#derived subclasses hook onto these functions
-func on_attack(_source:Combatant) -> void:
-	#print_debug(_source.baseData.name + " attacked with " + item_name)
-	pass
-
-#derived subclasses hook onto these functions
-func on_combat_start() -> void:
-	#print_debug(_source.baseData.name + " attacked with " + item_name)
-	pass
-
-#derived subclasses hook onto these functions
-func on_combat_end() -> void:
-	#print_debug(_source.baseData.name + " attacked with " + item_name)
-	pass
 
 func restart_custom_auras() -> Aura:
 	if aura_application_time == ApplyType.ON_COMBAT_START:
@@ -38,9 +24,6 @@ func restart_custom_auras() -> Aura:
 			return get_custom_aura()
 	return null
 
-#derived subclasses hook onto these functions
-func setup_item_stats() -> void:
-	pass
 
 func get_aura() -> Aura:
 	if _runtime_aura: return _runtime_aura
@@ -79,3 +62,17 @@ func initialize_my_custom_aura() -> void:
 func applies_aura_on_equip() -> bool:
 	if aura_application_time == ApplyType.ON_EQUIP: return true
 	else: return false
+
+
+#derived subclasses hook onto these functions
+func setup_item_stats() -> void:
+	pass
+
+func on_attack(_source:Combatant) -> void:
+	pass
+
+func on_combat_start() -> void:
+	pass
+
+func on_combat_end() -> void:
+	pass

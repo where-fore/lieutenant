@@ -17,6 +17,8 @@ func _ready() -> void:
 	AuraEvents.restart_game.connect(reset_to_starting_stats)
 	AuraEvents.give_aura_to_player.connect(apply_new_aura_to_player)
 	AuraEvents.remove_aura_from_player.connect(remove_aura_from_player)
+	AuraEvents.give_aura_to_enemy.connect(apply_new_aura_to_enemy)
+	AuraEvents.remove_aura_from_enemy.connect(remove_aura_from_enemy)
 	CombatEvents.turn_finished.connect(turn_end_duration_check)
 	AuraEvents.expired_aura.connect(remove_expired_aura)
 	CombatEvents.combatant_died.connect(remove_end_of_combat_auras)
@@ -44,6 +46,23 @@ func remove_aura_from_player(old_aura:Aura) -> void:
 		#if the aura sent in is a file on the disk (ie. is a template, not an already instanced aura)
 		push_error("trying to remove an aura that is a template")
 	player_aura_dictionary.erase(old_aura.unique_id)
+	update_stats()
+
+func apply_new_aura_to_enemy(new_aura:Aura) -> void:
+	if new_aura.resource_path != "":
+		#if the aura sent in is a file on the disk (ie. is a template, not an already instanced aura)
+		#then instance a new aura
+		new_aura = new_aura.create_aura()
+	if new_aura.unique_id in enemy_aura_dictionary.keys(): push_warning("overwriting aura: " + new_aura.aura_name)
+	if new_aura.visible: CombatLogEvents.aura_applied.emit(new_aura)
+	enemy_aura_dictionary[new_aura.unique_id] = new_aura
+	update_stats()
+	
+func remove_aura_from_enemy(old_aura:Aura) -> void:
+	if old_aura.resource_path != "":
+		#if the aura sent in is a file on the disk (ie. is a template, not an already instanced aura)
+		push_error("trying to remove an aura that is a template")
+	enemy_aura_dictionary.erase(old_aura.unique_id)
 	update_stats()
 
 func update_aura(_aura:Aura) -> void:

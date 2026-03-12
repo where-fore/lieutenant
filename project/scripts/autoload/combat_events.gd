@@ -27,9 +27,6 @@ signal combatant_died(combatant_who_died:Combatant)
 var combat_ongoing:bool = false
 
 @warning_ignore("unused_signal")
-signal enemy_ready()
-
-@warning_ignore("unused_signal")
 signal combat_finished()
 
 @warning_ignore("unused_signal")

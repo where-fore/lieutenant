@@ -146,15 +146,31 @@ func pre_combat() -> void:
 	AuraEvents.initalize_combat_stats.emit()
 	turn = precombat
 	CombatEvents.combat_ongoing = false
-	can_start_combat = true
 	turn_finished = true
 	reset_turn_counter()
+	
+	var players:Array[Combatant] = []
+	var enemies:Array[Combatant] = []
+	for combatant:Combatant in combatants:
+		if combatant.is_the_player:
+			players.append(combatant)
+		if not combatant.is_the_player:
+			enemies.append(combatant)
+	#this doesn't respect order, but not a problem atm cause only one of each
+	for player:Combatant in players:
+		player.on_start_combat()
+	for enemy:Combatant in enemies:
+		enemy.on_start_combat()
+	
+	can_start_combat = true
 
 func choose_enemy() -> Combatant:
 	#pick data
 	var new_enemy_data:CombatantData = random_enemy_selection.enemies.pick_random()
 	#create a lil memory boi
 	var new_enemy_node:Combatant = Combatant.new()
+	#assign a script to our lil memory boi
+	new_enemy_node.set_script(new_enemy_data.base_script)
 	#assign data to our boi
 	new_enemy_node.baseData = new_enemy_data
 	#make our boi into real boy

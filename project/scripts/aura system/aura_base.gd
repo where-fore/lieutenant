@@ -20,8 +20,7 @@ var multiplicative_dictionary:Dictionary[StringName, int] = {}
 #so if an aura is export-selection as TURN, its enum is == 2 (index starts at 0)
 #which means if you then change to { PERMANENT, THIS_COMBAT, ANY_TURN, TURNS, SPECIAL }
 #anything export-selected as TURN before will be ANY_TURN now, since that is value 2
-enum DurationType {PERMANENT, THIS_COMBAT, TURNS, SPECIAL}
-@export var duration_type:DurationType = DurationType.PERMANENT
+@export var duration_type:AuraNames.DurationType = AuraNames.DurationType.PERMANENT
 @export var base_duration:int = 0
 var current_duration:int = 0
 
@@ -63,19 +62,19 @@ func generate_tooltip_text(aura_to_update:Aura) -> void:
 		aura_to_update.tooltip_text += to_add
 
 func decrement_duration_counter() -> void:
-	if duration_type == DurationType.TURNS:
+	if duration_type == AuraNames.DurationType.TURNS:
 		current_duration -= 1
 		if current_duration <= 0:
 			expire_aura()
 
 func check_then_remove_combat_auras() -> void:
-	if duration_type == DurationType.THIS_COMBAT:
+	if duration_type == AuraNames.DurationType.THIS_COMBAT:
 		expire_aura()
-	if duration_type == DurationType.TURNS:
+	if duration_type == AuraNames.DurationType.TURNS:
 		expire_aura()
 
 func check_then_start_combat_aura() -> Aura:
-	if duration_type == DurationType.TURNS:
+	if duration_type == AuraNames.DurationType.TURNS:
 		return create_aura()
 	else: return null
 

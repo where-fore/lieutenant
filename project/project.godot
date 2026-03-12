@@ -24,6 +24,7 @@ CombatLogEvents="*res://scripts/autoload/combat_log_events.gd"
 InventoryEvents="*res://scripts/autoload/inventory_events.gd"
 TimingEvents="*res://scripts/autoload/timing_events.gd"
 Stats="*res://scripts/autoload/stat_names.gd"
+AuraNames="*res://scripts/autoload/aura_names.gd"
 
 [debug]
 

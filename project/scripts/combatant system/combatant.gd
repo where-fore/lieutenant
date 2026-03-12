@@ -34,7 +34,6 @@ func setup(should_be_the_player:bool = false) -> void:
 	base_stats[Stats.attack] = baseData.base_attack
 	reset_current_stats_to_base()
 	send_sprite_to_ui()
-	CombatEvents.enemy_ready.emit()
 	
 
 func take_damage(value:int) -> void:
@@ -66,9 +65,11 @@ func send_sprite_to_ui() -> void:
 	if is_an_enemy: HudEvents.send_enemy_sprite.emit(baseData.texture)
 
 func take_turn() -> void:
+	on_start_turn()
 	#attack
 	CombatEvents.attack_launched.emit(self, current_stats[Stats.attack])
-	
+	on_after_attack()
+	on_end_turn()
 	#all done
 	CombatEvents.turn_finished.emit(self)
 
@@ -98,3 +99,17 @@ func multiply_aura_and_current_stats(auraDictionary:Dictionary[StringName,int]) 
 	for stat:String in auraDictionary:
 		if base_stats.has(stat):
 			current_stats[stat] *= (1+ auraDictionary[stat])
+
+
+#derived subclasses hook onto these functions
+func on_start_combat() -> void:
+	pass
+
+func on_start_turn() -> void:
+	pass
+
+func on_after_attack() -> void:
+	pass
+
+func on_end_turn() -> void:
+	pass
