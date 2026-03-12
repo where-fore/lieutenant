@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=31 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://scripts/managers/main.gd" id="1_o6xl0"]
 [ext_resource type="Script" uid="uid://df5yy5wtfly3o" path="res://scripts/managers/combat_ui_manager.gd" id="1_tefeu"]
@@ -10,7 +10,6 @@
 [ext_resource type="Resource" uid="uid://darx60ijl1s4x" path="res://scripts/aura system/aura collections/guaranteed_reward_list.tres" id="6_qkpxi"]
 [ext_resource type="Resource" uid="uid://creejakuwck2j" path="res://scripts/item system/item collections/common_items.tres" id="7_5q0nq"]
 [ext_resource type="Resource" uid="uid://dsrnxk0gdqpto" path="res://scripts/item system/item collections/rare_items.tres" id="8_dgi5k"]
-[ext_resource type="PackedScene" uid="uid://dsn3r7gjwvoov" path="res://scenes/combatant.tscn" id="9_85g3d"]
 [ext_resource type="Script" uid="uid://c4226uk3kd0at" path="res://scripts/managers/combat_manager.gd" id="9_choun"]
 [ext_resource type="Texture2D" uid="uid://5l7smxrm882m" path="res://sprites/question.png" id="9_tel4y"]
 [ext_resource type="Texture2D" uid="uid://yruocle2m8id" path="res://sprites/ui_bar.png" id="11_a8y0u"]
@@ -574,9 +573,7 @@ script = ExtResource("12_eb6dy")
 
 [node name="CombatManager" type="Node2D" parent="TimingManager"]
 script = ExtResource("9_choun")
-combatant_base_scene = ExtResource("9_85g3d")
 random_enemy_selection = ExtResource("29_qkpxi")
-player_base_scene = ExtResource("9_85g3d")
 player_base_stats = ExtResource("26_2wyq8")
 
 [connection signal="pressed" from="TimingManager/UIManager/RewardUI/Control/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/TextureButton" to="TimingManager/UIManager/RewardUI" method="_on_basic_reward_button_pressed"]

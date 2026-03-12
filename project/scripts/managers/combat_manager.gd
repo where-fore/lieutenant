@@ -1,11 +1,9 @@
 extends Node2D
 
 var current_enemy:Combatant
-@export var combatant_base_scene:PackedScene
 @export var random_enemy_selection:EnemyCollection
 
 var current_player:Combatant
-@export var player_base_scene:PackedScene
 @export var player_base_stats:CombatantData
 
 var combatants:Array[Combatant]
@@ -156,7 +154,7 @@ func choose_enemy() -> Combatant:
 	#pick data
 	var new_enemy_data:CombatantData = random_enemy_selection.enemies.pick_random()
 	#create a lil memory boi
-	var new_enemy_node:Combatant = combatant_base_scene.instantiate()
+	var new_enemy_node:Combatant = Combatant.new()
 	#assign data to our boi
 	new_enemy_node.baseData = new_enemy_data
 	#make our boi into real boy
@@ -168,7 +166,7 @@ func choose_enemy() -> Combatant:
 
 func spawn_player() -> Combatant:
 	#create a lil memory boi
-	var new_player_node:Combatant = player_base_scene.instantiate()
+	var new_player_node:Combatant = Combatant.new()
 	#assign data to our boi
 	new_player_node.baseData = player_base_stats
 	#make our boi into real boy

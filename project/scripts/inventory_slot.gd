@@ -7,9 +7,7 @@ var item_in_slot:Item
 
 @onready var delete_confirmation_panel:Control = $DeleteConfirmation
 @onready var delete_confirmation_timer:Timer = $Timer
-var delete_confirmation:bool = false
-var delete_timer_current:float = 0
-var delete_timer_max:float = 5
+var delete_awaiting_confirmation:bool = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -53,18 +51,18 @@ func update_sprite() -> void:
 
 func _on_pressed() -> void:
 	if not is_empty() and not CombatEvents.combat_ongoing:
-		if not delete_confirmation:
+		if not delete_awaiting_confirmation:
 			delete_confirmation_panel.visible = true
-			delete_confirmation = true
+			delete_awaiting_confirmation = true
 			delete_confirmation_timer.start()
 			
-		elif delete_confirmation:
+		elif delete_awaiting_confirmation:
 			delete_confirmation_panel.visible = false
-			delete_confirmation = false
+			delete_awaiting_confirmation = false
 			unequip_item()
 			delete_confirmation_timer.stop()
 
 
 func _on_timer_timeout() -> void:
 	delete_confirmation_panel.visible = false
-	delete_confirmation = false
+	delete_awaiting_confirmation = false

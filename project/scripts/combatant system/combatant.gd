@@ -1,7 +1,7 @@
 extends Node2D
 class_name Combatant
 
-@export var baseData:CombatantData
+var baseData:CombatantData
 
 var is_the_player:bool = false
 var is_an_enemy:bool = true
