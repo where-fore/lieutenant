@@ -18,21 +18,21 @@ working notes
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
-adding a custom cursor sounds easy and cool
+have the combat be a popup overlay over some backdrop
 
-probably do the json stuff soon
 
-make a bunch of cool items and enemies
-	look at he is coming for examples of things i want to implement
+not right now, maybe:
+---------
+have a non-equipped invetory
 
 save and load, spooky
 
 make the aura view
 
+probably do the json stuff soon
 
-maybes:
----------
-have a non-equipped invetory - maybe later though
+make a bunch of cool items and enemies
+	look at he is coming for examples of things i want to implement
 
 
 

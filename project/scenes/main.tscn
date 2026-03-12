@@ -1,10 +1,12 @@
-[gd_scene load_steps=31 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=33 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://scripts/managers/main.gd" id="1_o6xl0"]
 [ext_resource type="Script" uid="uid://df5yy5wtfly3o" path="res://scripts/managers/combat_ui_manager.gd" id="1_tefeu"]
 [ext_resource type="Script" uid="uid://cknq3emhm8aah" path="res://scripts/managers/ui_manager.gd" id="2_choun"]
+[ext_resource type="Script" uid="uid://c83t3y7en3pq0" path="res://scripts/managers/cursor_manager.gd" id="2_fv21b"]
 [ext_resource type="Shader" uid="uid://bey6fsvgi1mh7" path="res://crt_shader.gdshader" id="2_trceg"]
 [ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="3_jyhfs"]
+[ext_resource type="Texture2D" uid="uid://xr6idafv8gpe" path="res://sprites/cursor.png" id="3_tel4y"]
 [ext_resource type="Script" uid="uid://xqr3pvl5dnbd" path="res://scripts/managers/reward_ui_manager.gd" id="3_ya4ey"]
 [ext_resource type="Texture2D" uid="uid://jm7ccvlf38y4" path="res://sprites/sword.png" id="4_tbgi4"]
 [ext_resource type="Resource" uid="uid://darx60ijl1s4x" path="res://scripts/aura system/aura collections/guaranteed_reward_list.tres" id="6_qkpxi"]
@@ -56,6 +58,10 @@ shader_parameter/vignette_opacity = 0.30000001425
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_o6xl0")
+
+[node name="CursorManager" type="Node2D" parent="."]
+script = ExtResource("2_fv21b")
+default_cursor = ExtResource("3_tel4y")
 
 [node name="TimingManager" type="Node2D" parent="."]
 script = ExtResource("28_2f3dj")
