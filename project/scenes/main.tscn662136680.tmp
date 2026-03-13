@@ -207,12 +207,13 @@ horizontal_alignment = 1
 [node name="SkipRewardButton" type="MarginContainer" parent="TimingManager/UIManager/RewardUI/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
 [node name="TextureButton" type="TextureButton" parent="TimingManager/UIManager/RewardUI/Control/VBoxContainer/SkipRewardButton"]
-custom_minimum_size = Vector2(80, 16)
+custom_minimum_size = Vector2(144, 48)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -221,7 +222,6 @@ stretch_mode = 0
 
 [node name="Label" type="Label" parent="TimingManager/UIManager/RewardUI/Control/VBoxContainer/SkipRewardButton"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 16
 text = "Skip"
 horizontal_alignment = 1
 
@@ -308,7 +308,7 @@ grow_vertical = 2
 [node name="Combatants" type="HBoxContainer" parent="TimingManager/UIManager/CombatUI/Control"]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.33
+anchor_top = 0.3
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -337,13 +337,14 @@ custom_minimum_size = Vector2(112, 112)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.15
+anchor_top = 0.9
 anchor_right = 0.5
-anchor_bottom = 0.15
-offset_left = -56.0
-offset_right = 56.0
-offset_bottom = 112.0
+anchor_bottom = 0.9
+offset_left = -4.0
+offset_top = -8.0
+offset_right = 4.0
 grow_horizontal = 2
+grow_vertical = 0
 focus_mode = 0
 icon = ExtResource("4_tbgi4")
 icon_alignment = 1
@@ -589,3 +590,5 @@ player_base_stats = ExtResource("26_2wyq8")
 [connection signal="pressed" from="TimingManager/UIManager/CombatUI/Control/TurnButtons/PauseButton" to="TimingManager/UIManager/CombatUI" method="_on_pause_button_pressed"]
 [connection signal="pressed" from="TimingManager/UIManager/CombatUI/Control/TurnButtons/StepButton" to="TimingManager/UIManager/CombatUI" method="_on_step_button_pressed"]
 [connection signal="pressed" from="TimingManager/UIManager/CombatUI/Control/TurnButtons/PlayButton" to="TimingManager/UIManager/CombatUI" method="_on_play_button_pressed"]
+
+[editable path="TimingManager/UIManager/CombatUI/Control/Combatants/Player"]

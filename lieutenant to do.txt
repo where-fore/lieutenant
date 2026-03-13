@@ -3,10 +3,11 @@ working notes
 --------------------------------------------------------
 
 
-
-
-
-
+maybe add a bool "button_should_advance"
+if no reward found, button _should_advace = true
+if reward found
+	if inventory full = false
+	else = true
 
 
 
@@ -19,6 +20,25 @@ working notes
 work to do
 --------------------------------------------------------
 have the combat be a popup overlay over some backdrop
+
+let there be division
+
+
+
+when map:
+	first game prototype
+	"is choosing your reward and challenge fun?"
+	
+	have map, able to see ~4 space ahead
+		"your crows report...
+			Skeleton Berserker
+		is guarding...
+			Fallen Paladin's Armor
+		
+		for each tile
+	have basic enemy, harder enemies, to guard different levels of reward
+	big boss at the end as final challenge
+	
 
 
 not right now, maybe:
@@ -47,6 +67,9 @@ look up more detailed signal bus architecture
 	and some more godot best practices for code maintenance
 
 some tdd stuff
+
+how to specifically do our project resolution - we want integer pixel scaling, probably some extra texture for non 16:9?
+	some sort of subviewport nonsense so the art is integer scaled pixels, but other ui (fonts) can be any resolution?
 
 figure out to do an inventory/monster database setup, ala hearthstone cards in unity
 	https://docs.godotengine.org/en/stable/tutorials/scripting/resources.html#doc-resources - ala unity serialized object

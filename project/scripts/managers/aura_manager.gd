@@ -103,19 +103,21 @@ func add_to_aura_dictionary(dictionary_to_update:Dictionary[StringName,int], sta
 func turn_end_duration_check(whose_turn_just_ended:Combatant) -> void:
 	if whose_turn_just_ended.is_the_player:
 		for aura:Aura in player_aura_dictionary.values():
-			aura.decrement_duration_counter()
+			aura.decrement_duration_counter(whose_turn_just_ended)
 	
 	if whose_turn_just_ended.is_an_enemy:
 		for aura:Aura in enemy_aura_dictionary.values():
-			aura.decrement_duration_counter()
+			aura.decrement_duration_counter(whose_turn_just_ended)
 
-func remove_end_of_combat_auras(_source:Combatant) -> void:
-	for aura:Aura in player_aura_dictionary.values():
-		aura.check_then_remove_combat_auras()
-	for aura:Aura in enemy_aura_dictionary.values():
-		aura.check_then_remove_combat_auras()
+func remove_end_of_combat_auras(source:Combatant) -> void:
+	if source.is_the_player:
+		for aura:Aura in player_aura_dictionary.values():
+			aura.check_then_remove_combat_auras(source)
+	else:
+		for aura:Aura in enemy_aura_dictionary.values():
+			aura.check_then_remove_combat_auras(source)
 
-func remove_expired_aura(expired_aura:Aura) -> void:
+func remove_expired_aura(_source:Combatant, expired_aura:Aura) -> void:
 	remove_aura_by_id(expired_aura.unique_id, player_aura_dictionary)
 	remove_aura_by_id(expired_aura.unique_id, enemy_aura_dictionary)
 

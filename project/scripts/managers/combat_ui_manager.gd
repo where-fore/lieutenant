@@ -15,11 +15,10 @@ extends CanvasLayer
 @onready var step_button_border:TextureRect = $Control/TurnButtons/StepButton/TextureRect
 @onready var play_button_border:TextureRect = $Control/TurnButtons/PlayButton/TextureRect
 
-@onready var player_sprite_display:TextureRect = $Control/Combatants/Player/Sprite
-@onready var enemy_sprite_display:TextureRect = $Control/Combatants/Enemy/Sprite
-@export var turn_sprite:Texture2D
-@onready var original_player_sprite:Texture2D = player_sprite_display.texture
-@onready var original_enemy_sprite:Texture2D = enemy_sprite_display.texture
+@onready var player_sprite_display:TextureRect = $Control/Combatants/Player/MarginContainer/Sprite
+@onready var enemy_sprite_display:TextureRect = $Control/Combatants/Enemy/MarginContainer/Sprite
+@onready var player_turn_sprite:TextureRect = $Control/Combatants/Player/MarginContainer/Sprite/TurnIndicator
+@onready var enemy_turn_sprite:TextureRect = $Control/Combatants/Enemy/MarginContainer/Sprite/TurnIndicator
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -33,27 +32,32 @@ func _ready() -> void:
 	TimingEvents.everythings_ready.connect(on_scene_ready)
 	
 	turn_button_container.visible = false
+	player_turn_sprite.visible = false
+	enemy_turn_sprite.visible = false
 
 func on_scene_ready() -> void:
 	pass
 
 func set_first_turn_indicator() -> void:
-	player_sprite_display.texture = turn_sprite
-	enemy_sprite_display.texture = original_enemy_sprite
+	player_turn_sprite.visible = true
+	enemy_turn_sprite.visible = false
 
 func clear_turn_indicator() -> void:
-	player_sprite_display.texture = original_player_sprite
-	enemy_sprite_display.texture = original_enemy_sprite
+	player_turn_sprite.visible = false
+	enemy_turn_sprite.visible = false
 
-func update_turn_indicator(_source:Combatant) -> void:
-	if player_sprite_display.texture == turn_sprite: player_sprite_display.texture = original_player_sprite
-	elif player_sprite_display.texture == original_player_sprite: player_sprite_display.texture = turn_sprite
-	
-	if enemy_sprite_display.texture == turn_sprite: enemy_sprite_display.texture = original_enemy_sprite
-	elif enemy_sprite_display.texture == original_enemy_sprite: enemy_sprite_display.texture = turn_sprite
+func update_turn_indicator(source:Combatant) -> void:
+	if source.is_the_player:
+		player_turn_sprite.visible = false
+		enemy_turn_sprite.visible = true
+	elif not source.is_the_player:
+		player_turn_sprite.visible = true
+		enemy_turn_sprite.visible = false
 	
 	step_button_border.visible = false
 
+func update_enemy_sprite(new_sprite:Texture2D) -> void:
+	enemy_sprite_display.texture = new_sprite
 
 func update_player_health(value:int) -> void:
 	player_health_label.text = str(int(value))
@@ -66,10 +70,6 @@ func update_player_attack(value:int) -> void:
 
 func update_enemy_attack(value:int) -> void:
 	enemy_attack_label.text = str(int(value))
-	
-func update_enemy_sprite(new_texture:Texture2D) -> void:
-	original_enemy_sprite = new_texture
-	enemy_sprite_display.texture = original_enemy_sprite
 
 
 func change_to() -> void:

@@ -61,23 +61,23 @@ func generate_tooltip_text(aura_to_update:Aura) -> void:
 		var to_add:String = str(stat_change) + " increased by " + str(multiplicative_dictionary[stat_change]*100) + "%"
 		aura_to_update.tooltip_text += to_add
 
-func decrement_duration_counter() -> void:
+func decrement_duration_counter(source:Combatant) -> void:
 	if duration_type == AuraNames.DurationType.TURNS:
 		current_duration -= 1
 		if current_duration <= 0:
-			expire_aura()
+			expire_aura(source)
 
-func check_then_remove_combat_auras() -> void:
+func check_then_remove_combat_auras(source:Combatant) -> void:
 	if duration_type == AuraNames.DurationType.THIS_COMBAT:
-		expire_aura()
+		expire_aura(source)
 	if duration_type == AuraNames.DurationType.TURNS:
-		expire_aura()
+		expire_aura(source)
 
 func check_then_start_combat_aura() -> Aura:
 	if duration_type == AuraNames.DurationType.TURNS:
 		return create_aura()
 	else: return null
 
-func expire_aura() -> void:
-	AuraEvents.expired_aura.emit(self)
-	CombatLogEvents.aura_removed.emit(self)
+func expire_aura(source:Combatant) -> void:
+	AuraEvents.expired_aura.emit(source, self)
+	CombatLogEvents.aura_removed.emit(source, self)
