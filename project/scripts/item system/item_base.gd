@@ -1,6 +1,7 @@
 extends Resource
 class_name Item
 
+var item_id:String
 @export var item_name:String = "Generic Item"
 @export var item_sprite:Texture2D
 

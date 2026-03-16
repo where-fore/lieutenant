@@ -1,8 +1,8 @@
 extends Node2D
 
 var all_savers:Dictionary[String, SaveComponent]
-var master_save_dictionary:Dictionary[String, Dictionary]
-var current_loaded_save_dictionary:Dictionary[String, Dictionary]
+var master_save_dictionary:Dictionary[String, Array]
+var current_loaded_save_dictionary:Dictionary[String, Array]
 
 func register_saver(header:String, node:SaveComponent) -> void:
 	while all_savers.has(header):
@@ -22,7 +22,7 @@ func save_game() -> void:
 	#file.overwrite(current.json, with temp.json)
 	print_debug(master_save_dictionary)
 
-func get_info_from_loaded_save(save_category:String) -> Dictionary:
+func get_info_from_loaded_save(save_category:String) -> Array:
 	if current_loaded_save_dictionary.has(save_category):
 		return current_loaded_save_dictionary[save_category]
-	else: return {} #blank dictionary, "null"
+	else: return [] #blank dictionary, "null"

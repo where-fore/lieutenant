@@ -26,6 +26,8 @@ TimingEvents="*res://scripts/autoload/timing_events.gd"
 Stats="*res://scripts/autoload/stat_names.gd"
 AuraNames="*res://scripts/autoload/aura_names.gd"
 SaveManager="*res://scripts/save load system/save_manager.gd"
+JsonReader="*res://scripts/autoload/json_reader.gd"
+ItemDatabase="*res://scripts/autoload/item_database.gd"
 
 [debug]
 

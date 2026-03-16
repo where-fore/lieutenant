@@ -2,83 +2,24 @@
 working notes
 --------------------------------------------------------
 
+i need an itemDatabase i can pull from
+	ideally google sheets populates this
+i need to turn "starting inventory" from an @export array, into a Inventory json
+	this just has id's and locations, and pulls items from their id in ItemDatabase
+i need items to be able to instantiate by taking an id and pulling it from the database
+
+
+so make the database with "iron_sword", see if i can pull from that
+
+
+
+
+cahnge item.name into
+	item.display_name -> this takes what they used to be
+	item.internal_id -> this is a unique id
 
 have items be json
 	see if i can have the same functonality but pulling from json
-
-
-
-
-loading:
-	each object that wants to load calls its "load data" function, which is on the saveComponent
-		this pulls from the current_save_data_dictionary (which got populated on load)
-
-
-okay so each thing that will send data up, enters the group "saves data"
-the save manager can call save_game()
-	var master_save_dictionary:Dictionary[String, Dictionary]
-	save_game() -> void:
-		for saver in get_nodes_in_group("saves data")
-			master_save_dictionary[saver.get_save_category()] = saver.get_save_data()
-		json.save(master_save_dictionary) #do this to a temp file first for anti-corruption ofc, also probably have a one save backup
-
-"saves data" type objects have:
-	get_save_category() -> String: return "Inventory"
-	get_save_data() -> Dictionary:
-		var save_dict
-		for item in item_slots:
-			save_dict.append(item)
-			
-so in the end, every manager that wants to save/load something
-	-has its own "category" in the json
-	-has its own function for saving and loading to the json, by adding an entry with its category name as the key, and the data as its value (a dictionary)
-
-and the manager can
-	-save and load to all in the group, and wait till that's done (instead of firing a signal and.. waiting? can continue mid saving if something's taking long)
-	
-	
-instead of group, can i have a composition based thing? maybe have all "saves data" grouped objects inherit from a SavesData class? and overwrite the functions?
-
-
-
-okay so composition:
-	saveManager holds a dictionary of each saver - categoryHeader, Node - and is an AutoLoad global object
-	
-	var all_savers:Dictionary
-	register_saver(header:String, node:Node):
-		if all_savers.has(header)
-			error: "save category naming collision: " + category + " is already taken by: " + all_savers[header]
-		else:
-			all_savers[header] = node
-
-
-
-	each manager has a SaveComponent child node, with a script like
-	
-	@export var save_category_title:String
-		# --> this will overwrite each other, have to pull this from a global saveCategories.enum?
-	var my_parent = get_parent()
-	
-		ready():
-			saveManager.register_saver()
-			check_for_save_function()
-			if not my_parent.has_method(load_data): error: saving component attached to object that has no load function/logic
-		
-		#this gets called by the saveManager
-		save data() -> dictionary:
-			check_for_save_function()
-			return (save_category_title, my_parent.save_data())
-			
-		#this gets called by the saveManager
-		load data(dictionary) -> void:
-			my_parent.load_data(dictionary)
-		
-		check_for_save_function():
-			if not my_parent.has_method(save_data): error: saving component attached to object that has no save function/logic
-			
-	each manager has their own logic for saving and loading data, so they each have their own save_data function, that just returns a dictionary of data to save
-		can have a SaveUtils class with static functions if i run into boilerplating
-
 
 
 and i can implement all this back end, to the point of:
@@ -197,6 +138,8 @@ if i just make it more complicated (so it's less easy to eyeball the result) is 
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+take a pass at my instiated var's - some should probably be consts
+
 canvaslayer layers are not codified - i just put the pause menu as 99
 
 enemy custom auras are persisting as objects, not sure what they're attached to, but should probably yeet them. maybe the Aura.new()?
