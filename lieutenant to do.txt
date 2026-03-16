@@ -1,44 +1,30 @@
 --------------------------------------------------------
 working notes
 --------------------------------------------------------
-
-i need an itemDatabase i can pull from
-	ideally google sheets populates this
-i need to turn "starting inventory" from an @export array, into a Inventory json
-	this just has id's and locations, and pulls items from their id in ItemDatabase
+		
 i need items to be able to instantiate by taking an id and pulling it from the database
+	look at current item/weapon/armor base scripts, see how they can pull from database instead of @export
+
+i want to be able to call ItemDatabase.create_item_from_id(item_id) and it returns an Item
 
 
-so make the database with "iron_sword", see if i can pull from that
 
 
 
 
-cahnge item.name into
-	item.display_name -> this takes what they used to be
-	item.internal_id -> this is a unique id
-
-have items be json
-	see if i can have the same functonality but pulling from json
 
 
-and i can implement all this back end, to the point of:
-	inventory item saving.
-		have a "default inventory" set in the inspector, like i currently have
-		have a main menu where you choose "new" or "load"
-			new starts the game as now, uses default inventory
-			load finds your save file, and sets you inventory to that instead
-				this button probably greyed out if no save_file found
-		have an escape menu where you can save
-			it just saves your current inventory of items
-
-so i need to swap the item system to loading from a json itemdatabase by calling an itemID, instead of holding resources
-	itemDatabase opens up the big json on loads, slaps it all in an accessible dictionary - just call itemDatabase.get_item_by_id() and it grabs that item from the dictionary
-	
 
 
-make main menu do things
-	grey load button is no save file to load w/ tooltip "no game to load"
+
+
+final to do:
+	-can change starting inventory by just modifying the json
+	-can save and load to pull inventory from save data
+		-can modify this save data, then run the game, and it pulls from that modded data
+		
+	-grey load button if no save file to load w/ tooltip "no game to load"
+	-test adding a new category "rarity", make sure it's easy enough to do, write a step-by step down probably
 
 
 

@@ -3,6 +3,8 @@ extends Node
 func array_to_items(json_array:Array) -> Array[Item]:
 	var item_array:Array[Item]
 	for item_data:Dictionary in json_array:
+		#this is where i've left off
+		#i need to take item ids and turn them into instantiated item objects
 		item_array.append("test")
 	return item_array
 

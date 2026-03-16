@@ -1,0 +1,14 @@
+{
+  "iron_sword":
+	{
+	"display_name": "Iron Sword",
+	"damage": 4,
+	"sprite_path": "res://sprites/sword.png",
+  	},
+  "iron_shield":
+	{
+	"display_name": "Iron Shield",
+	"health": 20,
+	"sprite_path": "res://sprites/small_shield.png",
+  	},
+}
