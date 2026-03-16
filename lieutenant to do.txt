@@ -2,19 +2,16 @@
 working notes
 --------------------------------------------------------
 
-make main menu
-	steal from flappy
-	have lil button always in top left, pressing it fades in a screenwide black texture rect, with buttons on it
-	new loads from json
-
-	grey load button is no save file to load w/ tooltip "no game to load"
-
 
 have items be json
 	see if i can have the same functonality but pulling from json
 
 
 
+
+loading:
+	each object that wants to load calls its "load data" function, which is on the saveComponent
+		this pulls from the current_save_data_dictionary (which got populated on load)
 
 
 okay so each thing that will send data up, enters the group "saves data"
@@ -97,6 +94,12 @@ and i can implement all this back end, to the point of:
 so i need to swap the item system to loading from a json itemdatabase by calling an itemID, instead of holding resources
 	itemDatabase opens up the big json on loads, slaps it all in an accessible dictionary - just call itemDatabase.get_item_by_id() and it grabs that item from the dictionary
 	
+
+
+make main menu do things
+	grey load button is no save file to load w/ tooltip "no game to load"
+
+
 
 --------------------------------------------------------
 work to do

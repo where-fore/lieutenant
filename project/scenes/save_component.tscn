@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpmx8lyrq01uw"]
+
+[ext_resource type="Script" uid="uid://ix3ljvwy51kc" path="res://scripts/save load system/save_component.gd" id="1_b0vrh"]
+
+[node name="SaveComponent" type="Node2D"]
+script = ExtResource("1_b0vrh")
+save_category_title = null
