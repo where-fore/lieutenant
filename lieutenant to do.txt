@@ -1,20 +1,90 @@
 --------------------------------------------------------
 working notes
 --------------------------------------------------------
-
-
-maybe add a bool "button_should_advance"
-if no reward found, button _should_advace = true
-if reward found
-	if inventory full = false
-	else = true
+swap back to fractional scaling for now
 
 
 
+okay so each thing that will send data up, enters the group "saves data"
+the save manager can call save_game()
+	var master_save_dictionary:Dictionary[String, Dictionary]
+	save_game() -> void:
+		for saver in get_nodes_in_group("saves data")
+			master_save_dictionary[saver.get_save_category()] = saver.get_save_data()
+		json.save(master_save_dictionary) #do this to a temp file first for anti-corruption ofc, also probably have a one save backup
+
+"saves data" type objects have:
+	get_save_category() -> String: return "Inventory"
+	get_save_data() -> Dictionary:
+		var save_dict
+		for item in item_slots:
+			save_dict.append(item)
+			
+so in the end, every manager that wants to save/load something
+	-has its own "category" in the json
+	-has its own function for saving and loading to the json, by adding an entry with its category name as the key, and the data as its value (a dictionary)
+
+and the manager can
+	-save and load to all in the group, and wait till that's done (instead of firing a signal and.. waiting? can continue mid saving if something's taking long)
+	
+	
+instead of group, can i have a composition based thing? maybe have all "saves data" grouped objects inherit from a SavesData class? and overwrite the functions?
 
 
 
+okay so composition:
+	saveManager holds a dictionary of each saver - categoryHeader, Node - and is an AutoLoad global object
+	
+	var all_savers:Dictionary
+	register_saver(header:String, node:Node):
+		if all_savers.has(header)
+			error: "save category naming collision: " + category + " is already taken by: " + all_savers[header]
+		else:
+			all_savers[header] = node
 
+
+
+	each manager has a SaveComponent child node, with a script like
+	
+	@export var save_category_title:String
+		# --> this will overwrite each other, have to pull this from a global saveCategories.enum?
+	var my_parent = get_parent()
+	
+		ready():
+			saveManager.register_saver()
+			check_for_save_function()
+			if not my_parent.has_method(load_data): error: saving component attached to object that has no load function/logic
+		
+		#this gets called by the saveManager
+		save data() -> dictionary:
+			check_for_save_function()
+			return (save_category_title, my_parent.save_data())
+			
+		#this gets called by the saveManager
+		load data(dictionary) -> void:
+			my_parent.load_data(dictionary)
+		
+		check_for_save_function():
+			if not my_parent.has_method(save_data): error: saving component attached to object that has no save function/logic
+			
+	each manager has their own logic for saving and loading data, so they each have their own save_data function, that just returns a dictionary of data to save
+		can have a SaveUtils class with static functions if i run into boilerplating
+
+
+
+and i can implement all this back end, to the point of:
+	inventory item saving.
+		have a "default inventory" set in the inspector, like i currently have
+		have a main menu where you choose "new" or "load"
+			new starts the game as now, uses default inventory
+			load finds your save file, and sets you inventory to that instead
+				this button probably greyed out if no save_file found
+		have an escape menu where you can save
+			it just saves your current inventory of items
+
+so i need to swap the item system to loading from a json itemdatabase by calling an itemID, instead of holding resources
+	itemDatabase opens up the big json on loads, slaps it all in an accessible dictionary - just call itemDatabase.get_item_by_id() and it grabs that item from the dictionary
+	
 
 --------------------------------------------------------
 work to do
@@ -193,7 +263,18 @@ clarify 'base stats' - esp in statmanager.gd. base as in "before combat damage/t
 
 the getter-setters in eg. combatant health, the health variable should be underscored so i don't edit them without the function
 
-
+add a button somehwere in the main menu to open the saves folder (it's different on each os, and can't back it in since idk where they will install it on their pc)
+func _on_open_saves_button_pressed():
+	# OS.shell_open handles the translation from user:// to the real path
+	OS.shell_open(ProjectSettings.globalize_path("user://"))
+	
+	# Opens the folder and selects the specific save file
+	var save_file = ProjectSettings.globalize_path("user://save_01.json")
+	OS.shell_show_in_file_manager(save_file)
+also apparently
+	Project Settings > Config > Project:
+		Enable Use Custom User Dir.
+		Set Custom User Dir Name to something like MyStudio/MyGameName.
 
 
 --------------------------------------------------------
