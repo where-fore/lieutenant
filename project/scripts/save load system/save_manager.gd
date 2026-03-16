@@ -20,6 +20,7 @@ func save_game() -> void:
 		master_save_dictionary[saver.save_category_title] = saver.save_data()
 	#jsonify: master_dict to temp.json (to prevent overwriting save until ready)
 	#file.overwrite(current.json, with temp.json)
+	print_debug(master_save_dictionary)
 
 func get_info_from_loaded_save(save_category:String) -> Dictionary:
 	if current_loaded_save_dictionary.has(save_category):

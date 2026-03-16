@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://d4ng5rexbupxm"]
+[gd_scene load_steps=29 format=3 uid="uid://d4ng5rexbupxm"]
 
 [ext_resource type="Script" uid="uid://b6t3c758hkbxo" path="res://scripts/managers/timing_manager.gd" id="1_uqbt6"]
 [ext_resource type="Script" uid="uid://cknq3emhm8aah" path="res://scripts/managers/ui_manager.gd" id="2_ak8mu"]
@@ -23,6 +23,7 @@
 [ext_resource type="Script" uid="uid://cio5dheq3p8mc" path="res://scripts/item system/item_base.gd" id="21_7bwfo"]
 [ext_resource type="Resource" uid="uid://7pnk7lt0msvw" path="res://scripts/item system/items/iron_sword.tres" id="22_2itgn"]
 [ext_resource type="Resource" uid="uid://mgl2papmvrpi" path="res://scripts/item system/items/iron_shield.tres" id="23_nqryc"]
+[ext_resource type="PackedScene" uid="uid://bpmx8lyrq01uw" path="res://scenes/save_component.tscn" id="24_ak8mu"]
 [ext_resource type="Script" uid="uid://drid3rj23mqkf" path="res://scripts/managers/aura_manager.gd" id="24_om5vj"]
 [ext_resource type="Script" uid="uid://c4226uk3kd0at" path="res://scripts/managers/combat_manager.gd" id="25_388va"]
 [ext_resource type="Resource" uid="uid://0xva3ic3hovq" path="res://scripts/combatant system/enemy collections/basic_enemy_collection.tres" id="26_6h5bv"]
@@ -522,6 +523,9 @@ layout_mode = 2
 [node name="InventoryManager" type="Node2D" parent="UIManager"]
 script = ExtResource("20_brhm6")
 starting_items = Array[ExtResource("21_7bwfo")]([ExtResource("22_2itgn"), ExtResource("22_2itgn"), ExtResource("23_nqryc")])
+
+[node name="SaveComponent" parent="UIManager/InventoryManager" instance=ExtResource("24_ak8mu")]
+save_category_title = "Inventory"
 
 [node name="AuraManager" type="Node2D" parent="."]
 script = ExtResource("24_om5vj")

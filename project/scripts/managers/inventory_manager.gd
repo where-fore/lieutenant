@@ -101,3 +101,17 @@ func interpret_removed_item(item:Item) -> void:
 	var item_custom_aura:Aura = item.get_custom_aura()
 	if item_custom_aura:
 		AuraEvents.remove_aura_from_player.emit(item_custom_aura)
+
+func save_data() -> Dictionary:
+	var items:Dictionary
+	var index:int = 1
+	for slot:InventorySlot in inventory_slots:
+		if slot.is_empty():
+			items[index] = "blank"
+		if slot.item_in_slot:
+			items[index] = slot.item_in_slot.item_name
+		index += 1
+	return items
+
+func load_data() -> void:
+	pass
