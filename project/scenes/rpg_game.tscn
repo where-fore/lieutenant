@@ -1,0 +1,542 @@
+[gd_scene load_steps=28 format=3 uid="uid://d4ng5rexbupxm"]
+
+[ext_resource type="Script" uid="uid://b6t3c758hkbxo" path="res://scripts/managers/timing_manager.gd" id="1_g4gss"]
+[ext_resource type="Script" uid="uid://cknq3emhm8aah" path="res://scripts/managers/ui_manager.gd" id="3_k0alo"]
+[ext_resource type="Script" uid="uid://xqr3pvl5dnbd" path="res://scripts/managers/reward_ui_manager.gd" id="4_norwq"]
+[ext_resource type="Resource" uid="uid://darx60ijl1s4x" path="res://scripts/aura system/aura collections/guaranteed_reward_list.tres" id="5_gjlqe"]
+[ext_resource type="Resource" uid="uid://creejakuwck2j" path="res://scripts/item system/item collections/common_items.tres" id="6_7kfy0"]
+[ext_resource type="Resource" uid="uid://dsrnxk0gdqpto" path="res://scripts/item system/item collections/rare_items.tres" id="7_4rsem"]
+[ext_resource type="Texture2D" uid="uid://jm7ccvlf38y4" path="res://sprites/sword.png" id="8_8ya80"]
+[ext_resource type="Texture2D" uid="uid://5l7smxrm882m" path="res://sprites/question.png" id="9_kyqse"]
+[ext_resource type="Texture2D" uid="uid://dpjjrf7ekiuwc" path="res://sprites/box_outer.png" id="10_lvb3t"]
+[ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="11_gic5e"]
+[ext_resource type="Script" uid="uid://df5yy5wtfly3o" path="res://scripts/managers/combat_ui_manager.gd" id="12_vjumg"]
+[ext_resource type="PackedScene" uid="uid://drmvwdj1lrerg" path="res://scenes/ui/combatant.tscn" id="13_ikdlr"]
+[ext_resource type="Texture2D" uid="uid://ciouurklba10y" path="res://sprites/pause.png" id="14_or36c"]
+[ext_resource type="Texture2D" uid="uid://dqnu3pxst2rni" path="res://sprites/step.png" id="15_a87sp"]
+[ext_resource type="Texture2D" uid="uid://c428mv3lvximd" path="res://sprites/play.png" id="16_46d2y"]
+[ext_resource type="Texture2D" uid="uid://bddfprulsphw2" path="res://sprites/ui_bar_horizontal.png" id="17_iqqby"]
+[ext_resource type="Texture2D" uid="uid://yruocle2m8id" path="res://sprites/ui_bar.png" id="18_7hso2"]
+[ext_resource type="Script" uid="uid://d3defuvio82cj" path="res://scripts/event_log.gd" id="19_04fyd"]
+[ext_resource type="PackedScene" uid="uid://cto8ggdg8cw8x" path="res://scenes/inventory_slot.tscn" id="20_fqf3e"]
+[ext_resource type="Script" uid="uid://dfj0skb38br" path="res://scripts/managers/inventory_manager.gd" id="21_02e57"]
+[ext_resource type="Script" uid="uid://cio5dheq3p8mc" path="res://scripts/item system/item_base.gd" id="22_8fykf"]
+[ext_resource type="Resource" uid="uid://7pnk7lt0msvw" path="res://scripts/item system/items/iron_sword.tres" id="23_8qq6b"]
+[ext_resource type="Resource" uid="uid://mgl2papmvrpi" path="res://scripts/item system/items/iron_shield.tres" id="24_qp4ts"]
+[ext_resource type="Script" uid="uid://drid3rj23mqkf" path="res://scripts/managers/aura_manager.gd" id="25_pxygd"]
+[ext_resource type="Script" uid="uid://c4226uk3kd0at" path="res://scripts/managers/combat_manager.gd" id="26_pwy0a"]
+[ext_resource type="Resource" uid="uid://0xva3ic3hovq" path="res://scripts/combatant system/enemy collections/basic_enemy_collection.tres" id="27_y8e42"]
+[ext_resource type="Resource" uid="uid://db67tcemmn527" path="res://scripts/combatant system/player/base_player.tres" id="28_evw2t"]
+
+[node name="TimingManager" type="Node2D"]
+script = ExtResource("1_g4gss")
+
+[node name="UIManager" type="Node2D" parent="."]
+script = ExtResource("3_k0alo")
+
+[node name="RewardUI" type="CanvasLayer" parent="UIManager"]
+script = ExtResource("4_norwq")
+basic_reward_list = ExtResource("5_gjlqe")
+common_reward_list = ExtResource("6_7kfy0")
+rare_reward_list = ExtResource("7_4rsem")
+
+[node name="Control" type="Control" parent="UIManager/RewardUI"]
+layout_mode = 3
+anchor_left = 0.2
+anchor_top = 0.2
+anchor_right = 0.6
+anchor_bottom = 0.8
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UIManager/RewardUI/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -25.0
+offset_right = 80.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Title" type="MarginContainer" parent="UIManager/RewardUI/Control/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Title" type="Label" parent="UIManager/RewardUI/Control/VBoxContainer/Title"]
+layout_mode = 2
+text = "Victory.
+Choose your boon."
+horizontal_alignment = 1
+
+[node name="RewardButtons" type="HBoxContainer" parent="UIManager/RewardUI/Control/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="BasicRewardButton" type="MarginContainer" parent="UIManager/RewardUI/Control/VBoxContainer/RewardButtons"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UIManager/RewardUI/Control/VBoxContainer/RewardButtons/BasicRewardButton"]
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="UIManager/RewardUI/Control/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("8_8ya80")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="UIManager/RewardUI/Control/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer"]
+layout_mode = 2
+text = "Rest"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SearchButton" type="MarginContainer" parent="UIManager/RewardUI/Control/VBoxContainer/RewardButtons"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UIManager/RewardUI/Control/VBoxContainer/RewardButtons/SearchButton"]
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="UIManager/RewardUI/Control/VBoxContainer/RewardButtons/SearchButton/VBoxContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("9_kyqse")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="UIManager/RewardUI/Control/VBoxContainer/RewardButtons/SearchButton/VBoxContainer"]
+layout_mode = 2
+text = "Search
+for
+Treasure"
+horizontal_alignment = 1
+
+[node name="SearchRewardButton" type="MarginContainer" parent="UIManager/RewardUI/Control/VBoxContainer/RewardButtons"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UIManager/RewardUI/Control/VBoxContainer/RewardButtons/SearchRewardButton"]
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="UIManager/RewardUI/Control/VBoxContainer/RewardButtons/SearchRewardButton/VBoxContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("10_lvb3t")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="UIManager/RewardUI/Control/VBoxContainer/RewardButtons/SearchRewardButton/VBoxContainer"]
+layout_mode = 2
+text = "You found:
+Cool Item"
+horizontal_alignment = 1
+
+[node name="SkipRewardButton" type="MarginContainer" parent="UIManager/RewardUI/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+
+[node name="TextureButton" type="TextureButton" parent="UIManager/RewardUI/Control/VBoxContainer/SkipRewardButton"]
+custom_minimum_size = Vector2(80, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("10_lvb3t")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="UIManager/RewardUI/Control/VBoxContainer/SkipRewardButton"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Skip"
+horizontal_alignment = 1
+
+[node name="DeathUI" type="CanvasLayer" parent="UIManager"]
+visible = false
+
+[node name="Control" type="Control" parent="UIManager/DeathUI"]
+layout_mode = 3
+anchor_left = 0.2
+anchor_top = 0.2
+anchor_right = 0.6
+anchor_bottom = 0.8
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UIManager/DeathUI/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -25.0
+offset_right = 80.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="UIManager/DeathUI/Control/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Title" type="Label" parent="UIManager/DeathUI/Control/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "You have
+perished"
+horizontal_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="UIManager/DeathUI/Control/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="RestartButton" type="TextureButton" parent="UIManager/DeathUI/Control/VBoxContainer/MarginContainer2"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture_normal = ExtResource("11_gic5e")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="UIManager/DeathUI/Control/VBoxContainer/MarginContainer2/RestartButton"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -46.0
+offset_top = -14.0
+offset_right = 46.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 16
+text = "Restart"
+horizontal_alignment = 1
+
+[node name="CombatUI" type="CanvasLayer" parent="UIManager"]
+visible = false
+script = ExtResource("12_vjumg")
+
+[node name="Control" type="Control" parent="UIManager/CombatUI"]
+layout_mode = 3
+anchor_right = 0.7
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Combatants" type="HBoxContainer" parent="UIManager/CombatUI/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.33
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="SpacerLeft" type="Control" parent="UIManager/CombatUI/Control/Combatants"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Player" parent="UIManager/CombatUI/Control/Combatants" instance=ExtResource("13_ikdlr")]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+
+[node name="SpacerCenter" type="Control" parent="UIManager/CombatUI/Control/Combatants"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Enemy" parent="UIManager/CombatUI/Control/Combatants" instance=ExtResource("13_ikdlr")]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+
+[node name="SpacerRight" type="Control" parent="UIManager/CombatUI/Control/Combatants"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CombatButton" type="Button" parent="UIManager/CombatUI/Control"]
+custom_minimum_size = Vector2(112, 112)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.15
+anchor_right = 0.5
+anchor_bottom = 0.15
+offset_left = -56.0
+offset_right = 56.0
+offset_bottom = 112.0
+grow_horizontal = 2
+focus_mode = 0
+icon = ExtResource("8_8ya80")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Label" type="Label" parent="UIManager/CombatUI/Control/CombatButton"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 16
+text = "combat"
+
+[node name="Label2" type="Label" parent="UIManager/CombatUI/Control/CombatButton"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.05
+anchor_right = 0.5
+anchor_bottom = 0.05
+offset_left = -33.0
+offset_right = 33.0
+offset_bottom = 20.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 16
+text = "begin"
+
+[node name="TurnButtons" type="HBoxContainer" parent="UIManager/CombatUI/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 0.01
+anchor_right = 0.7
+anchor_bottom = 0.08
+offset_left = -58.0
+offset_right = 58.0
+offset_bottom = 36.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="PauseButton" type="TextureButton" parent="UIManager/CombatUI/Control/TurnButtons"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+texture_normal = ExtResource("14_or36c")
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="UIManager/CombatUI/Control/TurnButtons/PauseButton"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_lvb3t")
+
+[node name="StepButton" type="TextureButton" parent="UIManager/CombatUI/Control/TurnButtons"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("15_a87sp")
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="UIManager/CombatUI/Control/TurnButtons/StepButton"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayButton" type="TextureButton" parent="UIManager/CombatUI/Control/TurnButtons"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+texture_normal = ExtResource("16_46d2y")
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="UIManager/CombatUI/Control/TurnButtons/PlayButton"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_lvb3t")
+
+[node name="SideHUD" type="CanvasLayer" parent="UIManager"]
+
+[node name="Control" type="Control" parent="UIManager/SideHUD"]
+layout_mode = 3
+anchor_left = 0.7
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HorizontalBar" type="TextureRect" parent="UIManager/SideHUD/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.02
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("17_iqqby")
+stretch_mode = 1
+
+[node name="SideBar" type="TextureRect" parent="UIManager/SideHUD/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_bottom = 1.0
+offset_right = 16.0
+grow_vertical = 2
+texture = ExtResource("18_7hso2")
+stretch_mode = 1
+
+[node name="TopSection" type="Control" parent="UIManager/SideHUD/Control"]
+layout_mode = 1
+anchor_left = 0.04
+anchor_top = 0.005
+anchor_right = 0.99
+anchor_bottom = 0.48
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EventLog" type="ScrollContainer" parent="UIManager/SideHUD/Control/TopSection"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("19_04fyd")
+
+[node name="MarginContainer" type="MarginContainer" parent="UIManager/SideHUD/Control/TopSection/EventLog"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="Label" type="Label" parent="UIManager/SideHUD/Control/TopSection/EventLog/MarginContainer"]
+custom_minimum_size = Vector2(10, 12)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 8
+text = "Enemy deals 8 damage.
+You deal 6 damage.
+Your sword gleams in the sunlight.
+Enemy deals 6 damage.
+Enemy deals 8 damage.
+You deal 6 damage.
+Your sword gleams in the sunlight.
+Enemy deals 6 damage.
+Enemy deals 8 damage.
+You deal 6 damage.
+Your sword gleams in the sunlight.
+Enemy deals 6 damage.
+Enemy deals 8 damage.
+You deal 6 damage.
+Your sword gleams in the sunlight.
+Enemy deals 6 damage.
+Enemy deals 8 damage.
+You deal 6 damage.
+Your sword gleams in the sunlight.
+Enemy deals 6 damage.
+"
+autowrap_mode = 3
+
+[node name="BottomSection" type="Control" parent="UIManager/SideHUD/Control"]
+layout_mode = 1
+anchor_left = 0.08
+anchor_top = 0.525
+anchor_right = 0.98
+anchor_bottom = 0.99
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Inventory" type="GridContainer" parent="UIManager/SideHUD/Control/BottomSection"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="Inventory Slot1" parent="UIManager/SideHUD/Control/BottomSection/Inventory" instance=ExtResource("20_fqf3e")]
+layout_mode = 2
+
+[node name="Inventory Slot2" parent="UIManager/SideHUD/Control/BottomSection/Inventory" instance=ExtResource("20_fqf3e")]
+layout_mode = 2
+
+[node name="Inventory Slot3" parent="UIManager/SideHUD/Control/BottomSection/Inventory" instance=ExtResource("20_fqf3e")]
+layout_mode = 2
+
+[node name="Inventory Slot4" parent="UIManager/SideHUD/Control/BottomSection/Inventory" instance=ExtResource("20_fqf3e")]
+layout_mode = 2
+
+[node name="Inventory Slot5" parent="UIManager/SideHUD/Control/BottomSection/Inventory" instance=ExtResource("20_fqf3e")]
+layout_mode = 2
+
+[node name="Inventory Slot6" parent="UIManager/SideHUD/Control/BottomSection/Inventory" instance=ExtResource("20_fqf3e")]
+layout_mode = 2
+
+[node name="InventoryManager" type="Node2D" parent="UIManager"]
+script = ExtResource("21_02e57")
+starting_items = Array[ExtResource("22_8fykf")]([ExtResource("23_8qq6b"), ExtResource("23_8qq6b"), ExtResource("24_qp4ts")])
+
+[node name="AuraManager" type="Node2D" parent="."]
+script = ExtResource("25_pxygd")
+
+[node name="CombatManager" type="Node2D" parent="."]
+script = ExtResource("26_pwy0a")
+random_enemy_selection = ExtResource("27_y8e42")
+player_base_stats = ExtResource("28_evw2t")
+
+[connection signal="pressed" from="UIManager/RewardUI/Control/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/TextureButton" to="UIManager/RewardUI" method="_on_basic_reward_button_pressed"]
+[connection signal="pressed" from="UIManager/RewardUI/Control/VBoxContainer/RewardButtons/SearchButton/VBoxContainer/TextureButton" to="UIManager/RewardUI" method="_on_search_button_pressed"]
+[connection signal="pressed" from="UIManager/RewardUI/Control/VBoxContainer/RewardButtons/SearchRewardButton/VBoxContainer/TextureButton" to="UIManager/RewardUI" method="_on_search_reward_button_pressed"]
+[connection signal="pressed" from="UIManager/RewardUI/Control/VBoxContainer/SkipRewardButton/TextureButton" to="UIManager/RewardUI" method="_on_search_skip_button_pressed"]
+[connection signal="pressed" from="UIManager/DeathUI/Control/VBoxContainer/MarginContainer2/RestartButton" to="UIManager" method="_on_restart_button_pressed"]
+[connection signal="pressed" from="UIManager/CombatUI/Control/CombatButton" to="UIManager/CombatUI" method="_on_combat_button_pressed"]
+[connection signal="pressed" from="UIManager/CombatUI/Control/TurnButtons/PauseButton" to="UIManager/CombatUI" method="_on_pause_button_pressed"]
+[connection signal="pressed" from="UIManager/CombatUI/Control/TurnButtons/StepButton" to="UIManager/CombatUI" method="_on_step_button_pressed"]
+[connection signal="pressed" from="UIManager/CombatUI/Control/TurnButtons/PlayButton" to="UIManager/CombatUI" method="_on_play_button_pressed"]

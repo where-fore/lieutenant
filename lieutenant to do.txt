@@ -1,7 +1,18 @@
 --------------------------------------------------------
 working notes
 --------------------------------------------------------
-swap back to fractional scaling for now
+
+make main menu
+	steal from flappy
+	have lil button always in top left, pressing it fades in a screenwide black texture rect, with buttons on it
+	start game at main menu with save or load
+		load greyed if no save
+	new loads from json
+
+have items be json
+	see if i can have the same functonality but pulling from json
+
+
 
 
 
@@ -89,10 +100,15 @@ so i need to swap the item system to loading from a json itemdatabase by calling
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
+implement either richards map or a quick prototype
+	have scene swapping set up
+
 have the combat be a popup overlay over some backdrop
 
 let there be division
 
+subviewport set up
+	i think it's going to be something like each thing that should popup on screen is parented to either a subviewport or a canvaslayer? canvaslayer gets drawn fractionally to 1920x1080, while subviewport gets drawn to 270x whatever and then integer scaled?
 
 
 when map:
