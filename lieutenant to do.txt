@@ -5,9 +5,10 @@ working notes
 make main menu
 	steal from flappy
 	have lil button always in top left, pressing it fades in a screenwide black texture rect, with buttons on it
-	start game at main menu with save or load
-		load greyed if no save
 	new loads from json
+
+	grey load button is no save file to load w/ tooltip "no game to load"
+
 
 have items be json
 	see if i can have the same functonality but pulling from json
@@ -193,6 +194,8 @@ if i just make it more complicated (so it's less easy to eyeball the result) is 
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+canvaslayer layers are not codified - i just put the pause menu as 99
+
 enemy custom auras are persisting as objects, not sure what they're attached to, but should probably yeet them. maybe the Aura.new()?
 	i think old players or enemies may be too
 

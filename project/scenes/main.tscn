@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=11 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://scripts/managers/main.gd" id="1_o6xl0"]
 [ext_resource type="Script" uid="uid://c83t3y7en3pq0" path="res://scripts/managers/cursor_manager.gd" id="2_fv21b"]
+[ext_resource type="PackedScene" uid="uid://d4ng5rexbupxm" path="res://scenes/rpg_main.tscn" id="2_o6xl0"]
 [ext_resource type="Shader" uid="uid://bey6fsvgi1mh7" path="res://crt_shader.gdshader" id="2_trceg"]
 [ext_resource type="Texture2D" uid="uid://xr6idafv8gpe" path="res://sprites/cursor.png" id="3_tel4y"]
-[ext_resource type="PackedScene" uid="uid://d4ng5rexbupxm" path="res://scenes/rpg_game.tscn" id="5_tbgi4"]
+[ext_resource type="Texture2D" uid="uid://dhv5u72sffxlx" path="res://sprites/menu.png" id="6_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://bhrvrblpm7ul3" path="res://sprites/box_two.png" id="6_tefeu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tefeu"]
@@ -38,9 +39,16 @@ content_margin_right = 60.0
 content_margin_bottom = 60.0
 texture = ExtResource("6_tefeu")
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o6xl0"]
+content_margin_left = 40.0
+content_margin_top = 40.0
+content_margin_right = 40.0
+content_margin_bottom = 40.0
+texture = ExtResource("6_tefeu")
+
 [node name="Main" type="Node2D"]
 script = ExtResource("1_o6xl0")
-main_rpg_game_scene = ExtResource("5_tbgi4")
+main_rpg_scene = ExtResource("2_o6xl0")
 
 [node name="CRTFilter" type="CanvasLayer" parent="."]
 layer = 100
@@ -63,6 +71,7 @@ default_cursor = ExtResource("3_tel4y")
 [node name="LevelContainer" type="Node2D" parent="."]
 
 [node name="GameStarter" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Control" type="Control" parent="GameStarter"]
 layout_mode = 3
@@ -108,5 +117,121 @@ Game"
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="PauseMenuButton" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="Control" type="Control" parent="PauseMenuButton"]
+layout_mode = 3
+anchor_left = 0.01
+anchor_top = 0.01
+anchor_right = 0.1
+anchor_bottom = 0.1
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PauseMenuButton" type="TextureButton" parent="PauseMenuButton/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("6_o6xl0")
+stretch_mode = 4
+
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+layer = 99
+
+[node name="MouseBlocker" type="Control" parent="PauseMenu"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="PauseMenu/MouseBlocker"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.92156863)
+
+[node name="Control" type="Control" parent="PauseMenu/MouseBlocker"]
+layout_mode = 1
+anchor_left = 0.15
+anchor_top = 0.15
+anchor_right = 0.85
+anchor_bottom = 0.85
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ChangeGameButtons" type="VBoxContainer" parent="PauseMenu/MouseBlocker/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenu/MouseBlocker/Control/ChangeGameButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SaveGameButton" type="Button" parent="PauseMenu/MouseBlocker/Control/ChangeGameButtons/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 5
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_o6xl0")
+text = "Save
+Game"
+
+[node name="CenterSpacer" type="Control" parent="PauseMenu/MouseBlocker/Control/ChangeGameButtons/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LoadGameButton" type="Button" parent="PauseMenu/MouseBlocker/Control/ChangeGameButtons/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 5
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_o6xl0")
+text = "Load
+Game"
+
+[node name="CenterSpacer" type="Control" parent="PauseMenu/MouseBlocker/Control/ChangeGameButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PauseMenu/MouseBlocker/Control/ChangeGameButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MainMenuButton" type="Button" parent="PauseMenu/MouseBlocker/Control/ChangeGameButtons/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 5
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_o6xl0")
+text = "Main
+Menu"
+
+[node name="CenterSpacer" type="Control" parent="PauseMenu/MouseBlocker/Control/ChangeGameButtons/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SettingsButton" type="Button" parent="PauseMenu/MouseBlocker/Control/ChangeGameButtons/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 5
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_o6xl0")
+text = "Config
+"
+
 [connection signal="pressed" from="GameStarter/Control/GameStartButtons/NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="GameStarter/Control/GameStartButtons/LoadGameButton" to="." method="_on_load_game_button_pressed"]
+[connection signal="pressed" from="PauseMenuButton/Control/PauseMenuButton" to="." method="_on_pause_menu_button_pressed"]

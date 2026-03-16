@@ -1,44 +1,44 @@
 [gd_scene load_steps=28 format=3 uid="uid://d4ng5rexbupxm"]
 
-[ext_resource type="Script" uid="uid://b6t3c758hkbxo" path="res://scripts/managers/timing_manager.gd" id="1_g4gss"]
-[ext_resource type="Script" uid="uid://cknq3emhm8aah" path="res://scripts/managers/ui_manager.gd" id="3_k0alo"]
-[ext_resource type="Script" uid="uid://xqr3pvl5dnbd" path="res://scripts/managers/reward_ui_manager.gd" id="4_norwq"]
-[ext_resource type="Resource" uid="uid://darx60ijl1s4x" path="res://scripts/aura system/aura collections/guaranteed_reward_list.tres" id="5_gjlqe"]
-[ext_resource type="Resource" uid="uid://creejakuwck2j" path="res://scripts/item system/item collections/common_items.tres" id="6_7kfy0"]
-[ext_resource type="Resource" uid="uid://dsrnxk0gdqpto" path="res://scripts/item system/item collections/rare_items.tres" id="7_4rsem"]
-[ext_resource type="Texture2D" uid="uid://jm7ccvlf38y4" path="res://sprites/sword.png" id="8_8ya80"]
-[ext_resource type="Texture2D" uid="uid://5l7smxrm882m" path="res://sprites/question.png" id="9_kyqse"]
-[ext_resource type="Texture2D" uid="uid://dpjjrf7ekiuwc" path="res://sprites/box_outer.png" id="10_lvb3t"]
-[ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="11_gic5e"]
-[ext_resource type="Script" uid="uid://df5yy5wtfly3o" path="res://scripts/managers/combat_ui_manager.gd" id="12_vjumg"]
-[ext_resource type="PackedScene" uid="uid://drmvwdj1lrerg" path="res://scenes/ui/combatant.tscn" id="13_ikdlr"]
-[ext_resource type="Texture2D" uid="uid://ciouurklba10y" path="res://sprites/pause.png" id="14_or36c"]
-[ext_resource type="Texture2D" uid="uid://dqnu3pxst2rni" path="res://sprites/step.png" id="15_a87sp"]
-[ext_resource type="Texture2D" uid="uid://c428mv3lvximd" path="res://sprites/play.png" id="16_46d2y"]
-[ext_resource type="Texture2D" uid="uid://bddfprulsphw2" path="res://sprites/ui_bar_horizontal.png" id="17_iqqby"]
-[ext_resource type="Texture2D" uid="uid://yruocle2m8id" path="res://sprites/ui_bar.png" id="18_7hso2"]
-[ext_resource type="Script" uid="uid://d3defuvio82cj" path="res://scripts/event_log.gd" id="19_04fyd"]
-[ext_resource type="PackedScene" uid="uid://cto8ggdg8cw8x" path="res://scenes/inventory_slot.tscn" id="20_fqf3e"]
-[ext_resource type="Script" uid="uid://dfj0skb38br" path="res://scripts/managers/inventory_manager.gd" id="21_02e57"]
-[ext_resource type="Script" uid="uid://cio5dheq3p8mc" path="res://scripts/item system/item_base.gd" id="22_8fykf"]
-[ext_resource type="Resource" uid="uid://7pnk7lt0msvw" path="res://scripts/item system/items/iron_sword.tres" id="23_8qq6b"]
-[ext_resource type="Resource" uid="uid://mgl2papmvrpi" path="res://scripts/item system/items/iron_shield.tres" id="24_qp4ts"]
-[ext_resource type="Script" uid="uid://drid3rj23mqkf" path="res://scripts/managers/aura_manager.gd" id="25_pxygd"]
-[ext_resource type="Script" uid="uid://c4226uk3kd0at" path="res://scripts/managers/combat_manager.gd" id="26_pwy0a"]
-[ext_resource type="Resource" uid="uid://0xva3ic3hovq" path="res://scripts/combatant system/enemy collections/basic_enemy_collection.tres" id="27_y8e42"]
-[ext_resource type="Resource" uid="uid://db67tcemmn527" path="res://scripts/combatant system/player/base_player.tres" id="28_evw2t"]
+[ext_resource type="Script" uid="uid://b6t3c758hkbxo" path="res://scripts/managers/timing_manager.gd" id="1_uqbt6"]
+[ext_resource type="Script" uid="uid://cknq3emhm8aah" path="res://scripts/managers/ui_manager.gd" id="2_ak8mu"]
+[ext_resource type="Script" uid="uid://xqr3pvl5dnbd" path="res://scripts/managers/reward_ui_manager.gd" id="3_0vlpx"]
+[ext_resource type="Resource" uid="uid://darx60ijl1s4x" path="res://scripts/aura system/aura collections/guaranteed_reward_list.tres" id="4_u507o"]
+[ext_resource type="Resource" uid="uid://creejakuwck2j" path="res://scripts/item system/item collections/common_items.tres" id="5_s8cxq"]
+[ext_resource type="Resource" uid="uid://dsrnxk0gdqpto" path="res://scripts/item system/item collections/rare_items.tres" id="6_qw1fo"]
+[ext_resource type="Texture2D" uid="uid://jm7ccvlf38y4" path="res://sprites/sword.png" id="7_gr0gc"]
+[ext_resource type="Texture2D" uid="uid://5l7smxrm882m" path="res://sprites/question.png" id="8_jk7xa"]
+[ext_resource type="Texture2D" uid="uid://dpjjrf7ekiuwc" path="res://sprites/box_outer.png" id="9_msc0u"]
+[ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="10_vm7rb"]
+[ext_resource type="Script" uid="uid://df5yy5wtfly3o" path="res://scripts/managers/combat_ui_manager.gd" id="11_xeasx"]
+[ext_resource type="PackedScene" uid="uid://drmvwdj1lrerg" path="res://scenes/ui/combatant.tscn" id="12_j0her"]
+[ext_resource type="Texture2D" uid="uid://ciouurklba10y" path="res://sprites/pause.png" id="13_3w7y0"]
+[ext_resource type="Texture2D" uid="uid://dqnu3pxst2rni" path="res://sprites/step.png" id="14_8fwxv"]
+[ext_resource type="Texture2D" uid="uid://c428mv3lvximd" path="res://sprites/play.png" id="15_varvq"]
+[ext_resource type="Texture2D" uid="uid://bddfprulsphw2" path="res://sprites/ui_bar_horizontal.png" id="16_h2aop"]
+[ext_resource type="Texture2D" uid="uid://yruocle2m8id" path="res://sprites/ui_bar.png" id="17_2w8h5"]
+[ext_resource type="Script" uid="uid://d3defuvio82cj" path="res://scripts/event_log.gd" id="18_h8qji"]
+[ext_resource type="PackedScene" uid="uid://cto8ggdg8cw8x" path="res://scenes/inventory_slot.tscn" id="19_i3ysi"]
+[ext_resource type="Script" uid="uid://dfj0skb38br" path="res://scripts/managers/inventory_manager.gd" id="20_brhm6"]
+[ext_resource type="Script" uid="uid://cio5dheq3p8mc" path="res://scripts/item system/item_base.gd" id="21_7bwfo"]
+[ext_resource type="Resource" uid="uid://7pnk7lt0msvw" path="res://scripts/item system/items/iron_sword.tres" id="22_2itgn"]
+[ext_resource type="Resource" uid="uid://mgl2papmvrpi" path="res://scripts/item system/items/iron_shield.tres" id="23_nqryc"]
+[ext_resource type="Script" uid="uid://drid3rj23mqkf" path="res://scripts/managers/aura_manager.gd" id="24_om5vj"]
+[ext_resource type="Script" uid="uid://c4226uk3kd0at" path="res://scripts/managers/combat_manager.gd" id="25_388va"]
+[ext_resource type="Resource" uid="uid://0xva3ic3hovq" path="res://scripts/combatant system/enemy collections/basic_enemy_collection.tres" id="26_6h5bv"]
+[ext_resource type="Resource" uid="uid://db67tcemmn527" path="res://scripts/combatant system/player/base_player.tres" id="27_fkios"]
 
 [node name="TimingManager" type="Node2D"]
-script = ExtResource("1_g4gss")
+script = ExtResource("1_uqbt6")
 
 [node name="UIManager" type="Node2D" parent="."]
-script = ExtResource("3_k0alo")
+script = ExtResource("2_ak8mu")
 
 [node name="RewardUI" type="CanvasLayer" parent="UIManager"]
-script = ExtResource("4_norwq")
-basic_reward_list = ExtResource("5_gjlqe")
-common_reward_list = ExtResource("6_7kfy0")
-rare_reward_list = ExtResource("7_4rsem")
+script = ExtResource("3_0vlpx")
+basic_reward_list = ExtResource("4_u507o")
+common_reward_list = ExtResource("5_s8cxq")
+rare_reward_list = ExtResource("6_qw1fo")
 
 [node name="Control" type="Control" parent="UIManager/RewardUI"]
 layout_mode = 3
@@ -95,7 +95,7 @@ custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture_normal = ExtResource("8_8ya80")
+texture_normal = ExtResource("7_gr0gc")
 stretch_mode = 5
 
 [node name="Label" type="Label" parent="UIManager/RewardUI/Control/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer"]
@@ -120,7 +120,7 @@ custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture_normal = ExtResource("9_kyqse")
+texture_normal = ExtResource("8_jk7xa")
 stretch_mode = 5
 
 [node name="Label" type="Label" parent="UIManager/RewardUI/Control/VBoxContainer/RewardButtons/SearchButton/VBoxContainer"]
@@ -145,7 +145,7 @@ custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture_normal = ExtResource("10_lvb3t")
+texture_normal = ExtResource("9_msc0u")
 stretch_mode = 5
 
 [node name="Label" type="Label" parent="UIManager/RewardUI/Control/VBoxContainer/RewardButtons/SearchRewardButton/VBoxContainer"]
@@ -166,7 +166,7 @@ custom_minimum_size = Vector2(80, 16)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture_normal = ExtResource("10_lvb3t")
+texture_normal = ExtResource("9_msc0u")
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="UIManager/RewardUI/Control/VBoxContainer/SkipRewardButton"]
@@ -226,7 +226,7 @@ theme_override_constants/margin_bottom = 5
 [node name="RestartButton" type="TextureButton" parent="UIManager/DeathUI/Control/VBoxContainer/MarginContainer2"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
-texture_normal = ExtResource("11_gic5e")
+texture_normal = ExtResource("10_vm7rb")
 stretch_mode = 5
 
 [node name="Label" type="Label" parent="UIManager/DeathUI/Control/VBoxContainer/MarginContainer2/RestartButton"]
@@ -247,7 +247,7 @@ horizontal_alignment = 1
 
 [node name="CombatUI" type="CanvasLayer" parent="UIManager"]
 visible = false
-script = ExtResource("12_vjumg")
+script = ExtResource("11_xeasx")
 
 [node name="Control" type="Control" parent="UIManager/CombatUI"]
 layout_mode = 3
@@ -267,7 +267,7 @@ anchor_bottom = 1.0
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Player" parent="UIManager/CombatUI/Control/Combatants" instance=ExtResource("13_ikdlr")]
+[node name="Player" parent="UIManager/CombatUI/Control/Combatants" instance=ExtResource("12_j0her")]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 
@@ -275,7 +275,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Enemy" parent="UIManager/CombatUI/Control/Combatants" instance=ExtResource("13_ikdlr")]
+[node name="Enemy" parent="UIManager/CombatUI/Control/Combatants" instance=ExtResource("12_j0her")]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 
@@ -296,7 +296,7 @@ offset_right = 56.0
 offset_bottom = 112.0
 grow_horizontal = 2
 focus_mode = 0
-icon = ExtResource("8_8ya80")
+icon = ExtResource("7_gr0gc")
 icon_alignment = 1
 expand_icon = true
 
@@ -347,7 +347,7 @@ custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
-texture_normal = ExtResource("14_or36c")
+texture_normal = ExtResource("13_3w7y0")
 stretch_mode = 5
 
 [node name="TextureRect" type="TextureRect" parent="UIManager/CombatUI/Control/TurnButtons/PauseButton"]
@@ -358,13 +358,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("10_lvb3t")
+texture = ExtResource("9_msc0u")
 
 [node name="StepButton" type="TextureButton" parent="UIManager/CombatUI/Control/TurnButtons"]
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 size_flags_horizontal = 3
-texture_normal = ExtResource("15_a87sp")
+texture_normal = ExtResource("14_8fwxv")
 stretch_mode = 5
 
 [node name="TextureRect" type="TextureRect" parent="UIManager/CombatUI/Control/TurnButtons/StepButton"]
@@ -381,7 +381,7 @@ custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
-texture_normal = ExtResource("16_46d2y")
+texture_normal = ExtResource("15_varvq")
 stretch_mode = 5
 
 [node name="TextureRect" type="TextureRect" parent="UIManager/CombatUI/Control/TurnButtons/PlayButton"]
@@ -392,7 +392,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("10_lvb3t")
+texture = ExtResource("9_msc0u")
 
 [node name="SideHUD" type="CanvasLayer" parent="UIManager"]
 
@@ -415,7 +415,7 @@ offset_top = -8.0
 offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("17_iqqby")
+texture = ExtResource("16_h2aop")
 stretch_mode = 1
 
 [node name="SideBar" type="TextureRect" parent="UIManager/SideHUD/Control"]
@@ -424,7 +424,7 @@ anchors_preset = -1
 anchor_bottom = 1.0
 offset_right = 16.0
 grow_vertical = 2
-texture = ExtResource("18_7hso2")
+texture = ExtResource("17_2w8h5")
 stretch_mode = 1
 
 [node name="TopSection" type="Control" parent="UIManager/SideHUD/Control"]
@@ -443,7 +443,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("19_04fyd")
+script = ExtResource("18_h8qji")
 
 [node name="MarginContainer" type="MarginContainer" parent="UIManager/SideHUD/Control/TopSection/EventLog"]
 layout_mode = 2
@@ -501,35 +501,35 @@ grow_horizontal = 2
 grow_vertical = 2
 columns = 2
 
-[node name="Inventory Slot1" parent="UIManager/SideHUD/Control/BottomSection/Inventory" instance=ExtResource("20_fqf3e")]
+[node name="Inventory Slot1" parent="UIManager/SideHUD/Control/BottomSection/Inventory" instance=ExtResource("19_i3ysi")]
 layout_mode = 2
 
-[node name="Inventory Slot2" parent="UIManager/SideHUD/Control/BottomSection/Inventory" instance=ExtResource("20_fqf3e")]
+[node name="Inventory Slot2" parent="UIManager/SideHUD/Control/BottomSection/Inventory" instance=ExtResource("19_i3ysi")]
 layout_mode = 2
 
-[node name="Inventory Slot3" parent="UIManager/SideHUD/Control/BottomSection/Inventory" instance=ExtResource("20_fqf3e")]
+[node name="Inventory Slot3" parent="UIManager/SideHUD/Control/BottomSection/Inventory" instance=ExtResource("19_i3ysi")]
 layout_mode = 2
 
-[node name="Inventory Slot4" parent="UIManager/SideHUD/Control/BottomSection/Inventory" instance=ExtResource("20_fqf3e")]
+[node name="Inventory Slot4" parent="UIManager/SideHUD/Control/BottomSection/Inventory" instance=ExtResource("19_i3ysi")]
 layout_mode = 2
 
-[node name="Inventory Slot5" parent="UIManager/SideHUD/Control/BottomSection/Inventory" instance=ExtResource("20_fqf3e")]
+[node name="Inventory Slot5" parent="UIManager/SideHUD/Control/BottomSection/Inventory" instance=ExtResource("19_i3ysi")]
 layout_mode = 2
 
-[node name="Inventory Slot6" parent="UIManager/SideHUD/Control/BottomSection/Inventory" instance=ExtResource("20_fqf3e")]
+[node name="Inventory Slot6" parent="UIManager/SideHUD/Control/BottomSection/Inventory" instance=ExtResource("19_i3ysi")]
 layout_mode = 2
 
 [node name="InventoryManager" type="Node2D" parent="UIManager"]
-script = ExtResource("21_02e57")
-starting_items = Array[ExtResource("22_8fykf")]([ExtResource("23_8qq6b"), ExtResource("23_8qq6b"), ExtResource("24_qp4ts")])
+script = ExtResource("20_brhm6")
+starting_items = Array[ExtResource("21_7bwfo")]([ExtResource("22_2itgn"), ExtResource("22_2itgn"), ExtResource("23_nqryc")])
 
 [node name="AuraManager" type="Node2D" parent="."]
-script = ExtResource("25_pxygd")
+script = ExtResource("24_om5vj")
 
 [node name="CombatManager" type="Node2D" parent="."]
-script = ExtResource("26_pwy0a")
-random_enemy_selection = ExtResource("27_y8e42")
-player_base_stats = ExtResource("28_evw2t")
+script = ExtResource("25_388va")
+random_enemy_selection = ExtResource("26_6h5bv")
+player_base_stats = ExtResource("27_fkios")
 
 [connection signal="pressed" from="UIManager/RewardUI/Control/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/TextureButton" to="UIManager/RewardUI" method="_on_basic_reward_button_pressed"]
 [connection signal="pressed" from="UIManager/RewardUI/Control/VBoxContainer/RewardButtons/SearchButton/VBoxContainer/TextureButton" to="UIManager/RewardUI" method="_on_search_button_pressed"]
