@@ -1,18 +1,17 @@
 extends Item
 
 #whatever the item does, doesn't do anything until you do something with it
-var my_damage:int = 4
 
 
 func setup_basic_item_data() -> void:
-	item_id = "" # "generic_item"
-	item_name = "" # "Generic Item"
-	item_sprite = null # load("res://icon.svg")
-	extra_tooltip = "" # "Generic flavourful description"
-	item_categories = [] # [ItemCategories.common_item]
+	item_id = "paladins_armor" # "generic_item"
+	item_name = "Fallen Paladin's Armor" # "Generic Item"
+	item_sprite = load("res://sprites/armor.png")
+	extra_tooltip = "You feel twice as strong" # "Generic flavourful description"
+	item_categories = [ItemCategories.rare_item]
 	
 	#optional special visible aura
-	custom_aura_template = null # load("res://items/all items/paladin's armor/paladins_might.tres")
+	custom_aura_template = load("res://items/all items/paladins_armor.tres")
 	aura_application_time = Item.ApplyType.ON_EQUIP
 
 
@@ -21,7 +20,6 @@ func setup_item_stats() -> void:
 	setup_basic_item_data()
 	
 	#whatever the item does
-	additive_stat_dictionary[Stats.attack] = my_damage
 
 func on_attack(_source:Combatant) -> void:
 	pass

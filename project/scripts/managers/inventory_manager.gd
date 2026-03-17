@@ -6,6 +6,7 @@ var inventory_slots:Array[Node] = []
 var starting_inventory:Array[String] = [
 	"iron_sword",
 	"iron_sword",
+	"iron_shield",
 ]
 
 var inventory_slot_parent:GridContainer

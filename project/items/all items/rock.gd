@@ -1,19 +1,19 @@
 extends Item
 
 #whatever the item does, doesn't do anything until you do something with it
-var my_damage:int = 4
+var my_damage:int = 1
 
 
 func setup_basic_item_data() -> void:
-	item_id = "" # "generic_item"
-	item_name = "" # "Generic Item"
-	item_sprite = null # load("res://icon.svg")
-	extra_tooltip = "" # "Generic flavourful description"
-	item_categories = [] # [ItemCategories.common_item]
+	item_id = "rock" # "generic_item"
+	item_name = "Rock" # "Generic Item"
+	item_sprite = load("res://sprites/rock.png")
+	extra_tooltip = "At least you feel prepared" # "Generic flavourful description"
+	item_categories = [ItemCategories.common_item]
 	
 	#optional special visible aura
 	custom_aura_template = null # load("res://items/all items/paladin's armor/paladins_might.tres")
-	aura_application_time = Item.ApplyType.ON_EQUIP
+	aura_application_time = ApplyType.ON_EQUIP
 
 
 #--functions called by item_base.gd--

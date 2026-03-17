@@ -5,6 +5,6 @@
 
 [resource]
 script = ExtResource("1_2n1sk")
-attack = 2
+attack = 3
 aura_name = "Sharpened Weapon"
 aura_icon = ExtResource("1_keh1t")
