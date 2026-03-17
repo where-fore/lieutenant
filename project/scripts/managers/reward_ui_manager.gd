@@ -1,8 +1,6 @@
 extends CanvasLayer
 
 @export var basic_reward_list:AuraCollection
-@export var common_reward_list:ItemCollection
-@export var rare_reward_list:ItemCollection
 
 @onready var basic_reward_button:TextureButton = $Control/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/TextureButton
 @onready var basic_reward_button_container:MarginContainer = $Control/VBoxContainer/RewardButtons/BasicRewardButton
@@ -26,7 +24,7 @@ var common_chance:int = 35
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if not basic_reward_list or not common_reward_list or not rare_reward_list:
+	if not basic_reward_list:
 		push_error("Critical Error: no reward list assigned")
 		return
 	
@@ -61,9 +59,9 @@ func search_for_rare_reward() -> void:
 	
 	var roll:int = randi_range(1,100)
 	if roll <= rare_chance:
-		current_search_reward = rare_reward_list.items.pick_random()
+		current_search_reward = ItemDatabase.get_items_by_category(ItemCategories.rare_item).pick_random()
 	elif roll <= rare_chance + common_chance:
-		current_search_reward = common_reward_list.items.pick_random()
+		current_search_reward = ItemDatabase.get_items_by_category(ItemCategories.common_item).pick_random()
 	else:
 		pass
 	

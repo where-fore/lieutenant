@@ -2,7 +2,12 @@ extends Node2D
 
 var inventory_slots:Array[Node] = []
 
-@export var starting_items:Array[Item]
+#this is magically referencing item ids i want. be wary
+var starting_inventory:Array[String] = [
+	"iron_sword",
+	"iron_sword",
+	"iron_shield",
+]
 
 var inventory_slot_parent:GridContainer
 func set_inventory_slot_parent(new_parent:GridContainer) -> void:
@@ -11,12 +16,10 @@ func set_inventory_slot_parent(new_parent:GridContainer) -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if starting_items.has(null): push_error("starting items has a null slot")
-	
 	TimingEvents.everythings_ready.connect(on_scene_ready)
 	InventoryEvents.clear_all_to_restart.connect(clear_inventory)
 	InventoryEvents.rebuild_all_to_restart.connect(populate_starter_items)
-	InventoryEvents.send_item_to_inventory.connect(equip)
+	InventoryEvents.send_item_to_inventory.connect(equip_to_first_available_slot)
 	InventoryEvents.slot_updated.connect(update_inventory_full_status)
 	InventoryEvents.item_successfully_equipped.connect(interpret_new_item)
 	InventoryEvents.item_successfully_unequipped.connect(interpret_removed_item)
@@ -65,10 +68,10 @@ func find_first_empty_slot() -> InventorySlot:
 	#if we get this far, ie. iterated through all slots
 	return null
 
-func equip(item_to_equip:Item) -> void:
+func equip_to_first_available_slot(item_to_equip:Item) -> void:
 	var slot_to_equip_to:InventorySlot = find_first_empty_slot()
 	if slot_to_equip_to: slot_to_equip_to.equip_item(item_to_equip)
-	else: pass #print_debug("inventory full")
+	else: push_error("actually tried to equip an item while inventory is full")
 	update_inventory_full_status()
 
 func clear_inventory() -> void:
@@ -76,14 +79,16 @@ func clear_inventory() -> void:
 		slot.unequip_item()
 
 func populate_starter_items() -> void:
-	for item:Item in starting_items:
-		equip(item)
+	for item_id:String in starting_inventory:
+		if InventoryEvents.inventory_is_full:
+			push_error("starting iventory tried to equip more items than slots available")
+		
+		equip_to_first_available_slot(ItemDatabase.get_item_by_id(item_id))
 
 func update_inventory_full_status() -> void:
 	if find_first_empty_slot() == null: InventoryEvents.inventory_is_full = true
 	else: InventoryEvents.inventory_is_full = false
 	InventoryEvents.full_status_updated.emit()
-
 
 func interpret_new_item(item:Item) -> void:
 	var item_aura:Aura = item.get_aura()
