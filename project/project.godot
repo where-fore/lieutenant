@@ -28,6 +28,7 @@ AuraNames="*res://scripts/autoload/aura_names.gd"
 SaveManager="*res://scripts/save load system/save_manager.gd"
 JsonReader="*res://scripts/autoload/json_reader.gd"
 ItemDatabase="*res://scripts/autoload/item_database.gd"
+ItemCategories="*res://scripts/autoload/item_categories.gd"
 
 [debug]
 

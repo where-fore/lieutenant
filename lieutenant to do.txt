@@ -18,6 +18,9 @@ i want to be able to call ItemDatabase.create_item_from_id(item_id) and it retur
 
 
 
+
+
+
 final to do:
 	-can change starting inventory by just modifying the json
 	-can save and load to pull inventory from save data
@@ -27,6 +30,28 @@ final to do:
 	-test adding a new category "rarity", make sure it's easy enough to do, write a step-by step down probably
 
 
+item balance:
+instead of bespoke stats to each item, have each item do unique percentage math from a global power/balance level
+	eg.
+		daggers do 0.5x damage but 2.2x attack speed
+		axes do 1.5x damage but 0.8x attack speed
+		
+		iron items have a power budget of 20
+		steel items have a power budget of 60
+		
+		iron daggers do 20*0.5=10 damage, 2.2 times per second
+		steel axes do  60*1.5=90 damage, 0.8 times per second
+		
+		my special goblin slayer item deals 1.1x damage per rarity, and special 3x damage against goblins
+		a goblin slaying steel dagger of epic (3) rarity, would deal
+		60 * 1.5 * 1.3 = 117 damage, *3 if target is a goblin (special script), and attacks 0.8 times per second
+
+this way i can 10x damage numbers for granularity with ease, each item has its own bespoke modifiers, and there's enough knobs to play with
+so every item is just a fresh .gdscript, top (master) defines the basics (name, sprite, etc). second part defines basic stats (iron sword has 1x damage and 1x attack speed), third part defines special behaviour (heals 20% damage on strike)
+
+
+itemcollection - probably a ItemDatabase.get_items_by_category("basic item") and ItemDatabase.get_items_by_category("rare item")
+	those being ItemCategories
 
 --------------------------------------------------------
 work to do

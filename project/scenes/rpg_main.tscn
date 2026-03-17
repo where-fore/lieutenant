@@ -1,114 +1,27 @@
-[gd_scene load_steps=50 format=3 uid="uid://d4ng5rexbupxm"]
+[gd_scene load_steps=23 format=3 uid="uid://d4ng5rexbupxm"]
 
 [ext_resource type="Script" uid="uid://b6t3c758hkbxo" path="res://scripts/managers/timing_manager.gd" id="1_uqbt6"]
 [ext_resource type="Script" uid="uid://cknq3emhm8aah" path="res://scripts/managers/ui_manager.gd" id="2_ak8mu"]
 [ext_resource type="Script" uid="uid://xqr3pvl5dnbd" path="res://scripts/managers/reward_ui_manager.gd" id="3_0vlpx"]
 [ext_resource type="Resource" uid="uid://darx60ijl1s4x" path="res://auras/aura collections/guaranteed_reward_list.tres" id="4_u507o"]
-[ext_resource type="Script" uid="uid://cio5dheq3p8mc" path="res://scripts/item system/item_base.gd" id="5_msc0u"]
 [ext_resource type="Texture2D" uid="uid://jm7ccvlf38y4" path="res://sprites/sword.png" id="7_gr0gc"]
-[ext_resource type="Script" uid="uid://b01qdb2qos8o4" path="res://scripts/item system/weapon_data.gd" id="7_vm7rb"]
 [ext_resource type="Texture2D" uid="uid://5l7smxrm882m" path="res://sprites/question.png" id="8_jk7xa"]
-[ext_resource type="Texture2D" uid="uid://j2tdjoltugwd" path="res://sprites/small_shield.png" id="8_xeasx"]
-[ext_resource type="Script" uid="uid://trcigagx6swg" path="res://scripts/item system/armor_data.gd" id="9_j0her"]
 [ext_resource type="Texture2D" uid="uid://dpjjrf7ekiuwc" path="res://sprites/box_outer.png" id="9_msc0u"]
-[ext_resource type="Texture2D" uid="uid://2y6ofrw1umlh" path="res://sprites/rock.png" id="10_3w7y0"]
 [ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="10_vm7rb"]
-[ext_resource type="Texture2D" uid="uid://dmvj1rmypyuid" path="res://sprites/small_buckler.png" id="11_8fwxv"]
 [ext_resource type="Script" uid="uid://df5yy5wtfly3o" path="res://scripts/managers/combat_ui_manager.gd" id="11_xeasx"]
 [ext_resource type="PackedScene" uid="uid://drmvwdj1lrerg" path="res://scenes/ui/combatant.tscn" id="12_j0her"]
-[ext_resource type="Resource" uid="uid://dxk7h254yy613" path="res://items/potion of striking/striking.tres" id="12_xeasx"]
 [ext_resource type="Texture2D" uid="uid://ciouurklba10y" path="res://sprites/pause.png" id="13_3w7y0"]
-[ext_resource type="Texture2D" uid="uid://dp0i0qk412ipm" path="res://sprites/potion.png" id="13_j0her"]
 [ext_resource type="Texture2D" uid="uid://dqnu3pxst2rni" path="res://sprites/step.png" id="14_8fwxv"]
-[ext_resource type="Resource" uid="uid://cxjgiskeq8yu4" path="res://items/paladin's armor/paladins_might.tres" id="14_j0her"]
-[ext_resource type="Texture2D" uid="uid://cfy62c1r28yji" path="res://sprites/vamp_blade.png" id="14_vm7rb"]
-[ext_resource type="Texture2D" uid="uid://jy28blr3o47d" path="res://sprites/armor.png" id="15_3w7y0"]
-[ext_resource type="Resource" uid="uid://ddfia22edvxhu" path="res://items/crashing waves/surging_waves.tres" id="15_h8qji"]
 [ext_resource type="Texture2D" uid="uid://c428mv3lvximd" path="res://sprites/play.png" id="15_varvq"]
-[ext_resource type="Script" uid="uid://c2tcd3u1qdcyq" path="res://items/vamp sword/vamp_sword.gd" id="15_xeasx"]
 [ext_resource type="Texture2D" uid="uid://bddfprulsphw2" path="res://sprites/ui_bar_horizontal.png" id="16_h2aop"]
-[ext_resource type="Texture2D" uid="uid://he7jxdjo8v12" path="res://sprites/hook_sword.png" id="16_i3ysi"]
 [ext_resource type="Texture2D" uid="uid://yruocle2m8id" path="res://sprites/ui_bar.png" id="17_2w8h5"]
-[ext_resource type="Script" uid="uid://cgp80wrc4hal4" path="res://items/crashing waves/crashing_waves.gd" id="17_brhm6"]
 [ext_resource type="Script" uid="uid://d3defuvio82cj" path="res://scripts/event_log.gd" id="18_h8qji"]
 [ext_resource type="PackedScene" uid="uid://cto8ggdg8cw8x" path="res://scenes/inventory_slot.tscn" id="19_i3ysi"]
 [ext_resource type="Script" uid="uid://dfj0skb38br" path="res://scripts/managers/inventory_manager.gd" id="20_brhm6"]
-[ext_resource type="PackedScene" uid="uid://bpmx8lyrq01uw" path="res://scenes/save_component.tscn" id="24_ak8mu"]
 [ext_resource type="Script" uid="uid://drid3rj23mqkf" path="res://scripts/managers/aura_manager.gd" id="24_om5vj"]
 [ext_resource type="Script" uid="uid://c4226uk3kd0at" path="res://scripts/managers/combat_manager.gd" id="25_388va"]
 [ext_resource type="Resource" uid="uid://0xva3ic3hovq" path="res://scripts/combatant system/enemy collections/basic_enemy_collection.tres" id="26_6h5bv"]
 [ext_resource type="Resource" uid="uid://db67tcemmn527" path="res://scripts/combatant system/player/base_player.tres" id="27_fkios"]
-
-[sub_resource type="Resource" id="Resource_7bwfo"]
-script = ExtResource("7_vm7rb")
-damage = 4
-item_name = "Iron Sword"
-item_sprite = ExtResource("7_gr0gc")
-
-[sub_resource type="Resource" id="Resource_2itgn"]
-script = ExtResource("9_j0her")
-health = 20
-item_name = "Iron Shield"
-item_sprite = ExtResource("8_xeasx")
-
-[sub_resource type="Resource" id="Resource_nqryc"]
-script = ExtResource("7_vm7rb")
-damage = 1
-item_name = "Rock"
-item_sprite = ExtResource("10_3w7y0")
-
-[sub_resource type="Resource" id="Resource_om5vj"]
-script = ExtResource("9_j0her")
-health = 5
-item_name = "Iron Buckler"
-item_sprite = ExtResource("11_8fwxv")
-
-[sub_resource type="GDScript" id="GDScript_388va"]
-script/source = "extends Resource
-class_name ItemCollection
-
-@export var items:Array[Item]
-"
-
-[sub_resource type="Resource" id="Resource_6h5bv"]
-script = SubResource("GDScript_388va")
-items = Array[ExtResource("5_msc0u")]([SubResource("Resource_7bwfo"), SubResource("Resource_2itgn"), SubResource("Resource_nqryc"), SubResource("Resource_om5vj")])
-metadata/_custom_type_script = "uid://bk2w76iysf10v"
-
-[sub_resource type="Resource" id="Resource_3w7y0"]
-script = ExtResource("5_msc0u")
-item_name = "Potion of Striking"
-item_sprite = ExtResource("13_j0her")
-aura_application_time = 1
-_custom_aura_template = ExtResource("12_xeasx")
-custom_tooltip = "You strike twice over, briefly"
-
-[sub_resource type="Resource" id="Resource_8fwxv"]
-script = ExtResource("5_msc0u")
-item_name = "Fallen Paladin's Armor"
-item_sprite = ExtResource("15_3w7y0")
-_custom_aura_template = ExtResource("14_j0her")
-custom_tooltip = "You feel twice as strong"
-
-[sub_resource type="Resource" id="Resource_j0her"]
-script = ExtResource("15_xeasx")
-damage = 8
-item_name = "Vampiric Blade"
-item_sprite = ExtResource("14_vm7rb")
-custom_tooltip = "You enjoy 2 life on bloodshed"
-
-[sub_resource type="Resource" id="Resource_fkios"]
-script = ExtResource("17_brhm6")
-damage = 2
-item_name = "Crashing Waves"
-item_sprite = ExtResource("16_i3ysi")
-_custom_aura_template = ExtResource("15_h8qji")
-custom_tooltip = "You grow stronger as blood is shed"
-
-[sub_resource type="Resource" id="Resource_apimy"]
-script = SubResource("GDScript_388va")
-items = Array[ExtResource("5_msc0u")]([SubResource("Resource_3w7y0"), SubResource("Resource_8fwxv"), SubResource("Resource_j0her"), SubResource("Resource_fkios")])
-metadata/_custom_type_script = "uid://bk2w76iysf10v"
 
 [node name="TimingManager" type="Node2D"]
 script = ExtResource("1_uqbt6")
@@ -119,8 +32,6 @@ script = ExtResource("2_ak8mu")
 [node name="RewardUI" type="CanvasLayer" parent="UIManager"]
 script = ExtResource("3_0vlpx")
 basic_reward_list = ExtResource("4_u507o")
-common_reward_list = SubResource("Resource_6h5bv")
-rare_reward_list = SubResource("Resource_apimy")
 
 [node name="Control" type="Control" parent="UIManager/RewardUI"]
 layout_mode = 3
@@ -603,9 +514,6 @@ layout_mode = 2
 
 [node name="InventoryManager" type="Node2D" parent="UIManager"]
 script = ExtResource("20_brhm6")
-
-[node name="SaveComponent" parent="UIManager/InventoryManager" instance=ExtResource("24_ak8mu")]
-save_category_title = "Inventory"
 
 [node name="AuraManager" type="Node2D" parent="."]
 script = ExtResource("24_om5vj")

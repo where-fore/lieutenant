@@ -1,12 +1,6 @@
 extends Node
 
-func array_to_items(json_array:Array) -> Array[Item]:
-	var item_array:Array[Item]
-	for item_data:Dictionary in json_array:
-		#this is where i've left off
-		#i need to take item ids and turn them into instantiated item objects
-		item_array.append("test")
-	return item_array
+#this is currently unused, i'll probably return to this for save and loading?
 
 func read_json(json_file_path:String) -> Variant:
 	var file:FileAccess = FileAccess.open(json_file_path, FileAccess.READ)

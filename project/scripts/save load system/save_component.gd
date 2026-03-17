@@ -1,6 +1,11 @@
 extends Node2D
 class_name SaveComponent
 
+#this don't be workin yet
+#good start to a save/load system though - it's basically there
+
+
+
 ## ⚠️ BE YE WARNED! ⚠️
 ## This title needs to be different from every other saving title in the project,
 ## or the game won't save properly.

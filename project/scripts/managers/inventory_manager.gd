@@ -2,16 +2,19 @@ extends Node2D
 
 var inventory_slots:Array[Node] = []
 
-const starting_inventory:String = "res://data/starting_inventory.json"
+#this is magically referencing item ids i want. be wary
+var starting_inventory:Array[String] = [
+	"iron_sword",
+	"iron_sword",
+]
 
 var inventory_slot_parent:GridContainer
 func set_inventory_slot_parent(new_parent:GridContainer) -> void:
 	inventory_slot_parent = new_parent
-var saving_component:SaveComponent
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:	
+func _ready() -> void:
 	TimingEvents.everythings_ready.connect(on_scene_ready)
 	InventoryEvents.clear_all_to_restart.connect(clear_inventory)
 	InventoryEvents.rebuild_all_to_restart.connect(populate_starter_items)
@@ -75,20 +78,16 @@ func clear_inventory() -> void:
 		slot.unequip_item()
 
 func populate_starter_items() -> void:
-	var json_array:Array = saving_component.load_data_from_manager()
-	if not json_array:
-		json_array = JsonReader.read_json(starting_inventory)
-		var loaded_data:Array[Item] = JsonReader.array_to_items(json_array)
-		for item:Item in loaded_data:
-			if InventoryEvents.inventory_is_full:
-				push_error("starting iventory tried to equip more items than slots available")
-			equip_to_first_available_slot(item)
+	for item_id:String in starting_inventory:
+		if InventoryEvents.inventory_is_full:
+			push_error("starting iventory tried to equip more items than slots available")
+		
+		equip_to_first_available_slot(ItemDatabase.get_item_by_id(item_id))
 
 func update_inventory_full_status() -> void:
 	if find_first_empty_slot() == null: InventoryEvents.inventory_is_full = true
 	else: InventoryEvents.inventory_is_full = false
 	InventoryEvents.full_status_updated.emit()
-
 
 func interpret_new_item(item:Item) -> void:
 	var item_aura:Aura = item.get_aura()
@@ -106,17 +105,3 @@ func interpret_removed_item(item:Item) -> void:
 	var item_custom_aura:Aura = item.get_custom_aura()
 	if item_custom_aura:
 		AuraEvents.remove_aura_from_player.emit(item_custom_aura)
-
-func save_data() -> Array[Dictionary]:
-	var items:Array[Dictionary]
-	var index:int = 1
-	for slot:InventorySlot in inventory_slots:
-		if slot.is_empty():
-			items.append({index: "empty"})
-		if slot.item_in_slot:
-			items.append({index: slot.item_in_slot.item_name})
-		index += 1
-	return items
-
-func register_save_component(component:SaveComponent) -> void:
-	saving_component = component

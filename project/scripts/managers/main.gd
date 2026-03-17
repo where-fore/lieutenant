@@ -9,10 +9,17 @@ extends Node2D
 
 
 func _ready() -> void:
-	game_start_button_container.visible = true
-	pause_menu_button_container.visible = true
+	#this skips the whole main menu
+	game_start_button_container.visible = false
+	pause_menu_button_container.visible = false
 	pause_menu_container.visible = false
-
+	start_rpg()
+	
+	#can add this back when i want a main menu
+	#game_start_button_container.visible = true
+	#pause_menu_button_container.visible = true
+	#pause_menu_container.visible = false
+	
 
 func open_pause_menu() -> void:
 	pass

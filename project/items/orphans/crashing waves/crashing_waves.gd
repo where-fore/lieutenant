@@ -1,5 +1,4 @@
-extends Weapon
-#class_name here
+extends Item
 
 var attack_per_turn:int = 5
 var tooltip:String = "Power surges by %s every attack" % attack_per_turn
