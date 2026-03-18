@@ -12,7 +12,7 @@ func setup_basic_item_data() -> void:
 	item_categories = [ItemCategories.common_item]
 	
 	#optional special visible aura
-	custom_aura_template = null # load("res://items/all items/paladin's armor/paladins_might.tres")
+	custom_aura_template = null # load("res://z individual pieces/items/all items/paladin's armor/paladins_might.tres")
 	aura_application_time = ApplyType.ON_EQUIP
 
 

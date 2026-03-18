@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://cknq3emhm8aah" path="res://scripts/managers/ui_manager.gd" id="2_ak8mu"]
 [ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="2_dn6rl"]
 [ext_resource type="Script" uid="uid://xqr3pvl5dnbd" path="res://scripts/managers/reward_ui_manager.gd" id="3_0vlpx"]
-[ext_resource type="Resource" uid="uid://darx60ijl1s4x" path="res://auras/aura collections/guaranteed_reward_list.tres" id="4_u507o"]
+[ext_resource type="Resource" uid="uid://darx60ijl1s4x" path="res://z individual pieces/auras/aura collections/guaranteed_reward_list.tres" id="4_u507o"]
 [ext_resource type="Texture2D" uid="uid://jm7ccvlf38y4" path="res://sprites/sword.png" id="7_gr0gc"]
 [ext_resource type="Texture2D" uid="uid://5l7smxrm882m" path="res://sprites/question.png" id="8_jk7xa"]
 [ext_resource type="Texture2D" uid="uid://dpjjrf7ekiuwc" path="res://sprites/box_outer.png" id="9_msc0u"]

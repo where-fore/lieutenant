@@ -1,7 +1,7 @@
 extends Node
 
 var all_items:Dictionary[String, Item]
-const ITEMS_PATH:String = "res://items/all items/"
+const ITEMS_PATH:String = "res://z individual pieces/items/all items/"
 
 func _ready() -> void:
 	populate_database_from_folder(ITEMS_PATH)
