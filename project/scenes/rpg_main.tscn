@@ -31,6 +31,7 @@ offset_bottom = 270.0
 script = ExtResource("1_uqbt6")
 
 [node name="GameBorder" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Control" type="Control" parent="GameBorder"]
 layout_mode = 3
