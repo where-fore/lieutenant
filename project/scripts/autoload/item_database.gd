@@ -28,7 +28,8 @@ func populate_database_from_folder(path:String) -> void:
 		var file_name:String = dir.get_next()
 
 		while file_name != "":
-			if file_name.ends_with(".gd"):
+			#.gdc is compressed, used in web versions (i think)
+			if file_name.ends_with(".gd") or file_name.ends_with(".gdc"):
 				var full_path:String = path + file_name
 				var item_script:Resource = load(full_path)
 				
