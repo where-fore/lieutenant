@@ -17,7 +17,6 @@ func setup_basic_item_data() -> void:
 	extra_tooltip = "Power surges by %s every attack" % get_custom_aura().attack_per_turn # "Generic flavourful description"
 	item_categories = [ItemCategories.rare_item]
 	
-	
 
 
 #--functions called by item_base.gd--

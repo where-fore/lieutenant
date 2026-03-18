@@ -4,15 +4,15 @@ extends Item
 
 
 func setup_basic_item_data() -> void:
+	#optional special visible aura
+	custom_aura_template = load("res://z individual pieces/auras/item auras/striking.gd")
+	aura_application_time = Item.ApplyType.ON_COMBAT_START
+	
 	item_id = "elixir_of_striking" # "generic_item"
 	item_name = "Elixir of Striking" # "Generic Item"
 	item_sprite = load("res://sprites/potion.png")
 	extra_tooltip = "You strike twice over, briefly" # "Generic flavourful description"
 	item_categories = [ItemCategories.rare_item]
-	
-	#optional special visible aura
-	custom_aura_template = null #load("")
-	aura_application_time = Item.ApplyType.ON_COMBAT_START
 
 
 #--functions called by item_base.gd--

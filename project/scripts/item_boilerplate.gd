@@ -5,15 +5,17 @@ var my_stat:int = 4
 
 
 func setup_basic_item_data() -> void:
+	#optional special visible aura
+	custom_aura_template = null # load("res://z individual pieces/items/all items/paladin's armor/paladins_might.tres")
+	aura_application_time = Item.ApplyType.ON_EQUIP
+	
+	
 	item_id = "" # "generic_item"
 	item_name = "" # "Generic Item"
 	item_sprite = null # load("res://icon.svg")
 	extra_tooltip = "" # "Generic flavourful description"
 	item_categories = [] # [ItemCategories.common_item]
 	
-	#optional special visible aura
-	custom_aura_template = null # load("res://z individual pieces/items/all items/paladin's armor/paladins_might.tres")
-	aura_application_time = Item.ApplyType.ON_EQUIP
 
 
 #--functions called by item_base.gd--

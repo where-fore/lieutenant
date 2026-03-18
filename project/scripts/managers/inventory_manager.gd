@@ -7,7 +7,6 @@ var starting_inventory:Array[String] = [
 	"iron_sword",
 	"iron_sword",
 	"iron_shield",
-	"crashing_waves"
 ]
 
 var inventory_slot_parent:GridContainer
