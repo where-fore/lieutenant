@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-@export var basic_reward:GDScript
+@export var basic_reward:Array[GDScript]
 
 @onready var basic_reward_button:TextureButton = $Control/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/TextureButton
 @onready var basic_reward_button_container:MarginContainer = $Control/VBoxContainer/RewardButtons/BasicRewardButton
@@ -38,7 +38,7 @@ func change_from() -> void:
 	visible = false
 
 func generate_basic_reward() -> void:
-	var reward:Aura = basic_reward.new().create_aura()
+	var reward:Aura = basic_reward.pick_random().new().create_aura()
 	basic_reward_button.texture_normal = reward.aura_sprite
 	basic_reward_button.tooltip_text = reward.get_tooltip()
 	current_basic_aura = reward
