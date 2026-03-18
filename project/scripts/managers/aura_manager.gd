@@ -21,7 +21,11 @@ func _ready() -> void:
 	AuraEvents.remove_aura_from_enemy.connect(remove_aura_from_enemy)
 	CombatEvents.turn_finished.connect(turn_end_duration_check)
 	AuraEvents.expired_aura.connect(remove_expired_aura)
-	CombatEvents.combatant_died.connect(remove_end_of_combat_auras)
+	CombatEvents.combat_finished.connect(remove_end_of_combat_auras)
+	#this is unreadable programmer shorthand for "throw away all arguments but the one i care about, "attacker"
+	@warning_ignore("untyped_declaration")
+	CombatEvents.attack_launched.connect(func(attacker:Combatant, _other_arg): on_attack(attacker))
+
 
 func reset_to_starting_stats() -> void:
 	AuraEvents.encounters_defeated_for_scaling = 0
@@ -109,13 +113,20 @@ func turn_end_duration_check(whose_turn_just_ended:Combatant) -> void:
 		for aura:Aura in enemy_aura_dictionary.values():
 			aura.decrement_duration_counter(whose_turn_just_ended)
 
-func remove_end_of_combat_auras(source:Combatant) -> void:
-	if source.is_the_player:
+func remove_end_of_combat_auras(all_combatants:Array[Combatant]) -> void:
+	var player:Combatant
+	var enemy:Combatant
+	for combatant:Combatant in all_combatants:
+		if combatant.is_the_player: player = combatant
+		if not combatant.is_the_player: enemy = combatant
+
+	if player:
 		for aura:Aura in player_aura_dictionary.values():
-			aura.check_then_remove_combat_auras(source)
-	else:
+			aura.check_then_remove_combat_auras(player)
+		
+	if enemy:
 		for aura:Aura in enemy_aura_dictionary.values():
-			aura.check_then_remove_combat_auras(source)
+			aura.check_then_remove_combat_auras(enemy)
 
 func remove_expired_aura(source:Combatant, expired_aura:Aura) -> void:
 	if source.is_the_player:
@@ -128,3 +139,11 @@ func remove_aura_by_id(aura_id:String, aura_dictionary:Dictionary[String, Aura])
 	if aura_id in aura_dictionary.keys():
 		aura_dictionary.erase(aura_id)
 		update_stats()
+
+func on_attack(source:Combatant) -> void:
+	if source.is_the_player:
+		for aura:Aura in player_aura_dictionary.values(): 
+			aura.on_attack(source)
+	else:
+		for aura:Aura in enemy_aura_dictionary.values(): 
+			aura.on_attack(source)

@@ -9,7 +9,7 @@ var item_categories:Array[StringName]
 
 enum ApplyType {ON_EQUIP, ON_COMBAT_START, SPECIAL}
 var aura_application_time:ApplyType
-var custom_aura_template:Aura
+var custom_aura_template:GDScript
 var _custom_aura:Aura
 
 var _runtime_aura:Aura
@@ -59,7 +59,7 @@ func get_custom_aura() -> Aura:
 		return _custom_aura
 
 func initialize_my_custom_aura() -> void:
-	_custom_aura = custom_aura_template.create_aura("", true)
+	_custom_aura = custom_aura_template.new().create_aura("", true)
 
 func applies_aura_on_equip() -> bool:
 	if aura_application_time == ApplyType.ON_EQUIP: return true
