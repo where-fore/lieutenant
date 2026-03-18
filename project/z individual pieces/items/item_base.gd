@@ -36,6 +36,7 @@ func initialize_my_aura() -> void:
 	setup_item_stats()
 	_runtime_aura = Aura.new().create_aura(item_name, false, additive_stat_dictionary, multiplicative_stat_dictionary)
 
+#this is copied from aura_base.gd
 func get_tooltip() -> String:
 	setup_item_stats()
 	

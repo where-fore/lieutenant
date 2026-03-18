@@ -1,7 +1,7 @@
 extends Item
 
 #whatever the item does, doesn't do anything until you do something with it
-var my_damage:int = 4
+var my_stat:int = 4
 
 
 func setup_basic_item_data() -> void:
@@ -21,7 +21,7 @@ func setup_item_stats() -> void:
 	setup_basic_item_data()
 	
 	#whatever the item does
-	additive_stat_dictionary[Stats.attack] = my_damage
+	additive_stat_dictionary[Stats.attack] = my_stat
 
 func on_attack(_source:Combatant) -> void:
 	pass

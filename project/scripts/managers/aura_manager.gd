@@ -81,18 +81,18 @@ func merge_auras() -> void:
 	enemy_final_multiplicative_aura.clear()
 
 	for aura_id:String in player_aura_dictionary:
-		for stat:StringName in player_aura_dictionary[aura_id].additive_dictionary:
-			add_to_aura_dictionary(player_final_additive_aura, stat, player_aura_dictionary[aura_id].additive_dictionary[stat])
+		for stat:StringName in player_aura_dictionary[aura_id].additive_stat_dictionary:
+			add_to_aura_dictionary(player_final_additive_aura, stat, player_aura_dictionary[aura_id].additive_stat_dictionary[stat])
 		
-		for stat:StringName in player_aura_dictionary[aura_id].multiplicative_dictionary:
-			add_to_aura_dictionary(player_final_multiplicative_aura, stat, player_aura_dictionary[aura_id].multiplicative_dictionary[stat])
+		for stat:StringName in player_aura_dictionary[aura_id].multiplicative_stat_dictionary:
+			add_to_aura_dictionary(player_final_multiplicative_aura, stat, player_aura_dictionary[aura_id].multiplicative_stat_dictionary[stat])
 		
 	for aura_id:String in enemy_aura_dictionary:
-		for stat:StringName in enemy_aura_dictionary[aura_id].additive_dictionary:
-			add_to_aura_dictionary(enemy_final_additive_aura, stat, enemy_aura_dictionary[aura_id].additive_dictionary[stat])
+		for stat:StringName in enemy_aura_dictionary[aura_id].additive_stat_dictionary:
+			add_to_aura_dictionary(enemy_final_additive_aura, stat, enemy_aura_dictionary[aura_id].additive_stat_dictionary[stat])
 		
-		for stat:StringName in enemy_aura_dictionary[aura_id].multiplicative_dictionary:
-			add_to_aura_dictionary(enemy_final_multiplicative_aura, stat, enemy_aura_dictionary[aura_id].multiplicative_dictionary[stat])
+		for stat:StringName in enemy_aura_dictionary[aura_id].multiplicative_stat_dictionary:
+			add_to_aura_dictionary(enemy_final_multiplicative_aura, stat, enemy_aura_dictionary[aura_id].multiplicative_stat_dictionary[stat])
 
 func add_to_aura_dictionary(dictionary_to_update:Dictionary[StringName,int], statName:StringName, value:int) -> void:
 	if dictionary_to_update.has(statName):

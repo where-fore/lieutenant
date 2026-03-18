@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-@export var basic_reward_list:AuraCollection
+@export var basic_reward:GDScript
 
 @onready var basic_reward_button:TextureButton = $Control/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/TextureButton
 @onready var basic_reward_button_container:MarginContainer = $Control/VBoxContainer/RewardButtons/BasicRewardButton
@@ -24,10 +24,6 @@ var common_chance:int = 35
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if not basic_reward_list:
-		push_error("Critical Error: no reward list assigned")
-		return
-	
 	InventoryEvents.full_status_updated.connect(update_inventory_full_indicator)
 
 func change_to() -> void:
@@ -42,9 +38,9 @@ func change_from() -> void:
 	visible = false
 
 func generate_basic_reward() -> void:
-	var reward:Aura = basic_reward_list.auras.pick_random().create_aura()
-	basic_reward_button.texture_normal = reward.aura_icon
-	basic_reward_button.tooltip_text = reward.tooltip_text
+	var reward:Aura = basic_reward.new().create_aura()
+	basic_reward_button.texture_normal = reward.aura_sprite
+	basic_reward_button.tooltip_text = reward.get_tooltip()
 	current_basic_aura = reward
 
 func search_for_rare_reward() -> void:
