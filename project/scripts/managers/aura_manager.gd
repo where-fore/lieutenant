@@ -22,6 +22,8 @@ func _ready() -> void:
 	CombatEvents.turn_finished.connect(turn_end_duration_check)
 	AuraEvents.expired_aura.connect(remove_expired_aura)
 	CombatEvents.combat_finished.connect(remove_end_of_combat_auras)
+	CombatEvents.combat_finished.connect(on_combat_end)
+	CombatEvents.combat_started.connect(on_combat_start)
 	#this is unreadable programmer shorthand for "throw away all arguments but the one i care about, "attacker"
 	@warning_ignore("untyped_declaration")
 	CombatEvents.attack_launched.connect(func(attacker:Combatant, _other_arg): on_attack(attacker))
@@ -147,3 +149,15 @@ func on_attack(source:Combatant) -> void:
 	else:
 		for aura:Aura in enemy_aura_dictionary.values(): 
 			aura.on_attack(source)
+
+func on_combat_start(_all_combatants:Array[Combatant]) -> void:
+	for aura:Aura in player_aura_dictionary.values(): 
+		aura.on_combat_start()
+	for aura:Aura in enemy_aura_dictionary.values(): 
+		aura.on_combat_start()
+
+func on_combat_end(_all_combatants:Array[Combatant]) -> void:
+	for aura:Aura in player_aura_dictionary.values(): 
+		aura.on_combat_end()
+	for aura:Aura in enemy_aura_dictionary.values(): 
+		aura.on_combat_end()

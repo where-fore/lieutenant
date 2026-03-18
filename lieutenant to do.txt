@@ -5,41 +5,12 @@ working notes
 need to attach all aura base calls (on attack) to the manager, so they fire
 
 
-okay so auras:
-	they could hook onto the same functions as items
-		something like crashing waves: it can just give you an aura that grows on attack, the sword doesn't need to change and update the aura, just apply on combat start
-			i sorta want my auras attached to items
-				that's okay, on item_unequipped or item_broken or whatever, remove the aura too
-	seems like they are mostly identical to items
-		well items just apply auras
-		i want non-item auras, ie. resting or events or whatever
-			should those just be "items"? that fantasy feels very wrong, getting a "well rested" item from sleeping?
-				get dispel perk from a mage companion or something, lets you click off auras
-
-so why do items do things at different times
-	cause i want to apply auras at different times?
-		add crashing waves on combat start
-		on attack, if enemy <50, add bloodthirsty aura
-			but that could also just be an aura that checks on attack if enemy <50
-		on attack deal 2 damage to yourself
-			that can't be an aura
-		on attack if enemy <50, add +2 gold
-			could also be an aura? on combat start, on attack if enemy<50
-		on attack, if lifetime_attacks >50, then transform into super weapon
-			that's not on the aura
-		
-	so i want to be able to add non-item auras - something from events, that do the stuff above. auras need to be able to have scripts
-	so why do items have functions? can't they just have basic stats (item_aura), and their custom aura, that they instantiate based on item_aura_application_time?
-		combat log messages are cool? can add the random proc things here
-		i mean i can just leave them - but not really use them. have the architecture there, but my main method of doing stuff in combat is auras
-			idk when i have an aura view, seeing "surging waves gives +20 atttack" feels weirdly not tied to the item. i'd rather the item have "surging waves +20 attack" on it, instead of an aura with duration=this combat
-				could have a "origin" field for the aura - the item or event?
-					yeah okay i want that anyways for event origins
-
 
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
+check out orphan nodes, there's some auras being overwritten (second boss), and check remote for orphans
+
 implement either richards map or a quick prototype
 	have scene swapping set up
 	have combat be a popup?
@@ -102,6 +73,14 @@ look at some schell lenses for the combat system
 
 if i just make it more complicated (so it's less easy to eyeball the result) is that enough uncertainty? 2+ party members whose builds interact, enemies who attack a certain one (highest speed, highest rarity, etc)? 10-30x the numbers so it's less granular?
 
+
+
+
+--------------------------------------------------------
+other neat ideas:
+--------------------------------------------------------
+have a mage companion that lets you click off visible, beneficial auras
+have a weapon that transforms after x attacks / x health damage dealt
 
 
 --------------------------------------------------------
