@@ -24,7 +24,7 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_bottom = 16
 
 [node name="Sprite" type="TextureRect" parent="MarginContainer"]
-custom_minimum_size = Vector2(96, 96)
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 texture = ExtResource("1_ede0l")
 stretch_mode = 5
@@ -58,7 +58,7 @@ theme_override_constants/margin_bottom = 4
 layout_mode = 2
 
 [node name="Icon" type="TextureRect" parent="Stats/Health/HBoxContainer"]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
@@ -67,7 +67,7 @@ expand_mode = 1
 
 [node name="Label" type="Label" parent="Stats/Health/HBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 16
 text = "??"
 
 [node name="Attack" type="MarginContainer" parent="Stats"]
@@ -83,7 +83,7 @@ theme_override_constants/margin_bottom = 4
 layout_mode = 2
 
 [node name="Icon" type="TextureRect" parent="Stats/Attack/HBoxContainer"]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -92,5 +92,5 @@ expand_mode = 1
 
 [node name="Label" type="Label" parent="Stats/Attack/HBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 16
 text = "??"

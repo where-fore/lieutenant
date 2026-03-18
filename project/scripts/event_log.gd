@@ -58,6 +58,7 @@ func print_custom_message(message:String) -> void:
 	append_to_label(message)
 
 func append_to_label(text_to_append:String) -> void:
+	text_to_append = " " + text_to_append
 	var linebreak:String = "\n"
 	if label.text == "": label.text += text_to_append
 	else: label.text += linebreak + text_to_append

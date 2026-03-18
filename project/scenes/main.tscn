@@ -69,8 +69,6 @@ mouse_filter = 2
 script = ExtResource("2_fv21b")
 default_cursor = ExtResource("3_tel4y")
 
-[node name="LevelContainer" type="Node2D" parent="."]
-
 [node name="GameStarter" type="CanvasLayer" parent="."]
 visible = false
 
@@ -120,6 +118,7 @@ size_flags_horizontal = 3
 
 [node name="PauseMenuButton" type="CanvasLayer" parent="."]
 layer = 100
+visible = false
 
 [node name="Control" type="Control" parent="PauseMenuButton"]
 layout_mode = 3
@@ -142,6 +141,7 @@ stretch_mode = 4
 
 [node name="PauseMenu" type="CanvasLayer" parent="."]
 layer = 99
+visible = false
 script = ExtResource("8_tipki")
 
 [node name="MouseBlocker" type="Control" parent="PauseMenu"]
@@ -233,6 +233,8 @@ theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxTexture_o6xl0")
 text = "Config
 "
+
+[node name="LevelContainer" type="Node2D" parent="."]
 
 [connection signal="pressed" from="GameStarter/Control/GameStartButtons/NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="GameStarter/Control/GameStartButtons/LoadGameButton" to="." method="_on_load_game_button_pressed"]

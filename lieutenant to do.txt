@@ -1,11 +1,6 @@
 --------------------------------------------------------
 working notes
 --------------------------------------------------------
-		
-i need items to be able to instantiate by taking an id and pulling it from the database
-	look at current item/weapon/armor base scripts, see how they can pull from database instead of @export
-
-i want to be able to call ItemDatabase.create_item_from_id(item_id) and it returns an Item
 
 
 
@@ -13,45 +8,6 @@ i want to be able to call ItemDatabase.create_item_from_id(item_id) and it retur
 
 
 
-
-
-
-
-
-
-
-
-final to do:
-	-can change starting inventory by just modifying the json
-	-can save and load to pull inventory from save data
-		-can modify this save data, then run the game, and it pulls from that modded data
-		
-	-grey load button if no save file to load w/ tooltip "no game to load"
-	-test adding a new category "rarity", make sure it's easy enough to do, write a step-by step down probably
-
-
-item balance:
-instead of bespoke stats to each item, have each item do unique percentage math from a global power/balance level
-	eg.
-		daggers do 0.5x damage but 2.2x attack speed
-		axes do 1.5x damage but 0.8x attack speed
-		
-		iron items have a power budget of 20
-		steel items have a power budget of 60
-		
-		iron daggers do 20*0.5=10 damage, 2.2 times per second
-		steel axes do  60*1.5=90 damage, 0.8 times per second
-		
-		my special goblin slayer item deals 1.1x damage per rarity, and special 3x damage against goblins
-		a goblin slaying steel dagger of epic (3) rarity, would deal
-		60 * 1.5 * 1.3 = 117 damage, *3 if target is a goblin (special script), and attacks 0.8 times per second
-
-this way i can 10x damage numbers for granularity with ease, each item has its own bespoke modifiers, and there's enough knobs to play with
-so every item is just a fresh .gdscript, top (master) defines the basics (name, sprite, etc). second part defines basic stats (iron sword has 1x damage and 1x attack speed), third part defines special behaviour (heals 20% damage on strike)
-
-
-itemcollection - probably a ItemDatabase.get_items_by_category("basic item") and ItemDatabase.get_items_by_category("rare item")
-	those being ItemCategories
 
 --------------------------------------------------------
 work to do
@@ -62,9 +18,6 @@ implement either richards map or a quick prototype
 have the combat be a popup overlay over some backdrop
 
 let there be division
-
-subviewport set up
-	i think it's going to be something like each thing that should popup on screen is parented to either a subviewport or a canvaslayer? canvaslayer gets drawn fractionally to 1920x1080, while subviewport gets drawn to 270x whatever and then integer scaled?
 
 
 when map:
@@ -91,10 +44,9 @@ save and load, spooky
 
 make the aura view
 
-probably do the json stuff soon
-
 make a bunch of cool items and enemies
 	look at he is coming for examples of things i want to implement
+	probably do the balance data thing before this
 
 
 
@@ -105,30 +57,8 @@ look up old might & magic, ultima, and others.. find more modern takes, or reaso
 
 look up ice-related mythologies, siberia etc
 
-look up more detailed signal bus architecture
-	and some more godot best practices for code maintenance
-
-some tdd stuff
-
 how to specifically do our project resolution - we want integer pixel scaling, probably some extra texture for non 16:9?
 	some sort of subviewport nonsense so the art is integer scaled pixels, but other ui (fonts) can be any resolution?
-
-figure out to do an inventory/monster database setup, ala hearthstone cards in unity
-	https://docs.godotengine.org/en/stable/tutorials/scripting/resources.html#doc-resources - ala unity serialized object
-	https://m.youtube.com/watch?v=rCu8vQrdDDI - composition for scalable data
-	https://m.youtube.com/watch?v=SB0QrnI_-IQ - modular weapon system example
-	https://m.youtube.com/watch?v=ZwPbuL0iatE - custom script templates
-
-	
-	create a database array as a global autoload?:
-	-
-	extends Node
-
-	@export var all_items: Array[ItemData] = []
-	
-	func get_random_item() -> ItemData:
-		return all_items.pick_random()
-	-
 
 new font that works looks good below 8px, and doesn't have random whitespace
 	maybe richards job
@@ -149,6 +79,27 @@ if i just make it more complicated (so it's less easy to eyeball the result) is 
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+the turn buttons are not pixel sized, they are percentage stretched weirdly
+
+item balance:
+instead of bespoke stats to each item, have each item do unique percentage math from a global power/balance level
+	eg.
+		daggers do 0.5x damage but 2.2x attack speed
+		axes do 1.5x damage but 0.8x attack speed
+		
+		iron items have a power budget of 20
+		steel items have a power budget of 60
+		
+		iron daggers do 20*0.5=10 damage, 2.2 times per second
+		steel axes do  60*1.5=90 damage, 0.8 times per second
+		
+		my special goblin slayer item deals 1.1x damage per rarity, and special 3x damage against goblins
+		a goblin slaying steel dagger of epic (3) rarity, would deal
+		60 * 1.5 * 1.3 = 117 damage, *3 if target is a goblin (special script), and attacks 0.8 times per second
+
+this way i can 10x damage numbers for granularity with ease, each item has its own bespoke modifiers, and there's enough knobs to play with
+so every item is just a fresh .gdscript, top (master) defines the basics (name, sprite, etc). second part defines basic stats (iron sword has 1x damage and 1x attack speed), third part defines special behaviour (heals 20% damage on strike)
+
 take a pass at my instiated var's - some should probably be consts
 
 canvaslayer layers are not codified - i just put the pause menu as 99
@@ -167,9 +118,6 @@ using pick_random(), but no random seed management
 ui has a bunch of minimum pixel sizes - this is probably a fine practice, but things like the combatants numbers getting fucked over 3 digits is not good
 
 these signals really are poorly named, i'm connecting to hudevents.change_to_combat_screen for my inventory restarting of combat auras? terrible
-
-a lot of my export variables could use some property list or export group love, to make them easier to read and work with
-	ideally im going to json soon, so no need if that happens
 
 hmmmm something is fishy about combatant damage - the combat manager calls for the combatants to take damage based on their attack, which seems bad cause the stat manager might care about custom auras reducing damage from goblins or something. also maybe damage taken should be saved on the player aura thing?
 
@@ -224,6 +172,7 @@ the scene changes should be fully fledged - main manager deletes/instantiates th
 have things be more readable - by future me, and richard:
 	_get_configuration_warnings() to popup on gui when things aren't setup right
 	do a code pass, try to explain it on video
+	or maybe some just readme files in each folder?
 
 
 i've got some hard reference to children in scripts, which rely on their string name
@@ -239,7 +188,7 @@ clarify 'base stats' - esp in statmanager.gd. base as in "before combat damage/t
 
 the getter-setters in eg. combatant health, the health variable should be underscored so i don't edit them without the function
 
-add a button somehwere in the main menu to open the saves folder (it's different on each os, and can't back it in since idk where they will install it on their pc)
+add a button somehwere in the main menu to open the saves folder (it's different on each os, and can't bake it in since idk where they will install it on their pc)
 func _on_open_saves_button_pressed():
 	# OS.shell_open handles the translation from user:// to the real path
 	OS.shell_open(ProjectSettings.globalize_path("user://"))

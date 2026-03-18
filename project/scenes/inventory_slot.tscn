@@ -6,7 +6,7 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bxqf6"]
 
 [node name="Inventory Slot1" type="TextureButton"]
-custom_minimum_size = Vector2(72, 72)
+custom_minimum_size = Vector2(32, 32)
 offset_right = 36.0
 offset_bottom = 36.0
 size_flags_horizontal = 6
@@ -35,8 +35,6 @@ anchor_left = -0.6
 anchor_top = -0.6
 anchor_right = 0.4
 anchor_bottom = 0.4
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="DeleteConfirmation"]
 layout_mode = 1
@@ -63,13 +61,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 6
 text = "yeet
 item?"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Button" type="Button" parent="DeleteConfirmation"]
+[node name="DeleteButton" type="Button" parent="DeleteConfirmation"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -80,4 +78,4 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_bxqf6")
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="pressed" from="DeleteConfirmation/Button" to="." method="_on_pressed"]
+[connection signal="pressed" from="DeleteConfirmation/DeleteButton" to="." method="_on_delete_button_pressed"]
