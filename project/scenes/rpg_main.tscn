@@ -1,7 +1,8 @@
-[gd_scene load_steps=23 format=3 uid="uid://d4ng5rexbupxm"]
+[gd_scene load_steps=24 format=3 uid="uid://d4ng5rexbupxm"]
 
 [ext_resource type="Script" uid="uid://b6t3c758hkbxo" path="res://scripts/managers/timing_manager.gd" id="1_uqbt6"]
 [ext_resource type="Script" uid="uid://cknq3emhm8aah" path="res://scripts/managers/ui_manager.gd" id="2_ak8mu"]
+[ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="2_dn6rl"]
 [ext_resource type="Script" uid="uid://xqr3pvl5dnbd" path="res://scripts/managers/reward_ui_manager.gd" id="3_0vlpx"]
 [ext_resource type="Resource" uid="uid://darx60ijl1s4x" path="res://auras/aura collections/guaranteed_reward_list.tres" id="4_u507o"]
 [ext_resource type="Texture2D" uid="uid://jm7ccvlf38y4" path="res://sprites/sword.png" id="7_gr0gc"]
@@ -31,7 +32,6 @@ offset_bottom = 270.0
 script = ExtResource("1_uqbt6")
 
 [node name="GameBorder" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Control" type="Control" parent="GameBorder"]
 layout_mode = 3
@@ -47,14 +47,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -18.0
-offset_top = -8.0
-offset_right = 18.0
-offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("9_msc0u")
+texture = ExtResource("2_dn6rl")
 
 [node name="UIManager" type="Node2D" parent="."]
 script = ExtResource("2_ak8mu")
