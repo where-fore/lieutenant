@@ -27,7 +27,6 @@ func update_tooltip() -> void:
 	tooltip_text = item_in_slot.get_tooltip()
 
 func unequip_item() -> void:
-	#this is null if the slot was empty
 	var old_item:Item = item_in_slot
 	
 	item_in_slot = null

@@ -66,11 +66,11 @@ func send_sprite_to_ui() -> void:
 
 func take_turn() -> void:
 	on_start_turn()
-	#attack
+	
 	CombatEvents.attack_launched.emit(self, current_stats[Stats.attack])
 	on_after_attack()
+	
 	on_end_turn()
-	#all done
 	CombatEvents.turn_finished.emit(self)
 
 func recalculate_stats(playerAuraAdditiveDictionary:Dictionary[StringName, int], playerAuraMultiplicativeDictionary:Dictionary[StringName, int], enemyAuraAdditiveDictionary:Dictionary[StringName, int], enemyAuraMultiplicativeDictionary:Dictionary[StringName, int]) -> void:

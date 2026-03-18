@@ -1,6 +1,6 @@
 extends Node
 
-#this is currently unused, i'll probably return to this for save and loading?
+#this whole script is currently unused, i'll probably return to this for save and loading?
 
 func read_json(json_file_path:String) -> Variant:
 	var file:FileAccess = FileAccess.open(json_file_path, FileAccess.READ)

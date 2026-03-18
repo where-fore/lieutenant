@@ -67,7 +67,7 @@ func remove_aura_from_enemy(old_aura:Aura) -> void:
 
 func update_aura(_aura:Aura) -> void:
 	#i don't think i actually do anything? the aura should have already dynamically updated?
-	#maybe this should only update one aura? but i have to recalculate it all anyways
+	#maybe this should only update one aura? but i have to recalculate it all anyways incase they interact
 	update_stats()
 
 func update_stats() -> void:

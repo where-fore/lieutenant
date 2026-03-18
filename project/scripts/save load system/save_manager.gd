@@ -1,5 +1,7 @@
 extends Node2D
 
+#also doesn't do anything currently since i'm not attaching any save components to anything
+
 var all_savers:Dictionary[String, SaveComponent]
 var master_save_dictionary:Dictionary[String, Array]
 var current_loaded_save_dictionary:Dictionary[String, Array]

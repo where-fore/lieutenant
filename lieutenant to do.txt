@@ -2,7 +2,8 @@
 working notes
 --------------------------------------------------------
 
-
+see if auras and enemies are custom scripts too
+	refactor them
 
 
 
@@ -14,10 +15,10 @@ work to do
 --------------------------------------------------------
 implement either richards map or a quick prototype
 	have scene swapping set up
-
-have the combat be a popup overlay over some backdrop
+	have combat be a popup?
 
 let there be division
+	and the balance variable thing
 
 
 when map:

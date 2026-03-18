@@ -2,7 +2,7 @@ extends Node2D
 
 var inventory_slots:Array[Node] = []
 
-#this is magically referencing item ids i want. be wary
+#this is magically referencing the item ids i want. be wary
 var starting_inventory:Array[String] = [
 	"iron_sword",
 	"iron_sword",
@@ -61,7 +61,6 @@ func find_inventory_slot_nodes() -> void:
 		inventory_slots.append(node as InventorySlot)
 	if not found_nodes: push_error("inventory manager didn't find any inventory slots")
 
-#returns an InventorySlot class if it finds one empty, or null if none available
 func find_first_empty_slot() -> InventorySlot:
 	for slot:InventorySlot in inventory_slots:
 		if slot.is_empty(): return slot

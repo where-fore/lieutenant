@@ -19,7 +19,6 @@ var player_lost:bool = false
 
 var can_start_combat:bool = true
 
-#animation data
 var opener_turn_delay:float = 1
 var middle_turn_delay:float = 0.15
 var near_end_delay:float = 0.8
@@ -67,7 +66,7 @@ func handle_attack(attacker:Combatant, amount:int) -> void:
 
 func finish_turn(_source:Combatant) -> void:
 	if CombatEvents.combat_ongoing:
-		#animate, unless step mode where you skip animations
+		
 		if turn_mode != step_mode:
 			await turn_animation()
 		
@@ -80,7 +79,6 @@ func finish_turn(_source:Combatant) -> void:
 		stop_combat()
 
 func next_turn() -> void:
-	#swap turns
 	if turn == player_turn: turn = enemy_turn
 	elif turn == enemy_turn: turn = player_turn
 	elif turn == precombat: push_error("somehow tried to take the next turn when it's still precombat")
