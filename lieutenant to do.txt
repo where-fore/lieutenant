@@ -2,17 +2,15 @@
 working notes
 --------------------------------------------------------
 
-see if auras and enemies are custom scripts too
-	refactor them
-
-
-
+need to attach all aura base calls (on attack) to the manager, so they fire
 
 
 
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
+check out orphan nodes, there's some auras being overwritten (second boss), and check remote for orphans
+
 implement either richards map or a quick prototype
 	have scene swapping set up
 	have combat be a popup?
@@ -77,9 +75,20 @@ if i just make it more complicated (so it's less easy to eyeball the result) is 
 
 
 
+
+--------------------------------------------------------
+other neat ideas:
+--------------------------------------------------------
+have a mage companion that lets you click off visible, beneficial auras
+have a weapon that transforms after x attacks / x health damage dealt
+
+
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+aura folder structure is flexible, item folder structure is rigid. would like item to be flexible too, so i can randomly categorize things
+	there is thought to NOT categorizing by folder structure - so i have to categorize by code....
+
 the turn buttons are not pixel sized, they are percentage stretched weirdly
 
 item balance:

@@ -9,4 +9,4 @@
 
 [resource]
 script = ExtResource("5_5gwgs")
-enemies = Array[ExtResource("1_5gwgs")]([ExtResource("5_dmxuc"), ExtResource("2_x71nu"), ExtResource("3_w7txt"), ExtResource("4_unjau")])
+enemies = Array[ExtResource("1_5gwgs")]([ExtResource("5_dmxuc"), ExtResource("3_w7txt"), ExtResource("4_unjau"), ExtResource("2_x71nu")])

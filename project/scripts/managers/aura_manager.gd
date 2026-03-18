@@ -21,7 +21,13 @@ func _ready() -> void:
 	AuraEvents.remove_aura_from_enemy.connect(remove_aura_from_enemy)
 	CombatEvents.turn_finished.connect(turn_end_duration_check)
 	AuraEvents.expired_aura.connect(remove_expired_aura)
-	CombatEvents.combatant_died.connect(remove_end_of_combat_auras)
+	CombatEvents.combat_finished.connect(remove_end_of_combat_auras)
+	CombatEvents.combat_finished.connect(on_combat_end)
+	CombatEvents.combat_started.connect(on_combat_start)
+	#this is unreadable programmer shorthand for "throw away all arguments but the one i care about, "attacker"
+	@warning_ignore("untyped_declaration")
+	CombatEvents.attack_launched.connect(func(attacker:Combatant, _other_arg): on_attack(attacker))
+
 
 func reset_to_starting_stats() -> void:
 	AuraEvents.encounters_defeated_for_scaling = 0
@@ -81,18 +87,18 @@ func merge_auras() -> void:
 	enemy_final_multiplicative_aura.clear()
 
 	for aura_id:String in player_aura_dictionary:
-		for stat:StringName in player_aura_dictionary[aura_id].additive_dictionary:
-			add_to_aura_dictionary(player_final_additive_aura, stat, player_aura_dictionary[aura_id].additive_dictionary[stat])
+		for stat:StringName in player_aura_dictionary[aura_id].additive_stat_dictionary:
+			add_to_aura_dictionary(player_final_additive_aura, stat, player_aura_dictionary[aura_id].additive_stat_dictionary[stat])
 		
-		for stat:StringName in player_aura_dictionary[aura_id].multiplicative_dictionary:
-			add_to_aura_dictionary(player_final_multiplicative_aura, stat, player_aura_dictionary[aura_id].multiplicative_dictionary[stat])
+		for stat:StringName in player_aura_dictionary[aura_id].multiplicative_stat_dictionary:
+			add_to_aura_dictionary(player_final_multiplicative_aura, stat, player_aura_dictionary[aura_id].multiplicative_stat_dictionary[stat])
 		
 	for aura_id:String in enemy_aura_dictionary:
-		for stat:StringName in enemy_aura_dictionary[aura_id].additive_dictionary:
-			add_to_aura_dictionary(enemy_final_additive_aura, stat, enemy_aura_dictionary[aura_id].additive_dictionary[stat])
+		for stat:StringName in enemy_aura_dictionary[aura_id].additive_stat_dictionary:
+			add_to_aura_dictionary(enemy_final_additive_aura, stat, enemy_aura_dictionary[aura_id].additive_stat_dictionary[stat])
 		
-		for stat:StringName in enemy_aura_dictionary[aura_id].multiplicative_dictionary:
-			add_to_aura_dictionary(enemy_final_multiplicative_aura, stat, enemy_aura_dictionary[aura_id].multiplicative_dictionary[stat])
+		for stat:StringName in enemy_aura_dictionary[aura_id].multiplicative_stat_dictionary:
+			add_to_aura_dictionary(enemy_final_multiplicative_aura, stat, enemy_aura_dictionary[aura_id].multiplicative_stat_dictionary[stat])
 
 func add_to_aura_dictionary(dictionary_to_update:Dictionary[StringName,int], statName:StringName, value:int) -> void:
 	if dictionary_to_update.has(statName):
@@ -109,19 +115,49 @@ func turn_end_duration_check(whose_turn_just_ended:Combatant) -> void:
 		for aura:Aura in enemy_aura_dictionary.values():
 			aura.decrement_duration_counter(whose_turn_just_ended)
 
-func remove_end_of_combat_auras(source:Combatant) -> void:
-	if source.is_the_player:
-		for aura:Aura in player_aura_dictionary.values():
-			aura.check_then_remove_combat_auras(source)
-	else:
-		for aura:Aura in enemy_aura_dictionary.values():
-			aura.check_then_remove_combat_auras(source)
+func remove_end_of_combat_auras(all_combatants:Array[Combatant]) -> void:
+	var player:Combatant
+	var enemy:Combatant
+	for combatant:Combatant in all_combatants:
+		if combatant.is_the_player: player = combatant
+		if not combatant.is_the_player: enemy = combatant
 
-func remove_expired_aura(_source:Combatant, expired_aura:Aura) -> void:
-	remove_aura_by_id(expired_aura.unique_id, player_aura_dictionary)
-	remove_aura_by_id(expired_aura.unique_id, enemy_aura_dictionary)
+	if player:
+		for aura:Aura in player_aura_dictionary.values():
+			aura.check_then_remove_combat_auras(player)
+		
+	if enemy:
+		for aura:Aura in enemy_aura_dictionary.values():
+			aura.check_then_remove_combat_auras(enemy)
+
+func remove_expired_aura(source:Combatant, expired_aura:Aura) -> void:
+	if source.is_the_player:
+		remove_aura_by_id(expired_aura.unique_id, player_aura_dictionary)
+		CombatLogEvents.aura_removed.emit(source, expired_aura)
+	else:
+		remove_aura_by_id(expired_aura.unique_id, enemy_aura_dictionary)
 
 func remove_aura_by_id(aura_id:String, aura_dictionary:Dictionary[String, Aura]) -> void:
 	if aura_id in aura_dictionary.keys():
 		aura_dictionary.erase(aura_id)
 		update_stats()
+
+func on_attack(source:Combatant) -> void:
+	if source.is_the_player:
+		for aura:Aura in player_aura_dictionary.values(): 
+			aura.on_attack(source)
+	else:
+		for aura:Aura in enemy_aura_dictionary.values(): 
+			aura.on_attack(source)
+
+func on_combat_start(_all_combatants:Array[Combatant]) -> void:
+	for aura:Aura in player_aura_dictionary.values(): 
+		aura.on_combat_start()
+	for aura:Aura in enemy_aura_dictionary.values(): 
+		aura.on_combat_start()
+
+func on_combat_end(_all_combatants:Array[Combatant]) -> void:
+	for aura:Aura in player_aura_dictionary.values(): 
+		aura.on_combat_end()
+	for aura:Aura in enemy_aura_dictionary.values(): 
+		aura.on_combat_end()

@@ -39,7 +39,7 @@ func report_aura_removed(source:Combatant, aura:Aura) -> void:
 		var aura_name:String = aura.aura_name
 		if not aura.aura_name:
 			push_error("fading aura has no name supplied")
-			push_error(aura.additive_dictionary)
+			push_error(aura.additive_stat_dictionary) #hopefully helps narrow down what the aura was
 		else:
 			var text_to_add:String = aura_name + " fades from your spirit."
 			append_to_label(text_to_add)

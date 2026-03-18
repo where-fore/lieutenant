@@ -123,7 +123,7 @@ func handle_perishing_combatant(combatant_who_died:Combatant) -> void:
 
 func stop_combat() -> void:
 	CombatEvents.combat_ongoing = false
-	CombatEvents.combat_finished.emit()
+	CombatEvents.combat_finished.emit(combatants)
 	
 	if player_victorious:
 		HudEvents.combat_won.emit()

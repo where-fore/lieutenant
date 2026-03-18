@@ -1,10 +1,11 @@
-[gd_scene load_steps=24 format=3 uid="uid://d4ng5rexbupxm"]
+[gd_scene load_steps=25 format=3 uid="uid://d4ng5rexbupxm"]
 
 [ext_resource type="Script" uid="uid://b6t3c758hkbxo" path="res://scripts/managers/timing_manager.gd" id="1_uqbt6"]
 [ext_resource type="Script" uid="uid://cknq3emhm8aah" path="res://scripts/managers/ui_manager.gd" id="2_ak8mu"]
 [ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="2_dn6rl"]
 [ext_resource type="Script" uid="uid://xqr3pvl5dnbd" path="res://scripts/managers/reward_ui_manager.gd" id="3_0vlpx"]
-[ext_resource type="Resource" uid="uid://darx60ijl1s4x" path="res://z individual pieces/auras/aura collections/guaranteed_reward_list.tres" id="4_u507o"]
+[ext_resource type="Script" uid="uid://cu0ympdfbfcdm" path="res://z individual pieces/auras/standalone auras/rested.gd" id="5_dn6rl"]
+[ext_resource type="Script" uid="uid://ctj5a31ibunrl" path="res://z individual pieces/auras/standalone auras/sharpen.gd" id="6_sxvaj"]
 [ext_resource type="Texture2D" uid="uid://jm7ccvlf38y4" path="res://sprites/sword.png" id="7_gr0gc"]
 [ext_resource type="Texture2D" uid="uid://5l7smxrm882m" path="res://sprites/question.png" id="8_jk7xa"]
 [ext_resource type="Texture2D" uid="uid://dpjjrf7ekiuwc" path="res://sprites/box_outer.png" id="9_msc0u"]
@@ -58,7 +59,7 @@ script = ExtResource("2_ak8mu")
 [node name="RewardUI" type="CanvasLayer" parent="UIManager"]
 visible = false
 script = ExtResource("3_0vlpx")
-basic_reward_list = ExtResource("4_u507o")
+basic_reward = Array[GDScript]([ExtResource("6_sxvaj"), ExtResource("5_dn6rl")])
 
 [node name="Control" type="Control" parent="UIManager/RewardUI"]
 layout_mode = 3
@@ -465,6 +466,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+vertical_scroll_mode = 4
 script = ExtResource("18_h8qji")
 
 [node name="MarginContainer" type="MarginContainer" parent="UIManager/SideHUD/Control/TopSection/EventLog"]
@@ -481,7 +483,7 @@ custom_minimum_size = Vector2(10, 12)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 5
+theme_override_font_sizes/font_size = 4
 text = "Enemy deals 8 damage.
 You deal 6 damage.
 Your sword gleams in the sunlight.

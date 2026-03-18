@@ -49,7 +49,7 @@ func on_combat_start(_combatants:Array[Combatant]) -> void:
 			slot.item_in_slot.on_combat_start()
 			
 
-func on_combat_end() -> void:
+func on_combat_end(_combatants:Array[Combatant]) -> void:
 	for slot:InventorySlot in inventory_slots:
 		if not slot.is_empty():
 			slot.item_in_slot.on_combat_end()
