@@ -117,9 +117,12 @@ func remove_end_of_combat_auras(source:Combatant) -> void:
 		for aura:Aura in enemy_aura_dictionary.values():
 			aura.check_then_remove_combat_auras(source)
 
-func remove_expired_aura(_source:Combatant, expired_aura:Aura) -> void:
-	remove_aura_by_id(expired_aura.unique_id, player_aura_dictionary)
-	remove_aura_by_id(expired_aura.unique_id, enemy_aura_dictionary)
+func remove_expired_aura(source:Combatant, expired_aura:Aura) -> void:
+	if source.is_the_player:
+		remove_aura_by_id(expired_aura.unique_id, player_aura_dictionary)
+		CombatLogEvents.aura_removed.emit(source, expired_aura)
+	else:
+		remove_aura_by_id(expired_aura.unique_id, enemy_aura_dictionary)
 
 func remove_aura_by_id(aura_id:String, aura_dictionary:Dictionary[String, Aura]) -> void:
 	if aura_id in aura_dictionary.keys():

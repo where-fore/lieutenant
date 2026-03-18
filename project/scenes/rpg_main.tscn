@@ -465,6 +465,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+vertical_scroll_mode = 4
 script = ExtResource("18_h8qji")
 
 [node name="MarginContainer" type="MarginContainer" parent="UIManager/SideHUD/Control/TopSection/EventLog"]
@@ -481,7 +482,7 @@ custom_minimum_size = Vector2(10, 12)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 5
+theme_override_font_sizes/font_size = 4
 text = "Enemy deals 8 damage.
 You deal 6 damage.
 Your sword gleams in the sunlight.

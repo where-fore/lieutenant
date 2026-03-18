@@ -70,7 +70,7 @@ func decrement_duration_counter(source:Combatant) -> void:
 func check_then_remove_combat_auras(source:Combatant) -> void:
 	if duration_type == AuraNames.DurationType.THIS_COMBAT:
 		expire_aura(source)
-	if duration_type == AuraNames.DurationType.TURNS:
+	elif duration_type == AuraNames.DurationType.TURNS:
 		expire_aura(source)
 
 func check_then_start_combat_aura() -> Aura:
@@ -80,4 +80,17 @@ func check_then_start_combat_aura() -> Aura:
 
 func expire_aura(source:Combatant) -> void:
 	AuraEvents.expired_aura.emit(source, self)
-	CombatLogEvents.aura_removed.emit(source, self)
+
+
+#derived subclasses hook onto and override these functions
+func setup_item_stats() -> void:
+	pass
+
+func on_attack(_source:Combatant) -> void:
+	pass
+
+func on_combat_start() -> void:
+	pass
+
+func on_combat_end() -> void:
+	pass
