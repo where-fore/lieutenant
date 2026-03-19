@@ -4,6 +4,9 @@ extends Node
 signal attack_launched(attacker:Combatant, amount:int)
 
 @warning_ignore("unused_signal")
+signal healing_applied(heal_receipient:Combatant, amount:int)
+
+@warning_ignore("unused_signal")
 signal turn_finished(source:Combatant)
 
 @warning_ignore("unused_signal")

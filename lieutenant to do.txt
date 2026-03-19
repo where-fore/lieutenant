@@ -2,13 +2,6 @@
 working notes
 --------------------------------------------------------
 
-let there be division
-	and the balance variable thing
-
-not sure how to have non-100 multis
-	prob change the multi dict to take 100's not 1's
-
-
 
 map holds a bunch of MapTiles
 	MapTiles hold a MapTileData
@@ -45,6 +38,12 @@ clean up the item "on_attack" timings - currently crashing waves +4 attack appli
 	also maybe support inventory slot juggling
 	potentially codify whether auras are before or after items (probably after, since i want items to spawn "surging waves" on combat start, and trigger after attacks)
 
+okay actually maybe subviewport for real:
+	have the rpg_game main scene parent be a control of explicit size 480x270 - this keeps me working on that canvas, can use anchors and full rect etc
+	lets me design eg. the tooltips with readable text
+
+i do really want a different font, maybe try that 5x7 i downloaded
+
 when map:
 	first game prototype
 	"is choosing your reward and challenge fun?"
@@ -61,6 +60,7 @@ when map:
 	
 
 
+
 not right now, maybe:
 ---------
 have a non-equipped invetory
@@ -73,6 +73,8 @@ make a bunch of cool items and enemies
 	look at he is coming for examples of things i want to implement
 	probably do the balance data thing before this
 
+make some hotkeys for stuff
+	make sure to remove focus hotkeys from all my buttons or something
 
 
 --------------------------------------------------------
@@ -108,10 +110,23 @@ other neat ideas:
 have a mage companion that lets you click off visible, beneficial auras
 have a weapon that transforms after x attacks / x health damage dealt
 
+hotkey f12 to open an ingame calculator lmao
+
+--------------------------------------------------------
+ideas i know i should tutorialize:
+--------------------------------------------------------
+item effect ordering
+percentage multipliers rounding down, maybe even each step
+autobattling concept entirely, different speeds etc
+
 
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+tooltip esp for items
+	would be great to have flavour text smaller/grey and italicized
+	would be great to also have a preview of their auras
+
 aura folder structure is flexible, item folder structure is rigid. would like item to be flexible too, so i can randomly categorize things
 	there is thought to NOT categorizing by folder structure - so i have to categorize by code....
 

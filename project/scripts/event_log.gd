@@ -17,6 +17,7 @@ func _ready() -> void:
 	clear_log()
 	
 	CombatEvents.attack_launched.connect(interpret_damage_dealt)
+	CombatEvents.healing_applied.connect(interpret_healing)
 	CombatLogEvents.aura_removed.connect(report_aura_removed)
 	CombatLogEvents.aura_applied.connect(report_aura_applied)
 	HudEvents.change_to_combat_screen.connect(clear_log)
@@ -32,6 +33,12 @@ func interpret_damage_dealt(source_object:Combatant, amount:int) -> void:
 	var source_name:String = source_object.baseData.name
 	var damage:String = str(amount)
 	var text_to_add:String = source_name + " " + "deals" + " " + damage + " " + "damage."
+	append_to_label(text_to_add)
+
+func interpret_healing(source_object:Combatant, amount:int) -> void:
+	var source_name:String = source_object.baseData.name
+	var healing:String = str(amount)
+	var text_to_add:String = source_name + " " + "heals" + " " + healing + " " + "health."
 	append_to_label(text_to_add)
 
 func report_aura_removed(source:Combatant, aura:Aura) -> void:

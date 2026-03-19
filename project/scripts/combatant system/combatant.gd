@@ -37,6 +37,7 @@ func setup(should_be_the_player:bool = false) -> void:
 	
 
 func take_damage(value:int) -> void:
+	if value <= 0: push_error("tried to take 0 or negative damage on: " + baseData.name)
 	damage_taken += value
 	
 	var current_hp:int = get_damaged_health()
@@ -45,6 +46,17 @@ func take_damage(value:int) -> void:
 	else: HudEvents.enemy_health_update.emit(current_hp)
 	
 	if current_hp <= 0: perish()
+
+
+func heal(value:int) -> void:
+	if value <= 0: push_error("tried to heal for 0 or negative on: " + baseData.name)
+	damage_taken -= value
+	
+	var current_hp:int = get_damaged_health()
+	
+	if is_the_player: HudEvents.player_health_update.emit(current_hp)
+	else: HudEvents.enemy_health_update.emit(current_hp)
+	CombatEvents.healing_applied.emit(self, value)
 
 func reset_current_stats_to_base() -> void:
 	scale_stats_to_combats()
