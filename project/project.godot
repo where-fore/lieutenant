@@ -29,11 +29,13 @@ SaveManager="*res://scripts/save load system/save_manager.gd"
 JsonReader="*res://scripts/autoload/json_reader.gd"
 ItemDatabase="*res://scripts/autoload/item_database.gd"
 ItemCategories="*res://scripts/autoload/item_categories.gd"
+BalanceData="*res://scripts/autoload/balance_data.gd"
 
 [debug]
 
 gdscript/warnings/untyped_declaration=1
 gdscript/warnings/inferred_declaration=1
+gdscript/warnings/integer_division=0
 
 [display]
 

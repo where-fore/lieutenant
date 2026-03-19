@@ -1,15 +1,15 @@
 extends Item
 
 #whatever the item does, doesn't do anything until you do something with it
-var my_damage:int = 8
-var healing_per_attack:int = 4
+var my_damage:int = BalanceData.sword_damage * 2
+var healing_per_attack_multiplier:int = 50
 
 
 func setup_basic_item_data() -> void:
 	item_id = "vampiric_blade" # "generic_item"
 	item_name = "Vampiric Blade" # "Generic Item"
 	item_sprite = load("res://sprites/vamp_blade.png")
-	extra_tooltip = "Enjoy %s health on bloodshed" % healing_per_attack # "Generic flavourful description"
+	extra_tooltip = "Heal for {val}% of attack when tasting blood".format({"val": healing_per_attack_multiplier}) # "Generic flavourful description"
 	item_categories = [ItemCategories.rare_item]
 	
 	#optional special visible aura
@@ -25,7 +25,9 @@ func setup_item_stats() -> void:
 	additive_stat_dictionary[Stats.attack] = my_damage
 
 func on_attack(source:Combatant) -> void:
-	source.take_damage(healing_per_attack * -1)
+	var healing:int = source.current_stats[Stats.attack] * healing_per_attack_multiplier / 100
+	#currently using take_damage and *-1, probably should have a heal function or something
+	source.take_damage(healing * -1)
 
 func on_combat_start() -> void:
 	pass

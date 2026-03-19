@@ -1,8 +1,7 @@
 extends Item
 
 #whatever the item does, doesn't do anything until you do something with it
-var my_damage:int = 2
-var combat_log_message:String = "The tide ebbs."
+var my_damage:int = BalanceData.sword_damage / 2
 
 
 func setup_basic_item_data() -> void:

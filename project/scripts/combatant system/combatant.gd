@@ -98,7 +98,7 @@ func sum_aura_and_base_stats(auraDictionary:Dictionary[StringName,int]) -> void:
 func multiply_aura_and_current_stats(auraDictionary:Dictionary[StringName,int]) -> void:
 	for stat:String in auraDictionary:
 		if base_stats.has(stat):
-			current_stats[stat] *= (1+ auraDictionary[stat])
+			current_stats[stat] *= (100 + float(auraDictionary[stat]))/100
 
 
 #derived subclasses hook onto these functions

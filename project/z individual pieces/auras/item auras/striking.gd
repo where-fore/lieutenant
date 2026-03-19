@@ -1,7 +1,7 @@
 extends Aura
 
 #whatever the aura does, doesn't do anything until you do something with it
-var multiplier:int = 1
+var multiplier:int = 100
 
 func setup_basic_aura_data() -> void:
 	aura_id = "striking" # "generic_aura"

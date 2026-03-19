@@ -1,7 +1,8 @@
 extends Item
 
 #whatever the item does, doesn't do anything until you do something with it
-var my_health:int = 20
+var my_health:int = BalanceData.shield_health
+var health_multi:int = 25
 
 
 func setup_basic_item_data() -> void:
@@ -22,6 +23,7 @@ func setup_item_stats() -> void:
 	
 	#whatever the item does
 	additive_stat_dictionary[Stats.health] = my_health
+	multiplicative_stat_dictionary[Stats.health] = health_multi
 
 func on_attack(_source:Combatant) -> void:
 	pass

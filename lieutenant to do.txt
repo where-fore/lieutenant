@@ -2,7 +2,32 @@
 working notes
 --------------------------------------------------------
 
-need to attach all aura base calls (on attack) to the manager, so they fire
+let there be division
+	and the balance variable thing
+
+not sure how to have non-100 multis
+	prob change the multi dict to take 100's not 1's
+
+
+
+map holds a bunch of MapTiles
+	MapTiles hold a MapTileData
+		which holds the enemy, the reward, the tooltip etc,
+		moving to a maptile emits a signal with the MapTileData, managers listen for it, and set their rewards/challenges accordingly
+			all the managers will do their selection here
+	can go to text screen with options (which probably provide one-fight auras) before the combat, scope creep
+	
+	probably do it slay the spire-like for now, static map with boss at end, if you beat the boss you win
+	
+main menu -> new game -> generate map -> swap to map -> choose MapTile -> go to combat -> repeat
+
+
+
+
+
+
+
+
 
 
 
@@ -15,9 +40,10 @@ implement either richards map or a quick prototype
 	have scene swapping set up
 	have combat be a popup?
 
-let there be division
-	and the balance variable thing
-
+clean up the item "on_attack" timings - currently crashing waves +4 attack applies after vampiric blade 50% healing, no matter the inventory order
+	probably just await(item_in_slot.on_attack) or something
+	also maybe support inventory slot juggling
+	potentially codify whether auras are before or after items (probably after, since i want items to spawn "surging waves" on combat start, and trigger after attacks)
 
 when map:
 	first game prototype

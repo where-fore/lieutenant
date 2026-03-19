@@ -48,7 +48,7 @@ func get_tooltip() -> String:
 		var to_add:String = str(stat_change) + " increased by " + str(additive_stat_dictionary[stat_change])
 		tooltip_text += "\n" + to_add
 	for stat_change:StringName in multiplicative_stat_dictionary:
-		var to_add:String = str(stat_change) + " increased by " + str(multiplicative_stat_dictionary[stat_change]*100) + "%"
+		var to_add:String = str(stat_change) + " increased by " + str(multiplicative_stat_dictionary[stat_change]) + "%"
 		tooltip_text += "\n" + to_add
 		
 	if extra_tooltip: tooltip_text += "\n" + extra_tooltip
