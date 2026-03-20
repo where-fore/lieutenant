@@ -55,9 +55,9 @@ func search_for_rare_reward() -> void:
 	
 	var roll:int = randi_range(1,100)
 	if roll <= rare_chance:
-		current_search_reward = ItemDatabase.get_items_by_category(ItemCategories.rare_item).pick_random()
+		current_search_reward = Database.get_items_by_category(ItemCategories.rare_item).pick_random()
 	elif roll <= rare_chance + common_chance:
-		current_search_reward = ItemDatabase.get_items_by_category(ItemCategories.common_item).pick_random()
+		current_search_reward = Database.get_items_by_category(ItemCategories.common_item).pick_random()
 	else:
 		pass
 	

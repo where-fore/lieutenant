@@ -1,6 +1,7 @@
 extends Resource
 class_name CombatantData
 
+@export var id:String = "Generic Combatant"
 @export var name:String = "Generic Combatant"
 @export var base_health:int = 1337
 @export var health_scaling:int = 1337

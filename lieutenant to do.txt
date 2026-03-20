@@ -3,6 +3,60 @@ working notes
 --------------------------------------------------------
 
 
+okay so i want enemies to be scripts, just like items
+	combatantTemplate being instantiated in the database on game start
+	startCombat(skeleton_berserker) should trawl the database of enemy with id == skeleton_berserker, and then the combatant creates itself from the instantiated template
+	okay so how do i have combatant templates on the map with different stats based on world level?
+		the map creates combatant_data from a template - the map rolls "berserker" and creates a data from the database.berserker template. the data is scaled, and saved as a duplicated attached to the map tile
+		startCombat(maptile) sends in the duplicated data to the combat manager to create an actual enemy with hp from that
+		
+	so i do want combatantData to be set as different from a combatant - i want the combatant to populate their data from the combatantData, which itself has data populated from combatantTemplate in the scripts and the map power level etc
+		combatantData does basically just need to be a combatantTemplate duplicated, with adjustments made based on world power?
+		yeah so currently im pulling the combatantData from a random array, but in the future i'll pull it from a maptile.combat_start(combatantData) function. that maptile will pull from the database and instantiate an enemy
+			combatantData 
+
+so turn combatantData into itemBase
+	have combatantData .create() have an optional field for power, or whatever, and construct from there like an Aura with optional arguments
+
+and turn itemDatabase into Database
+
+
+
+
+
+
+
+
+
+
+
+
+
+hook up combatant on_attack() scripts
+
+
+warrior
+10, 10
+2, 2
+lich
+30, 30
+1, 1
+berserker
+5, 5
+6, 6
+boss
+20, 20
+5, 3
+player
+25, 0
+0, 0
+
+
+
+
+
+
+
 map holds a bunch of MapTiles
 	MapTiles hold a MapTileData
 		which holds the enemy, the reward, the tooltip etc,
@@ -16,7 +70,17 @@ main menu -> new game -> generate map -> swap to map -> choose MapTile -> go to 
 
 
 
+map is set rows, each filling one of set columns, with boss at end
+	columns increment world_power and are more difficult than the last
+		or every other column maybe
+	rows filled with maptiles, each one having basic loot, or rare loot+fight
+	hovering over a maptile makes a tooltip, showing the reward and fight
+	boss tile is a bit different, the reward shows "salvation" or something
+	
 
+combatant:basedata.basehealth = 10
+basedata.scaling = 100
+starting_health = basehealth * min(1, scaling*Map.world_power_level)
 
 
 
@@ -111,6 +175,8 @@ have a mage companion that lets you click off visible, beneficial auras
 have a weapon that transforms after x attacks / x health damage dealt
 
 hotkey f12 to open an ingame calculator lmao
+
+enemy mercenary team is trailing you, picking the options you didn't take - so if you want to backsies and pick the other options from 10 choices ago, you can eventually?
 
 --------------------------------------------------------
 ideas i know i should tutorialize:

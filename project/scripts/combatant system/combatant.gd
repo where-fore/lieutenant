@@ -10,7 +10,7 @@ var damage_taken:int = 0
 func get_damaged_health() -> int:
 	return current_stats[Stats.health] - damage_taken
 
-var base_stats:Dictionary = {}
+var starting_stats:Dictionary = {}
 var current_stats:Dictionary = {}
 
 #controls global scaling - can set to 0 for no scaling, 5 for hyper scaling etc
@@ -30,8 +30,8 @@ func setup(should_be_the_player:bool = false) -> void:
 		is_the_player = true
 		is_an_enemy = false
 	
-	base_stats[Stats.health] = baseData.base_health
-	base_stats[Stats.attack] = baseData.base_attack
+	starting_stats[Stats.health] = baseData.base_health
+	starting_stats[Stats.attack] = baseData.base_attack
 	reset_current_stats_to_base()
 	send_sprite_to_ui()
 	
@@ -60,15 +60,15 @@ func heal(value:int) -> void:
 
 func reset_current_stats_to_base() -> void:
 	scale_stats_to_combats()
-	current_stats = base_stats.duplicate()
+	current_stats = starting_stats.duplicate()
 
 func scale_stats_to_combats() -> void:
 	if baseData.health_scaling:
 		var health_scaling_factor:int = AuraEvents.encounters_defeated_for_scaling * scaling_coefficient
-		base_stats[Stats.health] = baseData.base_health + (baseData.health_scaling * health_scaling_factor)
+		starting_stats[Stats.health] = baseData.base_health + (baseData.health_scaling * health_scaling_factor)
 	if baseData.attack_scaling:
 		var attack_scaling_factor:int = AuraEvents.encounters_defeated_for_scaling * scaling_coefficient
-		base_stats[Stats.attack] = baseData.base_attack + (baseData.attack_scaling * attack_scaling_factor)
+		starting_stats[Stats.attack] = baseData.base_attack + (baseData.attack_scaling * attack_scaling_factor)
 
 func perish() -> void:
 	CombatEvents.combatant_died.emit(self)
@@ -102,14 +102,14 @@ func recalculate_stats(playerAuraAdditiveDictionary:Dictionary[StringName, int],
 
 func sum_aura_and_base_stats(auraDictionary:Dictionary[StringName,int]) -> void:
 	for stat:String in auraDictionary:
-		if base_stats.has(stat):
-			current_stats[stat] = auraDictionary[stat] + base_stats[stat]
+		if starting_stats.has(stat):
+			current_stats[stat] = auraDictionary[stat] + starting_stats[stat]
 		else:
 			current_stats[stat] = auraDictionary[stat]
 
 func multiply_aura_and_current_stats(auraDictionary:Dictionary[StringName,int]) -> void:
 	for stat:String in auraDictionary:
-		if base_stats.has(stat):
+		if starting_stats.has(stat):
 			current_stats[stat] *= (100 + float(auraDictionary[stat]))/100
 
 
