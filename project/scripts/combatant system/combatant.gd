@@ -25,6 +25,8 @@ func setup(should_be_the_player:bool = false) -> void:
 		is_the_player = true
 		is_an_enemy = false
 	
+	baseData.scale_stats(CombatEvents.encounters_defeated_for_scaling)
+	
 	starting_stats[Stats.health] = baseData.scaled_health
 	starting_stats[Stats.attack] = baseData.scaled_attack
 	reset_current_stats_to_base()
@@ -89,8 +91,6 @@ func recalculate_stats(playerAuraAdditiveDictionary:Dictionary[StringName, int],
 		multiply_aura_and_current_stats(enemyAuraMultiplicativeDictionary)
 		HudEvents.enemy_health_update.emit(get_damaged_health())
 		HudEvents.enemy_attack_update.emit(current_stats[Stats.attack])
-	
-	check_if_dead_now()
 
 func sum_aura_and_base_stats(auraDictionary:Dictionary[StringName,int]) -> void:
 	for stat:String in auraDictionary:

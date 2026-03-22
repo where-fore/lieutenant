@@ -130,6 +130,8 @@ have a "pre-turn" for combat start effects
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
+i think if you lose a +hp aura mid combat and go below 0 hp, you won't die
+
 check out orphan nodes, there's some auras being overwritten (second boss), and check remote for orphans
 
 implement either richards map or a quick prototype
@@ -235,6 +237,7 @@ autobattling concept entirely, different speeds etc
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+
 tooltip esp for items
 	would be great to have flavour text smaller/grey and italicized
 	would be great to also have a preview of their auras

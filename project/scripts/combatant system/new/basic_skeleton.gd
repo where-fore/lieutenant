@@ -8,13 +8,13 @@ func setup_basic_data() -> void:
 	extra_tooltip = "" # "Generic flavourful description"
 	categories = [] # [Categories.weak_enemy]
 
-	base_health = 25
-	base_attack = 5
+	base_health = 10
+	base_attack = 2
 
 #you probably want to call this when instantiating it, to scale to something
 func scale_stats(power:int) -> void:
-	scaled_health = base_health + (power * 0) #change 0 to whatever you want
-	scaled_attack = base_health + (power * 0)
+	scaled_health = base_health + (power * base_health)
+	scaled_attack = base_attack + (power * base_attack)
 
 #--functions called by combatant_data.gd--
 func setup_stats() -> void:

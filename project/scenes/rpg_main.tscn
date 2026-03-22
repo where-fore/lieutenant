@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://d4ng5rexbupxm"]
+[gd_scene load_steps=25 format=3 uid="uid://d4ng5rexbupxm"]
 
 [ext_resource type="Script" uid="uid://b6t3c758hkbxo" path="res://scripts/managers/timing_manager.gd" id="1_uqbt6"]
 [ext_resource type="Script" uid="uid://cknq3emhm8aah" path="res://scripts/managers/ui_manager.gd" id="2_ak8mu"]
@@ -22,7 +22,6 @@
 [ext_resource type="Script" uid="uid://dfj0skb38br" path="res://scripts/managers/inventory_manager.gd" id="20_brhm6"]
 [ext_resource type="Script" uid="uid://cabr6ntdehdcd" path="res://scripts/combatant system/new/basic_fighter.gd" id="23_dn6rl"]
 [ext_resource type="Script" uid="uid://blwvxt1yxrwwk" path="res://scripts/combatant system/new/basic_skeleton.gd" id="23_sxvaj"]
-[ext_resource type="Script" uid="uid://ceied867nmx1x" path="res://scripts/combatant system/new/skeleton_berserker.gd" id="24_n4j1q"]
 [ext_resource type="Script" uid="uid://drid3rj23mqkf" path="res://scripts/managers/aura_manager.gd" id="24_om5vj"]
 [ext_resource type="Script" uid="uid://c4226uk3kd0at" path="res://scripts/managers/combat_manager.gd" id="25_388va"]
 
@@ -552,7 +551,7 @@ script = ExtResource("24_om5vj")
 
 [node name="CombatManager" type="Node2D" parent="."]
 script = ExtResource("25_388va")
-random_enemy_selection = Array[GDScript]([ExtResource("23_sxvaj"), ExtResource("24_n4j1q")])
+random_enemy_selection = Array[GDScript]([ExtResource("23_sxvaj")])
 player_base_script = ExtResource("23_dn6rl")
 
 [connection signal="pressed" from="UIManager/RewardUI/Control/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/TextureButton" to="UIManager/RewardUI" method="_on_basic_reward_button_pressed"]

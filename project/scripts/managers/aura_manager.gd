@@ -31,12 +31,12 @@ func _ready() -> void:
 
 
 func reset_to_starting_stats() -> void:
-	AuraEvents.encounters_defeated_for_scaling = 0
+	CombatEvents.encounters_defeated_for_scaling = 0
 	player_aura_dictionary.clear()
 	enemy_aura_dictionary.clear()
 
 func grow_enemies() -> void:
-	AuraEvents.encounters_defeated_for_scaling += 1
+	CombatEvents.encounters_defeated_for_scaling += 1
 
 func clear_auras_from_combatant(combatant:Combatant) -> void:
 	if combatant.is_the_player: player_aura_dictionary.clear()

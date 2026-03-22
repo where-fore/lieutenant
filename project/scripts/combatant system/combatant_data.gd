@@ -41,3 +41,7 @@ func on_combat_end() -> void:
 #derived subclasses hook onto these functions
 func setup_stats() -> void:
 	pass
+
+
+func scale_stats(_power:int) -> void:
+	pass
