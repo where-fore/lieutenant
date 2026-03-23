@@ -39,7 +39,7 @@ func grow_enemies() -> void:
 	CombatEvents.encounters_defeated_for_scaling += 1
 
 func clear_auras_from_combatant(combatant:Combatant) -> void:
-	if combatant.is_the_player: player_aura_dictionary.clear()
+	if combatant.is_the_player: pass #player_aura_dictionary.clear()
 	if combatant.is_an_enemy: enemy_aura_dictionary.clear()
 
 func apply_new_aura_to_player(new_aura:Aura) -> void:
