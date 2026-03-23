@@ -1,8 +1,8 @@
-[gd_scene load_steps=27 format=3 uid="uid://d4ng5rexbupxm"]
+[gd_scene load_steps=28 format=3 uid="uid://d4ng5rexbupxm"]
 
 [ext_resource type="Script" uid="uid://b6t3c758hkbxo" path="res://scripts/managers/timing_manager.gd" id="1_uqbt6"]
+[ext_resource type="Texture2D" uid="uid://c7a1jxvk522q2" path="res://sprites/border_background.png" id="2_257w6"]
 [ext_resource type="Script" uid="uid://cknq3emhm8aah" path="res://scripts/managers/ui_manager.gd" id="2_ak8mu"]
-[ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="2_dn6rl"]
 [ext_resource type="Script" uid="uid://xqr3pvl5dnbd" path="res://scripts/managers/reward_ui_manager.gd" id="3_0vlpx"]
 [ext_resource type="Texture2D" uid="uid://dukmtqmjs4v7y" path="res://sprites/ui_left_bar.png" id="4_lavsf"]
 [ext_resource type="Texture2D" uid="uid://jm7ccvlf38y4" path="res://sprites/sword.png" id="7_gr0gc"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" uid="uid://ctj5a31ibunrl" path="res://z individual pieces/auras/standalone auras/sharpen.gd" id="18_wceja"]
 [ext_resource type="PackedScene" uid="uid://cto8ggdg8cw8x" path="res://scenes/inventory_slot.tscn" id="19_i3ysi"]
 [ext_resource type="Script" uid="uid://dfj0skb38br" path="res://scripts/managers/inventory_manager.gd" id="20_brhm6"]
+[ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="20_wceja"]
 [ext_resource type="Script" uid="uid://c5wfj7pwek1c2" path="res://scripts/high_score_tracker.gd" id="21_ak8mu"]
 [ext_resource type="Script" uid="uid://blwvxt1yxrwwk" path="res://z individual pieces/combatants/basic_skeleton.gd" id="23_uqbt6"]
 [ext_resource type="Script" uid="uid://ceied867nmx1x" path="res://z individual pieces/combatants/skeleton_berserker.gd" id="24_ak8mu"]
@@ -43,7 +44,7 @@ script = ExtResource("1_uqbt6")
 layout_mode = 2
 mouse_filter = 2
 
-[node name="GameBorder" type="TextureRect" parent="FullGame"]
+[node name="UIBackground" type="TextureRect" parent="FullGame"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -51,7 +52,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("2_dn6rl")
+texture = ExtResource("2_257w6")
 expand_mode = 1
 
 [node name="GameMain" type="MarginContainer" parent="FullGame"]
@@ -517,6 +518,17 @@ layout_mode = 2
 
 [node name="Inventory Slot5" parent="FullGame/GameMain/Control/SideUI/SideMain/Inventory" instance=ExtResource("19_i3ysi")]
 layout_mode = 2
+
+[node name="UIBorder" type="TextureRect" parent="FullGame"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("20_wceja")
+expand_mode = 1
 
 [node name="AuraManager" type="Node2D" parent="."]
 script = ExtResource("24_om5vj")

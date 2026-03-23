@@ -9,20 +9,29 @@ mapTile
 	active = false #greys them out
 	combatantData = 
 	rewardData = 
+
+
+
+
+map spawner to spawn the map, setting the correct spacing and populating them with data
+i want a mapDatabase autoload to hold the data
+i want a mapAnimation manager somewhere managing
+
+
+func choose_enemy() -> Combatant:
+	#pick data to use
+	var new_enemy_data:GDScript = random_enemy_selection.pick_random()
+	#create a lil memory boi
+	var new_enemy_node:Combatant = Combatant.new()
+	var new_enemy_script:CombatantData = new_enemy_data.new()
+	#assign data to our boi
+	new_enemy_node.baseData = new_enemy_script
+	#make our boi into a real boy
+	add_child(new_enemy_node)
+	#call function on our real boy
+	new_enemy_node.setup()
 	
-set their z-ordering to their row number -> math
-
-
-first map tile at 26,215. scale all at 0.5
-next row is 29px away
-
-
-
-
-
-
-
-
+	return new_enemy_node
 
 
 

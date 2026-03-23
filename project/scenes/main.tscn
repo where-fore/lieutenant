@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=22 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://scripts/managers/main.gd" id="1_o6xl0"]
 [ext_resource type="Script" uid="uid://c83t3y7en3pq0" path="res://scripts/managers/cursor_manager.gd" id="2_fv21b"]
@@ -12,8 +12,12 @@
 [ext_resource type="Script" uid="uid://d3defuvio82cj" path="res://scripts/event_log.gd" id="9_85g3d"]
 [ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="10_choun"]
 [ext_resource type="Texture2D" uid="uid://duvptjlwrr3du" path="res://sprites/richard's map/backdrop.png" id="12_eb6dy"]
+[ext_resource type="Script" uid="uid://bq4li4v6tc2mk" path="res://scripts/map system/map tiles/forest_house1.gd" id="13_dp3eg"]
+[ext_resource type="Script" uid="uid://d32bd43xtpgy2" path="res://scripts/map system/map tiles/forest_basic.gd" id="13_jkv2x"]
 [ext_resource type="Script" uid="uid://bkfbtklwaviuu" path="res://scripts/map system/map_tile_spawner.gd" id="13_trceg"]
+[ext_resource type="Script" uid="uid://04et875g86xn" path="res://scripts/map system/map tiles/forest_house2.gd" id="14_0ld40"]
 [ext_resource type="PackedScene" uid="uid://dxldisnu3aaoo" path="res://scenes/map_tile.tscn" id="14_a8y0u"]
+[ext_resource type="Script" uid="uid://cn1a2eakscc7c" path="res://scripts/map system/map tiles/forest_plains.gd" id="15_gqmmt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tefeu"]
 shader = ExtResource("2_trceg")
@@ -246,15 +250,6 @@ default_cursor = ExtResource("3_tel4y")
 
 [node name="MainGame" type="CanvasLayer" parent="."]
 
-[node name="FullGameBorder" type="TextureRect" parent="MainGame"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("10_choun")
-
 [node name="MarginContainer" type="MarginContainer" parent="MainGame"]
 anchors_preset = 15
 anchor_right = 1.0
@@ -278,8 +273,19 @@ mouse_filter = 2
 texture = ExtResource("12_eb6dy")
 expand_mode = 3
 
+[node name="MapContainer" type="Control" parent="MainGame/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MapTileSpawner" type="Node2D" parent="MainGame/MarginContainer/MapContainer"]
+position = Vector2(6, 183)
+script = ExtResource("13_trceg")
+map_data = Array[GDScript]([ExtResource("13_jkv2x"), ExtResource("13_dp3eg"), ExtResource("14_0ld40"), ExtResource("15_gqmmt")])
+mapTileBase = ExtResource("14_a8y0u")
+vertical_spacing = 17
+columns = 17
+
 [node name="TextOverlay" type="Control" parent="MainGame/MarginContainer"]
-visible = false
 layout_mode = 2
 mouse_filter = 2
 
@@ -290,6 +296,7 @@ anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -88.0
+offset_bottom = -25.0
 grow_horizontal = 0
 grow_vertical = 2
 vertical_scroll_mode = 4
@@ -336,16 +343,14 @@ Enemy deals 6 damage.
 fit_content = true
 scroll_active = false
 
-[node name="MapContainer" type="Control" parent="MainGame/MarginContainer"]
-layout_mode = 2
+[node name="UIBorder" type="TextureRect" parent="MainGame"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-
-[node name="MapTileSpawner" type="Node2D" parent="MainGame/MarginContainer/MapContainer"]
-position = Vector2(38, 183)
-script = ExtResource("13_trceg")
-mapTileBase = ExtResource("14_a8y0u")
-
-[node name="MapTile" parent="MainGame/MarginContainer/MapContainer/MapTileSpawner" instance=ExtResource("14_a8y0u")]
+texture = ExtResource("10_choun")
 
 [connection signal="pressed" from="MainUI/GameStarter/GameStartButtons/NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="MainUI/GameStarter/GameStartButtons/LoadGameButton" to="." method="_on_load_game_button_pressed"]
