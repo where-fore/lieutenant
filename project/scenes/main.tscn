@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=26 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://scripts/managers/main.gd" id="1_o6xl0"]
 [ext_resource type="Script" uid="uid://c83t3y7en3pq0" path="res://scripts/managers/cursor_manager.gd" id="2_fv21b"]
@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://dxldisnu3aaoo" path="res://scenes/map_tile.tscn" id="14_a8y0u"]
 [ext_resource type="Script" uid="uid://cn1a2eakscc7c" path="res://z individual pieces/map tiles/forest_plains.gd" id="15_gqmmt"]
 [ext_resource type="Texture2D" uid="uid://dth6v53udeute" path="res://sprites/enemy_boss.png" id="19_gqmmt"]
+[ext_resource type="Script" uid="uid://cuho5ligd5mhl" path="res://scripts/map_info_panel.gd" id="19_jscy8"]
 [ext_resource type="Texture2D" uid="uid://he7jxdjo8v12" path="res://sprites/hook_sword.png" id="20_yc10j"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tefeu"]
@@ -89,7 +90,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+mouse_filter = 2
 
 [node name="GameStartButtons" type="HBoxContainer" parent="MainUI/GameStarter"]
 layout_mode = 1
@@ -98,6 +99,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="SpacerLeft" type="Control" parent="MainUI/GameStarter/GameStartButtons"]
 layout_mode = 2
@@ -108,6 +110,7 @@ mouse_filter = 2
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 size_flags_vertical = 4
+mouse_filter = 1
 texture_normal = ExtResource("4_ya4ey")
 stretch_mode = 0
 
@@ -271,7 +274,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
@@ -304,14 +306,15 @@ mouse_filter = 2
 
 [node name="Control" type="Control" parent="MainGame/MarginContainer/RightSideUI"]
 layout_mode = 1
-anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -88.0
-offset_bottom = -25.0
+offset_top = 32.0
+offset_bottom = -32.0
 grow_horizontal = 0
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="EventLog" type="ScrollContainer" parent="MainGame/MarginContainer/RightSideUI/Control"]
 visible = false
@@ -321,7 +324,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 vertical_scroll_mode = 4
 script = ExtResource("9_85g3d")
 
@@ -375,65 +377,69 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
+script = ExtResource("19_jscy8")
 
-[node name="TextureRect" type="TextureRect" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo"]
+[node name="Background" type="TextureRect" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo"]
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("10_0ld40")
 expand_mode = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo"]
-layout_mode = 2
+[node name="CloseTimer" type="Timer" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo"]
+wait_time = 5.0
 
-[node name="Top Spacer" type="Control" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo"]
 layout_mode = 2
-size_flags_vertical = 3
-mouse_filter = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 8
 
-[node name="TextureRect" type="TextureRect" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/VBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="EnemySprite" type="TextureRect" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/MarginContainer/VBoxContainer2"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("19_gqmmt")
 
-[node name="Label" type="Label" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/VBoxContainer"]
+[node name="EnemyBlurb" type="RichTextLabel" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/MarginContainer/VBoxContainer2"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
-theme_override_font_sizes/font_size = 6
+mouse_filter = 2
+bbcode_enabled = true
 text = "A skeleton berserker blocks your path"
+fit_content = true
+scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
-autowrap_mode = 3
 
-[node name="Center Spacer" type="Control" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 3
-mouse_filter = 2
+size_flags_vertical = 8
 
-[node name="TextureRect2" type="TextureRect" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/VBoxContainer"]
+[node name="RewardSprite" type="TextureRect" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 texture = ExtResource("20_yc10j")
 
-[node name="Label2" type="Label" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/VBoxContainer"]
+[node name="RewardBlurb" type="RichTextLabel" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
-theme_override_font_sizes/font_size = 6
+mouse_filter = 1
+bbcode_enabled = true
 text = "Your scouts report sightings of a Vampiric Blade"
+fit_content = true
+scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
-autowrap_mode = 3
-
-[node name="Bottom Spacer" type="Control" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-mouse_filter = 2
 
 [node name="UIBorder" type="TextureRect" parent="MainGame"]
 anchors_preset = 15
@@ -447,3 +453,6 @@ texture = ExtResource("10_choun")
 [connection signal="pressed" from="MainUI/GameStarter/GameStartButtons/NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="MainUI/GameStarter/GameStartButtons/LoadGameButton" to="." method="_on_load_game_button_pressed"]
 [connection signal="pressed" from="MainUI/PauseMenuButton/PauseMenuButton" to="." method="_on_pause_menu_button_pressed"]
+[connection signal="mouse_entered" from="MainGame/MarginContainer/RightSideUI/Control/MapInfo" to="MainGame/MarginContainer/RightSideUI/Control/MapInfo" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="MainGame/MarginContainer/RightSideUI/Control/MapInfo" to="MainGame/MarginContainer/RightSideUI/Control/MapInfo" method="_on_mouse_exited"]
+[connection signal="timeout" from="MainGame/MarginContainer/RightSideUI/Control/MapInfo/CloseTimer" to="MainGame/MarginContainer/RightSideUI/Control/MapInfo" method="_on_close_timer_timeout"]

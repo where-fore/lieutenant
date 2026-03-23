@@ -42,16 +42,16 @@ func stop_hover_animation() -> void:
 	hover_animation_component.stop()
 
 func when_clicked() -> void:
-	print_debug(tile_data.item_reward.item_name)
-	print_debug(tile_data.enemy.name)
 	pass
 
 func _on_area_2d_mouse_entered() -> void:
 	if not disabled:
+		HudEvents.map_tile_hovered.emit(tile_data)
 		start_hover_animation()
 
 func _on_area_2d_mouse_exited() -> void:
 	if not disabled:
+		HudEvents.map_tile_unhovered.emit()
 		stop_hover_animation()
 
 func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:

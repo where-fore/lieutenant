@@ -194,6 +194,7 @@ make a bunch of cool items and enemies
 make some hotkeys for stuff
 	make sure to remove focus hotkeys from all my buttons or something
 
+map tile info could fade out
 
 --------------------------------------------------------
 to research:

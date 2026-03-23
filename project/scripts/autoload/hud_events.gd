@@ -29,3 +29,9 @@ signal change_to_combat_screen()
 
 @warning_ignore("unused_signal")
 signal send_enemy_sprite(sprite:Texture2D)
+
+@warning_ignore("unused_signal")
+signal map_tile_hovered(map_tile_data:MapTileData)
+
+@warning_ignore("unused_signal")
+signal map_tile_unhovered()

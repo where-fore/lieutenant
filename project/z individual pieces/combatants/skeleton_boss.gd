@@ -9,7 +9,7 @@ func setup_basic_data() -> void:
 	id = "skeleton_regent" # "generic_enemy"
 	name = "Skeleton Regent" # "Generic Combatant"
 	texture = load("res://sprites/enemy_boss.png")
-	extra_tooltip = "" # "Generic flavourful description"
+	extra_tooltip = "A fallen regent with a fire growing in their eyes" # "Generic flavourful description"
 	categories = {
 		Categories.enemy_rarity : Categories.Rarity.RARE,
 	}

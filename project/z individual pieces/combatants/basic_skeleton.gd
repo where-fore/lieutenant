@@ -5,8 +5,7 @@ func setup_basic_data() -> void:
 	id = "basic_skeleton" # "generic_enemy"
 	name = "Skeleton Warrior" # "Generic Combatant"
 	texture = load("res://sprites/enemy_skull.png")
-	extra_tooltip = "" # "Generic flavourful description"
-	categories = {} # [Categories.weak_enemy]
+	extra_tooltip = "An enemy of balanced strength" # "Generic flavourful description"
 	categories = {
 		Categories.enemy_rarity : Categories.Rarity.COMMON,
 	}
