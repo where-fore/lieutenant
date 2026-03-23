@@ -5,9 +5,16 @@ working notes
 map grid
 	constructor that populates the grid with mapTiles which have random animation/sprite data, a random combatantData (scaled to their column)
 
+mapTile
+	active = false #greys them out
+	combatantData = 
+	rewardData = 
+	
+set their z-ordering to their row number -> math
 
 
-
+first map tile at 26,215. scale all at 0.5
+next row is 29px away
 
 
 

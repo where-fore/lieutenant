@@ -5,6 +5,7 @@ extends Node2D
 @onready var game_start_button_container:Control = $MainUI/GameStarter
 @onready var pause_menu_button_container:Control = $MainUI/PauseMenuButton
 @onready var pause_menu_container:Control = $MainUI/PauseMenu
+@onready var scrolling_log_container:Control = $MainGame/MarginContainer/TextOverlay
 
 
 
@@ -12,11 +13,7 @@ func _ready() -> void:
 	game_start_button_container.visible = true
 	pause_menu_button_container.visible = false
 	pause_menu_container.visible = false
-	
-	#can add this back when i want a main menu
-	#game_start_button_container.visible = true
-	#pause_menu_button_container.visible = true
-	#pause_menu_container.visible = false
+	scrolling_log_container.visible = true
 	
 
 func open_pause_menu() -> void:
