@@ -1,107 +1,84 @@
 extends Control
 
-@export var basic_reward:Array[GDScript]
+@export var reward_empty_texture:Texture2D
 
-@onready var basic_reward_button:TextureButton = $VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/TextureButton
-@onready var basic_reward_button_container:MarginContainer = $VBoxContainer/RewardButtons/BasicRewardButton
-@onready var search_button:TextureButton = $VBoxContainer/RewardButtons/SearchButton/VBoxContainer/TextureButton
-@onready var search_button_container:MarginContainer = $VBoxContainer/RewardButtons/SearchButton
-@onready var search_reward_button:TextureButton = $VBoxContainer/RewardButtons/SearchRewardButton/VBoxContainer/TextureButton
-@onready var search_reward_button_container:MarginContainer = $VBoxContainer/RewardButtons/SearchRewardButton
-@onready var search_reward_button_label:Label = $VBoxContainer/RewardButtons/SearchRewardButton/VBoxContainer/Label
-@onready var search_skip_button_container:MarginContainer = $VBoxContainer/SkipRewardButton
+@onready var reward_button:TextureButton = $VBoxContainer/RewardButtons/RewardButton/VBoxContainer/TextureButton
+@onready var reward_button_container:MarginContainer = $VBoxContainer/RewardButtons/RewardButton
+@onready var reward_button_label:Label = $VBoxContainer/RewardButtons/RewardButton/VBoxContainer/Label
 
-@onready var search_reward_empty_texture:Texture2D = search_reward_button.texture_normal
+@onready var skip_button_container:MarginContainer = $VBoxContainer/SkipRewardButton
 
-var search_reward_text_blurb:String = "The spoils of war"
+var reward_text_blurb:String = "The spoils of war"
 
-var search_button_should_advance:bool
-var current_basic_aura:Aura
-var current_search_reward:Item
-var rare_chance:int = 50
-var common_chance:int = 50
+var current_reward:Variant
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	InventoryEvents.full_status_updated.connect(update_inventory_full_indicator)
+	HudEvents.venture_to.connect(prepare_reward)
 
 func change_to() -> void:
-	basic_reward_button_container.visible = true
-	search_button_container.visible = true
-	search_reward_button_container.visible = false
-	search_skip_button_container.visible = true
-	generate_basic_reward()
 	visible = true
 
 func change_from() -> void:
+	clear_reward()
 	visible = false
 
-func generate_basic_reward() -> void:
-	var reward:Aura = basic_reward.pick_random().new().create_aura()
-	basic_reward_button.texture_normal = reward.aura_sprite
-	basic_reward_button.tooltip_text = reward.get_tooltip()
-	current_basic_aura = reward
-
-func search_for_rare_reward() -> void:
-	basic_reward_button_container.visible = false
-	search_button_container.visible = false
-	search_reward_button_container.visible = true
-	search_skip_button_container.visible = true
+func prepare_reward(map_tile:MapTile) -> void:
+	if map_tile.tile_data.aura_reward:
+		current_reward = map_tile.tile_data.aura_reward.duplicate() as Aura
+		reward_button.tooltip_text = current_reward.get_tooltip()
+		reward_button.texture_normal = current_reward.aura_sprite
 	
-	search_reward_button_label.text = ""
-	search_reward_button.texture_normal = search_reward_empty_texture
-	search_reward_button.tooltip_text = ""
+	elif map_tile.tile_data.item_reward:
+		current_reward = map_tile.tile_data.item_reward.duplicate() as Item
+		reward_button.tooltip_text = current_reward.get_tooltip()
+		reward_button.texture_normal = current_reward.item_sprite
 	
-	var roll:int = randi_range(1,100)
-	if rare_chance + common_chance > 100: push_error("loot roll table exceeded 100%")
-	if roll <= rare_chance:
-		current_search_reward = Database.get_items_by_category(Categories.item_rarity, Categories.Rarity.RARE).pick_random()
-	elif roll <= rare_chance + common_chance:
-		current_search_reward = Database.get_items_by_category(Categories.item_rarity, Categories.Rarity.COMMON).pick_random()
+	if not current_reward:
+		reward_button.texture_normal = reward_empty_texture
+		reward_button.tooltip_text = "Continue..."
+		reward_button_label.text = "Found nothing..."
 	else:
-		pass
+		if current_reward is Aura:
+			reward_button_label.text = reward_text_blurb
+			reward_button.texture_normal = current_reward.aura_sprite
+			reward_button.tooltip_text = current_reward.get_tooltip()
+		
+		elif current_reward is Item:
+			reward_button_label.text = reward_text_blurb
+			reward_button.texture_normal = current_reward.item_sprite
+			reward_button.tooltip_text = current_reward.get_tooltip()
+			
+			update_inventory_full_indicator()
 	
-	if current_search_reward:
-		search_reward_button_label.text = search_reward_text_blurb
-		search_reward_button.texture_normal = current_search_reward.item_sprite
-		search_reward_button.tooltip_text = current_search_reward.get_tooltip()
-	else:
-		search_reward_button.texture_normal = search_reward_empty_texture
-		search_reward_button.tooltip_text = "Continue..."
-		search_reward_button_label.text = "Found nothing..."
-	
-	search_button_should_advance = true
-	update_inventory_full_indicator()
 
 func update_inventory_full_indicator() -> void:
-	if current_search_reward:
+	if current_reward is Item:
 		if InventoryEvents.inventory_is_full:
-			search_reward_button.modulate = Color(0.3,0.3,0.3)
-			search_reward_button_label.text = "Inventory Full"
-			search_button_should_advance = false
+			reward_button.modulate = Color(0.3,0.3,0.3)
+			reward_button_label.text = "Inventory Full"
 		else:
-			search_reward_button.modulate = Color(1,1,1)
-			search_reward_button_label.text = search_reward_text_blurb
-			search_button_should_advance = true
+			reward_button.modulate = Color(1,1,1)
+			reward_button_label.text = reward_text_blurb
 
-func _on_basic_reward_button_pressed() -> void:
-	AuraEvents.give_aura_to_player.emit(current_basic_aura)
-	current_basic_aura = null
+func _on_reward_button_pressed() -> void:
+	if current_reward is Aura:
+		AuraEvents.give_aura_to_player.emit(current_reward)
+	elif current_reward is Item:
+		InventoryEvents.send_item_to_inventory.emit(current_reward)
 	reward_selected()
 
-func _on_search_button_pressed() -> void:
-	search_for_rare_reward()
-
-func _on_search_reward_button_pressed() -> void:
-	if search_button_should_advance:
-		if current_search_reward: InventoryEvents.send_item_to_inventory.emit(current_search_reward)
-		current_search_reward = null
-		reward_selected()
-
-func _on_search_skip_button_pressed() -> void:
-	current_search_reward = null
+func _on_skip_button_pressed() -> void:
 	reward_selected()
 
 func reward_selected() -> void:
 	HudEvents.reward_chosen.emit()
+
+func clear_reward() -> void:
+	reward_button_label.text = ""
+	reward_button.texture_normal = reward_empty_texture
+	reward_button.tooltip_text = ""
+	
+	current_reward = null

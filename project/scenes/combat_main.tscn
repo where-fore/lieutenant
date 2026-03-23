@@ -1,21 +1,18 @@
-[gd_scene load_steps=28 format=3 uid="uid://d4ng5rexbupxm"]
+[gd_scene load_steps=25 format=3 uid="uid://d4ng5rexbupxm"]
 
 [ext_resource type="Script" uid="uid://b6t3c758hkbxo" path="res://scripts/managers/timing_manager.gd" id="1_uqbt6"]
 [ext_resource type="Texture2D" uid="uid://c7a1jxvk522q2" path="res://sprites/border_background.png" id="2_257w6"]
 [ext_resource type="Script" uid="uid://cknq3emhm8aah" path="res://scripts/managers/ui_manager.gd" id="2_ak8mu"]
-[ext_resource type="Script" uid="uid://xqr3pvl5dnbd" path="res://scripts/managers/reward_ui_manager.gd" id="3_0vlpx"]
 [ext_resource type="Texture2D" uid="uid://dukmtqmjs4v7y" path="res://sprites/ui_left_bar.png" id="4_lavsf"]
 [ext_resource type="Texture2D" uid="uid://jm7ccvlf38y4" path="res://sprites/sword.png" id="7_gr0gc"]
-[ext_resource type="Texture2D" uid="uid://5l7smxrm882m" path="res://sprites/question.png" id="8_jk7xa"]
 [ext_resource type="Texture2D" uid="uid://dpjjrf7ekiuwc" path="res://sprites/box_outer.png" id="9_msc0u"]
 [ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="10_vm7rb"]
 [ext_resource type="Script" uid="uid://df5yy5wtfly3o" path="res://scripts/managers/combat_ui_manager.gd" id="11_xeasx"]
 [ext_resource type="PackedScene" uid="uid://drmvwdj1lrerg" path="res://scenes/ui/combatant.tscn" id="12_j0her"]
 [ext_resource type="Texture2D" uid="uid://ciouurklba10y" path="res://sprites/pause.png" id="13_3w7y0"]
 [ext_resource type="Texture2D" uid="uid://dqnu3pxst2rni" path="res://sprites/step.png" id="14_8fwxv"]
+[ext_resource type="PackedScene" uid="uid://ctvt2g0gq4f60" path="res://scenes/ui/reward_ui.tscn" id="14_hfile"]
 [ext_resource type="Texture2D" uid="uid://c428mv3lvximd" path="res://sprites/play.png" id="15_varvq"]
-[ext_resource type="Script" uid="uid://cu0ympdfbfcdm" path="res://z individual pieces/auras/standalone auras/rested.gd" id="17_257w6"]
-[ext_resource type="Script" uid="uid://ctj5a31ibunrl" path="res://z individual pieces/auras/standalone auras/sharpen.gd" id="18_wceja"]
 [ext_resource type="PackedScene" uid="uid://cto8ggdg8cw8x" path="res://scenes/inventory_slot.tscn" id="19_i3ysi"]
 [ext_resource type="Script" uid="uid://dfj0skb38br" path="res://scripts/managers/inventory_manager.gd" id="20_brhm6"]
 [ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="20_wceja"]
@@ -85,6 +82,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="DeathUI" type="Control" parent="FullGame/GameMain/Control/MainUI"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -340,138 +338,8 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("9_msc0u")
 
-[node name="RewardUI" type="Control" parent="FullGame/GameMain/Control/MainUI"]
-visible = false
+[node name="RewardUI" parent="FullGame/GameMain/Control/MainUI" instance=ExtResource("14_hfile")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("3_0vlpx")
-basic_reward = Array[GDScript]([ExtResource("17_257w6"), ExtResource("18_wceja")])
-
-[node name="VBoxContainer" type="VBoxContainer" parent="FullGame/GameMain/Control/MainUI/RewardUI"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
-
-[node name="Title" type="MarginContainer" parent="FullGame/GameMain/Control/MainUI/RewardUI/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="Title" type="Label" parent="FullGame/GameMain/Control/MainUI/RewardUI/VBoxContainer/Title"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "Victory.
-Choose your boon."
-horizontal_alignment = 1
-
-[node name="RewardButtons" type="HBoxContainer" parent="FullGame/GameMain/Control/MainUI/RewardUI/VBoxContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="BasicRewardButton" type="MarginContainer" parent="FullGame/GameMain/Control/MainUI/RewardUI/VBoxContainer/RewardButtons"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="VBoxContainer" type="VBoxContainer" parent="FullGame/GameMain/Control/MainUI/RewardUI/VBoxContainer/RewardButtons/BasicRewardButton"]
-layout_mode = 2
-
-[node name="TextureButton" type="TextureButton" parent="FullGame/GameMain/Control/MainUI/RewardUI/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture_normal = ExtResource("7_gr0gc")
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="FullGame/GameMain/Control/MainUI/RewardUI/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "Rest"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="SearchButton" type="MarginContainer" parent="FullGame/GameMain/Control/MainUI/RewardUI/VBoxContainer/RewardButtons"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="VBoxContainer" type="VBoxContainer" parent="FullGame/GameMain/Control/MainUI/RewardUI/VBoxContainer/RewardButtons/SearchButton"]
-layout_mode = 2
-
-[node name="TextureButton" type="TextureButton" parent="FullGame/GameMain/Control/MainUI/RewardUI/VBoxContainer/RewardButtons/SearchButton/VBoxContainer"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture_normal = ExtResource("8_jk7xa")
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="FullGame/GameMain/Control/MainUI/RewardUI/VBoxContainer/RewardButtons/SearchButton/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "Search
-for
-Treasure"
-horizontal_alignment = 1
-
-[node name="SearchRewardButton" type="MarginContainer" parent="FullGame/GameMain/Control/MainUI/RewardUI/VBoxContainer/RewardButtons"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="VBoxContainer" type="VBoxContainer" parent="FullGame/GameMain/Control/MainUI/RewardUI/VBoxContainer/RewardButtons/SearchRewardButton"]
-layout_mode = 2
-
-[node name="TextureButton" type="TextureButton" parent="FullGame/GameMain/Control/MainUI/RewardUI/VBoxContainer/RewardButtons/SearchRewardButton/VBoxContainer"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture_normal = ExtResource("9_msc0u")
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="FullGame/GameMain/Control/MainUI/RewardUI/VBoxContainer/RewardButtons/SearchRewardButton/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "You found:
-Cool Item"
-horizontal_alignment = 1
-
-[node name="SkipRewardButton" type="MarginContainer" parent="FullGame/GameMain/Control/MainUI/RewardUI/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-
-[node name="TextureButton" type="TextureButton" parent="FullGame/GameMain/Control/MainUI/RewardUI/VBoxContainer/SkipRewardButton"]
-custom_minimum_size = Vector2(32, 8)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture_normal = ExtResource("9_msc0u")
-stretch_mode = 0
-
-[node name="Label" type="Label" parent="FullGame/GameMain/Control/MainUI/RewardUI/VBoxContainer/SkipRewardButton"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
-text = "Skip"
-horizontal_alignment = 1
 
 [node name="SideUI" type="Panel" parent="FullGame/GameMain/Control"]
 layout_mode = 1
@@ -556,7 +424,3 @@ player_base_script = ExtResource("27_s8cxq")
 [connection signal="pressed" from="FullGame/GameMain/Control/MainUI/CombatUI/TurnButtons/PauseButton" to="FullGame/GameMain/Control/MainUI/CombatUI" method="_on_pause_button_pressed"]
 [connection signal="pressed" from="FullGame/GameMain/Control/MainUI/CombatUI/TurnButtons/StepButton" to="FullGame/GameMain/Control/MainUI/CombatUI" method="_on_step_button_pressed"]
 [connection signal="pressed" from="FullGame/GameMain/Control/MainUI/CombatUI/TurnButtons/PlayButton" to="FullGame/GameMain/Control/MainUI/CombatUI" method="_on_play_button_pressed"]
-[connection signal="pressed" from="FullGame/GameMain/Control/MainUI/RewardUI/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/TextureButton" to="FullGame/GameMain/Control/MainUI/RewardUI" method="_on_basic_reward_button_pressed"]
-[connection signal="pressed" from="FullGame/GameMain/Control/MainUI/RewardUI/VBoxContainer/RewardButtons/SearchButton/VBoxContainer/TextureButton" to="FullGame/GameMain/Control/MainUI/RewardUI" method="_on_search_button_pressed"]
-[connection signal="pressed" from="FullGame/GameMain/Control/MainUI/RewardUI/VBoxContainer/RewardButtons/SearchRewardButton/VBoxContainer/TextureButton" to="FullGame/GameMain/Control/MainUI/RewardUI" method="_on_search_reward_button_pressed"]
-[connection signal="pressed" from="FullGame/GameMain/Control/MainUI/RewardUI/VBoxContainer/SkipRewardButton/TextureButton" to="FullGame/GameMain/Control/MainUI/RewardUI" method="_on_search_skip_button_pressed"]

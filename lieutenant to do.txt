@@ -11,9 +11,18 @@ main manager hears to travel to a tile
 main manager hears the combat loop is all done, hides those, back to the map
 
 
+enemy tooltip have their attack and hp
 
 
 
+	var roll:int = randi_range(1,100)
+	if rare_chance + common_chance > 100: push_error("loot roll table exceeded 100%")
+	if roll <= rare_chance:
+		current_search_reward = Database.get_items_by_category(Categories.item_rarity, Categories.Rarity.RARE).pick_random()
+	elif roll <= rare_chance + common_chance:
+		current_search_reward = Database.get_items_by_category(Categories.item_rarity, Categories.Rarity.COMMON).pick_random()
+	else:
+		pass
 
 
 
@@ -277,6 +286,9 @@ autobattling concept entirely, different speeds etc
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+somehow have aura and items be interchangeable, maybe Reward class, with baseline names and stuff. having to separate my reward function in two is lame
+	i do need some splitting anyways, eg. dont want to grey out an aura reward if inventory is full
+
 z-indexes for ui are hardcoded
 	combat is 50
 
