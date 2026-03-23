@@ -3,6 +3,7 @@ extends Node
 var unique_tile_id:String
 var tile_data:MapTileData
 var tile_animation:SpriteFrames
+var disabled:bool = false
 @onready var animated_sprite_component:AnimatedSprite2D = $BaseAnimation
 @onready var hover_animation_component:AnimatedSprite2D = $HoverAnimation
 
@@ -22,11 +23,13 @@ func _ready() -> void:
 	animated_sprite_component.speed_scale = 0.2
 	hover_animation_component.speed_scale = 0.8
 
-func _on_area_2d_mouse_entered() -> void:
-	start_hover_animation()
+func disable() -> void:
+	disabled = true
+	animated_sprite_component.modulate = Color(0.7,0.7,0.7,1)
 
-func _on_area_2d_mouse_exited() -> void:
-	stop_hover_animation()
+func enable() -> void:
+	disabled = false
+	animated_sprite_component.modulate = Color(1,1,1,1)
 
 func start_hover_animation() -> void:
 	hover_animation_component.visible = true
@@ -38,4 +41,21 @@ func stop_hover_animation() -> void:
 	hover_animation_component.visible = false
 	
 	hover_animation_component.stop()
-	
+
+func when_clicked() -> void:
+	print_debug("test")
+	pass
+
+func _on_area_2d_mouse_entered() -> void:
+	if not disabled:
+		start_hover_animation()
+
+func _on_area_2d_mouse_exited() -> void:
+	if not disabled:
+		stop_hover_animation()
+
+func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if not disabled:
+		if event is InputEventMouseButton:
+			if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+				when_clicked()

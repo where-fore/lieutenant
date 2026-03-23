@@ -2,22 +2,6 @@
 working notes
 --------------------------------------------------------
 
-map grid
-	constructor that populates the grid with mapTiles which have random animation/sprite data, a random combatantData (scaled to their column)
-
-mapTile
-	active = false #greys them out
-	combatantData = 
-	rewardData = 
-
-
-
-
-map spawner to spawn the map, setting the correct spacing and populating them with data
-i want a mapDatabase autoload to hold the data
-i want a mapAnimation manager somewhere managing
-
-
 func choose_enemy() -> Combatant:
 	#pick data to use
 	var new_enemy_data:GDScript = random_enemy_selection.pick_random()
@@ -32,23 +16,6 @@ func choose_enemy() -> Combatant:
 	new_enemy_node.setup()
 	
 	return new_enemy_node
-
-
-
-
-
-
-map:
-	grid of animated-sprite-buttons
-	held in a database:Dictionary[String,MapTile]
-	animation manager changes the frame on each sprite manually in a for loop
-	maybe have the next button be a stagger
-
-
-
-
-
-
 
 
 
@@ -174,6 +141,10 @@ praise be tutorializing better
 ---------------------------
 not right now, maybe:
 ---------------------------
+
+would be nice to have a .txt of coordinate -> mapData that richard can write and my constructor can read
+
+
 pop up character panel with stats etc maybe even breakdowns of multipliers
 
 resolution stuff

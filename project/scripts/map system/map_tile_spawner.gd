@@ -6,11 +6,12 @@ extends Node2D
 @export_category("Map Grid Builder")
 @export var mapTileBase:PackedScene
 @export var rows:int = 3
-@export var vertical_spacing:int = 16
-@export var columns:int = 15
+@export var vertical_spacing:int = 17
+@export var columns:int = 17
 @export var horizontal_spacing:int = 31
 @export var isometric_offset:int = 6
 @export_enum("Top Left", "Bottom Left") var this_spawner_is_placed_at:int = 0
+@export var disable_first_and_last_tiles:bool = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -33,6 +34,9 @@ func populate_tiles() -> void:
 				new_tile.position = Vector2(x * horizontal_spacing + y * isometric_offset, rows-y * vertical_spacing)
 			
 			new_tile.apply_data(map_data.pick_random().new())
+			if disable_first_and_last_tiles:
+				if x == 0 or x == columns-1: #0 indexed, so first and last column
+					new_tile.disable()
 
 func populate_tile_data() -> void:
 	pass
