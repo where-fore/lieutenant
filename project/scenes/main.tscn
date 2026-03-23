@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=16 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://scripts/managers/main.gd" id="1_o6xl0"]
 [ext_resource type="Script" uid="uid://c83t3y7en3pq0" path="res://scripts/managers/cursor_manager.gd" id="2_fv21b"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://dvk6chwr5wrj4" path="res://scripts/pause_menu.gd" id="8_tipki"]
 [ext_resource type="Script" uid="uid://d3defuvio82cj" path="res://scripts/event_log.gd" id="9_85g3d"]
 [ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="10_choun"]
+[ext_resource type="Texture2D" uid="uid://duvptjlwrr3du" path="res://sprites/richard's map/backdrop.png" id="12_eb6dy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tefeu"]
 shader = ExtResource("2_trceg")
@@ -69,6 +70,7 @@ size_flags_vertical = 4
 mouse_filter = 2
 
 [node name="MainUI" type="CanvasLayer" parent="."]
+layer = 50
 
 [node name="GameStarter" type="Control" parent="MainUI"]
 layout_mode = 3
@@ -262,6 +264,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="CombatContainer" type="Control" parent="MainGame/Panel"]
+z_index = 50
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -318,6 +321,17 @@ Your sword gleams in the sunlight.
 Enemy deals 6 damage.
 "
 autowrap_mode = 3
+
+[node name="TextureRect" type="TextureRect" parent="MainGame/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("12_eb6dy")
+expand_mode = 3
 
 [connection signal="pressed" from="MainUI/GameStarter/GameStartButtons/NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="MainUI/GameStarter/GameStartButtons/LoadGameButton" to="." method="_on_load_game_button_pressed"]
