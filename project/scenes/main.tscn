@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=23 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://scripts/managers/main.gd" id="1_o6xl0"]
 [ext_resource type="Script" uid="uid://c83t3y7en3pq0" path="res://scripts/managers/cursor_manager.gd" id="2_fv21b"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bhrvrblpm7ul3" path="res://sprites/box_two.png" id="6_tefeu"]
 [ext_resource type="Script" uid="uid://dvk6chwr5wrj4" path="res://scripts/pause_menu.gd" id="8_tipki"]
 [ext_resource type="Script" uid="uid://d3defuvio82cj" path="res://scripts/event_log.gd" id="9_85g3d"]
+[ext_resource type="Texture2D" uid="uid://c7a1jxvk522q2" path="res://sprites/border_background.png" id="10_0ld40"]
 [ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="10_choun"]
 [ext_resource type="Texture2D" uid="uid://duvptjlwrr3du" path="res://sprites/richard's map/backdrop.png" id="12_eb6dy"]
 [ext_resource type="Script" uid="uid://bq4li4v6tc2mk" path="res://scripts/map system/map tiles/forest_house1.gd" id="13_dp3eg"]
@@ -80,13 +81,13 @@ mouse_filter = 2
 layer = 50
 
 [node name="GameStarter" type="Control" parent="MainUI"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="GameStartButtons" type="HBoxContainer" parent="MainUI/GameStarter"]
 layout_mode = 1
@@ -99,6 +100,7 @@ grow_vertical = 2
 [node name="SpacerLeft" type="Control" parent="MainUI/GameStarter/GameStartButtons"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
 [node name="NewGameButton" type="TextureButton" parent="MainUI/GameStarter/GameStartButtons"]
 custom_minimum_size = Vector2(96, 96)
@@ -123,6 +125,7 @@ vertical_alignment = 1
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
 [node name="LoadGameButton" type="Button" parent="MainUI/GameStarter/GameStartButtons"]
 visible = false
@@ -135,6 +138,7 @@ Game"
 [node name="SpacerRight" type="Control" parent="MainUI/GameStarter/GameStartButtons"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
 [node name="PauseMenuButton" type="Control" parent="MainUI"]
 visible = false
@@ -207,6 +211,7 @@ Game"
 [node name="CenterSpacer" type="Control" parent="MainUI/PauseMenu/Control/ChangeGameButtons/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
 [node name="LoadGameButton" type="Button" parent="MainUI/PauseMenu/Control/ChangeGameButtons/HBoxContainer"]
 layout_mode = 2
@@ -219,6 +224,7 @@ Game"
 [node name="CenterSpacer" type="Control" parent="MainUI/PauseMenu/Control/ChangeGameButtons"]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MainUI/PauseMenu/Control/ChangeGameButtons"]
 layout_mode = 2
@@ -235,6 +241,7 @@ Menu"
 [node name="CenterSpacer" type="Control" parent="MainUI/PauseMenu/Control/ChangeGameButtons/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
 [node name="SettingsButton" type="Button" parent="MainUI/PauseMenu/Control/ChangeGameButtons/HBoxContainer2"]
 layout_mode = 2
@@ -249,6 +256,12 @@ script = ExtResource("2_fv21b")
 default_cursor = ExtResource("3_tel4y")
 
 [node name="MainGame" type="CanvasLayer" parent="."]
+
+[node name="UIBackground" type="TextureRect" parent="MainGame"]
+offset_right = 480.0
+offset_bottom = 270.0
+mouse_filter = 2
+texture = ExtResource("10_0ld40")
 
 [node name="MarginContainer" type="MarginContainer" parent="MainGame"]
 anchors_preset = 15
@@ -299,6 +312,7 @@ offset_left = -88.0
 offset_bottom = -25.0
 grow_horizontal = 0
 grow_vertical = 2
+mouse_filter = 2
 vertical_scroll_mode = 4
 script = ExtResource("9_85g3d")
 
@@ -306,6 +320,7 @@ script = ExtResource("9_85g3d")
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 theme_override_constants/margin_left = 1
 theme_override_constants/margin_top = 1
 theme_override_constants/margin_right = 1
@@ -314,6 +329,7 @@ theme_override_constants/margin_bottom = 1
 [node name="Label" type="RichTextLabel" parent="MainGame/MarginContainer/TextOverlay/EventLog/MarginContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/paragraph_separation = -2
 text = "Enemy deals 8 damage. test test test
 You deal 6 damage.

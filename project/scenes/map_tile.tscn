@@ -1,9 +1,25 @@
-[gd_scene load_steps=2 format=3 uid="uid://dxldisnu3aaoo"]
+[gd_scene load_steps=4 format=3 uid="uid://dxldisnu3aaoo"]
 
 [ext_resource type="Script" uid="uid://wrg8ncrbysqw" path="res://scripts/map system/map_tile.gd" id="1_eader"]
+[ext_resource type="SpriteFrames" uid="uid://b77jkv0h1kj7x" path="res://scripts/map system/map tiles/forest_basic.tres" id="2_eader"]
+[ext_resource type="SpriteFrames" uid="uid://bk27qe7w4wwaf" path="res://scripts/map system/hovered.tres" id="3_7cb8i"]
 
 [node name="MapTile" type="Node2D"]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_eader")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="BaseAnimation" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_eader")
+frame_progress = 0.490562
+
+[node name="HoverAnimation" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("3_7cb8i")
+frame_progress = 0.6266568
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(-48, 48, -36, 20, 18, 20, 6, 48, -48, 48)
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
