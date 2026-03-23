@@ -1,6 +1,6 @@
 extends ScrollContainer
 
-@onready var label:Label = $MarginContainer/Label
+@onready var label:RichTextLabel = $MarginContainer/Label
 
 #these probably should have a space at the start, and a period at the end
 var death_messages:Array[String] = [

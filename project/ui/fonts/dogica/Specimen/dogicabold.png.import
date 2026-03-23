@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjmhfw1keycgq"
-path="res://.godot/imported/04.png-291c20a75f46e48a6c74f0a596877793.ctex"
+uid="uid://i522da15yl02"
+path="res://.godot/imported/dogicabold.png-d8e15dbe6e8dba349900c1d8d7c736a1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://fonts/dogica font/Ascii GB Studio/04.png"
-dest_files=["res://.godot/imported/04.png-291c20a75f46e48a6c74f0a596877793.ctex"]
+source_file="res://ui/fonts/dogica/Specimen/dogicabold.png"
+dest_files=["res://.godot/imported/dogicabold.png-d8e15dbe6e8dba349900c1d8d7c736a1.ctex"]
 
 [params]
 

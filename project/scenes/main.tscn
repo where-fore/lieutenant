@@ -58,7 +58,8 @@ main_rpg_scene = ExtResource("2_o6xl0")
 [node name="CRTFilter" type="CanvasLayer" parent="."]
 layer = 1000
 
-[node name="ColorRect" type="ColorRect" parent="CRTFilter"]
+[node name="CRTMajor" type="ColorRect" parent="CRTFilter"]
+visible = false
 material = SubResource("ShaderMaterial_tefeu")
 anchors_preset = 15
 anchor_right = 1.0
@@ -299,11 +300,10 @@ theme_override_constants/margin_top = 1
 theme_override_constants/margin_right = 1
 theme_override_constants/margin_bottom = 1
 
-[node name="Label" type="Label" parent="MainGame/MarginContainer/TextOverlay/EventLog/MarginContainer"]
+[node name="Label" type="RichTextLabel" parent="MainGame/MarginContainer/TextOverlay/EventLog/MarginContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
-size_flags_vertical = 1
-theme_override_font_sizes/font_size = 4
+theme_override_constants/paragraph_separation = -2
 text = "Enemy deals 8 damage. test test test
 You deal 6 damage.
 Your sword gleams in the sunlight.
@@ -325,7 +325,6 @@ You deal 6 damage.
 Your sword gleams in the sunlight.
 Enemy deals 6 damage.
 "
-autowrap_mode = 3
 
 [connection signal="pressed" from="MainUI/GameStarter/GameStartButtons/NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="MainUI/GameStarter/GameStartButtons/LoadGameButton" to="." method="_on_load_game_button_pressed"]

@@ -1,11 +1,33 @@
 --------------------------------------------------------
 working notes
 --------------------------------------------------------
+
+map grid
+	constructor that populates the grid with mapTiles which have random animation/sprite data, a random combatantData (scaled to their column)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 map:
 	grid of animated-sprite-buttons
 	held in a database:Dictionary[String,MapTile]
 	animation manager changes the frame on each sprite manually in a for loop
 	maybe have the next button be a stagger
+
 
 
 
@@ -79,13 +101,25 @@ probably can't win with unique and unsupporting stats, or with too few supportin
 
 
 
+pixels:
+	full project is 480x270
+	combat window is 32px offset inwards: 416x206
+	combat window is 64px offset from right hand side, for scrolling text: 352x206 (bottom left anchored)
+	borders are 3px, and containers are 3px margins
 
 
+
+combat log polish
+	have it fade out at the bottom
+	have a ton of empty space
+	maybe don't draw the scroll bar at all
+	have it draw new entries to the top
 
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
 have a "pre-turn" turn for combat start effects
+	combat log "prepares for attack"
 
 bug: i think if you lose a +hp aura mid combat and go below 0 hp, you won't die
 
@@ -191,6 +225,8 @@ autobattling concept entirely, different speeds etc
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+z-indexes for ui are hardcoded
+	combat is 50
 
 tooltip esp for items
 	would be great to have flavour text smaller/grey and italicized
