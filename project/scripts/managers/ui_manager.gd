@@ -1,10 +1,10 @@
 extends Control
 
-@onready var combat_ui_manager:Node = $MainUI/CombatUI
-@onready var reward_ui_manager:Node = $MainUI/RewardUI
-@onready var inventory_manager:Node = $MainUI/InventoryManager
-@onready var inventory_slot_grid_container:GridContainer = $SideUI/SideMain/Inventory
-@onready var death_ui:Node = $MainUI/DeathUI
+@onready var combat_ui_manager:Node = $Control/MainUI/CombatUI
+@onready var reward_ui_manager:Node = $Control/MainUI/RewardUI
+@onready var inventory_manager:Node = $Control/MainUI/InventoryManager
+@onready var inventory_slot_grid_container:GridContainer = $Control/SideUI/SideMain/Inventory
+@onready var death_ui:Node = $Control/MainUI/DeathUI
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

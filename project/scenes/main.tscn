@@ -56,7 +56,7 @@ script = ExtResource("1_o6xl0")
 main_rpg_scene = ExtResource("2_o6xl0")
 
 [node name="CRTFilter" type="CanvasLayer" parent="."]
-layer = 100
+layer = 1000
 
 [node name="ColorRect" type="ColorRect" parent="CRTFilter"]
 material = SubResource("ShaderMaterial_tefeu")
@@ -251,41 +251,46 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("10_choun")
 
-[node name="Panel" type="Panel" parent="MainGame"]
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -4.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="CombatContainer" type="Control" parent="MainGame/Panel"]
-z_index = 50
-layout_mode = 1
+[node name="MarginContainer" type="MarginContainer" parent="MainGame"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
 
-[node name="EventLog" type="ScrollContainer" parent="MainGame/Panel"]
+[node name="CombatContainer" type="Control" parent="MainGame/MarginContainer"]
+z_index = 50
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="MainGame/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("12_eb6dy")
+expand_mode = 3
+
+[node name="TextOverlay" type="Control" parent="MainGame/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="EventLog" type="ScrollContainer" parent="MainGame/MarginContainer/TextOverlay"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -84.0
+offset_left = -88.0
 grow_horizontal = 0
 grow_vertical = 2
 vertical_scroll_mode = 4
 script = ExtResource("9_85g3d")
 
-[node name="MarginContainer" type="MarginContainer" parent="MainGame/Panel/EventLog"]
+[node name="MarginContainer" type="MarginContainer" parent="MainGame/MarginContainer/TextOverlay/EventLog"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -294,7 +299,7 @@ theme_override_constants/margin_top = 1
 theme_override_constants/margin_right = 1
 theme_override_constants/margin_bottom = 1
 
-[node name="Label" type="Label" parent="MainGame/Panel/EventLog/MarginContainer"]
+[node name="Label" type="Label" parent="MainGame/MarginContainer/TextOverlay/EventLog/MarginContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_vertical = 1
@@ -321,17 +326,6 @@ Your sword gleams in the sunlight.
 Enemy deals 6 damage.
 "
 autowrap_mode = 3
-
-[node name="TextureRect" type="TextureRect" parent="MainGame/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("12_eb6dy")
-expand_mode = 3
 
 [connection signal="pressed" from="MainUI/GameStarter/GameStartButtons/NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="MainUI/GameStarter/GameStartButtons/LoadGameButton" to="." method="_on_load_game_button_pressed"]
