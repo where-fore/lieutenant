@@ -43,6 +43,7 @@ func stop_hover_animation() -> void:
 
 func when_clicked() -> void:
 	print_debug(tile_data.item_reward.item_name)
+	print_debug(tile_data.enemy.name)
 	pass
 
 func _on_area_2d_mouse_entered() -> void:

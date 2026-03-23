@@ -21,18 +21,20 @@ func get_combatant_by_id(combatant_id:String) -> Item:
 #these could be a bit slow with 1000+ items
 #if causing problems, can instead create an array of dictionaries on init, one for each category
 #so calling from that array is O(1)
-func get_items_by_category(category:StringName) -> Array[Item]:
+func get_items_by_category(category:StringName, value:int) -> Array[Item]:
 	var items_to_return:Array[Item]
 	for item:Item in all_items.values():
 		if item.item_categories.has(category):
-			items_to_return.append(item)
+			if item.item_categories[category] == value:
+				items_to_return.append(item)
 	return items_to_return
 
-func get_combatants_by_category(category:StringName) -> Array[CombatantData]:
+func get_combatants_by_category(category:StringName, value:int) -> Array[CombatantData]:
 	var combatants_to_return:Array[CombatantData]
-	for data:CombatantData in all_items.values():
+	for data:CombatantData in all_combatants.values():
 		if data.categories.has(category):
-			combatants_to_return.append(data)
+			if data.categories[category] == value:
+				combatants_to_return.append(data)
 	return combatants_to_return
 
 func populate_item_database(resource_array:Array[Resource]) -> void:

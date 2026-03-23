@@ -6,7 +6,7 @@ func setup_basic_data() -> void:
 	name = "" # "Generic Combatant"
 	texture = load("res://icon.svg")
 	extra_tooltip = "" # "Generic flavourful description"
-	categories = [] # [Categories.weak_enemy]
+	
 
 	base_health = 0
 	base_attack = 0

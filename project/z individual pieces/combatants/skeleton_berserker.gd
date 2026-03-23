@@ -6,7 +6,10 @@ func setup_basic_data() -> void:
 	name = "Skeleton Berserker" # "Generic Combatant"
 	texture = load("res://sprites/enemy_berserker.png")
 	extra_tooltip = "" # "Generic flavourful description"
-	categories = [] # [Categories.weak_enemy]
+	categories = {
+		Categories.enemy_rarity : Categories.Rarity.COMMON,
+	}
+	
 
 	base_health = BalanceData.enemy_base_health / 2
 	base_attack = BalanceData.enemy_base_attack * 3

@@ -9,7 +9,10 @@ func setup_basic_item_data() -> void:
 	item_name = "Rock" # "Generic Item"
 	item_sprite = load("res://sprites/rock.png")
 	extra_tooltip = "At least you feel prepared" # "Generic flavourful description"
-	item_categories = [ItemCategories.common_item]
+	item_categories = {
+		Categories.item_rarity : Categories.Rarity.COMMON,
+	}
+	
 	
 	#optional special visible aura
 	custom_aura_template = null # load("res://z individual pieces/items/all items/paladin's armor/paladins_might.tres")

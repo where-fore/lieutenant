@@ -5,7 +5,7 @@ var item_id:String
 var item_name:String
 var item_sprite:Texture2D
 var extra_tooltip:String
-var item_categories:Array[StringName]
+var item_categories:Dictionary[StringName, int]
 
 enum ApplyType {ON_EQUIP, ON_COMBAT_START, SPECIAL}
 var aura_application_time:ApplyType

@@ -14,7 +14,7 @@ func setup_basic_item_data() -> void:
 	item_name = "" # "Generic Item"
 	item_sprite = null # load("res://icon.svg")
 	extra_tooltip = "" # "Generic flavourful description"
-	item_categories = [] # [ItemCategories.common_item]
+	item_categories = [] # [Categories.common_item]
 	
 
 

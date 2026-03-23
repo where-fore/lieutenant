@@ -11,7 +11,9 @@ func setup_basic_item_data() -> void:
 	item_name = "Elixir of Striking" # "Generic Item"
 	item_sprite = load("res://sprites/potion.png")
 	extra_tooltip = "You strike twice over, briefly" # "Generic flavourful description"
-	item_categories = [ItemCategories.rare_item]
+	item_categories = {
+		Categories.item_rarity : Categories.Rarity.RARE,
+	}
 
 
 #--functions called by item_base.gd--

@@ -14,7 +14,9 @@ func setup_basic_item_data() -> void:
 	item_name = "Crashing Waves" # "Generic Item"
 	item_sprite = load("res://sprites/hook_sword.png")
 	extra_tooltip = "Power surges by %s every attack" % get_custom_aura().attack_per_turn # "Generic flavourful description"
-	item_categories = [ItemCategories.rare_item]
+	item_categories = {
+		Categories.item_rarity : Categories.Rarity.RARE,
+	}
 	
 
 

@@ -4,7 +4,7 @@ class_name CombatantData
 var id:String
 var name:String
 var texture:Texture2D
-var categories:Array[StringName]
+var categories:Dictionary[StringName, int]
 var extra_tooltip:String
 
 var base_health:int

@@ -8,7 +8,9 @@ func setup_basic_item_data() -> void:
 	item_name = "Fallen Paladin's Armor" # "Generic Item"
 	item_sprite = load("res://sprites/armor.png")
 	extra_tooltip = "" # "Generic flavourful description"
-	item_categories = [ItemCategories.rare_item]
+	item_categories = {
+		Categories.item_rarity : Categories.Rarity.RARE,
+	}
 	
 	#optional special visible aura
 	custom_aura_template = null#load("res://z individual pieces/items/all items/paladins_armor.tres")
