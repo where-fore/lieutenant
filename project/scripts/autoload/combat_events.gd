@@ -34,3 +34,5 @@ signal combat_finished(combatants:Array[Combatant])
 
 @warning_ignore("unused_signal")
 signal combat_started(combatants:Array[Combatant])
+
+var encounters_defeated_for_scaling:int = 0

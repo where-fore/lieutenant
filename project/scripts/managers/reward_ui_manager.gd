@@ -19,7 +19,7 @@ var search_button_should_advance:bool
 var current_basic_aura:Aura
 var current_search_reward:Item
 var rare_chance:int = 50
-var common_chance:int = 35
+var common_chance:int = 50
 
 
 # Called when the node enters the scene tree for the first time.
@@ -54,10 +54,11 @@ func search_for_rare_reward() -> void:
 	search_reward_button.tooltip_text = ""
 	
 	var roll:int = randi_range(1,100)
+	if rare_chance + common_chance > 100: push_error("loot roll table exceeded 100%")
 	if roll <= rare_chance:
-		current_search_reward = ItemDatabase.get_items_by_category(ItemCategories.rare_item).pick_random()
+		current_search_reward = Database.get_items_by_category(ItemCategories.rare_item).pick_random()
 	elif roll <= rare_chance + common_chance:
-		current_search_reward = ItemDatabase.get_items_by_category(ItemCategories.common_item).pick_random()
+		current_search_reward = Database.get_items_by_category(ItemCategories.common_item).pick_random()
 	else:
 		pass
 	

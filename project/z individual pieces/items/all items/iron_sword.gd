@@ -2,6 +2,7 @@ extends Item
 
 #whatever the item does, doesn't do anything until you do something with it
 var my_damage:int = BalanceData.sword_damage
+var my_multiplier:int = 25
 
 
 func setup_basic_item_data() -> void:
@@ -22,6 +23,7 @@ func setup_item_stats() -> void:
 	
 	#whatever the item does
 	additive_stat_dictionary[Stats.attack] = my_damage
+	multiplicative_stat_dictionary[Stats.attack] = my_multiplier
 
 func on_attack(_source:Combatant) -> void:
 	pass

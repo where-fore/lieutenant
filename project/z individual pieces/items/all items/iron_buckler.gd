@@ -1,7 +1,7 @@
 extends Item
 
 #whatever the item does, doesn't do anything until you do something with it
-var my_health:int = BalanceData.shield_health
+var my_health:int = BalanceData.shield_health * 2
 
 
 func setup_basic_item_data() -> void:

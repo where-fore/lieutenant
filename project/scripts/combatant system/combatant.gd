@@ -10,13 +10,8 @@ var damage_taken:int = 0
 func get_damaged_health() -> int:
 	return current_stats[Stats.health] - damage_taken
 
-var base_stats:Dictionary = {}
-var current_stats:Dictionary = {}
-
-#controls global scaling - can set to 0 for no scaling, 5 for hyper scaling etc
-#this currently has to be an int, but i'd expect to be able to half the scaling factor ie. 0.5
-#can refactor some other things to round - but i haven't decided how i want to round things yet
-var scaling_coefficient:int = 1
+var starting_stats:Dictionary[StringName, int] = {}
+var current_stats:Dictionary[StringName, int] = {}
 
 
 # Called when the node enters the scene tree for the first time.
@@ -30,45 +25,43 @@ func setup(should_be_the_player:bool = false) -> void:
 		is_the_player = true
 		is_an_enemy = false
 	
-	base_stats[Stats.health] = baseData.base_health
-	base_stats[Stats.attack] = baseData.base_attack
+	baseData.scale_stats(CombatEvents.encounters_defeated_for_scaling)
+	
+	starting_stats[Stats.health] = baseData.scaled_health
+	starting_stats[Stats.attack] = baseData.scaled_attack
 	reset_current_stats_to_base()
 	send_sprite_to_ui()
 	
 
 func take_damage(value:int) -> void:
 	if value <= 0: push_error("tried to take 0 or negative damage on: " + baseData.name)
-	damage_taken += value
+	else:
+		damage_taken += value
 	
-	var current_hp:int = get_damaged_health()
-	
-	if is_the_player: HudEvents.player_health_update.emit(current_hp)
-	else: HudEvents.enemy_health_update.emit(current_hp)
-	
-	if current_hp <= 0: perish()
+		var current_hp:int = get_damaged_health()
+		
+		if is_the_player: HudEvents.player_health_update.emit(current_hp)
+		else: HudEvents.enemy_health_update.emit(current_hp)
+		
+		check_if_dead_now()
 
 
 func heal(value:int) -> void:
 	if value <= 0: push_error("tried to heal for 0 or negative on: " + baseData.name)
-	damage_taken -= value
-	
-	var current_hp:int = get_damaged_health()
-	
-	if is_the_player: HudEvents.player_health_update.emit(current_hp)
-	else: HudEvents.enemy_health_update.emit(current_hp)
-	CombatEvents.healing_applied.emit(self, value)
+	else:
+		damage_taken -= value
+		
+		var current_hp:int = get_damaged_health()
+		
+		if is_the_player: HudEvents.player_health_update.emit(current_hp)
+		else: HudEvents.enemy_health_update.emit(current_hp)
+		CombatEvents.healing_applied.emit(self, value)
 
 func reset_current_stats_to_base() -> void:
-	scale_stats_to_combats()
-	current_stats = base_stats.duplicate()
+	current_stats = starting_stats.duplicate()
 
-func scale_stats_to_combats() -> void:
-	if baseData.health_scaling:
-		var health_scaling_factor:int = AuraEvents.encounters_defeated_for_scaling * scaling_coefficient
-		base_stats[Stats.health] = baseData.base_health + (baseData.health_scaling * health_scaling_factor)
-	if baseData.attack_scaling:
-		var attack_scaling_factor:int = AuraEvents.encounters_defeated_for_scaling * scaling_coefficient
-		base_stats[Stats.attack] = baseData.base_attack + (baseData.attack_scaling * attack_scaling_factor)
+func check_if_dead_now() -> void:
+	if get_damaged_health() <= 0: perish()
 
 func perish() -> void:
 	CombatEvents.combatant_died.emit(self)
@@ -77,12 +70,11 @@ func send_sprite_to_ui() -> void:
 	if is_an_enemy: HudEvents.send_enemy_sprite.emit(baseData.texture)
 
 func take_turn() -> void:
-	on_start_turn()
+	on_start_turn_functions()
 	
 	CombatEvents.attack_launched.emit(self, current_stats[Stats.attack])
-	on_after_attack()
+	on_after_attack_functions()
 	
-	on_end_turn()
 	CombatEvents.turn_finished.emit(self)
 
 func recalculate_stats(playerAuraAdditiveDictionary:Dictionary[StringName, int], playerAuraMultiplicativeDictionary:Dictionary[StringName, int], enemyAuraAdditiveDictionary:Dictionary[StringName, int], enemyAuraMultiplicativeDictionary:Dictionary[StringName, int]) -> void:
@@ -102,26 +94,26 @@ func recalculate_stats(playerAuraAdditiveDictionary:Dictionary[StringName, int],
 
 func sum_aura_and_base_stats(auraDictionary:Dictionary[StringName,int]) -> void:
 	for stat:String in auraDictionary:
-		if base_stats.has(stat):
-			current_stats[stat] = auraDictionary[stat] + base_stats[stat]
+		if starting_stats.has(stat):
+			current_stats[stat] = auraDictionary[stat] + starting_stats[stat]
 		else:
 			current_stats[stat] = auraDictionary[stat]
 
 func multiply_aura_and_current_stats(auraDictionary:Dictionary[StringName,int]) -> void:
 	for stat:String in auraDictionary:
-		if base_stats.has(stat):
-			current_stats[stat] *= (100 + float(auraDictionary[stat]))/100
+		if current_stats.has(stat):
+			var multiplier:float = (100.0 + float(auraDictionary[stat]))/100.0
+			#note that int() truncates, as i want
+			current_stats[stat] = int(current_stats[stat] * multiplier)
 
+func on_start_combat_functions() -> void:
+	baseData.on_start_combat()
 
-#derived subclasses hook onto these functions
-func on_start_combat() -> void:
-	pass
+func on_start_turn_functions() -> void:
+	baseData.on_start_turn()
 
-func on_start_turn() -> void:
-	pass
+func on_after_attack_functions() -> void:
+	baseData.on_after_attack()
 
-func on_after_attack() -> void:
-	pass
-
-func on_end_turn() -> void:
-	pass
+func on_combat_end_functions() -> void:
+	baseData.on_combat_end()

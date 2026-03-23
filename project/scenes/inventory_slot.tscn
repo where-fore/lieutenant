@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cto8ggdg8cw8x"]
 
 [ext_resource type="Texture2D" uid="uid://dpjjrf7ekiuwc" path="res://sprites/box_outer.png" id="1_hddt5"]
-[ext_resource type="Script" uid="uid://b7iav2fchhdor" path="res://scripts/inventory_slot.gd" id="2_bbig2"]
+[ext_resource type="Script" uid="uid://b7iav2fchhdor" path="res://scripts/item system/inventory_slot.gd" id="2_bbig2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bxqf6"]
 

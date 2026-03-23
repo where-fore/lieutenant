@@ -1,10 +1,10 @@
 extends Node2D
 
 var current_enemy:Combatant
-@export var random_enemy_selection:EnemyCollection
+@export var random_enemy_selection:Array[GDScript]
 
 var current_player:Combatant
-@export var player_base_stats:CombatantData
+@export var player_base_script:GDScript
 
 var combatants:Array[Combatant]
 
@@ -131,6 +131,8 @@ func stop_combat() -> void:
 		HudEvents.combat_lost.emit()
 	
 	player_victorious = false
+	for combatant:Combatant in combatants:
+		combatant.on_combat_end_functions()
 	combatants.clear()
 
 func pre_combat() -> void:
@@ -156,22 +158,21 @@ func pre_combat() -> void:
 			enemies.append(combatant)
 	#this doesn't respect order, but not a problem atm cause only one of each
 	for player:Combatant in players:
-		player.on_start_combat()
+		player.on_start_combat_functions()
 	for enemy:Combatant in enemies:
-		enemy.on_start_combat()
+		enemy.on_start_combat_functions()
 	
 	can_start_combat = true
 
 func choose_enemy() -> Combatant:
-	#pick data
-	var new_enemy_data:CombatantData = random_enemy_selection.enemies.pick_random()
+	#pick data to use
+	var new_enemy_data:GDScript = random_enemy_selection.pick_random()
 	#create a lil memory boi
 	var new_enemy_node:Combatant = Combatant.new()
-	#assign a script to our lil memory boi
-	new_enemy_node.set_script(new_enemy_data.base_script)
+	var new_enemy_script:CombatantData = new_enemy_data.new()
 	#assign data to our boi
-	new_enemy_node.baseData = new_enemy_data
-	#make our boi into real boy
+	new_enemy_node.baseData = new_enemy_script
+	#make our boi into a real boy
 	add_child(new_enemy_node)
 	#call function on our real boy
 	new_enemy_node.setup()
@@ -181,9 +182,10 @@ func choose_enemy() -> Combatant:
 func spawn_player() -> Combatant:
 	#create a lil memory boi
 	var new_player_node:Combatant = Combatant.new()
+	var new_player_script:CombatantData = player_base_script.new()
 	#assign data to our boi
-	new_player_node.baseData = player_base_stats
-	#make our boi into real boy
+	new_player_node.baseData = new_player_script
+	#make our boi into a real boy
 	add_child(new_player_node)
 	#call function on our real boy
 	#(noting it is true they are the player)
