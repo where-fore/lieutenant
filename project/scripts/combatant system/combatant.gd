@@ -34,7 +34,7 @@ func setup(should_be_the_player:bool = false) -> void:
 	
 
 func take_damage(value:int) -> void:
-	if value <= 0: push_error("tried to take 0 or negative damage on: " + baseData.name)
+	if value < 0: push_error("tried to take negative damage on: " + baseData.name)
 	else:
 		damage_taken += value
 	

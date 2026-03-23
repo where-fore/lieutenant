@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://d4ng5rexbupxm"]
+[gd_scene load_steps=29 format=3 uid="uid://d4ng5rexbupxm"]
 
 [ext_resource type="Script" uid="uid://b6t3c758hkbxo" path="res://scripts/managers/timing_manager.gd" id="1_uqbt6"]
 [ext_resource type="Script" uid="uid://cknq3emhm8aah" path="res://scripts/managers/ui_manager.gd" id="2_ak8mu"]
@@ -20,6 +20,7 @@
 [ext_resource type="Script" uid="uid://d3defuvio82cj" path="res://scripts/event_log.gd" id="18_h8qji"]
 [ext_resource type="PackedScene" uid="uid://cto8ggdg8cw8x" path="res://scenes/inventory_slot.tscn" id="19_i3ysi"]
 [ext_resource type="Script" uid="uid://dfj0skb38br" path="res://scripts/managers/inventory_manager.gd" id="20_brhm6"]
+[ext_resource type="Script" uid="uid://c5wfj7pwek1c2" path="res://scripts/high_score_tracker.gd" id="21_ak8mu"]
 [ext_resource type="Script" uid="uid://blwvxt1yxrwwk" path="res://z individual pieces/combatants/basic_skeleton.gd" id="23_uqbt6"]
 [ext_resource type="Script" uid="uid://ceied867nmx1x" path="res://z individual pieces/combatants/skeleton_berserker.gd" id="24_ak8mu"]
 [ext_resource type="Script" uid="uid://drid3rj23mqkf" path="res://scripts/managers/aura_manager.gd" id="24_om5vj"]
@@ -548,6 +549,29 @@ layout_mode = 2
 
 [node name="InventoryManager" type="Node2D" parent="UIManager"]
 script = ExtResource("20_brhm6")
+
+[node name="HighScoreTracker" type="CanvasLayer" parent="UIManager"]
+
+[node name="Control" type="Control" parent="UIManager/HighScoreTracker"]
+layout_mode = 3
+anchor_left = 0.01
+anchor_top = 0.9
+anchor_right = 1.0
+anchor_bottom = 0.98
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="UIManager/HighScoreTracker/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 5
+text = "Victories: 162"
+vertical_alignment = 2
+script = ExtResource("21_ak8mu")
 
 [node name="AuraManager" type="Node2D" parent="."]
 script = ExtResource("24_om5vj")

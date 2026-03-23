@@ -1,73 +1,24 @@
 --------------------------------------------------------
 working notes
 --------------------------------------------------------
-
-add an enemies:defeated tracker
-
-
-okay so i want enemies to be scripts, just like items
-	combatantTemplate being instantiated in the database on game start
-	startCombat(skeleton_berserker) should trawl the database of enemy with id == skeleton_berserker, and then the combatant creates itself from the instantiated template
-	okay so how do i have combatant templates on the map with different stats based on world level?
-		the map creates combatant_data from a template - the map rolls "berserker" and creates a data from the database.berserker template. the data is scaled, and saved as a duplicated attached to the map tile
-		startCombat(maptile) sends in the duplicated data to the combat manager to create an actual enemy with hp from that
-		
-	so i do want combatantData to be set as different from a combatant - i want the combatant to populate their data from the combatantData, which itself has data populated from combatantTemplate in the scripts and the map power level etc
-		combatantData does basically just need to be a combatantTemplate duplicated, with adjustments made based on world power?
-		yeah so currently im pulling the combatantData from a random array, but in the future i'll pull it from a maptile.combat_start(combatantData) function. that maptile will pull from the database and instantiate an enemy
-			combatantData 
-
-so turn combatantData into itemBase
-	have combatantData .create() have an optional field for power, or whatever, and construct from there like an Aura with optional arguments
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-hook up combatant on_attack() scripts
-
-
-warrior
-10, 10
-2, 2
-lich
-30, 30
-1, 1
-berserker
-5, 5
-6, 6
-boss
-20, 20
-5, 3
-player
-25, 0
-0, 0
-
-
-
-
-
 map:
 	grid of animated-sprite-buttons
 	held in a database:Dictionary[String,MapTile]
 	animation manager changes the frame on each sprite manually in a for loop
 	maybe have the next button be a stagger
 
-combatant:basedata.basehealth = 10
-basedata.scaling = 100
-starting_health = basehealth * min(1, scaling*Map.world_power_level)
 
 
 
+
+
+
+
+
+
+
+
+items & enemies for interesting first playtest
 
 
 builds:
@@ -120,7 +71,6 @@ have it balanced so you can beat the boss with a moderate strategy and ~70% rewa
 moderate strategy: one unique and lots of supporting stats, or two uniques with complementary effects and some stats
 probably can't win with unique and unsupporting stats, or with too few supporting stats
 
-have a "pre-turn" for combat start effects
 
 
 
@@ -130,25 +80,16 @@ have a "pre-turn" for combat start effects
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
-have non-equipped inventory: a list of icon:names in a popup window (maybe a bag button too), and you can click an item in inventory (swap, delete)
+have a "pre-turn" turn for combat start effects
 
-
-i think if you lose a +hp aura mid combat and go below 0 hp, you won't die
+bug: i think if you lose a +hp aura mid combat and go below 0 hp, you won't die
 
 check out orphan nodes, there's some auras being overwritten (second boss), and check remote for orphans
-
-implement either richards map or a quick prototype
-	have scene swapping set up
-	have combat be a popup?
 
 clean up the item "on_attack" timings - currently crashing waves +4 attack applies after vampiric blade 50% healing, no matter the inventory order
 	probably just await(item_in_slot.on_attack) or something
 	also maybe support inventory slot juggling
 	potentially codify whether auras are before or after items (probably after, since i want items to spawn "surging waves" on combat start, and trigger after attacks)
-
-okay actually maybe subviewport for real:
-	have the rpg_game main scene parent be a control of explicit size 480x270 - this keeps me working on that canvas, can use anchors and full rect etc
-	lets me design eg. the tooltips with readable text
 
 i do really want a different font, maybe try that 5x7 i downloaded
 
@@ -169,15 +110,21 @@ when map:
 		this generally seems a bit cringe, you don't want to lose the fight and not get the item you really wanted, maybe have the item category/rarity show, but not the specific item?
 			but then it feels bad to get an item you can't use, that's output variance
 
+
 praise be tutorializing better
 	having first reward search be a nothing is insane
 	first combats end so quickly you can't tell what's happening, would rather high hp low attack enemies at the start (esp if you have moderate both, it's not immediately obvious who wins)
 	play/skip buttons aren't particularly clear in what they do, play button is probably too fast esp for first combats
 
-
+---------------------------
 not right now, maybe:
----------
-have a non-equipped invetory
+---------------------------
+pop up character panel with stats etc maybe even breakdowns of multipliers
+
+resolution stuff
+	figure out what da hell we want to do
+
+have a non-equipped inventory: a list of icon:names in a popup window (maybe a bag button too), and you can click an item in inventory (swap, delete)
 
 save and load, spooky
 	look into saving resources directly - if not, can change combatantData etc to refCounted
@@ -186,7 +133,6 @@ make the aura view
 
 make a bunch of cool items and enemies
 	look at he is coming for examples of things i want to implement
-	probably do the balance data thing before this
 
 make some hotkeys for stuff
 	make sure to remove focus hotkeys from all my buttons or something
