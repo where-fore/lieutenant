@@ -130,6 +130,9 @@ have a "pre-turn" for combat start effects
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
+have non-equipped inventory: a list of icon:names in a popup window (maybe a bag button too), and you can click an item in inventory (swap, delete)
+
+
 i think if you lose a +hp aura mid combat and go below 0 hp, you won't die
 
 check out orphan nodes, there's some auras being overwritten (second boss), and check remote for orphans

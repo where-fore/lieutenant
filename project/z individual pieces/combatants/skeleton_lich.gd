@@ -2,19 +2,19 @@ extends CombatantData
 
 func setup_basic_data() -> void:
 	
-	id = "skeleton_berserker" # "generic_enemy"
-	name = "Skeleton Berserker" # "Generic Combatant"
-	texture = load("res://sprites/enemy_berserker.png")
+	id = "skeleton_lich" # "generic_enemy"
+	name = "Skeleton Lich" # "Generic Combatant"
+	texture = load("res://sprites/enemy_lich.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	categories = [] # [Categories.weak_enemy]
 
-	base_health = 2500
-	base_attack = 9000
+	base_health = BalanceData.enemy_base_health * 3
+	base_attack = BalanceData.enemy_base_attack / 2
 
 #you probably want to call this when instantiating it, to scale to something
 func scale_stats(power:int) -> void:
-	scaled_health = base_health + (power * 0) #change 0 to whatever you want
-	scaled_attack = base_health + (power * 0)
+	scaled_health = base_health + (power * base_health) #change 0 to whatever you want
+	scaled_attack = base_attack + (power * base_attack)
 
 #--functions called by combatant_data.gd--
 func setup_stats() -> void:

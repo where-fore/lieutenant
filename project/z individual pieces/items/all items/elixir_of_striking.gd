@@ -2,7 +2,6 @@ extends Item
 
 #whatever the item does, doesn't do anything until you do something with it
 
-
 func setup_basic_item_data() -> void:
 	#optional special visible aura
 	custom_aura_template = load("res://z individual pieces/auras/item auras/striking.gd")
