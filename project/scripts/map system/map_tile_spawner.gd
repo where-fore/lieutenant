@@ -25,7 +25,7 @@ func _ready() -> void:
 func populate_tiles() -> void:
 	for x:int in columns:
 		for y:int in rows:
-			var new_tile:Node = mapTileBase.instantiate()
+			var new_tile:MapTile = mapTileBase.instantiate()
 			add_child(new_tile)
 			
 			if this_spawner_is_placed_at == 0: #this an enum index, 0 being the first option
@@ -36,7 +36,7 @@ func populate_tiles() -> void:
 			new_tile.apply_data(map_data.pick_random().new())
 			check_to_disable_tile(x, y, new_tile)
 
-func check_to_disable_tile(x:int, _y:int, tile:Node) -> void:
+func check_to_disable_tile(x:int, _y:int, tile:MapTile) -> void:
 	#0 indexed, x == 0 and x == columns-1 -> first and last
 	if x == 0 or x >= columns - columns_to_disable_at_end:
 		tile.disable()

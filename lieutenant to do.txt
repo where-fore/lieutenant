@@ -2,6 +2,19 @@
 working notes
 --------------------------------------------------------
 
+map panel flow:
+	only opens on click
+	doesn't open before new_game
+	has a combat button, takes you to combat with that enemy
+		reward manager hears what the next reward is
+	closes on combat start
+		(you will be able to hide combat later to check other things)
+	
+	would be good here to have some sort of inventory/stats visible or accessible
+		could just have combat screen with no enemy
+	
+
+
 okay so thinking
 	generate map tiles with combatantData with increasing power, last tile is the boss
 		in the spawner, probably have this as a special tile in the constructor
@@ -23,7 +36,6 @@ forests are guarded by rare enemies and have item rewards
 missing a next() function
 	be it disabling or translating
 
-missing tying combatant and reward data to the map tile
 
 
 
@@ -172,6 +184,8 @@ praise be tutorializing better
 ---------------------------
 not right now, maybe:
 ---------------------------
+make the tooltip nice and good and cool
+	would be nice if tooltips showed on click too, esp for touch devices
 
 would be nice to have a .txt of coordinate -> mapData that richard can write and my constructor can read
 
@@ -209,7 +223,7 @@ how to specifically do our project resolution - we want integer pixel scaling, p
 new font that works looks good below 8px, and doesn't have random whitespace
 	maybe richards job
 
-
+https://trello.com/b/u4nqJwNI/lieutenant
 
 
 

@@ -1,4 +1,5 @@
 extends Node
+class_name MapTile
 
 var unique_tile_id:String
 var tile_data:MapTileData

@@ -1,6 +1,6 @@
 extends Node2D
 
-var inventory_slots:Array[Node] = []
+var inventory_slots:Array[InventorySlot] = []
 
 #this is magically referencing the item ids i want. be wary
 var starting_inventory:Array[String] = [
