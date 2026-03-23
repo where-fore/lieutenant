@@ -8,8 +8,8 @@ func setup_basic_data() -> void:
 	extra_tooltip = "" # "Generic flavourful description"
 	categories = [] # [Categories.weak_enemy]
 
-	base_health = 25
-	base_attack = 0
+	base_health = BalanceData.player_base_health
+	base_attack = BalanceData.player_base_attack
 
 #you probably want to call this when instantiating it, to scale to something
 func scale_stats(power:int) -> void:
