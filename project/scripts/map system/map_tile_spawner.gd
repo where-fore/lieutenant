@@ -11,7 +11,7 @@ extends Node2D
 @export var horizontal_spacing:int = 31
 @export var isometric_offset:int = 6
 @export_enum("Top Left", "Bottom Left") var this_spawner_is_placed_at:int = 0
-@export var disable_first_and_last_tiles:bool = true
+@export var columns_to_disable_at_end:int = 4
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -34,9 +34,12 @@ func populate_tiles() -> void:
 				new_tile.position = Vector2(x * horizontal_spacing + y * isometric_offset, rows-y * vertical_spacing)
 			
 			new_tile.apply_data(map_data.pick_random().new())
-			if disable_first_and_last_tiles:
-				if x == 0 or x == columns-1: #0 indexed, so first and last column
-					new_tile.disable()
+			check_to_disable_tile(x, y, new_tile)
+
+func check_to_disable_tile(x:int, _y:int, tile:Node) -> void:
+	#0 indexed, x == 0 and x == columns-1 -> first and last
+	if x == 0 or x >= columns - columns_to_disable_at_end:
+		tile.disable()
 
 func populate_tile_data() -> void:
 	pass

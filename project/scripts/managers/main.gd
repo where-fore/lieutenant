@@ -5,7 +5,7 @@ extends Node2D
 @onready var game_start_button_container:Control = $MainUI/GameStarter
 @onready var pause_menu_button_container:Control = $MainUI/PauseMenuButton
 @onready var pause_menu_container:Control = $MainUI/PauseMenu
-@onready var scrolling_log_container:Control = $MainGame/MarginContainer/TextOverlay
+@onready var scrolling_log_container:Control = $MainGame/MarginContainer/RightSideUI/Control/EventLog
 
 
 

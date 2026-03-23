@@ -2,6 +2,37 @@
 working notes
 --------------------------------------------------------
 
+okay so thinking
+	generate map tiles with combatantData with increasing power, last tile is the boss
+		in the spawner, probably have this as a special tile in the constructor
+	you can click any tile, it opens a fight with that monster. if you win, you get the reward, if you lose, nothing bad happens just reset and close combat
+	goal is to kill boss with fewest rewards?
+
+so the right side ui needs to be multifunctional
+	maybe just when hovering a tile it covers up the scroll text?
+
+thinking both house types give rest of +attack or +health, and are guarded by normal enemies
+forests are guarded by rare enemies and have item rewards
+
+
+
+
+
+
+
+missing a next() function
+	be it disabling or translating
+
+missing tying combatant and reward data to the map tile
+
+
+
+
+
+
+
+
+
 func choose_enemy() -> Combatant:
 	#pick data to use
 	var new_enemy_data:GDScript = random_enemy_selection.pick_random()

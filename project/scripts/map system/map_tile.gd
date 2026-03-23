@@ -2,16 +2,15 @@ extends Node
 
 var unique_tile_id:String
 var tile_data:MapTileData
-var tile_animation:SpriteFrames
 var disabled:bool = false
+
 @onready var animated_sprite_component:AnimatedSprite2D = $BaseAnimation
 @onready var hover_animation_component:AnimatedSprite2D = $HoverAnimation
 
 func apply_data(data:MapTileData) -> void:
 	tile_data = data
-	
-	tile_animation = data.tile_animation
-	animated_sprite_component.sprite_frames = tile_animation
+
+	animated_sprite_component.sprite_frames = data.tile_animation
 	animated_sprite_component.play()
 
 func _init() -> void:
@@ -43,7 +42,7 @@ func stop_hover_animation() -> void:
 	hover_animation_component.stop()
 
 func when_clicked() -> void:
-	print_debug("test")
+	print_debug(tile_data.item_reward.item_name)
 	pass
 
 func _on_area_2d_mouse_entered() -> void:
