@@ -29,6 +29,7 @@ func _ready() -> void:
 	CombatEvents.turn_finished.connect(update_turn_indicator)
 	HudEvents.combat_button_pressed.connect(set_first_turn_indicator)
 	HudEvents.send_enemy_sprite.connect(update_enemy_sprite)
+	HudEvents.venture_to.connect(change_to)
 	TimingEvents.everythings_ready.connect(on_scene_ready)
 	
 	turn_button_container.visible = false
@@ -72,8 +73,7 @@ func update_enemy_attack(value:int) -> void:
 	enemy_attack_label.text = str(int(value))
 
 
-func change_to() -> void:
-	HudEvents.change_to_combat_screen.emit()
+func change_to(_map_tile:MapTile) -> void:
 	clear_turn_indicator()
 	combat_button.visible = true
 	pause_button_border.visible = false

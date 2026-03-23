@@ -1,6 +1,6 @@
 extends Label
 
-var base_text:String = "Victories: "
+var base_text:String = "Encounters: "
 var score:int
 
 # Called when the node enters the scene tree for the first time.

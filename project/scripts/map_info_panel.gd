@@ -1,25 +1,26 @@
 extends MarginContainer
 
-@onready var enemy_sprite:TextureRect = $MarginContainer/VBoxContainer2/EnemySprite
-@onready var enemy_blurb:RichTextLabel = $MarginContainer/VBoxContainer2/EnemyBlurb
-@onready var reward_sprite:TextureRect = $MarginContainer/VBoxContainer/RewardSprite
-@onready var reward_blurb:RichTextLabel = $MarginContainer/VBoxContainer/RewardBlurb
+@onready var enemy_sprite:TextureRect = $MarginContainer/VBoxContainer/EnemyInfo/EnemySprite
+@onready var enemy_blurb:RichTextLabel = $MarginContainer/VBoxContainer/EnemyInfo/EnemyBlurb
+@onready var reward_sprite:TextureRect = $MarginContainer/VBoxContainer/RewardInfo/RewardSprite
+@onready var reward_blurb:RichTextLabel = $MarginContainer/VBoxContainer/RewardInfo/RewardBlurb
 const enemy_blurb_base:String = "Your scouts spot a {enemy_name} in this land."
 const reward_blurb_base:String = "They also noticed what looked to be a {reward_name}, ripe for the taking."
 
 @onready var close_timer:Timer = $CloseTimer
+
+var current_tile:MapTile
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	HudEvents.map_tile_hovered.connect(update_map_tile_info)
 	HudEvents.map_tile_unhovered.connect(begin_to_hide)
 	visible = false
-	enemy_sprite.texture = null
-	enemy_blurb.text = ""
-	reward_sprite.texture = null
-	reward_blurb.text = ""
+	clear_info()
 
-func update_map_tile_info(tile_info:MapTileData) -> void:
+func update_map_tile_info(tile:MapTile) -> void:
+	current_tile = tile
+	var tile_info:MapTileData = tile.tile_data
 	visible = true
 	stop_hiding()
 	if tile_info.enemy:
@@ -47,9 +48,20 @@ func _on_close_timer_timeout() -> void:
 
 func hide_map_info_panel() -> void:
 	visible = false
+	clear_info()
 
 func _on_mouse_entered() -> void:
 	stop_hiding()
 
 func _on_mouse_exited() -> void:
 	begin_to_hide()
+
+func clear_info() -> void:
+	enemy_sprite.texture = null
+	enemy_blurb.text = ""
+	reward_sprite.texture = null
+	reward_blurb.text = ""
+	current_tile = null
+
+func _on_combat_button_pressed() -> void:
+	HudEvents.venture_to.emit(current_tile)

@@ -34,11 +34,10 @@ func _ready() -> void:
 	CombatEvents.turn_finished.connect(finish_turn)
 	CombatEvents.combatant_died.connect(handle_perishing_combatant)
 	HudEvents.combat_button_pressed.connect(start_combat)
-	HudEvents.change_to_combat_screen.connect(pre_combat)
+	HudEvents.venture_to.connect(pre_combat)
 	CombatEvents.pause_button_pressed.connect(pause_button_pressed)
 	CombatEvents.step_button_pressed.connect(step_button_pressed)
 	CombatEvents.play_button_pressed.connect(play_button_pressed)
-	TimingEvents.everythings_ready.connect(pre_combat)
 
 
 func pause_button_pressed() -> void:
@@ -135,10 +134,10 @@ func stop_combat() -> void:
 		combatant.on_combat_end_functions()
 	combatants.clear()
 
-func pre_combat() -> void:
+func pre_combat(map_tile:MapTile) -> void:
 	current_player = spawn_player()
 	combatants.append(current_player)
-	current_enemy = choose_enemy()
+	current_enemy = create_enemy_from_data(map_tile.tile_data.enemy)
 	combatants.append(current_enemy)
 	#this is a bit dangerous - i'm now assuming enemies and players are spawned. would love some sort of call back?
 	#can't put it in the setup function since that fires before this function reaches await()
@@ -164,12 +163,13 @@ func pre_combat() -> void:
 	
 	can_start_combat = true
 
-func choose_enemy() -> Combatant:
+func create_enemy_from_data(enemy_data:CombatantData) -> Combatant:
 	#pick data to use
-	var new_enemy_data:GDScript = random_enemy_selection.pick_random()
+	#var new_enemy_data:GDScript = random_enemy_selection.pick_random()
+	
 	#create a lil memory boi
 	var new_enemy_node:Combatant = Combatant.new()
-	var new_enemy_script:CombatantData = new_enemy_data.new()
+	var new_enemy_script:CombatantData = enemy_data.duplicate()
 	#assign data to our boi
 	new_enemy_node.baseData = new_enemy_script
 	#make our boi into a real boy

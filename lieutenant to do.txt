@@ -2,6 +2,22 @@
 working notes
 --------------------------------------------------------
 
+main manager hears to travel to a tile
+	starts combat with that tiledata
+		which goes to reward screen
+			disables map tile
+		or you lose, which goes to the rout screen
+			keeps map tile enabled, back to main menu no downside
+main manager hears the combat loop is all done, hides those, back to the map
+
+
+
+
+
+
+
+
+
 map panel flow:
 	only opens on click
 	doesn't open before new_game
@@ -144,6 +160,9 @@ combat log polish
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
+breakdown the ui into scenes and have a manager create them, probably
+	has a cleaner scene tree for work, no need for the visible on and off stuff too
+
 have a "pre-turn" turn for combat start effects
 	combat log "prepares for attack"
 

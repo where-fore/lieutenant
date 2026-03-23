@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=27 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://scripts/managers/main.gd" id="1_o6xl0"]
 [ext_resource type="Script" uid="uid://c83t3y7en3pq0" path="res://scripts/managers/cursor_manager.gd" id="2_fv21b"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://dth6v53udeute" path="res://sprites/enemy_boss.png" id="19_gqmmt"]
 [ext_resource type="Script" uid="uid://cuho5ligd5mhl" path="res://scripts/map_info_panel.gd" id="19_jscy8"]
 [ext_resource type="Texture2D" uid="uid://he7jxdjo8v12" path="res://sprites/hook_sword.png" id="20_yc10j"]
+[ext_resource type="Texture2D" uid="uid://c1hufcoxbyamt" path="res://sprites/cross_swords.png" id="21_pm3ni"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tefeu"]
 shader = ExtResource("2_trceg")
@@ -90,7 +91,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 
 [node name="GameStartButtons" type="HBoxContainer" parent="MainUI/GameStarter"]
 layout_mode = 1
@@ -99,7 +99,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 
 [node name="SpacerLeft" type="Control" parent="MainUI/GameStarter/GameStartButtons"]
 layout_mode = 2
@@ -389,7 +388,7 @@ texture = ExtResource("10_0ld40")
 expand_mode = 5
 
 [node name="CloseTimer" type="Timer" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo"]
-wait_time = 5.0
+wait_time = 4.0
 
 [node name="MarginContainer" type="MarginContainer" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo"]
 layout_mode = 2
@@ -398,18 +397,22 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/MarginContainer"]
+layout_mode = 2
+
+[node name="EnemyInfo" type="VBoxContainer" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_constants/separation = -2
 
-[node name="EnemySprite" type="TextureRect" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/MarginContainer/VBoxContainer2"]
+[node name="EnemySprite" type="TextureRect" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/MarginContainer/VBoxContainer/EnemyInfo"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("19_gqmmt")
 
-[node name="EnemyBlurb" type="RichTextLabel" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/MarginContainer/VBoxContainer2"]
+[node name="EnemyBlurb" type="RichTextLabel" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/MarginContainer/VBoxContainer/EnemyInfo"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 mouse_filter = 2
@@ -420,17 +423,58 @@ scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/MarginContainer"]
+[node name="TopSpacer" type="Control" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VentureButton" type="VBoxContainer" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = -10
+alignment = 1
+
+[node name="Top" type="Label" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/MarginContainer/VBoxContainer/VentureButton"]
+z_index = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 4
+text = "Venture"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/MarginContainer/VBoxContainer/VentureButton"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Begin Combat"
+texture_normal = ExtResource("21_pm3ni")
+stretch_mode = 0
+
+[node name="Bottom" type="Label" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/MarginContainer/VBoxContainer/VentureButton"]
+z_index = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 4
+text = "Forth"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BottomSpacer" type="Control" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RewardInfo" type="VBoxContainer" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_constants/separation = -2
 
-[node name="RewardSprite" type="TextureRect" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/MarginContainer/VBoxContainer"]
+[node name="RewardSprite" type="TextureRect" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/MarginContainer/VBoxContainer/RewardInfo"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 texture = ExtResource("20_yc10j")
 
-[node name="RewardBlurb" type="RichTextLabel" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/MarginContainer/VBoxContainer"]
+[node name="RewardBlurb" type="RichTextLabel" parent="MainGame/MarginContainer/RightSideUI/Control/MapInfo/MarginContainer/VBoxContainer/RewardInfo"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 mouse_filter = 1
@@ -456,3 +500,4 @@ texture = ExtResource("10_choun")
 [connection signal="mouse_entered" from="MainGame/MarginContainer/RightSideUI/Control/MapInfo" to="MainGame/MarginContainer/RightSideUI/Control/MapInfo" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="MainGame/MarginContainer/RightSideUI/Control/MapInfo" to="MainGame/MarginContainer/RightSideUI/Control/MapInfo" method="_on_mouse_exited"]
 [connection signal="timeout" from="MainGame/MarginContainer/RightSideUI/Control/MapInfo/CloseTimer" to="MainGame/MarginContainer/RightSideUI/Control/MapInfo" method="_on_close_timer_timeout"]
+[connection signal="pressed" from="MainGame/MarginContainer/RightSideUI/Control/MapInfo/MarginContainer/VBoxContainer/VentureButton/TextureButton" to="MainGame/MarginContainer/RightSideUI/Control/MapInfo" method="_on_combat_button_pressed"]

@@ -25,13 +25,19 @@ signal combat_lost()
 signal reward_chosen()
 
 @warning_ignore("unused_signal")
-signal change_to_combat_screen()
+signal change_to_combat_screen(map_tile:MapTile)
 
 @warning_ignore("unused_signal")
 signal send_enemy_sprite(sprite:Texture2D)
 
 @warning_ignore("unused_signal")
-signal map_tile_hovered(map_tile_data:MapTileData)
+signal map_tile_hovered(map_tile:MapTile)
 
 @warning_ignore("unused_signal")
 signal map_tile_unhovered()
+
+@warning_ignore("unused_signal")
+signal venture_to(map_tile:MapTile)
+
+@warning_ignore("unused_signal")
+signal combat_all_done()

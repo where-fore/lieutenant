@@ -18,6 +18,7 @@ func _init() -> void:
 	unique_tile_id = str(get_instance_id()) + "_" + str(Time.get_time_string_from_system())
 
 func _ready() -> void:
+	HudEvents.map_tile_hovered.connect(stop_hovering)
 	hover_animation_component.visible = false
 	
 	animated_sprite_component.speed_scale = 0.2
@@ -43,17 +44,21 @@ func stop_hover_animation() -> void:
 	hover_animation_component.stop()
 
 func when_clicked() -> void:
-	pass
-
-func _on_area_2d_mouse_entered() -> void:
 	if not disabled:
-		HudEvents.map_tile_hovered.emit(tile_data)
+		HudEvents.map_tile_hovered.emit(self)
 		start_hover_animation()
 
+func stop_hovering(maptile:MapTile) -> void:
+	if maptile != self:
+		if not disabled:
+			HudEvents.map_tile_unhovered.emit()
+			stop_hover_animation()
+
+func _on_area_2d_mouse_entered() -> void:
+	pass
+
 func _on_area_2d_mouse_exited() -> void:
-	if not disabled:
-		HudEvents.map_tile_unhovered.emit()
-		stop_hover_animation()
+	pass
 
 func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if not disabled:
