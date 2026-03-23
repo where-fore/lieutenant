@@ -1,19 +1,17 @@
 extends Node2D
 
 @export var main_rpg_scene:PackedScene
-@onready var level_container:Control = $MainGame/LevelContainer
-@onready var game_start_button_container:CanvasLayer = $GameStarter
-@onready var pause_menu_button_container:CanvasLayer = $PauseMenuButton
-@onready var pause_menu_container:CanvasLayer = $PauseMenu
+@onready var level_container:Control = $MainGame/Panel/CombatContainer
+@onready var game_start_button_container:Control = $MainUI/GameStarter
+@onready var pause_menu_button_container:Control = $MainUI/PauseMenuButton
+@onready var pause_menu_container:Control = $MainUI/PauseMenu
 
 
 
 func _ready() -> void:
-	#this skips the whole main menu
-	game_start_button_container.visible = false
+	game_start_button_container.visible = true
 	pause_menu_button_container.visible = false
 	pause_menu_container.visible = false
-	start_rpg()
 	
 	#can add this back when i want a main menu
 	#game_start_button_container.visible = true

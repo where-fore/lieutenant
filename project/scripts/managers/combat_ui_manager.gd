@@ -6,7 +6,7 @@ extends Control
 @onready var player_attack_label:Label  = $Panel/Combatants/Player/Stats/Attack/HBoxContainer/Label
 @onready var enemy_attack_label:Label  = $Panel/Combatants/Enemy/Stats/Attack/HBoxContainer/Label
 
-@onready var combat_button:Button = $Panel/CombatButton
+@onready var combat_button:TextureButton = $Panel/CombatButton
 
 @onready var turn_button_container:Container = $TurnButtons
 @onready var pause_button_border:TextureRect = $TurnButtons/PauseButton/TextureRect

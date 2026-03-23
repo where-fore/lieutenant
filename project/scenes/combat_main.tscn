@@ -225,7 +225,6 @@ vertical_alignment = 2
 script = ExtResource("21_ak8mu")
 
 [node name="CombatUI" type="Control" parent="FullGame/GameMain/MainUI"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -272,7 +271,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CombatButton" type="Button" parent="FullGame/GameMain/MainUI/CombatUI/Panel"]
+[node name="CombatButton" type="TextureButton" parent="FullGame/GameMain/MainUI/CombatUI/Panel"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 1
 anchors_preset = 5
@@ -282,9 +281,8 @@ offset_left = -24.0
 offset_right = 24.0
 offset_bottom = 48.0
 grow_horizontal = 2
-icon = ExtResource("7_gr0gc")
-icon_alignment = 1
-expand_icon = true
+texture_normal = ExtResource("7_gr0gc")
+stretch_mode = 0
 
 [node name="Label2" type="Label" parent="FullGame/GameMain/MainUI/CombatUI/Panel/CombatButton"]
 layout_mode = 1
@@ -379,6 +377,7 @@ grow_vertical = 2
 texture = ExtResource("9_msc0u")
 
 [node name="RewardUI" type="Control" parent="FullGame/GameMain/MainUI"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

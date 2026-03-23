@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=15 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://scripts/managers/main.gd" id="1_o6xl0"]
 [ext_resource type="Script" uid="uid://c83t3y7en3pq0" path="res://scripts/managers/cursor_manager.gd" id="2_fv21b"]
 [ext_resource type="PackedScene" uid="uid://d4ng5rexbupxm" path="res://scenes/combat_main.tscn" id="2_o6xl0"]
 [ext_resource type="Shader" uid="uid://bey6fsvgi1mh7" path="res://crt_shader.gdshader" id="2_trceg"]
 [ext_resource type="Texture2D" uid="uid://xr6idafv8gpe" path="res://sprites/cursor.png" id="3_tel4y"]
+[ext_resource type="Texture2D" uid="uid://dpjjrf7ekiuwc" path="res://sprites/box_outer.png" id="4_ya4ey"]
 [ext_resource type="Texture2D" uid="uid://dhv5u72sffxlx" path="res://sprites/menu.png" id="6_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://bhrvrblpm7ul3" path="res://sprites/box_two.png" id="6_tefeu"]
 [ext_resource type="Script" uid="uid://dvk6chwr5wrj4" path="res://scripts/pause_menu.gd" id="8_tipki"]
@@ -67,14 +68,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
 
-[node name="CursorManager" type="Node2D" parent="."]
-script = ExtResource("2_fv21b")
-default_cursor = ExtResource("3_tel4y")
+[node name="MainUI" type="CanvasLayer" parent="."]
 
-[node name="GameStarter" type="CanvasLayer" parent="."]
-visible = false
-
-[node name="Control" type="Control" parent="GameStarter"]
+[node name="GameStarter" type="Control" parent="MainUI"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -82,7 +78,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="GameStartButtons" type="HBoxContainer" parent="GameStarter/Control"]
+[node name="GameStartButtons" type="HBoxContainer" parent="MainUI/GameStarter"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -90,39 +86,48 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SpacerLeft" type="Control" parent="GameStarter/Control/GameStartButtons"]
+[node name="SpacerLeft" type="Control" parent="MainUI/GameStarter/GameStartButtons"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="NewGameButton" type="Button" parent="GameStarter/Control/GameStartButtons"]
+[node name="NewGameButton" type="TextureButton" parent="MainUI/GameStarter/GameStartButtons"]
+custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxTexture_tefeu")
+texture_normal = ExtResource("4_ya4ey")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="MainUI/GameStarter/GameStartButtons/NewGameButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "New
 Game"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="SpacerRight" type="Control" parent="GameStarter/Control/GameStartButtons"]
+[node name="SpacerCenter" type="Control" parent="MainUI/GameStarter/GameStartButtons"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="LoadGameButton" type="Button" parent="GameStarter/Control/GameStartButtons"]
+[node name="LoadGameButton" type="Button" parent="MainUI/GameStarter/GameStartButtons"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxTexture_tefeu")
 text = "Load
 Game"
 
-[node name="SpacerCenter" type="Control" parent="GameStarter/Control/GameStartButtons"]
+[node name="SpacerRight" type="Control" parent="MainUI/GameStarter/GameStartButtons"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PauseMenuButton" type="CanvasLayer" parent="."]
-layer = 100
+[node name="PauseMenuButton" type="Control" parent="MainUI"]
 visible = false
-
-[node name="Control" type="Control" parent="PauseMenuButton"]
 layout_mode = 3
 anchor_left = 0.01
 anchor_top = 0.01
@@ -131,7 +136,7 @@ anchor_bottom = 0.1
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PauseMenuButton" type="TextureButton" parent="PauseMenuButton/Control"]
+[node name="PauseMenuButton" type="TextureButton" parent="MainUI/PauseMenuButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -141,20 +146,17 @@ grow_vertical = 2
 texture_normal = ExtResource("6_o6xl0")
 stretch_mode = 4
 
-[node name="PauseMenu" type="CanvasLayer" parent="."]
-layer = 99
+[node name="PauseMenu" type="Control" parent="MainUI"]
 visible = false
-script = ExtResource("8_tipki")
-
-[node name="MouseBlocker" type="Control" parent="PauseMenu"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("8_tipki")
 
-[node name="ColorRect" type="ColorRect" parent="PauseMenu/MouseBlocker"]
+[node name="ColorRect" type="ColorRect" parent="MainUI/PauseMenu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -163,7 +165,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.92156863)
 
-[node name="Control" type="Control" parent="PauseMenu/MouseBlocker"]
+[node name="Control" type="Control" parent="MainUI/PauseMenu"]
 layout_mode = 1
 anchor_left = 0.15
 anchor_top = 0.15
@@ -172,7 +174,7 @@ anchor_bottom = 0.85
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ChangeGameButtons" type="VBoxContainer" parent="PauseMenu/MouseBlocker/Control"]
+[node name="ChangeGameButtons" type="VBoxContainer" parent="MainUI/PauseMenu/Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -180,61 +182,61 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenu/MouseBlocker/Control/ChangeGameButtons"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MainUI/PauseMenu/Control/ChangeGameButtons"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="SaveGameButton" type="Button" parent="PauseMenu/MouseBlocker/Control/ChangeGameButtons/HBoxContainer"]
+[node name="SaveGameButton" type="Button" parent="MainUI/PauseMenu/Control/ChangeGameButtons/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
-theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxTexture_o6xl0")
 text = "Save
 Game"
 
-[node name="CenterSpacer" type="Control" parent="PauseMenu/MouseBlocker/Control/ChangeGameButtons/HBoxContainer"]
+[node name="CenterSpacer" type="Control" parent="MainUI/PauseMenu/Control/ChangeGameButtons/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="LoadGameButton" type="Button" parent="PauseMenu/MouseBlocker/Control/ChangeGameButtons/HBoxContainer"]
+[node name="LoadGameButton" type="Button" parent="MainUI/PauseMenu/Control/ChangeGameButtons/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
-theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxTexture_o6xl0")
 text = "Load
 Game"
 
-[node name="CenterSpacer" type="Control" parent="PauseMenu/MouseBlocker/Control/ChangeGameButtons"]
+[node name="CenterSpacer" type="Control" parent="MainUI/PauseMenu/Control/ChangeGameButtons"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PauseMenu/MouseBlocker/Control/ChangeGameButtons"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MainUI/PauseMenu/Control/ChangeGameButtons"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MainMenuButton" type="Button" parent="PauseMenu/MouseBlocker/Control/ChangeGameButtons/HBoxContainer2"]
+[node name="MainMenuButton" type="Button" parent="MainUI/PauseMenu/Control/ChangeGameButtons/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
-theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxTexture_o6xl0")
 text = "Main
 Menu"
 
-[node name="CenterSpacer" type="Control" parent="PauseMenu/MouseBlocker/Control/ChangeGameButtons/HBoxContainer2"]
+[node name="CenterSpacer" type="Control" parent="MainUI/PauseMenu/Control/ChangeGameButtons/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SettingsButton" type="Button" parent="PauseMenu/MouseBlocker/Control/ChangeGameButtons/HBoxContainer2"]
+[node name="SettingsButton" type="Button" parent="MainUI/PauseMenu/Control/ChangeGameButtons/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
-theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxTexture_o6xl0")
 text = "Config
 "
+
+[node name="CursorManager" type="Node2D" parent="."]
+script = ExtResource("2_fv21b")
+default_cursor = ExtResource("3_tel4y")
 
 [node name="MainGame" type="CanvasLayer" parent="."]
 
@@ -247,21 +249,40 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("10_choun")
 
-[node name="EventLog" type="ScrollContainer" parent="MainGame"]
-anchors_preset = 11
-anchor_left = 1.0
+[node name="Panel" type="Panel" parent="MainGame"]
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -92.0
+offset_left = 4.0
 offset_top = 4.0
 offset_right = -4.0
 offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CombatContainer" type="Control" parent="MainGame/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="EventLog" type="ScrollContainer" parent="MainGame/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -84.0
 grow_horizontal = 0
 grow_vertical = 2
 vertical_scroll_mode = 4
 script = ExtResource("9_85g3d")
 
-[node name="MarginContainer" type="MarginContainer" parent="MainGame/EventLog"]
+[node name="MarginContainer" type="MarginContainer" parent="MainGame/Panel/EventLog"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -270,7 +291,7 @@ theme_override_constants/margin_top = 1
 theme_override_constants/margin_right = 1
 theme_override_constants/margin_bottom = 1
 
-[node name="Label" type="Label" parent="MainGame/EventLog/MarginContainer"]
+[node name="Label" type="Label" parent="MainGame/Panel/EventLog/MarginContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_vertical = 1
@@ -298,16 +319,6 @@ Enemy deals 6 damage.
 "
 autowrap_mode = 3
 
-[node name="LevelContainer" type="Control" parent="MainGame"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[connection signal="pressed" from="GameStarter/Control/GameStartButtons/NewGameButton" to="." method="_on_new_game_button_pressed"]
-[connection signal="pressed" from="GameStarter/Control/GameStartButtons/LoadGameButton" to="." method="_on_load_game_button_pressed"]
-[connection signal="pressed" from="PauseMenuButton/Control/PauseMenuButton" to="." method="_on_pause_menu_button_pressed"]
-[connection signal="pressed" from="PauseMenu/MouseBlocker/Control/ChangeGameButtons/HBoxContainer/SaveGameButton" to="PauseMenu" method="_on_save_game_button_pressed"]
+[connection signal="pressed" from="MainUI/GameStarter/GameStartButtons/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="MainUI/GameStarter/GameStartButtons/LoadGameButton" to="." method="_on_load_game_button_pressed"]
+[connection signal="pressed" from="MainUI/PauseMenuButton/PauseMenuButton" to="." method="_on_pause_menu_button_pressed"]
