@@ -338,6 +338,7 @@ scroll_active = false
 
 [node name="MapContainer" type="Control" parent="MainGame/MarginContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="MapTileSpawner" type="Node2D" parent="MainGame/MarginContainer/MapContainer"]
 position = Vector2(38, 183)
