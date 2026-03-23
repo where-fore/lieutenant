@@ -1,7 +1,11 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://wymfijcko1gs"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://wymfijcko1gs"]
 
-[ext_resource type="FontFile" uid="uid://dd4e2oootxwjn" path="res://fonts/dogica font/OTF/dogicabold.otf" id="1_4cyj1"]
-[ext_resource type="FontFile" uid="uid://j00qxyb7q58c" path="res://fonts/dogica font/TTF/dogicapixel.ttf" id="1_ohhbm"]
+[ext_resource type="FontFile" uid="uid://j00qxyb7q58c" path="res://fonts/dogica font/TTF/dogicapixel.ttf" id="1_gl5xu"]
+[ext_resource type="FontFile" uid="uid://dd4e2oootxwjn" path="res://fonts/dogica font/OTF/dogicabold.otf" id="2_ubq68"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_16o42"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gl5xu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ohhbm"]
 content_margin_left = 2.0
@@ -16,7 +20,7 @@ border_width_bottom = 1
 border_color = Color(0.2051175, 0.20511743, 0.20511737, 1)
 
 [sub_resource type="FontVariation" id="FontVariation_4cyj1"]
-base_font = ExtResource("1_4cyj1")
+base_font = ExtResource("2_ubq68")
 spacing_top = 4
 spacing_bottom = 4
 
@@ -27,7 +31,9 @@ Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/colors/font_shadow_color = Color(0, 0, 0, 1)
 Label/constants/line_spacing = 3
 Label/font_sizes/font_size = 16
-Label/fonts/font = ExtResource("1_ohhbm")
+Label/fonts/font = ExtResource("1_gl5xu")
+Panel/styles/panel = SubResource("StyleBoxEmpty_16o42")
+PanelContainer/styles/panel = SubResource("StyleBoxEmpty_gl5xu")
 TooltipLabel/constants/line_spacing = -2
 TooltipLabel/font_sizes/font_size = 8
 TooltipPanel/styles/panel = SubResource("StyleBoxFlat_ohhbm")

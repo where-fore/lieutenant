@@ -15,6 +15,11 @@ map:
 
 
 
+to fit with map:
+	house: bandits, moderate strength and basic rewards, but plentiful
+	plains: no fight, small stat boost
+	forest: woodland beasts: scary, unique enemies, unique rare loot
+
 
 
 

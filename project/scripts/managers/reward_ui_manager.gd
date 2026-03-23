@@ -1,15 +1,15 @@
-extends CanvasLayer
+extends Control
 
 @export var basic_reward:Array[GDScript]
 
-@onready var basic_reward_button:TextureButton = $Control/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/TextureButton
-@onready var basic_reward_button_container:MarginContainer = $Control/VBoxContainer/RewardButtons/BasicRewardButton
-@onready var search_button:TextureButton = $Control/VBoxContainer/RewardButtons/SearchButton/VBoxContainer/TextureButton
-@onready var search_button_container:MarginContainer = $Control/VBoxContainer/RewardButtons/SearchButton
-@onready var search_reward_button:TextureButton = $Control/VBoxContainer/RewardButtons/SearchRewardButton/VBoxContainer/TextureButton
-@onready var search_reward_button_container:MarginContainer = $Control/VBoxContainer/RewardButtons/SearchRewardButton
-@onready var search_reward_button_label:Label = $Control/VBoxContainer/RewardButtons/SearchRewardButton/VBoxContainer/Label
-@onready var search_skip_button_container:MarginContainer = $Control/VBoxContainer/SkipRewardButton
+@onready var basic_reward_button:TextureButton = $VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/TextureButton
+@onready var basic_reward_button_container:MarginContainer = $VBoxContainer/RewardButtons/BasicRewardButton
+@onready var search_button:TextureButton = $VBoxContainer/RewardButtons/SearchButton/VBoxContainer/TextureButton
+@onready var search_button_container:MarginContainer = $VBoxContainer/RewardButtons/SearchButton
+@onready var search_reward_button:TextureButton = $VBoxContainer/RewardButtons/SearchRewardButton/VBoxContainer/TextureButton
+@onready var search_reward_button_container:MarginContainer = $VBoxContainer/RewardButtons/SearchRewardButton
+@onready var search_reward_button_label:Label = $VBoxContainer/RewardButtons/SearchRewardButton/VBoxContainer/Label
+@onready var search_skip_button_container:MarginContainer = $VBoxContainer/SkipRewardButton
 
 @onready var search_reward_empty_texture:Texture2D = search_reward_button.texture_normal
 

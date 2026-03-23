@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var main_rpg_scene:PackedScene
-@onready var level_container:Node2D = $LevelContainer
+@onready var level_container:Control = $MainGame/LevelContainer
 @onready var game_start_button_container:CanvasLayer = $GameStarter
 @onready var pause_menu_button_container:CanvasLayer = $PauseMenuButton
 @onready var pause_menu_container:CanvasLayer = $PauseMenu

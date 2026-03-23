@@ -1,24 +1,24 @@
-extends CanvasLayer
+extends Control
 
-@onready var player_health_label:Label = $Control/Combatants/Player/Stats/Health/HBoxContainer/Label
-@onready var enemy_health_label:Label  = $Control/Combatants/Enemy/Stats/Health/HBoxContainer/Label
+@onready var player_health_label:Label = $Panel/Combatants/Player/Stats/Health/HBoxContainer/Label
+@onready var enemy_health_label:Label  = $Panel/Combatants/Enemy/Stats/Health/HBoxContainer/Label
 
-@onready var player_attack_label:Label  = $Control/Combatants/Player/Stats/Attack/HBoxContainer/Label
-@onready var enemy_attack_label:Label  = $Control/Combatants/Enemy/Stats/Attack/HBoxContainer/Label
+@onready var player_attack_label:Label  = $Panel/Combatants/Player/Stats/Attack/HBoxContainer/Label
+@onready var enemy_attack_label:Label  = $Panel/Combatants/Enemy/Stats/Attack/HBoxContainer/Label
 
-@onready var combat_button:Button = $Control/CombatButton
+@onready var combat_button:Button = $Panel/CombatButton
 
-@onready var turn_button_container:Container = $Control/TurnButtons
-@onready var pause_button_border:TextureRect = $Control/TurnButtons/PauseButton/TextureRect
+@onready var turn_button_container:Container = $TurnButtons
+@onready var pause_button_border:TextureRect = $TurnButtons/PauseButton/TextureRect
 #i removed the texture here from the step border, cause i realized turns are basically instant and this doesn't do anything
 #could add button pressed feedback instead of this border stuff
-@onready var step_button_border:TextureRect = $Control/TurnButtons/StepButton/TextureRect
-@onready var play_button_border:TextureRect = $Control/TurnButtons/PlayButton/TextureRect
+@onready var step_button_border:TextureRect = $TurnButtons/StepButton/TextureRect
+@onready var play_button_border:TextureRect = $TurnButtons/PlayButton/TextureRect
 
-@onready var player_sprite_display:TextureRect = $Control/Combatants/Player/MarginContainer/Sprite
-@onready var enemy_sprite_display:TextureRect = $Control/Combatants/Enemy/MarginContainer/Sprite
-@onready var player_turn_sprite:TextureRect = $Control/Combatants/Player/MarginContainer/Sprite/TurnIndicator
-@onready var enemy_turn_sprite:TextureRect = $Control/Combatants/Enemy/MarginContainer/Sprite/TurnIndicator
+@onready var player_sprite_display:TextureRect = $Panel/Combatants/Player/MarginContainer/Sprite
+@onready var enemy_sprite_display:TextureRect = $Panel/Combatants/Enemy/MarginContainer/Sprite
+@onready var player_turn_sprite:TextureRect = $Panel/Combatants/Player/MarginContainer/Sprite/TurnIndicator
+@onready var enemy_turn_sprite:TextureRect = $Panel/Combatants/Enemy/MarginContainer/Sprite/TurnIndicator
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
