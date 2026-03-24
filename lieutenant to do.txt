@@ -2,17 +2,24 @@
 working notes
 --------------------------------------------------------
 
-main manager hears to travel to a tile
-	starts combat with that tiledata
-		which goes to reward screen
-			disables map tile
-		or you lose, which goes to the rout screen
-			keeps map tile enabled, back to main menu no downside
-main manager hears the combat loop is all done, hides those, back to the map
+have map spawn a boss only at the end
+	maybe when spawning a tile and setting data, check(x,y)
+	check(x,y)
+	if x == 4 and y == 10:
+		return special tile here
+	else return basic tile.pick_random
+		and in there have some sort of weight, i probably want like 2/3 forest and 1/6 each hut
 
 
-enemy tooltip have their attack and hp
+disable tiles on victory/claim
+	have the entire map get a bit darker every tile movement, global shader on map
+		rgb=[0.1,0.1,0.1]; a=1; for val in rgb val +=0.1. self.modulate = color(r,g,b,a)
 
+have enemies currently scale per map tile, instead of per combat won
+	enemy tooltip have their attack and hp
+
+need an actual restart menu
+	should it be seeded or fully fresh? both options would be cool
 
 
 	var roll:int = randi_range(1,100)
@@ -26,40 +33,8 @@ enemy tooltip have their attack and hp
 
 
 
-
-map panel flow:
-	only opens on click
-	doesn't open before new_game
-	has a combat button, takes you to combat with that enemy
-		reward manager hears what the next reward is
-	closes on combat start
-		(you will be able to hide combat later to check other things)
-	
-	would be good here to have some sort of inventory/stats visible or accessible
-		could just have combat screen with no enemy
-	
-
-
-okay so thinking
-	generate map tiles with combatantData with increasing power, last tile is the boss
-		in the spawner, probably have this as a special tile in the constructor
-	you can click any tile, it opens a fight with that monster. if you win, you get the reward, if you lose, nothing bad happens just reset and close combat
-	goal is to kill boss with fewest rewards?
-
-so the right side ui needs to be multifunctional
-	maybe just when hovering a tile it covers up the scroll text?
-
-thinking both house types give rest of +attack or +health, and are guarded by normal enemies
-forests are guarded by rare enemies and have item rewards
-
-
-
-
-
-
-
-missing a next() function
-	be it disabling or translating
+have item rewards be different, include common at least
+	do this when i have more items
 
 
 
@@ -69,21 +44,6 @@ missing a next() function
 
 
 
-
-func choose_enemy() -> Combatant:
-	#pick data to use
-	var new_enemy_data:GDScript = random_enemy_selection.pick_random()
-	#create a lil memory boi
-	var new_enemy_node:Combatant = Combatant.new()
-	var new_enemy_script:CombatantData = new_enemy_data.new()
-	#assign data to our boi
-	new_enemy_node.baseData = new_enemy_script
-	#make our boi into a real boy
-	add_child(new_enemy_node)
-	#call function on our real boy
-	new_enemy_node.setup()
-	
-	return new_enemy_node
 
 
 
@@ -152,12 +112,6 @@ probably can't win with unique and unsupporting stats, or with too few supportin
 
 
 
-pixels:
-	full project is 480x270
-	combat window is 32px offset inwards: 416x206
-	combat window is 64px offset from right hand side, for scrolling text: 352x206 (bottom left anchored)
-	borders are 3px, and containers are 3px margins
-
 
 
 combat log polish
@@ -179,31 +133,6 @@ bug: i think if you lose a +hp aura mid combat and go below 0 hp, you won't die
 
 check out orphan nodes, there's some auras being overwritten (second boss), and check remote for orphans
 
-clean up the item "on_attack" timings - currently crashing waves +4 attack applies after vampiric blade 50% healing, no matter the inventory order
-	probably just await(item_in_slot.on_attack) or something
-	also maybe support inventory slot juggling
-	potentially codify whether auras are before or after items (probably after, since i want items to spawn "surging waves" on combat start, and trigger after attacks)
-
-i do really want a different font, maybe try that 5x7 i downloaded
-
-when map:
-	first game prototype
-	"is choosing your reward and challenge fun?"
-	
-	have map, able to see ~4 space ahead
-		"your crows report...
-			Skeleton Berserker
-		is guarding...
-			Fallen Paladin's Armor
-		
-		for each tile
-	have basic enemy, harder enemies, to guard different levels of reward
-	big boss at the end as final challenge
-	
-		this generally seems a bit cringe, you don't want to lose the fight and not get the item you really wanted, maybe have the item category/rarity show, but not the specific item?
-			but then it feels bad to get an item you can't use, that's output variance
-
-
 praise be tutorializing better
 	having first reward search be a nothing is insane
 	first combats end so quickly you can't tell what's happening, would rather high hp low attack enemies at the start (esp if you have moderate both, it's not immediately obvious who wins)
@@ -212,18 +141,18 @@ praise be tutorializing better
 ---------------------------
 not right now, maybe:
 ---------------------------
+make some map movement/traversal/exploration
+	
 make the tooltip nice and good and cool
 	would be nice if tooltips showed on click too, esp for touch devices
 
 would be nice to have a .txt of coordinate -> mapData that richard can write and my constructor can read
 
-
-pop up character panel with stats etc maybe even breakdowns of multipliers
-
 resolution stuff
 	figure out what da hell we want to do
 
 have a non-equipped inventory: a list of icon:names in a popup window (maybe a bag button too), and you can click an item in inventory (swap, delete)
+	pop up character panel with stats etc maybe even breakdowns of multipliers
 
 save and load, spooky
 	look into saving resources directly - if not, can change combatantData etc to refCounted
@@ -275,6 +204,8 @@ hotkey f12 to open an ingame calculator lmao
 
 enemy mercenary team is trailing you, picking the options you didn't take - so if you want to backsies and pick the other options from 10 choices ago, you can eventually?
 
+flappy cameo, baloon in the distance
+
 --------------------------------------------------------
 ideas i know i should tutorialize:
 --------------------------------------------------------
@@ -286,8 +217,16 @@ autobattling concept entirely, different speeds etc
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+aura.create_aura() and item.duplicate() is impossible to keep track of. codify which one, where, and make it automatic
+	this is connected to that interchangability problem
+	
 somehow have aura and items be interchangeable, maybe Reward class, with baseline names and stuff. having to separate my reward function in two is lame
 	i do need some splitting anyways, eg. dont want to grey out an aura reward if inventory is full
+
+clean up the item "on_attack" timings - currently crashing waves +4 attack applies after vampiric blade 50% healing, no matter the inventory order
+	probably just await(item_in_slot.on_attack) or something
+	also maybe support inventory slot juggling
+	potentially codify whether auras are before or after items (probably after, since i want items to spawn "surging waves" on combat start, and trigger after attacks)
 
 z-indexes for ui are hardcoded
 	combat is 50

@@ -17,7 +17,7 @@ func setup_basic_data() -> void:
 	
 
 	base_health = BalanceData.enemy_base_health * 3
-	base_attack = BalanceData.enemy_base_attack
+	base_attack = BalanceData.enemy_base_attack * 15/10
 
 #you probably want to call this when instantiating it, to scale to something
 func scale_stats(power:int) -> void:

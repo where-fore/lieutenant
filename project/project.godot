@@ -17,19 +17,19 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-HudEvents="*res://scripts/autoload/hud_events.gd"
-CombatEvents="*res://scripts/autoload/combat_events.gd"
-AuraEvents="*res://scripts/autoload/aura_events.gd"
-CombatLogEvents="*res://scripts/autoload/combat_log_events.gd"
-InventoryEvents="*res://scripts/autoload/inventory_events.gd"
-TimingEvents="*res://scripts/autoload/timing_events.gd"
-Stats="*res://scripts/autoload/stat_names.gd"
-AuraNames="*res://scripts/autoload/aura_names.gd"
-SaveManager="*res://scripts/save load system/save_manager.gd"
-JsonReader="*res://scripts/autoload/json_reader.gd"
-Database="*res://scripts/autoload/database.gd"
-Categories="*res://scripts/autoload/categories.gd"
-BalanceData="*res://scripts/autoload/balance_data.gd"
+HudEvents="*res://loose/autoload/hud_events.gd"
+CombatEvents="*res://loose/autoload/combat_events.gd"
+AuraEvents="*res://loose/autoload/aura_events.gd"
+CombatLogEvents="*res://loose/autoload/combat_log_events.gd"
+InventoryEvents="*res://loose/autoload/inventory_events.gd"
+TimingEvents="*res://loose/autoload/timing_events.gd"
+Stats="*res://loose/autoload/stat_names.gd"
+AuraNames="*res://loose/autoload/aura_names.gd"
+SaveManager="*res://systems/save load system/save_manager.gd"
+JsonReader="*res://loose/autoload/json_reader.gd"
+Database="*res://loose/autoload/database.gd"
+Categories="*res://loose/autoload/categories.gd"
+BalanceData="*res://loose/autoload/balance_data.gd"
 
 [debug]
 
