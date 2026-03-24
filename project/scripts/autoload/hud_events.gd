@@ -40,4 +40,10 @@ signal map_tile_unhovered()
 signal venture_to(map_tile:MapTile)
 
 @warning_ignore("unused_signal")
+signal enter_combat_in(map_tile:MapTile)
+
+@warning_ignore("unused_signal")
+signal enter_without_combat_in(map_tile:MapTile)
+
+@warning_ignore("unused_signal")
 signal combat_all_done()

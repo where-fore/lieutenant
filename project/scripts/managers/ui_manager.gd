@@ -9,7 +9,7 @@ extends Control
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	reward_ui_manager.visible = false
-	combat_ui_manager.visible = true
+	combat_ui_manager.visible = false
 	death_ui.visible = false
 	
 	inventory_manager.set_inventory_slot_parent(inventory_slot_grid_container)
@@ -17,6 +17,9 @@ func _ready() -> void:
 	HudEvents.combat_won.connect(end_combat_as_victory)
 	HudEvents.combat_lost.connect(end_combat_as_failure)
 	HudEvents.reward_chosen.connect(end_rewards_screen)
+	@warning_ignore("untyped_declaration")
+	HudEvents.enter_without_combat_in.connect(func(_unused_data) -> void: end_combat_as_victory())
+	
 
 func end_combat_as_victory() -> void:
 	reward_ui_manager.change_to()

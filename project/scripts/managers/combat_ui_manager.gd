@@ -29,7 +29,7 @@ func _ready() -> void:
 	CombatEvents.turn_finished.connect(update_turn_indicator)
 	HudEvents.combat_button_pressed.connect(set_first_turn_indicator)
 	HudEvents.send_enemy_sprite.connect(update_enemy_sprite)
-	HudEvents.venture_to.connect(change_to)
+	HudEvents.enter_combat_in.connect(change_to)
 	TimingEvents.everythings_ready.connect(on_scene_ready)
 	
 	turn_button_container.visible = false

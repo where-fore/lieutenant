@@ -25,8 +25,7 @@ func create_aura(name:String = "", should_be_visible:bool = false, additive_init
 	
 	if name: this_aura.aura_name = name
 	if should_be_visible: this_aura.visible = should_be_visible
-	this_aura.unique_id = str(this_aura.get_instance_id()) + "_" + str(Time.get_time_string_from_system())
-		
+	
 	if additive_init: this_aura.additive_stat_dictionary = additive_init.duplicate()
 	else: this_aura.additive_stat_dictionary = additive_stat_dictionary.duplicate()
 	if multiplicative_init: this_aura.multiplicative_stat_dictionary = multiplicative_init.duplicate()
@@ -38,6 +37,10 @@ func create_aura(name:String = "", should_be_visible:bool = false, additive_init
 
 func update_aura() -> void:
 	AuraEvents.updated_aura.emit(self)
+
+func get_id() -> String:
+	if not unique_id: unique_id = str(ResourceUID.create_id())
+	return unique_id
 
 #this is copied from item_base.gd
 func get_tooltip() -> String:

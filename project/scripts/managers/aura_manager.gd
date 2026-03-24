@@ -47,16 +47,16 @@ func apply_new_aura_to_player(new_aura:Aura) -> void:
 		#if the aura sent in is a file on the disk (ie. is a template, not an already instanced aura)
 		#then instance a new aura
 		new_aura = new_aura.create_aura()
-	if new_aura.unique_id in player_aura_dictionary.keys(): push_warning("overwriting aura: " + new_aura.aura_name)
+	if new_aura.get_id() in player_aura_dictionary.keys(): push_warning("overwriting aura: " + new_aura.aura_name)
 	if new_aura.visible: CombatLogEvents.aura_applied.emit(new_aura)
-	player_aura_dictionary[new_aura.unique_id] = new_aura
+	player_aura_dictionary[new_aura.get_id()] = new_aura
 	update_stats()
 	
 func remove_aura_from_player(old_aura:Aura) -> void:
 	if old_aura.resource_path != "":
 		#if the aura sent in is a file on the disk (ie. is a template, not an already instanced aura)
 		push_error("trying to remove an aura that is a template")
-	player_aura_dictionary.erase(old_aura.unique_id)
+	player_aura_dictionary.erase(old_aura.get_id())
 	update_stats()
 
 func apply_new_aura_to_enemy(new_aura:Aura) -> void:
@@ -64,16 +64,16 @@ func apply_new_aura_to_enemy(new_aura:Aura) -> void:
 		#if the aura sent in is a file on the disk (ie. is a template, not an already instanced aura)
 		#then instance a new aura
 		new_aura = new_aura.create_aura()
-	if new_aura.unique_id in enemy_aura_dictionary.keys(): push_warning("overwriting aura: " + new_aura.aura_name)
+	if new_aura.get_id() in enemy_aura_dictionary.keys(): push_warning("overwriting aura: " + new_aura.aura_name)
 	if new_aura.visible: CombatLogEvents.aura_applied.emit(new_aura)
-	enemy_aura_dictionary[new_aura.unique_id] = new_aura
+	enemy_aura_dictionary[new_aura.get_id()] = new_aura
 	update_stats()
 	
 func remove_aura_from_enemy(old_aura:Aura) -> void:
 	if old_aura.resource_path != "":
 		#if the aura sent in is a file on the disk (ie. is a template, not an already instanced aura)
 		push_error("trying to remove an aura that is a template")
-	enemy_aura_dictionary.erase(old_aura.unique_id)
+	enemy_aura_dictionary.erase(old_aura.get_id())
 	update_stats()
 
 func update_aura(_aura:Aura) -> void:
@@ -137,10 +137,10 @@ func remove_end_of_combat_auras(all_combatants:Array[Combatant]) -> void:
 
 func remove_expired_aura(source:Combatant, expired_aura:Aura) -> void:
 	if source.is_the_player:
-		remove_aura_by_id(expired_aura.unique_id, player_aura_dictionary)
+		remove_aura_by_id(expired_aura.get_id(), player_aura_dictionary)
 		CombatLogEvents.aura_removed.emit(source, expired_aura)
 	else:
-		remove_aura_by_id(expired_aura.unique_id, enemy_aura_dictionary)
+		remove_aura_by_id(expired_aura.get_id(), enemy_aura_dictionary)
 
 func remove_aura_by_id(aura_id:String, aura_dictionary:Dictionary[String, Aura]) -> void:
 	if aura_id in aura_dictionary.keys():

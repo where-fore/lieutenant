@@ -15,7 +15,7 @@ func apply_data(data:MapTileData) -> void:
 	animated_sprite_component.play()
 
 func _init() -> void:
-	unique_tile_id = str(get_instance_id()) + "_" + str(Time.get_time_string_from_system())
+	unique_tile_id = str(ResourceUID.create_id())
 
 func _ready() -> void:
 	HudEvents.map_tile_hovered.connect(stop_hovering)

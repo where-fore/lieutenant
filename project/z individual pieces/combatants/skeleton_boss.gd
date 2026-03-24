@@ -11,7 +11,7 @@ func setup_basic_data() -> void:
 	texture = load("res://sprites/enemy_boss.png")
 	extra_tooltip = "A fallen regent with a fire growing in their eyes" # "Generic flavourful description"
 	categories = {
-		Categories.enemy_rarity : Categories.Rarity.RARE,
+		Categories.enemy_rarity : Categories.Rarity.MYTHIC,
 	}
 	
 	

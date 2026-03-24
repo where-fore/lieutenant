@@ -1,7 +1,7 @@
 extends Aura
 
 #whatever the aura does, doesn't do anything until you do something with it
-var attack_increase:int = 5
+var attack_increase:int = BalanceData.sharpen_attack
 
 func setup_basic_aura_data() -> void:
 	aura_id = "sharpen" # "generic_aura"

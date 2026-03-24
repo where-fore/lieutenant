@@ -340,6 +340,7 @@ texture = ExtResource("9_msc0u")
 
 [node name="RewardUI" parent="FullGame/GameMain/Control/MainUI" instance=ExtResource("14_hfile")]
 layout_mode = 1
+reward_empty_texture = ExtResource("9_msc0u")
 
 [node name="SideUI" type="Panel" parent="FullGame/GameMain/Control"]
 layout_mode = 1
