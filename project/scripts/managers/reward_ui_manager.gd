@@ -52,17 +52,15 @@ func prepare_reward(map_tile:MapTile) -> void:
 			reward_button.texture_normal = current_reward.item_sprite
 			reward_button.tooltip_text = current_reward.get_tooltip()
 			
-			update_inventory_full_indicator()
-	
+	update_inventory_full_indicator()
 
 func update_inventory_full_indicator() -> void:
+	reward_button.modulate = Color(1,1,1)
+	reward_button_label.text = reward_text_blurb
 	if current_reward is Item:
 		if InventoryEvents.inventory_is_full:
 			reward_button.modulate = Color(0.3,0.3,0.3)
 			reward_button_label.text = "Inventory Full"
-		else:
-			reward_button.modulate = Color(1,1,1)
-			reward_button_label.text = reward_text_blurb
 
 func _on_reward_button_pressed() -> void:
 	if current_reward is Aura:
