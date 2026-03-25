@@ -13,7 +13,7 @@ func get_item_by_id(item_id:String) -> Item:
 	var item:Item = all_items.get(item_id)
 	return item.duplicate()
 	
-func get_combatant_by_id(combatant_id:String) -> Item:
+func get_combatant_by_id(combatant_id:String) -> CombatantData:
 	var data:CombatantData = all_combatants.get(combatant_id)
 	return data.duplicate()
 
@@ -26,7 +26,7 @@ func get_items_by_category(category:StringName, value:int) -> Array[Item]:
 	for item:Item in all_items.values():
 		if item.item_categories.has(category):
 			if item.item_categories[category] == value:
-				items_to_return.append(item)
+				items_to_return.append(item.duplicate())
 	return items_to_return
 
 func get_combatants_by_category(category:StringName, value:int) -> Array[CombatantData]:
@@ -34,7 +34,7 @@ func get_combatants_by_category(category:StringName, value:int) -> Array[Combata
 	for data:CombatantData in all_combatants.values():
 		if data.categories.has(category):
 			if data.categories[category] == value:
-				combatants_to_return.append(data)
+				combatants_to_return.append(data.duplicate())
 	return combatants_to_return
 
 func populate_item_database(resource_array:Array[Resource]) -> void:

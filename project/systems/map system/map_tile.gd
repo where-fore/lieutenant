@@ -15,6 +15,8 @@ var y_coordinate:int
 func apply_data(data:MapTileData) -> void:
 	tile_data = data
 
+	if not tile_data.tile_animation:
+		push_error("no animation set for tile: " + "\"" + tile_data.internal_name + "\"")
 	animated_sprite_component.sprite_frames = data.tile_animation
 	animated_sprite_component.play()
 

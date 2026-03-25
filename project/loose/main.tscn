@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=28 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://loose/managers/main.gd" id="1_bbldx"]
 [ext_resource type="PackedScene" uid="uid://d4ng5rexbupxm" path="res://loose/combat_main.tscn" id="2_uaqc7"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://cn1a2eakscc7c" path="res://z individual pieces/map tiles/forest_plains.gd" id="16_80hqw"]
 [ext_resource type="PackedScene" uid="uid://dxldisnu3aaoo" path="res://systems/map system/map_tile.tscn" id="17_q5k8v"]
 [ext_resource type="PackedScene" uid="uid://b13o5cfslg2uj" path="res://ui/event_log.tscn" id="18_h0uu6"]
+[ext_resource type="Script" uid="uid://cpopoj80l101w" path="res://z individual pieces/map tiles/forest_house_first_unique.gd" id="19_obmf6"]
 [ext_resource type="PackedScene" uid="uid://cplxpgrp4s0m8" path="res://ui/map_info.tscn" id="19_w1snj"]
 [ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="20_1fc2u"]
 
@@ -310,6 +311,7 @@ script = ExtResource("12_ireyf")
 map_data = Array[GDScript]([ExtResource("13_rjmfi"), ExtResource("14_u46kj"), ExtResource("15_cuuk2"), ExtResource("13_rjmfi"), ExtResource("13_rjmfi")])
 boss_tile_data = Array[GDScript]([ExtResource("16_80hqw")])
 generic_border_data = ExtResource("13_rjmfi")
+first_special_tile = ExtResource("19_obmf6")
 mapTileBase = ExtResource("17_q5k8v")
 
 [node name="ForegroundEdge" type="AnimatedSprite2D" parent="MainGame/MarginContainer"]
