@@ -51,13 +51,13 @@ func populate_tile_data(tile:MapTile) -> void:
 	if tile.x_coordinate == columns - columns_to_disable_at_end - 1: #the last column
 		if tile.y_coordinate == 0 or tile.y_coordinate == 2:
 			tile.apply_data(generic_border_data.new())
-			tile.disable()
+			tile.permanently_disable()
 		elif tile.y_coordinate == 1:
 			tile.apply_data(boss_tile_data.pick_random().new())
 	#first and last rows
 	elif tile.x_coordinate == 0 or tile.x_coordinate >= columns - columns_to_disable_at_end:
 		tile.apply_data(generic_border_data.new())
-		tile.disable()
+		tile.permanently_disable()
 	#special "first" row of gameplay
 	elif tile.x_coordinate == 1:
 		tile.apply_data(first_special_tile.new())

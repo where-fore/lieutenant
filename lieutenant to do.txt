@@ -5,6 +5,9 @@ some sort of timing management for spawning the tiles - currently the spawner cr
 	probably fixing this with the main starter thing timing the opener
 
 
+rout doesn't work (probably mouse filter)
+
+
 
 need working fog/map manager
 	first turn, only first row available
@@ -178,6 +181,9 @@ praise be tutorializing better
 ---------------------------
 not right now, maybe:
 ---------------------------
+a button on the map info panel to hide it immediately would feel good
+	maybe a slide bar handle?
+
 random seed system, so you can replay a certain combination etc
 
 make some map movement/traversal/exploration

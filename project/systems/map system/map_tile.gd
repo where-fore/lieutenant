@@ -3,7 +3,8 @@ class_name MapTile
 
 var unique_tile_id:String
 var tile_data:MapTileData
-var disabled:bool = false
+var currently_disabled:bool = false
+var permanently_disabled:bool = false
 ## 0,0 is the first tile spawned
 var x_coordinate:int
 ## 0,0 is the first tile spawned
@@ -15,7 +16,6 @@ var idle_animation_speed:float = 0.2
 var hover_animation_speed:float = 0.8
 @onready var selection_sprite:Sprite2D = $Sprite2D
 @onready var selection_effect_timer:Timer = $Sprite2D/Timer
-var selection_effect_duration:float = idle_animation_speed
 
 func apply_data(data:MapTileData) -> void:
 	tile_data = data
@@ -37,17 +37,25 @@ func _ready() -> void:
 	
 	animated_sprite_component.speed_scale = idle_animation_speed
 	hover_animation_component.speed_scale = hover_animation_speed
-	selection_effect_timer.wait_time = selection_effect_duration
+	var frames_in_hover_animation:int = hover_animation_component.sprite_frames.get_frame_count(hover_animation_component.animation)
+	selection_effect_timer.wait_time = hover_animation_speed / frames_in_hover_animation
+
+
+func permanently_disable() -> void:
+	stop_hover_animation()
+	currently_disabled = true
+	permanently_disabled = true
+	animated_sprite_component.modulate = Color(0.2,0.2,0.2,1)
 
 func disable() -> void:
-	if not disabled:
+	if not currently_disabled and not permanently_disabled:
 		stop_hover_animation()
-		disabled = true
-		animated_sprite_component.modulate = Color(0.4,0.4,0.4,1)
+		currently_disabled = true
+		animated_sprite_component.modulate = Color(0.3,0.3,0.3,1)
 
 func enable() -> void:
-	if disabled:
-		disabled = false
+	if currently_disabled and not permanently_disabled:
+		currently_disabled = false
 		animated_sprite_component.modulate = Color(1,1,1,1)
 
 func start_hover_animation() -> void:
@@ -63,14 +71,14 @@ func stop_hover_animation() -> void:
 	hover_animation_component.stop()
 
 func when_clicked() -> void:
-	if not disabled:
+	if not currently_disabled:
 		HudEvents.map_tile_hovered.emit(self)
 		start_hover_animation()
 		show_selection_effect()
 
 func if_not_me_stop_hovering(maptile:MapTile) -> void:
 	if maptile != self:
-		if not disabled:
+		if not currently_disabled:
 			hide_selection_effect()
 			stop_hover_animation()
 
@@ -81,7 +89,7 @@ func _on_area_2d_mouse_exited() -> void:
 	pass
 
 func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if not disabled:
+	if not currently_disabled:
 		if event is InputEventMouseButton:
 			if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 				when_clicked()

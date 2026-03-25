@@ -22,6 +22,8 @@ func _ready() -> void:
 	
 
 func end_combat_as_victory() -> void:
+	MapEvents.reward_offered.emit()
+	
 	reward_ui_manager.change_to()
 	combat_ui_manager.change_from()
 

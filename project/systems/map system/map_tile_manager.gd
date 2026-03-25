@@ -3,12 +3,23 @@ extends Node2D
 var current_map_tiles:Array[MapTile]
 var current_column_sunsetting:int = 1
 var tiles_you_can_see_into_fog_of_war:int = 3
+var current_tile_encounter:MapTile
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	MapEvents.combat_all_done.connect(hide_current_row_and_increment)
 	MapEvents.maptile_created.connect(add_to_database)
 	MapEvents.map_grid_ready.connect(hide_all_but_first_row)
+	MapEvents.venture_to.connect(handle_map_transition)
+	MapEvents.reward_offered.connect(fully_cleared_tile)
+
+func handle_map_transition(map_tile:MapTile) -> void:
+	current_tile_encounter = map_tile
+	
+	if map_tile.tile_data.enemy:
+		MapEvents.enter_combat_in.emit(map_tile)
+	else:
+		MapEvents.enter_without_combat_in.emit(map_tile)
 
 func hide_current_row_and_increment() -> void:
 	hide_rows()
@@ -31,3 +42,7 @@ func hide_all_but_first_row() -> void:
 
 func add_to_database(new_map_tile:MapTile) -> void:
 	current_map_tiles.append(new_map_tile)
+
+func fully_cleared_tile() -> void:
+	current_tile_encounter.permanently_disable()
+	current_tile_encounter = null
