@@ -34,7 +34,7 @@ func _ready() -> void:
 	CombatEvents.turn_finished.connect(finish_turn)
 	CombatEvents.combatant_died.connect(handle_perishing_combatant)
 	HudEvents.combat_button_pressed.connect(start_combat)
-	HudEvents.enter_combat_in.connect(pre_combat)
+	MapEvents.enter_combat_in.connect(pre_combat)
 	CombatEvents.pause_button_pressed.connect(pause_button_pressed)
 	CombatEvents.step_button_pressed.connect(step_button_pressed)
 	CombatEvents.play_button_pressed.connect(play_button_pressed)

@@ -43,6 +43,8 @@ func populate_tiles() -> void:
 			new_tile.x_coordinate = x
 			new_tile.y_coordinate = y
 			populate_tile_data(new_tile)
+			MapEvents.maptile_created.emit(new_tile)
+	MapEvents.map_grid_ready.emit()
 
 func populate_tile_data(tile:MapTile) -> void:
 	#final boss stretch

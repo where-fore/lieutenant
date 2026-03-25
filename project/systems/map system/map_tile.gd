@@ -10,7 +10,12 @@ var x_coordinate:int
 var y_coordinate:int
 
 @onready var animated_sprite_component:AnimatedSprite2D = $BaseAnimation
+var idle_animation_speed:float = 0.2
 @onready var hover_animation_component:AnimatedSprite2D = $HoverAnimation
+var hover_animation_speed:float = 0.8
+@onready var selection_sprite:Sprite2D = $Sprite2D
+@onready var selection_effect_timer:Timer = $Sprite2D/Timer
+var selection_effect_duration:float = idle_animation_speed
 
 func apply_data(data:MapTileData) -> void:
 	tile_data = data
@@ -24,25 +29,33 @@ func _init() -> void:
 	unique_tile_id = str(ResourceUID.create_id())
 
 func _ready() -> void:
-	HudEvents.map_tile_hovered.connect(stop_hovering)
-	hover_animation_component.visible = false
+	MapEvents.combat_all_done.connect(stop_hover_animation)
+	HudEvents.map_tile_hovered.connect(if_not_me_stop_hovering)
 	
-	animated_sprite_component.speed_scale = 0.2
-	hover_animation_component.speed_scale = 0.8
+	hover_animation_component.visible = false
+	selection_sprite.visible = false
+	
+	animated_sprite_component.speed_scale = idle_animation_speed
+	hover_animation_component.speed_scale = hover_animation_speed
+	selection_effect_timer.wait_time = selection_effect_duration
 
 func disable() -> void:
-	disabled = true
-	animated_sprite_component.modulate = Color(0.4,0.4,0.4,1)
+	if not disabled:
+		stop_hover_animation()
+		disabled = true
+		animated_sprite_component.modulate = Color(0.4,0.4,0.4,1)
 
 func enable() -> void:
-	disabled = false
-	animated_sprite_component.modulate = Color(1,1,1,1)
+	if disabled:
+		disabled = false
+		animated_sprite_component.modulate = Color(1,1,1,1)
 
 func start_hover_animation() -> void:
 	hover_animation_component.visible = true
 	
-	hover_animation_component.frame = 0
-	hover_animation_component.play()
+	if not hover_animation_component.is_playing():
+		hover_animation_component.frame = 0
+		hover_animation_component.play()
 
 func stop_hover_animation() -> void:
 	hover_animation_component.visible = false
@@ -53,10 +66,12 @@ func when_clicked() -> void:
 	if not disabled:
 		HudEvents.map_tile_hovered.emit(self)
 		start_hover_animation()
+		show_selection_effect()
 
-func stop_hovering(maptile:MapTile) -> void:
+func if_not_me_stop_hovering(maptile:MapTile) -> void:
 	if maptile != self:
 		if not disabled:
+			hide_selection_effect()
 			stop_hover_animation()
 
 func _on_area_2d_mouse_entered() -> void:
@@ -70,3 +85,13 @@ func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int
 		if event is InputEventMouseButton:
 			if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 				when_clicked()
+
+func show_selection_effect() -> void:
+	selection_sprite.visible = true
+	selection_effect_timer.start()
+
+func hide_selection_effect() -> void:
+	selection_sprite.visible = false
+
+func _on_timer_timeout() -> void:
+	hide_selection_effect()

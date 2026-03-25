@@ -35,15 +35,3 @@ signal map_tile_hovered(map_tile:MapTile)
 
 @warning_ignore("unused_signal")
 signal map_tile_unhovered()
-
-@warning_ignore("unused_signal")
-signal venture_to(map_tile:MapTile)
-
-@warning_ignore("unused_signal")
-signal enter_combat_in(map_tile:MapTile)
-
-@warning_ignore("unused_signal")
-signal enter_without_combat_in(map_tile:MapTile)
-
-@warning_ignore("unused_signal")
-signal combat_all_done()

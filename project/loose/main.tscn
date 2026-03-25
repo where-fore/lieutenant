@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=29 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://loose/managers/main.gd" id="1_bbldx"]
 [ext_resource type="PackedScene" uid="uid://d4ng5rexbupxm" path="res://loose/combat_main.tscn" id="2_uaqc7"]
@@ -24,6 +24,7 @@
 [ext_resource type="Script" uid="uid://cpopoj80l101w" path="res://z individual pieces/map tiles/forest_house_first_unique.gd" id="19_obmf6"]
 [ext_resource type="PackedScene" uid="uid://cplxpgrp4s0m8" path="res://ui/map_info.tscn" id="19_w1snj"]
 [ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="20_1fc2u"]
+[ext_resource type="Script" uid="uid://ok2ot6yb1xi8" path="res://systems/map system/map_tile_manager.gd" id="21_f4q0r"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tefeu"]
 shader = ExtResource("3_g13l7")
@@ -305,6 +306,9 @@ sprite_frames = ExtResource("12_g13l7")
 layout_mode = 2
 mouse_filter = 2
 
+[node name="MapTileManager" type="Node2D" parent="MainGame/MarginContainer/MapContainer"]
+script = ExtResource("21_f4q0r")
+
 [node name="MapTileSpawner" type="Node2D" parent="MainGame/MarginContainer/MapContainer"]
 position = Vector2(6, 183)
 script = ExtResource("12_ireyf")
@@ -328,7 +332,6 @@ layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
 offset_left = -88.0
-offset_bottom = -10.0
 grow_horizontal = 0
 
 [node name="MapInfo" parent="MainGame/MarginContainer/RightSideUI" instance=ExtResource("19_w1snj")]

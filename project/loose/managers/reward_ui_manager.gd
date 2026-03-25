@@ -16,8 +16,8 @@ var current_reward:Variant
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	InventoryEvents.full_status_updated.connect(update_inventory_full_indicator)
-	HudEvents.enter_without_combat_in.connect(prepare_reward)
-	HudEvents.enter_combat_in.connect(prepare_reward)
+	MapEvents.enter_without_combat_in.connect(prepare_reward)
+	MapEvents.enter_combat_in.connect(prepare_reward)
 
 func change_to() -> void:
 	visible = true

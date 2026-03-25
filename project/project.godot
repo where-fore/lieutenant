@@ -30,6 +30,7 @@ JsonReader="*res://loose/autoload/json_reader.gd"
 Database="*res://loose/autoload/database.gd"
 Categories="*res://loose/autoload/categories.gd"
 BalanceData="*res://loose/autoload/balance_data.gd"
+MapEvents="*res://loose/autoload/map_events.gd"
 
 [debug]
 

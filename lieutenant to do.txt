@@ -1,6 +1,38 @@
 --------------------------------------------------------
 working notes
 --------------------------------------------------------
+some sort of timing management for spawning the tiles - currently the spawner creates the map on _ready(), and the manager is a sibling and listens to signals connected on _ready(). this means the map spawns its tiles and sends it all out, then the manager connects to the signal (if in a certain tree hierarchy)
+	probably fixing this with the main starter thing timing the opener
+
+
+
+need working fog/map manager
+	first turn, only first row available
+	next, unlock 3-4 rows
+	as you do a combat, update this
+need working restart game button
+	menu button / just escape key
+		restart, close menu
+			probably just deletes the combat and map children, and reinstantiates them
+need preamble, death and victory texts
+need tiles to spawn at certain power, not combats start at certain power because of engagements won
+
+
+mapmanager has a list of tiles
+	on combat done, remove row of tiles
+	list is filled by the spawner
+
+array of tiles
+how to iterate through them
+i could check for every tile, see the lowest y value disabled, disable all of y+1
+	seems fragile
+i could keep track of current "row" and increment it on combat won
+	and disable all of that row
+	also seems a bit fragile
+	hm no i like it, it's like a time keeper
+
+
+
 
 on return from combat/reward screen:
 	disable first available row of tiles
@@ -24,33 +56,17 @@ need:
 
 
 
-have map spawn a boss only at the end
-	maybe when spawning a tile and setting data, check(x,y)
-	check(x,y)
-	if x == 4 and y == 10:
-		return special tile here
-	else return basic tile.pick_random
-		and in there have some sort of weight, i probably want like 2/3 forest and 1/6 each hut
-
-
 have the entire map get a bit darker every tile movement, global shader on map
 	rgb=[0.1,0.1,0.1]; rgb_target=[0.3,0.3,0.7] a=1; for val in rgb: rgb_target/steps_to_reach_max = val. self.modulate = color(r,g,b,a)
 
-have enemies currently scale per map tile, instead of per combat won
-	enemy tooltip have their attack and hp
-
-need an actual restart menu
-	should it be seeded or fully fresh? both options would be cool
-
-
-	var roll:int = randi_range(1,100)
-	if rare_chance + common_chance > 100: push_error("loot roll table exceeded 100%")
-	if roll <= rare_chance:
-		current_search_reward = Database.get_items_by_category(Categories.item_rarity, Categories.Rarity.RARE).pick_random()
-	elif roll <= rare_chance + common_chance:
-		current_search_reward = Database.get_items_by_category(Categories.item_rarity, Categories.Rarity.COMMON).pick_random()
-	else:
-		pass
+var roll:int = randi_range(1,100)
+if rare_chance + common_chance > 100: push_error("loot roll table exceeded 100%")
+if roll <= rare_chance:
+	current_search_reward = Database.get_items_by_category(Categories.item_rarity, Categories.Rarity.RARE).pick_random()
+elif roll <= rare_chance + common_chance:
+	current_search_reward = Database.get_items_by_category(Categories.item_rarity, Categories.Rarity.COMMON).pick_random()
+else:
+	pass
 
 
 
@@ -162,6 +178,8 @@ praise be tutorializing better
 ---------------------------
 not right now, maybe:
 ---------------------------
+random seed system, so you can replay a certain combination etc
+
 make some map movement/traversal/exploration
 	
 make the tooltip nice and good and cool
@@ -238,6 +256,8 @@ autobattling concept entirely, different speeds etc
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+the map info panel is a vbox/center container hybrid abomination. probably want to codify this into the bottom info is anchored to the venture button, and text grows down, or something? idk
+
 aura.create_aura() and item.duplicate() is impossible to keep track of. codify which one, where, and make it automatic
 	this is connected to that interchangability problem
 	

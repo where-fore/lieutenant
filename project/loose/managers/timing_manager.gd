@@ -8,9 +8,9 @@ func _ready() -> void:
 	#this gets called when this node is readied
 	#and since this script is the parent to everything else, this is after all other nodes are ready
 	TimingEvents.everythings_ready.emit()
-	HudEvents.enter_combat_in.connect(show)
-	HudEvents.enter_without_combat_in.connect(show)
-	HudEvents.combat_all_done.connect(hide)
+	MapEvents.enter_combat_in.connect(show)
+	MapEvents.enter_without_combat_in.connect(show)
+	MapEvents.combat_all_done.connect(hide)
 	
 	hide()
 

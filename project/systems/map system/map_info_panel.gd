@@ -77,5 +77,5 @@ func clear_info() -> void:
 	current_tile = null
 
 func _on_combat_button_pressed() -> void:
-	HudEvents.venture_to.emit(current_tile)
+	MapEvents.venture_to.emit(current_tile)
 	hide_map_info_panel()

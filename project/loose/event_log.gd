@@ -21,7 +21,7 @@ func _ready() -> void:
 	CombatLogEvents.aura_removed.connect(report_aura_removed)
 	CombatLogEvents.aura_applied.connect(report_aura_applied)
 	HudEvents.change_to_combat_screen.connect(clear_log)
-	HudEvents.combat_all_done.connect(clear_log)
+	MapEvents.combat_all_done.connect(clear_log)
 	CombatEvents.combatant_died.connect(report_death)
 	CombatLogEvents.custom_message.connect(print_custom_message)
 

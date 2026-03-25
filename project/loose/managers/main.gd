@@ -17,13 +17,13 @@ func _ready() -> void:
 	right_side_ui_container.visible = true
 	
 	create_combat_ui()
-	HudEvents.venture_to.connect(handle_map_transition)
+	MapEvents.venture_to.connect(handle_map_transition)
 
 func handle_map_transition(map_tile:MapTile) -> void:
 	if map_tile.tile_data.enemy:
-		HudEvents.enter_combat_in.emit(map_tile)
+		MapEvents.enter_combat_in.emit(map_tile)
 	else:
-		HudEvents.enter_without_combat_in.emit(map_tile)
+		MapEvents.enter_without_combat_in.emit(map_tile)
 
 func open_pause_menu() -> void:
 	pass

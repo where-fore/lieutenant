@@ -18,7 +18,7 @@ func _ready() -> void:
 	HudEvents.combat_lost.connect(end_combat_as_failure)
 	HudEvents.reward_chosen.connect(end_rewards_screen)
 	@warning_ignore("untyped_declaration")
-	HudEvents.enter_without_combat_in.connect(func(_unused_data) -> void: end_combat_as_victory())
+	MapEvents.enter_without_combat_in.connect(func(_unused_data) -> void: end_combat_as_victory())
 	
 
 func end_combat_as_victory() -> void:
@@ -32,7 +32,7 @@ func end_combat_as_failure() -> void:
 func end_rewards_screen() -> void:
 	reward_ui_manager.change_from()
 	death_ui.visible = false
-	HudEvents.combat_all_done.emit()
+	MapEvents.combat_all_done.emit()
 
 func _on_restart_button_pressed() -> void:
 	end_rewards_screen()
