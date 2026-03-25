@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://duvptjlwrr3du"
-path="res://.godot/imported/backdrop.png-a6ca3eea37db364e332af71c8a5d0fe7.ctex"
+uid="uid://deluhwc8bscqp"
+path="res://.godot/imported/sky_foreground.png-cf2c883bbe343162375506ac07b89971.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/richard's map/backdrop.png"
-dest_files=["res://.godot/imported/backdrop.png-a6ca3eea37db364e332af71c8a5d0fe7.ctex"]
+source_file="res://sprites/animations/backdrop/sky_foreground.png"
+dest_files=["res://.godot/imported/sky_foreground.png-cf2c883bbe343162375506ac07b89971.ctex"]
 
 [params]
 

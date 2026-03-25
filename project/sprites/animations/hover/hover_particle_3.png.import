@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c5nysk027gcpe"
-path="res://.godot/imported/forest_house2_idle_3.png-b05ad77b0fa1864fc383b43e65c9db89.ctex"
+uid="uid://bs6jitmuujeyc"
+path="res://.godot/imported/hover_particle_3.png-90f0bafa91bec081fa423b8366f3a3eb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/richard's map/forest house 2/forest_house2_idle_3.png"
-dest_files=["res://.godot/imported/forest_house2_idle_3.png-b05ad77b0fa1864fc383b43e65c9db89.ctex"]
+source_file="res://sprites/animations/hover/hover_particle_3.png"
+dest_files=["res://.godot/imported/hover_particle_3.png-90f0bafa91bec081fa423b8366f3a3eb.ctex"]
 
 [params]
 

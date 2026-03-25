@@ -4,6 +4,10 @@ class_name MapTile
 var unique_tile_id:String
 var tile_data:MapTileData
 var disabled:bool = false
+## 0,0 is the first tile spawned
+var x_coordinate:int
+## 0,0 is the first tile spawned
+var y_coordinate:int
 
 @onready var animated_sprite_component:AnimatedSprite2D = $BaseAnimation
 @onready var hover_animation_component:AnimatedSprite2D = $HoverAnimation

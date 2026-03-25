@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cwmlh8sxcf7n"
-path="res://.godot/imported/hover_particle_0.png-dfd5e6ef4f4522aa96476ebedbb0e6df.ctex"
+path="res://.godot/imported/hover_particle_0.png-0651fd1d800a8b694add513761253d0c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/richard's map/hover/hover_particle_0.png"
-dest_files=["res://.godot/imported/hover_particle_0.png-dfd5e6ef4f4522aa96476ebedbb0e6df.ctex"]
+source_file="res://sprites/animations/hover/hover_particle_0.png"
+dest_files=["res://.godot/imported/hover_particle_0.png-0651fd1d800a8b694add513761253d0c.ctex"]
 
 [params]
 

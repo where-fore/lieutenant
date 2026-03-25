@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=27 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://loose/managers/main.gd" id="1_bbldx"]
 [ext_resource type="PackedScene" uid="uid://d4ng5rexbupxm" path="res://loose/combat_main.tscn" id="2_uaqc7"]
@@ -10,8 +10,11 @@
 [ext_resource type="Script" uid="uid://c83t3y7en3pq0" path="res://loose/managers/cursor_manager.gd" id="8_xalbe"]
 [ext_resource type="Texture2D" uid="uid://xr6idafv8gpe" path="res://sprites/cursor.png" id="9_nf78q"]
 [ext_resource type="Texture2D" uid="uid://c7a1jxvk522q2" path="res://sprites/border_background.png" id="10_qmb71"]
-[ext_resource type="Texture2D" uid="uid://duvptjlwrr3du" path="res://sprites/richard's map/backdrop.png" id="11_1j0u7"]
+[ext_resource type="SpriteFrames" uid="uid://bctf5pih2j2d2" path="res://sprites/animations/backdrop/backdrop.tres" id="11_bbldx"]
+[ext_resource type="Texture2D" uid="uid://dgtryqdolsxtm" path="res://sprites/hacky_backdrop.png" id="11_npwt7"]
+[ext_resource type="SpriteFrames" uid="uid://dbriv3a7topvw" path="res://sprites/animations/background edge/background_edge.tres" id="12_g13l7"]
 [ext_resource type="Script" uid="uid://bkfbtklwaviuu" path="res://systems/map system/map_tile_spawner.gd" id="12_ireyf"]
+[ext_resource type="SpriteFrames" uid="uid://c3xi07klbwfxm" path="res://sprites/animations/foreground edge/foreground_edge.tres" id="13_npwt7"]
 [ext_resource type="Script" uid="uid://d32bd43xtpgy2" path="res://z individual pieces/map tiles/forest_basic.gd" id="13_rjmfi"]
 [ext_resource type="Script" uid="uid://bq4li4v6tc2mk" path="res://z individual pieces/map tiles/forest_house1.gd" id="14_u46kj"]
 [ext_resource type="Script" uid="uid://04et875g86xn" path="res://z individual pieces/map tiles/forest_house2.gd" id="15_cuuk2"]
@@ -280,11 +283,22 @@ z_index = 50
 layout_mode = 2
 mouse_filter = 2
 
-[node name="TextureRect" type="TextureRect" parent="MainGame/MarginContainer"]
+[node name="HackyBackground" type="TextureRect" parent="MainGame/MarginContainer"]
 layout_mode = 2
 mouse_filter = 2
-texture = ExtResource("11_1j0u7")
-expand_mode = 3
+texture = ExtResource("11_npwt7")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="Background" type="AnimatedSprite2D" parent="MainGame/MarginContainer"]
+visible = false
+position = Vector2(240, 135)
+sprite_frames = ExtResource("11_bbldx")
+
+[node name="BackgroundEdge" type="AnimatedSprite2D" parent="MainGame/MarginContainer"]
+visible = false
+position = Vector2(240, 135)
+sprite_frames = ExtResource("12_g13l7")
 
 [node name="MapContainer" type="Control" parent="MainGame/MarginContainer"]
 layout_mode = 2
@@ -293,8 +307,15 @@ mouse_filter = 2
 [node name="MapTileSpawner" type="Node2D" parent="MainGame/MarginContainer/MapContainer"]
 position = Vector2(6, 183)
 script = ExtResource("12_ireyf")
-map_data = Array[GDScript]([ExtResource("13_rjmfi"), ExtResource("14_u46kj"), ExtResource("15_cuuk2"), ExtResource("16_80hqw"), ExtResource("13_rjmfi"), ExtResource("13_rjmfi"), ExtResource("13_rjmfi")])
+map_data = Array[GDScript]([ExtResource("13_rjmfi"), ExtResource("14_u46kj"), ExtResource("15_cuuk2"), ExtResource("13_rjmfi"), ExtResource("13_rjmfi")])
+boss_tile_data = Array[GDScript]([ExtResource("16_80hqw")])
+generic_border_data = ExtResource("13_rjmfi")
 mapTileBase = ExtResource("17_q5k8v")
+
+[node name="ForegroundEdge" type="AnimatedSprite2D" parent="MainGame/MarginContainer"]
+visible = false
+position = Vector2(240, 135)
+sprite_frames = ExtResource("13_npwt7")
 
 [node name="RightSideUI" type="Control" parent="MainGame/MarginContainer"]
 layout_mode = 2

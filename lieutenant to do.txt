@@ -2,6 +2,28 @@
 working notes
 --------------------------------------------------------
 
+on return from combat/reward screen:
+	disable first available row of tiles
+		you can see ~3 or 4 rows of tiles at a time, so you can take multiple from a row by skipping rows
+	tutorial:
+		new game throws you into combat (after a blurb), quick simple fight to show autobattler combat
+			there are rumors of skeletons massing in the east...
+				fades to red, into combat
+			rumors they are not. someone needs to snuff this at the source
+		first row has easy uniques
+		then the map opens up - namely with the boss at the end (maybe show their stats to incentivize scaling)
+		
+	
+need:
+	precise spawning: have easy row at the start, boss at end
+	procedural map disabling, maybe that global night shader- remove row on victory, only show 3-4 forward (reenable new row on victory)
+		probably a map manager holds all the tiles, maybe even a dictionary of tiles in a given row for easy iteration. map manager controls if they are enabled or not
+	intro dialogue boxes or something
+	
+
+
+
+
 have map spawn a boss only at the end
 	maybe when spawning a tile and setting data, check(x,y)
 	check(x,y)
@@ -11,9 +33,8 @@ have map spawn a boss only at the end
 		and in there have some sort of weight, i probably want like 2/3 forest and 1/6 each hut
 
 
-disable tiles on victory/claim
-	have the entire map get a bit darker every tile movement, global shader on map
-		rgb=[0.1,0.1,0.1]; a=1; for val in rgb val +=0.1. self.modulate = color(r,g,b,a)
+have the entire map get a bit darker every tile movement, global shader on map
+	rgb=[0.1,0.1,0.1]; rgb_target=[0.3,0.3,0.7] a=1; for val in rgb: rgb_target/steps_to_reach_max = val. self.modulate = color(r,g,b,a)
 
 have enemies currently scale per map tile, instead of per combat won
 	enemy tooltip have their attack and hp

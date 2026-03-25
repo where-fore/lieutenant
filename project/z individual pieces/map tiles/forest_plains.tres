@@ -1,7 +1,7 @@
 [gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://clq71aj15082d"]
 
-[ext_resource type="Texture2D" uid="uid://b6i7hbry6p0w0" path="res://sprites/richard's map/plains/plains_idle_0.png" id="1_43sf8"]
-[ext_resource type="Texture2D" uid="uid://doaatlanicc46" path="res://sprites/richard's map/plains/plains_idle_1.png" id="2_4v2gh"]
+[ext_resource type="Texture2D" uid="uid://b6i7hbry6p0w0" path="res://sprites/animations/plains/plains_idle_0.png" id="1_43sf8"]
+[ext_resource type="Texture2D" uid="uid://doaatlanicc46" path="res://sprites/animations/plains/plains_idle_1.png" id="2_4v2gh"]
 
 [resource]
 animations = [{

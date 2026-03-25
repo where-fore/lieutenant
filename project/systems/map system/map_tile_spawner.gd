@@ -2,6 +2,8 @@ extends Node2D
 
 @export_category("Map Tile Information")
 @export var map_data:Array[GDScript]
+@export var boss_tile_data:Array[GDScript]
+@export var generic_border_data:GDScript
 
 @export_category("Map Grid Builder")
 @export var mapTileBase:PackedScene
@@ -15,6 +17,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	check_if_tile_export_set_correctly()
 	populate_tiles()
 
 #note that this does do not do any z-indexing, and defaults to godot tree hierarchy z-indexing
@@ -33,13 +36,30 @@ func populate_tiles() -> void:
 			elif this_spawner_is_placed_at == 1:
 				new_tile.position = Vector2(x * horizontal_spacing + y * isometric_offset, rows-y * vertical_spacing)
 			
-			new_tile.apply_data(map_data.pick_random().new())
-			check_to_disable_tile(x, y, new_tile)
+			new_tile.x_coordinate = x
+			new_tile.y_coordinate = y
+			populate_tile_data(new_tile)
 
-func check_to_disable_tile(x:int, _y:int, tile:MapTile) -> void:
-	#0 indexed, x == 0 and x == columns-1 -> first and last
-	if x == 0 or x >= columns - columns_to_disable_at_end:
+func populate_tile_data(tile:MapTile) -> void:
+	#final boss stretch
+	if tile.x_coordinate == columns - columns_to_disable_at_end - 1: #the last column
+		if tile.y_coordinate == 0 or tile.y_coordinate == 2:
+			tile.apply_data(generic_border_data.new())
+			tile.disable()
+		elif tile.y_coordinate == 1:
+			tile.apply_data(boss_tile_data.pick_random().new())
+	#first and last rows
+	elif tile.x_coordinate == 0 or tile.x_coordinate >= columns - columns_to_disable_at_end:
+		tile.apply_data(generic_border_data.new())
 		tile.disable()
+	
+	else:
+		tile.apply_data(map_data.pick_random().new())
 
-func populate_tile_data() -> void:
-	pass
+func check_if_tile_export_set_correctly() -> void:
+	if map_data.has(null) or map_data.is_empty():
+		push_error("general map tile data not set correctly on spawner")
+	if boss_tile_data.has(null) or boss_tile_data.is_empty():
+		push_error("boss tile data not set correctly on spawner")
+	if generic_border_data == null:
+		push_error("border tile data not set correctly on spawner")

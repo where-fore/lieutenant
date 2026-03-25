@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6i7hbry6p0w0"
-path="res://.godot/imported/plains_idle_0.png-b59adafe263d255fb1ab1a6764371d1d.ctex"
+uid="uid://bpm40urggt2wc"
+path="res://.godot/imported/hover_particle_1.png-d075d80f178b7b46a84e02f9a2fa2721.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/richard's map/plains/plains_idle_0.png"
-dest_files=["res://.godot/imported/plains_idle_0.png-b59adafe263d255fb1ab1a6764371d1d.ctex"]
+source_file="res://sprites/animations/hover/hover_particle_1.png"
+dest_files=["res://.godot/imported/hover_particle_1.png-d075d80f178b7b46a84e02f9a2fa2721.ctex"]
 
 [params]
 

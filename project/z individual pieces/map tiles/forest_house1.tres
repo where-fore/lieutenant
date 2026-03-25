@@ -1,9 +1,9 @@
 [gd_resource type="SpriteFrames" load_steps=5 format=3 uid="uid://bgu4bycmru4xa"]
 
-[ext_resource type="Texture2D" uid="uid://isokf8q2vl8m" path="res://sprites/richard's map/forest house/forest_house_idle_0.png" id="1_cbayr"]
-[ext_resource type="Texture2D" uid="uid://08whtxnu0g65" path="res://sprites/richard's map/forest house/forest_house_idle_1.png" id="2_fmewr"]
-[ext_resource type="Texture2D" uid="uid://jo1ma1f6amro" path="res://sprites/richard's map/forest house/forest_house_idle_2.png" id="3_2t0ve"]
-[ext_resource type="Texture2D" uid="uid://bkojagvp3uyrp" path="res://sprites/richard's map/forest house/forest_house_idle_3.png" id="4_1652i"]
+[ext_resource type="Texture2D" uid="uid://isokf8q2vl8m" path="res://sprites/animations/forest house/forest_house_idle_0.png" id="1_cbayr"]
+[ext_resource type="Texture2D" uid="uid://08whtxnu0g65" path="res://sprites/animations/forest house/forest_house_idle_1.png" id="2_fmewr"]
+[ext_resource type="Texture2D" uid="uid://jo1ma1f6amro" path="res://sprites/animations/forest house/forest_house_idle_2.png" id="3_2t0ve"]
+[ext_resource type="Texture2D" uid="uid://bkojagvp3uyrp" path="res://sprites/animations/forest house/forest_house_idle_3.png" id="4_1652i"]
 
 [resource]
 animations = [{

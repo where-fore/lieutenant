@@ -6,7 +6,7 @@ extends Node2D
 @onready var pause_menu_button_container:Control = $MainUI/PauseMenuButton
 @onready var pause_menu_container:Control = $MainUI/PauseMenu
 @onready var scrolling_log_container:Control = $MainGame/MarginContainer/RightSideUI/EventLog
-
+@onready var right_side_ui_container:Control = $MainGame/MarginContainer/RightSideUI
 
 
 func _ready() -> void:
@@ -14,6 +14,7 @@ func _ready() -> void:
 	pause_menu_button_container.visible = false
 	pause_menu_container.visible = false
 	scrolling_log_container.visible = true
+	right_side_ui_container.visible = true
 	
 	create_combat_ui()
 	HudEvents.venture_to.connect(handle_map_transition)
