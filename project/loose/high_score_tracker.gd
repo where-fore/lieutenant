@@ -1,5 +1,9 @@
 extends Label
 
+#currently unused as of 3/25/26
+#was using it as a high score tracker, when the game had no beginning or end
+
+
 var base_text:String = "Encounters: "
 var score:int
 

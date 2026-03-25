@@ -5,6 +5,7 @@ var unique_tile_id:String
 var tile_data:MapTileData
 var currently_disabled:bool = false
 var permanently_disabled:bool = false
+var permanently_enabled:bool = false
 ## 0,0 is the first tile spawned
 var x_coordinate:int
 ## 0,0 is the first tile spawned
@@ -40,15 +41,21 @@ func _ready() -> void:
 	var frames_in_hover_animation:int = hover_animation_component.sprite_frames.get_frame_count(hover_animation_component.animation)
 	selection_effect_timer.wait_time = hover_animation_speed / frames_in_hover_animation
 
+func permanently_enable() -> void:
+	currently_disabled = false
+	permanently_disabled = false
+	enable()
+	permanently_enabled = true
 
 func permanently_disable() -> void:
-	stop_hover_animation()
-	currently_disabled = true
-	permanently_disabled = true
-	animated_sprite_component.modulate = Color(0.2,0.2,0.2,1)
+	if not permanently_enabled:
+		stop_hover_animation()
+		currently_disabled = true
+		permanently_disabled = true
+		animated_sprite_component.modulate = Color(0.2,0.2,0.2,1)
 
 func disable() -> void:
-	if not currently_disabled and not permanently_disabled:
+	if not currently_disabled and not permanently_disabled and not permanently_enabled:
 		stop_hover_animation()
 		currently_disabled = true
 		animated_sprite_component.modulate = Color(0.3,0.3,0.3,1)

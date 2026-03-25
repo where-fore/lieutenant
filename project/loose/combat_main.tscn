@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://d4ng5rexbupxm"]
+[gd_scene load_steps=19 format=3 uid="uid://d4ng5rexbupxm"]
 
 [ext_resource type="Script" uid="uid://b6t3c758hkbxo" path="res://loose/managers/timing_manager.gd" id="1_uqbt6"]
 [ext_resource type="Texture2D" uid="uid://c7a1jxvk522q2" path="res://sprites/border_background.png" id="2_257w6"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://cto8ggdg8cw8x" path="res://systems/item system/inventory_slot.tscn" id="19_i3ysi"]
 [ext_resource type="Script" uid="uid://dfj0skb38br" path="res://systems/item system/inventory_manager.gd" id="20_brhm6"]
 [ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="20_wceja"]
-[ext_resource type="Script" uid="uid://c5wfj7pwek1c2" path="res://loose/high_score_tracker.gd" id="21_ak8mu"]
 [ext_resource type="Script" uid="uid://blwvxt1yxrwwk" path="res://z individual pieces/combatants/basic_skeleton.gd" id="23_uqbt6"]
 [ext_resource type="Script" uid="uid://ceied867nmx1x" path="res://z individual pieces/combatants/skeleton_berserker.gd" id="24_ak8mu"]
 [ext_resource type="Script" uid="uid://drid3rj23mqkf" path="res://systems/aura system/aura_manager.gd" id="24_om5vj"]
@@ -83,27 +82,8 @@ layout_mode = 1
 position = Vector2(-304, -79)
 script = ExtResource("20_brhm6")
 
-[node name="HighScoreTracker" type="Control" parent="FullGame/GameMain/Control/MainUI"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-grow_vertical = 0
-
-[node name="Label" type="Label" parent="FullGame/GameMain/Control/MainUI/HighScoreTracker"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -5.0
-offset_right = 54.0
-grow_vertical = 0
-theme_override_font_sizes/font_size = 5
-text = "Victories: 162"
-vertical_alignment = 2
-script = ExtResource("21_ak8mu")
-
 [node name="CombatUI" parent="FullGame/GameMain/Control/MainUI" instance=ExtResource("7_8s366")]
+visible = false
 layout_mode = 1
 
 [node name="RewardUI" parent="FullGame/GameMain/Control/MainUI" instance=ExtResource("14_hfile")]

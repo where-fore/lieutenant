@@ -54,10 +54,13 @@ func populate_tile_data(tile:MapTile) -> void:
 			tile.permanently_disable()
 		elif tile.y_coordinate == 1:
 			tile.apply_data(boss_tile_data.pick_random().new())
+			tile.permanently_enable()
+	
 	#first and last rows
 	elif tile.x_coordinate == 0 or tile.x_coordinate >= columns - columns_to_disable_at_end:
 		tile.apply_data(generic_border_data.new())
 		tile.permanently_disable()
+	
 	#special "first" row of gameplay
 	elif tile.x_coordinate == 1:
 		tile.apply_data(first_special_tile.new())
@@ -67,7 +70,7 @@ func populate_tile_data(tile:MapTile) -> void:
 			choose_first_rewards()
 		tile.tile_data.item_reward = first_rewards.pop_front()
 	
-	
+	#everything else
 	else:
 		tile.apply_data(map_data.pick_random().new())
 

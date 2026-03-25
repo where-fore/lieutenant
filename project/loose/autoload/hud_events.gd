@@ -25,6 +25,9 @@ signal combat_lost()
 signal reward_chosen()
 
 @warning_ignore("unused_signal")
+signal rout_chosen()
+
+@warning_ignore("unused_signal")
 signal change_to_combat_screen(map_tile:MapTile)
 
 @warning_ignore("unused_signal")

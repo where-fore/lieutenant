@@ -5,14 +5,6 @@ some sort of timing management for spawning the tiles - currently the spawner cr
 	probably fixing this with the main starter thing timing the opener
 
 
-rout doesn't work (probably mouse filter)
-
-
-
-need working fog/map manager
-	first turn, only first row available
-	next, unlock 3-4 rows
-	as you do a combat, update this
 need working restart game button
 	menu button / just escape key
 		restart, close menu
@@ -21,46 +13,16 @@ need preamble, death and victory texts
 need tiles to spawn at certain power, not combats start at certain power because of engagements won
 
 
-mapmanager has a list of tiles
-	on combat done, remove row of tiles
-	list is filled by the spawner
-
-array of tiles
-how to iterate through them
-i could check for every tile, see the lowest y value disabled, disable all of y+1
-	seems fragile
-i could keep track of current "row" and increment it on combat won
-	and disable all of that row
-	also seems a bit fragile
-	hm no i like it, it's like a time keeper
 
 
+tutorial:
+	new game throws you into combat (after a blurb), quick simple fight to show autobattler combat
+		there are rumors of skeletons massing in the east...
+			fades to red, into combat
+		rumors they are not. someone needs to snuff this at the source
+	first row has easy uniques
+	then the map opens up - namely with the boss at the end (maybe show their stats to incentivize scaling)
 
-
-on return from combat/reward screen:
-	disable first available row of tiles
-		you can see ~3 or 4 rows of tiles at a time, so you can take multiple from a row by skipping rows
-	tutorial:
-		new game throws you into combat (after a blurb), quick simple fight to show autobattler combat
-			there are rumors of skeletons massing in the east...
-				fades to red, into combat
-			rumors they are not. someone needs to snuff this at the source
-		first row has easy uniques
-		then the map opens up - namely with the boss at the end (maybe show their stats to incentivize scaling)
-		
-	
-need:
-	precise spawning: have easy row at the start, boss at end
-	procedural map disabling, maybe that global night shader- remove row on victory, only show 3-4 forward (reenable new row on victory)
-		probably a map manager holds all the tiles, maybe even a dictionary of tiles in a given row for easy iteration. map manager controls if they are enabled or not
-	intro dialogue boxes or something
-	
-
-
-
-
-have the entire map get a bit darker every tile movement, global shader on map
-	rgb=[0.1,0.1,0.1]; rgb_target=[0.3,0.3,0.7] a=1; for val in rgb: rgb_target/steps_to_reach_max = val. self.modulate = color(r,g,b,a)
 
 var roll:int = randi_range(1,100)
 if rare_chance + common_chance > 100: push_error("loot roll table exceeded 100%")
@@ -75,15 +37,6 @@ else:
 
 have item rewards be different, include common at least
 	do this when i have more items
-
-
-
-
-
-
-
-
-
 
 
 
