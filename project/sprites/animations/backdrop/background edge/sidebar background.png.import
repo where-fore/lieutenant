@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6263nt2urr18"
-path="res://.godot/imported/foreground_sidebar.png-7a165d2b2d824c6a1af8762ce146a52a.ctex"
+uid="uid://cijldujh20fj4"
+path="res://.godot/imported/sidebar background.png-849ab130bc79f73205b623632f6690e2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/animations/foreground edge/foreground_sidebar.png"
-dest_files=["res://.godot/imported/foreground_sidebar.png-7a165d2b2d824c6a1af8762ce146a52a.ctex"]
+source_file="res://sprites/animations/backdrop/background edge/sidebar background.png"
+dest_files=["res://.godot/imported/sidebar background.png-849ab130bc79f73205b623632f6690e2.ctex"]
 
 [params]
 

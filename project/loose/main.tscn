@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=21 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://loose/managers/main.gd" id="1_bbldx"]
 [ext_resource type="PackedScene" uid="uid://dsbt6u8ma1cpc" path="res://systems/map system/map_tile_system.tscn" id="2_16p2t"]
@@ -10,10 +10,12 @@
 [ext_resource type="Script" uid="uid://c83t3y7en3pq0" path="res://loose/managers/cursor_manager.gd" id="8_xalbe"]
 [ext_resource type="Texture2D" uid="uid://xr6idafv8gpe" path="res://sprites/cursor.png" id="9_nf78q"]
 [ext_resource type="Texture2D" uid="uid://c7a1jxvk522q2" path="res://sprites/border_background.png" id="10_qmb71"]
-[ext_resource type="SpriteFrames" uid="uid://bctf5pih2j2d2" path="res://sprites/animations/backdrop/backdrop.tres" id="11_bbldx"]
-[ext_resource type="Texture2D" uid="uid://dgtryqdolsxtm" path="res://sprites/hacky_backdrop.png" id="11_npwt7"]
-[ext_resource type="SpriteFrames" uid="uid://dbriv3a7topvw" path="res://sprites/animations/background edge/background_edge.tres" id="12_g13l7"]
-[ext_resource type="SpriteFrames" uid="uid://c3xi07klbwfxm" path="res://sprites/animations/foreground edge/foreground_edge.tres" id="13_npwt7"]
+[ext_resource type="Texture2D" uid="uid://dngm38c2cqh5o" path="res://sprites/animations/backdrop/sky background.png" id="12_bbldx"]
+[ext_resource type="SpriteFrames" uid="uid://dbriv3a7topvw" path="res://sprites/animations/backdrop/background edge/background_edge.tres" id="12_g13l7"]
+[ext_resource type="SpriteFrames" uid="uid://c3xi07klbwfxm" path="res://sprites/animations/backdrop/foreground edge/foreground_edge.tres" id="13_npwt7"]
+[ext_resource type="Texture2D" uid="uid://0pkmth45mucx" path="res://sprites/animations/backdrop/sky foreground.png" id="13_uaqc7"]
+[ext_resource type="SpriteFrames" uid="uid://b6sdmhy2c02x3" path="res://sprites/animations/backdrop/stars and moon frames/stars_and_moon.tres" id="14_g13l7"]
+[ext_resource type="Texture2D" uid="uid://mp8fa132t4qv" path="res://sprites/animations/backdrop/map grid base.png" id="15_npwt7"]
 [ext_resource type="PackedScene" uid="uid://b13o5cfslg2uj" path="res://ui/event_log.tscn" id="18_h0uu6"]
 [ext_resource type="PackedScene" uid="uid://cplxpgrp4s0m8" path="res://ui/map_info.tscn" id="19_w1snj"]
 [ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="20_1fc2u"]
@@ -248,20 +250,24 @@ z_index = 50
 layout_mode = 2
 mouse_filter = 2
 
-[node name="HackyBackground" type="TextureRect" parent="MainGame/MarginContainer"]
-layout_mode = 2
-mouse_filter = 2
-texture = ExtResource("11_npwt7")
-expand_mode = 5
-stretch_mode = 5
-
-[node name="Background" type="AnimatedSprite2D" parent="MainGame/MarginContainer"]
-visible = false
+[node name="Background" type="Node2D" parent="MainGame/MarginContainer"]
 position = Vector2(240, 135)
-sprite_frames = ExtResource("11_bbldx")
 
-[node name="BackgroundEdge" type="AnimatedSprite2D" parent="MainGame/MarginContainer"]
-visible = false
+[node name="SkyBackground" type="Sprite2D" parent="MainGame/MarginContainer/Background"]
+texture = ExtResource("12_bbldx")
+
+[node name="SkyForeground" type="Sprite2D" parent="MainGame/MarginContainer/Background"]
+texture = ExtResource("13_uaqc7")
+
+[node name="SkyStars" type="AnimatedSprite2D" parent="MainGame/MarginContainer/Background"]
+sprite_frames = ExtResource("14_g13l7")
+autoplay = "default"
+
+[node name="MapGridBase" type="Sprite2D" parent="MainGame/MarginContainer"]
+position = Vector2(240, 135)
+texture = ExtResource("15_npwt7")
+
+[node name="SidebarBack" type="AnimatedSprite2D" parent="MainGame/MarginContainer"]
 position = Vector2(240, 135)
 sprite_frames = ExtResource("12_g13l7")
 
@@ -269,8 +275,7 @@ sprite_frames = ExtResource("12_g13l7")
 layout_mode = 2
 mouse_filter = 2
 
-[node name="ForegroundEdge" type="AnimatedSprite2D" parent="MainGame/MarginContainer"]
-visible = false
+[node name="SidebarFront" type="AnimatedSprite2D" parent="MainGame/MarginContainer"]
 position = Vector2(240, 135)
 sprite_frames = ExtResource("13_npwt7")
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpoiuju584uig"
-path="res://.godot/imported/background_sidebar.png-d25bd0c8a981bb71958c5853350a2bb6.ctex"
+uid="uid://b5snvxglhce66"
+path="res://.godot/imported/2.png-4417c24a043d5b5f7ea61634ee6f8519.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/animations/background edge/background_sidebar.png"
-dest_files=["res://.godot/imported/background_sidebar.png-d25bd0c8a981bb71958c5853350a2bb6.ctex"]
+source_file="res://sprites/animations/backdrop/stars and moon frames/2.png"
+dest_files=["res://.godot/imported/2.png-4417c24a043d5b5f7ea61634ee6f8519.ctex"]
 
 [params]
 

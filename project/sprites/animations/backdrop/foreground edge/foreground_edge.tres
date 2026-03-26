@@ -1,12 +1,12 @@
 [gd_resource type="SpriteFrames" load_steps=2 format=3 uid="uid://c3xi07klbwfxm"]
 
-[ext_resource type="Texture2D" uid="uid://c6263nt2urr18" path="res://sprites/animations/foreground edge/foreground_sidebar.png" id="1_t0jjr"]
+[ext_resource type="Texture2D" uid="uid://c0kjgh5jtfoml" path="res://sprites/animations/backdrop/foreground edge/sidebar foreground.png" id="1_ri8q4"]
 
 [resource]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_t0jjr")
+"texture": ExtResource("1_ri8q4")
 }],
 "loop": true,
 "name": &"default",
