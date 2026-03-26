@@ -15,7 +15,7 @@
 [ext_resource type="SpriteFrames" uid="uid://c3xi07klbwfxm" path="res://sprites/animations/backdrop/foreground edge/foreground_edge.tres" id="13_npwt7"]
 [ext_resource type="Texture2D" uid="uid://0pkmth45mucx" path="res://sprites/animations/backdrop/sky foreground.png" id="13_uaqc7"]
 [ext_resource type="SpriteFrames" uid="uid://b6sdmhy2c02x3" path="res://sprites/animations/backdrop/stars and moon frames/stars_and_moon.tres" id="14_g13l7"]
-[ext_resource type="Texture2D" uid="uid://mp8fa132t4qv" path="res://sprites/animations/backdrop/map grid base.png" id="15_npwt7"]
+[ext_resource type="Texture2D" uid="uid://bmxnkkwdbmxdt" path="res://sprites/animations/backdrop/map_grid_base_1.png" id="14_wcgmp"]
 [ext_resource type="PackedScene" uid="uid://b13o5cfslg2uj" path="res://ui/event_log.tscn" id="18_h0uu6"]
 [ext_resource type="PackedScene" uid="uid://cplxpgrp4s0m8" path="res://ui/map_info.tscn" id="19_w1snj"]
 [ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="20_1fc2u"]
@@ -265,7 +265,7 @@ autoplay = "default"
 
 [node name="MapGridBase" type="Sprite2D" parent="MainGame/MarginContainer"]
 position = Vector2(240, 135)
-texture = ExtResource("15_npwt7")
+texture = ExtResource("14_wcgmp")
 
 [node name="SidebarBack" type="AnimatedSprite2D" parent="MainGame/MarginContainer"]
 position = Vector2(240, 135)
