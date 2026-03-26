@@ -25,6 +25,20 @@ var base_script:GDScript = preload("res://systems/combatant system/combatant.gd"
 func _init() -> void:
 	setup_stats()
 
+#this is copied from aura_base.gd
+func get_tooltip() -> String:
+	var tooltip_text:String = name
+	
+	var to_add:String
+	to_add = "Health:" + str(scaled_health)
+	tooltip_text += "\n" + to_add
+	to_add = "Attack:" + str(scaled_attack)
+	tooltip_text += "\n" + to_add
+	
+	if extra_tooltip: tooltip_text += "\n" + extra_tooltip
+	return tooltip_text
+
+
 #called by Combatant
 func on_start_combat() -> void:
 	pass
