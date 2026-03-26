@@ -6,6 +6,7 @@ var tile_data:MapTileData
 var currently_disabled:bool = false
 var permanently_disabled:bool = false
 var permanently_enabled:bool = false
+var permanently_visible:bool = false
 ## 0,0 is the first tile spawned
 var x_coordinate:int
 ## 0,0 is the first tile spawned
@@ -41,6 +42,10 @@ func _ready() -> void:
 	var frames_in_hover_animation:int = hover_animation_component.sprite_frames.get_frame_count(hover_animation_component.animation)
 	selection_effect_timer.wait_time = hover_animation_speed / frames_in_hover_animation
 
+func make_permanently_visible() -> void:
+	permanently_visible = true
+	animated_sprite_component.modulate = Color(1,1,1,1)
+
 func permanently_enable() -> void:
 	currently_disabled = false
 	permanently_disabled = false
@@ -52,13 +57,15 @@ func permanently_disable() -> void:
 		stop_hover_animation()
 		currently_disabled = true
 		permanently_disabled = true
-		animated_sprite_component.modulate = Color(0.2,0.2,0.2,1)
+		if not permanently_visible:
+			animated_sprite_component.modulate = Color(0.2,0.2,0.2,1)
 
 func disable() -> void:
 	if not currently_disabled and not permanently_disabled and not permanently_enabled:
 		stop_hover_animation()
 		currently_disabled = true
-		animated_sprite_component.modulate = Color(0.3,0.3,0.3,1)
+		if not permanently_visible:
+			animated_sprite_component.modulate = Color(0.3,0.3,0.3,1)
 
 func enable() -> void:
 	if currently_disabled and not permanently_disabled:
@@ -78,16 +85,15 @@ func stop_hover_animation() -> void:
 	hover_animation_component.stop()
 
 func when_clicked() -> void:
-	if not currently_disabled:
+	if not currently_disabled or permanently_visible:
 		HudEvents.map_tile_hovered.emit(self)
 		start_hover_animation()
 		show_selection_effect()
 
 func if_not_me_stop_hovering(maptile:MapTile) -> void:
 	if maptile != self:
-		if not currently_disabled:
-			hide_selection_effect()
-			stop_hover_animation()
+		hide_selection_effect()
+		stop_hover_animation()
 
 func _on_area_2d_mouse_entered() -> void:
 	pass
@@ -96,10 +102,9 @@ func _on_area_2d_mouse_exited() -> void:
 	pass
 
 func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if not currently_disabled:
-		if event is InputEventMouseButton:
-			if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-				when_clicked()
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			when_clicked()
 
 func show_selection_effect() -> void:
 	selection_sprite.visible = true

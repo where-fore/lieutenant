@@ -7,6 +7,8 @@ extends MarginContainer
 const enemy_blurb_base:String = "Your scouts spot a {enemy_name} in this land."
 const item_reward_text_blurb:String = "They also noticed what looked to be a {reward_name}, ripe for the taking."
 const aura_reward_text_blurb:String = "A protected spot to resupply."
+@onready var venture_button:TextureButton = $MarginContainer/CenterContainer/VentureButton/TextureButton
+@onready var venture_button_container:VBoxContainer = $MarginContainer/CenterContainer/VentureButton
 
 @onready var close_timer:Timer = $CloseTimer
 var time_to_close_panel:float = 5
@@ -48,6 +50,16 @@ func update_map_tile_info(tile:MapTile) -> void:
 		#var reward_name_color:String = Color.SKY_BLUE.to_html()
 		#var reward_name_fancy:String = "[color=#%s]%s[/color]" % [reward_name_color, tile_info.item_reward.item_name]
 		reward_blurb.text = aura_reward_text_blurb
+	
+	if tile.currently_disabled:
+		venture_button_container.modulate = Color(0.5,0.5,0.5)
+		venture_button.tooltip_text = "Too Far"
+		#note this is wrong, disabled is not checking distance
+		#but currently the only things disabled but visible are pemanently visible
+	else:
+		venture_button_container.modulate = Color(1,1,1)
+		venture_button.tooltip_text = "Begin Combat"
+		
 
 func begin_to_hide() -> void:
 	close_timer.stop() #restart the timer
@@ -77,5 +89,6 @@ func clear_info() -> void:
 	current_tile = null
 
 func _on_combat_button_pressed() -> void:
-	MapEvents.venture_to.emit(current_tile)
-	hide_map_info_panel()
+	if not current_tile.currently_disabled:
+		MapEvents.venture_to.emit(current_tile)
+		hide_map_info_panel()

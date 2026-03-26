@@ -108,7 +108,6 @@ custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "Begin Combat"
 texture_normal = ExtResource("4_7cdnt")
 stretch_mode = 0
 
