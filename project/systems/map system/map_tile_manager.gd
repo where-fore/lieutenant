@@ -15,6 +15,9 @@ func _ready() -> void:
 	MapEvents.reward_offered.connect(fully_cleared_tile)
 	
 	maptile_spawner_parent.populate_tiles()
+	
+	for tile:MapTile in current_map_tiles:
+		print_debug("tile: " + str(tile.x_coordinate) + ", " + str(tile.y_coordinate) + ": " + str(tile.tile_data.enemy.scaled_attack))
 
 func handle_map_transition(map_tile:MapTile) -> void:
 	current_tile_encounter = map_tile

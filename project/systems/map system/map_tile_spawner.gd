@@ -15,6 +15,7 @@ extends Node2D
 @export var isometric_offset:int = 6
 @export_enum("Top Left", "Bottom Left") var this_spawner_is_placed_at:int = 0
 @export var columns_to_disable_at_end:int = 4
+@export var columns_to_disable_at_start:int = 1
 
 var first_rewards:Array[Item]
 
@@ -56,12 +57,12 @@ func populate_tile_data(tile:MapTile) -> void:
 			tile.permanently_enable()
 	
 	#first and last rows
-	elif tile.x_coordinate == 0 or tile.x_coordinate >= columns - columns_to_disable_at_end:
+	elif tile.x_coordinate == (columns_to_disable_at_start - 1) or tile.x_coordinate >= columns - columns_to_disable_at_end:
 		tile.apply_data(generic_border_data.new())
 		tile.permanently_disable()
 	
 	#special "first" row of gameplay
-	elif tile.x_coordinate == 1:
+	elif tile.x_coordinate == columns_to_disable_at_start:
 		tile.apply_data(first_special_tile.new())
 		
 		if first_rewards.size() == 0:
@@ -72,6 +73,9 @@ func populate_tile_data(tile:MapTile) -> void:
 	#everything else
 	else:
 		tile.apply_data(map_data.pick_random().new())
+	
+	if tile.tile_data.enemy:
+		tile.tile_data.enemy.scale_stats(tile.x_coordinate - columns_to_disable_at_start) 
 
 func check_if_tile_export_set_correctly() -> void:
 	var arrays_to_check:Array[Array] = [map_data, boss_tile_data]

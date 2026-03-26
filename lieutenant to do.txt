@@ -1,17 +1,16 @@
 --------------------------------------------------------
 working notes
 --------------------------------------------------------
-some sort of timing management for spawning the tiles - currently the spawner creates the map on _ready(), and the manager is a sibling and listens to signals connected on _ready(). this means the map spawns its tiles and sends it all out, then the manager connects to the signal (if in a certain tree hierarchy)
-	probably fixing this with the main starter thing timing the opener
-	either way, the map spawner probably shouldn't be running on their _ready(), but on the manager's _ready()
 
+need working end of game logic
+	when populating the rewards screen, check if tile.is_final_tile? if so populate differently (reward is win_game button, and loss is lose_game button?)
 
-need working restart game button
-	menu button / just escape key
-		restart, close menu
-			probably just deletes the combat and map children, and reinstantiates them
+somehow be able to hover over boss tile and their stats, but not travel there?
+	i do like the visual of it being there, but the venture button should be greyed out maybe?
+	maybe attach this to the permanently enable?
+		no no, maybe a permanently visible field?
+
 need preamble, death and victory texts
-need tiles to spawn at certain power, not combats start at certain power because of engagements won
 
 
 
@@ -117,6 +116,8 @@ combat log polish
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
+some fadein/outs for restarting/combat/panel popping in etc
+
 breakdown the ui into scenes and have a manager create them, probably
 	has a cleaner scene tree for work, no need for the visible on and off stuff too
 

@@ -180,9 +180,8 @@ func create_enemy_from_data(enemy_data:CombatantData) -> Combatant:
 	
 	#create a lil memory boi
 	var new_enemy_node:Combatant = Combatant.new()
-	var new_enemy_script:CombatantData = enemy_data.duplicate()
 	#assign data to our boi
-	new_enemy_node.baseData = new_enemy_script
+	new_enemy_node.baseData = enemy_data
 	#make our boi into a real boy
 	add_child(new_enemy_node)
 	#call function on our real boy
