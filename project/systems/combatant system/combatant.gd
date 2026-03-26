@@ -24,9 +24,7 @@ func setup(should_be_the_player:bool = false) -> void:
 	if should_be_the_player:
 		is_the_player = true
 		is_an_enemy = false
-	
-	baseData.scale_stats(CombatEvents.encounters_defeated_for_scaling)
-	
+		
 	starting_stats[Stats.health] = baseData.scaled_health
 	starting_stats[Stats.attack] = baseData.scaled_attack
 	reset_current_stats_to_base()

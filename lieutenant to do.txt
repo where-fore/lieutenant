@@ -3,6 +3,7 @@ working notes
 --------------------------------------------------------
 some sort of timing management for spawning the tiles - currently the spawner creates the map on _ready(), and the manager is a sibling and listens to signals connected on _ready(). this means the map spawns its tiles and sends it all out, then the manager connects to the signal (if in a certain tree hierarchy)
 	probably fixing this with the main starter thing timing the opener
+	either way, the map spawner probably shouldn't be running on their _ready(), but on the manager's _ready()
 
 
 need working restart game button

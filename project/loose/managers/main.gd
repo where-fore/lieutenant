@@ -1,7 +1,9 @@
 extends Node2D
 
-@export var main_rpg_scene:PackedScene
-@onready var level_container:Control = $MainGame/MarginContainer/CombatContainer
+@export var combat_entire_scene:PackedScene
+@onready var combat_container:Control = $MainGame/MarginContainer/CombatContainer
+@export var map_creation_scene:PackedScene
+@onready var map_container:Control = $MainGame/MarginContainer/MapContainer
 @onready var game_start_button_container:Control = $MainUI/GameStarter
 @onready var pause_menu_button_container:Control = $MainUI/PauseMenuButton
 @onready var pause_menu_container:Control = $MainUI/PauseMenu
@@ -11,30 +13,48 @@ extends Node2D
 
 func _ready() -> void:
 	game_start_button_container.visible = true
-	pause_menu_button_container.visible = false
+	pause_menu_button_container.visible = true
 	pause_menu_container.visible = false
 	scrolling_log_container.visible = true
 	right_side_ui_container.visible = true
-	
-	create_combat_ui()
 
-func open_pause_menu() -> void:
-	pass
+func start_game() -> void:
+	clear_and_create_scene(map_creation_scene, map_container)
+	clear_and_create_scene(combat_entire_scene, combat_container)
 
-func create_combat_ui() -> void:
-	for child:Node in level_container.get_children():
+
+func clear_scene(node_parent:Control) -> void:
+	for child:Node in node_parent.get_children():
 		child.queue_free()
-	var new_level:Node = main_rpg_scene.instantiate()
-	level_container.add_child(new_level)
 
-func _on_new_game_button_pressed() -> void:
-	game_start_button_container.visible = false
-
-func _on_load_game_button_pressed() -> void:
-	game_start_button_container.visible = false
+func clear_and_create_scene(node_base_scene:PackedScene, node_parent:Control) -> void:
+	for child:Node in node_parent.get_children():
+		child.queue_free()
+	#note the above is queue_free, not free(), which means it queues up deleting the scene till end of frame
+	#so i probably want to until this frame is done, the child is deleted, before continuing
+	await get_tree().process_frame
+	
+	var new_level:Node = node_base_scene.instantiate()
+	node_parent.add_child(new_level)
 
 func _on_pause_menu_button_pressed() -> void:
 	if not pause_menu_container.visible:
 		pause_menu_container.visible = true
 	else:
 		pause_menu_container.visible = false
+	HudEvents.game_paused.emit()
+
+func _on_new_game_button_pressed() -> void:
+	game_start_button_container.visible = false
+	start_game()
+
+func _on_restart_button_pressed() -> void:
+	get_tree().reload_current_scene()
+
+func _on_resume_button_pressed() -> void:
+	close_pause_menu()
+
+func close_pause_menu() -> void:
+	if pause_menu_container.visible:
+		pause_menu_container.visible = false
+	

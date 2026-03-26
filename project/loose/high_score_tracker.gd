@@ -19,7 +19,8 @@ func update_text() -> void:
 	text = base_text + str(score)
 
 func check_score() -> void:
-	score = CombatEvents.encounters_defeated_for_scaling
+	#score = CombatEvents.encounters_defeated_for_scaling
+	pass
 
 func on_combat_won() -> void:
 	update_text.call_deferred()

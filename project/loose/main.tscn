@@ -1,10 +1,10 @@
-[gd_scene load_steps=29 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=19 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://loose/managers/main.gd" id="1_bbldx"]
+[ext_resource type="PackedScene" uid="uid://dsbt6u8ma1cpc" path="res://systems/map system/map_tile_system.tscn" id="2_16p2t"]
 [ext_resource type="PackedScene" uid="uid://d4ng5rexbupxm" path="res://loose/combat_main.tscn" id="2_uaqc7"]
 [ext_resource type="Shader" uid="uid://bey6fsvgi1mh7" path="res://crt_shader.gdshader" id="3_g13l7"]
 [ext_resource type="Texture2D" uid="uid://dpjjrf7ekiuwc" path="res://sprites/box_outer.png" id="4_npwt7"]
-[ext_resource type="Texture2D" uid="uid://bhrvrblpm7ul3" path="res://sprites/box_two.png" id="5_obmf6"]
 [ext_resource type="Texture2D" uid="uid://dhv5u72sffxlx" path="res://sprites/menu.png" id="6_f4q0r"]
 [ext_resource type="Script" uid="uid://dvk6chwr5wrj4" path="res://loose/pause_menu.gd" id="7_yqr2s"]
 [ext_resource type="Script" uid="uid://c83t3y7en3pq0" path="res://loose/managers/cursor_manager.gd" id="8_xalbe"]
@@ -13,18 +13,10 @@
 [ext_resource type="SpriteFrames" uid="uid://bctf5pih2j2d2" path="res://sprites/animations/backdrop/backdrop.tres" id="11_bbldx"]
 [ext_resource type="Texture2D" uid="uid://dgtryqdolsxtm" path="res://sprites/hacky_backdrop.png" id="11_npwt7"]
 [ext_resource type="SpriteFrames" uid="uid://dbriv3a7topvw" path="res://sprites/animations/background edge/background_edge.tres" id="12_g13l7"]
-[ext_resource type="Script" uid="uid://bkfbtklwaviuu" path="res://systems/map system/map_tile_spawner.gd" id="12_ireyf"]
 [ext_resource type="SpriteFrames" uid="uid://c3xi07klbwfxm" path="res://sprites/animations/foreground edge/foreground_edge.tres" id="13_npwt7"]
-[ext_resource type="Script" uid="uid://d32bd43xtpgy2" path="res://z individual pieces/map tiles/forest_basic.gd" id="13_rjmfi"]
-[ext_resource type="Script" uid="uid://bq4li4v6tc2mk" path="res://z individual pieces/map tiles/forest_house1.gd" id="14_u46kj"]
-[ext_resource type="Script" uid="uid://04et875g86xn" path="res://z individual pieces/map tiles/forest_house2.gd" id="15_cuuk2"]
-[ext_resource type="Script" uid="uid://cn1a2eakscc7c" path="res://z individual pieces/map tiles/forest_plains.gd" id="16_80hqw"]
-[ext_resource type="PackedScene" uid="uid://dxldisnu3aaoo" path="res://systems/map system/map_tile.tscn" id="17_q5k8v"]
 [ext_resource type="PackedScene" uid="uid://b13o5cfslg2uj" path="res://ui/event_log.tscn" id="18_h0uu6"]
-[ext_resource type="Script" uid="uid://cpopoj80l101w" path="res://z individual pieces/map tiles/forest_house_first_unique.gd" id="19_obmf6"]
 [ext_resource type="PackedScene" uid="uid://cplxpgrp4s0m8" path="res://ui/map_info.tscn" id="19_w1snj"]
 [ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="20_1fc2u"]
-[ext_resource type="Script" uid="uid://ok2ot6yb1xi8" path="res://systems/map system/map_tile_manager.gd" id="21_f4q0r"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tefeu"]
 shader = ExtResource("3_g13l7")
@@ -50,23 +42,10 @@ shader_parameter/clip_warp = true
 shader_parameter/vignette_intensity = 0.2
 shader_parameter/vignette_opacity = 0.30000001425
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tefeu"]
-content_margin_left = 60.0
-content_margin_top = 60.0
-content_margin_right = 60.0
-content_margin_bottom = 60.0
-texture = ExtResource("5_obmf6")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o6xl0"]
-content_margin_left = 40.0
-content_margin_top = 40.0
-content_margin_right = 40.0
-content_margin_bottom = 40.0
-texture = ExtResource("5_obmf6")
-
 [node name="Main" type="Node2D"]
 script = ExtResource("1_bbldx")
-main_rpg_scene = ExtResource("2_uaqc7")
+combat_entire_scene = ExtResource("2_uaqc7")
+map_creation_scene = ExtResource("2_16p2t")
 
 [node name="CRTFilter" type="CanvasLayer" parent="."]
 layer = 1000
@@ -127,27 +106,12 @@ Game"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SpacerCenter" type="Control" parent="MainUI/GameStarter/GameStartButtons"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-
-[node name="LoadGameButton" type="Button" parent="MainUI/GameStarter/GameStartButtons"]
-visible = false
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxTexture_tefeu")
-text = "Load
-Game"
-
 [node name="SpacerRight" type="Control" parent="MainUI/GameStarter/GameStartButtons"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
 [node name="PauseMenuButton" type="Control" parent="MainUI"]
-visible = false
 layout_mode = 3
 anchor_left = 0.01
 anchor_top = 0.01
@@ -187,74 +151,73 @@ color = Color(0, 0, 0, 0.92156863)
 
 [node name="Control" type="Control" parent="MainUI/PauseMenu"]
 layout_mode = 1
-anchor_left = 0.15
-anchor_top = 0.15
-anchor_right = 0.85
-anchor_bottom = 0.85
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = -64.0
+offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ChangeGameButtons" type="VBoxContainer" parent="MainUI/PauseMenu/Control"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MainUI/PauseMenu/Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MainUI/PauseMenu/Control/ChangeGameButtons"]
-layout_mode = 2
 size_flags_vertical = 3
 
-[node name="SaveGameButton" type="Button" parent="MainUI/PauseMenu/Control/ChangeGameButtons/HBoxContainer"]
+[node name="RestartButton" type="TextureButton" parent="MainUI/PauseMenu/Control/HBoxContainer"]
+custom_minimum_size = Vector2(64, 48)
 layout_mode = 2
-size_flags_horizontal = 5
-size_flags_vertical = 5
-theme_override_styles/normal = SubResource("StyleBoxTexture_o6xl0")
-text = "Save
-Game"
+texture_normal = ExtResource("4_npwt7")
+stretch_mode = 5
 
-[node name="CenterSpacer" type="Control" parent="MainUI/PauseMenu/Control/ChangeGameButtons/HBoxContainer"]
+[node name="Label" type="Label" parent="MainUI/PauseMenu/Control/HBoxContainer/RestartButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+text = "Restart"
+
+[node name="CenterSpacer" type="Control" parent="MainUI/PauseMenu/Control/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="LoadGameButton" type="Button" parent="MainUI/PauseMenu/Control/ChangeGameButtons/HBoxContainer"]
+[node name="ResumeButton" type="TextureButton" parent="MainUI/PauseMenu/Control/HBoxContainer"]
+custom_minimum_size = Vector2(64, 48)
 layout_mode = 2
-size_flags_horizontal = 5
-size_flags_vertical = 5
-theme_override_styles/normal = SubResource("StyleBoxTexture_o6xl0")
-text = "Load
-Game"
+texture_normal = ExtResource("4_npwt7")
+stretch_mode = 5
 
-[node name="CenterSpacer" type="Control" parent="MainUI/PauseMenu/Control/ChangeGameButtons"]
-layout_mode = 2
-size_flags_vertical = 3
-mouse_filter = 2
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="MainUI/PauseMenu/Control/ChangeGameButtons"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="MainMenuButton" type="Button" parent="MainUI/PauseMenu/Control/ChangeGameButtons/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 5
-size_flags_vertical = 5
-theme_override_styles/normal = SubResource("StyleBoxTexture_o6xl0")
-text = "Main
-Menu"
-
-[node name="CenterSpacer" type="Control" parent="MainUI/PauseMenu/Control/ChangeGameButtons/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-
-[node name="SettingsButton" type="Button" parent="MainUI/PauseMenu/Control/ChangeGameButtons/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 5
-size_flags_vertical = 5
-theme_override_styles/normal = SubResource("StyleBoxTexture_o6xl0")
-text = "Config
+[node name="Label" type="Label" parent="MainUI/PauseMenu/Control/HBoxContainer/ResumeButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+text = "Resume
 "
 
 [node name="CursorManager" type="Node2D" parent="."]
@@ -306,18 +269,6 @@ sprite_frames = ExtResource("12_g13l7")
 layout_mode = 2
 mouse_filter = 2
 
-[node name="MapTileManager" type="Node2D" parent="MainGame/MarginContainer/MapContainer"]
-script = ExtResource("21_f4q0r")
-
-[node name="MapTileSpawner" type="Node2D" parent="MainGame/MarginContainer/MapContainer"]
-position = Vector2(6, 183)
-script = ExtResource("12_ireyf")
-map_data = Array[GDScript]([ExtResource("13_rjmfi"), ExtResource("14_u46kj"), ExtResource("15_cuuk2"), ExtResource("13_rjmfi"), ExtResource("13_rjmfi")])
-boss_tile_data = Array[GDScript]([ExtResource("16_80hqw")])
-generic_border_data = ExtResource("13_rjmfi")
-first_special_tile = ExtResource("19_obmf6")
-mapTileBase = ExtResource("17_q5k8v")
-
 [node name="ForegroundEdge" type="AnimatedSprite2D" parent="MainGame/MarginContainer"]
 visible = false
 position = Vector2(240, 135)
@@ -353,5 +304,6 @@ mouse_filter = 2
 texture = ExtResource("20_1fc2u")
 
 [connection signal="pressed" from="MainUI/GameStarter/GameStartButtons/NewGameButton" to="." method="_on_new_game_button_pressed"]
-[connection signal="pressed" from="MainUI/GameStarter/GameStartButtons/LoadGameButton" to="." method="_on_load_game_button_pressed"]
 [connection signal="pressed" from="MainUI/PauseMenuButton/PauseMenuButton" to="." method="_on_pause_menu_button_pressed"]
+[connection signal="pressed" from="MainUI/PauseMenu/Control/HBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="MainUI/PauseMenu/Control/HBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]

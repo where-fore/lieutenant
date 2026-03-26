@@ -38,3 +38,6 @@ signal map_tile_hovered(map_tile:MapTile)
 
 @warning_ignore("unused_signal")
 signal map_tile_unhovered()
+
+@warning_ignore("unused_signal")
+signal game_paused()

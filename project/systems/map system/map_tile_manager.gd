@@ -4,6 +4,7 @@ var current_map_tiles:Array[MapTile]
 var current_column_sunsetting:int = 1
 var tiles_you_can_see_into_fog_of_war:int = 3
 var current_tile_encounter:MapTile
+@onready var maptile_spawner_parent:Node2D = $MapTileSpawner
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,6 +13,8 @@ func _ready() -> void:
 	MapEvents.map_grid_ready.connect(hide_all_but_first_row)
 	MapEvents.venture_to.connect(handle_map_transition)
 	MapEvents.reward_offered.connect(fully_cleared_tile)
+	
+	maptile_spawner_parent.populate_tiles()
 
 func handle_map_transition(map_tile:MapTile) -> void:
 	current_tile_encounter = map_tile

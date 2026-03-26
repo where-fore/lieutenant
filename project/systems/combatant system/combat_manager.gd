@@ -38,6 +38,8 @@ func _ready() -> void:
 	CombatEvents.pause_button_pressed.connect(pause_button_pressed)
 	CombatEvents.step_button_pressed.connect(step_button_pressed)
 	CombatEvents.play_button_pressed.connect(play_button_pressed)
+	HudEvents.game_paused.connect(pause_button_pressed)
+	CombatEvents.combat_ongoing = false
 
 
 func pause_button_pressed() -> void:
@@ -85,7 +87,7 @@ func next_turn() -> void:
 	if CombatEvents.combat_ongoing:
 		start_turn()
 
-func turn_animation() -> Signal:
+func turn_animation() -> void:
 	var player_near_death:bool = current_player.get_damaged_health() <= 1* current_enemy.current_stats[Stats.attack]
 	var enemy_near_death:bool = current_enemy.get_damaged_health() <= 1* current_player.current_stats[Stats.attack]
 	var near_end:bool = player_near_death or enemy_near_death
@@ -93,18 +95,27 @@ func turn_animation() -> Signal:
 	var slow_opener:bool = turn_number <= 2
 	var failsafe:float = 0.2
 	
+	var animation_timer:Timer = Timer.new()
+	add_child(animation_timer)
+	#this is different from get_tree().create_timer - it's local to this guy
+	#so i can delete this node and all the timers cleanly stop
+	var timer_duration:float
+	
 	if slow_opener:
-		return get_tree().create_timer(opener_turn_delay).timeout
+		timer_duration = opener_turn_delay
 		
 	elif not slow_opener and not near_end:
-		return get_tree().create_timer(middle_turn_delay).timeout
+		timer_duration = middle_turn_delay
 	
 	elif near_end:
-		return get_tree().create_timer(near_end_delay).timeout
+		timer_duration = near_end_delay
 	
 	else:
 		push_warning("no turn animation state chosen; using failsafe")
-		return get_tree().create_timer(failsafe).timeout
+		timer_duration = failsafe
+	
+	animation_timer.start(timer_duration)
+	await animation_timer.timeout
 
 func handle_perishing_combatant(combatant_who_died:Combatant) -> void:
 	if combatant_who_died.is_the_player:

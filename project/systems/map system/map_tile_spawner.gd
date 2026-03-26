@@ -22,7 +22,6 @@ var first_rewards:Array[Item]
 func _ready() -> void:
 	check_if_tile_export_set_correctly()
 	choose_first_rewards()
-	populate_tiles()
 
 #note that this does do not do any z-indexing, and defaults to godot tree hierarchy z-indexing
 #the first tiles created here will be drawn to screen last

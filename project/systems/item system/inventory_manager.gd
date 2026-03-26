@@ -31,6 +31,7 @@ func _ready() -> void:
 
 func on_scene_ready() -> void:
 	find_inventory_slot_nodes()
+	update_inventory_full_status()
 	populate_starter_items()
 
 func on_attack(source:Combatant) -> void:
@@ -80,7 +81,7 @@ func clear_inventory() -> void:
 func populate_starter_items() -> void:
 	for item_id:String in starting_inventory:
 		if InventoryEvents.inventory_is_full:
-			push_error("starting iventory tried to equip more items than slots available")
+			push_error("starting inventory tried to equip more items than slots available")
 		
 		equip_to_first_available_slot(Database.get_item_by_id(item_id))
 

@@ -13,7 +13,6 @@ var enemy_final_multiplicative_aura:Dictionary[StringName, int]
 func _ready() -> void:
 	AuraEvents.initalize_combat_stats.connect(update_stats)
 	AuraEvents.updated_aura.connect(update_aura)
-	HudEvents.combat_won.connect(grow_enemies)
 	AuraEvents.restart_game.connect(reset_to_starting_stats)
 	AuraEvents.give_aura_to_player.connect(apply_new_aura_to_player)
 	AuraEvents.remove_aura_from_player.connect(remove_aura_from_player)
@@ -31,12 +30,8 @@ func _ready() -> void:
 
 
 func reset_to_starting_stats() -> void:
-	CombatEvents.encounters_defeated_for_scaling = 0
 	player_aura_dictionary.clear()
 	enemy_aura_dictionary.clear()
-
-func grow_enemies() -> void:
-	CombatEvents.encounters_defeated_for_scaling += 1
 
 func clear_auras_from_combatant(combatant:Combatant) -> void:
 	if combatant.is_the_player: pass #player_aura_dictionary.clear()
