@@ -82,9 +82,11 @@ func _on_reward_button_pressed() -> void:
 	else:
 		if current_reward is Aura:
 			AuraEvents.give_aura_to_player.emit(current_reward)
+			reward_selected()
 		elif current_reward is Item:
-			InventoryEvents.send_item_to_inventory.emit(current_reward)
-	reward_selected()
+			if not InventoryEvents.inventory_is_full:
+				InventoryEvents.send_item_to_inventory.emit(current_reward)
+				reward_selected()
 
 func _on_skip_button_pressed() -> void:
 	reward_selected()

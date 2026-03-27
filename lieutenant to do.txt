@@ -2,9 +2,6 @@
 working notes
 --------------------------------------------------------
 
-need working end of game logic
-	when populating the rewards screen, check if tile.is_final_tile? if so populate differently (reward is win_game button, and loss is lose_game button?)
-
 need preamble, death and victory texts
 
 basic balance

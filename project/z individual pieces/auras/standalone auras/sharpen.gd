@@ -6,7 +6,7 @@ var attack_increase:int = BalanceData.sharpen_attack
 func setup_basic_aura_data() -> void:
 	aura_id = "sharpen" # "generic_aura"
 	aura_name = "Sharpened Weapon" # "Generic aura"
-	aura_sprite = load("res://sprites/sword.png")
+	aura_sprite = load("res://sprites/sword_purple.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	aura_categories = [] # [auraCategories.common_aura]
 

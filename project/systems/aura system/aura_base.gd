@@ -46,12 +46,22 @@ func get_id() -> String:
 func get_tooltip() -> String:
 	setup_aura_stats()
 	
+	var to_add:String
+	
 	var tooltip_text:String = aura_name
+	
+	if not duration_type == AuraNames.DurationType.TURNS:
+		to_add = "\n" + "Aura: " + AuraNames.DurationType_Labels[duration_type]
+	else:
+		to_add = "\n" + "Aura: " + str(current_duration) + AuraNames.DurationType_Labels.keys()[duration_type]
+	tooltip_text += to_add
+	to_add = ""
+	
 	for stat_change:StringName in additive_stat_dictionary:
-		var to_add:String = str(stat_change) + " increased by " + str(additive_stat_dictionary[stat_change])
+		to_add = str(stat_change) + " increased by " + str(additive_stat_dictionary[stat_change])
 		tooltip_text += "\n" + to_add
 	for stat_change:StringName in multiplicative_stat_dictionary:
-		var to_add:String = str(stat_change) + " increased by " + str(multiplicative_stat_dictionary[stat_change]) + "%"
+		to_add = str(stat_change) + " increased by " + str(multiplicative_stat_dictionary[stat_change]) + "%"
 		tooltip_text += "\n" + to_add
 		
 	if extra_tooltip: tooltip_text += "\n" + extra_tooltip

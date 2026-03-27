@@ -59,14 +59,14 @@ func permanently_disable() -> void:
 		currently_disabled = true
 		permanently_disabled = true
 		if not permanently_visible:
-			animated_sprite_component.modulate = Color(0.2,0.2,0.2,1)
+			animated_sprite_component.modulate = Color(0.3,0.3,0.3,1)
 
 func disable() -> void:
 	if not currently_disabled and not permanently_disabled and not permanently_enabled:
 		stop_hover_animation()
 		currently_disabled = true
 		if not permanently_visible:
-			animated_sprite_component.modulate = Color(0.3,0.3,0.3,1)
+			animated_sprite_component.modulate = Color(0.4,0.4,0.4,1)
 
 func enable() -> void:
 	if currently_disabled and not permanently_disabled:
