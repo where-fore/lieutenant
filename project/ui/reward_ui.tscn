@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://ctvt2g0gq4f60"]
 
-[ext_resource type="Script" uid="uid://dytvg3vigehc7" path="res://loose/managers/reward_ui_manager.gd" id="1_tb2ic"]
+[ext_resource type="Script" uid="uid://dytvg3vigehc7" path="res://systems/ui states/reward_ui_manager.gd" id="1_tb2ic"]
 [ext_resource type="Texture2D" uid="uid://jm7ccvlf38y4" path="res://sprites/sword.png" id="4_0ugci"]
 [ext_resource type="Texture2D" uid="uid://5l7smxrm882m" path="res://sprites/question.png" id="5_5iud0"]
 [ext_resource type="Texture2D" uid="uid://dpjjrf7ekiuwc" path="res://sprites/box_outer.png" id="6_ffv3r"]

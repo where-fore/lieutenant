@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://8xcmye81t4or"]
 
-[ext_resource type="Script" uid="uid://df5yy5wtfly3o" path="res://loose/managers/combat_ui_manager.gd" id="1_sf58t"]
+[ext_resource type="Script" uid="uid://df5yy5wtfly3o" path="res://systems/ui states/combat_ui_manager.gd" id="1_sf58t"]
 [ext_resource type="PackedScene" uid="uid://drmvwdj1lrerg" path="res://ui/combatant.tscn" id="2_l2vlf"]
 [ext_resource type="Texture2D" uid="uid://jm7ccvlf38y4" path="res://sprites/sword.png" id="3_lj3ej"]
 [ext_resource type="Texture2D" uid="uid://ciouurklba10y" path="res://sprites/pause.png" id="4_5g8i8"]

@@ -5,23 +5,17 @@ working notes
 need working end of game logic
 	when populating the rewards screen, check if tile.is_final_tile? if so populate differently (reward is win_game button, and loss is lose_game button?)
 
-somehow be able to hover over boss tile and their stats, but not travel there?
-	i do like the visual of it being there, but the venture button should be greyed out maybe?
-	maybe attach this to the permanently enable?
-		no no, maybe a permanently visible field?
-
 need preamble, death and victory texts
 
+basic balance
 
-
+items & enemies
 
 tutorial:
 	new game throws you into combat (after a blurb), quick simple fight to show autobattler combat
 		there are rumors of skeletons massing in the east...
 			fades to red, into combat
 		rumors they are not. someone needs to snuff this at the source
-	first row has easy uniques
-	then the map opens up - namely with the boss at the end (maybe show their stats to incentivize scaling)
 
 
 var roll:int = randi_range(1,100)
@@ -32,19 +26,6 @@ elif roll <= rare_chance + common_chance:
 	current_search_reward = Database.get_items_by_category(Categories.item_rarity, Categories.Rarity.COMMON).pick_random()
 else:
 	pass
-
-
-
-have item rewards be different, include common at least
-	do this when i have more items
-
-
-
-
-to fit with map:
-	house: bandits, moderate strength and basic rewards, but plentiful
-	plains: no fight, small stat boost
-	forest: woodland beasts: scary, unique enemies, unique rare loot
 
 
 
@@ -89,6 +70,10 @@ does missing health damage "the vulture"
 attack steal - steal ~25% of attack on pull, "hemomancer" "the thirst"
 can scale base stats, and also scale their effects (30% -> 70% hp steal) with "world power"
 
+to fit with map:
+	house: bandits, moderate strength and basic rewards, but plentiful
+	plains: no fight, small stat boost
+	forest: woodland beasts: scary, unique enemies, unique rare loot
 
 smaller pushovers for feeling progression - smaller stat gains
 moderate stat enemies - easy to grok benchmark "forest bandit" "highwayman", "mudborn" "rotted" "bleached"

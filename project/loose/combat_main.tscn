@@ -1,8 +1,8 @@
 [gd_scene load_steps=19 format=3 uid="uid://d4ng5rexbupxm"]
 
-[ext_resource type="Script" uid="uid://b6t3c758hkbxo" path="res://loose/managers/timing_manager.gd" id="1_uqbt6"]
+[ext_resource type="Script" uid="uid://b6t3c758hkbxo" path="res://systems/ui states/timing_manager.gd" id="1_uqbt6"]
 [ext_resource type="Texture2D" uid="uid://c7a1jxvk522q2" path="res://sprites/border_background.png" id="2_257w6"]
-[ext_resource type="Script" uid="uid://cknq3emhm8aah" path="res://loose/managers/ui_manager.gd" id="2_ak8mu"]
+[ext_resource type="Script" uid="uid://cknq3emhm8aah" path="res://systems/ui states/ui_manager.gd" id="2_ak8mu"]
 [ext_resource type="PackedScene" uid="uid://c23wtu7mtmkqh" path="res://ui/death_ui.tscn" id="4_gx7f6"]
 [ext_resource type="Texture2D" uid="uid://dukmtqmjs4v7y" path="res://sprites/ui_left_bar.png" id="4_lavsf"]
 [ext_resource type="PackedScene" uid="uid://8xcmye81t4or" path="res://loose/combat_ui.tscn" id="7_8s366"]
