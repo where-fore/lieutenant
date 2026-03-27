@@ -7,8 +7,7 @@ extends MarginContainer
 const enemy_blurb_base:String = "Your scouts spot a {enemy_name} in this land."
 const item_reward_text_blurb:String = "They also noticed what looked to be a {reward_name}, ripe for the taking."
 const aura_reward_text_blurb:String = "A protected spot to resupply."
-@onready var venture_button:TextureButton = $MarginContainer/CenterContainer/VentureButton/TextureButton
-@onready var venture_button_container:VBoxContainer = $MarginContainer/CenterContainer/VentureButton
+@onready var venture_button:TextureButton = $MarginContainer/CenterContainer/TextureButton
 
 @onready var close_timer:Timer = $CloseTimer
 var time_to_close_panel:float = 5
@@ -52,12 +51,12 @@ func update_map_tile_info(tile:MapTile) -> void:
 		reward_blurb.text = aura_reward_text_blurb
 	
 	if tile.currently_disabled:
-		venture_button_container.modulate = Color(0.5,0.5,0.5)
+		venture_button.modulate = Color(0.5,0.5,0.5)
 		venture_button.tooltip_text = "Too Far"
 		#note this is wrong, disabled is not checking distance
 		#but currently the only things disabled but visible are pemanently visible
 	else:
-		venture_button_container.modulate = Color(1,1,1)
+		venture_button.modulate = Color(1,1,1)
 		venture_button.tooltip_text = "Begin Combat"
 		
 

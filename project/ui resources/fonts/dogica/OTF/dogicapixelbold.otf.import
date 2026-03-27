@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://caesptgejob7w"
-path="res://.godot/imported/dogicapixelbold.otf-9891aeda1f6e6033cd0b26b43afea64b.fontdata"
+path="res://.godot/imported/dogicapixelbold.otf-269046f004fb95d00c7f00e97983307d.fontdata"
 
 [deps]
 
-source_file="res://ui/fonts/dogica/OTF/dogicapixelbold.otf"
-dest_files=["res://.godot/imported/dogicapixelbold.otf-9891aeda1f6e6033cd0b26b43afea64b.fontdata"]
+source_file="res://ui resources/fonts/dogica/OTF/dogicapixelbold.otf"
+dest_files=["res://.godot/imported/dogicapixelbold.otf-269046f004fb95d00c7f00e97983307d.fontdata"]
 
 [params]
 

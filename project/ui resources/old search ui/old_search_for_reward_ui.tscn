@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dd1tmue7uk53b"]
 
-[ext_resource type="Script" uid="uid://xqr3pvl5dnbd" path="res://ui/old search ui/old_reward_ui_manager.gd" id="1_guo27"]
+[ext_resource type="Script" uid="uid://xqr3pvl5dnbd" path="res://ui resources/old search ui/old_reward_ui_manager.gd" id="1_guo27"]
 [ext_resource type="Script" uid="uid://cu0ympdfbfcdm" path="res://z individual pieces/auras/standalone auras/rested.gd" id="2_xpv6c"]
 [ext_resource type="Script" uid="uid://ctj5a31ibunrl" path="res://z individual pieces/auras/standalone auras/sharpen.gd" id="3_hqr5q"]
 [ext_resource type="Texture2D" uid="uid://jm7ccvlf38y4" path="res://sprites/sword.png" id="4_46t70"]

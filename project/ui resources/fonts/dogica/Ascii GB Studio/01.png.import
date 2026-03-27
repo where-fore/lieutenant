@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dkom2pmvqdjy0"
-path="res://.godot/imported/02.png-617d177b2d545523977c0c866b76ca80.ctex"
+uid="uid://cyejbj6gyn6gf"
+path="res://.godot/imported/01.png-3fc946d65b2aadc58ee61a1bf5af7063.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/fonts/dogica/Ascii GB Studio/02.png"
-dest_files=["res://.godot/imported/02.png-617d177b2d545523977c0c866b76ca80.ctex"]
+source_file="res://ui resources/fonts/dogica/Ascii GB Studio/01.png"
+dest_files=["res://.godot/imported/01.png-3fc946d65b2aadc58ee61a1bf5af7063.ctex"]
 
 [params]
 

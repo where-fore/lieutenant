@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://biwqeepmrgc1u"
-path="res://.godot/imported/03.png-d0cfec1831c19eed270bd9735b44476a.ctex"
+path="res://.godot/imported/03.png-30426c9a0d89b9b16c1197308a42ad7d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/fonts/dogica/Ascii GB Studio/03.png"
-dest_files=["res://.godot/imported/03.png-d0cfec1831c19eed270bd9735b44476a.ctex"]
+source_file="res://ui resources/fonts/dogica/Ascii GB Studio/03.png"
+dest_files=["res://.godot/imported/03.png-30426c9a0d89b9b16c1197308a42ad7d.ctex"]
 
 [params]
 

@@ -88,21 +88,7 @@ vertical_alignment = 1
 layout_mode = 2
 mouse_filter = 2
 
-[node name="VentureButton" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/separation = -10
-alignment = 1
-
-[node name="Top" type="Label" parent="MarginContainer/CenterContainer/VentureButton"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 4
-text = "Venture"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TextureButton" type="TextureButton" parent="MarginContainer/CenterContainer/VentureButton"]
+[node name="TextureButton" type="TextureButton" parent="MarginContainer/CenterContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -110,8 +96,27 @@ size_flags_vertical = 4
 texture_normal = ExtResource("4_7cdnt")
 stretch_mode = 0
 
-[node name="Bottom" type="Label" parent="MarginContainer/CenterContainer/VentureButton"]
-layout_mode = 2
+[node name="Top" type="Label" parent="MarginContainer/CenterContainer/TextureButton"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -4.0
+offset_bottom = 8.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 4
+text = "Venture"
+horizontal_alignment = 1
+
+[node name="Bottom" type="Label" parent="MarginContainer/CenterContainer/TextureButton"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -8.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 0
 theme_override_font_sizes/font_size = 4
 text = "Forth"
 horizontal_alignment = 1
@@ -120,4 +125,4 @@ vertical_alignment = 1
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="timeout" from="CloseTimer" to="." method="_on_close_timer_timeout"]
-[connection signal="pressed" from="MarginContainer/CenterContainer/VentureButton/TextureButton" to="." method="_on_combat_button_pressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/TextureButton" to="." method="_on_combat_button_pressed"]

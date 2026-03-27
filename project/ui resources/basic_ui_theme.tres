@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=6 format=3 uid="uid://wymfijcko1gs"]
 
-[ext_resource type="FontFile" uid="uid://dd4e2oootxwjn" path="res://ui/fonts/dogica/OTF/dogicabold.otf" id="2_ubq68"]
+[ext_resource type="FontFile" uid="uid://dd4e2oootxwjn" path="res://ui resources/fonts/dogica/OTF/dogicabold.otf" id="2_ubq68"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_16o42"]
 
