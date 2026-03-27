@@ -24,6 +24,8 @@ func _ready() -> void:
 	MapEvents.combat_all_done.connect(clear_log)
 	CombatEvents.combatant_died.connect(report_death)
 	CombatLogEvents.custom_message.connect(print_custom_message)
+	HudEvents.chapter_lost.connect(clear_log)
+	HudEvents.chapter_won.connect(clear_log)
 
 
 func clear_log() -> void:

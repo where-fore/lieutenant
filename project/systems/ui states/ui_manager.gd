@@ -29,12 +29,11 @@ func end_combat_as_victory() -> void:
 	combat_ui_manager.change_from()
 
 func end_combat_as_failure() -> void:
-	death_ui.visible = true
+	death_ui.change_to()
 	combat_ui_manager.change_from()
 
 func end_rewards_screen() -> void:
 	reward_ui_manager.change_from()
-	death_ui.visible = false
 	MapEvents.combat_all_done.emit()
 
 func _on_restart_button_pressed() -> void:

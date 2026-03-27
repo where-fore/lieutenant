@@ -54,10 +54,7 @@ func populate_tile_data(tile:MapTile) -> void:
 			tile.permanently_disable()
 		elif tile.y_coordinate == 1:
 			tile.apply_data(boss_tile_data.pick_random().new())
-			tile.end_of_chapter = true
-			tile.permanently_enable()
-			#tile.make_permanently_visible()
-			#tile.disable()
+			tile.mark_as_boss()
 	
 	#first and last rows
 	elif tile.x_coordinate == (columns_to_disable_at_start - 1) or tile.x_coordinate >= columns - columns_to_disable_at_end:

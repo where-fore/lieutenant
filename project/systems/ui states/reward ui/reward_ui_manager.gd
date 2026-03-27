@@ -23,6 +23,9 @@ func _ready() -> void:
 
 func change_to() -> void:
 	visible = true
+	
+	if current_map_tile.end_of_chapter:
+		HudEvents.chapter_won.emit()
 
 func change_from() -> void:
 	clear_reward()
@@ -37,11 +40,7 @@ func prepare_reward(map_tile:MapTile) -> void:
 		current_reward = current_map_tile.tile_data.item_reward as Item
 
 	if current_map_tile.end_of_chapter:
-		current_title_text_blurb = "Celebrate your\nvictory!"
-		current_reward_text_blurb = "Celebrate your\nvictory!"
-		reward_button.texture_normal = reward_empty_texture
-		reward_button.tooltip_text = "Celebrate your\nvictory!"
-		skip_button_container.visible = false
+		pass
 	elif current_reward is Aura:
 		reward_button.texture_normal = current_reward.aura_sprite
 		reward_button.tooltip_text = current_reward.get_tooltip()

@@ -8,6 +8,7 @@ var permanently_disabled:bool = false
 var permanently_enabled:bool = false
 var permanently_visible:bool = false
 var end_of_chapter:bool = false
+var lethal_encounter:bool = false
 ## 0,0 is the first tile spawned
 var x_coordinate:int
 ## 0,0 is the first tile spawned
@@ -42,6 +43,12 @@ func _ready() -> void:
 	hover_animation_component.speed_scale = hover_animation_speed
 	var frames_in_hover_animation:int = hover_animation_component.sprite_frames.get_frame_count(hover_animation_component.animation)
 	selection_effect_timer.wait_time = hover_animation_speed / frames_in_hover_animation
+
+func mark_as_boss() -> void:
+	end_of_chapter = true
+	lethal_encounter = true
+	make_permanently_visible()
+	disable()
 
 func make_permanently_visible() -> void:
 	permanently_visible = true

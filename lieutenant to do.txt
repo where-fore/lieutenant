@@ -1,21 +1,9 @@
 --------------------------------------------------------
 working notes
 --------------------------------------------------------
-
-hook up preamble, death, victory to the text blurb manager, somehow
-	send signals to main, which enable the manager?
-	manager also hears signals and changes text?
-
 basic balance
 
 items & enemies
-
-tutorial:
-	new game throws you into combat (after a blurb), quick simple fight to show autobattler combat
-		there are rumors of skeletons massing in the east...
-			fades to red, into combat
-		rumors they are not. someone needs to snuff this at the source
-
 
 var roll:int = randi_range(1,100)
 if rare_chance + common_chance > 100: push_error("loot roll table exceeded 100%")
@@ -87,7 +75,7 @@ moderate strategy: one unique and lots of supporting stats, or two uniques with 
 probably can't win with unique and unsupporting stats, or with too few supporting stats
 
 
-
+to flavour: look up meteor/apocolyptic mythologies, and draw from those
 
 
 
@@ -100,6 +88,10 @@ combat log polish
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
+break hudevents into hudevents and stateevents (combat won is a state change, player health updated is a hud update)
+
+want to be able to close and open uis/panels. eg when you lose the game, closing the event dialogue so you can browse the combat log. opening your combat ui/inventory on the map so you can see your strength. closing the combat ui so you can browse the map (that's mostly for deciding whether to use your limited blast now or later)
+
 some fadein/outs for restarting/combat/panel popping in etc
 
 breakdown the ui into scenes and have a manager create them, probably

@@ -44,3 +44,12 @@ signal game_paused()
 
 @warning_ignore("unused_signal")
 signal chapter_won()
+
+@warning_ignore("unused_signal")
+signal chapter_lost()
+
+@warning_ignore("unused_signal")
+signal chapter_started()
+
+@warning_ignore("unused_signal")
+signal chapter_completed()
