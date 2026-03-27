@@ -202,6 +202,8 @@ autobattling concept entirely, different speeds etc
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+map tiles are spawned starting at 0,0 - it's more natural to me to start at 1,1. i can change it all to not be 0-indexed
+
 the map info panel is a vbox/center container hybrid abomination. probably want to codify this into the bottom info is anchored to the venture button, and text grows down, or something? idk
 
 aura.create_aura() and item.duplicate() is impossible to keep track of. codify which one, where, and make it automatic

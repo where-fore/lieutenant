@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://ctvt2g0gq4f60"]
 
-[ext_resource type="Script" uid="uid://dytvg3vigehc7" path="res://systems/ui states/reward_ui_manager.gd" id="1_tb2ic"]
+[ext_resource type="Script" uid="uid://dytvg3vigehc7" path="res://systems/ui states/reward ui/reward_ui_manager.gd" id="1_tb2ic"]
 [ext_resource type="Texture2D" uid="uid://jm7ccvlf38y4" path="res://sprites/sword.png" id="4_0ugci"]
 [ext_resource type="Texture2D" uid="uid://5l7smxrm882m" path="res://sprites/question.png" id="5_5iud0"]
 [ext_resource type="Texture2D" uid="uid://dpjjrf7ekiuwc" path="res://sprites/box_outer.png" id="6_ffv3r"]
@@ -22,6 +22,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 alignment = 1
 
 [node name="SpacerTop" type="Control" parent="VBoxContainer"]
@@ -128,27 +129,46 @@ layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="SkipRewardButton" type="MarginContainer" parent="VBoxContainer"]
-layout_mode = 2
+[node name="SkipRewardButton" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -20.0
+grow_horizontal = 2
+grow_vertical = 0
 size_flags_vertical = 4
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
 
-[node name="TextureButton" type="TextureButton" parent="VBoxContainer/SkipRewardButton"]
-custom_minimum_size = Vector2(32, 8)
+[node name="TextureButton" type="TextureButton" parent="SkipRewardButton"]
+custom_minimum_size = Vector2(32, 12)
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 8
 size_flags_vertical = 4
 texture_normal = ExtResource("6_ffv3r")
+ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="VBoxContainer/SkipRewardButton"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
+[node name="Label" type="Label" parent="SkipRewardButton/TextureButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = -7.0
+offset_right = 12.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 6
 text = "Skip"
 horizontal_alignment = 1
 
 [connection signal="pressed" from="VBoxContainer/RewardButtons/RewardButton/VBoxContainer/TextureButton" to="." method="_on_reward_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/SkipRewardButton/TextureButton" to="." method="_on_skip_button_pressed"]
+[connection signal="pressed" from="SkipRewardButton/TextureButton" to="." method="_on_skip_button_pressed"]

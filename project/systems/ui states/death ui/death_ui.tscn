@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c23wtu7mtmkqh"]
 
 [ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="1_gejld"]
-[ext_resource type="Script" uid="uid://csd1v3lolqaqb" path="res://ui/death_ui.gd" id="1_hxgnp"]
+[ext_resource type="Script" uid="uid://csd1v3lolqaqb" path="res://systems/ui states/death ui/death_ui.gd" id="1_hxgnp"]
 
 [node name="DeathUI" type="Control"]
 layout_mode = 3

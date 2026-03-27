@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://systems/ui states/main.gd" id="1_bbldx"]
 [ext_resource type="PackedScene" uid="uid://dsbt6u8ma1cpc" path="res://systems/map system/map_tile_system.tscn" id="2_16p2t"]
-[ext_resource type="PackedScene" uid="uid://d4ng5rexbupxm" path="res://loose/combat_main.tscn" id="2_uaqc7"]
+[ext_resource type="PackedScene" uid="uid://d4ng5rexbupxm" path="res://systems/ui states/main combat/combat_main.tscn" id="2_uaqc7"]
 [ext_resource type="Shader" uid="uid://bey6fsvgi1mh7" path="res://crt_shader.gdshader" id="3_g13l7"]
 [ext_resource type="Texture2D" uid="uid://dpjjrf7ekiuwc" path="res://sprites/box_outer.png" id="4_npwt7"]
 [ext_resource type="Texture2D" uid="uid://dhv5u72sffxlx" path="res://sprites/menu.png" id="6_f4q0r"]
@@ -16,8 +16,8 @@
 [ext_resource type="Texture2D" uid="uid://0pkmth45mucx" path="res://sprites/animations/backdrop/sky foreground.png" id="13_uaqc7"]
 [ext_resource type="SpriteFrames" uid="uid://b6sdmhy2c02x3" path="res://sprites/animations/backdrop/stars and moon frames/stars_and_moon.tres" id="14_g13l7"]
 [ext_resource type="Texture2D" uid="uid://bmxnkkwdbmxdt" path="res://sprites/animations/backdrop/map_grid_base_1.png" id="14_wcgmp"]
-[ext_resource type="PackedScene" uid="uid://b13o5cfslg2uj" path="res://ui/event_log.tscn" id="18_h0uu6"]
-[ext_resource type="PackedScene" uid="uid://cplxpgrp4s0m8" path="res://ui/map_info.tscn" id="19_w1snj"]
+[ext_resource type="PackedScene" uid="uid://b13o5cfslg2uj" path="res://loose/event_log.tscn" id="18_h0uu6"]
+[ext_resource type="PackedScene" uid="uid://cplxpgrp4s0m8" path="res://systems/map system/map info panel/map_info_panel.tscn" id="19_w1snj"]
 [ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="20_1fc2u"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tefeu"]

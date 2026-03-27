@@ -41,3 +41,6 @@ signal map_tile_unhovered()
 
 @warning_ignore("unused_signal")
 signal game_paused()
+
+@warning_ignore("unused_signal")
+signal chapter_won()

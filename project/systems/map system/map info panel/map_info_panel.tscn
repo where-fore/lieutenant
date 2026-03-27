@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cplxpgrp4s0m8"]
 
-[ext_resource type="Script" uid="uid://cuho5ligd5mhl" path="res://systems/map system/map_info_panel.gd" id="1_ub2a6"]
+[ext_resource type="Script" uid="uid://cuho5ligd5mhl" path="res://systems/map system/map info panel/map_info_panel.gd" id="1_ub2a6"]
 [ext_resource type="Texture2D" uid="uid://c7a1jxvk522q2" path="res://sprites/border_background.png" id="2_i357e"]
 [ext_resource type="Texture2D" uid="uid://dth6v53udeute" path="res://sprites/enemy_boss.png" id="3_vmp6v"]
 [ext_resource type="Texture2D" uid="uid://c1hufcoxbyamt" path="res://sprites/cross_swords.png" id="4_7cdnt"]

@@ -12,6 +12,8 @@ extends Node2D
 
 
 func _ready() -> void:
+	HudEvents.chapter_won.connect(_on_restart_button_pressed)
+	
 	game_start_button_container.visible = true
 	pause_menu_button_container.visible = true
 	pause_menu_container.visible = false
@@ -21,7 +23,6 @@ func _ready() -> void:
 func start_game() -> void:
 	clear_and_create_scene(map_creation_scene, map_container)
 	clear_and_create_scene(combat_entire_scene, combat_container)
-
 
 func clear_scene(node_parent:Control) -> void:
 	for child:Node in node_parent.get_children():

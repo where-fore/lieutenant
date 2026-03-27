@@ -9,7 +9,7 @@ func setup_basic_data() -> void:
 	
 
 	base_health = BalanceData.player_base_health
-	base_attack = BalanceData.player_base_attack
+	base_attack = BalanceData.player_base_attack +9999
 
 #you probably want to call this when instantiating it, to scale to something
 func scale_stats(power:int) -> void:

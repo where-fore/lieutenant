@@ -7,6 +7,7 @@ var currently_disabled:bool = false
 var permanently_disabled:bool = false
 var permanently_enabled:bool = false
 var permanently_visible:bool = false
+var end_of_chapter:bool = false
 ## 0,0 is the first tile spawned
 var x_coordinate:int
 ## 0,0 is the first tile spawned
