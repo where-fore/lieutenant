@@ -4,6 +4,9 @@ extends Node2D
 @onready var combat_container:Control = $MainGame/MarginContainer/CombatContainer
 @export var map_creation_scene:PackedScene
 @onready var map_container:Control = $MainGame/MarginContainer/MapContainer
+@export var text_blurb_scene:PackedScene
+@onready var text_blurb_container:Control = $MainGame/MarginContainer/TextBlurbContainer
+
 @onready var game_start_button_container:Control = $MainUI/GameStarter
 @onready var pause_menu_button_container:Control = $MainUI/PauseMenuButton
 @onready var pause_menu_container:Control = $MainUI/PauseMenu
@@ -16,6 +19,7 @@ func _ready() -> void:
 	
 	game_start_button_container.visible = true
 	pause_menu_button_container.visible = true
+	text_blurb_container.visible = true
 	pause_menu_container.visible = false
 	scrolling_log_container.visible = true
 	right_side_ui_container.visible = true
@@ -23,6 +27,7 @@ func _ready() -> void:
 func start_game() -> void:
 	clear_and_create_scene(map_creation_scene, map_container)
 	clear_and_create_scene(combat_entire_scene, combat_container)
+	clear_and_create_scene(text_blurb_scene, text_blurb_container)
 
 func clear_scene(node_parent:Control) -> void:
 	for child:Node in node_parent.get_children():

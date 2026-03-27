@@ -1,12 +1,12 @@
-[gd_scene load_steps=21 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=22 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://systems/ui states/main.gd" id="1_bbldx"]
 [ext_resource type="PackedScene" uid="uid://dsbt6u8ma1cpc" path="res://systems/map system/map_tile_system.tscn" id="2_16p2t"]
 [ext_resource type="PackedScene" uid="uid://d4ng5rexbupxm" path="res://systems/ui states/main combat/combat_main.tscn" id="2_uaqc7"]
 [ext_resource type="Shader" uid="uid://bey6fsvgi1mh7" path="res://crt_shader.gdshader" id="3_g13l7"]
 [ext_resource type="Texture2D" uid="uid://dpjjrf7ekiuwc" path="res://sprites/box_outer.png" id="4_npwt7"]
-[ext_resource type="Texture2D" uid="uid://dhv5u72sffxlx" path="res://sprites/menu.png" id="6_f4q0r"]
 [ext_resource type="Script" uid="uid://dvk6chwr5wrj4" path="res://loose/pause_menu.gd" id="7_yqr2s"]
+[ext_resource type="Texture2D" uid="uid://crpikhlk7g3eu" path="res://sprites/cog.png" id="8_bbldx"]
 [ext_resource type="Script" uid="uid://c83t3y7en3pq0" path="res://loose/cursor_manager.gd" id="8_xalbe"]
 [ext_resource type="Texture2D" uid="uid://xr6idafv8gpe" path="res://sprites/cursor.png" id="9_nf78q"]
 [ext_resource type="Texture2D" uid="uid://c7a1jxvk522q2" path="res://sprites/border_background.png" id="10_qmb71"]
@@ -17,6 +17,7 @@
 [ext_resource type="SpriteFrames" uid="uid://b6sdmhy2c02x3" path="res://sprites/animations/backdrop/stars and moon frames/stars_and_moon.tres" id="14_g13l7"]
 [ext_resource type="Texture2D" uid="uid://bmxnkkwdbmxdt" path="res://sprites/animations/backdrop/map_grid_base_1.png" id="14_wcgmp"]
 [ext_resource type="PackedScene" uid="uid://b13o5cfslg2uj" path="res://loose/event_log.tscn" id="18_h0uu6"]
+[ext_resource type="PackedScene" uid="uid://l4er4w6epgd5" path="res://systems/ui states/text blurb/text_blurb_screen.tscn" id="19_bbldx"]
 [ext_resource type="PackedScene" uid="uid://cplxpgrp4s0m8" path="res://systems/map system/map info panel/map_info_panel.tscn" id="19_w1snj"]
 [ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="20_1fc2u"]
 
@@ -48,6 +49,7 @@ shader_parameter/vignette_opacity = 0.30000001425
 script = ExtResource("1_bbldx")
 combat_entire_scene = ExtResource("2_uaqc7")
 map_creation_scene = ExtResource("2_16p2t")
+text_blurb_scene = ExtResource("19_bbldx")
 
 [node name="CRTFilter" type="CanvasLayer" parent="."]
 layer = 1000
@@ -68,6 +70,7 @@ mouse_filter = 2
 layer = 50
 
 [node name="GameStarter" type="Control" parent="MainUI"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -115,21 +118,30 @@ mouse_filter = 2
 
 [node name="PauseMenuButton" type="Control" parent="MainUI"]
 layout_mode = 3
-anchor_left = 0.01
-anchor_top = 0.01
-anchor_right = 0.1
-anchor_bottom = 0.1
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 
-[node name="PauseMenuButton" type="TextureButton" parent="MainUI/PauseMenuButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture_normal = ExtResource("6_f4q0r")
+[node name="PanelContainer" type="PanelContainer" parent="MainUI/PauseMenuButton"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 27.0
+offset_bottom = 27.0
+
+[node name="MarginContainer" type="MarginContainer" parent="MainUI/PauseMenuButton/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
+
+[node name="UIBackground" type="TextureRect" parent="MainUI/PauseMenuButton/PanelContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("10_qmb71")
+expand_mode = 2
+
+[node name="PauseMenuButton" type="TextureButton" parent="MainUI/PauseMenuButton/PanelContainer/MarginContainer"]
+layout_mode = 2
+texture_normal = ExtResource("8_bbldx")
 stretch_mode = 4
 
 [node name="PauseMenu" type="Control" parent="MainUI"]
@@ -245,11 +257,6 @@ theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
-[node name="CombatContainer" type="Control" parent="MainGame/MarginContainer"]
-z_index = 50
-layout_mode = 2
-mouse_filter = 2
-
 [node name="Background" type="Node2D" parent="MainGame/MarginContainer"]
 position = Vector2(240, 135)
 
@@ -299,6 +306,14 @@ offset_top = 24.0
 offset_bottom = -24.0
 grow_horizontal = 0
 
+[node name="CombatContainer" type="Control" parent="MainGame/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TextBlurbContainer" type="Control" parent="MainGame/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
 [node name="UIBorder" type="TextureRect" parent="MainGame"]
 anchors_preset = 15
 anchor_right = 1.0
@@ -309,6 +324,6 @@ mouse_filter = 2
 texture = ExtResource("20_1fc2u")
 
 [connection signal="pressed" from="MainUI/GameStarter/GameStartButtons/NewGameButton" to="." method="_on_new_game_button_pressed"]
-[connection signal="pressed" from="MainUI/PauseMenuButton/PauseMenuButton" to="." method="_on_pause_menu_button_pressed"]
+[connection signal="pressed" from="MainUI/PauseMenuButton/PanelContainer/MarginContainer/PauseMenuButton" to="." method="_on_pause_menu_button_pressed"]
 [connection signal="pressed" from="MainUI/PauseMenu/Control/HBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="MainUI/PauseMenu/Control/HBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
