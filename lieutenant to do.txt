@@ -5,6 +5,12 @@ basic balance
 
 items & enemies
 
+
+
+
+
+
+
 var roll:int = randi_range(1,100)
 if rare_chance + common_chance > 100: push_error("loot roll table exceeded 100%")
 if roll <= rare_chance:

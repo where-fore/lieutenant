@@ -3,8 +3,9 @@
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://systems/ui states/main.gd" id="1_bbldx"]
 [ext_resource type="PackedScene" uid="uid://dsbt6u8ma1cpc" path="res://systems/map system/map_tile_system.tscn" id="2_16p2t"]
 [ext_resource type="PackedScene" uid="uid://d4ng5rexbupxm" path="res://systems/ui states/main combat/combat_main.tscn" id="2_uaqc7"]
-[ext_resource type="Shader" uid="uid://bey6fsvgi1mh7" path="res://crt_shader.gdshader" id="3_g13l7"]
 [ext_resource type="Texture2D" uid="uid://dpjjrf7ekiuwc" path="res://sprites/box_outer.png" id="4_npwt7"]
+[ext_resource type="Material" uid="uid://db4ka5skbpxq4" path="res://loose/crt_major.tres" id="5_bbldx"]
+[ext_resource type="Material" uid="uid://cd0t2uxtmvr0l" path="res://loose/crt_minor.tres" id="6_uaqc7"]
 [ext_resource type="Script" uid="uid://dvk6chwr5wrj4" path="res://loose/pause_menu.gd" id="7_yqr2s"]
 [ext_resource type="Texture2D" uid="uid://crpikhlk7g3eu" path="res://sprites/cog.png" id="8_bbldx"]
 [ext_resource type="Script" uid="uid://c83t3y7en3pq0" path="res://loose/cursor_manager.gd" id="8_xalbe"]
@@ -21,30 +22,6 @@
 [ext_resource type="PackedScene" uid="uid://cplxpgrp4s0m8" path="res://systems/map system/map info panel/map_info_panel.tscn" id="19_w1snj"]
 [ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="20_1fc2u"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tefeu"]
-shader = ExtResource("3_g13l7")
-shader_parameter/overlay = true
-shader_parameter/scanlines_opacity = 0.30000001425
-shader_parameter/scanlines_width = 0.25
-shader_parameter/grille_opacity = 0.10000000475
-shader_parameter/resolution = Vector2(640, 480)
-shader_parameter/pixelate = false
-shader_parameter/roll = false
-shader_parameter/roll_speed = 0.5
-shader_parameter/roll_size = 4.00000019
-shader_parameter/roll_variation = 0.10000000149012
-shader_parameter/distort_intensity = 0.050000002375
-shader_parameter/noise_opacity = 0.2000000095
-shader_parameter/noise_speed = 5.0
-shader_parameter/static_noise_intensity = 0.02000000095
-shader_parameter/aberration = 0.00300004764250005
-shader_parameter/brightness = 1.6
-shader_parameter/discolor = false
-shader_parameter/warp_amount = 0.0
-shader_parameter/clip_warp = true
-shader_parameter/vignette_intensity = 0.2
-shader_parameter/vignette_opacity = 0.30000001425
-
 [node name="Main" type="Node2D"]
 script = ExtResource("1_bbldx")
 combat_entire_scene = ExtResource("2_uaqc7")
@@ -56,7 +33,18 @@ layer = 1000
 
 [node name="CRTMajor" type="ColorRect" parent="CRTFilter"]
 visible = false
-material = SubResource("ShaderMaterial_tefeu")
+material = ExtResource("5_bbldx")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="CRTMinor" type="ColorRect" parent="CRTFilter"]
+material = ExtResource("6_uaqc7")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
