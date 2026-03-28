@@ -16,8 +16,8 @@ func setup_basic_data() -> void:
 
 #you probably want to call this when instantiating it, to scale to something
 func scale_stats(power:int) -> void:
-	scaled_health = base_health + (power * base_health) #change 0 to whatever you want
-	scaled_attack = base_attack + (power * base_attack)
+	scaled_health = base_health * 2 + (power * base_health) #change 0 to whatever you want
+	scaled_attack = base_attack * 2 + (power * base_attack)
 
 #--functions called by combatant_data.gd--
 func setup_stats() -> void:

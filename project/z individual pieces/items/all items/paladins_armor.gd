@@ -1,7 +1,7 @@
 extends Item
 
 #whatever the item does, doesn't do anything until you do something with it
-var health_multi:int = 150
+var health_multi:int = 200
 
 func setup_basic_item_data() -> void:
 	item_id = "paladins_armor" # "generic_item"

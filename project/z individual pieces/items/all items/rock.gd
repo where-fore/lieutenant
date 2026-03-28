@@ -10,7 +10,6 @@ func setup_basic_item_data() -> void:
 	item_sprite = load("res://sprites/rock.png")
 	extra_tooltip = "At least you feel prepared" # "Generic flavourful description"
 	item_categories = {
-		Categories.item_rarity : Categories.Rarity.COMMON,
 	}
 	
 	
