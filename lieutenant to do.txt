@@ -1,28 +1,6 @@
 --------------------------------------------------------
 working notes
 --------------------------------------------------------
-basic balance
-
-items & enemies
-
-
-
-
-
-
-
-var roll:int = randi_range(1,100)
-if rare_chance + common_chance > 100: push_error("loot roll table exceeded 100%")
-if roll <= rare_chance:
-	current_search_reward = Database.get_items_by_category(Categories.item_rarity, Categories.Rarity.RARE).pick_random()
-elif roll <= rare_chance + common_chance:
-	current_search_reward = Database.get_items_by_category(Categories.item_rarity, Categories.Rarity.COMMON).pick_random()
-else:
-	pass
-
-
-
-
 items & enemies for interesting first playtest
 
 
@@ -76,24 +54,22 @@ maybe add minor variations, not identical stats, but all the same moderate setup
 
 stat weights: probably want 10ish turns, so 10 health to 1 attack stat weight
 
-have it balanced so you can beat the boss with a moderate strategy and ~70% rewards. losing a fight just forfeits the reward, but some paths also don't offer good rewards
+have the boss balanced so you can beat them with a moderate strategy and ~70% rewards. losing a fight just forfeits the reward, but some paths also don't offer good rewards
 moderate strategy: one unique and lots of supporting stats, or two uniques with complementary effects and some stats
 probably can't win with unique and unsupporting stats, or with too few supporting stats
 
 
 to flavour: look up meteor/apocolyptic mythologies, and draw from those
 
-
-
+--------------------------------------------------------
+work to do
+--------------------------------------------------------
 combat log polish
 	have it fade out at the bottom
 	have a ton of empty space
 	maybe don't draw the scroll bar at all
 	have it draw new entries to the top
 
---------------------------------------------------------
-work to do
---------------------------------------------------------
 break hudevents into hudevents and stateevents (combat won is a state change, player health updated is a hud update)
 
 want to be able to close and open uis/panels. eg when you lose the game, closing the event dialogue so you can browse the combat log. opening your combat ui/inventory on the map so you can see your strength. closing the combat ui so you can browse the map (that's mostly for deciding whether to use your limited blast now or later)

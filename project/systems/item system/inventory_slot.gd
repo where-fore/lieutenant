@@ -50,10 +50,9 @@ func update_sprite() -> void:
 
 func _on_pressed() -> void:
 	if not is_empty() and not CombatEvents.combat_ongoing:
-		if not delete_awaiting_confirmation:
-			delete_confirmation_panel.visible = true
-			delete_awaiting_confirmation = true
-			delete_confirmation_timer.start()
+		delete_confirmation_panel.visible = true
+		delete_awaiting_confirmation = true
+		delete_confirmation_timer.start()
 
 func _on_timer_timeout() -> void:
 	delete_confirmation_panel.visible = false
