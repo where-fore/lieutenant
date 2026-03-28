@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://dxldisnu3aaoo"]
+
+[ext_resource type="Script" uid="uid://wrg8ncrbysqw" path="res://systems/map system/map_tile.gd" id="1_eader"]
+[ext_resource type="SpriteFrames" uid="uid://b77jkv0h1kj7x" path="res://z individual pieces/map tiles/forest_basic.tres" id="2_eader"]
+[ext_resource type="SpriteFrames" uid="uid://bk27qe7w4wwaf" path="res://systems/map system/hovered.tres" id="3_7cb8i"]
+[ext_resource type="Texture2D" uid="uid://sx580844syvk" path="res://sprites/tile_selection.png" id="4_mrii7"]
+
+[node name="MapTile" type="Node2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_eader")
+
+[node name="BaseAnimation" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_eader")
+frame_progress = 0.490562
+
+[node name="HoverAnimation" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("3_7cb8i")
+frame_progress = 0.6266568
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("4_mrii7")
+
+[node name="Timer" type="Timer" parent="Sprite2D"]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(-46, 46, -32, 14, 20, 14, 6, 46, -46, 46)
+
+[connection signal="timeout" from="Sprite2D/Timer" to="." method="_on_timer_timeout"]
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

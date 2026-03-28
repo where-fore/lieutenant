@@ -10,7 +10,9 @@ func setup_basic_item_data() -> void:
 	item_name = "Vampiric Blade" # "Generic Item"
 	item_sprite = load("res://sprites/vamp_blade.png")
 	extra_tooltip = "Heal for {val}% of attack when tasting blood".format({"val": healing_per_attack_multiplier}) # "Generic flavourful description"
-	item_categories = [ItemCategories.rare_item]
+	item_categories = {
+		Categories.item_rarity : Categories.Rarity.RARE,
+	}
 	
 	#optional special visible aura
 	custom_aura_template = null # load("res://z individual pieces/items/all items/crashing_waves.tres")

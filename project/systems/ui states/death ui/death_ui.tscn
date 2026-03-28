@@ -1,0 +1,86 @@
+[gd_scene load_steps=3 format=3 uid="uid://c23wtu7mtmkqh"]
+
+[ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="1_gejld"]
+[ext_resource type="Script" uid="uid://csd1v3lolqaqb" path="res://systems/ui states/death ui/death_ui.gd" id="1_hxgnp"]
+
+[node name="DeathUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hxgnp")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -25.0
+offset_right = 80.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Title" type="Label" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "You were
+defeated..."
+horizontal_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="RestartButton" type="TextureButton" parent="VBoxContainer/MarginContainer2"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture_normal = ExtResource("1_gejld")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer2/RestartButton"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -46.0
+offset_top = -14.0
+offset_right = 46.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 8
+text = "Rout!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Title" type="Label" parent="VBoxContainer/MarginContainer3"]
+layout_mode = 2
+text = "You will return,
+stronger..."
+horizontal_alignment = 1
+
+[connection signal="pressed" from="VBoxContainer/MarginContainer2/RestartButton" to="." method="_on_restart_button_pressed"]

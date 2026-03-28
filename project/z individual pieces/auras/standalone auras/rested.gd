@@ -1,12 +1,12 @@
 extends Aura
 
 #whatever the aura does, doesn't do anything until you do something with it
-var health_increase:int = 10
+var health_increase:int = BalanceData.rest_hp
 
 func setup_basic_aura_data() -> void:
 	aura_id = "rested" # "generic_aura"
 	aura_name = "Well Rested" # "Generic aura"
-	aura_sprite = load("res://sprites/heart.png")
+	aura_sprite = load("res://sprites/heart_purple.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	aura_categories = [] # [auraCategories.common_aura]
 
