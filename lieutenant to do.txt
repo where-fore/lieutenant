@@ -187,6 +187,11 @@ flappy cameo, balloon in the distance
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+something about generating rewards on tiles is off
+	currently i'm manually generating rewards in the map spawner?
+		i have a tile i want to generate better rewards based on tile power, and that isn't handled in the tileData.gd?
+		not sure when i should call it. have a tileData.on_applied_to_tile()?
+
 breakdown the ui into scenes and have a manager create them, probably
 	has a cleaner scene tree for work, no need for the visible on and off stuff too
 

@@ -24,6 +24,7 @@ var hover_animation_speed:float = 0.8
 
 func apply_data(data:MapTileData) -> void:
 	tile_data = data
+	tile_data.apply_to_tile(self)
 
 	if not tile_data.tile_animation:
 		push_error("no animation set for tile: " + "\"" + tile_data.internal_name + "\"")

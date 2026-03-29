@@ -17,3 +17,8 @@ func generate_item_reward_chance_by_power(chance_increase:int, base_rare_chance:
 		item_reward = Database.get_items_by_category(Categories.item_rarity, Categories.Rarity.COMMON).pick_random()
 	else:
 		item_reward = Database.get_item_by_id("rock")
+
+#derived subclasses hook onto this function
+@warning_ignore("unused_parameter")
+func apply_to_tile(parent_tile:MapTile) -> void:
+	pass

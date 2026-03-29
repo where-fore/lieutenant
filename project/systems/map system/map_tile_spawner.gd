@@ -76,8 +76,6 @@ func populate_tile_data(tile:MapTile) -> void:
 	#everything else
 	else:
 		tile.apply_data(map_data.pick_random().new())
-		if not tile.tile_data.item_reward and not tile.tile_data.aura_reward:
-			tile.tile_data.generate_item_reward_chance_by_power(this_tile_power*5, 30)
 	
 	if tile.tile_data.enemy:
 		tile.tile_data.enemy.scale_stats(tile.power) 
