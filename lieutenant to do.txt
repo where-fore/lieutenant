@@ -95,6 +95,19 @@ praise be tutorializing better
 	having first reward search be a nothing is insane
 	first combats end so quickly you can't tell what's happening, would rather high hp low attack enemies at the start (esp if you have moderate both, it's not immediately obvious who wins)
 	play/skip buttons aren't particularly clear in what they do, play button is probably too fast esp for first combats
+		begin combat button not beginning combat is also super cringe
+
+--------------------------------------------------------
+ideas i know i should tutorialize:
+--------------------------------------------------------
+
+autobattling concept entirely, different speeds etc
+
+percentage multipliers rounding down, maybe even each step
+
+item effect ordering vs auras
+
+
 
 ---------------------------
 not right now, maybe:
@@ -110,9 +123,6 @@ make the tooltip nice and good and cool
 	would be nice if tooltips showed on click too, esp for touch devices
 
 would be nice to have a .txt of coordinate -> mapData that richard can write and my constructor can read
-
-resolution stuff
-	figure out what da hell we want to do
 
 have a non-equipped inventory: a list of icon:names in a popup window (maybe a bag button too), and you can click an item in inventory (swap, delete)
 	pop up character panel with stats etc maybe even breakdowns of multipliers
@@ -130,18 +140,18 @@ make some hotkeys for stuff
 
 map tile info could fade out
 
+different map tile setups (thanks mr. fenn)
+	first map could be the current 3x15 straight line
+	next map has a giant ravine through the middle, have to choose a fork early
+	next map has interactivity, choosing certain events breaks and opens certain forks; spending time/power to build a bridge to get loot, but only if a certain character in the party
+	
+
 --------------------------------------------------------
 to research:
 --------------------------------------------------------
 look up old might & magic, ultima, and others.. find more modern takes, or reason there's no modern takes
 
 look up ice-related mythologies, siberia etc
-
-how to specifically do our project resolution - we want integer pixel scaling, probably some extra texture for non 16:9?
-	some sort of subviewport nonsense so the art is integer scaled pixels, but other ui (fonts) can be any resolution?
-
-new font that works looks good below 8px, and doesn't have random whitespace
-	maybe richards job
 
 https://trello.com/b/u4nqJwNI/lieutenant
 
@@ -167,14 +177,8 @@ hotkey f12 to open an ingame calculator lmao
 
 enemy mercenary team is trailing you, picking the options you didn't take - so if you want to backsies and pick the other options from 10 choices ago, you can eventually?
 
-flappy cameo, baloon in the distance
+flappy cameo, balloon in the distance
 
---------------------------------------------------------
-ideas i know i should tutorialize:
---------------------------------------------------------
-item effect ordering
-percentage multipliers rounding down, maybe even each step
-autobattling concept entirely, different speeds etc
 
 
 --------------------------------------------------------

@@ -10,6 +10,10 @@ var death_messages:Array[String] = [
 	 " no longer stands in your way.",
 	 " succumbs to your might.",
 	]
+var retreat_messages:Array[String] = [
+	 " narrowly escapes a fatal blow.",
+	 " breaks line and runs to the hills.",	
+	]
 
 
 # Called when the node enters the scene tree for the first time.
@@ -60,8 +64,17 @@ func report_aura_applied(aura:Aura) -> void:
 	append_to_label(text_to_add)
 
 func report_death(newly_dead:Combatant) -> void:
-	var character_name:String = newly_dead.baseData.name
-	var text_to_add:String = character_name + death_messages.pick_random()
+	var character_name:String
+	var text_to_add:String
+	
+	character_name = newly_dead.baseData.name
+	
+	if newly_dead.is_an_enemy:
+		text_to_add = character_name + death_messages.pick_random()
+	elif newly_dead.is_the_player:
+		text_to_add = character_name + retreat_messages.pick_random()
+	else:
+		push_error("dead combatant is neither an enemy or the player, according to the event log")
 	append_to_label(text_to_add)
 
 func print_custom_message(message:String) -> void:
