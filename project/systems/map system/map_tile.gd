@@ -9,6 +9,7 @@ var permanently_enabled:bool = false
 var permanently_visible:bool = false
 var end_of_chapter:bool = false
 var lethal_encounter:bool = false
+var power:int
 ## 0,0 is the first tile spawned
 var x_coordinate:int
 ## 0,0 is the first tile spawned

@@ -34,6 +34,7 @@ every x hits effects (big explosion, big buff, big heal etc)
 heal to full every attack, but stack up your vulnerability until one-hit
 straight counters/damage types (d&d undead etc)
 transformational items - after x combats turn into something cool
+different damage types - vamp sword heals from attack, fireball ring doesn't interact
 
 
 enemies:
@@ -81,28 +82,30 @@ want to be able to close and open uis/panels. eg when you lose the game, closing
 
 some fadein/outs for restarting/combat/panel popping in etc
 
-breakdown the ui into scenes and have a manager create them, probably
-	has a cleaner scene tree for work, no need for the visible on and off stuff too
-
 have a "pre-turn" turn for combat start effects
 	combat log "prepares for attack"
 
 bug: i think if you lose a +hp aura mid combat and go below 0 hp, you won't die
 
-check out orphan nodes, there's some auras being overwritten (second boss), and check remote for orphans
-
-praise be tutorializing better
-	having first reward search be a nothing is insane
-	first combats end so quickly you can't tell what's happening, would rather high hp low attack enemies at the start (esp if you have moderate both, it's not immediately obvious who wins)
-	play/skip buttons aren't particularly clear in what they do, play button is probably too fast esp for first combats
-		begin combat button not beginning combat is also super cringe
+check out orphan nodes, i think auras may be danglin
 
 --------------------------------------------------------
-ideas i know i should tutorialize:
+concepts i know i should tutorialize:
 --------------------------------------------------------
+how-to-play-the-game:
 
 autobattling concept entirely, different speeds etc
+	the buttons blend into the background
+	combat doesn't start when you press begin combat
+	1 step, and lightning speed, are not enough good options
 
+map tiles and how to navigate
+	the first row of tiles is very far from a beginners focal point
+
+inventory/aura system
+
+
+how-to-understand-the-game:
 percentage multipliers rounding down, maybe even each step
 
 item effect ordering vs auras
@@ -184,6 +187,9 @@ flappy cameo, balloon in the distance
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+breakdown the ui into scenes and have a manager create them, probably
+	has a cleaner scene tree for work, no need for the visible on and off stuff too
+
 maybe auras should have x combats, or until end of act, designations. good event rewards
 
 auras vs items should be better designated, different coloured borders maybe?
@@ -195,10 +201,10 @@ the map info panel is a vbox/center container hybrid abomination. probably want 
 aura.create_aura() and item.duplicate() is impossible to keep track of. codify which one, where, and make it automatic
 	this is connected to that interchangability problem
 	
-somehow have aura and items be interchangeable, maybe Reward class, with baseline names and stuff. having to separate my reward function in two is lame
+somehow have aura and items be interchangeable, maybe Boon class, with baseline names and stuff. having to separate my reward function in two is lame
 	i do need some splitting anyways, eg. dont want to grey out an aura reward if inventory is full
 
-clean up the item "on_attack" timings - currently crashing waves +4 attack applies after vampiric blade 50% healing, no matter the inventory order
+clean up the item "on_attack" timings - currently crashing waves +attack applies after vampiric blade 50% healing, no matter the inventory order
 	probably just await(item_in_slot.on_attack) or something
 	also maybe support inventory slot juggling
 	potentially codify whether auras are before or after items (probably after, since i want items to spawn "surging waves" on combat start, and trigger after attacks)
@@ -360,40 +366,6 @@ clean up the github webhook:
 --------------------------------------------------------
 disorganized brainstorm - will have weird overlaps with design doc and discord
 --------------------------------------------------------
-uncertainty in output variance - more like blackjack than roulette, allow skill expression in card counting. likely requires regular choices with new information. "the fates do not play dice in this world. what seems random is simply misunderstood"
-
-when populating item rewards, have a few earmarked as "oracle rewards" - and you can pray to choose an item to encounter (which will be the oracle rewards). have the amount of time in the future to find the oracle reward be contingent on how much you sacrifice to the oracle?
-
-"merchant" who doesn't have any inventory, but has connections - tells you where the item will be dropped, if you pay now (or maybe half up front? let's you save gold by being powerful ie. killing the delivery guard)
-
-everything as blood theme - health as your main resource. if auto battler fights are boring because you know who wins - make the amount you win by important. you still get progression from getter stronger, even though you're still winning the deterministic fights, you're winning them more and more so you can do the cool blood ritual stuff
-vampire build - max hp tiny, heal from attacks, lethal hits bleed into attack damage
-"tank" type as a vampire/demon/drain tank - has no mitigation, but can heal damage at a better than 1:1 ratio by hurting allies (eg. deal 5 to ally to heal 10, making dealing 10 damage to the tank actually hurt the team for 5, 50% dr)
-hmmm and the vampire lieutenant makes the roguelike part diegetic, your mist form returns to the coffin to try again and recruit a new squad
-
-discarding your hand to draw a new one is a scary feeling, not knowing if it will be better, could train
-
-big design question: roguelike - should each run be individual, or should they lead into each other. unlock more options, or build metaprogression power.
-
-
-islands: interior has a certain type of enemy (that has certain specific strengths/weaknesses), with big rewards. outside has small rewards, available without combat. you can gather the small rewards, and fight for the big rewards
-then off to new island
-(if i want you to only sometimes try for the big reward, provide some obivously-out-leveled islands early on to align expectations)
-
-small rewards = ingredients of some sort: metal bars to smith into gear, magic runes to affix to your ship/spellbook, etc
-big rewards = premade cool things, build arounds, which you can melt down into gold for a guaranteed reward
-
-
-
-
-
-
-boast, like "oh hell": visit the oracle and predict your fate for rewards
-
-morrowind-like armor rating: each slot has a % chance to be hit, and reduces damage by armor value - so more complete armor reduces spike damage
-	have armor with a downside (spell cast penalty or speed penalty or something), so there's a tradeoff
-
-draw-steel-negotiation / daggerheart result tables: no + bad, yes + good, no + good etc etc
 
 
 

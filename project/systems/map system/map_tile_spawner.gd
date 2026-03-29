@@ -47,6 +47,9 @@ func populate_tiles() -> void:
 	MapEvents.map_grid_ready.emit()
 
 func populate_tile_data(tile:MapTile) -> void:
+	var this_tile_power:int = tile.x_coordinate - columns_to_disable_at_start
+	tile.power = this_tile_power
+	
 	#final boss stretch
 	if tile.x_coordinate == columns - columns_to_disable_at_end - 1: #the last column
 		if tile.y_coordinate == 0 or tile.y_coordinate == 2:
@@ -73,9 +76,11 @@ func populate_tile_data(tile:MapTile) -> void:
 	#everything else
 	else:
 		tile.apply_data(map_data.pick_random().new())
+		if not tile.tile_data.item_reward and not tile.tile_data.aura_reward:
+			tile.tile_data.generate_item_reward_chance_by_power(this_tile_power*5, 30)
 	
 	if tile.tile_data.enemy:
-		tile.tile_data.enemy.scale_stats(tile.x_coordinate - columns_to_disable_at_start) 
+		tile.tile_data.enemy.scale_stats(tile.power) 
 
 func check_if_tile_export_set_correctly() -> void:
 	var arrays_to_check:Array[Array] = [map_data, boss_tile_data]
