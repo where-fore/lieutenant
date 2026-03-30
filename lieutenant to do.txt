@@ -1,6 +1,7 @@
 --------------------------------------------------------
 working notes
 --------------------------------------------------------
+
 mess around with custom cursor
 
 
@@ -147,7 +148,10 @@ different map tile setups (thanks mr. fenn)
 	first map could be the current 3x15 straight line
 	next map has a giant ravine through the middle, have to choose a fork early
 	next map has interactivity, choosing certain events breaks and opens certain forks; spending time/power to build a bridge to get loot, but only if a certain character in the party
-	
+
+a target dummy - if i want a big inventory system, and build swapping, it'd be quite nice to be able to test your new build (to find fatal flaws that would end your run and feel bad)
+	can tutorialize- when swapping 3+ items, npc tells you "hey wanna test it on this dummy"
+	also good for debug testing
 
 --------------------------------------------------------
 to research:
@@ -254,6 +258,7 @@ enemy custom auras are persisting as objects, not sure what they're attached to,
 why is my player aura dictionary a [StringName, Aura]? if i'm instantiating new auras, there is no need for unique id? and surely if i want to remove a specific aura (have two iron swords, unequip one), i can search the array for that specific aura?
 
 writing strings in the code, instead of a spreadsheet for localization etc
+	even as dank as button tooltips on control nodes hidden in the scene tree
 
 using pick_random(), but no random seed management
 

@@ -68,7 +68,9 @@ func stop_hiding() -> void:
 	close_timer.stop()
 
 func _on_close_timer_timeout() -> void:
-	hide_map_info_panel()
+	#hide_map_info_panel()
+	#i don't want the map panel to auto hide, for now at least
+	pass
 
 func hide_map_info_panel() -> void:
 	visible = false

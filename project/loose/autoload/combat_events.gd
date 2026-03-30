@@ -25,6 +25,9 @@ signal step_button_pressed()
 signal play_button_pressed()
 
 @warning_ignore("unused_signal")
+signal play_fast_button_pressed()
+
+@warning_ignore("unused_signal")
 signal combatant_died(combatant_who_died:Combatant)
 
 var combat_ongoing:bool = false

@@ -19,9 +19,22 @@ var player_lost:bool = false
 
 var can_start_combat:bool = true
 
-var opener_turn_delay:float = 1
-var middle_turn_delay:float = 0.15
-var near_end_delay:float = 0.8
+
+var play_speed:StringName
+var speed_normal:StringName = &"normal"
+var speed_fast:StringName = &"fast"
+var opener_turn_delay:float
+var middle_turn_delay:float
+var near_end_delay:float
+
+var normal_opener_turn_delay:float = 0.8
+var normal_middle_turn_delay:float = 0.8
+var normal_near_end_delay:float = 1.2
+
+var fast_opener_turn_delay:float = 0.3
+var fast_middle_turn_delay:float = 0.15
+var fast_near_end_delay:float = 0.4
+
 
 var step_mode:StringName = &"step mode"
 var play_mode:StringName = &"play mode"
@@ -38,26 +51,51 @@ func _ready() -> void:
 	CombatEvents.pause_button_pressed.connect(pause_button_pressed)
 	CombatEvents.step_button_pressed.connect(step_button_pressed)
 	CombatEvents.play_button_pressed.connect(play_button_pressed)
+	CombatEvents.play_fast_button_pressed.connect(play_fast_button_pressed)
 	HudEvents.game_paused.connect(pause_button_pressed)
 	CombatEvents.combat_ongoing = false
 
 
 func pause_button_pressed() -> void:
-	turn_mode = step_mode
+	if CombatEvents.combat_ongoing:
+		turn_mode = step_mode
 
 func step_button_pressed() -> void:
-	turn_mode = step_mode
+	if CombatEvents.combat_ongoing:
+		turn_mode = step_mode
+		proceed()
+
+func play_button_pressed() -> void:
+	if CombatEvents.combat_ongoing:
+		turn_mode = play_mode
+		set_speed(speed_normal)
+		proceed()
+
+func play_fast_button_pressed() -> void:
+	if CombatEvents.combat_ongoing:
+		turn_mode = play_mode
+		set_speed(speed_fast)
+		proceed()
+
+func proceed() -> void:
 	if turn == precombat:
 		start_turn()
 	elif turn_finished == true:
 		next_turn()
 
-func play_button_pressed() -> void:
-	turn_mode = play_mode
-	if turn == precombat:
-		start_turn()
-	elif turn_finished == true:
-		next_turn()
+func set_speed(speed:StringName) -> void:
+	if speed == speed_normal:
+		play_speed = speed_normal
+		opener_turn_delay = normal_opener_turn_delay
+		middle_turn_delay = normal_middle_turn_delay
+		near_end_delay = normal_near_end_delay
+	elif speed == speed_fast:
+		play_speed = speed_fast
+		opener_turn_delay = fast_opener_turn_delay
+		middle_turn_delay = fast_middle_turn_delay
+		near_end_delay = fast_near_end_delay
+	else:
+		push_error("tried to set combat speed to unrecognized speed: " + str(speed))
 
 func handle_attack(attacker:Combatant, amount:int) -> void:
 	if attacker.is_the_player:
@@ -88,6 +126,9 @@ func next_turn() -> void:
 		start_turn()
 
 func turn_animation() -> void:
+	if not play_speed:
+		set_speed(speed_normal)
+	
 	var player_near_death:bool = current_player.get_damaged_health() <= 1* current_enemy.current_stats[Stats.attack]
 	var enemy_near_death:bool = current_enemy.get_damaged_health() <= 1* current_player.current_stats[Stats.attack]
 	var near_end:bool = player_near_death or enemy_near_death
@@ -173,6 +214,7 @@ func pre_combat(map_tile:MapTile) -> void:
 		enemy.on_start_combat_functions()
 	
 	can_start_combat = true
+	
 
 func create_enemy_from_data(enemy_data:CombatantData) -> Combatant:
 	#pick data to use
@@ -208,6 +250,13 @@ func start_combat() -> void:
 		can_start_combat = false
 		CombatEvents.combat_ongoing = true
 		CombatEvents.combat_started.emit(combatants)
+	
+	#auto start, with last chosen speed
+	match HudEvents.last_combat_speed_chosen:
+		HudEvents.CombatSpeedNames.STEP: step_button_pressed()
+		HudEvents.CombatSpeedNames.PLAY: play_button_pressed()
+		HudEvents.CombatSpeedNames.PLAY_FAST: play_fast_button_pressed()
+		_: push_error("not sure what last combat speed was")
 
 func start_turn() -> void:
 	turn_finished = false

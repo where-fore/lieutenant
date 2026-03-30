@@ -10,10 +10,10 @@ extends Control
 
 @onready var turn_button_container:Container = $TurnButtons
 @onready var pause_button_border:TextureRect = $TurnButtons/PauseButton/TextureRect
-#i removed the texture here from the step border, cause i realized turns are basically instant and this doesn't do anything
-#could add button pressed feedback instead of this border stuff
 @onready var step_button_border:TextureRect = $TurnButtons/StepButton/TextureRect
 @onready var play_button_border:TextureRect = $TurnButtons/PlayButton/TextureRect
+@onready var play_fast_button_border:TextureRect = $TurnButtons/PlayFastButton/TextureRect
+
 
 @onready var player_sprite_display:TextureRect = $Panel/Combatants/Player/MarginContainer/Sprite
 @onready var enemy_sprite_display:TextureRect = $Panel/Combatants/Enemy/MarginContainer/Sprite
@@ -54,8 +54,6 @@ func update_turn_indicator(source:Combatant) -> void:
 	elif not source.is_the_player:
 		player_turn_sprite.visible = true
 		enemy_turn_sprite.visible = false
-	
-	step_button_border.visible = false
 
 func update_enemy_sprite(new_sprite:Texture2D) -> void:
 	enemy_sprite_display.texture = new_sprite
@@ -76,15 +74,23 @@ func update_enemy_attack(value:int) -> void:
 func change_to(_map_tile:MapTile) -> void:
 	clear_turn_indicator()
 	combat_button.visible = true
-	pause_button_border.visible = false
-	step_button_border.visible = false
-	play_button_border.visible = false
-	turn_button_container.visible = false
+	turn_button_container.visible = true
+	
+	hide_all_button_borders()
+	set_last_chosen_speed_border()
+	
 	visible = true
 
 func change_from() -> void:
 	clear_turn_indicator()
 	visible = false
+
+func set_last_chosen_speed_border() -> void:
+	match HudEvents.last_combat_speed_chosen:
+		HudEvents.CombatSpeedNames.STEP: pause_button_border.visible = true
+		HudEvents.CombatSpeedNames.PLAY: play_button_border.visible = true
+		HudEvents.CombatSpeedNames.PLAY_FAST: play_fast_button_border.visible = true
+		_: push_error("not sure what last combat speed was")
 
 func _on_combat_button_pressed() -> void:
 	HudEvents.combat_button_pressed.emit()
@@ -92,19 +98,38 @@ func _on_combat_button_pressed() -> void:
 	turn_button_container.visible = true
 
 func _on_pause_button_pressed() -> void:
-	step_button_border.visible = false
+	hide_all_button_borders()
 	pause_button_border.visible = true
-	play_button_border.visible = false
+	HudEvents.last_combat_speed_chosen = HudEvents.CombatSpeedNames.STEP
+	
 	CombatEvents.pause_button_pressed.emit()
 
 func _on_step_button_pressed() -> void:
-	step_button_border.visible = true
-	pause_button_border.visible = false
-	play_button_border.visible = false
+	hide_all_button_borders()
+	#step_button_border.visible = true
+	#i don't like the step button lighting up, i want it to feel like a one shot button
+	pause_button_border.visible = true
+	HudEvents.last_combat_speed_chosen = HudEvents.CombatSpeedNames.STEP
+	
 	CombatEvents.step_button_pressed.emit()
 
 func _on_play_button_pressed() -> void:
+	hide_all_button_borders()
+	play_button_border.visible = true
+	HudEvents.last_combat_speed_chosen = HudEvents.CombatSpeedNames.PLAY
+	
+	CombatEvents.play_button_pressed.emit()
+
+func _on_play_fast_button_pressed() -> void:
+	hide_all_button_borders()
+	play_fast_button_border.visible = true
+	HudEvents.last_combat_speed_chosen = HudEvents.CombatSpeedNames.PLAY_FAST
+	
+	CombatEvents.play_fast_button_pressed.emit()
+
+func hide_all_button_borders() -> void:
 	step_button_border.visible = false
 	pause_button_border.visible = false
-	play_button_border.visible = true
-	CombatEvents.play_button_pressed.emit()
+	play_button_border.visible = false
+	play_fast_button_border.visible = false
+	

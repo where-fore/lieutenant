@@ -53,3 +53,6 @@ signal chapter_started()
 
 @warning_ignore("unused_signal")
 signal chapter_completed()
+
+enum CombatSpeedNames {STEP, PLAY, PLAY_FAST}
+var last_combat_speed_chosen:int = CombatSpeedNames.PLAY
