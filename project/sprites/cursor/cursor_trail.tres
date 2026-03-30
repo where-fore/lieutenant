@@ -1,0 +1,15 @@
+[gd_resource type="ParticleProcessMaterial" format=3 uid="uid://densi0a6br74i"]
+
+[resource]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 4.0
+direction = Vector3(7, 10, 0)
+spread = 20.0
+initial_velocity_min = 175.0
+initial_velocity_max = 300.0
+gravity = Vector3(200, 200, 0)
+scale_min = 3.0
+scale_max = 3.0
+turbulence_enabled = true
+turbulence_noise_strength = 1.75

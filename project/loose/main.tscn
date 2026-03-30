@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=24 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://systems/ui states/main.gd" id="1_bbldx"]
 [ext_resource type="PackedScene" uid="uid://dsbt6u8ma1cpc" path="res://systems/map system/map_tile_system.tscn" id="2_16p2t"]
@@ -16,7 +16,9 @@
 [ext_resource type="SpriteFrames" uid="uid://c3xi07klbwfxm" path="res://sprites/animations/backdrop/foreground edge/foreground_edge.tres" id="13_npwt7"]
 [ext_resource type="Texture2D" uid="uid://0pkmth45mucx" path="res://sprites/animations/backdrop/sky foreground.png" id="13_uaqc7"]
 [ext_resource type="SpriteFrames" uid="uid://b6sdmhy2c02x3" path="res://sprites/animations/backdrop/stars and moon frames/stars_and_moon.tres" id="14_g13l7"]
+[ext_resource type="Texture2D" uid="uid://dicmyh0qbtnav" path="res://sprites/cursor/cursor_particle.png" id="14_npwt7"]
 [ext_resource type="Texture2D" uid="uid://bmxnkkwdbmxdt" path="res://sprites/animations/backdrop/map_grid_base_1.png" id="14_wcgmp"]
+[ext_resource type="Material" uid="uid://densi0a6br74i" path="res://sprites/cursor/cursor_trail.tres" id="15_obmf6"]
 [ext_resource type="PackedScene" uid="uid://b13o5cfslg2uj" path="res://loose/event_log.tscn" id="18_h0uu6"]
 [ext_resource type="PackedScene" uid="uid://l4er4w6epgd5" path="res://systems/ui states/text blurb/text_blurb_screen.tscn" id="19_bbldx"]
 [ext_resource type="PackedScene" uid="uid://cplxpgrp4s0m8" path="res://systems/map system/map info panel/map_info_panel.tscn" id="19_w1snj"]
@@ -224,7 +226,26 @@ text = "Resume
 
 [node name="CursorManager" type="Node2D" parent="."]
 script = ExtResource("8_xalbe")
-default_cursor = ExtResource("9_nf78q")
+normal_cursor = ExtResource("9_nf78q")
+clicked_cursor = ExtResource("9_nf78q")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="CursorManager"]
+layer = 128
+
+[node name="Sprite2D" type="Sprite2D" parent="CursorManager/CanvasLayer"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_nf78q")
+offset = Vector2(16, 16)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="CursorManager/CanvasLayer/Sprite2D"]
+visible = false
+position = Vector2(16, 16)
+amount = 3
+texture = ExtResource("14_npwt7")
+lifetime = 0.25
+speed_scale = 0.25
+randomness = 1.0
+process_material = ExtResource("15_obmf6")
 
 [node name="MainGame" type="CanvasLayer" parent="."]
 
