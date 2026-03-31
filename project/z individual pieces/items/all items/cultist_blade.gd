@@ -7,16 +7,12 @@ var buff_aura_name:String = "Blood Glee"
 func setup_basic_item_data() -> void:
 	item_id = "cultist_blade" # "generic_item"
 	item_name = "Cultist Blade" # "Generic Item"
-	item_sprite = load("res://sprites/sword.png")
+	item_sprite = load("res://sprites/question.png")
 	extra_tooltip = "Increase attack by {val}% of damage taken".format({"val": percent_of_damage_taken_gained_as_attack}) # "Generic flavourful description"
 	item_categories = {
 		Categories.item_rarity : Categories.Rarity.MYTHIC,
 	}
 	
-	#optional special visible aura
-	custom_aura_template = null # load("res://z individual pieces/items/all items/crashing_waves.tres")
-	aura_application_time = Item.ApplyType.ON_COMBAT_START
-
 
 #--functions called by item_base.gd--
 func setup_item_stats() -> void:

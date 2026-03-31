@@ -23,14 +23,3 @@ func setup_item_stats() -> void:
 	
 	#whatever the item does
 	multiplicative_stat_dictionary[Stats.health] = health_multi
-
-func on_attack(_source:Combatant) -> void:
-	pass
-
-func on_combat_start() -> void:
-	pass
-
-func on_combat_end() -> void:
-	pass
-
-#--end of functions called by item_base.gd--

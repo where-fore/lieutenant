@@ -26,14 +26,6 @@ func setup_item_stats() -> void:
 	#whatever the item does
 	additive_stat_dictionary[Stats.attack] = my_damage
 
-func on_attack(source:Combatant) -> void:
+func on_attack(source:Combatant, _target:Combatant) -> void:
 	var healing:int = source.current_stats[Stats.attack] * healing_per_attack_multiplier / 100
 	source.heal(healing)
-
-func on_combat_start() -> void:
-	pass
-
-func on_combat_end() -> void:
-	pass
-
-#--end of functions called by item_base.gd--

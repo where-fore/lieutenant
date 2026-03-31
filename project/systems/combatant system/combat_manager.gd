@@ -97,11 +97,8 @@ func set_speed(speed:StringName) -> void:
 	else:
 		push_error("tried to set combat speed to unrecognized speed: " + str(speed))
 
-func handle_attack(attacker:Combatant, amount:int) -> void:
-	if attacker.is_the_player:
-		current_enemy.take_damage(amount)
-	else:
-		current_player.take_damage(amount)
+func handle_attack(_attacker:Combatant, amount:int, target:Combatant) -> void:
+	target.take_damage(amount)
 
 func finish_turn(_source:Combatant) -> void:
 	if CombatEvents.combat_ongoing:
@@ -195,9 +192,10 @@ func pre_combat(map_tile:MapTile) -> void:
 	combatants.append(current_player)
 	current_enemy = create_enemy_from_data(map_tile.tile_data.enemy)
 	combatants.append(current_enemy)
-	#this is a bit dangerous - i'm now assuming enemies and players are spawned. would love some sort of call back?
-	#can't put it in the setup function since that fires before this function reaches await()
 	
+	current_player.current_target = current_enemy
+	current_enemy.current_target = current_player
+
 	AuraEvents.initalize_combat_stats.emit()
 	turn = precombat
 	CombatEvents.combat_ongoing = false

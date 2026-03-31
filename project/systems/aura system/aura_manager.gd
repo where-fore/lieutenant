@@ -24,9 +24,7 @@ func _ready() -> void:
 	CombatEvents.combat_finished.connect(on_combat_end)
 	CombatEvents.combat_started.connect(on_combat_start)
 	CombatEvents.combatant_died.connect(clear_auras_from_combatant)
-	#this is unreadable programmer shorthand for "throw away all arguments but the one i care about, "attacker"
-	@warning_ignore("untyped_declaration")
-	CombatEvents.attack_launched.connect(func(attacker:Combatant, _other_arg): on_attack(attacker))
+	CombatEvents.attack_launched.connect(on_attack)
 
 
 func reset_to_starting_stats() -> void:
@@ -142,7 +140,7 @@ func remove_aura_by_id(aura_id:String, aura_dictionary:Dictionary[String, Aura])
 		aura_dictionary.erase(aura_id)
 		update_stats()
 
-func on_attack(source:Combatant) -> void:
+func on_attack(source:Combatant, _damage:int, _target:Combatant) -> void:
 	if source.is_the_player:
 		for aura:Aura in player_aura_dictionary.values(): 
 			aura.on_attack(source)

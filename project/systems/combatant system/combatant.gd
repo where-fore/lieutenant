@@ -6,6 +6,10 @@ var baseData:CombatantData
 var is_the_player:bool = false
 var is_an_enemy:bool = true
 
+var current_target:Combatant
+
+var dead:bool = false
+
 var damage_taken:int = 0
 func get_damaged_health() -> int:
 	return current_stats[Stats.health] - damage_taken
@@ -30,30 +34,32 @@ func setup(should_be_the_player:bool = false) -> void:
 	
 
 func take_damage(value:int) -> void:
-	if value < 0: push_error("tried to take negative damage on: " + baseData.name)
-	else:
-		damage_taken += value
-	
-		var current_hp:int = get_damaged_health()
+	if not dead:
+		if value < 0: push_error("tried to take negative damage on: " + baseData.name)
+		else:
+			damage_taken += value
 		
-		if is_the_player: HudEvents.player_health_update.emit(current_hp)
-		else: HudEvents.enemy_health_update.emit(current_hp)
+			var current_hp:int = get_damaged_health()
+			
+			if is_the_player: HudEvents.player_health_update.emit(current_hp)
+			else: HudEvents.enemy_health_update.emit(current_hp)
+			CombatEvents.damage_applied.emit(self, value)
+			check_if_dead_now()
 		
-		check_if_dead_now()
-	
-	on_damage_taken_functions(value)
+		on_damage_taken_functions(value)
 
 
 func heal(value:int) -> void:
-	if value <= 0: push_error("tried to heal for 0 or negative on: " + baseData.name)
-	else:
-		damage_taken -= value
-		
-		var current_hp:int = get_damaged_health()
-		
-		if is_the_player: HudEvents.player_health_update.emit(current_hp)
-		else: HudEvents.enemy_health_update.emit(current_hp)
-		CombatEvents.healing_applied.emit(self, value)
+	if not dead:
+		if value <= 0: push_error("tried to heal for 0 or negative on: " + baseData.name)
+		else:
+			damage_taken -= value
+			
+			var current_hp:int = get_damaged_health()
+			
+			if is_the_player: HudEvents.player_health_update.emit(current_hp)
+			else: HudEvents.enemy_health_update.emit(current_hp)
+			CombatEvents.healing_applied.emit(self, value)
 
 func reset_current_stats_to_base() -> void:
 	current_stats = starting_stats.duplicate()
@@ -62,6 +68,7 @@ func check_if_dead_now() -> void:
 	if get_damaged_health() <= 0: perish()
 
 func perish() -> void:
+	dead = true
 	CombatEvents.combatant_died.emit(self)
 
 func send_sprite_to_ui() -> void:
@@ -70,7 +77,7 @@ func send_sprite_to_ui() -> void:
 func take_turn() -> void:	
 	on_start_turn_functions()
 	
-	CombatEvents.attack_launched.emit(self, current_stats[Stats.attack])
+	CombatEvents.attack_launched.emit(self, current_stats[Stats.attack], current_target)
 	on_after_attack_functions()
 	
 	on_end_turn_functions()
@@ -113,7 +120,7 @@ func on_start_turn_functions() -> void:
 
 func on_after_attack_functions() -> void:
 	baseData.on_after_attack()
-	CombatEvents.combatant_attacked.emit(self)
+	CombatEvents.combatant_finished_attack.emit(self, current_target)
 
 func on_damage_taken_functions(amount_taken:int) -> void:
 	baseData.on_damage_taken(amount_taken)
