@@ -59,7 +59,7 @@ func interpret_damage_taken(source_object:Combatant, amount:int) -> void:
 	
 	append_to_label(text_to_add)
 
-func interpret_healing(source_object:Combatant, amount:int) -> void:	
+func interpret_healing(source_object:Combatant, amount:int) -> void:
 	var source_name:String = source_object.baseData.name
 	var text_to_add:String = source_name + " heals " + "{amount}" + " health."
 	
@@ -76,12 +76,23 @@ func report_aura_removed(source:Combatant, aura:Aura) -> void:
 			push_error("fading aura has no name supplied")
 			push_error(aura.additive_stat_dictionary) #hopefully helps narrow down what the aura was
 		else:
-			var text_to_add:String = aura_name + " fades from your spirit."
+			var color:String = Color.GOLDENROD.to_html()
+			
+			var text_to_add:String = "{aura} fades from your spirit."
+			
+			var fancy:String = "[color=#%s]%s[/color]" % [color, aura.aura_name]
+			text_to_add = text_to_add.format({"aura": fancy})
+			
 			append_to_label(text_to_add)
 
 func report_aura_applied(aura:Aura) -> void:
-	var aura_name:String = aura.aura_name
-	var text_to_add:String = aura_name + " bolsters your spirit."
+	var color:String = Color.GOLDENROD.to_html()
+	
+	var text_to_add:String = "{aura} bolsters your spirit."
+	
+	var fancy:String = "[color=#%s]%s[/color]" % [color, aura.aura_name]
+	text_to_add = text_to_add.format({"aura": fancy})
+	
 	append_to_label(text_to_add)
 
 func report_death(newly_dead:Combatant) -> void:
