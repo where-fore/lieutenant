@@ -17,14 +17,12 @@ var current_stats:Dictionary[StringName, int] = {}
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	AuraEvents.send_auras_to_combatants.connect(recalculate_stats)
-	
-	setup()
 
 func setup(should_be_the_player:bool = false) -> void:
 	if should_be_the_player:
 		is_the_player = true
 		is_an_enemy = false
-		
+	
 	starting_stats[Stats.health] = baseData.scaled_health
 	starting_stats[Stats.attack] = baseData.scaled_attack
 	reset_current_stats_to_base()
@@ -42,6 +40,8 @@ func take_damage(value:int) -> void:
 		else: HudEvents.enemy_health_update.emit(current_hp)
 		
 		check_if_dead_now()
+	
+	on_damage_taken_functions(value)
 
 
 func heal(value:int) -> void:
@@ -67,13 +67,13 @@ func perish() -> void:
 func send_sprite_to_ui() -> void:
 	if is_an_enemy: HudEvents.send_enemy_sprite.emit(baseData.texture)
 
-func take_turn() -> void:
+func take_turn() -> void:	
 	on_start_turn_functions()
 	
 	CombatEvents.attack_launched.emit(self, current_stats[Stats.attack])
 	on_after_attack_functions()
 	
-	CombatEvents.turn_finished.emit(self)
+	on_end_turn_functions()
 
 func recalculate_stats(playerAuraAdditiveDictionary:Dictionary[StringName, int], playerAuraMultiplicativeDictionary:Dictionary[StringName, int], enemyAuraAdditiveDictionary:Dictionary[StringName, int], enemyAuraMultiplicativeDictionary:Dictionary[StringName, int]) -> void:
 	reset_current_stats_to_base()
@@ -109,9 +109,19 @@ func on_start_combat_functions() -> void:
 
 func on_start_turn_functions() -> void:
 	baseData.on_start_turn()
+	CombatEvents.combatant_turn_started.emit(self)
 
 func on_after_attack_functions() -> void:
 	baseData.on_after_attack()
+	CombatEvents.combatant_attacked.emit(self)
 
-func on_combat_end_functions() -> void:
+func on_damage_taken_functions(amount_taken:int) -> void:
+	baseData.on_damage_taken(amount_taken)
+	CombatEvents.combatant_damaged.emit(self, amount_taken)
+
+func on_end_turn_functions() -> void:
+	baseData.on_end_turn()
+	CombatEvents.combatant_turn_ended.emit(self)
+
+func on_end_combat_functions() -> void:
 	baseData.on_combat_end()

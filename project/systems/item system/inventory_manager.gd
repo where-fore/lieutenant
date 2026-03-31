@@ -4,6 +4,7 @@ var inventory_slots:Array[InventorySlot] = []
 
 #this is magically referencing the item ids i want. be wary
 var starting_inventory:Array[String] = [
+	"cultist_blade",
 	"iron_sword",
 	"iron_shield",
 ]
@@ -23,15 +24,23 @@ func _ready() -> void:
 	InventoryEvents.item_successfully_equipped.connect(interpret_new_item)
 	InventoryEvents.item_successfully_unequipped.connect(interpret_removed_item)
 	CombatEvents.combat_started.connect(on_combat_start)
+	CombatEvents.combatant_turn_started.connect(on_turn_start)
+	CombatEvents.combatant_attacked.connect(on_attack)
+	CombatEvents.combatant_damaged.connect(on_damage_taken)
+	CombatEvents.combatant_turn_ended.connect(on_turn_end)
 	CombatEvents.combat_finished.connect(on_combat_end)
-	#this is unreadable programmer shorthand for "throw away all arguments but the one i care about, "attacker"
-	@warning_ignore("untyped_declaration")
-	CombatEvents.attack_launched.connect(func(attacker:Combatant, _other_arg): on_attack(attacker))
 
 func on_scene_ready() -> void:
 	find_inventory_slot_nodes()
 	update_inventory_full_status()
 	populate_starter_items()
+
+func on_turn_start(source:Combatant) -> void:
+	if source.is_the_player:
+		for slot:InventorySlot in inventory_slots: 
+			if slot.is_empty(): continue
+			if slot.item_in_slot:
+				slot.item_in_slot.on_turn_start(source)
 
 func on_attack(source:Combatant) -> void:
 	if source.is_the_player:
@@ -39,6 +48,20 @@ func on_attack(source:Combatant) -> void:
 			if slot.is_empty(): continue
 			if slot.item_in_slot:
 				slot.item_in_slot.on_attack(source)
+
+func on_damage_taken(source:Combatant, amount_taken:int) -> void:
+	if source.is_the_player:
+		for slot:InventorySlot in inventory_slots: 
+			if slot.is_empty(): continue
+			if slot.item_in_slot:
+				slot.item_in_slot.on_damage_taken(source, amount_taken)
+
+func on_turn_end(source:Combatant) -> void:
+	if source.is_the_player:
+		for slot:InventorySlot in inventory_slots: 
+			if slot.is_empty(): continue
+			if slot.item_in_slot:
+				slot.item_in_slot.on_turn_end(source)
 
 func on_combat_start(_combatants:Array[Combatant]) -> void:
 	for slot:InventorySlot in inventory_slots:

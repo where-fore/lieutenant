@@ -23,16 +23,3 @@ func setup_stats() -> void:
 	setup_basic_data()
 	
 	#whatever the combatant does
-
-#called by Combatant
-func on_start_combat() -> void:
-	pass
-
-func on_start_turn() -> void:
-	pass
-
-func on_after_attack() -> void:
-	pass
-
-func on_combat_end() -> void:
-	pass

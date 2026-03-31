@@ -70,10 +70,19 @@ func applies_aura_on_equip() -> bool:
 func setup_item_stats() -> void:
 	push_error("item tried to instantiate without overriding setup_item_stats()")
 
+func on_combat_start() -> void:
+	pass
+
+func on_turn_start(_source:Combatant) -> void:
+	pass
+
 func on_attack(_source:Combatant) -> void:
 	pass
 
-func on_combat_start() -> void:
+func on_damage_taken(_source:Combatant, _amount_taken:int) -> void:
+	pass
+
+func on_turn_end(_source:Combatant) -> void:
 	pass
 
 func on_combat_end() -> void:

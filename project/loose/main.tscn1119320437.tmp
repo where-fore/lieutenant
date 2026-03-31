@@ -1,0 +1,338 @@
+[gd_scene load_steps=24 format=3 uid="uid://m6cv5sqf20gx"]
+
+[ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://systems/ui states/main.gd" id="1_bbldx"]
+[ext_resource type="PackedScene" uid="uid://dsbt6u8ma1cpc" path="res://systems/map system/map_tile_system.tscn" id="2_16p2t"]
+[ext_resource type="PackedScene" uid="uid://d4ng5rexbupxm" path="res://systems/ui states/main combat/combat_main.tscn" id="2_uaqc7"]
+[ext_resource type="Texture2D" uid="uid://dpjjrf7ekiuwc" path="res://sprites/box_outer.png" id="4_npwt7"]
+[ext_resource type="Material" uid="uid://db4ka5skbpxq4" path="res://loose/crt_major.tres" id="5_bbldx"]
+[ext_resource type="Material" uid="uid://cd0t2uxtmvr0l" path="res://loose/crt_minor.tres" id="6_uaqc7"]
+[ext_resource type="Script" uid="uid://dvk6chwr5wrj4" path="res://loose/pause_menu.gd" id="7_yqr2s"]
+[ext_resource type="Texture2D" uid="uid://crpikhlk7g3eu" path="res://sprites/cog.png" id="8_bbldx"]
+[ext_resource type="Script" uid="uid://c83t3y7en3pq0" path="res://loose/cursor_manager.gd" id="8_xalbe"]
+[ext_resource type="Texture2D" uid="uid://xr6idafv8gpe" path="res://sprites/cursor.png" id="9_nf78q"]
+[ext_resource type="Texture2D" uid="uid://c7a1jxvk522q2" path="res://sprites/border_background.png" id="10_qmb71"]
+[ext_resource type="Texture2D" uid="uid://dngm38c2cqh5o" path="res://sprites/animations/backdrop/sky background.png" id="12_bbldx"]
+[ext_resource type="SpriteFrames" uid="uid://dbriv3a7topvw" path="res://sprites/animations/backdrop/background edge/background_edge.tres" id="12_g13l7"]
+[ext_resource type="SpriteFrames" uid="uid://c3xi07klbwfxm" path="res://sprites/animations/backdrop/foreground edge/foreground_edge.tres" id="13_npwt7"]
+[ext_resource type="Texture2D" uid="uid://0pkmth45mucx" path="res://sprites/animations/backdrop/sky foreground.png" id="13_uaqc7"]
+[ext_resource type="SpriteFrames" uid="uid://b6sdmhy2c02x3" path="res://sprites/animations/backdrop/stars and moon frames/stars_and_moon.tres" id="14_g13l7"]
+[ext_resource type="Texture2D" uid="uid://dicmyh0qbtnav" path="res://sprites/cursor/cursor_particle.png" id="14_npwt7"]
+[ext_resource type="Texture2D" uid="uid://bmxnkkwdbmxdt" path="res://sprites/animations/backdrop/map_grid_base_1.png" id="14_wcgmp"]
+[ext_resource type="Material" uid="uid://densi0a6br74i" path="res://sprites/cursor/cursor_trail.tres" id="15_obmf6"]
+[ext_resource type="PackedScene" uid="uid://b13o5cfslg2uj" path="res://loose/event_log.tscn" id="18_h0uu6"]
+[ext_resource type="PackedScene" uid="uid://l4er4w6epgd5" path="res://systems/ui states/text blurb/text_blurb_screen.tscn" id="19_bbldx"]
+[ext_resource type="PackedScene" uid="uid://cplxpgrp4s0m8" path="res://systems/map system/map info panel/map_info_panel.tscn" id="19_w1snj"]
+[ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="20_1fc2u"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_bbldx")
+combat_entire_scene = ExtResource("2_uaqc7")
+map_creation_scene = ExtResource("2_16p2t")
+text_blurb_scene = ExtResource("19_bbldx")
+
+[node name="CRTFilter" type="CanvasLayer" parent="."]
+layer = 1000
+
+[node name="CRTMajor" type="ColorRect" parent="CRTFilter"]
+visible = false
+material = ExtResource("5_bbldx")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="CRTMinor" type="ColorRect" parent="CRTFilter"]
+material = ExtResource("6_uaqc7")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="MainUI" type="CanvasLayer" parent="."]
+layer = 50
+
+[node name="GameStarter" type="Control" parent="MainUI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameStartButtons" type="HBoxContainer" parent="MainUI/GameStarter"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SpacerLeft" type="Control" parent="MainUI/GameStarter/GameStartButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="NewGameButton" type="TextureButton" parent="MainUI/GameStarter/GameStartButtons"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 1
+texture_normal = ExtResource("4_npwt7")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="MainUI/GameStarter/GameStartButtons/NewGameButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "New
+Game"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SpacerRight" type="Control" parent="MainUI/GameStarter/GameStartButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="PauseMenuButton" type="Control" parent="MainUI"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="MainUI/PauseMenuButton"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 27.0
+offset_bottom = 27.0
+
+[node name="MarginContainer" type="MarginContainer" parent="MainUI/PauseMenuButton/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
+
+[node name="UIBackground" type="TextureRect" parent="MainUI/PauseMenuButton/PanelContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("10_qmb71")
+expand_mode = 2
+
+[node name="PauseMenuButton" type="TextureButton" parent="MainUI/PauseMenuButton/PanelContainer/MarginContainer"]
+layout_mode = 2
+texture_normal = ExtResource("8_bbldx")
+stretch_mode = 4
+
+[node name="PauseMenu" type="Control" parent="MainUI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_yqr2s")
+
+[node name="ColorRect" type="ColorRect" parent="MainUI/PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.92156863)
+
+[node name="Control" type="Control" parent="MainUI/PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = -64.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainUI/PauseMenu/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+
+[node name="RestartButton" type="TextureButton" parent="MainUI/PauseMenu/Control/HBoxContainer"]
+custom_minimum_size = Vector2(64, 48)
+layout_mode = 2
+texture_normal = ExtResource("4_npwt7")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MainUI/PauseMenu/Control/HBoxContainer/RestartButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+text = "Restart"
+
+[node name="CenterSpacer" type="Control" parent="MainUI/PauseMenu/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="ResumeButton" type="TextureButton" parent="MainUI/PauseMenu/Control/HBoxContainer"]
+custom_minimum_size = Vector2(64, 48)
+layout_mode = 2
+texture_normal = ExtResource("4_npwt7")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MainUI/PauseMenu/Control/HBoxContainer/ResumeButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+text = "Resume
+"
+
+[node name="CursorManager" type="Node2D" parent="."]
+script = ExtResource("8_xalbe")
+normal_cursor = ExtResource("9_nf78q")
+clicked_cursor = ExtResource("9_nf78q")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="CursorManager"]
+layer = 128
+
+[node name="Sprite2D" type="Sprite2D" parent="CursorManager/CanvasLayer"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_nf78q")
+offset = Vector2(16, 16)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="CursorManager/CanvasLayer/Sprite2D"]
+visible = false
+position = Vector2(16, 16)
+amount = 3
+texture = ExtResource("14_npwt7")
+lifetime = 0.25
+speed_scale = 0.25
+randomness = 1.0
+process_material = ExtResource("15_obmf6")
+
+[node name="MainGame" type="CanvasLayer" parent="."]
+
+[node name="UIBackground" type="TextureRect" parent="MainGame"]
+offset_right = 480.0
+offset_bottom = 270.0
+mouse_filter = 2
+texture = ExtResource("10_qmb71")
+
+[node name="MarginContainer" type="MarginContainer" parent="MainGame"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="Background" type="Node2D" parent="MainGame/MarginContainer"]
+position = Vector2(240, 135)
+
+[node name="SkyBackground" type="Sprite2D" parent="MainGame/MarginContainer/Background"]
+texture = ExtResource("12_bbldx")
+
+[node name="SkyForeground" type="Sprite2D" parent="MainGame/MarginContainer/Background"]
+texture = ExtResource("13_uaqc7")
+
+[node name="SkyStars" type="AnimatedSprite2D" parent="MainGame/MarginContainer/Background"]
+sprite_frames = ExtResource("14_g13l7")
+autoplay = "default"
+
+[node name="MapGridBase" type="Sprite2D" parent="MainGame/MarginContainer"]
+position = Vector2(240, 135)
+texture = ExtResource("14_wcgmp")
+
+[node name="SidebarBack" type="AnimatedSprite2D" parent="MainGame/MarginContainer"]
+position = Vector2(240, 135)
+sprite_frames = ExtResource("12_g13l7")
+
+[node name="MapContainer" type="Control" parent="MainGame/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="SidebarFront" type="AnimatedSprite2D" parent="MainGame/MarginContainer"]
+position = Vector2(240, 135)
+sprite_frames = ExtResource("13_npwt7")
+
+[node name="RightSideUI" type="Control" parent="MainGame/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="EventLog" parent="MainGame/MarginContainer/RightSideUI" instance=ExtResource("18_h0uu6")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+offset_left = -88.0
+grow_horizontal = 0
+
+[node name="MapInfo" parent="MainGame/MarginContainer/RightSideUI" instance=ExtResource("19_w1snj")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+offset_left = -88.0
+offset_top = 24.0
+offset_bottom = -24.0
+grow_horizontal = 0
+
+[node name="CombatContainer" type="Control" parent="MainGame/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TextBlurbContainer" type="Control" parent="MainGame/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="UIBorder" type="TextureRect" parent="MainGame"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("20_1fc2u")
+
+[connection signal="pressed" from="MainUI/GameStarter/GameStartButtons/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="MainUI/PauseMenuButton/PanelContainer/MarginContainer/PauseMenuButton" to="." method="_on_pause_menu_button_pressed"]
+[connection signal="pressed" from="MainUI/PauseMenu/Control/HBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="MainUI/PauseMenu/Control/HBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]

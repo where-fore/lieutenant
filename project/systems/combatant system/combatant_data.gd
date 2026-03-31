@@ -39,7 +39,7 @@ func get_tooltip() -> String:
 	return tooltip_text
 
 
-#called by Combatant
+#derived subclasses hook onto these functions
 func on_start_combat() -> void:
 	pass
 
@@ -49,13 +49,17 @@ func on_start_turn() -> void:
 func on_after_attack() -> void:
 	pass
 
+func on_damage_taken(_amount_taken:int) -> void:
+	pass
+
+func on_end_turn() -> void:
+	pass
+
 func on_combat_end() -> void:
 	pass
 
-#derived subclasses hook onto these functions
 func setup_stats() -> void:
 	pass
-
 
 func scale_stats(_power:int) -> void:
 	pass

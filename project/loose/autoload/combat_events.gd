@@ -37,3 +37,15 @@ signal combat_finished(combatants:Array[Combatant])
 
 @warning_ignore("unused_signal")
 signal combat_started(combatants:Array[Combatant])
+
+@warning_ignore("unused_signal")
+signal combatant_turn_started(source:Combatant)
+
+@warning_ignore("unused_signal")
+signal combatant_attacked(source:Combatant)
+
+@warning_ignore("unused_signal")
+signal combatant_damaged(source:Combatant, amount_taken:int)
+
+@warning_ignore("unused_signal")
+signal combatant_turn_ended(source:Combatant)
