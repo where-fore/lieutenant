@@ -26,7 +26,7 @@ func _ready() -> void:
 	HudEvents.player_attack_update.connect(update_player_attack)
 	HudEvents.enemy_health_update.connect(update_enemy_health)
 	HudEvents.enemy_attack_update.connect(update_enemy_attack)
-	CombatEvents.turn_finished.connect(update_turn_indicator)
+	CombatEvents.combatant_turn_ended.connect(update_turn_indicator)
 	HudEvents.combat_button_pressed.connect(set_first_turn_indicator)
 	HudEvents.send_enemy_sprite.connect(update_enemy_sprite)
 	MapEvents.enter_combat_in.connect(change_to)

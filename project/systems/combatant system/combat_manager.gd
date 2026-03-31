@@ -44,7 +44,7 @@ var turn_mode:StringName = step_mode
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	CombatEvents.attack_launched.connect(handle_attack)
-	CombatEvents.turn_finished.connect(finish_turn)
+	CombatEvents.combatant_turn_ended.connect(finish_turn)
 	CombatEvents.combatant_died.connect(handle_perishing_combatant)
 	HudEvents.combat_button_pressed.connect(start_combat)
 	MapEvents.enter_combat_in.connect(pre_combat)
@@ -97,11 +97,8 @@ func set_speed(speed:StringName) -> void:
 	else:
 		push_error("tried to set combat speed to unrecognized speed: " + str(speed))
 
-func handle_attack(attacker:Combatant, amount:int) -> void:
-	if attacker.is_the_player:
-		current_enemy.take_damage(amount)
-	else:
-		current_player.take_damage(amount)
+func handle_attack(_attacker:Combatant, amount:int, target:Combatant) -> void:
+	target.take_damage(amount)
 
 func finish_turn(_source:Combatant) -> void:
 	if CombatEvents.combat_ongoing:
@@ -159,6 +156,8 @@ func turn_animation() -> void:
 	await animation_timer.timeout
 
 func handle_perishing_combatant(combatant_who_died:Combatant) -> void:
+	combatant_who_died.on_end_combat_functions()
+	
 	if combatant_who_died.is_the_player:
 		CombatEvents.combat_ongoing = false
 	
@@ -174,6 +173,10 @@ func handle_perishing_combatant(combatant_who_died:Combatant) -> void:
 
 func stop_combat() -> void:
 	CombatEvents.combat_ongoing = false
+	
+	for combatant:Combatant in combatants:
+		combatant.on_end_combat_functions()
+	
 	CombatEvents.combat_finished.emit(combatants)
 	
 	if player_victorious:
@@ -182,8 +185,6 @@ func stop_combat() -> void:
 		HudEvents.combat_lost.emit()
 	
 	player_victorious = false
-	for combatant:Combatant in combatants:
-		combatant.on_combat_end_functions()
 	combatants.clear()
 
 func pre_combat(map_tile:MapTile) -> void:
@@ -191,9 +192,10 @@ func pre_combat(map_tile:MapTile) -> void:
 	combatants.append(current_player)
 	current_enemy = create_enemy_from_data(map_tile.tile_data.enemy)
 	combatants.append(current_enemy)
-	#this is a bit dangerous - i'm now assuming enemies and players are spawned. would love some sort of call back?
-	#can't put it in the setup function since that fires before this function reaches await()
 	
+	current_player.current_target = current_enemy
+	current_enemy.current_target = current_player
+
 	AuraEvents.initalize_combat_stats.emit()
 	turn = precombat
 	CombatEvents.combat_ongoing = false
@@ -207,11 +209,6 @@ func pre_combat(map_tile:MapTile) -> void:
 			players.append(combatant)
 		if not combatant.is_the_player:
 			enemies.append(combatant)
-	#this doesn't respect order, but not a problem atm cause only one of each
-	for player:Combatant in players:
-		player.on_start_combat_functions()
-	for enemy:Combatant in enemies:
-		enemy.on_start_combat_functions()
 	
 	can_start_combat = true
 	
@@ -249,14 +246,18 @@ func start_combat() -> void:
 	if not CombatEvents.combat_ongoing and can_start_combat:
 		can_start_combat = false
 		CombatEvents.combat_ongoing = true
+		
+		for combatant:Combatant in combatants:
+			combatant.on_start_combat_functions()
+		
 		CombatEvents.combat_started.emit(combatants)
 	
-	#auto start, with last chosen speed
-	match HudEvents.last_combat_speed_chosen:
-		HudEvents.CombatSpeedNames.STEP: step_button_pressed()
-		HudEvents.CombatSpeedNames.PLAY: play_button_pressed()
-		HudEvents.CombatSpeedNames.PLAY_FAST: play_fast_button_pressed()
-		_: push_error("not sure what last combat speed was")
+		#auto start, with last chosen speed
+		match HudEvents.last_combat_speed_chosen:
+			HudEvents.CombatSpeedNames.STEP: step_button_pressed()
+			HudEvents.CombatSpeedNames.PLAY: play_button_pressed()
+			HudEvents.CombatSpeedNames.PLAY_FAST: play_fast_button_pressed()
+			_: push_error("not sure what last combat speed was")
 
 func start_turn() -> void:
 	turn_finished = false

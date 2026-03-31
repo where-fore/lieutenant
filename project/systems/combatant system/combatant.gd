@@ -6,6 +6,10 @@ var baseData:CombatantData
 var is_the_player:bool = false
 var is_an_enemy:bool = true
 
+var current_target:Combatant
+
+var dead:bool = false
+
 var damage_taken:int = 0
 func get_damaged_health() -> int:
 	return current_stats[Stats.health] - damage_taken
@@ -17,14 +21,12 @@ var current_stats:Dictionary[StringName, int] = {}
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	AuraEvents.send_auras_to_combatants.connect(recalculate_stats)
-	
-	setup()
 
 func setup(should_be_the_player:bool = false) -> void:
 	if should_be_the_player:
 		is_the_player = true
 		is_an_enemy = false
-		
+	
 	starting_stats[Stats.health] = baseData.scaled_health
 	starting_stats[Stats.attack] = baseData.scaled_attack
 	reset_current_stats_to_base()
@@ -32,28 +34,32 @@ func setup(should_be_the_player:bool = false) -> void:
 	
 
 func take_damage(value:int) -> void:
-	if value < 0: push_error("tried to take negative damage on: " + baseData.name)
-	else:
-		damage_taken += value
-	
-		var current_hp:int = get_damaged_health()
+	if not dead:
+		if value < 0: push_error("tried to take negative damage on: " + baseData.name)
+		else:
+			damage_taken += value
 		
-		if is_the_player: HudEvents.player_health_update.emit(current_hp)
-		else: HudEvents.enemy_health_update.emit(current_hp)
+			var current_hp:int = get_damaged_health()
+			
+			if is_the_player: HudEvents.player_health_update.emit(current_hp)
+			else: HudEvents.enemy_health_update.emit(current_hp)
+			CombatEvents.damage_applied.emit(self, value)
+			check_if_dead_now()
 		
-		check_if_dead_now()
+		on_damage_taken_functions(value)
 
 
 func heal(value:int) -> void:
-	if value <= 0: push_error("tried to heal for 0 or negative on: " + baseData.name)
-	else:
-		damage_taken -= value
-		
-		var current_hp:int = get_damaged_health()
-		
-		if is_the_player: HudEvents.player_health_update.emit(current_hp)
-		else: HudEvents.enemy_health_update.emit(current_hp)
-		CombatEvents.healing_applied.emit(self, value)
+	if not dead:
+		if value <= 0: push_error("tried to heal for 0 or negative on: " + baseData.name)
+		else:
+			damage_taken -= value
+			
+			var current_hp:int = get_damaged_health()
+			
+			if is_the_player: HudEvents.player_health_update.emit(current_hp)
+			else: HudEvents.enemy_health_update.emit(current_hp)
+			CombatEvents.healing_applied.emit(self, value)
 
 func reset_current_stats_to_base() -> void:
 	current_stats = starting_stats.duplicate()
@@ -62,6 +68,7 @@ func check_if_dead_now() -> void:
 	if get_damaged_health() <= 0: perish()
 
 func perish() -> void:
+	dead = true
 	CombatEvents.combatant_died.emit(self)
 
 func send_sprite_to_ui() -> void:
@@ -70,10 +77,10 @@ func send_sprite_to_ui() -> void:
 func take_turn() -> void:
 	on_start_turn_functions()
 	
-	CombatEvents.attack_launched.emit(self, current_stats[Stats.attack])
+	CombatEvents.attack_launched.emit(self, current_stats[Stats.attack], current_target)
 	on_after_attack_functions()
 	
-	CombatEvents.turn_finished.emit(self)
+	on_end_turn_functions()
 
 func recalculate_stats(playerAuraAdditiveDictionary:Dictionary[StringName, int], playerAuraMultiplicativeDictionary:Dictionary[StringName, int], enemyAuraAdditiveDictionary:Dictionary[StringName, int], enemyAuraMultiplicativeDictionary:Dictionary[StringName, int]) -> void:
 	reset_current_stats_to_base()
@@ -109,9 +116,19 @@ func on_start_combat_functions() -> void:
 
 func on_start_turn_functions() -> void:
 	baseData.on_start_turn()
+	CombatEvents.combatant_turn_started.emit(self)
 
 func on_after_attack_functions() -> void:
 	baseData.on_after_attack()
+	CombatEvents.combatant_finished_attack.emit(self, current_target)
 
-func on_combat_end_functions() -> void:
+func on_damage_taken_functions(amount_taken:int) -> void:
+	baseData.on_damage_taken(amount_taken)
+	CombatEvents.combatant_damaged.emit(self, amount_taken)
+
+func on_end_turn_functions() -> void:
+	baseData.on_end_turn()
+	CombatEvents.combatant_turn_ended.emit(self)
+
+func on_end_combat_functions() -> void:
 	baseData.on_combat_end()

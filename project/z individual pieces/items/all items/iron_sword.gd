@@ -13,12 +13,6 @@ func setup_basic_item_data() -> void:
 	item_categories = {
 		Categories.item_rarity : Categories.Rarity.COMMON,
 	}
-	
-	
-	#optional special visible aura
-	custom_aura_template = null # load("res://z individual pieces/items/all items/paladin's armor/paladins_might.tres")
-	aura_application_time = ApplyType.ON_EQUIP
-
 
 #--functions called by item_base.gd--
 func setup_item_stats() -> void:
@@ -27,14 +21,3 @@ func setup_item_stats() -> void:
 	#whatever the item does
 	additive_stat_dictionary[Stats.attack] = my_damage
 	multiplicative_stat_dictionary[Stats.attack] = my_multiplier
-
-func on_attack(_source:Combatant) -> void:
-	pass
-
-func on_combat_start() -> void:
-	pass
-
-func on_combat_end() -> void:
-	pass
-
-#--end of functions called by item_base.gd--

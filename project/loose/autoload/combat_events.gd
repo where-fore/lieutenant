@@ -1,7 +1,10 @@
 extends Node
 
 @warning_ignore("unused_signal")
-signal attack_launched(attacker:Combatant, amount:int)
+signal attack_launched(attacker:Combatant, amount:int, target:Combatant)
+
+@warning_ignore("unused_signal")
+signal damage_applied(damage_receipient:Combatant, amount:int)
 
 @warning_ignore("unused_signal")
 signal healing_applied(heal_receipient:Combatant, amount:int)
@@ -37,3 +40,15 @@ signal combat_finished(combatants:Array[Combatant])
 
 @warning_ignore("unused_signal")
 signal combat_started(combatants:Array[Combatant])
+
+@warning_ignore("unused_signal")
+signal combatant_turn_started(source:Combatant)
+
+@warning_ignore("unused_signal")
+signal combatant_finished_attack(source:Combatant, target:Combatant)
+
+@warning_ignore("unused_signal")
+signal combatant_damaged(source:Combatant, amount_taken:int)
+
+@warning_ignore("unused_signal")
+signal combatant_turn_ended(source:Combatant)

@@ -2,7 +2,7 @@ extends Item
 
 #whatever the item does, doesn't do anything until you do something with it
 var my_damage:int = BalanceData.sword_damage * 2
-var healing_per_attack_multiplier:int = 25
+var healing_per_attack_multiplier:int = 15
 
 
 func setup_basic_item_data() -> void:
@@ -26,14 +26,6 @@ func setup_item_stats() -> void:
 	#whatever the item does
 	additive_stat_dictionary[Stats.attack] = my_damage
 
-func on_attack(source:Combatant) -> void:
+func on_attack(source:Combatant, _target:Combatant) -> void:
 	var healing:int = source.current_stats[Stats.attack] * healing_per_attack_multiplier / 100
 	source.heal(healing)
-
-func on_combat_start() -> void:
-	pass
-
-func on_combat_end() -> void:
-	pass
-
-#--end of functions called by item_base.gd--
