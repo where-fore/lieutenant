@@ -74,7 +74,7 @@ func perish() -> void:
 func send_sprite_to_ui() -> void:
 	if is_an_enemy: HudEvents.send_enemy_sprite.emit(baseData.texture)
 
-func take_turn() -> void:	
+func take_turn() -> void:
 	on_start_turn_functions()
 	
 	CombatEvents.attack_launched.emit(self, current_stats[Stats.attack], current_target)

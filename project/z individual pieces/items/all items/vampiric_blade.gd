@@ -2,7 +2,7 @@ extends Item
 
 #whatever the item does, doesn't do anything until you do something with it
 var my_damage:int = BalanceData.sword_damage * 2
-var healing_per_attack_multiplier:int = 25
+var healing_per_attack_multiplier:int = 15
 
 
 func setup_basic_item_data() -> void:

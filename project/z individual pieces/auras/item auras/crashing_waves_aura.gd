@@ -1,7 +1,7 @@
 extends Aura
 
 #whatever the aura does, doesn't do anything until you do something with it
-static var attack_per_turn:int = BalanceData.sword_damage * 3/2
+static var attack_per_turn:int = BalanceData.sword_damage
 var base_attack:int = 0
 var combat_log_message:String = "The tide ebbs."
 

@@ -1,6 +1,6 @@
 extends CombatantData
 
-var attack_per_turn:int = 1
+var attack_per_turn:int = 3
 var buff_aura_name:String = "Growing Impatience"
 var buff_aura:Aura
 

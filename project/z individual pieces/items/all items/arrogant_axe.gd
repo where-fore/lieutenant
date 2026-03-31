@@ -2,11 +2,11 @@ extends Item
 
 var my_attack:int = BalanceData.sword_damage
 
-var attack_threshold:int = 60
+var attack_threshold:int = BalanceData.sword_damage * 10
 var buff_aura:Aura
 var buff_aura_name:String = "Monumental arrogance"
 
-var super_attack:int = 20
+var super_attack:int = 0
 var super_attack_multiplier:int = 100
 
 func setup_basic_item_data() -> void:
@@ -25,9 +25,12 @@ func setup_item_stats() -> void:
 	additive_stat_dictionary[Stats.attack] = my_attack
 
 func on_turn_start(source:Combatant) -> void:
-	if buff_aura: clear_my_aura()
 	if source.current_stats[Stats.attack] >= attack_threshold:
-		apply_my_aura()
+		if not buff_aura:
+			apply_my_aura()
+	else: 
+		if buff_aura:
+			clear_my_aura()
 
 #--end of functions called by parents--
 
