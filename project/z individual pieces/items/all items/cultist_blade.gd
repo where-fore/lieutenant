@@ -17,8 +17,7 @@ func setup_basic_item_data() -> void:
 #--functions called by item_base.gd--
 func setup_item_stats() -> void:
 	setup_basic_item_data()
-	
-	#whatever the item doesfunc on_start_combat() -> void:
+
 func on_combat_start() -> void:
 	buff_aura = Aura.new().create_aura(buff_aura_name, true)
 	buff_aura.duration_type = AuraNames.DurationType.THIS_COMBAT
