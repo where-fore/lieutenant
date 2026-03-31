@@ -61,5 +61,6 @@ func on_combat_end() -> void:
 func setup_stats() -> void:
 	pass
 
-func scale_stats(_power:int) -> void:
-	pass
+func scale_stats(power:int) -> void:
+	scaled_health = base_health * BalanceData.enemy_beginning_health_scaling / 100 + (power * base_health * BalanceData.enemy_health_scaling_per_power)/100
+	scaled_attack = base_attack + (power * base_attack * BalanceData.enemy_attack_scaling_per_power)/100

@@ -91,6 +91,6 @@ func check_if_tile_export_set_correctly() -> void:
 			push_error("map tile data not set correctly on spawner")
 
 func choose_first_rewards() -> void:
-	var all_of_rarity:Array[Item] = Database.get_items_by_category(Categories.item_rarity, Categories.Rarity.RARE)
+	var all_of_rarity:Array[Item] = Database.get_items_by_category(Categories.item_rarity, Categories.Rarity.MYTHIC)
 	all_of_rarity.shuffle()
 	first_rewards = all_of_rarity
