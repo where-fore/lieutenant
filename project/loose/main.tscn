@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=25 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://systems/ui states/main.gd" id="1_bbldx"]
 [ext_resource type="PackedScene" uid="uid://dsbt6u8ma1cpc" path="res://systems/map system/map_tile_system.tscn" id="2_16p2t"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://c83t3y7en3pq0" path="res://loose/cursor_manager.gd" id="8_xalbe"]
 [ext_resource type="Texture2D" uid="uid://xr6idafv8gpe" path="res://sprites/cursor.png" id="9_nf78q"]
 [ext_resource type="Texture2D" uid="uid://c7a1jxvk522q2" path="res://sprites/border_background.png" id="10_qmb71"]
+[ext_resource type="Texture2D" uid="uid://cqhb4p4tf4jbg" path="res://sprites/paper.png" id="11_obmf6"]
 [ext_resource type="Texture2D" uid="uid://dngm38c2cqh5o" path="res://sprites/animations/backdrop/sky background.png" id="12_bbldx"]
 [ext_resource type="SpriteFrames" uid="uid://dbriv3a7topvw" path="res://sprites/animations/backdrop/background edge/background_edge.tres" id="12_g13l7"]
 [ext_resource type="SpriteFrames" uid="uid://c3xi07klbwfxm" path="res://sprites/animations/backdrop/foreground edge/foreground_edge.tres" id="13_npwt7"]
@@ -200,6 +201,49 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="CenterSpacer" type="Control" parent="MainUI/PauseMenu/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="InfoButton" type="TextureButton" parent="MainUI/PauseMenu/Control/HBoxContainer"]
+custom_minimum_size = Vector2(64, 48)
+layout_mode = 2
+tooltip_text = "How the game does math:
+
+Everything is rounded down to whole numbers, at most steps of calculation.
+
+Percentage multipliers are all summed together first, then applied as a single
+multiplication to your total base.
+Eg.
+50% increased health, 100% increased health
+20 base health, item with 35 health
+
+20 + 35 = 55 base health. 100% base + 50% + 100% = 250% health
+
+60 * 250/100 = 137.5 -> 137 health"
+texture_normal = ExtResource("11_obmf6")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MainUI/PauseMenu/Control/HBoxContainer/InfoButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+text = "Math
+Info"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CenterSpacer2" type="Control" parent="MainUI/PauseMenu/Control/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2

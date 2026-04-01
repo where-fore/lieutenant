@@ -1,8 +1,7 @@
 --------------------------------------------------------
 working notes
 --------------------------------------------------------
-arrogant axe, cultist blade, bears defence, damocleic ring, giant slayer, blood bath necklace, warding pike
-
+something to stop infinitely staying back...?
 
 
 items & enemies for interesting first playtest
@@ -104,6 +103,8 @@ have a "pre-turn" turn for combat start effects
 bug: i think if you lose a +hp aura mid combat and go below 0 hp, you won't die
 
 check out orphan nodes, i think auras may be danglin
+
+figure out map system - currently no penalty for losing or anything, but no progression unless you win. can enter yourself into a corner where you can't progress without main menu -> restarting
 
 --------------------------------------------------------
 concepts i know i should tutorialize:
