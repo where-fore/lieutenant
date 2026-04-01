@@ -65,7 +65,8 @@ func reset_current_stats_to_base() -> void:
 	current_stats = starting_stats.duplicate()
 
 func check_if_dead_now() -> void:
-	if get_damaged_health() <= 0: perish()
+	if get_damaged_health() <= 0 and CombatEvents.combat_ongoing:
+		perish()
 
 func perish() -> void:
 	dead = true
@@ -96,6 +97,8 @@ func recalculate_stats(playerAuraAdditiveDictionary:Dictionary[StringName, int],
 		multiply_aura_and_current_stats(enemyAuraMultiplicativeDictionary)
 		HudEvents.enemy_health_update.emit(get_damaged_health())
 		HudEvents.enemy_attack_update.emit(current_stats[Stats.attack])
+	
+	check_if_dead_now()
 
 func sum_aura_and_base_stats(auraDictionary:Dictionary[StringName,int]) -> void:
 	for stat:String in auraDictionary:

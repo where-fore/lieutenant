@@ -76,7 +76,7 @@ func on_combat_start() -> void:
 func on_turn_start(_source:Combatant) -> void:
 	pass
 
-func on_attack(_source:Combatant, _targe:Combatant) -> void:
+func on_attack(_source:Combatant, _target:Combatant) -> void:
 	pass
 
 func on_damage_taken(_source:Combatant, _amount_taken:int) -> void:

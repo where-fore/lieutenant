@@ -4,6 +4,7 @@ var inventory_slots:Array[InventorySlot] = []
 
 #this is magically referencing the item ids i want. be wary
 var starting_inventory:Array[String] = [
+	"rock",
 ]
 
 var inventory_slot_parent:GridContainer

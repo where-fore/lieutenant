@@ -163,6 +163,8 @@ func handle_perishing_combatant(combatant_who_died:Combatant) -> void:
 	
 	elif combatant_who_died.is_an_enemy:
 		combatants.erase(combatant_who_died)
+		combatant_who_died.queue_free()
+		
 		var remaining_enemies:int = 0
 		for combatant:Combatant in combatants:
 			if combatant.is_an_enemy: remaining_enemies += 1
@@ -185,6 +187,9 @@ func stop_combat() -> void:
 		HudEvents.combat_lost.emit()
 	
 	player_victorious = false
+	
+	for combatant:Combatant in combatants:
+		combatant.queue_free()
 	combatants.clear()
 
 func pre_combat(map_tile:MapTile) -> void:

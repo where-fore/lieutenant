@@ -1,9 +1,14 @@
 --------------------------------------------------------
 working notes
 --------------------------------------------------------
-
-
 items & enemies for interesting first playtest
+
+whenever you heal, deal that much damage
+
+do a quick pass on volume balance for each arechetype and rarity (maybe add some more basic weapons/shields)
+do some enemies
+do some drawing at some point
+	probably do a cool-weapon-name pass soon too
 
 
 builds:
@@ -67,6 +72,10 @@ to flavour: look up meteor/apocolyptic mythologies, and draw from those
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
+a turn counter somewhere
+
+big ui overhaul - bar with tabs, readable combat log, combat screen looking more inviting
+
 combat log polish
 	have it fade out at the bottom
 	have a ton of empty space
@@ -107,6 +116,16 @@ percentage multipliers rounding down, maybe even each step
 
 item effect ordering vs auras
 
+
+
+--------------------------------------------------------
+cool items/enemies:
+--------------------------------------------------------
+if health below threshold, 50% vamp; if health above threshold, extra attack
+
+big health bonus, on turn 5 take 200 damage or so
+	note it's health positive with health percent modifiers
+	triggering big damage taken things would be neat
 
 
 ---------------------------
@@ -187,6 +206,9 @@ flappy cameo, balloon in the distance
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+combat manager array of combatants - do i want a separate living_combatants array? do i need to know which creatures are there, but dead? should i just use the one array, but put not dead checks in everything?
+	currently i just have the one array, and yeet combatants from it. i probably want to keep them at some point, for corpse related shennanigans when fighting multiple enemies
+
 something about generating rewards on tiles is off
 	currently i'm manually generating rewards in the map spawner?
 		i have a tile i want to generate better rewards based on tile power, and that isn't handled in the tileData.gd?
