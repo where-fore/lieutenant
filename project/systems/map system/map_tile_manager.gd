@@ -8,7 +8,10 @@ var current_tile_encounter:MapTile
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	MapEvents.combat_all_done.connect(hide_current_row_and_increment)
+	#only checking this on victory, for now
+	MapEvents.reward_offered.connect(hide_current_row_and_increment)
+	#MapEvents.combat_all_done.connect(hide_current_row_and_increment)
+	
 	MapEvents.maptile_created.connect(add_to_database)
 	MapEvents.map_grid_ready.connect(hide_all_but_first_row)
 	MapEvents.venture_to.connect(handle_map_transition)
@@ -34,8 +37,7 @@ func hide_rows() -> void:
 	
 	for maptile:MapTile in current_map_tiles:
 		if maptile.x_coordinate <= current_column_sunsetting:
-			#maptile.disable()
-			pass #i want to try not hiding past tiles
+			maptile.disable()
 		elif maptile.x_coordinate > furthest_column: #disable past vision
 			maptile.disable()
 		elif maptile.x_coordinate <= furthest_column: #note this elif comes after hiding the earlier tiles
