@@ -1,12 +1,6 @@
 --------------------------------------------------------
 working notes
 --------------------------------------------------------
-something to stop infinitely staying back...?
-
-
-items & enemies for interesting first playtest
-
-whenever you heal, deal that much damage
 
 do a quick pass on volume balance for each arechetype and rarity (maybe add some more basic weapons/shields)
 do some enemies
@@ -139,9 +133,16 @@ big health bonus, on turn 5 take 200 damage or so
 	triggering big damage taken things would be neat
 	could be a percent health scaling reward ! doesn't do anything for non-health-scalers characters
 
+healing synergies
+	whenever you heal, do x damage (attack -99)
+	whenver you heal, heal 50% again
+	whenever you heal more than your attack, do damage
+
 ---------------------------
 not right now, maybe:
 ---------------------------
+a debug console: spawn items, enable whole map, dump item database of rarity, increase stats. maybe even hotkey some of these
+
 a button on the map info panel to hide it immediately would feel good
 	maybe a slide bar handle?
 

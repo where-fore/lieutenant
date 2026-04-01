@@ -15,7 +15,7 @@ script = ExtResource("1_rwx8k")
 [node name="MapTileSpawner" type="Node2D" parent="."]
 position = Vector2(6, 183)
 script = ExtResource("2_yr7fr")
-map_data = Array[GDScript]([ExtResource("3_w2u1g"), ExtResource("4_evd6y"), ExtResource("5_qol6c"), ExtResource("3_w2u1g"), ExtResource("3_w2u1g")])
+map_data = Array[GDScript]([ExtResource("4_evd6y"), ExtResource("5_qol6c"), ExtResource("3_w2u1g"), ExtResource("3_w2u1g"), ExtResource("3_w2u1g"), ExtResource("3_w2u1g")])
 boss_tile_data = Array[GDScript]([ExtResource("6_apyin")])
 generic_border_data = ExtResource("3_w2u1g")
 first_special_tile = ExtResource("7_8q2kk")

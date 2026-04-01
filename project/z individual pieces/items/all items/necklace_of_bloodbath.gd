@@ -7,7 +7,7 @@ var buff_aura_name:String = "Safe Haven"
 var shield:int = BalanceData.shield_health * 30
 
 func setup_basic_item_data() -> void:
-	item_id = "last_stand" # "generic_item"
+	item_id = "necklace_of_bloodbath" # "generic_item"
 	item_name = "Necklace of Bloodbath" # "Generic Item"
 	item_sprite = load("res://sprites/ruby_gorget.png")
 	extra_tooltip = "For you first {turns} turns, bathe in as much blood as you desire. Pay for it later.".format({"turns": turns_active,}) # "Generic flavourful description"

@@ -2,7 +2,7 @@ extends Item
 
 var has_activated:bool
 var turn_counter:int
-var activate_on_turn:int = 3
+var activate_on_turn:int = 2
 var damage_on_activation:int = BalanceData.sword_damage * 5
 var activation_message:String = "The time has come, your ring glows brightly."
 
@@ -13,7 +13,7 @@ func setup_basic_item_data() -> void:
 	item_sprite = load("res://sprites/ruby_ring.png")
 	extra_tooltip = "On your turn {turns}, explode in a brief fury for {damage} damage".format({"turns": activate_on_turn, "damage": damage_on_activation}) # "Generic flavourful description"
 	item_categories = {
-		Categories.item_rarity : Categories.Rarity.RARE,
+		Categories.item_rarity : Categories.Rarity.COMMON,
 	}
 	
 

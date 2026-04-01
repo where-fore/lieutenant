@@ -5,7 +5,8 @@ var turn_counter:int
 var activate_on_turn:int = 5
 var activation_message:String = "You bellow a terrifying bear's roar, and swipe feverishly."
 
-var base_health_multi:int = 50
+#var base_health:int = BalanceData.shield_health * 3/2
+var base_health_multiplier:int = 75
 
 func setup_basic_item_data() -> void:
 	item_id = "bears_defence" # "generic_item"
@@ -21,7 +22,8 @@ func setup_basic_item_data() -> void:
 func setup_item_stats() -> void:
 	setup_basic_item_data()
 	
-	multiplicative_stat_dictionary[Stats.health] = base_health_multi
+	#additive_stat_dictionary[Stats.health] = base_health
+	multiplicative_stat_dictionary[Stats.health] = base_health_multiplier
 
 func on_combat_start() -> void:
 	has_activated = false

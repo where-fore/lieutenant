@@ -48,7 +48,10 @@ func hide_rows() -> void:
 		
 		if not maptile.currently_disabled and not maptile.permanently_disabled:
 			enabled_tiles += 1
-	if enabled_tiles == 0: push_error("somehow disabled every tile possible")
+	if enabled_tiles == 0:
+		pass
+		#push_error("somehow disabled every tile possible")
+		#well i know how that happened - you won the chapter
 
 func hide_all_but_first_row() -> void:
 	for maptile:MapTile in current_map_tiles:

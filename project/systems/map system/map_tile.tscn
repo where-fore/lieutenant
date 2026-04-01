@@ -25,7 +25,7 @@ texture = ExtResource("4_mrii7")
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
-polygon = PackedVector2Array(-46, 46, -32, 14, 20, 14, 6, 46, -46, 46)
+polygon = PackedVector2Array(-48, 46, -36, 14, 22, 14, 10, 46, -48, 46)
 
 [connection signal="timeout" from="Sprite2D/Timer" to="." method="_on_timer_timeout"]
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
