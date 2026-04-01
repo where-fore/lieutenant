@@ -52,7 +52,7 @@ func update_map_tile_info(tile:MapTile) -> void:
 	
 	if tile.currently_disabled:
 		venture_button.modulate = Color(0.5,0.5,0.5)
-		venture_button.tooltip_text = "Too Far"
+		venture_button.tooltip_text = "Path not yet found"
 		#note this is wrong, disabled is not checking distance
 		#but currently the only things disabled but visible are pemanently visible
 	else:

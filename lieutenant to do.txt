@@ -69,9 +69,15 @@ probably can't win with unique and unsupporting stats, or with too few supportin
 
 to flavour: look up meteor/apocolyptic mythologies, and draw from those
 
+
+consider hiding what the reward is, just say the rarity?
+
+
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
+some sort of tooltip for the disabled map tiles, maybe a border for the first tile? yellow paint
+
 a turn counter somewhere
 
 big ui overhaul - bar with tabs, readable combat log, combat screen looking more inviting
@@ -126,7 +132,7 @@ if health below threshold, 50% vamp; if health above threshold, extra attack
 big health bonus, on turn 5 take 200 damage or so
 	note it's health positive with health percent modifiers
 	triggering big damage taken things would be neat
-
+	could be a percent health scaling reward ! doesn't do anything for non-health-scalers characters
 
 ---------------------------
 not right now, maybe:

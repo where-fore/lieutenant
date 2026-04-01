@@ -34,11 +34,15 @@ func hide_rows() -> void:
 	
 	for maptile:MapTile in current_map_tiles:
 		if maptile.x_coordinate <= current_column_sunsetting:
-			maptile.disable()
-		elif maptile.x_coordinate > furthest_column:
+			#maptile.disable()
+			pass #i want to try not hiding past tiles
+		elif maptile.x_coordinate > furthest_column: #disable past vision
 			maptile.disable()
 		elif maptile.x_coordinate <= furthest_column: #note this elif comes after hiding the earlier tiles
 			maptile.enable()
+		
+		if maptile.x_coordinate == 1: #disable first, special row
+			maptile.disable()
 		
 		if not maptile.currently_disabled and not maptile.permanently_disabled:
 			enabled_tiles += 1
