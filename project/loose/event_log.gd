@@ -70,20 +70,21 @@ func interpret_healing(source_object:Combatant, amount:int) -> void:
 	append_to_label(text_to_add)
 
 func report_aura_removed(source:Combatant, aura:Aura) -> void:
-	if source.is_the_player:
-		var aura_name:String = aura.aura_name
-		if not aura.aura_name:
-			push_error("fading aura has no name supplied")
-			push_error(aura.additive_stat_dictionary) #hopefully helps narrow down what the aura was
-		else:
-			var color:String = Color.GOLDENROD.to_html()
-			
-			var text_to_add:String = "{aura} fades from your spirit."
-			
-			var fancy:String = "[color=#%s]%s[/color]" % [color, aura.aura_name]
-			text_to_add = text_to_add.format({"aura": fancy})
-			
-			append_to_label(text_to_add)
+	if source == null or source.is_the_player: #this is cringe bandaid until auras are attached to combatants
+		if aura.visible:
+			var aura_name:String = aura.aura_name
+			if not aura.aura_name:
+				push_error("fading aura has no name supplied")
+				push_error(aura.additive_stat_dictionary) #hopefully helps narrow down what the aura was
+			else:
+				var color:String = Color.GOLDENROD.to_html()
+				
+				var text_to_add:String = "{aura} fades from your spirit."
+				
+				var fancy:String = "[color=#%s]%s[/color]" % [color, aura.aura_name]
+				text_to_add = text_to_add.format({"aura": fancy})
+				
+				append_to_label(text_to_add)
 
 func report_aura_applied(aura:Aura) -> void:
 	var color:String = Color.GOLDENROD.to_html()

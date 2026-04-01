@@ -6,7 +6,7 @@ var my_attack:int = BalanceData.sword_damage * 2
 func setup_basic_item_data() -> void:
 	item_id = "giant_slayer" # "generic_item"
 	item_name = "Giant Slayer" # "Generic Item"
-	item_sprite = load("res://sprites/question.png")
+	item_sprite = load("res://sprites/single_spiked_axe.png")
 	extra_tooltip = "Deal an extra {val}% of victims current health".format({"val": current_hp_percent_damage}) # "Generic flavourful description"
 	item_categories = {
 		Categories.item_rarity : Categories.Rarity.MYTHIC,

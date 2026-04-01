@@ -7,7 +7,7 @@ var buff_aura_name:String = "Blood Glee"
 func setup_basic_item_data() -> void:
 	item_id = "cultist_blade" # "generic_item"
 	item_name = "Cultist Blade" # "Generic Item"
-	item_sprite = load("res://sprites/question.png")
+	item_sprite = load("res://sprites/curved_dagger.png")
 	extra_tooltip = "Increase attack by {val}% of damage taken".format({"val": percent_of_damage_taken_gained_as_attack}) # "Generic flavourful description"
 	item_categories = {
 		Categories.item_rarity : Categories.Rarity.MYTHIC,

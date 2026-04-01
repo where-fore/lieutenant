@@ -2,7 +2,6 @@ extends Item
 
 var turn_counter:int
 var turns_active:int = 4
-var activation_message:String = "You feel your delectable barrier slip away."
 var buff_aura:Aura
 var buff_aura_name:String = "Safe Haven"
 var shield:int = BalanceData.shield_health * 30
@@ -10,7 +9,7 @@ var shield:int = BalanceData.shield_health * 30
 func setup_basic_item_data() -> void:
 	item_id = "last_stand" # "generic_item"
 	item_name = "Necklace of Bloodbath" # "Generic Item"
-	item_sprite = load("res://sprites/question.png")
+	item_sprite = load("res://sprites/ruby_gorget.png")
 	extra_tooltip = "For you first {turns} turns, bathe in as much blood as you desire. Pay for it later.".format({"turns": turns_active,}) # "Generic flavourful description"
 	item_categories = {
 		Categories.item_rarity : Categories.Rarity.RARE,
@@ -28,7 +27,6 @@ func on_combat_start() -> void:
 func on_turn_start(_source:Combatant) -> void:
 	turn_counter += 1
 	if turn_counter > turns_active and buff_aura:
-		CombatLogEvents.custom_message.emit(activation_message)
 		clear_my_aura()
 
 #--end of functions called by parents--

@@ -12,7 +12,7 @@ var super_attack_multiplier:int = 100
 func setup_basic_item_data() -> void:
 	item_id = "arrogant_axe" # "generic_item"
 	item_name = "Arrogant Axe" # "Generic Item"
-	item_sprite = load("res://sprites/question.png")
+	item_sprite = load("res://sprites/double_sided_axe.png")
 	extra_tooltip = "Only hums with power if you have {val} or more attack".format({"val": attack_threshold}) # "Generic flavourful description"
 	item_categories = {
 		Categories.item_rarity : Categories.Rarity.MYTHIC,

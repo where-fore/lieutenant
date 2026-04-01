@@ -11,7 +11,7 @@ var super_health_multiplier:int = 200
 func setup_basic_item_data() -> void:
 	item_id = "warding_pike" # "generic_item"
 	item_name = "Warding Pike" # "Generic Item"
-	item_sprite = load("res://sprites/question.png")
+	item_sprite = load("res://sprites/pike.png")
 	extra_tooltip = "If you have {treshold} or more attack, gain {benefit}% health".format({"treshold": attack_threshold, "benefit": super_health_multiplier}) # "Generic flavourful description"
 	item_categories = {
 		Categories.item_rarity : Categories.Rarity.RARE,
