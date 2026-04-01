@@ -233,6 +233,7 @@ clicked_cursor = ExtResource("9_nf78q")
 layer = 128
 
 [node name="Sprite2D" type="Sprite2D" parent="CursorManager/CanvasLayer"]
+position = Vector2(-100, -100)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("9_nf78q")
 offset = Vector2(16, 16)

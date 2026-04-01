@@ -3,6 +3,7 @@ extends PanelContainer
 @onready var main_body_text:RichTextLabel = $Panel/MarginContainer/VBoxContainer/RichTextLabel
 @onready var continue_button:TextureButton = $Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/ContinueButton
 @onready var complete_chapter_button:TextureButton = $Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/CompleteChapterButton
+@onready var lost_game_button:TextureButton = $Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/LostGameButton
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -19,7 +20,7 @@ func win_chapter() -> void:
 
 func lose_chapter() -> void:
 	show_screen()
-	complete_chapter_button.visible = true
+	lost_game_button.visible = true
 	main_body_text.text = "You perished fighting\nfor what you thought\nwas right."
 
 func start_chapter() -> void:
@@ -34,6 +35,7 @@ func hide_screen() -> void:
 	visible = false
 	continue_button.visible = false
 	complete_chapter_button.visible = false
+	lost_game_button.visible = false
 
 func _on_continue_button_pressed() -> void:
 	hide_screen()
@@ -41,3 +43,6 @@ func _on_continue_button_pressed() -> void:
 func _on_complete_chapter_button_pressed() -> void:
 	hide_screen()
 	HudEvents.chapter_completed.emit()
+
+func _on_lost_game_button_pressed() -> void:
+	_on_complete_chapter_button_pressed()

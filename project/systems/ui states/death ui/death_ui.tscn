@@ -79,8 +79,8 @@ theme_override_constants/margin_bottom = 5
 
 [node name="Title" type="Label" parent="VBoxContainer/MarginContainer3"]
 layout_mode = 2
-text = "You will return,
-stronger..."
+text = "Live to fight
+another day!"
 horizontal_alignment = 1
 
 [connection signal="pressed" from="VBoxContainer/MarginContainer2/RestartButton" to="." method="_on_restart_button_pressed"]
