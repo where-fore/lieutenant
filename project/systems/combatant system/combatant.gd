@@ -106,6 +106,9 @@ func sum_aura_and_base_stats(auraDictionary:Dictionary[StringName,int]) -> void:
 			current_stats[stat] = auraDictionary[stat] + starting_stats[stat]
 		else:
 			current_stats[stat] = auraDictionary[stat]
+		if current_stats[stat] < 0:
+			current_stats[stat] = 0
+			#print_debug("raising stat from negative to 0: " + stat)
 
 func multiply_aura_and_current_stats(auraDictionary:Dictionary[StringName,int]) -> void:
 	for stat:String in auraDictionary:

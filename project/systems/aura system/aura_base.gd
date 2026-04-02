@@ -9,7 +9,8 @@ var aura_categories:Array[StringName]
 var visible:bool = false
 
 var duration_type:AuraNames.DurationType = AuraNames.DurationType.PERMANENT
-var base_duration:int = 0
+var base_duration:int = 0:
+	set(value): current_duration = value
 var current_duration:int
 
 var unique_id:String
