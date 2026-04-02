@@ -1,14 +1,22 @@
 --------------------------------------------------------
 working notes
 --------------------------------------------------------
+
+need to remove combatantData
+	map tiles just have instantiated combatants, and send those to the combat manager
+	database can too have instantiated, but disabled, combatants
+	the combat manager (as it does currently) puts them into enemy and player arrays, calls their functions, hits with their attacks
+	this way all my scripts can extend Combatant which knows current target, debuffs etc. instead of the template which knows nothing but its base stats
+
+
+
+
+
+
+
 do a quick pass on volume balance for each arechetype and rarity (maybe add some more basic weapons/shields)
 do some enemies
 probably do a cool-weapon-name pass soon too
-
-
-builds:
-"health" build - paladin's multipliers, win by inevitability (crashing waves scaling, giant slayer %max hp damage but less damage on pull, cultist weapon does more damage the more hp you're missing)
-"attack" build - high damage immediately, survive longer through assorted means (some %damage healing, some big +hp for 5 turns buffer item, %attack items, threshold items - if 20 attack, +20 attack)
 
 could look at historical weapons + neat materials
 
@@ -31,9 +39,7 @@ different damage types - vamp sword heals from attack, fireball ring doesn't int
 
 enemies:
 some enemies to test current strength - more unique rewards
-specific stat enemies, generally higher too
-very high attack, low hp "cultist berserker" "the vein"
-very high health, low but slightly scaling attack "skeletal behemoth" "the marrow"
+
 hp cut - removes 50% hp on pull, "crimson zealot" "the oblation"
 does missing health damage "the vulture"
 attack steal - steal ~25% of attack on pull, "hemomancer" "the thirst"
@@ -134,6 +140,8 @@ healing synergies
 ---------------------------
 not right now, maybe:
 ---------------------------
+could put a +-10% in the scale stats function
+
 combat log has a collection of colours, and can pull from that when emitting a custom message
 
 a debug console: spawn items, enable whole map, dump item database of rarity, increase stats. maybe even hotkey some of these

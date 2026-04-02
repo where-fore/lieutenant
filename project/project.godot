@@ -17,20 +17,20 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-HudEvents="*res://loose/autoload/hud_events.gd"
-CombatEvents="*res://loose/autoload/combat_events.gd"
-AuraEvents="*res://loose/autoload/aura_events.gd"
-CombatLogEvents="*res://loose/autoload/combat_log_events.gd"
-InventoryEvents="*res://loose/autoload/inventory_events.gd"
-TimingEvents="*res://loose/autoload/timing_events.gd"
-Stats="*res://loose/autoload/stat_names.gd"
-AuraNames="*res://loose/autoload/aura_names.gd"
+HudEvents="*res://autoload/hud_events.gd"
+CombatEvents="*res://autoload/combat_events.gd"
+AuraEvents="*res://autoload/aura_events.gd"
+CombatLogEvents="*res://autoload/combat_log_events.gd"
+InventoryEvents="*res://autoload/inventory_events.gd"
+TimingEvents="*res://autoload/timing_events.gd"
+Stats="*res://autoload/stat_names.gd"
+AuraNames="*res://autoload/aura_names.gd"
 SaveManager="*res://systems/save load system/save_manager.gd"
-JsonReader="*res://loose/autoload/json_reader.gd"
-Database="*res://loose/autoload/database.gd"
-Categories="*res://loose/autoload/categories.gd"
-BalanceData="*res://loose/autoload/balance_data.gd"
-MapEvents="*res://loose/autoload/map_events.gd"
+JsonReader="*res://autoload/json_reader.gd"
+Database="*res://autoload/database.gd"
+Categories="*res://autoload/categories.gd"
+BalanceData="*res://autoload/balance_data.gd"
+MapEvents="*res://autoload/map_events.gd"
 
 [debug]
 
