@@ -140,6 +140,7 @@ could put a +-10% in the scale stats function
 combat log has a collection of colours, and can pull from that when emitting a custom message
 
 a debug console: spawn items, enable whole map, dump item database of rarity, increase stats. maybe even hotkey some of these
+	can also just do lil bandaids, like "should start with" in item fields
 
 a button on the map info panel to hide it immediately would feel good
 	maybe a slide bar handle?

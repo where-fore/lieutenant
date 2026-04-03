@@ -20,11 +20,6 @@ func setup_basic_item_data() -> void:
 func setup_item_stats() -> void:
 	setup_basic_item_data()
 
-func on_combat_start() -> void:
-	buff_aura = Aura.new().create_aura(buff_aura_name, true)
-	buff_aura.duration_type = AuraNames.DurationType.THIS_COMBAT
-	AuraEvents.give_aura_to_player.emit(buff_aura)
-
 func on_attack(source:Combatant, _target:Combatant) -> void:
 	var healing:int = source.current_stats[Stats.attack] * healing_per_attack_multiplier / 100
 	source.heal(healing)
@@ -32,7 +27,22 @@ func on_attack(source:Combatant, _target:Combatant) -> void:
 func on_damage_taken(_source:Combatant, amount_taken:int) -> void:
 	var attack_to_gain:int = max(1,(amount_taken*percent_of_damage_taken_gained_as_attack)/100)
 	
+	if not buff_aura:
+		initialize_aura()
+	
 	if not buff_aura.additive_stat_dictionary.has(Stats.attack):
 		buff_aura.additive_stat_dictionary[Stats.attack] = 0
 	buff_aura.additive_stat_dictionary[Stats.attack] += attack_to_gain
 	buff_aura.update_aura()
+
+func on_combat_end() -> void:
+	if buff_aura: clear_my_aura()
+
+func clear_my_aura() -> void:
+	AuraEvents.remove_aura_from_player.emit(buff_aura)
+	buff_aura = null
+
+func initialize_aura() -> void:
+	buff_aura = Aura.new().create_aura(buff_aura_name, true)
+	buff_aura.duration_type = AuraNames.DurationType.THIS_COMBAT
+	AuraEvents.give_aura_to_player.emit(buff_aura)

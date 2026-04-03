@@ -2,6 +2,7 @@ extends Combatant
 
 var health_cut_on_start:int = 50
 var tithe_given:bool
+var message:String = "Your life force drains from you."
 
 func _init() -> void:
 	combatant_id = "cultist_bloodletter" # "generic_enemy"
@@ -17,5 +18,7 @@ func _init() -> void:
 
 #called by Combatant
 func on_start_combat() -> void:
-	pass
-	#current_target... hmmm.... template doesn't know who it's attacking
+	CombatLogEvents.custom_message.emit(message)
+	
+	var damage_to_deal:int = current_target.get_damaged_health() * health_cut_on_start/100
+	current_target.take_damage(damage_to_deal)
