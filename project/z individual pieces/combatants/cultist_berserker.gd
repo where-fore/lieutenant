@@ -1,4 +1,4 @@
-extends CombatantData
+extends Combatant
 
 var turns_dormant:int = 2
 var current_turns_elapsed:int
@@ -7,26 +7,18 @@ var post_buff_attack:int
 var buff_aura_name:String = "Bloodthirsty"
 var buff_message:String = "The cultist's pupils dilate as they enter a fury."
 
-func setup_basic_data() -> void:
-	
-	id = "cultist_berserker" # "generic_enemy"
-	name = "The Vein" # "Generic Combatant"
-	texture = load("res://sprites/question.png")
+func _init() -> void:
+	combatant_id = "cultist_berserker" # "generic_enemy"
+	combatant_name = "The Vein" # "Generic Combatant"
+	combatant_texture = load("res://sprites/question.png")
 	extra_tooltip = "Highly ravenous and lethal once tasting blood" # "Generic flavourful description"
-	categories = {
+	combatant_categories = {
 		Categories.enemy_rarity : Categories.Rarity.RARE,
 	}
 	
-
 	base_health = BalanceData.enemy_base_health
 	base_attack = 0
 	post_buff_attack = BalanceData.enemy_base_attack * 4
-
-#--functions called by combatant_data.gd--
-func setup_stats() -> void:
-	setup_basic_data()
-	
-	#whatever the combatant does
 
 #called by Combatant
 func on_start_combat() -> void:

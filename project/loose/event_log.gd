@@ -38,9 +38,8 @@ func clear_log() -> void:
 	
 
 func interpret_attack(source_object:Combatant, _amount:int, target_object:Combatant) -> void:
-	var source_name:String = source_object.baseData.name
-	var target_name:String = target_object.baseData.name
-	
+	var source_name:String = source_object.combatant_name
+	var target_name:String = target_object.combatant_name
 	var attack_word_color:String = Color.ORANGE_RED.to_html()
 	var attack_word_fancy:String = "[color=#%s]%s[/color]" % [attack_word_color, "attacks"]
 	
@@ -50,7 +49,7 @@ func interpret_attack(source_object:Combatant, _amount:int, target_object:Combat
 	append_to_label(text_to_add)
 
 func interpret_damage_taken(source_object:Combatant, amount:int) -> void:
-	var source_name:String = source_object.baseData.name
+	var source_name:String = source_object.combatant_name
 	var text_to_add:String = source_name + " suffers " + "{amount}" + " damage."
 	
 	var damage_color:String = Color.ORANGE_RED.to_html()
@@ -60,7 +59,7 @@ func interpret_damage_taken(source_object:Combatant, amount:int) -> void:
 	append_to_label(text_to_add)
 
 func interpret_healing(source_object:Combatant, amount:int) -> void:
-	var source_name:String = source_object.baseData.name
+	var source_name:String = source_object.combatant_name
 	var text_to_add:String = source_name + " heals " + "{amount}" + " health."
 	
 	var damage_color:String = Color.LAWN_GREEN.to_html()
@@ -100,7 +99,7 @@ func report_death(newly_dead:Combatant) -> void:
 	var character_name:String
 	var text_to_add:String
 	
-	character_name = newly_dead.baseData.name
+	character_name = newly_dead.combatant_name
 	
 	if newly_dead.is_an_enemy:
 		text_to_add = character_name + death_messages.pick_random()

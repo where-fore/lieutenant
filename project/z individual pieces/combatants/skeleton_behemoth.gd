@@ -1,29 +1,20 @@
-extends CombatantData
+extends Combatant
 
 var attack_per_turn:int = BalanceData.enemy_base_attack / 4
 var buff_aura_name:String = "Growing Impatience"
 var buff_aura:Aura
 
-func setup_basic_data() -> void:
-	
-	id = "skeleton_behemoth" # "generic_enemy"
-	name = "The Marrow" # "Generic Combatant"
-	texture = load("res://sprites/question.png")
+func _init() -> void:
+	combatant_id = "skeleton_behemoth" # "generic_enemy"
+	combatant_name = "The Marrow" # "Generic Combatant"
+	combatant_texture = load("res://sprites/question.png")
 	extra_tooltip = "Monstrously tough and imposingly large" # "Generic flavourful description"
-	categories = {
+	combatant_categories = {
 		Categories.enemy_rarity : Categories.Rarity.RARE,
 	}
 	
-	
-
 	base_health = BalanceData.enemy_base_health * 4
 	base_attack = BalanceData.enemy_base_attack * 1
-
-#--functions called by combatant_data.gd--
-func setup_stats() -> void:
-	setup_basic_data()
-	
-	#whatever the combatant does
 
 #called by Combatant
 func on_start_combat() -> void:

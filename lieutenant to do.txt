@@ -2,11 +2,6 @@
 working notes
 --------------------------------------------------------
 
-need to remove combatantData
-	map tiles just have instantiated combatants, and send those to the combat manager
-	database can too have instantiated, but disabled, combatants
-	the combat manager (as it does currently) puts them into enemy and player arrays, calls their functions, hits with their attacks
-	this way all my scripts can extend Combatant which knows current target, debuffs etc. instead of the template which knows nothing but its base stats
 
 
 
@@ -221,6 +216,13 @@ flappy cameo, balloon in the distance
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+so threshold auras:
+	should be held on the combatant
+	should have a "check stat threshold" function, which takes in a stat and a threshold
+		and should disable itself if under that threshold
+
+	auras need to have a "temporarily disable" field for this
+
 combat manager array of combatants - do i want a separate living_combatants array? do i need to know which creatures are there, but dead? should i just use the one array, but put not dead checks in everything?
 	currently i just have the one array, and yeet combatants from it. i probably want to keep them at some point, for corpse related shennanigans when fighting multiple enemies
 

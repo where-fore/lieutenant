@@ -4,7 +4,8 @@ var current_enemy:Combatant
 @export var random_enemy_selection:Array[GDScript]
 
 var current_player:Combatant
-@export var player_base_script:GDScript
+var player_combatant:Combatant
+var player_template_id:String = "basic_player_fighter"
 
 var combatants:Array[Combatant]
 
@@ -18,7 +19,6 @@ var player_victorious:bool = false
 var player_lost:bool = false
 
 var can_start_combat:bool = true
-
 
 var play_speed:StringName
 var speed_normal:StringName = &"normal"
@@ -54,6 +54,8 @@ func _ready() -> void:
 	CombatEvents.play_fast_button_pressed.connect(play_fast_button_pressed)
 	HudEvents.game_paused.connect(pause_button_pressed)
 	CombatEvents.combat_ongoing = false
+	
+	player_combatant = Database.get_combatant_by_id(player_template_id)
 
 
 func pause_button_pressed() -> void:
@@ -189,13 +191,16 @@ func stop_combat() -> void:
 	player_victorious = false
 	
 	for combatant:Combatant in combatants:
-		combatant.queue_free()
+		if combatant.dead:
+			combatant.queue_free()
 	combatants.clear()
 
 func pre_combat(map_tile:MapTile) -> void:
-	current_player = spawn_player()
+	if not current_player:
+		current_player = setup_combatant(player_combatant, true)
+	current_enemy = setup_combatant(map_tile.tile_data.enemy)
+	
 	combatants.append(current_player)
-	current_enemy = create_enemy_from_data(map_tile.tile_data.enemy)
 	combatants.append(current_enemy)
 	
 	current_player.current_target = current_enemy
@@ -218,34 +223,13 @@ func pre_combat(map_tile:MapTile) -> void:
 	can_start_combat = true
 	
 
-func create_enemy_from_data(enemy_data:CombatantData) -> Combatant:
-	#pick data to use
-	#var new_enemy_data:GDScript = random_enemy_selection.pick_random()
+func setup_combatant(new_combatant:Combatant, is_the_player:bool = false) -> Combatant:
+	add_child(new_combatant)
 	
-	#create a lil memory boi
-	var new_enemy_node:Combatant = Combatant.new()
-	#assign data to our boi
-	new_enemy_node.baseData = enemy_data
-	#make our boi into a real boy
-	add_child(new_enemy_node)
-	#call function on our real boy
-	new_enemy_node.setup()
+	if is_the_player: new_combatant.setup(true)
+	else: new_combatant.setup(false)
 	
-	return new_enemy_node
-
-func spawn_player() -> Combatant:
-	#create a lil memory boi
-	var new_player_node:Combatant = Combatant.new()
-	var new_player_script:CombatantData = player_base_script.new()
-	#assign data to our boi
-	new_player_node.baseData = new_player_script
-	#make our boi into a real boy
-	add_child(new_player_node)
-	#call function on our real boy
-	#(noting it is true they are the player)
-	new_player_node.setup(true)
-	
-	return new_player_node
+	return new_combatant
 
 func start_combat() -> void:
 	if not CombatEvents.combat_ongoing and can_start_combat:

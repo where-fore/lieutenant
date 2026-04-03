@@ -1,29 +1,20 @@
-extends CombatantData
+extends Combatant
 
 var attack_per_turn:int = BalanceData.enemy_base_attack
 var buff_aura_name:String = "Growing Impatience"
 var buff_aura:Aura
 
-func setup_basic_data() -> void:
-	
-	id = "skeleton_regent" # "generic_enemy"
-	name = "Skeleton Regent" # "Generic Combatant"
-	texture = load("res://sprites/enemy_boss.png")
+func _init() -> void:
+	combatant_id = "skeleton_regent" # "generic_enemy"
+	combatant_name = "Skeleton Regent" # "Generic Combatant"
+	combatant_texture = load("res://sprites/enemy_boss.png")
 	extra_tooltip = "A fallen regent with a fire growing in their eyes\nIncredibly powerful" # "Generic flavourful description"
-	categories = {
+	combatant_categories = {
 		Categories.enemy_rarity : Categories.Rarity.MYTHIC,
 	}
 	
-	
-
 	base_health = BalanceData.enemy_base_health * 5
 	base_attack = BalanceData.enemy_base_attack * 1
-
-#--functions called by combatant_data.gd--
-func setup_stats() -> void:
-	setup_basic_data()
-	
-	#whatever the combatant does
 
 #called by Combatant
 func on_start_combat() -> void:

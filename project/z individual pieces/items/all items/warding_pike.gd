@@ -31,6 +31,8 @@ func on_turn_start(source:Combatant) -> void:
 		if buff_aura:
 			clear_my_aura()
 
+func on_combat_end() -> void:
+	if buff_aura: clear_my_aura()
 #--end of functions called by parents--
 
 func apply_my_aura() -> void:
