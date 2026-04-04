@@ -15,6 +15,7 @@ var x_coordinate:int
 ## 0,0 is the first tile spawned
 var y_coordinate:int
 
+@onready var tooltip_holder:Control = $Area2D/PanelContainer
 @onready var animated_sprite_component:AnimatedSprite2D = $BaseAnimation
 var idle_animation_speed:float = 0.2
 @onready var hover_animation_component:AnimatedSprite2D = $HoverAnimation
@@ -40,6 +41,7 @@ func _ready() -> void:
 	
 	hover_animation_component.visible = false
 	selection_sprite.visible = false
+	tooltip_holder.visible = false
 	
 	animated_sprite_component.speed_scale = idle_animation_speed
 	hover_animation_component.speed_scale = hover_animation_speed
@@ -106,10 +108,11 @@ func if_not_me_stop_hovering(maptile:MapTile) -> void:
 		stop_hover_animation()
 
 func _on_area_2d_mouse_entered() -> void:
-	pass
+	if currently_disabled and not permanently_disabled:
+		tooltip_holder.visible = true
 
 func _on_area_2d_mouse_exited() -> void:
-	pass
+	tooltip_holder.visible = false
 
 func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton:
