@@ -1,5 +1,6 @@
 extends Node2D
 
+
 @export var combat_entire_scene:PackedScene
 @onready var combat_container:Control = $MainGame/MarginContainer/CombatContainer
 @export var map_creation_scene:PackedScene
@@ -7,6 +8,7 @@ extends Node2D
 @export var text_blurb_scene:PackedScene
 @onready var text_blurb_container:Control = $MainGame/MarginContainer/TextBlurbContainer
 
+@onready var crt_filter_container:CanvasLayer = $CRTFilter
 @onready var game_start_button_container:Control = $MainUI/GameStarter
 @onready var pause_menu_button_container:Control = $MainUI/PauseMenuButton
 @onready var pause_menu_container:Control = $MainUI/PauseMenu
@@ -67,4 +69,8 @@ func _on_resume_button_pressed() -> void:
 func close_pause_menu() -> void:
 	if pause_menu_container.visible:
 		pause_menu_container.visible = false
-	
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed:
+		if event.keycode == KEY_F11:
+			crt_filter_container.visible = !crt_filter_container.visible
