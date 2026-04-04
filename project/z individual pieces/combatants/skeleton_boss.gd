@@ -10,7 +10,6 @@ func _init() -> void:
 	combatant_texture = load("res://sprites/enemy_boss.png")
 	extra_tooltip = "A fallen regent with a fire growing in their eyes\nIncredibly powerful" # "Generic flavourful description"
 	combatant_categories = {
-		Categories.enemy_rarity : Categories.Rarity.MYTHIC,
 	}
 	
 	base_health = BalanceData.enemy_base_health * 5

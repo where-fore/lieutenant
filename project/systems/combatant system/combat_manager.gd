@@ -54,9 +54,9 @@ func _ready() -> void:
 	CombatEvents.play_fast_button_pressed.connect(play_fast_button_pressed)
 	HudEvents.game_paused.connect(pause_button_pressed)
 	CombatEvents.combat_ongoing = false
-	
-	player_combatant = Database.get_combatant_by_id(player_template_id)
 
+func create_player_combatant() -> Combatant:
+	return Database.get_combatant_by_id(player_template_id)
 
 func pause_button_pressed() -> void:
 	if CombatEvents.combat_ongoing:
@@ -193,14 +193,19 @@ func stop_combat() -> void:
 	for combatant:Combatant in combatants:
 		if combatant.dead:
 			combatant.queue_free()
+		else:
+			combatant.unsetup()
 	combatants.clear()
 
 func pre_combat(map_tile:MapTile) -> void:
 	if not current_player:
-		current_player = setup_combatant(player_combatant, true)
-	current_enemy = setup_combatant(map_tile.tile_data.enemy)
-	
+		current_player = setup_combatant(create_player_combatant(), true)
+		add_child(current_player)
+	else:
+		current_player = setup_combatant(current_player, true)
 	combatants.append(current_player)
+	
+	current_enemy = setup_combatant(map_tile.tile_data.enemy)
 	combatants.append(current_enemy)
 	
 	current_player.current_target = current_enemy
@@ -221,11 +226,8 @@ func pre_combat(map_tile:MapTile) -> void:
 			enemies.append(combatant)
 	
 	can_start_combat = true
-	
 
-func setup_combatant(new_combatant:Combatant, is_the_player:bool = false) -> Combatant:
-	add_child(new_combatant)
-	
+func setup_combatant(new_combatant:Combatant, is_the_player:bool = false) -> Combatant:	
 	if is_the_player: new_combatant.setup(true)
 	else: new_combatant.setup(false)
 	

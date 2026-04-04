@@ -13,7 +13,7 @@ func _init() -> void:
 	combatant_texture = load("res://sprites/question.png")
 	extra_tooltip = "Highly ravenous and lethal once tasting blood" # "Generic flavourful description"
 	combatant_categories = {
-		Categories.enemy_rarity : Categories.Rarity.RARE,
+		Categories.enemy_rarity : Categories.Rarity.MYTHIC,
 	}
 	
 	base_health = BalanceData.enemy_base_health

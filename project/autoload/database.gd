@@ -12,7 +12,7 @@ func _ready() -> void:
 func get_item_by_id(item_id:String) -> Item:
 	var item:Item = all_items.get(item_id)
 	return item.duplicate()
-	
+
 func get_combatant_by_id(combatant_id:String) -> Combatant:
 	var data:Combatant = all_combatants.get(combatant_id)
 	return data.duplicate()
@@ -24,20 +24,22 @@ func get_combatant_by_id(combatant_id:String) -> Combatant:
 #but then the dictionaries are static on game start, can't do something like adjusting the rarity
 #on the fly when you see the oracle or something
 #also, note they are creating duplicates of every item whenever you ask for any item of the same rarity
-func get_items_by_category(category:StringName, value:int) -> Array[Item]:
+func get_items_by_category(category_title:StringName, category_names:Array[int]) -> Array[Item]:
 	var items_to_return:Array[Item]
 	for item:Item in all_items.values():
-		if item.item_categories.has(category):
-			if item.item_categories[category] == value:
-				items_to_return.append(item.duplicate())
+		if item.item_categories.has(category_title):
+			for category_header:int in category_names:
+				if item.item_categories[category_title] == category_header:
+					items_to_return.append(item.duplicate())
 	return items_to_return
 
-func get_combatants_by_category(category:StringName, value:int) -> Array[Combatant]:
+func get_combatants_by_category(category_title:StringName, category_names:Array[int]) -> Array[Combatant]:
 	var combatants_to_return:Array[Combatant]
 	for data:Combatant in all_combatants.values():
-		if data.combatant_categories.has(category):
-			if data.combatant_categories[category] == value:
-				combatants_to_return.append(data.duplicate())
+		if data.combatant_categories.has(category_title):
+			for category_header:int in category_names:
+				if data.combatant_categories[category_title] == category_header:
+					combatants_to_return.append(data.duplicate())
 	return combatants_to_return
 
 func populate_item_database(resource_array:Array[Resource]) -> void:

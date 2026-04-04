@@ -1,10 +1,12 @@
 extends Node2D
 
 @export_category("Map Tile Information")
-@export var map_data:Array[GDScript]
-@export var boss_tile_data:Array[GDScript]
 @export var generic_border_data:GDScript
 @export var first_special_tile:GDScript
+@export var boss_special_tile:GDScript
+@export var rest_tiles:Array[GDScript]
+@export var common_combat_tile:GDScript
+@export var rare_combat_tile:GDScript
 
 @export_category("Map Grid Builder")
 @export var mapTileBase:PackedScene
@@ -56,7 +58,7 @@ func populate_tile_data(tile:MapTile) -> void:
 			tile.apply_data(generic_border_data.new())
 			tile.permanently_disable()
 		elif tile.y_coordinate == 1:
-			tile.apply_data(boss_tile_data.pick_random().new())
+			tile.apply_data(boss_special_tile.new())
 			tile.mark_as_boss()
 	
 	#first and last rows
@@ -75,14 +77,14 @@ func populate_tile_data(tile:MapTile) -> void:
 	
 	#everything else
 	else:
-		tile.apply_data(map_data.pick_random().new())
+		tile.apply_data(choose_filler_tile())
 	
 	if tile.tile_data.enemy:
 		tile.tile_data.enemy.scale_stats(tile.power) 
 
 func check_if_tile_export_set_correctly() -> void:
-	var arrays_to_check:Array[Array] = [map_data, boss_tile_data]
-	var individual_scripts_to_check:Array[GDScript] = [generic_border_data, first_special_tile]
+	var arrays_to_check:Array[Array] = [rest_tiles]
+	var individual_scripts_to_check:Array[GDScript] = [generic_border_data, first_special_tile, boss_special_tile, common_combat_tile, rare_combat_tile]
 	for array:Array[GDScript] in arrays_to_check:
 		if array.has(null) or array.is_empty():
 			push_error("map tile data not set correctly on spawner")
@@ -91,6 +93,22 @@ func check_if_tile_export_set_correctly() -> void:
 			push_error("map tile data not set correctly on spawner")
 
 func choose_first_rewards() -> void:
-	var all_of_rarity:Array[Item] = Database.get_items_by_category(Categories.item_rarity, Categories.Rarity.MYTHIC)
+	var all_of_rarity:Array[Item] = Database.get_items_by_category(Categories.item_rarity, [Categories.Rarity.MYTHIC])
 	all_of_rarity.shuffle()
 	first_rewards = all_of_rarity
+
+func choose_filler_tile() -> MapTileData:
+	var random_roll:int = randi_range(1, 100)
+	var hut_chance:int = 30
+	if random_roll <= hut_chance:
+		return rest_tiles.pick_random().new() as MapTileData
+	else:
+		return choose_rare_or_common_combat()
+
+func choose_rare_or_common_combat() -> MapTileData:
+	var random_roll:int = randi_range(1, 100)
+	var rare_chance:int = 30
+	if random_roll <= rare_chance:
+		return rare_combat_tile.new() as MapTileData
+	else:
+		return common_combat_tile.new() as MapTileData
