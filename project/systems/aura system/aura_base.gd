@@ -9,8 +9,9 @@ var aura_categories:Array[StringName]
 var visible:bool = false
 
 var duration_type:AuraNames.DurationType = AuraNames.DurationType.PERMANENT
-var base_duration:int = 0:
-	set(value): current_duration = value
+var base_duration:int:
+	set(value):
+		current_duration = value
 var current_duration:int
 
 var unique_id:String
@@ -32,7 +33,7 @@ func create_aura(name:String = "", should_be_visible:bool = false, additive_init
 	if multiplicative_init: this_aura.multiplicative_stat_dictionary = multiplicative_init.duplicate()
 	else: this_aura.multiplicative_stat_dictionary = multiplicative_stat_dictionary.duplicate()
 	
-	this_aura.current_duration = base_duration
+	if base_duration: this_aura.current_duration = base_duration
 	
 	return this_aura
 
@@ -51,10 +52,10 @@ func get_tooltip() -> String:
 	
 	var tooltip_text:String = aura_name
 	
-	if not duration_type == AuraNames.DurationType.TURNS:
-		to_add = "\n" + "Aura: " + AuraNames.DurationType_Labels[duration_type]
-	else:
+	if duration_type == AuraNames.DurationType.TURNS:
 		to_add = "\n" + "Aura: " + str(current_duration) + AuraNames.DurationType_Labels.keys()[duration_type]
+	else:
+		to_add = "\n" + "Aura: " + AuraNames.DurationType_Labels[duration_type]
 	tooltip_text += to_add
 	to_add = ""
 	

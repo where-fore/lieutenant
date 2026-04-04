@@ -2,10 +2,11 @@
 working notes
 --------------------------------------------------------
 
-
-
-
-
+can click on a maptile in combat, and it blocks the combat log
+	no way to close the map info panel
+	and you probably shouldn't be able to...
+		but if i put a stop control on the combat manager, you can't read the combat log?
+			z index the combat log higher?
 
 
 
@@ -62,6 +63,21 @@ to flavour: look up meteor/apocolyptic mythologies, and draw from those
 
 
 consider hiding what the reward is, just say the rarity?
+
+
+tutorial:
+	old combat trainer or wizard master or something
+	tells you to go get a specific item from just outside town
+		go to map screen, see enemies/rewards, pick from there
+	bring it back, they enchant it? turn it into a powerful item?
+	maybe just outside town you could see into the dangerous fields - there are two rows, the first row is ezpz quest item, second row is scary enemies
+		teaches scouting, further enemies are stronger, checking rewards, maybe even losing&routing
+	get big strong reward that grants most of your base stats from the wizard
+		maybe an aura? to teach auras?
+		and if you're really gaming, you can scout out the items from row 2 (the uniques), and take a starter boon from the wizard which plays in
+	and that's it
+		not sure about the combat ui tutorial, maybe that should be undiegetic, it's just a ui tutorial?
+
 
 
 --------------------------------------------------------

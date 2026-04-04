@@ -21,6 +21,9 @@ func get_combatant_by_id(combatant_id:String) -> Combatant:
 #these could be a bit slow with 1000+ items
 #if causing problems, can instead create an array of dictionaries on init, one for each category
 #so calling from that array is O(1)
+#but then the dictionaries are static on game start, can't do something like adjusting the rarity
+#on the fly when you see the oracle or something
+#also, note they are creating duplicates of every item whenever you ask for any item of the same rarity
 func get_items_by_category(category:StringName, value:int) -> Array[Item]:
 	var items_to_return:Array[Item]
 	for item:Item in all_items.values():

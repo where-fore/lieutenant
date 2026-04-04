@@ -10,7 +10,7 @@ func setup_basic_item_data() -> void:
 	item_id = "elixir_of_striking" # "generic_item"
 	item_name = "Elixir of Striking" # "Generic Item"
 	item_sprite = load("res://sprites/potion.png")
-	extra_tooltip = "You strike with frightening vigour, briefly" # "Generic flavourful description"
+	extra_tooltip = "You strike with frightening vigour for {multiplier}% attack, briefly".format({"multiplier":  str(get_custom_aura().multiplier)}) # "Generic flavourful description"
 	item_categories = {
 		Categories.item_rarity : Categories.Rarity.RARE,
 	}
