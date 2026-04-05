@@ -103,7 +103,7 @@ func choose_first_rewards() -> void:
 
 func choose_filler_tile() -> MapTileData:
 	var random_roll:int = randi_range(1, 100)
-	var hut_chance:int = 30
+	var hut_chance:int = 40
 	if random_roll <= hut_chance:
 		return rest_tiles.pick_random().new() as MapTileData
 	else:
@@ -111,7 +111,7 @@ func choose_filler_tile() -> MapTileData:
 
 func choose_rare_or_common_combat() -> MapTileData:
 	var random_roll:int = randi_range(1, 100)
-	var rare_chance:int = 25
+	var rare_chance:int = 40
 	if random_roll <= rare_chance:
 		return rare_combat_tile.new() as MapTileData
 	else:

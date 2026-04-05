@@ -1,6 +1,7 @@
 extends Item
 
 var my_attack:int = BalanceData.sword_damage
+var my_health:int = BalanceData.shield_health
 
 var attack_threshold:int = BalanceData.sword_damage * 10
 var buff_aura:Aura
@@ -9,7 +10,7 @@ var basic_tooltip:String = "Only grants true power if you have {val} or more att
 var unlocked_tooltip:String = "GLORIOUS!: attack increased by {val}%".format({"val":super_attack_multiplier})
 
 var super_attack:int = 0
-var super_attack_multiplier:int = 200
+var super_attack_multiplier:int = 300
 
 func setup_basic_item_data() -> void:
 	item_id = "arrogant_axe" # "generic_item"
@@ -25,9 +26,10 @@ func setup_basic_item_data() -> void:
 func setup_item_stats() -> void:
 	setup_basic_item_data()
 	additive_stat_dictionary[Stats.attack] = my_attack
+	additive_stat_dictionary[Stats.health] = my_health
 
 func on_turn_start(source:Combatant) -> void:
-	if source.current_stats[Stats.attack] >= attack_threshold:
+	if source.current_stats[Stats.attack] >= attack_threshold: #note i'm not checking pre-this buff, so it's almost impossible to drop off once it's active
 		if not buff_aura:
 			apply_my_aura()
 	else: 

@@ -1,6 +1,6 @@
 extends Combatant
 
-var turns_dormant:int = 2
+var turns_dormant:int = 3
 var current_turns_elapsed:int
 var dormant:bool
 var post_buff_attack:int
@@ -11,12 +11,12 @@ func _init() -> void:
 	combatant_id = "cultist_berserker" # "generic_enemy"
 	combatant_name = "The Vein" # "Generic Combatant"
 	combatant_texture = load("res://sprites/question.png")
-	extra_tooltip = "Highly ravenous and lethal once tasting blood" # "Generic flavourful description"
+	extra_tooltip = "Gathering power..." # "Generic flavourful description"
 	combatant_categories = {
-		Categories.enemy_rarity : Categories.Rarity.MYTHIC,
+		Categories.enemy_rarity: Categories.Rarity.MYTHIC,
 	}
 	
-	base_health = BalanceData.enemy_base_health
+	base_health = BalanceData.enemy_base_health * 4
 	base_attack = 0
 	post_buff_attack = BalanceData.enemy_base_attack * 4
 
@@ -39,3 +39,8 @@ func buff_attack() -> void:
 	buff_aura.additive_stat_dictionary[Stats.attack] = post_buff_attack
 	AuraEvents.give_aura_to_enemy.emit(buff_aura)
 	CombatLogEvents.custom_message.emit(buff_message)
+
+#copied from combatant.gd
+func scale_stats(power:int) -> void:
+	scaled_health = base_health * BalanceData.enemy_beginning_health_scaling / 100 + (power * base_health * BalanceData.enemy_health_scaling_per_power)/100
+	post_buff_attack = post_buff_attack + (power * post_buff_attack * BalanceData.enemy_attack_scaling_per_power)/100

@@ -2,12 +2,6 @@
 working notes
 --------------------------------------------------------
 
-
-
-fix turn animation timer memory leak
-
-
-
 tutorial:
 	old combat trainer or wizard master or something
 	tells you to go get a specific item from just outside town
@@ -26,6 +20,11 @@ tutorial:
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
+map balance:
+hm for this balance i do sorta want one of each choice available to you at a time
+	maybe i need to generate the map in chunks, one of each type of tile - but the rewards/enemies are random, so you have to choose among those what fits
+	lens of interest curve!!!
+	
 big ui overhaul
 	tabs for combat log, auras/inventory, map tile info
 	can open and close pop ups - can hide combat to browse the map, can hide event text (on game loss) to browse the combat log
@@ -168,6 +167,10 @@ flappy cameo, balloon in the distance
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+cultist berseker - dormant enemy. currently overwriting combatant scale_stats with its own post_buff_attack
+	bad if i ever change that formula in combatant - it won't propogate
+	also maybe this should be codified
+
 debug keybinds:
 	KEY_F11 = crt filter on/off, main.gd 73
 func _unhandled_input(event: InputEvent) -> void:

@@ -10,10 +10,10 @@ func _init() -> void:
 	combatant_texture = load("res://sprites/question.png")
 	extra_tooltip = "Monstrously tough and imposingly large" # "Generic flavourful description"
 	combatant_categories = {
-		Categories.enemy_rarity : Categories.Rarity.MYTHIC,
+		Categories.enemy_rarity: Categories.Rarity.MYTHIC,
 	}
 	
-	base_health = BalanceData.enemy_base_health * 4
+	base_health = BalanceData.enemy_base_health * 3
 	base_attack = BalanceData.enemy_base_attack * 1
 
 #called by Combatant

@@ -13,11 +13,11 @@ func _init() -> void:
 	combatant_texture = load("res://sprites/question.png")
 	extra_tooltip = "Siphons {val}% of enemies attack to their will".format({"val":attack_percentage_to_steal}) # "Generic flavourful description"
 	combatant_categories = {
-		Categories.enemy_rarity : Categories.Rarity.MYTHIC,
+		Categories.enemy_rarity: Categories.Rarity.MYTHIC,
 	}
 	
-	base_health = BalanceData.enemy_base_health
-	base_attack = BalanceData.enemy_base_attack
+	base_health = BalanceData.enemy_base_health * 2
+	base_attack = BalanceData.enemy_base_attack * 3/2
 
 #called by Combatant
 func on_start_combat() -> void:

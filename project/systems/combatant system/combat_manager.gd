@@ -156,6 +156,7 @@ func turn_animation() -> void:
 	
 	animation_timer.start(timer_duration)
 	await animation_timer.timeout
+	animation_timer.queue_free()
 
 func handle_perishing_combatant(combatant_who_died:Combatant) -> void:
 	combatant_who_died.on_end_combat_functions()

@@ -6,7 +6,7 @@ func _init() -> void:
 	combatant_texture = load("res://sprites/enemy_lich.png")
 	extra_tooltip = "A hardy pile of bones" # "Generic flavourful description"
 	combatant_categories = {
-		Categories.enemy_rarity : Categories.Rarity.RARE,
+		Categories.enemy_rarity: Categories.Rarity.RARE,
 	}
 	
 	base_health = BalanceData.enemy_base_health * 3
