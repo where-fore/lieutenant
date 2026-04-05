@@ -221,7 +221,7 @@ Eg.
 
 20 + 35 = 55 base health. 100% base + 50% + 100% = 250% health
 
-60 * 250/100 = 137.5 -> 137 health
+55 * 250/100 = 137.5 -> 137 health
 -5 damage taken this combat -> 132 health"
 texture_normal = ExtResource("11_obmf6")
 stretch_mode = 5

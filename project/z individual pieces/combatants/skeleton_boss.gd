@@ -8,7 +8,7 @@ func _init() -> void:
 	combatant_id = "skeleton_regent" # "generic_enemy"
 	combatant_name = "Skeleton Regent" # "Generic Combatant"
 	combatant_texture = load("res://sprites/enemy_boss.png")
-	extra_tooltip = "A fallen regent with a fire growing in their eyes\nIncredibly powerful" # "Generic flavourful description"
+	extra_tooltip = "A fallen regent with a fire growing in their eyes\nGrows in strength through combat" # "Generic flavourful description"
 	combatant_categories = {
 	}
 	

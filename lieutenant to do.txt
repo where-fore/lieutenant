@@ -2,6 +2,11 @@
 working notes
 --------------------------------------------------------
 
+sprites for mythic enemies
+	behemoth the marrow, hemomancer the thirst, bloodletter the oblation, berserker the vein
+	would be nice to get some bears, wolves, deers, some low stakes wildlife
+
+
 tutorial:
 	old combat trainer or wizard master or something
 	tells you to go get a specific item from just outside town
@@ -16,6 +21,29 @@ tutorial:
 		not sure about the combat ui tutorial, maybe that should be undiegetic, it's just a ui tutorial?
 
 
+balancing:
+	if i always take hp as first reward, why not just up base hp
+	elites require scaling, but scaling comes from elites. move some scaling rewards to common (or other reworkings)
+		damocleic ring every 3 turns; crashing waves normal rarity; healing potion every 3 turns (percent of current hp? flat hp? hp per item equipped?)
+	arrogant axe dilutes other multipliers - maybe make it exponential instead (on turn start, add current attack to aura)
+	
+	current categories:
+	immediate damage
+	scaling damage
+	total raw power
+	protection from the categories above
+	
+	give each item a power budget between those, and split power accordingly
+	eg. bear neck has high total raw power, but doesn't solve any problems. necklace of bloodbath solves protecting from immediate damage, but does nothing else.
+		and so maybe bear neck is good, or should have more raw power. definitely builds with bear neck should have avenues to solve their problems. 
+	
+	map sections:
+		have a 4-stack block of common forests & hutsx3, rare enemies. note what rare enemies are in front of you, which rewards they give, and what you need to do to solve them.
+			instead of forest/hut, all forest, but you can sacrifice the item for a permanent boon (like the first combat-only iteration). maybe depend this on moon cycle?
+				can sacrifice rare rewards for sick powers
+			maybe have two categories of forest: specific problem solvers, raw/immediate power. can probably achieve this just with the reward pool
+	
+	anyways, generally i don't feel like i have a good idea of how power changes. i don't have budgets per item, per reward/tile, what you need to beat the final boss and the rares, etc
 
 --------------------------------------------------------
 work to do
@@ -28,7 +56,7 @@ hm for this balance i do sorta want one of each choice available to you at a tim
 big ui overhaul
 	tabs for combat log, auras/inventory, map tile info
 	can open and close pop ups - can hide combat to browse the map, can hide event text (on game loss) to browse the combat log
-	some fadein/outs for restarting/combat/panel popping in etc. dither fades? blood pouring down from the top? spider web spinning?
+	some fadein/outs for restarting/combat/panel popping in etc. dither fades? blood pouring down from the top?
 	combat:
 		a turn counter somewhere?
 
@@ -80,6 +108,8 @@ item effect ordering vs auras
 ---------------------------
 not right now, maybe:
 ---------------------------
+put the endless battler back in after the boss is beaten?
+
 start the game with the available tiles in the center, and as it opens up you slide along to the left as you see more ahead of you?
 	maybe you start with 2 tiles, fog all around.. then see to the edge of the screen. that's the midpoint where you have to defeat a medium enemy, then that unlocks the full map with the boss at the end?
 
@@ -167,6 +197,9 @@ flappy cameo, balloon in the distance
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+clicking on two tiles that have the same enemy and reward looks really bad
+	the panel doesn't update at all, looks like a bug
+
 cultist berseker - dormant enemy. currently overwriting combatant scale_stats with its own post_buff_attack
 	bad if i ever change that formula in combatant - it won't propogate
 	also maybe this should be codified
