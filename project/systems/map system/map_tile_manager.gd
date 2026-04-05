@@ -2,7 +2,7 @@ extends Node2D
 
 var current_map_tiles:Array[MapTile]
 var current_column_sunsetting:int = 1
-var tiles_you_can_see_into_fog_of_war:int = 3
+var tiles_you_can_see_into_fog_of_war:int = 4
 var current_tile_encounter:MapTile
 @onready var maptile_spawner_parent:Node2D = $MapTileSpawner
 

@@ -1,6 +1,6 @@
 extends Item
 
-var percent_of_damage_taken_gained_as_attack:int = 15
+var percent_of_damage_taken_gained_as_attack:int = 20
 var healing_per_attack_multiplier:int = 25
 var buff_aura:Aura
 var buff_aura_name:String = "Blood Glee"

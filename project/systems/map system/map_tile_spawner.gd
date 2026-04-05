@@ -75,6 +75,10 @@ func populate_tile_data(tile:MapTile) -> void:
 			choose_first_rewards()
 		tile.tile_data.item_reward = first_rewards.pop_front()
 	
+	#special "first" row of gameplay
+	elif tile.x_coordinate == columns_to_disable_at_start + 1:
+		tile.apply_data(common_combat_tile.new())
+	
 	#everything else
 	else:
 		tile.apply_data(choose_filler_tile())
@@ -107,7 +111,7 @@ func choose_filler_tile() -> MapTileData:
 
 func choose_rare_or_common_combat() -> MapTileData:
 	var random_roll:int = randi_range(1, 100)
-	var rare_chance:int = 30
+	var rare_chance:int = 25
 	if random_roll <= rare_chance:
 		return rare_combat_tile.new() as MapTileData
 	else:

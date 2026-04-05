@@ -2,17 +2,9 @@
 working notes
 --------------------------------------------------------
 
-so currently the idea is:
-	have strong enemies+strong rewards
-	have builds that hyper scale and start weak, or moderate power
-	you have to navigate if you should take suboptimal long term rewards to gather enough power to capture this specific reward that is better long term
-	
-	so i should have rare enemies/rewards be more visible (longer view distance), and spawn evenly throughout the game. i don't want to overreward scaled hyper builds by giving more opportunities for rares at the end of the game
 
-	okay so skeleton warrior, basic pushover benchmark enemy, in the common rewards
-	more specific and powerful, but not to the point of specific buildarounds: lich/berserker (maybe more), for the huts
-	rare enemies for rare items - strong and puzzle-y
 
+fix turn animation timer memory leak
 
 
 
@@ -178,6 +170,10 @@ things i know are hacky and should be cleaned up:
 --------------------------------------------------------
 debug keybinds:
 	KEY_F11 = crt filter on/off, main.gd 73
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed:
+		if event.keycode == KEY_F11:
+			crt_filter_container.visible = !crt_filter_container.visible
 
 can click on a maptile in combat, and it blocks the combat log
 	no way to close the map info panel
