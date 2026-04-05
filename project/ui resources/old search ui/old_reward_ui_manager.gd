@@ -56,9 +56,9 @@ func search_for_rare_reward() -> void:
 	var roll:int = randi_range(1,100)
 	if rare_chance + common_chance > 100: push_error("loot roll table exceeded 100%")
 	if roll <= rare_chance:
-		current_search_reward = Database.get_items_by_category(Categories.item_rarity, Categories.Rarity.RARE).pick_random()
+		current_search_reward = Database.get_items_by_category(Categories.item_rarity, [Categories.Rarity.RARE]).pick_random()
 	elif roll <= rare_chance + common_chance:
-		current_search_reward = Database.get_items_by_category(Categories.item_rarity, Categories.Rarity.COMMON).pick_random()
+		current_search_reward = Database.get_items_by_category(Categories.item_rarity, [Categories.Rarity.COMMON]).pick_random()
 	else:
 		pass
 	

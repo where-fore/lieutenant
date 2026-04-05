@@ -1,64 +1,79 @@
 extends Node2D
 class_name Combatant
 
-var baseData:CombatantData
+
+var combatant_id:String
+var combatant_name:String
+var combatant_texture:Texture2D
+var combatant_categories:Dictionary[StringName, int]
+var extra_tooltip:String
+
+var base_health:int
+var base_attack:int
+
+var scaled_health:int:
+	get:
+		if not scaled_health: return base_health
+		else: return scaled_health
+var scaled_attack:int:
+	get:
+		if not scaled_attack: return base_attack
+		else: return scaled_attack
 
 var is_the_player:bool = false
 var is_an_enemy:bool = true
 
 var current_target:Combatant
 
+var active:bool = false
 var dead:bool = false
 
-var damage_taken:int = 0
+var damage_taken:int = 0:
+	set(value):
+		damage_taken = value
+		
+		if is_the_player: HudEvents.player_health_update.emit(get_damaged_health())
+		else: HudEvents.enemy_health_update.emit(get_damaged_health())
+
 func get_damaged_health() -> int:
 	return current_stats[Stats.health] - damage_taken
 
 var starting_stats:Dictionary[StringName, int] = {}
 var current_stats:Dictionary[StringName, int] = {}
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	AuraEvents.send_auras_to_combatants.connect(recalculate_stats)
-
 func setup(should_be_the_player:bool = false) -> void:
+	AuraEvents.send_auras_to_combatants.connect(recalculate_stats)
+	
 	if should_be_the_player:
 		is_the_player = true
 		is_an_enemy = false
 	
-	starting_stats[Stats.health] = baseData.scaled_health
-	starting_stats[Stats.attack] = baseData.scaled_attack
+	starting_stats[Stats.health] = scaled_health
+	starting_stats[Stats.attack] = scaled_attack
 	reset_current_stats_to_base()
 	send_sprite_to_ui()
 	
+	active = true
+
+func unsetup() -> void:
+	AuraEvents.send_auras_to_combatants.disconnect(recalculate_stats)
+	active = false
 
 func take_damage(value:int) -> void:
 	if not dead:
-		if value < 0: push_error("tried to take negative damage on: " + baseData.name)
+		if value < 0: push_error("tried to take negative damage on: " + name)
 		else:
-			damage_taken += value
-		
-			var current_hp:int = get_damaged_health()
-			
-			if is_the_player: HudEvents.player_health_update.emit(current_hp)
-			else: HudEvents.enemy_health_update.emit(current_hp)
+			self.damage_taken += value
 			CombatEvents.damage_applied.emit(self, value)
 			check_if_dead_now()
 		
 		on_damage_taken_functions(value)
 
-
 func heal(value:int) -> void:
 	if not dead:
-		if value <= 0: push_error("tried to heal for 0 or negative on: " + baseData.name)
+		if value <= 0: push_error("tried to heal for 0 or negative on: " + name)
 		else:
-			damage_taken -= value
-			
-			var current_hp:int = get_damaged_health()
-			
-			if is_the_player: HudEvents.player_health_update.emit(current_hp)
-			else: HudEvents.enemy_health_update.emit(current_hp)
+			self.damage_taken -= value
 			CombatEvents.healing_applied.emit(self, value)
 
 func reset_current_stats_to_base() -> void:
@@ -73,7 +88,7 @@ func perish() -> void:
 	CombatEvents.combatant_died.emit(self)
 
 func send_sprite_to_ui() -> void:
-	if is_an_enemy: HudEvents.send_enemy_sprite.emit(baseData.texture)
+	if is_an_enemy: HudEvents.send_enemy_sprite.emit(combatant_texture)
 
 func take_turn() -> void:
 	on_start_turn_functions()
@@ -82,6 +97,9 @@ func take_turn() -> void:
 	on_after_attack_functions()
 	
 	on_end_turn_functions()
+
+func reset_for_next_combat() -> void:
+	self.damage_taken = 0
 
 func recalculate_stats(playerAuraAdditiveDictionary:Dictionary[StringName, int], playerAuraMultiplicativeDictionary:Dictionary[StringName, int], enemyAuraAdditiveDictionary:Dictionary[StringName, int], enemyAuraMultiplicativeDictionary:Dictionary[StringName, int]) -> void:
 	reset_current_stats_to_base()
@@ -106,6 +124,9 @@ func sum_aura_and_base_stats(auraDictionary:Dictionary[StringName,int]) -> void:
 			current_stats[stat] = auraDictionary[stat] + starting_stats[stat]
 		else:
 			current_stats[stat] = auraDictionary[stat]
+		if current_stats[stat] < 0:
+			current_stats[stat] = 0
+			#print_debug("raising stat from negative to 0: " + stat)
 
 func multiply_aura_and_current_stats(auraDictionary:Dictionary[StringName,int]) -> void:
 	for stat:String in auraDictionary:
@@ -114,24 +135,65 @@ func multiply_aura_and_current_stats(auraDictionary:Dictionary[StringName,int]) 
 			#note that int() truncates, as i want
 			current_stats[stat] = int(current_stats[stat] * multiplier)
 
+#this is copied from aura_base.gd
+func get_tooltip() -> String:
+	var tooltip_text:String = name
+	
+	var to_add:String
+	to_add = "Health:" + str(scaled_health)
+	tooltip_text += "\n" + to_add
+	to_add = "Attack:" + str(scaled_attack)
+	tooltip_text += "\n" + to_add
+	
+	if extra_tooltip: tooltip_text += "\n" + extra_tooltip
+	return tooltip_text
+
 func on_start_combat_functions() -> void:
-	baseData.on_start_combat()
+	on_start_combat()
 
 func on_start_turn_functions() -> void:
-	baseData.on_start_turn()
+	on_start_turn()
 	CombatEvents.combatant_turn_started.emit(self)
 
 func on_after_attack_functions() -> void:
-	baseData.on_after_attack()
+	on_after_attack()
 	CombatEvents.combatant_finished_attack.emit(self, current_target)
 
 func on_damage_taken_functions(amount_taken:int) -> void:
-	baseData.on_damage_taken(amount_taken)
+	on_damage_taken(amount_taken)
 	CombatEvents.combatant_damaged.emit(self, amount_taken)
 
 func on_end_turn_functions() -> void:
-	baseData.on_end_turn()
+	on_end_turn()
 	CombatEvents.combatant_turn_ended.emit(self)
 
 func on_end_combat_functions() -> void:
-	baseData.on_combat_end()
+	on_combat_end()
+	if not dead: reset_for_next_combat()
+
+
+#derived subclasses hook onto these functions
+func on_start_combat() -> void:
+	pass
+
+func on_start_turn() -> void:
+	pass
+
+func on_after_attack() -> void:
+	pass
+
+func on_damage_taken(_amount_taken:int) -> void:
+	pass
+
+func on_end_turn() -> void:
+	pass
+
+func on_combat_end() -> void:
+	pass
+
+func setup_stats() -> void:
+	pass
+
+func scale_stats(power:int) -> void:
+	scaled_health = base_health * BalanceData.enemy_beginning_health_scaling / 100 + (power * base_health * BalanceData.enemy_health_scaling_per_power)/100
+	scaled_attack = base_attack + (power * base_attack * BalanceData.enemy_attack_scaling_per_power)/100

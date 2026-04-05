@@ -30,10 +30,10 @@ func update_map_tile_info(tile:MapTile) -> void:
 	begin_to_hide()
 	
 	if tile_info.enemy:
-		enemy_sprite.texture = tile_info.enemy.texture
+		enemy_sprite.texture = tile_info.enemy.combatant_texture
 		enemy_sprite.tooltip_text = tile_info.enemy.get_tooltip()
 		var enemy_name_color:String = Color.ORANGE_RED.to_html()
-		var enemy_name_fancy:String = "[color=#%s]%s[/color]" % [enemy_name_color, tile_info.enemy.name]
+		var enemy_name_fancy:String = "[color=#%s]%s[/color]" % [enemy_name_color, tile_info.enemy.combatant_name]
 		enemy_blurb.text = enemy_blurb_base.format({"enemy_name": enemy_name_fancy})
 	
 	if tile_info.item_reward:

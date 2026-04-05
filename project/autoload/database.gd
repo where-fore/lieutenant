@@ -1,7 +1,7 @@
 extends Node
 
 var all_items:Dictionary[String, Item]
-var all_combatants:Dictionary[String, CombatantData]
+var all_combatants:Dictionary[String, Combatant]
 const ITEMS_PATH:String = "res://z individual pieces/items/all items/"
 const COMBATANTS_PATH:String = "res://z individual pieces/combatants/"
 
@@ -12,29 +12,34 @@ func _ready() -> void:
 func get_item_by_id(item_id:String) -> Item:
 	var item:Item = all_items.get(item_id)
 	return item.duplicate()
-	
-func get_combatant_by_id(combatant_id:String) -> CombatantData:
-	var data:CombatantData = all_combatants.get(combatant_id)
+
+func get_combatant_by_id(combatant_id:String) -> Combatant:
+	var data:Combatant = all_combatants.get(combatant_id)
 	return data.duplicate()
 
 
 #these could be a bit slow with 1000+ items
 #if causing problems, can instead create an array of dictionaries on init, one for each category
 #so calling from that array is O(1)
-func get_items_by_category(category:StringName, value:int) -> Array[Item]:
+#but then the dictionaries are static on game start, can't do something like adjusting the rarity
+#on the fly when you see the oracle or something
+#also, note they are creating duplicates of every item whenever you ask for any item of the same rarity
+func get_items_by_category(category_title:StringName, category_names:Array[int]) -> Array[Item]:
 	var items_to_return:Array[Item]
 	for item:Item in all_items.values():
-		if item.item_categories.has(category):
-			if item.item_categories[category] == value:
-				items_to_return.append(item.duplicate())
+		if item.item_categories.has(category_title):
+			for category_header:int in category_names:
+				if item.item_categories[category_title] == category_header:
+					items_to_return.append(item.duplicate())
 	return items_to_return
 
-func get_combatants_by_category(category:StringName, value:int) -> Array[CombatantData]:
-	var combatants_to_return:Array[CombatantData]
-	for data:CombatantData in all_combatants.values():
-		if data.categories.has(category):
-			if data.categories[category] == value:
-				combatants_to_return.append(data.duplicate())
+func get_combatants_by_category(category_title:StringName, category_names:Array[int]) -> Array[Combatant]:
+	var combatants_to_return:Array[Combatant]
+	for data:Combatant in all_combatants.values():
+		if data.combatant_categories.has(category_title):
+			for category_header:int in category_names:
+				if data.combatant_categories[category_title] == category_header:
+					combatants_to_return.append(data.duplicate())
 	return combatants_to_return
 
 func populate_item_database(resource_array:Array[Resource]) -> void:
@@ -45,9 +50,9 @@ func populate_item_database(resource_array:Array[Resource]) -> void:
 
 func populate_combatant_database(resource_array:Array[Resource]) -> void:
 	for instantiated_script:Resource in resource_array:
-		var combatant_data_instance:CombatantData = instantiated_script.new()
-		all_combatants[combatant_data_instance.id] = combatant_data_instance
-		#print_debug("Loaded combatant: ", combatant_data_instance.id)
+		var combatant_data_instance:Combatant = instantiated_script.new()
+		all_combatants[combatant_data_instance.combatant_id] = combatant_data_instance
+		#print_debug("read and created combatant to database: " + combatant_data_instance.combatant_id)
 
 func read_database_from_folder(folder_path:String) -> Array[Resource]:
 	var dir:DirAccess = DirAccess.open(folder_path)

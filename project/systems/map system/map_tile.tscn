@@ -1,23 +1,26 @@
-[gd_scene load_steps=5 format=3 uid="uid://dxldisnu3aaoo"]
+[gd_scene load_steps=6 format=3 uid="uid://dxldisnu3aaoo"]
 
 [ext_resource type="Script" uid="uid://wrg8ncrbysqw" path="res://systems/map system/map_tile.gd" id="1_eader"]
 [ext_resource type="SpriteFrames" uid="uid://b77jkv0h1kj7x" path="res://z individual pieces/map tiles/forest_basic.tres" id="2_eader"]
 [ext_resource type="SpriteFrames" uid="uid://bk27qe7w4wwaf" path="res://systems/map system/hovered.tres" id="3_7cb8i"]
 [ext_resource type="Texture2D" uid="uid://sx580844syvk" path="res://sprites/tile_selection.png" id="4_mrii7"]
+[ext_resource type="Theme" uid="uid://wymfijcko1gs" path="res://ui resources/basic_ui_theme.tres" id="5_etpom"]
 
 [node name="MapTile" type="Node2D"]
-scale = Vector2(0.5, 0.5)
 script = ExtResource("1_eader")
 
 [node name="BaseAnimation" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
 sprite_frames = ExtResource("2_eader")
 frame_progress = 0.490562
 
 [node name="HoverAnimation" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
 sprite_frames = ExtResource("3_7cb8i")
 frame_progress = 0.6266568
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_mrii7")
 
 [node name="Timer" type="Timer" parent="Sprite2D"]
@@ -25,7 +28,30 @@ texture = ExtResource("4_mrii7")
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+scale = Vector2(0.5, 0.5)
 polygon = PackedVector2Array(-48, 46, -36, 14, 22, 14, 10, 46, -48, 46)
+
+[node name="PanelContainer" type="PanelContainer" parent="Area2D"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -22.0
+offset_top = -4.0
+offset_right = 10.0
+offset_bottom = 12.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme = ExtResource("5_etpom")
+theme_type_variation = &"TooltipPanel"
+
+[node name="Label" type="Label" parent="Area2D/PanelContainer"]
+layout_mode = 2
+theme = ExtResource("5_etpom")
+theme_type_variation = &"TooltipLabel"
+theme_override_font_sizes/font_size = 4
+text = "too far"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="timeout" from="Sprite2D/Timer" to="." method="_on_timer_timeout"]
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

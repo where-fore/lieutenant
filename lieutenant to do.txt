@@ -2,146 +2,97 @@
 working notes
 --------------------------------------------------------
 
-do a quick pass on volume balance for each arechetype and rarity (maybe add some more basic weapons/shields)
-do some enemies
-do some drawing at some point
-	probably do a cool-weapon-name pass soon too
+tutorial:
+	old combat trainer or wizard master or something
+	tells you to go get a specific item from just outside town
+		go to map screen, see enemies/rewards, pick from there
+	bring it back, they enchant it? turn it into a powerful item?
+	maybe just outside town you could see into the dangerous fields - there are two rows, the first row is ezpz quest item, second row is scary enemies
+		teaches scouting, further enemies are stronger, checking rewards, maybe even losing&routing
+	get big strong reward that grants most of your base stats from the wizard
+		maybe an aura? to teach auras?
+		and if you're really gaming, you can scout out the items from row 2 (the uniques), and take a starter boon from the wizard which plays in
+	and that's it
+		not sure about the combat ui tutorial, maybe that should be undiegetic, it's just a ui tutorial?
 
-
-builds:
-"health" build - paladin's multipliers, win by inevitability (crashing waves scaling, giant slayer %max hp damage but less damage on pull, cultist weapon does more damage the more hp you're missing)
-"attack" build - high damage immediately, survive longer through assorted means (some %damage healing, some big +hp for 5 turns buffer item, %attack items, threshold items - if 20 attack, +20 attack)
-
-could look at historical weapons + neat materials
-
-probably start game with a build-defining unique
-most rewards are specific stat scalers
-mid game choice between new build defining uniques
-if you get strong enough you can get a second (reward not worry about a "perfect build" and just being strong now)
-
-stat brainstorm:
-pillars of eternity, general primary stats everyone wants -> specific derived stats
-	crit/crit multi, carry weight, amount of spells available, dodge, speed, healed from rests etc
-thresholds: 20 strength -> doubled attack, attacks apply vulnerable, heal from attacks
-stat scaling: sword does 2x armor as damage
-synergy loops: when you heal, gain an extra strike. when you deal damage, heal a percentage
-tradeoffs: +10 damage but no healing
-ATB attack speed: momentum (shield if hit recently, speed per attack landed); poise/stun/interrupts; thorns per hit; different styles of attacks/abilities
-overdose: vamp sword but if you heal >100% hp you deal and take double damage
-entropy "chance on hit" effects
-every x hits effects (big explosion, big buff, big heal etc)
-heal to full every attack, but stack up your vulnerability until one-hit
-straight counters/damage types (d&d undead etc)
-transformational items - after x combats turn into something cool
-different damage types - vamp sword heals from attack, fireball ring doesn't interact
-
-
-enemies:
-some enemies to test current strength - more unique rewards
-specific stat enemies, generally higher too
-very high attack, low hp "cultist berserker" "the vein"
-very high health, low but slightly scaling attack "skeletal behemoth" "the marrow"
-hp cut - removes 50% hp on pull, "crimson zealot" "the oblation"
-does missing health damage "the vulture"
-attack steal - steal ~25% of attack on pull, "hemomancer" "the thirst"
-can scale base stats, and also scale their effects (30% -> 70% hp steal) with "world power"
-
-to fit with map:
-	house: bandits, moderate strength and basic rewards, but plentiful
-	plains: no fight, small stat boost
-	forest: woodland beasts: scary, unique enemies, unique rare loot
-
-smaller pushovers for feeling progression - smaller stat gains
-moderate stat enemies - easy to grok benchmark "forest bandit" "highwayman", "mudborn" "rotted" "bleached"
-maybe add minor variations, not identical stats, but all the same moderate setup
-
-
-
-stat weights: probably want 10ish turns, so 10 health to 1 attack stat weight
-
-have the boss balanced so you can beat them with a moderate strategy and ~70% rewards. losing a fight just forfeits the reward, but some paths also don't offer good rewards
-moderate strategy: one unique and lots of supporting stats, or two uniques with complementary effects and some stats
-probably can't win with unique and unsupporting stats, or with too few supporting stats
-
-
-to flavour: look up meteor/apocolyptic mythologies, and draw from those
-
-
-consider hiding what the reward is, just say the rarity?
 
 
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
-some sort of tooltip for the disabled map tiles, maybe a border for the first tile? yellow paint
-
-a turn counter somewhere
-
-big ui overhaul - bar with tabs, readable combat log, combat screen looking more inviting
+map balance:
+hm for this balance i do sorta want one of each choice available to you at a time
+	maybe i need to generate the map in chunks, one of each type of tile - but the rewards/enemies are random, so you have to choose among those what fits
+	lens of interest curve!!!
+	
+big ui overhaul
+	tabs for combat log, auras/inventory, map tile info
+	can open and close pop ups - can hide combat to browse the map, can hide event text (on game loss) to browse the combat log
+	some fadein/outs for restarting/combat/panel popping in etc. dither fades? blood pouring down from the top? spider web spinning?
+	combat:
+		a turn counter somewhere?
 
 combat log polish
 	have it fade out at the bottom
 	have a ton of empty space
 	maybe don't draw the scroll bar at all
 	have it draw new entries to the top
+	maybe just have a background in the ui overhaul mode?
 
-break hudevents into hudevents and stateevents (combat won is a state change, player health updated is a hud update)
-
-want to be able to close and open uis/panels. eg when you lose the game, closing the event dialogue so you can browse the combat log. opening your combat ui/inventory on the map so you can see your strength. closing the combat ui so you can browse the map (that's mostly for deciding whether to use your limited blast now or later)
-
-some fadein/outs for restarting/combat/panel popping in etc
+general event-naming overhaul
+	break hudevents into hudevents and stateevents (combat won is a state change, player health updated is a hud update)
 
 have a "pre-turn" turn for combat start effects
 	combat log "prepares for attack"
 
-bug: i think if you lose a +hp aura mid combat and go below 0 hp, you won't die
-
 check out orphan nodes, i think auras may be danglin
 
 figure out map system - currently no penalty for losing or anything, but no progression unless you win. can enter yourself into a corner where you can't progress without main menu -> restarting
+
+event system - replace a combat with a story beat?
+	not sure how to program map tiles holding an event
+
+
 
 --------------------------------------------------------
 concepts i know i should tutorialize:
 --------------------------------------------------------
 how-to-play-the-game:
 
-autobattling concept entirely, different speeds etc
-	the buttons blend into the background
-	combat doesn't start when you press begin combat
-	1 step, and lightning speed, are not enough good options
+autobattling concept entirely
 
 map tiles and how to navigate
 	the first row of tiles is very far from a beginners focal point
 
-inventory/aura system
+inventory/aura - what's the difference
+
 
 
 how-to-understand-the-game:
+
 percentage multipliers rounding down, maybe even each step
 
 item effect ordering vs auras
 
 
 
---------------------------------------------------------
-cool items/enemies:
---------------------------------------------------------
-if health below threshold, 50% vamp; if health above threshold, extra attack
-
-big health bonus, on turn 5 take 200 damage or so
-	note it's health positive with health percent modifiers
-	triggering big damage taken things would be neat
-	could be a percent health scaling reward ! doesn't do anything for non-health-scalers characters
-
-healing synergies
-	whenever you heal, do x damage (attack -99)
-	whenver you heal, heal 50% again
-	whenever you heal more than your attack, do damage
 
 ---------------------------
 not right now, maybe:
 ---------------------------
+start the game with the available tiles in the center, and as it opens up you slide along to the left as you see more ahead of you?
+	maybe you start with 2 tiles, fog all around.. then see to the edge of the screen. that's the midpoint where you have to defeat a medium enemy, then that unlocks the full map with the boss at the end?
+
+"too far" map tile tooltip doesn't show up on previously completed tiles
+	because they are permanently disabled as they should be, but the tooltip is checking that
+	which is good for permenently disabled tiles like front and back edges.. maybe they should say "nothing of value lies here" or something?
+
+could put a +-10% in the scale stats function
+
+combat log has a collection of colours, and can pull from that when emitting a custom message
+
 a debug console: spawn items, enable whole map, dump item database of rarity, increase stats. maybe even hotkey some of these
+	can also just do lil bandaids, like "should start with" in item fields
 
 a button on the map info panel to hide it immediately would feel good
 	maybe a slide bar handle?
@@ -160,8 +111,6 @@ have a non-equipped inventory: a list of icon:names in a popup window (maybe a b
 
 save and load, spooky
 	look into saving resources directly - if not, can change combatantData etc to refCounted
-
-make the aura view
 
 make a bunch of cool items and enemies
 	look at he is coming for examples of things i want to implement
@@ -218,6 +167,31 @@ flappy cameo, balloon in the distance
 --------------------------------------------------------
 things i know are hacky and should be cleaned up:
 --------------------------------------------------------
+cultist berseker - dormant enemy. currently overwriting combatant scale_stats with its own post_buff_attack
+	bad if i ever change that formula in combatant - it won't propogate
+	also maybe this should be codified
+
+debug keybinds:
+	KEY_F11 = crt filter on/off, main.gd 73
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed:
+		if event.keycode == KEY_F11:
+			crt_filter_container.visible = !crt_filter_container.visible
+
+can click on a maptile in combat, and it blocks the combat log
+	no way to close the map info panel
+	and you probably shouldn't be able to...
+		but if i put a stop control on the combat manager, you can't read the combat log?
+			z index the combat log higher?
+	probably deal with this with when i overhaul ui
+	
+so threshold auras:
+	should be held on the combatant
+	should have a "check stat threshold" function, which takes in a stat and a threshold
+		and should disable itself if under that threshold
+
+	auras need to have a "temporarily disable" field for this
+
 combat manager array of combatants - do i want a separate living_combatants array? do i need to know which creatures are there, but dead? should i just use the one array, but put not dead checks in everything?
 	currently i just have the one array, and yeet combatants from it. i probably want to keep them at some point, for corpse related shennanigans when fighting multiple enemies
 

@@ -136,6 +136,7 @@ texture_normal = ExtResource("8_bbldx")
 stretch_mode = 4
 
 [node name="PauseMenu" type="Control" parent="MainUI"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

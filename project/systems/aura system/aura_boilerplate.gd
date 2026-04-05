@@ -11,7 +11,6 @@ func setup_basic_aura_data() -> void:
 	aura_categories = [] # [auraCategories.common_aura]
 
 	duration_type = AuraNames.DurationType.PERMANENT
-	base_duration = 0
 
 #--functions called by aura_base.gd--
 func setup_aura_stats() -> void:
