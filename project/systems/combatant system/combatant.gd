@@ -62,6 +62,7 @@ func unsetup() -> void:
 func take_damage(value:int) -> void:
 	if not dead:
 		if value < 0: push_error("tried to take negative damage on: " + name)
+		elif value == 0: pass
 		else:
 			self.damage_taken += value
 			CombatEvents.damage_applied.emit(self, value)
@@ -71,7 +72,8 @@ func take_damage(value:int) -> void:
 
 func heal(value:int) -> void:
 	if not dead:
-		if value <= 0: push_error("tried to heal for 0 or negative on: " + name)
+		if value < 0: push_error("tried to heal for less than 0 on: " + name)
+		elif value == 0: pass
 		else:
 			self.damage_taken -= value
 			CombatEvents.healing_applied.emit(self, value)
