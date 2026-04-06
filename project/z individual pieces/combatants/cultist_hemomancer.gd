@@ -10,7 +10,7 @@ var debuff_aura_name:String = "The Thirst"
 func _init() -> void:
 	combatant_id = "cultist_hemomancer" # "generic_enemy"
 	combatant_name = "The Thirst" # "Generic Combatant"
-	combatant_texture = load("res://sprites/question.png")
+	combatant_texture = load("res://sprites/magic_cultist.png")
 	extra_tooltip = "Siphons {val}% of enemies attack to their will".format({"val":attack_percentage_to_steal}) # "Generic flavourful description"
 	combatant_categories = {
 		Categories.enemy_rarity: Categories.Rarity.MYTHIC,

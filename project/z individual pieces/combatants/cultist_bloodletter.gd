@@ -7,7 +7,7 @@ var message:String = "Your life force drains from you."
 func _init() -> void:
 	combatant_id = "cultist_bloodletter" # "generic_enemy"
 	combatant_name = "The Oblation" # "Generic Combatant"
-	combatant_texture = load("res://sprites/question.png")
+	combatant_texture = load("res://sprites/half_cultist.png")
 	extra_tooltip = "Extracts a brutal tithe of {val}% health immediately".format({"val":health_cut_on_start}) # "Generic flavourful description"
 	combatant_categories = {
 		Categories.enemy_rarity: Categories.Rarity.MYTHIC,

@@ -2,11 +2,6 @@
 working notes
 --------------------------------------------------------
 
-sprites for mythic enemies
-	behemoth the marrow, hemomancer the thirst, bloodletter the oblation, berserker the vein
-	would be nice to get some bears, wolves, deers, some low stakes wildlife
-
-
 tutorial:
 	old combat trainer or wizard master or something
 	tells you to go get a specific item from just outside town

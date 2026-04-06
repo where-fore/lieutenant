@@ -1,14 +1,14 @@
 extends Combatant
 
-var attack_per_turn:int = BalanceData.enemy_base_attack / 4
+var attack_per_turn:int = BalanceData.enemy_base_attack / 2
 var buff_aura_name:String = "Growing Impatience"
 var buff_aura:Aura
 
 func _init() -> void:
 	combatant_id = "skeleton_behemoth" # "generic_enemy"
 	combatant_name = "The Marrow" # "Generic Combatant"
-	combatant_texture = load("res://sprites/question.png")
-	extra_tooltip = "Monstrously tough and imposingly large" # "Generic flavourful description"
+	combatant_texture = load("res://sprites/enemy_shattered.png")
+	extra_tooltip = "Monstrously tough and imposingly large\nGrows in strength through combat" # "Generic flavourful description"
 	combatant_categories = {
 		Categories.enemy_rarity: Categories.Rarity.MYTHIC,
 	}
