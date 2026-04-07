@@ -16,6 +16,7 @@ func _ready() -> void:
 	MapEvents.map_grid_ready.connect(hide_all_but_first_row)
 	MapEvents.venture_to.connect(handle_map_transition)
 	MapEvents.reward_offered.connect(fully_cleared_tile)
+	HudEvents.rout_chosen.connect(fully_cleared_tile)
 	
 	maptile_spawner_parent.populate_tiles()
 
