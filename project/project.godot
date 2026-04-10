@@ -31,6 +31,8 @@ Database="*res://autoload/database.gd"
 Categories="*res://autoload/categories.gd"
 BalanceData="*res://autoload/balance_data.gd"
 MapEvents="*res://autoload/map_events.gd"
+TextStrings="*res://autoload/text_strings.gd"
+ScenarioEvents="*res://autoload/scenario_events.gd"
 
 [debug]
 

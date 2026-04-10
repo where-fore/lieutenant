@@ -2,6 +2,7 @@ extends PanelContainer
 
 @onready var main_body_text:RichTextLabel = $Panel/MarginContainer/VBoxContainer/RichTextLabel
 @onready var continue_button:TextureButton = $Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/ContinueButton
+@onready var next_page_button:TextureButton = $Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/NextPageButton
 @onready var complete_chapter_button:TextureButton = $Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/CompleteChapterButton
 @onready var lost_game_button:TextureButton = $Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/LostGameButton
 
@@ -10,6 +11,8 @@ func _ready() -> void:
 	HudEvents.chapter_won.connect(win_chapter)
 	HudEvents.chapter_lost.connect(lose_chapter)
 	HudEvents.chapter_started.connect(start_chapter)
+	ScenarioEvents.updated.connect(update_blurb_to_event)
+	ScenarioEvents.on_last_page.connect(change_next_button_to_continue)
 	
 	hide_screen()
 
@@ -25,8 +28,15 @@ func lose_chapter() -> void:
 
 func start_chapter() -> void:
 	show_screen()
+	next_page_button.visible = true
+	ScenarioEvents.load_first_scenario()
+
+func update_blurb_to_event() -> void:
+	main_body_text.text = ScenarioEvents.current_scenario.get_current_text()
+
+func change_next_button_to_continue() -> void:
+	next_page_button.visible = false
 	continue_button.visible = true
-	main_body_text.text = "Your quest begins.\n\nThe enemy must be stopped before\nthey complete their ritual."
 
 func show_screen() -> void:
 	visible = true
@@ -36,9 +46,15 @@ func hide_screen() -> void:
 	continue_button.visible = false
 	complete_chapter_button.visible = false
 	lost_game_button.visible = false
+	next_page_button.visible = false
+
+func _on_next_page_button_pressed() -> void:
+	if not ScenarioEvents.current_scenario: push_error("pressed next page with no scenario loaded")
+	ScenarioEvents.current_scenario.next_page()
 
 func _on_continue_button_pressed() -> void:
 	hide_screen()
+	ScenarioEvents.finish_scenario()
 
 func _on_complete_chapter_button_pressed() -> void:
 	hide_screen()
