@@ -13,6 +13,8 @@ func _ready() -> void:
 	HudEvents.chapter_started.connect(start_chapter)
 	ScenarioEvents.updated.connect(update_blurb_to_event)
 	ScenarioEvents.on_last_page.connect(change_next_button_to_continue)
+	ScenarioEvents.begin_combat_with.connect(change_to_combat)
+	ScenarioEvents.completed_combat.connect(resume_scenario)
 	
 	hide_screen()
 
@@ -37,6 +39,14 @@ func update_blurb_to_event() -> void:
 func change_next_button_to_continue() -> void:
 	next_page_button.visible = false
 	continue_button.visible = true
+
+func resume_scenario() -> void:
+	next_page_button.visible = true
+	ScenarioEvents.current_scenario.end_combat()
+	show_screen()
+
+func change_to_combat(_enemy:Combatant) -> void:
+	hide_screen()
 
 func show_screen() -> void:
 	visible = true

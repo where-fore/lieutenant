@@ -15,6 +15,7 @@ func get_item_by_id(item_id:String) -> Item:
 
 func get_combatant_by_id(combatant_id:String) -> Combatant:
 	var data:Combatant = all_combatants.get(combatant_id)
+	if not data: push_error("no combatant found with id: " + combatant_id)
 	return data.duplicate()
 
 

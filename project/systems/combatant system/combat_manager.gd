@@ -47,7 +47,7 @@ func _ready() -> void:
 	CombatEvents.combatant_turn_ended.connect(finish_turn)
 	CombatEvents.combatant_died.connect(handle_perishing_combatant)
 	HudEvents.combat_button_pressed.connect(start_combat)
-	MapEvents.enter_combat_in.connect(pre_combat)
+	CombatEvents.prepare_combat_with_enemy.connect(pre_combat)
 	CombatEvents.pause_button_pressed.connect(pause_button_pressed)
 	CombatEvents.step_button_pressed.connect(step_button_pressed)
 	CombatEvents.play_button_pressed.connect(play_button_pressed)
@@ -198,7 +198,7 @@ func stop_combat() -> void:
 			combatant.unsetup()
 	combatants.clear()
 
-func pre_combat(map_tile:MapTile) -> void:
+func pre_combat(enemy:Combatant) -> void:
 	if not current_player:
 		current_player = setup_combatant(create_player_combatant(), true)
 		add_child(current_player)
@@ -206,7 +206,7 @@ func pre_combat(map_tile:MapTile) -> void:
 		current_player = setup_combatant(current_player, true)
 	combatants.append(current_player)
 	
-	current_enemy = setup_combatant(map_tile.tile_data.enemy)
+	current_enemy = setup_combatant(enemy)
 	combatants.append(current_enemy)
 	
 	current_player.current_target = current_enemy

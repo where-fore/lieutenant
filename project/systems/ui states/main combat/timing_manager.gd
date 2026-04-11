@@ -5,6 +5,7 @@ extends Node
 func _ready() -> void:
 	TimingEvents.restart_the_game.connect(on_game_loss)
 	MapEvents.enter_combat_in.connect(show)
+	ScenarioEvents.begin_combat_with.connect(show)
 	MapEvents.enter_without_combat_in.connect(show)
 	MapEvents.combat_all_done.connect(hide)
 	
@@ -13,9 +14,9 @@ func _ready() -> void:
 	#this gets called when this node is readied
 	#and since this script is the parent to everything else, this is after all other nodes are ready
 	TimingEvents.everythings_ready.emit()
-	
 
-func show(_maptile:MapTile) -> void:
+
+func show(_argument:Variant) -> void:
 	self.visible = true
 
 func hide() -> void:

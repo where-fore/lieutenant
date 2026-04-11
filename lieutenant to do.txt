@@ -112,6 +112,12 @@ can break the whole map tile system into events - instead of map tiles with spec
 	main_body_text.text = "Your quest begins.\n\nThe enemy must be stopped before\nthey complete their ritual."
 
 
+add a combat to it
+add a reward to it
+
+
+
+
 
 
 
@@ -319,6 +325,7 @@ aura.create_aura() and item.duplicate() is impossible to keep track of. codify w
 	
 somehow have aura and items be interchangeable, maybe Boon class, with baseline names and stuff. having to separate my reward function in two is lame
 	i do need some splitting anyways, eg. dont want to grey out an aura reward if inventory is full
+	currently scenarioEvents is taking a reward as a Variant, which is dangerous. would be great if there was an umbrella term
 
 clean up the item "on_attack" timings - currently crashing waves +attack applies after vampiric blade 50% healing, no matter the inventory order
 	probably just await(item_in_slot.on_attack) or something

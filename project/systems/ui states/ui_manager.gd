@@ -23,7 +23,8 @@ func _ready() -> void:
 	
 
 func end_combat_as_victory() -> void:
-	MapEvents.reward_offered.emit()
+	if not ScenarioEvents.current_scenario:
+		MapEvents.reward_offered.emit()
 	
 	reward_ui_manager.change_to()
 	combat_ui_manager.change_from()
@@ -35,6 +36,8 @@ func end_combat_as_failure() -> void:
 func end_rewards_screen() -> void:
 	reward_ui_manager.change_from()
 	MapEvents.combat_all_done.emit()
+	if ScenarioEvents.current_scenario:
+		ScenarioEvents.completed_combat.emit()
 
 func _on_restart_button_pressed() -> void:
 	end_rewards_screen()

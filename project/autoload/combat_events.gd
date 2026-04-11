@@ -33,6 +33,9 @@ signal play_fast_button_pressed()
 @warning_ignore("unused_signal")
 signal combatant_died(combatant_who_died:Combatant)
 
+@warning_ignore("unused_signal")
+signal prepare_combat_with_enemy(combatant:Combatant)
+
 var combat_ongoing:bool = false
 
 @warning_ignore("unused_signal")
