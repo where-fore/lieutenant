@@ -2,7 +2,7 @@ extends Scenario
 
 func _init() -> void:
 	text_pages = [
-		"\"Ah forget about the ring.\nYou have done well by me, and by yourself. Be proud.\"\n\n\"Go with the courage to act without hesitation, and the courage to hesitate without acting.\"",
+		"\"Ah forget about the ring...\nYou have done well by me, and by yourself. Be proud.\"\n\n\"Go with the courage to act without hesitation, and the courage to hesitate without acting.\"",
 		"\"I know you must travel light and your pack size is limited, so let me cast a spell on you.\"\n\nGather strength and defeat those cultists!",
 	]
 	

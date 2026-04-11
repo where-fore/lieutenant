@@ -68,64 +68,6 @@ balancing:
 		maybe have damage be permanent, but you can press rest to heal up at any time? which costs a time step of course. routing would cost one too
 
 
-
-tutorial:
-	old combat trainer or wizard master or something
-	tells you to go get a specific item from just outside town
-		go to map screen, see enemies/rewards, pick from there
-	bring it back, they enchant it? turn it into a powerful item?
-	maybe just outside town you could see into the dangerous fields - there are two rows, the first row is ezpz quest item, second row is scary enemies
-		teaches scouting, further enemies are stronger, checking rewards, maybe even losing&routing
-	get big strong reward that grants most of your base stats from the wizard
-		maybe an aura? to teach auras? "i know you must travel light, so i shall cast a strengthening spell"
-		and if you're really gaming, you can scout out the items from row 2 (the uniques), and take a starter boon from the wizard which plays in
-	and that's it
-		not sure about the combat ui tutorial, maybe that should be undiegetic, it's just a ui tutorial?
-	maybe something about losing a scripted fight to learn the rout mechanic?
-		also just check the list of things that need to be tutorialized
-
-so tutorial:
-	dude says to get his special macguffin
-	first two rows are available, close being field (with quest item) and far being forest (with uniques)
-		far is visible but too far
-		close are all available. 3 different rewards, only one is what's important
-		whichever you fight, you go back to the event
-			somehow check what reward you got? inventory available to the public?
-				end combat check on event can check that global variable / inventory?
-		get a blurb, and then an aura reward
-		then off to the races - first row is disabled, only second row (uniques) enabled.
-		after that fight and unique gotten, first chunk available
-
-
-
-	main_body_text.text = "Your quest begins.\n\nThe enemy must be stopped before\nthey complete their ritual."
-
-okay so now the problem is:
-i want an event, then the first row combat, then another event.
-that sounds doable, just make two "first tutorial events"
-
-
-i need to find out when to open second tutorial
-
-
-ways to do it:
-	the tutorial tiles start a scenario, not a combat:
-		first blurb on opening game "blah blah find my macguffin"
-		on clicking on tile "you arrive at a clearing with a wolf pawing over the strange smelling artefact"
-			combat
-			"return home, boon, etc"
-		then first row is done, onto second row
-		
-		would need to have maptiles be able to hold a scenario
-		
-have a global "tutorial_step = 1" and check that when finishing any combat
-	this keeps the maptile system as it is now
-
-i assume when i have "events" as maptiles i won't be exposing enemies and rewards, so i don't want the tutorial to be like that. i want the tutorial to be about browing map tiles
-
-
-
-
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
@@ -168,20 +110,13 @@ concepts i know i should tutorialize:
 --------------------------------------------------------
 how-to-play-the-game:
 
-autobattling concept entirely
-
-map tiles and how to navigate
-	the first row of tiles is very far from a beginners focal point
-
-inventory/aura - what's the difference
-
+	reward buttons dont look like buttons - most buttons don't, in fact
 
 
 how-to-understand-the-game:
 
-percentage multipliers rounding down, maybe even each step
-
-item effect ordering vs auras
+	percentage multipliers rounding down, maybe even each step
+	item effect ordering vs auras
 
 
 

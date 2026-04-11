@@ -83,6 +83,7 @@ func change_to(enemy:Combatant) -> void:
 	clear_turn_indicator()
 	combat_button.visible = true
 	turn_button_container.visible = true
+	fade_buttons_out()
 	
 	hide_all_button_borders()
 	set_last_chosen_speed_border()
@@ -104,6 +105,7 @@ func _on_combat_button_pressed() -> void:
 	HudEvents.combat_button_pressed.emit()
 	combat_button.visible = false
 	turn_button_container.visible = true
+	fade_buttons_in()
 
 func _on_pause_button_pressed() -> void:
 	hide_all_button_borders()
@@ -140,4 +142,10 @@ func hide_all_button_borders() -> void:
 	pause_button_border.visible = false
 	play_button_border.visible = false
 	play_fast_button_border.visible = false
+
+func fade_buttons_out() -> void:
+	turn_button_container.modulate = Color(0.35,0.35,0.35,1)
+
+func fade_buttons_in() -> void:
+	turn_button_container.modulate = Color(1,1,1,1)
 	
