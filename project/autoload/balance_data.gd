@@ -3,8 +3,8 @@ extends Node
 var sword_damage:int = 6
 var shield_health:int = 30
 
-var player_base_health:int = 20 #50
-var player_base_attack:int = 1 #5
+var player_base_health:int = 20
+var player_base_attack:int = 1
 var tutorial_base_health:int = 8
 var tutorial_base_attack:int = 1
 

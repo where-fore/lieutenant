@@ -1,7 +1,8 @@
 extends Node
 
 var current_scenario:Scenario
-var first_scenario_path:String = "res://systems/scenario system/test_scenario.gd"
+var tutorial_first_scenario_path:String = "res://z individual pieces/scenarios/tutorial_second_scenario.gd"#"res://z individual pieces/scenarios/tutorial_first_scenario.gd"
+var tutorial_second_scenario_path:String = "res://z individual pieces/scenarios/tutorial_second_scenario.gd"
 
 @warning_ignore("unused_signal")
 signal updated()
@@ -13,6 +14,9 @@ signal on_last_page()
 signal begin_combat_with(combatant:Combatant)
 
 @warning_ignore("unused_signal")
+signal present_rewards()
+
+@warning_ignore("unused_signal")
 signal completed_combat_as_victory()
 
 @warning_ignore("unused_signal")
@@ -21,8 +25,13 @@ signal completed_combat_as_loss()
 @warning_ignore("unused_signal")
 signal setup_reward(reward:Variant)
 
-func load_first_scenario() -> void:
-	current_scenario = load(first_scenario_path).new() as Scenario
+func load_tutorial_first_scenario() -> void:
+	current_scenario = load(tutorial_first_scenario_path).new() as Scenario
+	current_scenario.start_scenario()
+	updated.emit()
+
+func load_tutorial_second_scenario() -> void:
+	current_scenario = load(tutorial_second_scenario_path).new() as Scenario
 	current_scenario.start_scenario()
 	updated.emit()
 

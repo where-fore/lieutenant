@@ -32,7 +32,10 @@ func lose_chapter() -> void:
 func start_chapter() -> void:
 	show_screen()
 	next_page_button.visible = true
-	ScenarioEvents.load_first_scenario()
+	ScenarioEvents.load_tutorial_first_scenario()
+
+func resume_tutorial() -> void:
+	pass
 
 func update_blurb_to_event() -> void:
 	main_body_text.text = ScenarioEvents.current_scenario.get_current_text()

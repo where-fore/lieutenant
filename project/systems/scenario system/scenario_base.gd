@@ -14,8 +14,7 @@ func next_page_base() -> void:
 		ScenarioEvents.updated.emit()
 	else: push_error("tried to go the next page of an event, when already at the last page")
 	
-	if current_page == text_length:
-		ScenarioEvents.on_last_page.emit()
+	check_if_on_last_page()
 
 func get_current_text() -> String:
 	if current_page <= 0: push_error("trying to get text of page " + str(current_page) + " of event")
@@ -23,11 +22,17 @@ func get_current_text() -> String:
 
 func start_scenario() -> void:
 	current_page = 1
+	check_if_on_last_page()
+	
 
-#derived subclasses hook onto these functions
+func check_if_on_last_page() -> void:
+	var text_length:int = text_pages.size()
+	if current_page >= text_length:
+		ScenarioEvents.on_last_page.emit()
 
+#derived subclasses hook onto and overwrite these functions
 func next_page() -> void:
-	pass
+	next_page_base()
 
 func end_combat() -> void:
-	pass
+	next_page_base()

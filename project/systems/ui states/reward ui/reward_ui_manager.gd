@@ -21,6 +21,7 @@ func _ready() -> void:
 	InventoryEvents.full_status_updated.connect(update_text_blurb_and_inventory_full_indicator)
 	MapEvents.venture_to.connect(prepare_from_map_tile)
 	ScenarioEvents.setup_reward.connect(prepare_from_scenario)
+	ScenarioEvents.present_rewards.connect(change_to)
 
 func change_to() -> void:
 	if current_map_tile:

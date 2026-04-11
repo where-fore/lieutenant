@@ -41,19 +41,23 @@ func hide_rows() -> void:
 	var enabled_tiles:int = 0
 	
 	for maptile:MapTile in current_map_tiles:
-		if maptile.x_coordinate <= current_column_sunsetting:
+		if maptile.x_coordinate <= current_column_sunsetting: #permanently disable already past tiles
 			maptile.permanently_disable()
-		elif maptile.x_coordinate > furthest_column: #disable past vision
+		elif maptile.x_coordinate > furthest_column: #disable beyond vision
 			maptile.disable()
 		elif maptile.x_coordinate <= furthest_column: #note this elif comes after hiding the earlier tiles
 			maptile.enable()
 		
 		if not maptile.currently_disabled and not maptile.permanently_disabled:
 			enabled_tiles += 1
+	
 	if enabled_tiles == 0:
 		pass
 		#push_error("somehow disabled every tile possible")
 		#well i know how that happened - you won the chapter
+		#but this probably should be a failsafe for otherwise
+		#although you can "get into locks" before exhausting all your options
+		#eg. delete your items and know you'll lose every fight
 	
 	current_column_sunsetting += 1
 
