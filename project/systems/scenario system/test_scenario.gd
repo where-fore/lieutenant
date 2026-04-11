@@ -10,9 +10,19 @@ func _init() -> void:
 	enemies = [ #note this is 0-indexed
 		Database.get_combatant_by_id("basic_skeleton"),
 	]
+	
+	aura_rewards = [ #note this is 0-indexed
+		load("res://z individual pieces/auras/standalone auras/sharpen.gd").new().create_aura(),
+		load("res://z individual pieces/auras/standalone auras/rested.gd").new().create_aura(),
+	]
+	
+	item_rewards = [ #note this is 0-indexed
+		Database.get_item_by_id("iron_sword"),
+	]
 
 func next_page() -> void:
 	if current_page == 2:
+		ScenarioEvents.setup_reward.emit(item_rewards[0])
 		ScenarioEvents.begin_combat_with.emit(enemies[0])
 	else: next_page_base()
 
