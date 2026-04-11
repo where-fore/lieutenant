@@ -14,7 +14,8 @@ func _ready() -> void:
 	ScenarioEvents.updated.connect(update_blurb_to_event)
 	ScenarioEvents.on_last_page.connect(change_next_button_to_continue)
 	ScenarioEvents.begin_combat_with.connect(change_to_combat)
-	ScenarioEvents.completed_combat.connect(resume_scenario)
+	ScenarioEvents.completed_combat_as_victory.connect(resume_scenario_as_victory)
+	ScenarioEvents.completed_combat_as_loss.connect(resume_scenario_as_loss)
 	
 	hide_screen()
 
@@ -40,7 +41,12 @@ func change_next_button_to_continue() -> void:
 	next_page_button.visible = false
 	continue_button.visible = true
 
-func resume_scenario() -> void:
+func resume_scenario_as_victory() -> void:
+	next_page_button.visible = true
+	ScenarioEvents.current_scenario.end_combat()
+	show_screen()
+
+func resume_scenario_as_loss() -> void:
 	next_page_button.visible = true
 	ScenarioEvents.current_scenario.end_combat()
 	show_screen()

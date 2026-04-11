@@ -13,7 +13,10 @@ signal on_last_page()
 signal begin_combat_with(combatant:Combatant)
 
 @warning_ignore("unused_signal")
-signal completed_combat()
+signal completed_combat_as_victory()
+
+@warning_ignore("unused_signal")
+signal completed_combat_as_loss()
 
 @warning_ignore("unused_signal")
 signal setup_reward(reward:Variant)

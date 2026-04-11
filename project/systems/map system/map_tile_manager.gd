@@ -63,5 +63,6 @@ func add_to_database(new_map_tile:MapTile) -> void:
 	current_map_tiles.append(new_map_tile)
 
 func fully_cleared_tile() -> void:
-	current_tile_encounter.permanently_disable()
-	current_tile_encounter = null
+	if current_tile_encounter:
+		current_tile_encounter.permanently_disable()
+		current_tile_encounter = null
