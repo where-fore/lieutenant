@@ -21,11 +21,13 @@ extends Node2D
 @export var columns_to_disable_at_start:int = 1
 
 var first_rewards:Array[Item]
+var tutorial_fetch_rewards:Array[Item]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	check_if_tile_export_set_correctly()
-	choose_first_rewards()
+	populate_first_rewards()
+	populate_tutorial_fetch_rewards()
 
 #note that this does do not do any z-indexing, and defaults to godot tree hierarchy z-indexing
 #the first tiles created here will be drawn to screen last
@@ -70,6 +72,7 @@ func populate_tile_data(tile:MapTile) -> void:
 	#tutorial: first encounter (fetch quest)
 	elif tile.x_coordinate == columns_to_disable_at_start:
 		tile.apply_data(tutorial_fetch_tile.new())
+		tile.tile_data.item_reward = tutorial_fetch_rewards.pop_front()
 	
 	#tutorial: first encounter (unique)
 	elif tile.x_coordinate == columns_to_disable_at_start + 1:
@@ -77,7 +80,7 @@ func populate_tile_data(tile:MapTile) -> void:
 		
 		if first_rewards.size() == 0:
 			push_error("reached end of items of this rarity before reached end of special tiles")
-			choose_first_rewards()
+			populate_first_rewards()
 		tile.tile_data.item_reward = first_rewards.pop_front()
 	
 	#scaling bandaid: first fight is common reward
@@ -101,10 +104,16 @@ func check_if_tile_export_set_correctly() -> void:
 		if script == null:
 			push_error("map tile data not set correctly on spawner")
 
-func choose_first_rewards() -> void:
+func populate_first_rewards() -> void:
 	var all_of_rarity:Array[Item] = Database.get_items_by_category(Categories.item_rarity, [Categories.Rarity.MYTHIC])
 	all_of_rarity.shuffle()
 	first_rewards = all_of_rarity
+
+func populate_tutorial_fetch_rewards() -> void:
+	tutorial_fetch_rewards.append(Database.get_item_by_id("old_mans_ring"))
+	for row:int in rows - 1: #fill rest of rows with a rock
+		tutorial_fetch_rewards.append(Database.get_item_by_id("worthless_ring"))
+	tutorial_fetch_rewards.shuffle()
 
 func choose_filler_tile() -> MapTileData:
 	var random_roll:int = randi_range(1, 100)

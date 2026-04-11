@@ -8,11 +8,11 @@ var item_rewards:Array[Item]
 var aura_rewards:Array[Aura]
 
 func next_page_base() -> void:
-	var text_length:int = text_pages.size()
-	if current_page < text_length:
+	var amount_of_pages:int = text_pages.size()
+	if current_page < amount_of_pages:
 		current_page += 1
 		ScenarioEvents.updated.emit()
-	else: push_error("tried to go the next page of an event, when already at the last page")
+	else: pass
 	
 	check_if_on_last_page()
 
@@ -23,11 +23,10 @@ func get_current_text() -> String:
 func start_scenario() -> void:
 	current_page = 1
 	check_if_on_last_page()
-	
 
 func check_if_on_last_page() -> void:
-	var text_length:int = text_pages.size()
-	if current_page >= text_length:
+	var amount_of_pages:int = text_pages.size()
+	if current_page == amount_of_pages:
 		ScenarioEvents.on_last_page.emit()
 
 #derived subclasses hook onto and overwrite these functions
@@ -36,3 +35,7 @@ func next_page() -> void:
 
 func end_combat() -> void:
 	next_page_base()
+
+#called by ScenarioEvents
+func on_finish_scenario() -> void:
+	pass

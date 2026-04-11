@@ -106,8 +106,24 @@ that sounds doable, just make two "first tutorial events"
 
 
 i need to find out when to open second tutorial
-and i need to have this tutorial go straight to rewards, no combat
-	enter_without_combat corrolary?
+
+
+ways to do it:
+	the tutorial tiles start a scenario, not a combat:
+		first blurb on opening game "blah blah find my macguffin"
+		on clicking on tile "you arrive at a clearing with a wolf pawing over the strange smelling artefact"
+			combat
+			"return home, boon, etc"
+		then first row is done, onto second row
+		
+		would need to have maptiles be able to hold a scenario
+		
+have a global "tutorial_step = 1" and check that when finishing any combat
+	this keeps the maptile system as it is now
+
+i assume when i have "events" as maptiles i won't be exposing enemies and rewards, so i don't want the tutorial to be like that. i want the tutorial to be about browing map tiles
+
+
 
 
 --------------------------------------------------------
@@ -259,9 +275,11 @@ flappy cameo, balloon in the distance
 
 
 
---------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
 things i know are hacky and should be cleaned up (or super duper back burner changes):
---------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+currently swapping back to scenarios after combat is handled in ui_manager.gd end_rewards_screen()... which means if you have a scenario combat with no reward it just never returns..?
+
 could break the whole map tile system into events - instead of map tiles with specific enemies and rewards and functions, those can be in events. map tile is just an animation and an event. can pick from many events. doesn't really change functionality right now, but it is more continuous
 
 clicking on two tiles that have the same enemy and reward looks really bad

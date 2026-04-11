@@ -10,3 +10,8 @@ func _init() -> void:
 
 	base_health = BalanceData.tutorial_base_health
 	base_attack = BalanceData.tutorial_base_attack
+
+#overwrite scaling function
+func scale_stats(_power:int) -> void:
+	scaled_health = base_health
+	scaled_attack = base_attack

@@ -16,6 +16,7 @@ func _ready() -> void:
 	ScenarioEvents.begin_combat_with.connect(change_to_combat)
 	ScenarioEvents.completed_combat_as_victory.connect(resume_scenario_as_victory)
 	ScenarioEvents.completed_combat_as_loss.connect(resume_scenario_as_loss)
+	ScenarioEvents.resuming_tutorial.connect(resume_tutorial)
 	
 	hide_screen()
 
@@ -35,7 +36,8 @@ func start_chapter() -> void:
 	ScenarioEvents.load_tutorial_first_scenario()
 
 func resume_tutorial() -> void:
-	pass
+	show_screen()
+	next_page_button.visible = true
 
 func update_blurb_to_event() -> void:
 	main_body_text.text = ScenarioEvents.current_scenario.get_current_text()
@@ -63,9 +65,9 @@ func show_screen() -> void:
 func hide_screen() -> void:
 	visible = false
 	continue_button.visible = false
+	next_page_button.visible = false
 	complete_chapter_button.visible = false
 	lost_game_button.visible = false
-	next_page_button.visible = false
 
 func _on_next_page_button_pressed() -> void:
 	if not ScenarioEvents.current_scenario: push_error("pressed next page with no scenario loaded")

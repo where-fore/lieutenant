@@ -37,6 +37,8 @@ func end_rewards_screen() -> void:
 	MapEvents.combat_all_done.emit()
 	if ScenarioEvents.current_scenario:
 		ScenarioEvents.completed_combat_as_victory.emit()
+	if ScenarioEvents.tutorial_stage:
+		ScenarioEvents.load_tutorial_second_scenario()
 
 func _on_restart_button_pressed() -> void:
 	MapEvents.combat_all_done.emit()
