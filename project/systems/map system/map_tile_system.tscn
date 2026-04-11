@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dsbt6u8ma1cpc"]
+[gd_scene load_steps=11 format=3 uid="uid://dsbt6u8ma1cpc"]
 
 [ext_resource type="Script" uid="uid://ok2ot6yb1xi8" path="res://systems/map system/map_tile_manager.gd" id="1_rwx8k"]
 [ext_resource type="Script" uid="uid://bkfbtklwaviuu" path="res://systems/map system/map_tile_spawner.gd" id="2_yr7fr"]
@@ -7,8 +7,9 @@
 [ext_resource type="Script" uid="uid://04et875g86xn" path="res://z individual pieces/map tiles/forest_house2.gd" id="5_qol6c"]
 [ext_resource type="Script" uid="uid://dxouvrr8kqucv" path="res://z individual pieces/map tiles/plains_final_boss.gd" id="5_yr7fr"]
 [ext_resource type="Script" uid="uid://cn1a2eakscc7c" path="res://z individual pieces/map tiles/forest_plains.gd" id="6_apyin"]
-[ext_resource type="Script" uid="uid://cpopoj80l101w" path="res://z individual pieces/map tiles/forest_house_first_unique.gd" id="7_8q2kk"]
+[ext_resource type="Script" uid="uid://cpopoj80l101w" path="res://z individual pieces/map tiles/tutorial_first_unique.gd" id="7_8q2kk"]
 [ext_resource type="PackedScene" uid="uid://dxldisnu3aaoo" path="res://systems/map system/map_tile.tscn" id="8_12ac2"]
+[ext_resource type="Script" uid="uid://b5jh05pbevcd7" path="res://z individual pieces/map tiles/tutorial_fetch.gd" id="8_w2u1g"]
 
 [node name="MapTileManager" type="Node2D"]
 script = ExtResource("1_rwx8k")
@@ -17,9 +18,10 @@ script = ExtResource("1_rwx8k")
 position = Vector2(6, 181)
 script = ExtResource("2_yr7fr")
 generic_border_data = ExtResource("3_w2u1g")
-first_special_tile = ExtResource("7_8q2kk")
 boss_special_tile = ExtResource("5_yr7fr")
 rest_tiles = Array[GDScript]([ExtResource("4_evd6y"), ExtResource("5_qol6c")])
 common_combat_tile = ExtResource("3_w2u1g")
 rare_combat_tile = ExtResource("6_apyin")
+tutorial_fetch_tile = ExtResource("8_w2u1g")
+tutorial_unique_tile = ExtResource("7_8q2kk")
 mapTileBase = ExtResource("8_12ac2")

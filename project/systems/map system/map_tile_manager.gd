@@ -13,7 +13,7 @@ func _ready() -> void:
 	#MapEvents.combat_all_done.connect(hide_current_row_and_increment)
 	
 	MapEvents.maptile_created.connect(add_to_database)
-	MapEvents.map_grid_ready.connect(hide_all_but_first_row)
+	MapEvents.map_grid_ready.connect(hide_all_but_tutorial_row)
 	MapEvents.venture_to.connect(handle_map_transition)
 	MapEvents.reward_offered.connect(fully_cleared_tile)
 	HudEvents.rout_chosen.connect(fully_cleared_tile)
@@ -29,8 +29,12 @@ func handle_map_transition(map_tile:MapTile) -> void:
 		MapEvents.enter_without_combat_in.emit(map_tile)
 
 func hide_current_row_and_increment() -> void:
-	hide_rows()
-	current_column_sunsetting += 1
+	if current_tile_encounter.x_coordinate == 1: #tutorial
+		hide_first_tutorial_row()
+	elif current_tile_encounter.x_coordinate == 2:
+		hide_second_tutorial_row()
+	else:
+		hide_rows()
 
 func hide_rows() -> void:
 	var furthest_column:int = current_column_sunsetting + tiles_you_can_see_into_fog_of_war
@@ -38,14 +42,11 @@ func hide_rows() -> void:
 	
 	for maptile:MapTile in current_map_tiles:
 		if maptile.x_coordinate <= current_column_sunsetting:
-			maptile.disable()
+			maptile.permanently_disable()
 		elif maptile.x_coordinate > furthest_column: #disable past vision
 			maptile.disable()
 		elif maptile.x_coordinate <= furthest_column: #note this elif comes after hiding the earlier tiles
 			maptile.enable()
-		
-		if maptile.x_coordinate == 1: #disable first, special row
-			maptile.disable()
 		
 		if not maptile.currently_disabled and not maptile.permanently_disabled:
 			enabled_tiles += 1
@@ -53,11 +54,28 @@ func hide_rows() -> void:
 		pass
 		#push_error("somehow disabled every tile possible")
 		#well i know how that happened - you won the chapter
+	
+	current_column_sunsetting += 1
 
-func hide_all_but_first_row() -> void:
+func hide_all_but_tutorial_row() -> void:
 	for maptile:MapTile in current_map_tiles:
-		if maptile.x_coordinate != 1:
+		maptile.disable()
+		if maptile.x_coordinate == 1:
+			maptile.enable()
+		elif maptile.x_coordinate == 2:
+			maptile.make_permanently_visible()
+
+func hide_first_tutorial_row() -> void:
+	for maptile:MapTile in current_map_tiles:
+		if maptile.x_coordinate == 1:
 			maptile.disable()
+		if maptile.x_coordinate == 2:
+			maptile.enable()
+			maptile.remove_permanently_visibility()
+
+func hide_second_tutorial_row() -> void:
+	current_column_sunsetting = 2
+	hide_rows()
 
 func add_to_database(new_map_tile:MapTile) -> void:
 	current_map_tiles.append(new_map_tile)

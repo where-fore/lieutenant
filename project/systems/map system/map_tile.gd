@@ -58,6 +58,13 @@ func make_permanently_visible() -> void:
 	permanently_visible = true
 	animated_sprite_component.modulate = Color(1,1,1,1)
 
+func remove_permanently_visibility() -> void:
+	permanently_visible = false
+	if currently_disabled:
+		disable()
+	else:
+		enable()
+
 func permanently_enable() -> void:
 	currently_disabled = false
 	permanently_disabled = false

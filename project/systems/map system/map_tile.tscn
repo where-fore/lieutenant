@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dxldisnu3aaoo"]
 
 [ext_resource type="Script" uid="uid://wrg8ncrbysqw" path="res://systems/map system/map_tile.gd" id="1_eader"]
-[ext_resource type="SpriteFrames" uid="uid://b77jkv0h1kj7x" path="res://z individual pieces/map tiles/forest_basic.tres" id="2_eader"]
+[ext_resource type="SpriteFrames" uid="uid://b77jkv0h1kj7x" path="res://z individual pieces/map tiles/animations/forest_basic.tres" id="2_eader"]
 [ext_resource type="SpriteFrames" uid="uid://bk27qe7w4wwaf" path="res://systems/map system/hovered.tres" id="3_7cb8i"]
 [ext_resource type="Texture2D" uid="uid://sx580844syvk" path="res://sprites/tile_selection.png" id="4_mrii7"]
 [ext_resource type="Theme" uid="uid://wymfijcko1gs" path="res://ui resources/basic_ui_theme.tres" id="5_etpom"]
@@ -41,6 +41,7 @@ offset_bottom = 12.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+mouse_filter = 2
 theme = ExtResource("5_etpom")
 theme_type_variation = &"TooltipPanel"
 

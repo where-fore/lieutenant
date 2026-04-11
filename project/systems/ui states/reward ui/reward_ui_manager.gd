@@ -31,7 +31,7 @@ func change_to() -> void:
 	if current_reward:
 		visible = true
 	else:
-		print_debug("skipping rewards, since none was prepped")
+		#print_debug("skipping rewards, since none was prepped")
 		all_done()
 
 func change_from() -> void:

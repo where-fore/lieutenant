@@ -84,41 +84,21 @@ tutorial:
 	maybe something about losing a scripted fight to learn the rout mechanic?
 		also just check the list of things that need to be tutorialized
 
+so tutorial:
+	dude says to get his special macguffin
+	first two rows are available, close being field (with quest item) and far being forest (with uniques)
+		far is visible but too far
+		close are all available. 3 different rewards, only one is what's important
+		whichever you fight, you go back to the event
+			somehow check what reward you got? inventory available to the public?
+				end combat check on event can check that global variable / inventory?
+		get a blurb, and then an aura reward
+		then off to the races - first row is disabled, only second row (uniques) enabled.
+		after that fight and unique gotten, first chunk available
 
-okay so i probably want "events" as its own category of script
-	so probably a parent class and derived instances, like items/enemies/auras
-
-and "text blurb" / "event" manager takes in an "event", and plays the text accordingly
-
-
-
-types of events:
-	single option event, avoid house (nothing), explore (combat, then reward)
-	tutorial: text, combat, text (maybe more combat etc)
-	
-	maybe the game flow (reward screen) shouldn't send you back to the map yet - after rewards, it checks back in with the event manager?
-		if Events.current_event:
-			Events.current_event.post_combat()
-		else:
-			HudEvents.combat_all_done.emit()
-
-	events:
-		have a text blurb array. pressing "continue" goes to the next step of the array, if there is one. if not, it goes to done_with_text() which depends on the event. some will be rewards, some will be combats then more text.
-		each has its own state variables - texts seen = 1; combat_finished = true;
-
-can break the whole map tile system into events - instead of map tiles with specific enemies and rewards and functions, those can be in events. map tile is just an animation and an event. can pick from many events. doesn't really change functionality right now, but it is more continuous
 
 
 	main_body_text.text = "Your quest begins.\n\nThe enemy must be stopped before\nthey complete their ritual."
-
-
-add a combat to it
-add a reward to it
-
-
-
-
-
 
 
 --------------------------------------------------------
@@ -128,7 +108,7 @@ map balance:
 hm for this balance i do sorta want one of each choice available to you at a time
 	maybe i need to generate the map in chunks, one of each type of tile - but the rewards/enemies are random, so you have to choose among those what fits
 	lens of interest curve!!!
-	
+
 big ui overhaul
 	tabs for combat log, auras/inventory, map tile info
 	can open and close pop ups - can hide combat to browse the map, can hide event text (on game loss) to browse the combat log
@@ -151,10 +131,10 @@ have a "pre-turn" turn for combat start effects
 
 check out orphan nodes, i think auras may be danglin
 
-figure out map system - currently no penalty for losing or anything, but no progression unless you win. can enter yourself into a corner where you can't progress without main menu -> restarting
+figure out map system lose scenario - currently no penalty for losing or anything, but no progression unless you win. can enter yourself into a corner where you can't progress without main menu -> restarting
 
-event system - replace a combat with a story beat?
-	not sure how to program map tiles holding an event
+event system: not sure how to program map tiles holding an event
+	have all map tiles just hold events, mostly with no text? map tiles are just animation + event, events are text+enemies+rewards?
 
 
 
@@ -271,8 +251,10 @@ flappy cameo, balloon in the distance
 
 
 --------------------------------------------------------
-things i know are hacky and should be cleaned up:
+things i know are hacky and should be cleaned up (or super duper back burner changes):
 --------------------------------------------------------
+could break the whole map tile system into events - instead of map tiles with specific enemies and rewards and functions, those can be in events. map tile is just an animation and an event. can pick from many events. doesn't really change functionality right now, but it is more continuous
+
 clicking on two tiles that have the same enemy and reward looks really bad
 	the panel doesn't update at all, looks like a bug
 
