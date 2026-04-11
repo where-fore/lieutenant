@@ -10,9 +10,9 @@ goals with new system:
 okay so how do i do rewards - what do the big rares give? i feel like i want scaler/payoff things, not solutions
 forest have common, uncommon items. common are stats or other simple items, uncommon are solution items (deal flat damage instantly, protect flat damage instantly
 all tiles have an aura option too - maybe random health/attack for common, and a bespoke one per rare? probably just stats for now, but that's a good idea for later ala slay the spire boss relics
+could have the huts be a no-enemy mid power option. maybe a common reward with no chance of aura? forests have good aura and a good item? pains have a great aura and great item?
 
-
-should probably put in a warding pike type "if you have x health, get x attack" - arrogant axe needs more help
+should probably put in a warding pike type "if you have x health, get x attack" - arrogant axe needs more ways to get attack to threshold
 
 chunks:
 global var chunk:Array[MapTileData]
@@ -44,7 +44,6 @@ balancing:
 	if i always take hp as first reward, why not just up base hp
 	elites require scaling, but scaling comes from elites. move some scaling rewards to common (or other reworkings)
 		damocleic ring every 3 turns; crashing waves normal rarity; healing potion every 3 turns (percent of current hp? flat hp? hp per item equipped?)
-	arrogant axe dilutes other multipliers - maybe make it exponential instead (on turn start, add current attack to aura)
 	
 	current categories:
 	immediate damage
@@ -78,10 +77,54 @@ tutorial:
 	maybe just outside town you could see into the dangerous fields - there are two rows, the first row is ezpz quest item, second row is scary enemies
 		teaches scouting, further enemies are stronger, checking rewards, maybe even losing&routing
 	get big strong reward that grants most of your base stats from the wizard
-		maybe an aura? to teach auras?
+		maybe an aura? to teach auras? "i know you must travel light, so i shall cast a strengthening spell"
 		and if you're really gaming, you can scout out the items from row 2 (the uniques), and take a starter boon from the wizard which plays in
 	and that's it
 		not sure about the combat ui tutorial, maybe that should be undiegetic, it's just a ui tutorial?
+	maybe something about losing a scripted fight to learn the rout mechanic?
+		also just check the list of things that need to be tutorialized
+
+so tutorial:
+	dude says to get his special macguffin
+	first two rows are available, close being field (with quest item) and far being forest (with uniques)
+		far is visible but too far
+		close are all available. 3 different rewards, only one is what's important
+		whichever you fight, you go back to the event
+			somehow check what reward you got? inventory available to the public?
+				end combat check on event can check that global variable / inventory?
+		get a blurb, and then an aura reward
+		then off to the races - first row is disabled, only second row (uniques) enabled.
+		after that fight and unique gotten, first chunk available
+
+
+
+	main_body_text.text = "Your quest begins.\n\nThe enemy must be stopped before\nthey complete their ritual."
+
+okay so now the problem is:
+i want an event, then the first row combat, then another event.
+that sounds doable, just make two "first tutorial events"
+
+
+i need to find out when to open second tutorial
+
+
+ways to do it:
+	the tutorial tiles start a scenario, not a combat:
+		first blurb on opening game "blah blah find my macguffin"
+		on clicking on tile "you arrive at a clearing with a wolf pawing over the strange smelling artefact"
+			combat
+			"return home, boon, etc"
+		then first row is done, onto second row
+		
+		would need to have maptiles be able to hold a scenario
+		
+have a global "tutorial_step = 1" and check that when finishing any combat
+	this keeps the maptile system as it is now
+
+i assume when i have "events" as maptiles i won't be exposing enemies and rewards, so i don't want the tutorial to be like that. i want the tutorial to be about browing map tiles
+
+
+
 
 --------------------------------------------------------
 work to do
@@ -90,7 +133,7 @@ map balance:
 hm for this balance i do sorta want one of each choice available to you at a time
 	maybe i need to generate the map in chunks, one of each type of tile - but the rewards/enemies are random, so you have to choose among those what fits
 	lens of interest curve!!!
-	
+
 big ui overhaul
 	tabs for combat log, auras/inventory, map tile info
 	can open and close pop ups - can hide combat to browse the map, can hide event text (on game loss) to browse the combat log
@@ -113,10 +156,10 @@ have a "pre-turn" turn for combat start effects
 
 check out orphan nodes, i think auras may be danglin
 
-figure out map system - currently no penalty for losing or anything, but no progression unless you win. can enter yourself into a corner where you can't progress without main menu -> restarting
+figure out map system lose scenario - currently no penalty for losing or anything, but no progression unless you win. can enter yourself into a corner where you can't progress without main menu -> restarting
 
-event system - replace a combat with a story beat?
-	not sure how to program map tiles holding an event
+event system: not sure how to program map tiles holding an event
+	have all map tiles just hold events, mostly with no text? map tiles are just animation + event, events are text+enemies+rewards?
 
 
 
@@ -232,9 +275,13 @@ flappy cameo, balloon in the distance
 
 
 
---------------------------------------------------------
-things i know are hacky and should be cleaned up:
---------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+things i know are hacky and should be cleaned up (or super duper back burner changes):
+----------------------------------------------------------------------------------------------------------------
+currently swapping back to scenarios after combat is handled in ui_manager.gd end_rewards_screen()... which means if you have a scenario combat with no reward it just never returns..?
+
+could break the whole map tile system into events - instead of map tiles with specific enemies and rewards and functions, those can be in events. map tile is just an animation and an event. can pick from many events. doesn't really change functionality right now, but it is more continuous
+
 clicking on two tiles that have the same enemy and reward looks really bad
 	the panel doesn't update at all, looks like a bug
 
@@ -287,6 +334,7 @@ aura.create_aura() and item.duplicate() is impossible to keep track of. codify w
 	
 somehow have aura and items be interchangeable, maybe Boon class, with baseline names and stuff. having to separate my reward function in two is lame
 	i do need some splitting anyways, eg. dont want to grey out an aura reward if inventory is full
+	currently scenarioEvents is taking a reward as a Variant, which is dangerous. would be great if there was an umbrella term
 
 clean up the item "on_attack" timings - currently crashing waves +attack applies after vampiric blade 50% healing, no matter the inventory order
 	probably just await(item_in_slot.on_attack) or something

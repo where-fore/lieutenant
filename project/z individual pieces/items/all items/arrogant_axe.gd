@@ -26,7 +26,7 @@ func setup_item_stats() -> void:
 	additive_stat_dictionary[Stats.attack] = my_attack
 	additive_stat_dictionary[Stats.health] = my_health
 
-func on_attack(source:Combatant, _target:Combatant) -> void:
+func on_turn_start(source:Combatant) -> void:
 	if source.current_stats[Stats.attack] >= attack_threshold: #note i'm not checking pre-this buff, so it's almost impossible to drop off once it's active
 		if not buff_aura:
 			apply_my_aura()

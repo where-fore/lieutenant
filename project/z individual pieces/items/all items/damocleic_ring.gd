@@ -9,7 +9,7 @@ var activation_message:String = "The time has come, your ring glows brightly."
 func setup_basic_item_data() -> void:
 	item_id = "damocleic_ring" # "generic_item"
 	item_name = "Damocleic Ring" # "Generic Item"
-	item_sprite = load("res://sprites/ruby_ring.png")
+	item_sprite = load("res://sprites/gaudy_ruby_ring.png")
 	extra_tooltip = "Ever {turns} turns, explode in a brief fury for {damage} damage".format({"turns": activate_every_turns, "damage": damage_on_activation}) # "Generic flavourful description"
 	item_categories = {
 		Categories.item_rarity : Categories.Rarity.COMMON,

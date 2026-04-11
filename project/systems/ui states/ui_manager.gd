@@ -20,10 +20,10 @@ func _ready() -> void:
 	HudEvents.rout_chosen.connect(_on_restart_button_pressed)
 	@warning_ignore("untyped_declaration")
 	MapEvents.enter_without_combat_in.connect(func(_unused_data) -> void: end_combat_as_victory())
-	
 
 func end_combat_as_victory() -> void:
-	MapEvents.reward_offered.emit()
+	if not ScenarioEvents.current_scenario:
+		MapEvents.reward_offered.emit()
 	
 	reward_ui_manager.change_to()
 	combat_ui_manager.change_from()
@@ -35,9 +35,15 @@ func end_combat_as_failure() -> void:
 func end_rewards_screen() -> void:
 	reward_ui_manager.change_from()
 	MapEvents.combat_all_done.emit()
+	if ScenarioEvents.current_scenario:
+		ScenarioEvents.completed_combat_as_victory.emit()
+	if ScenarioEvents.tutorial_stage:
+		ScenarioEvents.load_tutorial_second_scenario()
 
 func _on_restart_button_pressed() -> void:
-	end_rewards_screen()
+	MapEvents.combat_all_done.emit()
+	if ScenarioEvents.current_scenario:
+		ScenarioEvents.completed_combat_as_loss.emit()
 	#TimingEvents.restart_the_game.emit()
 	#death_ui.visible = false
 	#combat_ui_manager.change_to()
