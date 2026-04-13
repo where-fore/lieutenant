@@ -72,7 +72,7 @@ func hide_all_but_tutorial_row() -> void:
 func hide_first_tutorial_row() -> void:
 	for maptile:MapTile in current_map_tiles:
 		if maptile.x_coordinate == 1:
-			maptile.disable()
+			maptile.permanently_disable()
 		if maptile.x_coordinate == 2:
 			maptile.enable()
 			maptile.remove_permanently_visibility()

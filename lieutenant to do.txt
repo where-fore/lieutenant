@@ -2,6 +2,9 @@
 working notes
 --------------------------------------------------------
 
+swap forest&plains - put elites in the forests, cause the chunks are bookended by the forest barrier
+	i feel like simply plains plains forest repeat looks boring as hell
+
 goals with new system:
 	you can look ahead and see what rewards are there, and pick what you'd like to work towards
 	you can tell what the challenges that hide those rewards are, and try to take immediate rewards accordingly
@@ -63,9 +66,31 @@ balancing:
 	
 	anyways, generally i don't feel like i have a good idea of how power changes. i don't have budgets per item, per reward/tile, what you need to beat the final boss and the rares, etc
 	
-	elites are very hard to balance atm - doubling their health makes them unkillable, keeping their health low leads them to be quick pushovers?
+	elites are very hard to balance atm - doubling their health makes them unkillable, keeping their health low leads them to be quick pushovers, having their attack lower than normal enemies feels weak?
 		slay the spire has permanent damage - so an enemy hitting you for 2 turns vs 6 turns is a huge difference in cost
 		maybe have damage be permanent, but you can press rest to heal up at any time? which costs a time step of course. routing would cost one too
+
+
+
+
+
+
+
+--------------------------------------------------------
+what's the deal with this unreadable ui
+--------------------------------------------------------
+
+people keep pressing the skip button for the treasure
+	- the reward doesn't look like a button, it's too flat and unresponsive. have it stick out, change when hovered over, have a particle glow, etc
+	- maybe given you know what the reward is, it's obvious you get it - why would you ever skip it?
+	- maybe given all the unimportant text (three full lines top and bottom that don't actually convey any meaning), it looks like exposition?
+	- maybe have an animation - as the player reads "collect your boon", the boon shows up, tying them together
+
+people keep having no idea how the map works
+	- the info panel is so far away from what you clicked, it's not natural to hover over the info
+	- the info panel is also quite verbose, so why would you search for more info
+	- the whole map looks cool and inviting, why show it all if it's all nothing
+
 
 
 --------------------------------------------------------
