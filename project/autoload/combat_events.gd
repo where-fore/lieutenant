@@ -1,57 +1,24 @@
 extends Node
 
-@warning_ignore("unused_signal")
-signal attack_launched(attacker:Combatant, amount:int, target:Combatant)
-
-@warning_ignore("unused_signal")
-signal damage_applied(damage_receipient:Combatant, amount:int)
-
-@warning_ignore("unused_signal")
-signal healing_applied(heal_receipient:Combatant, amount:int)
-
-@warning_ignore("unused_signal")
-signal turn_finished(source:Combatant)
-
-@warning_ignore("unused_signal")
-signal player_turn_should_start()
-
-@warning_ignore("unused_signal")
-signal enemy_turn_should_start()
-
-@warning_ignore("unused_signal")
-signal pause_button_pressed()
-
-@warning_ignore("unused_signal")
-signal step_button_pressed()
-
-@warning_ignore("unused_signal")
-signal play_button_pressed()
-
-@warning_ignore("unused_signal")
-signal play_fast_button_pressed()
-
-@warning_ignore("unused_signal")
-signal combatant_died(combatant_who_died:Combatant)
-
-@warning_ignore("unused_signal")
-signal prepare_combat_with_enemy(combatant:Combatant)
-
 var combat_ongoing:bool = false
 
-@warning_ignore("unused_signal")
+@warning_ignore_start("unused_signal")
+signal attack_launched(attacker:Combatant, amount:int, target:Combatant)
+signal damage_applied(damage_receipient:Combatant, amount:int)
+signal healing_applied(heal_receipient:Combatant, amount:int)
+signal turn_finished(source:Combatant)
+signal player_turn_should_start()
+signal enemy_turn_should_start()
+signal pause_button_pressed()
+signal step_button_pressed()
+signal play_button_pressed()
+signal play_fast_button_pressed()
+signal combatant_died(combatant_who_died:Combatant)
+signal prepare_combat_with_enemy(combatant:Combatant)
 signal combat_finished(combatants:Array[Combatant])
-
-@warning_ignore("unused_signal")
 signal combat_started(combatants:Array[Combatant])
-
-@warning_ignore("unused_signal")
 signal combatant_turn_started(source:Combatant)
-
-@warning_ignore("unused_signal")
 signal combatant_finished_attack(source:Combatant, target:Combatant)
-
-@warning_ignore("unused_signal")
 signal combatant_damaged(source:Combatant, amount_taken:int)
-
-@warning_ignore("unused_signal")
 signal combatant_turn_ended(source:Combatant)
+@warning_ignore_restore("unused_signal")

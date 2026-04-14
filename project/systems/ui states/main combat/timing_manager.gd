@@ -3,7 +3,6 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	TimingEvents.restart_the_game.connect(on_game_loss)
 	@warning_ignore("untyped_declaration") #programmer short hand for yeeting all the arguments
 	MapEvents.enter_combat_in.connect(func(_unused_data) -> void: show())
 	@warning_ignore("untyped_declaration") #programmer short hand for yeeting all the arguments

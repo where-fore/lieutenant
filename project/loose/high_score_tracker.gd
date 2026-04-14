@@ -12,7 +12,6 @@ func _ready() -> void:
 	update_text()
 	text = ""
 	HudEvents.combat_won.connect(on_combat_won)
-	TimingEvents.restart_the_game.connect(on_combat_won)
 
 func update_text() -> void:
 	check_score()

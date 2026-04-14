@@ -2,6 +2,16 @@
 working notes
 --------------------------------------------------------
 
+@warning_ignore_start("unused_signal")
+
+signal foo(x)
+signal bar(y)
+# ...
+
+@warning_ignore_restore("unused_signal")
+
+
+
 swap forest&plains - put elites in the forests, cause the chunks are bookended by the forest barrier
 	i feel like simply plains plains forest repeat looks boring as hell
 
@@ -460,7 +470,8 @@ clean up the github webhook:
 disorganized brainstorm - will have weird overlaps with design doc and discord
 --------------------------------------------------------
 
-
+eunuch-inspired: maybe magic requires spoken word, so mute people are in high demand as assisstants/librarians to old knowledge? the only ones who can be trusted with its safekeeping?
+	maybe skeletons melt in the presence of gold/mithral, so gold/mithral is used as currency and skeletons are bankers?
 
 
 

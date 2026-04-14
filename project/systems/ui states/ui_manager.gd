@@ -44,6 +44,3 @@ func _on_restart_button_pressed() -> void:
 	MapEvents.combat_all_done.emit()
 	if ScenarioEvents.current_scenario:
 		ScenarioEvents.completed_combat_as_loss.emit()
-	#TimingEvents.restart_the_game.emit()
-	#death_ui.visible = false
-	#combat_ui_manager.change_to()

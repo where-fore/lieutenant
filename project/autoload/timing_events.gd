@@ -1,7 +1,5 @@
 extends Node
 
-@warning_ignore("unused_signal")
+@warning_ignore_start("unused_signal")
 signal everythings_ready()
-
-@warning_ignore("unused_signal")
-signal restart_the_game()
+@warning_ignore_restore("unused_signal")

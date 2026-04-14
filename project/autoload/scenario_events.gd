@@ -6,29 +6,16 @@ var tutorial_second_scenario_path:String = "res://z individual pieces/scenarios/
 
 var tutorial_stage:int = 0
 
-@warning_ignore("unused_signal")
+@warning_ignore_start("unused_signal")
 signal resuming_tutorial()
-
-@warning_ignore("unused_signal")
 signal updated()
-
-@warning_ignore("unused_signal")
 signal on_last_page()
-
-@warning_ignore("unused_signal")
 signal begin_combat_with(combatant:Combatant)
-
-@warning_ignore("unused_signal")
 signal present_rewards()
-
-@warning_ignore("unused_signal")
 signal completed_combat_as_victory()
-
-@warning_ignore("unused_signal")
 signal completed_combat_as_loss()
-
-@warning_ignore("unused_signal")
 signal setup_reward(reward:Variant)
+@warning_ignore_restore("unused_signal")
 
 func load_tutorial_first_scenario() -> void:
 	current_scenario = load(tutorial_first_scenario_path).new() as Scenario
