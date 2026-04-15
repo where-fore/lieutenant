@@ -5,6 +5,7 @@ extends Node2D
 @export var boss_special_tile:GDScript
 @export var common_combat_tile:GDScript
 @export var rare_combat_tile:GDScript
+@export var tutorial_first_common_tile:GDScript
 @export var tutorial_fetch_tile:GDScript
 @export var tutorial_unique_tile:GDScript
 
@@ -16,13 +17,15 @@ extends Node2D
 @export var horizontal_spacing:int = 31
 @export var isometric_offset:int = 6
 @export_enum("Top Left", "Bottom Left") var this_spawner_is_placed_at:int = 0
-@export var columns_to_disable_at_end:int = 4
+@export var columns_to_disable_at_end:int = 5
 @export var columns_to_disable_at_start:int = 1
 
 var first_rewards:Array[Item]
 var tutorial_fetch_rewards:Array[Item]
 
 var rare_roll_entropy:int
+
+var current_chunk:Array[MapTileData]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -85,8 +88,8 @@ func populate_tile_data(tile:MapTile) -> void:
 		tile.tile_data.item_reward = first_rewards.pop_front()
 	
 	#scaling bandaid: first fight is common reward
-	elif tile.x_coordinate == columns_to_disable_at_start + 2:
-		tile.apply_data(common_combat_tile.new())
+	#elif tile.x_coordinate == columns_to_disable_at_start + 2:
+		#tile.apply_data(tutorial_first_common_tile.new())
 	
 	#everything else
 	else:
@@ -106,13 +109,34 @@ func populate_tutorial_fetch_rewards() -> void:
 		tutorial_fetch_rewards.append(Database.get_item_by_id("worthless_ring"))
 	tutorial_fetch_rewards.shuffle()
 
+func create_chunk() -> Array[MapTileData]:
+	var this_chunk:Array[MapTileData]
+	var current_row:int = 1
+	var rows_in_chunk:int = rows
+	var current_column:int = 1
+	var columns_in_chunk:int = 4
+	while current_column <= columns_in_chunk:
+		while current_row <= rows_in_chunk:
+			#first row
+			if current_column == 1:
+				this_chunk.append(common_combat_tile.new())
+			#rest of non-first non-last rows
+			elif current_column < columns_in_chunk and not current_column == columns_in_chunk:
+				this_chunk.append(common_combat_tile.new())
+			#last row
+			elif current_column == columns_in_chunk:
+				this_chunk.append(rare_combat_tile.new())
+			current_row += 1
+		current_column += 1
+		current_row = 1
+	
+	return this_chunk
+
 func choose_filler_tile() -> MapTileData:
-	#var random_roll:int = randi_range(1, 100)
-	#var hut_chance:int = 40
-	#if random_roll <= hut_chance:
-		#return rest_tiles.pick_random().new() as MapTileData
-	#else:
-	return choose_rare_or_common_combat()
+	if not current_chunk:
+		current_chunk = create_chunk()
+	var this_tile:MapTileData = current_chunk.pop_front()
+	return this_tile
 
 func choose_rare_or_common_combat() -> MapTileData:
 	var rare_chance:int = 15
