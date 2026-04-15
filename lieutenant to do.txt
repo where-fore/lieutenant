@@ -2,9 +2,8 @@
 working notes
 --------------------------------------------------------
 
-to do:
-	combats can give aura or item reward (again)
-	set up chunk system
+balance:
+	rares still 2 good
 
 
 
@@ -45,7 +44,7 @@ spawn_tiles()
 	last row
 	boss row
 
-so no huts? if every reward could also be an aura?
+
 huts can be events later :o can also be the first row for now
 
 
@@ -78,7 +77,12 @@ balancing:
 		maybe have damage be permanent, but you can press rest to heal up at any time? which costs a time step of course. routing would cost one too
 
 
-
+music player:
+	have the pixely tunes and the pillarsy tunes
+		swap between them with f10 or something
+		have a fade in/out when doing so
+		pick track randomly
+	have a menu debug reminder
 
 
 

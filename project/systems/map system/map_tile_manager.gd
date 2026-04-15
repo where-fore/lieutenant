@@ -39,14 +39,22 @@ func hide_current_row_and_increment() -> void:
 func hide_rows() -> void:
 	var furthest_column:int = current_column_sunsetting + tiles_you_can_see_into_fog_of_war
 	var enabled_tiles:int = 0
+	var disallowed_y_coordinates:Array[int]
 	
 	for maptile:MapTile in current_map_tiles:
+		if maptile.y_coordinate in disallowed_y_coordinates:
+			#print_debug("stopping tile: " + str(maptile.x_coordinate) + ", " + str(maptile.y_coordinate))
+			continue #skip this tile
+		
 		if maptile.x_coordinate <= current_column_sunsetting: #permanently disable already past tiles
 			maptile.permanently_disable()
 		elif maptile.x_coordinate > furthest_column: #disable beyond vision
 			maptile.disable()
 		elif maptile.x_coordinate <= furthest_column: #note this elif comes after hiding the earlier tiles
 			maptile.enable()
+		
+		if maptile.tile_data.stops_vision and not maptile.currently_disabled:
+			disallowed_y_coordinates.append(maptile.y_coordinate)
 		
 		if not maptile.currently_disabled and not maptile.permanently_disabled:
 			enabled_tiles += 1

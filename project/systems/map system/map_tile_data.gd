@@ -7,6 +7,8 @@ var item_reward:Item
 var aura_reward:Aura
 var internal_name:String
 
+var stops_vision:bool = false
+
 func generate_item_reward_chance_by_power(base_rare_chance:int, rare_chance_increase:int, base_mythic_chance:int, mythic_chance_increase:int) -> void:
 	var mythic_chance:int = min(100, base_mythic_chance + mythic_chance_increase)
 	var rare_chance:int = min(100, base_rare_chance + rare_chance_increase)
