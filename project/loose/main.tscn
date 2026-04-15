@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=26 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://systems/ui states/main.gd" id="1_bbldx"]
 [ext_resource type="PackedScene" uid="uid://dsbt6u8ma1cpc" path="res://systems/map system/map_tile_system.tscn" id="2_16p2t"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://c83t3y7en3pq0" path="res://loose/cursor_manager.gd" id="8_xalbe"]
 [ext_resource type="Texture2D" uid="uid://xr6idafv8gpe" path="res://sprites/cursor.png" id="9_nf78q"]
 [ext_resource type="Texture2D" uid="uid://c7a1jxvk522q2" path="res://sprites/border_background.png" id="10_qmb71"]
+[ext_resource type="Texture2D" uid="uid://cqrq7atbyo80a" path="res://sprites/speaker.png" id="11_f4q0r"]
 [ext_resource type="Texture2D" uid="uid://cqhb4p4tf4jbg" path="res://sprites/paper.png" id="11_obmf6"]
 [ext_resource type="Texture2D" uid="uid://dngm38c2cqh5o" path="res://sprites/animations/backdrop/sky background.png" id="12_bbldx"]
 [ext_resource type="SpriteFrames" uid="uid://dbriv3a7topvw" path="res://sprites/animations/backdrop/background edge/background_edge.tres" id="12_g13l7"]
@@ -136,7 +137,6 @@ texture_normal = ExtResource("8_bbldx")
 stretch_mode = 4
 
 [node name="PauseMenu" type="Control" parent="MainUI"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -154,7 +154,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.92156863)
 
-[node name="Control" type="Control" parent="MainUI/PauseMenu"]
+[node name="MenuButtonCanvas" type="Control" parent="MainUI/PauseMenu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -166,22 +166,61 @@ offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainUI/PauseMenu/Control"]
+[node name="MenuButtons" type="VBoxContainer" parent="MainUI/PauseMenu/MenuButtonCanvas"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+alignment = 1
+
+[node name="VolumeSlider" type="Control" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VolumeIcon" type="TextureButton" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture_normal = ExtResource("11_f4q0r")
+stretch_mode = 5
+
+[node name="VolumeSlider" type="HSlider" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 60.0
+
+[node name="Spacer2" type="Control" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons"]
+layout_mode = 2
 size_flags_vertical = 3
 
-[node name="RestartButton" type="TextureButton" parent="MainUI/PauseMenu/Control/HBoxContainer"]
-custom_minimum_size = Vector2(64, 48)
+[node name="TopRow" type="HBoxContainer" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Spacer" type="Control" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="RestartButton" type="TextureButton" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture_normal = ExtResource("4_npwt7")
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="MainUI/PauseMenu/Control/HBoxContainer/RestartButton"]
+[node name="Label" type="Label" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow/RestartButton"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -201,12 +240,50 @@ Restart"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CenterSpacer" type="Control" parent="MainUI/PauseMenu/Control/HBoxContainer"]
+[node name="Spacer2" type="Control" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="InfoButton" type="TextureButton" parent="MainUI/PauseMenu/Control/HBoxContainer"]
+[node name="ResumeButton" type="TextureButton" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow"]
+custom_minimum_size = Vector2(64, 48)
+layout_mode = 2
+texture_normal = ExtResource("4_npwt7")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow/ResumeButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+text = "Resume
+"
+
+[node name="Spacer3" type="Control" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Spacer" type="Control" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BottomRow" type="HBoxContainer" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="InfoButton" type="TextureButton" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/BottomRow"]
 custom_minimum_size = Vector2(64, 48)
 layout_mode = 2
 tooltip_text = "How the game does math:
@@ -226,7 +303,7 @@ Eg.
 texture_normal = ExtResource("11_obmf6")
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="MainUI/PauseMenu/Control/HBoxContainer/InfoButton"]
+[node name="Label" type="Label" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/BottomRow/InfoButton"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -245,18 +322,32 @@ Info"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CenterSpacer2" type="Control" parent="MainUI/PauseMenu/Control/HBoxContainer"]
+[node name="CenterSpacer" type="Control" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/BottomRow"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="ResumeButton" type="TextureButton" parent="MainUI/PauseMenu/Control/HBoxContainer"]
+[node name="DebugButton" type="TextureButton" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/BottomRow"]
 custom_minimum_size = Vector2(64, 48)
 layout_mode = 2
-texture_normal = ExtResource("4_npwt7")
+tooltip_text = "How the game does math:
+
+Everything is rounded down to whole numbers, at most steps of calculation.
+
+Percentage multipliers are all summed together first, then applied as a single
+multiplication to your total base.
+Eg.
+50% increased health, 100% increased health
+20 base health, item with +35 health, have taken 5 damage this combat
+
+20 + 35 = 55 base health. 100% base + 50% + 100% = 250% health
+
+55 * 250/100 = 137.5 -> 137 health
+-5 damage taken this combat -> 132 health"
+texture_normal = ExtResource("11_obmf6")
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="MainUI/PauseMenu/Control/HBoxContainer/ResumeButton"]
+[node name="Label" type="Label" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/BottomRow/DebugButton"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -270,8 +361,10 @@ offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 8
-text = "Resume
-"
+text = "Debug
+Keys"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CursorManager" type="Node2D" parent="."]
 script = ExtResource("8_xalbe")
@@ -384,5 +477,7 @@ texture = ExtResource("20_1fc2u")
 
 [connection signal="pressed" from="MainUI/GameStarter/GameStartButtons/NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="MainUI/PauseMenuButton/PanelContainer/MarginContainer/PauseMenuButton" to="." method="_on_pause_menu_button_pressed"]
-[connection signal="pressed" from="MainUI/PauseMenu/Control/HBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
-[connection signal="pressed" from="MainUI/PauseMenu/Control/HBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer/VolumeIcon" to="." method="_on_volume_icon_pressed"]
+[connection signal="value_changed" from="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
+[connection signal="pressed" from="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow/ResumeButton" to="." method="_on_resume_button_pressed"]

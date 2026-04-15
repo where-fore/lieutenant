@@ -33,6 +33,7 @@ BalanceData="*res://autoload/balance_data.gd"
 MapEvents="*res://autoload/map_events.gd"
 TextStrings="*res://autoload/text_strings.gd"
 ScenarioEvents="*res://autoload/scenario_events.gd"
+BackgroundMusicPlayer="*res://audio resources/background_music_player.tscn"
 
 [debug]
 

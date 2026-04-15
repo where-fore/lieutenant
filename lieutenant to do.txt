@@ -2,9 +2,8 @@
 working notes
 --------------------------------------------------------
 
-codify game goals for brainstorm
-
 check balance
+	while music is playing
 
 
 
@@ -86,6 +85,8 @@ music player:
 	have a menu debug reminder
 
 
+
+codify game goals for brainstorm
 
 
 --------------------------------------------------------

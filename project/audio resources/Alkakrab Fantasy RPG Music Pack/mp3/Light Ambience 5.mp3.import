@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dwa74qhglyhxo"
+path="res://.godot/imported/Light Ambience 5.mp3-e0e601869108a42315f84b456e294437.mp3str"
+
+[deps]
+
+source_file="res://audio resources/Alkakrab Fantasy RPG Music Pack/mp3/Light Ambience 5.mp3"
+dest_files=["res://.godot/imported/Light Ambience 5.mp3-e0e601869108a42315f84b456e294437.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

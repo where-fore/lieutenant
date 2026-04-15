@@ -1,0 +1,21 @@
+[gd_scene load_steps=12 format=3 uid="uid://dyrr2v7bw8iga"]
+
+[ext_resource type="Script" uid="uid://qj0cfqpx7qoe" path="res://audio resources/background_music_player.gd" id="1_ipim4"]
+[ext_resource type="AudioStream" uid="uid://c0lbl64nup7gn" path="res://audio resources/Alkakrab Fantasy RPG Music Pack/mp3/Ambient 6.mp3" id="2_abjj5"]
+[ext_resource type="AudioStream" uid="uid://bb4lhhdm1tpty" path="res://audio resources/Alkakrab Fantasy RPG Music Pack/mp3/Ambient 1.mp3" id="3_4jjto"]
+[ext_resource type="AudioStream" uid="uid://u8jwn38c4gre" path="res://audio resources/Alkakrab Fantasy RPG Music Pack/mp3/Ambient 2.mp3" id="4_6mr4u"]
+[ext_resource type="AudioStream" uid="uid://ckh3nmt5n8biy" path="res://audio resources/Alkakrab Fantasy RPG Music Pack/mp3/Ambient 3.mp3" id="5_0pdd4"]
+[ext_resource type="AudioStream" uid="uid://b5rm8s40n2i67" path="res://audio resources/Alkakrab Fantasy RPG Music Pack/mp3/Ambient 4.mp3" id="6_cfork"]
+[ext_resource type="AudioStream" uid="uid://jj00om7jlv6i" path="res://audio resources/Alkakrab Fantasy RPG Music Pack/mp3/Ambient 5.mp3" id="7_rxat4"]
+[ext_resource type="AudioStream" uid="uid://bhbgsoc1njw4d" path="res://audio resources/Alkakrab Fantasy RPG Music Pack/mp3/Ambient 7.mp3" id="8_4146g"]
+[ext_resource type="AudioStream" uid="uid://bm7w5gdd53mve" path="res://audio resources/Alkakrab Fantasy RPG Music Pack/mp3/Ambient 8.mp3" id="9_geesl"]
+[ext_resource type="AudioStream" uid="uid://cskhlvn3ymu4d" path="res://audio resources/Alkakrab Fantasy RPG Music Pack/mp3/Ambient 9.mp3" id="10_shq80"]
+[ext_resource type="AudioStream" uid="uid://cgv4pksgtr0eb" path="res://audio resources/Alkakrab Fantasy RPG Music Pack/mp3/Ambient 10.mp3" id="11_6ocj8"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer"]
+bus = &"BackgroundMusic"
+script = ExtResource("1_ipim4")
+starting_track = ExtResource("7_rxat4")
+tracks = Array[AudioStream]([ExtResource("3_4jjto"), ExtResource("4_6mr4u"), ExtResource("5_0pdd4"), ExtResource("6_cfork"), ExtResource("2_abjj5"), ExtResource("8_4146g"), ExtResource("9_geesl"), ExtResource("10_shq80"), ExtResource("11_6ocj8")])
+
+[connection signal="finished" from="." to="." method="_on_finished"]

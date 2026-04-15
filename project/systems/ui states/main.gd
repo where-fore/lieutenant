@@ -15,6 +15,8 @@ extends Node2D
 @onready var scrolling_log_container:Control = $MainGame/MarginContainer/RightSideUI/EventLog
 @onready var right_side_ui_container:Control = $MainGame/MarginContainer/RightSideUI
 
+@onready var volume_slider:HSlider = $MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer/VolumeSlider
+
 
 func _ready() -> void:
 	HudEvents.chapter_completed.connect(_on_restart_button_pressed)
@@ -25,6 +27,8 @@ func _ready() -> void:
 	pause_menu_container.visible = false
 	scrolling_log_container.visible = true
 	right_side_ui_container.visible = true
+	
+	_on_volume_slider_value_changed(volume_slider.value)
 
 func start_game() -> void:
 	clear_and_create_scene(map_creation_scene, map_container)
@@ -57,6 +61,8 @@ func _on_pause_menu_button_pressed() -> void:
 	HudEvents.game_paused.emit()
 
 func _on_new_game_button_pressed() -> void:
+	BackgroundMusicPlayer.start_music()
+	
 	game_start_button_container.visible = false
 	start_game()
 
@@ -74,3 +80,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_F11:
 			crt_filter_container.visible = !crt_filter_container.visible
+
+func _on_volume_slider_value_changed(new_slider_value: float) -> void:
+	BackgroundMusicPlayer.change_volume(new_slider_value/100)
+
+func _on_volume_icon_pressed() -> void:
+	volume_slider.value = 0
