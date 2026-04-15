@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [audio]
 
+buses/default_bus_layout="res://audio resources/default_bus_layout.tres"
 driver/mix_rate.web=48000
 
 [autoload]

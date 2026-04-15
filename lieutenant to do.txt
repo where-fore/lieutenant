@@ -2,82 +2,20 @@
 working notes
 --------------------------------------------------------
 
+shuffle button for repeat playthroughs
+
+currently the item building feels pretty good, but would like ~5 more turns for aura building?
+
 if losing all rare fights, map doesn't open up.
-	could beat scaling rare with axe.. maybe that's expected, but i literally had no choice
-axe effect is much too strong, esp with striking potion
+	currently hide_rows() only gets called on winning a fight. the logic is correct enough, but never fires when losing all fights. 
+		the logic isn't quite right - you can see past failed fights.
+		not sure what i even want it to be
+			cant see past rare tiles, unless you succeed one or fail all?
+			maybe just if no_available_tiles, failsafe?
+	maybe all this is cringe anyways, since i eventually want to be a player on the map moving? so i can just see adjacent or something? not sure
 
-
-
-swap forest&plains - put elites in the forests, cause the chunks are bookended by the forest barrier
-	i feel like simply plains plains forest repeat looks boring as hell
-
-goals with new system:
-	you can look ahead and see what rewards are there, and pick what you'd like to work towards
-	you can tell what the challenges that hide those rewards are, and try to take immediate rewards accordingly
-	and thus you're both making a theoretical build (what would be perfect...), and considering where you are right now (my starter is a scaler and i have no good items yet...)
-
-okay so how do i do rewards - what do the big rares give? i feel like i want scaler/payoff things, not solutions
-forest have common, uncommon items. common are stats or other simple items, uncommon are solution items (deal flat damage instantly, protect flat damage instantly
-all tiles have an aura option too - maybe random health/attack for common, and a bespoke one per rare? probably just stats for now, but that's a good idea for later ala slay the spire boss relics
-could have the huts be a no-enemy mid power option. maybe a common reward with no chance of aura? forests have good aura and a good item? pains have a great aura and great item?
-
-should probably put in a warding pike type "if you have x health, get x attack" - arrogant axe needs more ways to get attack to threshold
-
-chunks:
-global var chunk:Array[MapTileData]
-
-make_chunk() -> Array[MapTileData]
-	#make chunks and .append them to the array in the order i want them pulled.
-	forest.common_reward x3
-	forest.common_or_rare_reward x3
-	forest.rare_reward x3
-	plains.mythic enemy and reward x3
-
-spawn_tiles()
-	first row()
-	second row()
-	chunks to make = 2
-	if chunk.is_empty():
-		make_chunk()
-		chunks to make -= 1
-	tile = chunk.pop_front()
-	last row
-	boss row
-
-
-huts can be events later :o can also be the first row for now
-
-
-
-balancing:
-	if i always take hp as first reward, why not just up base hp
-	elites require scaling, but scaling comes from elites. move some scaling rewards to common (or other reworkings)
-		damocleic ring every 3 turns; crashing waves normal rarity; healing potion every 3 turns (percent of current hp? flat hp? hp per item equipped?)
-	
-	current categories:
-	immediate damage
-	scaling damage
-	total raw power
-	protection from the categories above
-	
-	give each item a power budget between those, and split power accordingly
-	eg. bear neck has high total raw power, but doesn't solve any problems. necklace of bloodbath solves protecting from immediate damage, but does nothing else.
-		and so maybe bear neck is good, or should have more raw power. definitely builds with bear neck should have avenues to solve their problems. 
-	
-	map sections:
-		have a 4-stack block of common forests & hutsx3, rare enemies. note what rare enemies are in front of you, which rewards they give, and what you need to do to solve them.
-			instead of forest/hut, all forest, but you can sacrifice the item for a permanent boon (like the first combat-only iteration). maybe depend this on moon cycle?
-				can sacrifice rare rewards for sick powers
-			maybe have two categories of forest: specific problem solvers, raw/immediate power. can probably achieve this just with the reward pool
-	
-	anyways, generally i don't feel like i have a good idea of how power changes. i don't have budgets per item, per reward/tile, what you need to beat the final boss and the rares, etc
-	
-	elites are very hard to balance atm - doubling their health makes them unkillable, keeping their health low leads them to be quick pushovers, having their attack lower than normal enemies feels weak?
-		slay the spire has permanent damage - so an enemy hitting you for 2 turns vs 6 turns is a huge difference in cost
-		maybe have damage be permanent, but you can press rest to heal up at any time? which costs a time step of course. routing would cost one too
-
-
-
+currently no real reward for rare enemies, the items are good but can come from common enemies...
+	probably just need more items
 
 
 codify game goals for brainstorm
@@ -115,6 +53,8 @@ moving map, fog, something non-static
 
 event system: not sure how to program map tiles holding an event
 	have all map tiles just hold events, mostly with no text? map tiles are just animation + event, events are text+enemies+rewards?
+	maybe when entering and ending a maptile it sends out a signal about that tile
+		tutorial: on game start, start event. on wolf tile completed, hear signal wolf_tutorial_tile is completed, fire second half of dialogue
 
 get some music in there:
 	https://m.youtube.com/watch?v=0jpeYLoM84k for now probably
@@ -163,6 +103,7 @@ how-to-understand-the-game:
 
 	percentage multipliers rounding down, maybe even each step
 	item effect ordering vs auras
+	fighting rares early means being able to fight two rares?
 
 
 --------------------------------------------------------

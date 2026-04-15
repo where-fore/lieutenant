@@ -4,6 +4,7 @@ extends Node2D
 @export var generic_border_data:GDScript
 @export var boss_special_tile:GDScript
 @export var common_combat_tile:GDScript
+@export var uncommon_combat_tile:GDScript
 @export var rare_combat_tile:GDScript
 @export var tutorial_first_common_tile:GDScript
 @export var tutorial_fetch_tile:GDScript
@@ -122,7 +123,7 @@ func create_chunk() -> Array[MapTileData]:
 				this_chunk.append(common_combat_tile.new())
 			#rest of non-first non-last rows
 			elif current_column < columns_in_chunk and not current_column == columns_in_chunk:
-				this_chunk.append(common_combat_tile.new())
+				this_chunk.append(uncommon_combat_tile.new())
 			#last row
 			elif current_column == columns_in_chunk:
 				this_chunk.append(rare_combat_tile.new())

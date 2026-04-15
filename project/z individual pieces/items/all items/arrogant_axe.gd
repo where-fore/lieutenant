@@ -7,14 +7,14 @@ var attack_threshold:int = BalanceData.sword_damage * 10
 var buff_aura:Aura
 var buff_aura_name:String = "Monumental arrogance"
 
-var super_attack_growth:int = 100
+var super_attack_growth:int = 50
 
 func setup_basic_item_data() -> void:
 	item_id = "arrogant_axe" # "generic_item"
 	item_name = "Arrogant Axe" # "Generic Item"
 	item_sprite = load("res://sprites/double_sided_axe.png")
 	extra_tooltip = "Only grants true power if you have {val} or more attack".format({"val": attack_threshold}) # "Generic flavourful description"
-	extra_tooltip += "\nTrue power: attack growing by {val}% of itself every swing".format({"val":super_attack_growth})
+	extra_tooltip += "\nTrue power: attack grows by {val}% of itself every swing".format({"val":super_attack_growth})
 	item_categories = {
 		Categories.item_rarity : Categories.Rarity.MYTHIC,
 	}
