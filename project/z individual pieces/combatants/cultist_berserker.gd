@@ -18,7 +18,7 @@ func _init() -> void:
 	
 	base_health = BalanceData.enemy_base_health * 3/2
 	base_attack = 0
-	post_buff_attack = BalanceData.enemy_base_attack * 5
+	post_buff_attack = BalanceData.enemy_base_attack * 7
 
 #called by Combatant
 func on_start_combat() -> void:

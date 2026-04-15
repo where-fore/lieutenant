@@ -2,7 +2,7 @@
 working notes
 --------------------------------------------------------
 
-brainstorm
+codify game goals for brainstorm
 
 check balance
 
@@ -106,14 +106,26 @@ people keep having no idea how the map/map info panel works
 people feel "locked in" to a build at the start
 	- have more avenues that can change per run?
 	- have a "flexible" unique at the start, not a build definer?
-		find build definers mid run
+		find build definers mid run?
+	note too sure on this feedback - it was given while the map balance was too light on rare rewards, so all rewards were indeed common stat sticks. could also simply be solved with more items and stats, which we already plan to do
 		
 
 
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
+get debug thing working, invuln + menu reminders etc
+
 moving map, fog, something non-static
+
+event system: not sure how to program map tiles holding an event
+	have all map tiles just hold events, mostly with no text? map tiles are just animation + event, events are text+enemies+rewards?
+
+get some music in there:
+	https://m.youtube.com/watch?v=0jpeYLoM84k for now probably
+	learn the music player systems, transition smoothly
+	settings menu with logarythmic slider
+	browser support
 
 big ui overhaul
 	tabs for combat log, auras/inventory, map tile info
@@ -142,14 +154,6 @@ figure out map system lose scenario - currently no penalty for losing or anythin
 	maybe just a rest option i can take anytime, moves time forward and get a small buff?
 	would also help when you're super overleveled?
 
-event system: not sure how to program map tiles holding an event
-	have all map tiles just hold events, mostly with no text? map tiles are just animation + event, events are text+enemies+rewards?
-
-get some music in there:
-	https://m.youtube.com/watch?v=0jpeYLoM84k for now probably
-	learn the music player systems, transition smoothly
-	settings menu with logarythmic slider
-	browser support
 
 
 --------------------------------------------------------

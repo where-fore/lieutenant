@@ -14,7 +14,7 @@ func _init() -> void:
 	}
 	
 	base_health = BalanceData.enemy_base_health * 3/2
-	base_attack = (BalanceData.enemy_base_attack * (100-health_cut_on_start))/100
+	base_attack = (BalanceData.enemy_base_attack * 3/2 * (100-health_cut_on_start)) /100
 
 #called by Combatant
 func on_start_combat() -> void:
