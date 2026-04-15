@@ -77,7 +77,7 @@ func permanently_disable() -> void:
 		currently_disabled = true
 		permanently_disabled = true
 		if not permanently_visible:
-			animated_sprite_component.modulate = Color(0.2,0.2,0.2,1)
+			animated_sprite_component.modulate = Color(0.1,0.1,0.1,1)
 
 func disable() -> void:
 	if not currently_disabled and not permanently_disabled and not permanently_enabled:

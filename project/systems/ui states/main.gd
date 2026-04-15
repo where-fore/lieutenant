@@ -89,3 +89,6 @@ func _on_volume_icon_pressed() -> void:
 	#volume_slider.value = 0
 	#should mute music, but atm using it to flip genre
 	#probably should make flipping genre its own button
+
+func _on_shuffle_icon_pressed() -> void:
+	BackgroundMusicPlayer.shuffle_playlist()

@@ -2,23 +2,24 @@
 working notes
 --------------------------------------------------------
 
-shuffle button for repeat playthroughs
-
 currently the item building feels pretty good, but would like ~5 more turns for aura building?
-
-if losing all rare fights, map doesn't open up.
-	currently hide_rows() only gets called on winning a fight. the logic is correct enough, but never fires when losing all fights. 
-		the logic isn't quite right - you can see past failed fights.
-		not sure what i even want it to be
-			cant see past rare tiles, unless you succeed one or fail all?
-			maybe just if no_available_tiles, failsafe?
-	maybe all this is cringe anyways, since i eventually want to be a player on the map moving? so i can just see adjacent or something? not sure
+	map scrolling time, make it so we can make another chunk, that'd be cool
+		not sure how to go about that conceptually yet
 
 currently no real reward for rare enemies, the items are good but can come from common enemies...
 	probably just need more items
 
+really want to be able to see rest reward on map panel
+	or have it always be the same..? or be able to choose? rest makes you choose either?
+		probably do this with the event overhaul
 
 codify game goals for brainstorm
+
+
+
+
+
+
 
 
 --------------------------------------------------------
@@ -56,12 +57,6 @@ event system: not sure how to program map tiles holding an event
 	maybe when entering and ending a maptile it sends out a signal about that tile
 		tutorial: on game start, start event. on wolf tile completed, hear signal wolf_tutorial_tile is completed, fire second half of dialogue
 
-get some music in there:
-	https://m.youtube.com/watch?v=0jpeYLoM84k for now probably
-	learn the music player systems, transition smoothly
-	settings menu with logarythmic slider
-	browser support
-
 big ui overhaul
 	tabs for combat log, auras/inventory, map tile info
 	can open and close pop ups - can hide combat to browse the map, can hide event text (on game loss) to browse the combat log
@@ -85,11 +80,16 @@ have a "pre-turn" turn for combat start effects
 check out orphan nodes, i think auras may be danglin
 	enemy auras specifically?
 
-figure out map system lose scenario - currently no penalty for losing or anything, but no progression unless you win. can enter yourself into a corner where you can't progress without main menu -> restarting
-	maybe just a rest option i can take anytime, moves time forward and get a small buff?
-	would also help when you're super overleveled?
+if losing all rare fights, map doesn't open up, and you're essentially soft locked
+	currently hide_rows() only gets called on winning a fight. the logic is correct enough, but never fires when losing all fights. 
+		the logic isn't quite right - you can see past failed fights.
+		not sure what i even want it to be
+			cant see past rare tiles, unless you succeed one or fail all?
+			maybe just if no_available_tiles, failsafe?
+	maybe all this is cringe anyways, since i eventually want to be a player on the map moving? so i can just see adjacent or something? not sure
 
-
+the map visibility thing feels pretty bad right now
+	why an you see (but not travel to) boss when <4 tiles away? (it's because they are behind the rares, but doesn't feel good.)
 
 --------------------------------------------------------
 concepts i know i should tutorialize:

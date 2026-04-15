@@ -76,15 +76,19 @@ func play_next_track() -> void:
 	
 	var playlist_size:int = current_playlist.size()
 	if current_track_index > playlist_size - 1:
-		shuffle_playlist(current_playlist[current_track_index])
+		shuffle_playlist()
 		current_track_index = 0
 	
 	self.stream = current_playlist[current_track_index]
 	self.play()
 
-func shuffle_playlist(current_track:AudioStream) -> void:
-	while current_playlist[0] == current_track or current_playlist[1] == current_track:
+func shuffle_playlist() -> void:
+	if self.playing:
 		current_playlist.shuffle()
+		#note this checks 1, because i'm going to go to 0, then next track so 0+1=1
+		while current_playlist[1] == self.stream: current_playlist.shuffle()
+		current_track_index = 0
+		play_next_track()
 
 func _on_finished() -> void:
 	play_next_track()

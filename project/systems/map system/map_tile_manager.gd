@@ -74,8 +74,6 @@ func hide_all_but_tutorial_row() -> void:
 		maptile.disable()
 		if maptile.x_coordinate == 1:
 			maptile.enable()
-		elif maptile.x_coordinate == 2:
-			maptile.make_permanently_visible()
 
 func hide_first_tutorial_row() -> void:
 	for maptile:MapTile in current_map_tiles:
@@ -83,7 +81,6 @@ func hide_first_tutorial_row() -> void:
 			maptile.permanently_disable()
 		if maptile.x_coordinate == 2:
 			maptile.enable()
-			maptile.remove_permanently_visibility()
 
 func hide_second_tutorial_row() -> void:
 	current_column_sunsetting = 2
