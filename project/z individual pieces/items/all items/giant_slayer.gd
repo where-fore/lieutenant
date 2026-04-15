@@ -1,6 +1,6 @@
 extends Item
 
-var current_hp_percent_damage:int = 10
+var current_hp_percent_damage:int = 8
 var my_attack:int = BalanceData.sword_damage * 3
 
 func setup_basic_item_data() -> void:

@@ -15,7 +15,7 @@ func setup_basic_item_data() -> void:
 	item_sprite = load("res://sprites/hook_sword.png")
 	extra_tooltip = "Power surges by %s every attack" % get_custom_aura().attack_per_turn # "Generic flavourful description"
 	item_categories = {
-		Categories.item_rarity : Categories.Rarity.RARE,
+		Categories.item_rarity : Categories.Rarity.COMMON,
 	}
 	
 

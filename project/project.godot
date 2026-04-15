@@ -15,6 +15,11 @@ run/main_scene="uid://m6cv5sqf20gx"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="res://audio resources/default_bus_layout.tres"
+driver/mix_rate.web=48000
+
 [autoload]
 
 HudEvents="*res://autoload/hud_events.gd"
@@ -33,6 +38,7 @@ BalanceData="*res://autoload/balance_data.gd"
 MapEvents="*res://autoload/map_events.gd"
 TextStrings="*res://autoload/text_strings.gd"
 ScenarioEvents="*res://autoload/scenario_events.gd"
+BackgroundMusicPlayer="*res://audio resources/background_music_player.tscn"
 
 [debug]
 

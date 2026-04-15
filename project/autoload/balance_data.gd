@@ -11,7 +11,7 @@ var tutorial_base_attack:int = 2
 var rest_hp:int = 20
 var sharpen_attack:int = 5
 
-var enemy_base_health:int = 30
+var enemy_base_health:int = 40
 var enemy_base_attack:int = 4
 
 var enemy_health_scaling_per_power:int = 100 #percentage points

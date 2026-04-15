@@ -5,8 +5,8 @@ var turn_counter:int
 var activate_on_turn:int = 5
 var activation_message:String = "You bellow a terrifying bear's roar, and swipe feverishly."
 
-#var base_health:int = BalanceData.shield_health * 3/2
-var base_health_multiplier:int = 75
+#var base_health:int = BalanceData.shield_health /2
+var base_health_multiplier:int = 150
 
 func setup_basic_item_data() -> void:
 	item_id = "bears_defence" # "generic_item"
