@@ -2,13 +2,10 @@
 working notes
 --------------------------------------------------------
 
-@warning_ignore_start("unused_signal")
+to do:
+	combats can give aura or item reward (again)
+	set up chunk system
 
-signal foo(x)
-signal bar(y)
-# ...
-
-@warning_ignore_restore("unused_signal")
 
 
 
@@ -96,7 +93,7 @@ people keep pressing the skip button for the treasure
 	- maybe given all the unimportant text (three full lines top and bottom that don't actually convey any meaning), it looks like exposition?
 	- maybe have an animation - as the player reads "collect your boon", the boon shows up, tying them together
 
-people keep having no idea how the map works
+people keep having no idea how the map/map info panel works
 	- the info panel is so far away from what you clicked, it's not natural to hover over the info
 	- the info panel is also quite verbose, so why would you search for more info
 	- the whole map looks cool and inviting, why show it all if it's all nothing
@@ -106,10 +103,7 @@ people keep having no idea how the map works
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
-map balance:
-hm for this balance i do sorta want one of each choice available to you at a time
-	maybe i need to generate the map in chunks, one of each type of tile - but the rewards/enemies are random, so you have to choose among those what fits
-	lens of interest curve!!!
+moving map, fog, something non-static
 
 big ui overhaul
 	tabs for combat log, auras/inventory, map tile info
@@ -132,12 +126,20 @@ have a "pre-turn" turn for combat start effects
 	combat log "prepares for attack"
 
 check out orphan nodes, i think auras may be danglin
+	enemy auras specifically?
 
 figure out map system lose scenario - currently no penalty for losing or anything, but no progression unless you win. can enter yourself into a corner where you can't progress without main menu -> restarting
+	maybe just a rest option i can take anytime, moves time forward and get a small buff?
+	would also help when you're super overleveled?
 
 event system: not sure how to program map tiles holding an event
 	have all map tiles just hold events, mostly with no text? map tiles are just animation + event, events are text+enemies+rewards?
 
+get some music in there:
+	https://m.youtube.com/watch?v=0jpeYLoM84k for now probably
+	learn the music player systems, transition smoothly
+	settings menu with logarythmic slider
+	browser support
 
 
 --------------------------------------------------------
@@ -154,6 +156,15 @@ how-to-understand-the-game:
 	item effect ordering vs auras
 
 
+--------------------------------------------------------
+debug keybinds:
+--------------------------------------------------------
+	KEY_F11 = crt filter on/off, main.gd 73
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed:
+		if event.keycode == KEY_F11:
+			crt_filter_container.visible = !crt_filter_container.visible
 
 
 ---------------------------
@@ -259,20 +270,13 @@ cultist berseker - dormant enemy. currently overwriting combatant scale_stats wi
 	bad if i ever change that formula in combatant - it won't propogate
 	also maybe this should be codified
 
-debug keybinds:
-	KEY_F11 = crt filter on/off, main.gd 73
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed:
-		if event.keycode == KEY_F11:
-			crt_filter_container.visible = !crt_filter_container.visible
-
 can click on a maptile in combat, and it blocks the combat log
 	no way to close the map info panel
 	and you probably shouldn't be able to...
 		but if i put a stop control on the combat manager, you can't read the combat log?
 			z index the combat log higher?
 	probably deal with this with when i overhaul ui
-	
+
 so threshold auras:
 	should be held on the combatant
 	should have a "check stat threshold" function, which takes in a stat and a threshold
@@ -296,12 +300,13 @@ maybe auras should have x combats, or until end of act, designations. good event
 auras vs items should be better designated, different coloured borders maybe?
 
 map tiles are spawned starting at 0,0 - it's more natural to me to start at 1,1. i can change it all to not be 0-indexed
+	although 0,0 being the half-off-screen border is good, 1,1 is the first real tile
 
 the map info panel is a vbox/center container hybrid abomination. probably want to codify this into the bottom info is anchored to the venture button, and text grows down, or something? idk
 
 aura.create_aura() and item.duplicate() is impossible to keep track of. codify which one, where, and make it automatic
 	this is connected to that interchangability problem
-	
+
 somehow have aura and items be interchangeable, maybe Boon class, with baseline names and stuff. having to separate my reward function in two is lame
 	i do need some splitting anyways, eg. dont want to grey out an aura reward if inventory is full
 	currently scenarioEvents is taking a reward as a Variant, which is dangerous. would be great if there was an umbrella term
@@ -319,8 +324,6 @@ tooltip esp for items
 
 aura folder structure is flexible, item folder structure is rigid. would like item to be flexible too, so i can randomly categorize things
 	there is thought to NOT categorizing by folder structure - so i have to categorize by code....
-
-the turn buttons are not pixel sized, they are percentage stretched weirdly
 
 item balance:
 instead of bespoke stats to each item, have each item do unique percentage math from a global power/balance level
@@ -371,22 +374,16 @@ the unique id thing is instance_id + current clock time? sounds super fucked. do
 currently i'm updating the player stats on every item equipped, which maybe seems bad when i open combat and immediately equip 6 items?
 	maybe not as relevant when the inventory persists through the game
 
-vamp sword calls take_damage(-10) to heal 10, maybe there should be a heal function?
-
 currently my inventory is global - should each combatant have their own inventory? given i'm planning to have more than one
-
-combatant_data scaling coefficient is an int - but i should be able to divide by a float. i should decide on how i want int rounding to work project wide, probably
 
 timing architecture:
 	the timing of "on_scene_ready" architecture in inventory_manager.gd should be project wide
 	using async and deferred calls and shit, i should have a much better understanding of when code gets called (instances get created), and maybe even a "timing manager" that signals when to fire events in order
-	
 
 all this is_this_the_player(), and "update player health" nonsense is bad - combatant should have "update health" only, and fire signals like that, somehow. maybe they always fire the "is_this_the_player", or other origin, with their signals?
 	a "combatant" that handles most stuff, and "player" parent that listens to signals and sends more?
 	have a "player" class extended from "combatant" class? so i can check if is player, and if is combatant? not sure how this oop works in godot
 	combat manager spawns the player with an export variable for their stat sheet - that sounds terrible, i should be checking the properties of that player to read their base stats, the combat manager doesn't care
-
 
 signals are a bit disorganized:
 	the signal busses aren't really organized by their title very well, codify that distinction

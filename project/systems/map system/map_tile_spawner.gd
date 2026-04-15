@@ -25,7 +25,7 @@ var tutorial_fetch_rewards:Array[Item]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	check_if_tile_export_set_correctly()
+	validate_exports()
 	populate_first_rewards()
 	populate_tutorial_fetch_rewards()
 
@@ -94,16 +94,6 @@ func populate_tile_data(tile:MapTile) -> void:
 	if tile.tile_data.enemy:
 		tile.tile_data.enemy.scale_stats(tile.power) 
 
-func check_if_tile_export_set_correctly() -> void:
-	var arrays_to_check:Array[Array] = [rest_tiles]
-	var individual_scripts_to_check:Array[GDScript] = [generic_border_data, boss_special_tile, common_combat_tile, rare_combat_tile, tutorial_unique_tile, tutorial_fetch_tile]
-	for array:Array[GDScript] in arrays_to_check:
-		if array.has(null) or array.is_empty():
-			push_error("map tile data not set correctly on spawner")
-	for script:GDScript in individual_scripts_to_check:
-		if script == null:
-			push_error("map tile data not set correctly on spawner")
-
 func populate_first_rewards() -> void:
 	var all_of_rarity:Array[Item] = Database.get_items_by_category(Categories.item_rarity, [Categories.Rarity.MYTHIC])
 	all_of_rarity.shuffle()
@@ -130,3 +120,24 @@ func choose_rare_or_common_combat() -> MapTileData:
 		return rare_combat_tile.new() as MapTileData
 	else:
 		return common_combat_tile.new() as MapTileData
+
+func validate_exports() -> void:
+	var properties:Array[Dictionary] = get_property_list()
+	
+	for property:Dictionary in properties:
+		# PROPERTY_USAGE_EDITOR means it shows up in the inspector (is an export)
+		# PROPERTY_USAGE_SCRIPT_VARIABLE means it's part of this script, not the base node
+		if property.usage & PROPERTY_USAGE_EDITOR and property.usage & PROPERTY_USAGE_SCRIPT_VARIABLE:
+			var property_name:String = property["name"]
+			var actual_exported:Variant = self.get(property_name)
+			var my_name:String = self.name
+			var error_message:String = "Export \"%s\" is not set in editor on node %s" % [property.name, my_name]
+			match typeof(actual_exported):
+				TYPE_OBJECT:
+					if actual_exported == null or not is_instance_valid(actual_exported):
+						push_error(error_message)
+				TYPE_STRING, TYPE_ARRAY, TYPE_DICTIONARY, TYPE_NODE_PATH:
+					if actual_exported.is_empty():
+						push_error(error_message)
+				TYPE_NIL:
+					push_error(error_message)

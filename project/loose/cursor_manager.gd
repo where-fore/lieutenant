@@ -9,7 +9,7 @@ var click_change_duration:float = 0.25
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	check_for_errors()
+	validate_exports()
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	create_click_timer()
 
@@ -41,3 +41,30 @@ func swap_to_normal_sprite() -> void:
 func check_for_errors() -> void:
 	if not normal_cursor: push_error("cursor normal texture not set")
 	if not clicked_cursor: push_error("cursor clicked texture not set")
+
+func validate_exports() -> void:
+	var properties:Array[Dictionary] = get_property_list()
+	
+	for property:Dictionary in properties:
+		# PROPERTY_USAGE_EDITOR means it shows up in the inspector (is an export)
+		# PROPERTY_USAGE_SCRIPT_VARIABLE means it's part of this script, not the base node
+		if property.usage & PROPERTY_USAGE_EDITOR and property.usage & PROPERTY_USAGE_SCRIPT_VARIABLE:
+			var property_name:String = property["name"]
+			var actual_exported:Variant = self.get(property_name)
+			var my_name:String = self.name
+			var error_message:String = "Export \"%s\" is not set in editor on node %s" % [property.name, my_name]
+			match typeof(actual_exported):
+				TYPE_OBJECT:
+					if actual_exported == null:
+						push_error(error_message)
+				TYPE_STRING:
+					if actual_exported.is_empty():
+						push_error(error_message)
+				TYPE_ARRAY:
+					if actual_exported.is_empty():
+						push_error(error_message)
+				TYPE_DICTIONARY:
+					if actual_exported.is_empty():
+						push_error(error_message)
+				TYPE_NIL:
+					push_error(error_message)
