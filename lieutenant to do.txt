@@ -2,9 +2,9 @@
 working notes
 --------------------------------------------------------
 
-check balance
-	while music is playing
-
+if losing all rare fights, map doesn't open up.
+	could beat scaling rare with axe.. maybe that's expected, but i literally had no choice
+axe effect is much too strong, esp with striking potion
 
 
 
@@ -77,12 +77,6 @@ balancing:
 		maybe have damage be permanent, but you can press rest to heal up at any time? which costs a time step of course. routing would cost one too
 
 
-music player:
-	have the pixely tunes and the pillarsy tunes
-		swap between them with f10 or something
-		have a fade in/out when doing so
-		pick track randomly
-	have a menu debug reminder
 
 
 
