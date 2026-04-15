@@ -88,7 +88,7 @@ music player:
 
 
 --------------------------------------------------------
-what's the deal with this unreadable ui
+playtest notes
 --------------------------------------------------------
 
 people keep pressing the skip button for the treasure
@@ -102,6 +102,11 @@ people keep having no idea how the map/map info panel works
 	- the info panel is also quite verbose, so why would you search for more info
 	- the whole map looks cool and inviting, why show it all if it's all nothing
 
+people feel "locked in" to a build at the start
+	- have more avenues that can change per run?
+	- have a "flexible" unique at the start, not a build definer?
+		find build definers mid run
+		
 
 
 --------------------------------------------------------
