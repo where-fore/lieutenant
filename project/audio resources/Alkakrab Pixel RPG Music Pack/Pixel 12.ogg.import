@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://xprp5qpkbtjn"
+path="res://.godot/imported/Pixel 12.ogg-6b069f60920c9eb58615c75f08c16d07.oggvorbisstr"
+
+[deps]
+
+source_file="res://audio resources/Alkakrab Pixel RPG Music Pack/Pixel 12.ogg"
+dest_files=["res://.godot/imported/Pixel 12.ogg-6b069f60920c9eb58615c75f08c16d07.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

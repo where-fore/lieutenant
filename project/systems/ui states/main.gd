@@ -61,7 +61,7 @@ func _on_pause_menu_button_pressed() -> void:
 	HudEvents.game_paused.emit()
 
 func _on_new_game_button_pressed() -> void:
-	BackgroundMusicPlayer.start_music()
+	BackgroundMusicPlayer.start_classical_music()
 	
 	game_start_button_container.visible = false
 	start_game()
@@ -85,4 +85,5 @@ func _on_volume_slider_value_changed(new_slider_value: float) -> void:
 	BackgroundMusicPlayer.change_volume(new_slider_value/100)
 
 func _on_volume_icon_pressed() -> void:
-	volume_slider.value = 0
+	BackgroundMusicPlayer.flip_genre()
+	#volume_slider.value = 0
