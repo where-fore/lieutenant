@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://31om6m6njs1j"
+path="res://.godot/imported/Ambient 5.ogg-6b42e74e84e372d23192ab9a43a7035f.oggvorbisstr"
+
+[deps]
+
+source_file="res://audio resources/Alkakrab Fantasy RPG Music Pack/ogg/Ambient 5.ogg"
+dest_files=["res://.godot/imported/Ambient 5.ogg-6b42e74e84e372d23192ab9a43a7035f.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

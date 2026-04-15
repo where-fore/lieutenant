@@ -61,7 +61,7 @@ func _on_pause_menu_button_pressed() -> void:
 	HudEvents.game_paused.emit()
 
 func _on_new_game_button_pressed() -> void:
-	BackgroundMusicPlayer.start_classical_music()
+	BackgroundMusicPlayer.begin_music.call_deferred()
 	
 	game_start_button_container.visible = false
 	start_game()
@@ -87,3 +87,5 @@ func _on_volume_slider_value_changed(new_slider_value: float) -> void:
 func _on_volume_icon_pressed() -> void:
 	BackgroundMusicPlayer.flip_genre()
 	#volume_slider.value = 0
+	#should mute music, but atm using it to flip genre
+	#probably should make flipping genre its own button
