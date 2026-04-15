@@ -1,8 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://ctvt2g0gq4f60"]
+[gd_scene load_steps=3 format=3 uid="uid://ctvt2g0gq4f60"]
 
 [ext_resource type="Script" uid="uid://dytvg3vigehc7" path="res://systems/ui states/reward ui/reward_ui_manager.gd" id="1_tb2ic"]
-[ext_resource type="Texture2D" uid="uid://jm7ccvlf38y4" path="res://sprites/sword.png" id="4_0ugci"]
-[ext_resource type="Texture2D" uid="uid://5l7smxrm882m" path="res://sprites/question.png" id="5_5iud0"]
 [ext_resource type="Texture2D" uid="uid://dpjjrf7ekiuwc" path="res://sprites/box_outer.png" id="6_ffv3r"]
 
 [node name="RewardUI" type="Control"]
@@ -46,59 +44,6 @@ horizontal_alignment = 1
 layout_mode = 2
 alignment = 1
 
-[node name="BasicRewardButton" type="MarginContainer" parent="VBoxContainer/RewardButtons"]
-visible = false
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/RewardButtons/BasicRewardButton"]
-layout_mode = 2
-
-[node name="TextureButton" type="TextureButton" parent="VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture_normal = ExtResource("4_0ugci")
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "Rest"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="SearchButton" type="MarginContainer" parent="VBoxContainer/RewardButtons"]
-visible = false
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/RewardButtons/SearchButton"]
-layout_mode = 2
-
-[node name="TextureButton" type="TextureButton" parent="VBoxContainer/RewardButtons/SearchButton/VBoxContainer"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture_normal = ExtResource("5_5iud0")
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="VBoxContainer/RewardButtons/SearchButton/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "Search
-for
-Treasure"
-horizontal_alignment = 1
-
 [node name="RewardButton" type="MarginContainer" parent="VBoxContainer/RewardButtons"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
@@ -119,7 +64,38 @@ stretch_mode = 5
 
 [node name="Label" type="Label" parent="VBoxContainer/RewardButtons/RewardButton/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 10
+text = "You found:
+Cool Item"
+horizontal_alignment = 1
+
+[node name="OrLabel" type="Label" parent="VBoxContainer/RewardButtons"]
+layout_mode = 2
+text = "or.."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BasicRewardButton" type="MarginContainer" parent="VBoxContainer/RewardButtons"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/RewardButtons/BasicRewardButton"]
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("6_ffv3r")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
 text = "You found:
 Cool Item"
 horizontal_alignment = 1
@@ -144,7 +120,7 @@ theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
 [node name="TextureButton" type="TextureButton" parent="SkipRewardButton"]
-custom_minimum_size = Vector2(32, 12)
+custom_minimum_size = Vector2(78, 12)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
@@ -154,21 +130,22 @@ stretch_mode = 0
 
 [node name="Label" type="Label" parent="SkipRewardButton/TextureButton"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
+anchors_preset = -1
+anchor_left = 1.0
 anchor_top = 0.5
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -12.0
+offset_left = -66.0
 offset_top = -7.0
-offset_right = 12.0
+offset_right = -6.0
 offset_bottom = 7.0
-grow_horizontal = 2
+grow_horizontal = 0
 grow_vertical = 2
 size_flags_horizontal = 8
 theme_override_font_sizes/font_size = 6
-text = "Skip"
-horizontal_alignment = 1
+text = "Skip Reward"
+horizontal_alignment = 2
 
 [connection signal="pressed" from="VBoxContainer/RewardButtons/RewardButton/VBoxContainer/TextureButton" to="." method="_on_reward_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/TextureButton" to="." method="_on_basic_reward_button_pressed"]
 [connection signal="pressed" from="SkipRewardButton/TextureButton" to="." method="_on_skip_button_pressed"]

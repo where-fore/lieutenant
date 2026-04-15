@@ -3,7 +3,6 @@ extends Node2D
 @export_category("Map Tile Information")
 @export var generic_border_data:GDScript
 @export var boss_special_tile:GDScript
-@export var rest_tiles:Array[GDScript]
 @export var common_combat_tile:GDScript
 @export var rare_combat_tile:GDScript
 @export var tutorial_fetch_tile:GDScript
@@ -22,6 +21,8 @@ extends Node2D
 
 var first_rewards:Array[Item]
 var tutorial_fetch_rewards:Array[Item]
+
+var rare_roll_entropy:int
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -106,17 +107,19 @@ func populate_tutorial_fetch_rewards() -> void:
 	tutorial_fetch_rewards.shuffle()
 
 func choose_filler_tile() -> MapTileData:
-	var random_roll:int = randi_range(1, 100)
-	var hut_chance:int = 40
-	if random_roll <= hut_chance:
-		return rest_tiles.pick_random().new() as MapTileData
-	else:
-		return choose_rare_or_common_combat()
+	#var random_roll:int = randi_range(1, 100)
+	#var hut_chance:int = 40
+	#if random_roll <= hut_chance:
+		#return rest_tiles.pick_random().new() as MapTileData
+	#else:
+	return choose_rare_or_common_combat()
 
 func choose_rare_or_common_combat() -> MapTileData:
+	var rare_chance:int = 15
+	rare_roll_entropy += rare_chance
 	var random_roll:int = randi_range(1, 100)
-	var rare_chance:int = 40
-	if random_roll <= rare_chance:
+	if random_roll <= rare_roll_entropy:
+		rare_roll_entropy = 0
 		return rare_combat_tile.new() as MapTileData
 	else:
 		return common_combat_tile.new() as MapTileData
