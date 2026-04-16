@@ -340,7 +340,9 @@ mouse_filter = 2
 [node name="DebugButton" type="TextureButton" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/BottomRow"]
 custom_minimum_size = Vector2(64, 48)
 layout_mode = 2
-tooltip_text = "F11: Toggle CRT Filter"
+tooltip_text = "F10: Toggle Godmode
+F11: Toggle CRT Filter
+F12: Toggle Full Vision"
 texture_normal = ExtResource("11_obmf6")
 stretch_mode = 5
 

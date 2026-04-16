@@ -13,11 +13,12 @@ really want to be able to see rest reward on map panel
 	or have it always be the same..? or be able to choose? rest makes you choose either?
 		probably do this with the event overhaul
 
-codify game goals for brainstorm
 
-
-
-
+debug
+	max stats to skip through combats
+	all tiles visible
+		hide rows() don't increment, have increment and hide rows() which does just +=1 and hiderows()
+	
 
 
 
@@ -30,6 +31,7 @@ people keep pressing the skip button for the treasure
 	- the reward doesn't look like a button, it's too flat and unresponsive. have it stick out, change when hovered over, have a particle glow, etc
 	- maybe given you know what the reward is, it's obvious you get it - why would you ever skip it?
 	- maybe given all the unimportant text (three full lines top and bottom that don't actually convey any meaning), it looks like exposition?
+		changed text to "skip reward"
 	- maybe have an animation - as the player reads "collect your boon", the boon shows up, tying them together
 
 people keep having no idea how the map/map info panel works
@@ -37,11 +39,11 @@ people keep having no idea how the map/map info panel works
 	- the info panel is also quite verbose, so why would you search for more info
 	- the whole map looks cool and inviting, why show it all if it's all nothing
 
-people feel "locked in" to a build at the start
-	- have more avenues that can change per run?
-	- have a "flexible" unique at the start, not a build definer?
-		find build definers mid run?
+richard passed on that their friends mentioned being "locked in" to a build at the start
 	note too sure on this feedback - it was given while the map balance was too light on rare rewards, so all rewards were indeed common stat sticks. could also simply be solved with more items and stats, which we already plan to do
+	- have more avenues that can change per run?
+	- have a "flexible" unique at the start, not a build definer? a strong immediate stat stick, or something that increases found rarity, or the like
+		find build definers mid run?
 		
 
 
@@ -90,6 +92,9 @@ if losing all rare fights, map doesn't open up, and you're essentially soft lock
 
 the map visibility thing feels pretty bad right now
 	why an you see (but not travel to) boss when <4 tiles away? (it's because they are behind the rares, but doesn't feel good.)
+
+trim the music down
+	at least have a track selector in game, so i can actually test them all with people
 
 --------------------------------------------------------
 concepts i know i should tutorialize:
