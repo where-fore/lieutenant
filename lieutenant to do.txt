@@ -14,11 +14,8 @@ really want to be able to see rest reward on map panel
 		probably do this with the event overhaul
 
 
-debug
-	max stats to skip through combats
-	all tiles visible
-		hide rows() don't increment, have increment and hide rows() which does just +=1 and hiderows()
-	
+
+
 
 
 
@@ -50,9 +47,12 @@ richard passed on that their friends mentioned being "locked in" to a build at t
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
-get debug thing working, invuln + menu reminders etc
 
 moving map, fog, something non-static
+	not sure how we want to do this
+		ftl-like has no moving map, but moving player
+		he-is-coming like has a large, prebaked map. moving player
+		infinity-engine like has areas and chapters, like we have atm
 
 event system: not sure how to program map tiles holding an event
 	have all map tiles just hold events, mostly with no text? map tiles are just animation + event, events are text+enemies+rewards?
@@ -92,6 +92,8 @@ if losing all rare fights, map doesn't open up, and you're essentially soft lock
 
 the map visibility thing feels pretty bad right now
 	why an you see (but not travel to) boss when <4 tiles away? (it's because they are behind the rares, but doesn't feel good.)
+	maybe "permanently visible" should have some sort of indicator that isn't the same as "active and reachable"
+	maybe some sort of tooltip or something for the permanently non-visible tiles, or make them fully bright but less passable-looking? maybe don't even have them be tiles, like the top/bottom rows of the current map holder?
 
 trim the music down
 	at least have a track selector in game, so i can actually test them all with people

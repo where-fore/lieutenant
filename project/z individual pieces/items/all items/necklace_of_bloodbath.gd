@@ -1,7 +1,7 @@
 extends Item
 
 var turn_counter:int
-var turns_active:int = 5
+var turns_active:int = 4
 var buff_aura:Aura
 var buff_aura_name:String = "Safe Haven"
 var shield:int = BalanceData.shield_health * 30
