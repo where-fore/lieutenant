@@ -2,16 +2,77 @@
 working notes
 --------------------------------------------------------
 
-currently the item building feels pretty good, but would like ~5 more turns for aura building?
-	map scrolling time, make it so we can make another chunk, that'd be cool
-		not sure how to go about that conceptually yet
+1, 3, 10, 12
+5, 1, 3
 
-currently no real reward for rare enemies, the items are good but can come from common enemies...
-	probably just need more items
 
-really want to be able to see rest reward on map panel
-	or have it always be the same..? or be able to choose? rest makes you choose either?
-		probably do this with the event overhaul
+map:
+	scroll to the side
+	until the wall, stop it mid screen
+	unlock post wall sightlines
+		maybe a scouting-type pan to put wall on left
+	
+	difficulty scale by time/moon, not by row/tile power
+	
+	some sort of fog of war type thing, instead of the darkened tiles
+		maybe both? fog covers completely invisible tiles, and darkened covers tiles you've seen but not able to access
+	
+	how to do the wall? big tile?
+	
+	hold events too, not just enemies
+	
+	indicator for player location, and can only move orthagonally
+		"find adjacent tiles" shoot a raycast of distance = tile width/radius, in each cardinal direction, and return the MapTiles intersected
+	
+	not sure about map tooltips, the map info panel. it popping up over the map sounds terrible, and it popping up over the right hand side also sounds bad
+		what do i need this info for?
+
+	
+combat:
+			
+	active effects
+		boss fights with active effects
+		items with active effects
+		
+	larger inventory of passive items / buffs
+		inventory slots? one armor per character? maybe, if that solves a problem then sure
+		without, items seem forgettable? if you don't make a decision with them, just get +20 str, what's the point?
+			wait if you get an axe of +20str, who does it go on?
+			ah so items are character specific?
+			okay so item slots still a maybe, but they should go on specific characters
+			
+			items can be moved, auras cannot - putting +20 str on someone is permanent, but a +20 str ring can be moved as you see fit
+			
+		
+	primary/derived stats
+		probably str/dex/int or similar. choose one as primary, and deal that as damage, rest gives you bonuses?
+		derived like dodge/mana regen/crit chance
+		
+	
+	multiple characters
+		hit all party members? attack only top (x stat)?
+		what happens when one dies?
+			just no more effects until alive again?
+			no consequence next fight?
+		separate buffs and items onto combatants
+
+
+ui:
+	stat screen
+		just the combat screen, but no enemies?
+	aura screen
+		party wide, character 1, character 2, character 3 etc
+	bigger non-active inventory
+	
+	have them all openable/closeable?
+		combat tab glows during combat?
+	
+	combat turns:
+		3 keybinds, hold to autobattle at certain speed (or press to toggle maybe)
+		space to pause immediately
+			each step of the turn (after attack, turn start etc) could check if paused, instead of the whole turn
+		acceleration generally feels bad (path of achra)
+
 
 
 
@@ -37,7 +98,7 @@ people keep having no idea how the map/map info panel works
 	- the whole map looks cool and inviting, why show it all if it's all nothing
 
 richard passed on that their friends mentioned being "locked in" to a build at the start
-	note too sure on this feedback - it was given while the map balance was too light on rare rewards, so all rewards were indeed common stat sticks. could also simply be solved with more items and stats, which we already plan to do
+	note too sure on this feedback - it was given while the map balance was too light on rare rewards, so all rewards were indeed common stat sticks. could simply be solved with more items and stats, which we already plan to do
 	- have more avenues that can change per run?
 	- have a "flexible" unique at the start, not a build definer? a strong immediate stat stick, or something that increases found rarity, or the like
 		find build definers mid run?
@@ -127,6 +188,12 @@ func _unhandled_input(event: InputEvent) -> void:
 ---------------------------
 not right now, maybe:
 ---------------------------
+pixel tracks are louder than classical tracks
+	i think i'm supposed to put them on separate audio busses and have them be lower there? and swap between busses instead of replacing streams? but then how does the volume slider work?
+	could also edit the sound file before importing to godot i guess
+
+https://alkakrab.itch.io/snowfall-ambient-music-pack
+
 put the endless battler back in after the boss is beaten?
 
 start the game with the available tiles in the center, and as it opens up you slide along to the left as you see more ahead of you?
