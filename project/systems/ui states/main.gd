@@ -28,7 +28,7 @@ func _ready() -> void:
 	scrolling_log_container.visible = true
 	right_side_ui_container.visible = true
 	
-	_on_volume_slider_value_changed(volume_slider.value)
+	volume_slider.value = BackgroundMusicPlayer.get_current_volume() * 100
 
 func start_game() -> void:
 	clear_and_create_scene(map_creation_scene, map_container)

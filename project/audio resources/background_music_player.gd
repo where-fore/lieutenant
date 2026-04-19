@@ -10,6 +10,8 @@ var current_genre:int
 var current_track_index:int
 var current_playlist:Array[AudioStream]
 
+var default_volume:float = 0.75
+
 func _ready() -> void:
 	#preload this stuff, so no hiccups in game
 	classical_tracks.shuffle()
@@ -21,6 +23,8 @@ func _ready() -> void:
 	set_starting_track()
 	
 	preload_track()
+	
+	change_volume(default_volume)
 
 func begin_music() -> void:
 	if not playing:
@@ -97,6 +101,11 @@ func change_volume(new_slider_percent:float) -> void:
 	var bus_name:StringName = self.bus
 	var bus_index:int = AudioServer.get_bus_index(bus_name)
 	AudioServer.set_bus_volume_db(bus_index, linear_to_db(new_slider_percent))
+
+func get_current_volume() -> float:
+	var bus_name:StringName = self.bus
+	var bus_index:int = AudioServer.get_bus_index(bus_name)
+	return AudioServer.get_bus_volume_linear(bus_index)
 
 func preload_track() -> void:
 	self.volume_db = -120 #inaudible

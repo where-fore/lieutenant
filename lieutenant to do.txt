@@ -2,9 +2,6 @@
 working notes
 --------------------------------------------------------
 
-1, 3, 10, 12
-5, 1, 3
-
 
 map:
 	scroll to the side
@@ -13,26 +10,36 @@ map:
 		maybe a scouting-type pan to put wall on left
 	
 	difficulty scale by time/moon, not by row/tile power
+		should be same code, just reference global world properties? set those properties after tile complete?
 	
 	some sort of fog of war type thing, instead of the darkened tiles
-		maybe both? fog covers completely invisible tiles, and darkened covers tiles you've seen but not able to access
+		maybe both? fog covers completely invisible tiles, and darkened covers tiles you've seen but not able to access; ala civ fog of war
 	
-	how to do the wall? big tile?
+	how to do the wall? big tile? actual gap in MapTiles?
 	
 	hold events too, not just enemies
+		restructure signals - enter tile, do event (combat?), end event, end tile.
+		tutorial probably shouldn't be hardcoded - have the hut at the start, the ring, go back to the hut, etc
+			could keep as it is, just the wolf fight event has text after, like "the master speaks to your through the ring" or something
 	
 	indicator for player location, and can only move orthagonally
 		"find adjacent tiles" shoot a raycast of distance = tile width/radius, in each cardinal direction, and return the MapTiles intersected
 	
 	not sure about map tooltips, the map info panel. it popping up over the map sounds terrible, and it popping up over the right hand side also sounds bad
-		what do i need this info for?
+		what do i need this info for? what do i want to show? if we're doing ftl-like exploration, no need to plan ahead
+		in my playtests it seems more fun to build your character up, than to counter specific enemies, so no need for map info (except for rewards)
+			so designate tiles as "magic/chest/event/etc" rewards? cofidy types of rewards between active items, passive stat items, rare defining items, etc
+
 
 	
 combat:
 			
 	active effects
-		boss fights with active effects
 		items with active effects
+			brainstorm some of these
+		maybe have active effects restore with mana, not with time/combats? and mana can be found in events, given my int, items, etc. warriors can have +mana items they use on casters?
+		enemies with actives too?
+			mana steal abilities?
 		
 	larger inventory of passive items / buffs
 		inventory slots? one armor per character? maybe, if that solves a problem then sure
@@ -54,7 +61,18 @@ combat:
 		what happens when one dies?
 			just no more effects until alive again?
 			no consequence next fight?
+			careful to avoid death spirals - losing one character makes you weaker that fight, so you actually have an obtuse breakpoint where you "lose" the fight much earlier than you expected eg losing 200 of your parties 800 hp is a death sentence
+				maybe each character has an enrage? a buff they get when a party member dies?
+				have an enrage build where you sacrifice one party member every fight?
 		separate buffs and items onto combatants
+		
+	
+	boss fight with active effects?
+		if normal monster fights are only (if hp <= 0, failure); then a longer boss fight requires proportinally less attack value, is not as scary
+			maybe have healing in boss fights? make them back to back phases you heal in between (where you have beat 4 of 5?) ala he is coming hydra
+		maybe make normal fights permanent loss of something?
+			i don't really want to do straight hp ala slay the spire, feels too punishing in an autobattler
+		really not sure what to do for a climactic fight with this combat system
 
 
 ui:
@@ -158,6 +176,8 @@ the map visibility thing feels pretty bad right now
 
 trim the music down
 	at least have a track selector in game, so i can actually test them all with people
+
+go back and save builds for each milestone, for archaelogy's sake. for not-worrying-about-permanently-breaking-the-game's sake, preservation. 
 
 --------------------------------------------------------
 concepts i know i should tutorialize:
