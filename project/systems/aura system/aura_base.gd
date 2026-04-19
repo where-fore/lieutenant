@@ -8,6 +8,9 @@ var extra_tooltip:String
 var aura_categories:Array[StringName]
 var visible:bool = false
 
+signal expired(aura_instance:Aura)
+signal updated(aura_instance:Aura)
+
 var duration_type:AuraNames.DurationType = AuraNames.DurationType.PERMANENT
 var base_duration:int:
 	set(value):
@@ -38,7 +41,8 @@ func create_aura(name:String = "", should_be_visible:bool = false, additive_init
 	return this_aura
 
 func update_aura() -> void:
-	AuraEvents.updated_aura.emit(self)
+	#this should probably be in a setter somewhere
+	updated.emit(self)
 
 func get_id() -> String:
 	if not unique_id: unique_id = str(ResourceUID.create_id())
@@ -69,26 +73,25 @@ func get_tooltip() -> String:
 	if extra_tooltip: tooltip_text += "\n" + extra_tooltip
 	return tooltip_text
 
-func decrement_duration_counter(source:Combatant) -> void:
+func decrement_duration_counter() -> void:
 	if duration_type == AuraNames.DurationType.TURNS:
 		current_duration -= 1
 		if current_duration <= 0:
-			expire_aura(source)
+			expire_aura()
 
-func check_then_remove_combat_auras(source:Combatant) -> void:
+func check_if_aura_expired_at_end_of_combat() -> void:
 	if duration_type == AuraNames.DurationType.THIS_COMBAT:
-		expire_aura(source)
+		expire_aura()
 	elif duration_type == AuraNames.DurationType.TURNS:
-		expire_aura(source)
+		expire_aura()
 
 func check_then_start_combat_aura() -> Aura:
 	if duration_type == AuraNames.DurationType.TURNS:
 		return create_aura()
 	else: return null
 
-func expire_aura(source:Combatant) -> void:
-	AuraEvents.expired_aura.emit(source, self)
-
+func expire_aura() -> void:
+	expired.emit(self)
 
 #derived subclasses hook onto and override these functions
 func setup_aura_stats() -> void:

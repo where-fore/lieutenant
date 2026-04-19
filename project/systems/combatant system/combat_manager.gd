@@ -207,12 +207,12 @@ func pre_combat(enemy:Combatant) -> void:
 	combatants.append(current_player)
 	
 	current_enemy = setup_combatant(enemy)
+	add_child(enemy)
 	combatants.append(current_enemy)
 	
 	current_player.current_target = current_enemy
 	current_enemy.current_target = current_player
 
-	AuraEvents.initalize_combat_stats.emit()
 	turn = precombat
 	CombatEvents.combat_ongoing = false
 	turn_finished = true
@@ -230,7 +230,7 @@ func pre_combat(enemy:Combatant) -> void:
 
 func setup_combatant(new_combatant:Combatant, is_the_player:bool = false) -> Combatant:	
 	if is_the_player: new_combatant.setup(true)
-	else: new_combatant.setup(false)
+	elif not is_the_player: new_combatant.setup(false)
 	
 	return new_combatant
 

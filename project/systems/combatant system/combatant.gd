@@ -41,9 +41,9 @@ func get_damaged_health() -> int:
 var starting_stats:Dictionary[StringName, int] = {}
 var current_stats:Dictionary[StringName, int] = {}
 
+var aura_manager:AuraManager
+
 func setup(should_be_the_player:bool = false) -> void:
-	AuraEvents.send_auras_to_combatants.connect(recalculate_stats)
-	
 	if should_be_the_player:
 		is_the_player = true
 		is_an_enemy = false
@@ -54,10 +54,15 @@ func setup(should_be_the_player:bool = false) -> void:
 	send_sprite_to_ui()
 	
 	active = true
+	set_block_signals(!active)
+	
+	aura_manager = AuraManager.new()
+	add_child(aura_manager)
+	aura_manager.send_auras_to_parent.connect(recalculate_stats)
 
 func unsetup() -> void:
-	AuraEvents.send_auras_to_combatants.disconnect(recalculate_stats)
 	active = false
+	set_block_signals(!active)
 
 func take_damage(value:int) -> void:
 	if not dead:
@@ -103,21 +108,16 @@ func take_turn() -> void:
 func reset_for_next_combat() -> void:
 	self.damage_taken = 0
 
-func recalculate_stats(playerAuraAdditiveDictionary:Dictionary[StringName, int], playerAuraMultiplicativeDictionary:Dictionary[StringName, int], enemyAuraAdditiveDictionary:Dictionary[StringName, int], enemyAuraMultiplicativeDictionary:Dictionary[StringName, int]) -> void:
+func recalculate_stats(additive_aura_dictionary:Dictionary[StringName, int], multiplicative_aura_dictionary:Dictionary[StringName, int]) -> void:
 	reset_current_stats_to_base()
 
-	if is_the_player:
-		sum_aura_and_base_stats(playerAuraAdditiveDictionary)
-		multiply_aura_and_current_stats(playerAuraMultiplicativeDictionary)
-		HudEvents.player_health_update.emit(get_damaged_health())
-		HudEvents.player_attack_update.emit(current_stats[Stats.attack])
+	sum_aura_and_base_stats(additive_aura_dictionary)
+	multiply_aura_and_current_stats(multiplicative_aura_dictionary)
 	
-	elif is_an_enemy:
-		sum_aura_and_base_stats(enemyAuraAdditiveDictionary)
-		multiply_aura_and_current_stats(enemyAuraMultiplicativeDictionary)
-		HudEvents.enemy_health_update.emit(get_damaged_health())
-		HudEvents.enemy_attack_update.emit(current_stats[Stats.attack])
-	
+	push_error("telling the hud to update the player, should send a combatant for the hud to check?")
+	HudEvents.player_health_update.emit(get_damaged_health())
+	HudEvents.player_attack_update.emit(current_stats[Stats.attack])
+
 	check_if_dead_now()
 
 func sum_aura_and_base_stats(auraDictionary:Dictionary[StringName,int]) -> void:
@@ -152,25 +152,31 @@ func get_tooltip() -> String:
 
 func on_start_combat_functions() -> void:
 	on_start_combat()
+	aura_manager.on_start_combat()
 
 func on_start_turn_functions() -> void:
 	on_start_turn()
+	aura_manager.on_start_turn()
 	CombatEvents.combatant_turn_started.emit(self)
 
 func on_after_attack_functions() -> void:
 	on_after_attack()
+	aura_manager.on_after_attack()
 	CombatEvents.combatant_finished_attack.emit(self, current_target)
 
 func on_damage_taken_functions(amount_taken:int) -> void:
 	on_damage_taken(amount_taken)
+	aura_manager.on_damage_taken(amount_taken)
 	CombatEvents.combatant_damaged.emit(self, amount_taken)
 
 func on_end_turn_functions() -> void:
 	on_end_turn()
+	aura_manager.on_end_turn()
 	CombatEvents.combatant_turn_ended.emit(self)
 
 func on_end_combat_functions() -> void:
 	on_combat_end()
+	aura_manager.on_combat_end()
 	if not dead: reset_for_next_combat()
 
 

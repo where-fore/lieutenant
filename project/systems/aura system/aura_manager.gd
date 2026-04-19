@@ -1,105 +1,69 @@
 extends Node2D
+class_name AuraManager
 
-var player_aura_dictionary:Dictionary[String, Aura]
-var enemy_aura_dictionary:Dictionary[String, Aura]
+var aura_dictionary:Dictionary[String, Aura]
 
-var player_final_additive_aura:Dictionary[StringName, int]
-var player_final_multiplicative_aura:Dictionary[StringName, int]
-var enemy_final_additive_aura:Dictionary[StringName, int]
-var enemy_final_multiplicative_aura:Dictionary[StringName, int]
+var final_additive_aura:Dictionary[StringName, int]
+var final_multiplicative_aura:Dictionary[StringName, int]
 
+var parent_combatant:Combatant
+
+signal send_auras_to_parent(additive_aura_dictionary:Dictionary[StringName, int], multiplicative_aura_dictionary:Dictionary[StringName, int])
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	AuraEvents.initalize_combat_stats.connect(update_stats)
-	AuraEvents.updated_aura.connect(update_aura)
-	AuraEvents.restart_game.connect(reset_to_starting_stats)
-	AuraEvents.give_aura_to_player.connect(apply_new_aura_to_player)
-	AuraEvents.remove_aura_from_player.connect(remove_aura_from_player)
-	AuraEvents.give_aura_to_enemy.connect(apply_new_aura_to_enemy)
-	AuraEvents.remove_aura_from_enemy.connect(remove_aura_from_enemy)
-	CombatEvents.combatant_turn_ended.connect(turn_end_duration_check)
-	AuraEvents.expired_aura.connect(remove_expired_aura)
-	CombatEvents.combat_finished.connect(remove_end_of_combat_auras)
-	CombatEvents.combat_finished.connect(on_combat_end)
-	CombatEvents.combat_started.connect(on_combat_start)
-	CombatEvents.combatant_died.connect(clear_auras_from_combatant)
-	CombatEvents.attack_launched.connect(on_attack)
+	parent_combatant = get_parent() as Combatant
+	update_stats()
 
-
-func reset_to_starting_stats() -> void:
-	player_aura_dictionary.clear()
-	enemy_aura_dictionary.clear()
-
-func clear_auras_from_combatant(combatant:Combatant) -> void:
-	if combatant.is_the_player: pass #player_aura_dictionary.clear()
-	if combatant.is_an_enemy: enemy_aura_dictionary.clear()
-
-func apply_new_aura_to_player(new_aura:Aura) -> void:
+func apply_new_aura(new_aura:Aura) -> void:
 	if new_aura.resource_path != "":
 		#if the aura sent in is a file on the disk (ie. is a template, not an already instanced aura)
 		#then instance a new aura
 		new_aura = new_aura.create_aura()
-	if new_aura.get_id() in player_aura_dictionary.keys(): push_warning("overwriting aura: " + new_aura.aura_name)
-	if new_aura.visible: CombatLogEvents.aura_applied.emit(new_aura)
-	player_aura_dictionary[new_aura.get_id()] = new_aura
+	
+	if new_aura.get_id() in aura_dictionary.keys():
+		push_warning("overwriting aura: " + new_aura.aura_name + ", on " + parent_combatant.combatant_name)
+	
+	aura_dictionary[new_aura.get_id()] = new_aura
 	update_stats()
 	
-func remove_aura_from_player(old_aura:Aura) -> void:
-	if old_aura.resource_path != "":
-		#if the aura sent in is a file on the disk (ie. is a template, not an already instanced aura)
-		push_error("trying to remove an aura that is a template")
-	player_aura_dictionary.erase(old_aura.get_id())
-	CombatLogEvents.aura_removed.emit(null, old_aura)
-	update_stats()
-
-func apply_new_aura_to_enemy(new_aura:Aura) -> void:
-	if new_aura.resource_path != "":
-		#if the aura sent in is a file on the disk (ie. is a template, not an already instanced aura)
-		#then instance a new aura
-		new_aura = new_aura.create_aura()
-	if new_aura.get_id() in enemy_aura_dictionary.keys(): push_warning("overwriting aura: " + new_aura.aura_name)
 	if new_aura.visible:
-		pass #need to handle enemy auras being different
-		#CombatLogEvents.aura_applied.emit(new_aura)
-	enemy_aura_dictionary[new_aura.get_id()] = new_aura
-	update_stats()
+		CombatLogEvents.aura_applied.emit(new_aura, parent_combatant)
 	
-func remove_aura_from_enemy(old_aura:Aura) -> void:
+	new_aura.expired.connect(remove_aura, CONNECT_ONE_SHOT)
+	new_aura.updated.connect(update_aura)
+
+func remove_aura(old_aura:Aura) -> void:
 	if old_aura.resource_path != "":
 		#if the aura sent in is a file on the disk (ie. is a template, not an already instanced aura)
 		push_error("trying to remove an aura that is a template")
-	enemy_aura_dictionary.erase(old_aura.get_id())
+	
+	if old_aura.get_id() not in aura_dictionary.keys():
+		push_warning("tried to remove aura: " + old_aura.aura_name + ", but it wasn't there in the first place. on " + parent_combatant.combatant_name)
+	
+	aura_dictionary.erase(old_aura.get_id())
 	update_stats()
+	CombatLogEvents.aura_removed.emit(old_aura, parent_combatant)
 
-func update_aura(_aura:Aura) -> void:
-	#i don't think i actually do anything? the aura should have already dynamically updated?
+func update_aura() -> void:
+	#i don't think i actually do anything? the aura should have already updated before signalling?
 	#maybe this should only update one aura? but i have to recalculate it all anyways incase they interact
 	update_stats()
 
 func update_stats() -> void:
 	merge_auras()
-	AuraEvents.send_auras_to_combatants.emit(player_final_additive_aura, player_final_multiplicative_aura, enemy_final_additive_aura, enemy_final_multiplicative_aura)
+	send_auras_to_parent.emit(final_additive_aura, final_multiplicative_aura)
 
 func merge_auras() -> void:
-	player_final_additive_aura.clear()
-	player_final_multiplicative_aura.clear()
-	enemy_final_additive_aura.clear()
-	enemy_final_multiplicative_aura.clear()
-
-	for aura_id:String in player_aura_dictionary:
-		for stat:StringName in player_aura_dictionary[aura_id].additive_stat_dictionary:
-			add_to_aura_dictionary(player_final_additive_aura, stat, player_aura_dictionary[aura_id].additive_stat_dictionary[stat])
+	final_additive_aura.clear()
+	final_multiplicative_aura.clear()
+	
+	for aura:Aura in aura_dictionary.values():
+		for stat:StringName in aura.additive_stat_dictionary:
+			add_to_aura_dictionary(final_additive_aura, stat, aura.additive_stat_dictionary[stat])
 		
-		for stat:StringName in player_aura_dictionary[aura_id].multiplicative_stat_dictionary:
-			add_to_aura_dictionary(player_final_multiplicative_aura, stat, player_aura_dictionary[aura_id].multiplicative_stat_dictionary[stat])
-		
-	for aura_id:String in enemy_aura_dictionary:
-		for stat:StringName in enemy_aura_dictionary[aura_id].additive_stat_dictionary:
-			add_to_aura_dictionary(enemy_final_additive_aura, stat, enemy_aura_dictionary[aura_id].additive_stat_dictionary[stat])
-		
-		for stat:StringName in enemy_aura_dictionary[aura_id].multiplicative_stat_dictionary:
-			add_to_aura_dictionary(enemy_final_multiplicative_aura, stat, enemy_aura_dictionary[aura_id].multiplicative_stat_dictionary[stat])
+		for stat:StringName in aura.multiplicative_stat_dictionary:
+			add_to_aura_dictionary(final_multiplicative_aura, stat, aura.multiplicative_stat_dictionary[stat])
 
 func add_to_aura_dictionary(dictionary_to_update:Dictionary[StringName,int], statName:StringName, value:int) -> void:
 	if dictionary_to_update.has(statName):
@@ -107,58 +71,25 @@ func add_to_aura_dictionary(dictionary_to_update:Dictionary[StringName,int], sta
 	else:
 		dictionary_to_update[statName] = value
 
-func turn_end_duration_check(whose_turn_just_ended:Combatant) -> void:
-	if whose_turn_just_ended.is_the_player:
-		for aura:Aura in player_aura_dictionary.values():
-			aura.decrement_duration_counter(whose_turn_just_ended)
-	
-	if whose_turn_just_ended.is_an_enemy:
-		for aura:Aura in enemy_aura_dictionary.values():
-			aura.decrement_duration_counter(whose_turn_just_ended)
-
-func remove_end_of_combat_auras(all_combatants:Array[Combatant]) -> void:
-	var player:Combatant
-	var enemy:Combatant
-	for combatant:Combatant in all_combatants:
-		if combatant.is_the_player: player = combatant
-		if not combatant.is_the_player: enemy = combatant
-
-	if player:
-		for aura:Aura in player_aura_dictionary.values():
-			aura.check_then_remove_combat_auras(player)
-		
-	if enemy:
-		for aura:Aura in enemy_aura_dictionary.values():
-			aura.check_then_remove_combat_auras(enemy)
-
-func remove_expired_aura(source:Combatant, expired_aura:Aura) -> void:
-	if source.is_the_player:
-		remove_aura_by_id(expired_aura.get_id(), player_aura_dictionary)
-		CombatLogEvents.aura_removed.emit(source, expired_aura)
-	else:
-		remove_aura_by_id(expired_aura.get_id(), enemy_aura_dictionary)
-
-func remove_aura_by_id(aura_id:String, aura_dictionary:Dictionary[String, Aura]) -> void:
-	if aura_id in aura_dictionary.keys():
-		aura_dictionary.erase(aura_id)
-		update_stats()
-
-func on_attack(source:Combatant, _damage:int, _target:Combatant) -> void:
-	if source.is_the_player:
-		for aura:Aura in player_aura_dictionary.values(): 
-			aura.on_attack(source)
-	else:
-		for aura:Aura in enemy_aura_dictionary.values(): 
-			aura.on_attack(source)
-
-func on_combat_start(_all_combatants:Array[Combatant]) -> void:
-	for aura:Aura in player_aura_dictionary.values(): 
-		aura.on_combat_start()
-	for aura:Aura in enemy_aura_dictionary.values(): 
+func on_start_combat() -> void:
+	for aura:Aura in aura_dictionary.values(): 
 		aura.on_combat_start()
 
-func on_combat_end(_all_combatants:Array[Combatant]) -> void:
-	for aura:Aura in player_aura_dictionary.values(): 
-		aura.on_combat_end()
-	for aura:Aura in enemy_aura_dictionary.values(): 
-		aura.on_combat_end()
+func on_start_turn() -> void:
+	for aura:Aura in aura_dictionary.values(): 
+		aura.on_combat_start()
+
+func on_after_attack() -> void:
+	for aura:Aura in aura_dictionary.values(): 
+		aura.on_attack(parent_combatant)
+
+func on_damage_taken(_damage_taken:int) -> void:
+	push_warning("aura manager never built a function for on_damage_taken")
+
+func on_end_turn() -> void:
+	for aura:Aura in aura_dictionary.values():
+		aura.decrement_duration_counter()
+
+func on_combat_end() -> void:
+	for aura:Aura in aura_dictionary.values():
+		aura.check_if_aura_expired_at_end_of_combat()

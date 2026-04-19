@@ -2,6 +2,24 @@
 working notes
 --------------------------------------------------------
 
+okay so should the combatants check their auras on turn end etc, or should they signal turn_ended(combatant), which every aura subscribes to, and if it's their parent, runs turn_end functions?
+	first makes the most immediate sense - in the turn_end functions, check items, auras, combatant abilities?
+	but it doesn't make logical sense - the aura should handle its duration, not the combatant?
+		i guess the combatant calling "for every aura in my_auras, aura.turn_ended()" is still the aura handling its duration...
+
+okay so composition based:
+	have a aura_manager component, that the combatants all make
+	keeps code encapsulated, but requires all combatants be instantiated with an aura_component
+		that's fine, can just do it on @ready
+
+having my aura amanger listen to a signal sounds like a cringe race condition, would rather call explicitly
+
+
+
+
+
+
+
 
 map:
 	scroll to the side
@@ -303,6 +321,8 @@ flappy cameo, balloon in the distance
 ----------------------------------------------------------------------------------------------------------------
 things i know are hacky and should be cleaned up (or super duper back burner changes):
 ----------------------------------------------------------------------------------------------------------------
+combat log should probably have the print functions (eg aura applied and removed) as a function, that takes a string + colors + variables, or something. DRY
+
 currently swapping back to scenarios after combat is handled in ui_manager.gd end_rewards_screen()... which means if you have a scenario combat with no reward it just never returns..?
 
 could break the whole map tile system into events - instead of map tiles with specific enemies and rewards and functions, those can be in events. map tile is just an animation and an event. can pick from many events. doesn't really change functionality right now, but it is more continuous

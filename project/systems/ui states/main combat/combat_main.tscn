@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://d4ng5rexbupxm"]
+[gd_scene load_steps=17 format=3 uid="uid://d4ng5rexbupxm"]
 
 [ext_resource type="Script" uid="uid://b6t3c758hkbxo" path="res://systems/ui states/main combat/timing_manager.gd" id="1_uqbt6"]
 [ext_resource type="Texture2D" uid="uid://c7a1jxvk522q2" path="res://sprites/border_background.png" id="2_257w6"]
@@ -13,11 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="20_wceja"]
 [ext_resource type="Script" uid="uid://blwvxt1yxrwwk" path="res://z individual pieces/combatants/basic_skeleton.gd" id="23_uqbt6"]
 [ext_resource type="Script" uid="uid://ceied867nmx1x" path="res://z individual pieces/combatants/skeleton_berserker.gd" id="24_ak8mu"]
-[ext_resource type="Script" uid="uid://drid3rj23mqkf" path="res://systems/aura system/aura_manager.gd" id="24_om5vj"]
 [ext_resource type="Script" uid="uid://dst7yxmyesv8f" path="res://z individual pieces/combatants/skeleton_boss.gd" id="25_0vlpx"]
 [ext_resource type="Script" uid="uid://c4226uk3kd0at" path="res://systems/combatant system/combat_manager.gd" id="25_388va"]
 [ext_resource type="Script" uid="uid://dsu5vvri1tu8g" path="res://z individual pieces/combatants/skeleton_lich.gd" id="26_u507o"]
-[ext_resource type="Script" uid="uid://cabr6ntdehdcd" path="res://z individual pieces/combatants/basic_fighter.gd" id="27_s8cxq"]
 
 [node name="TimingManager" type="PanelContainer"]
 anchors_preset = 2
@@ -161,10 +159,6 @@ mouse_filter = 2
 texture = ExtResource("20_wceja")
 expand_mode = 1
 
-[node name="AuraManager" type="Node2D" parent="."]
-script = ExtResource("24_om5vj")
-
 [node name="CombatManager" type="Node2D" parent="."]
 script = ExtResource("25_388va")
 random_enemy_selection = Array[GDScript]([ExtResource("23_uqbt6"), ExtResource("24_ak8mu"), ExtResource("25_0vlpx"), ExtResource("26_u507o")])
-player_base_script = ExtResource("27_s8cxq")
