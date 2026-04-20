@@ -17,12 +17,20 @@ func assign_combatant(combatant:Combatant) -> void:
 	my_combatant = combatant
 	sprite.texture = my_combatant.combatant_texture
 	my_combatant.stats_updated.connect(update_stats)
+	my_combatant.perished.connect(perish)
 	update_stats()
 	visible = true
 
 func update_stats() -> void:
 	health_label.text = str(my_combatant.get_damaged_health())
 	attack_label.text = str(my_combatant.current_stats[Stats.attack])
+
+func perish() -> void:
+	self.modulate = Color(0.3, 0.3, 0,3)
+	health_label.text = "X("
+
+func unperish() -> void:
+	self.modulate = Color(1, 1, 1)
 
 func hear_turn_ready(source:Combatant) -> void:
 	if source == my_combatant:
@@ -39,8 +47,10 @@ func force_hide_turn_indicator() -> void:
 func clear_combatant() -> void:
 	if my_combatant:
 		my_combatant.stats_updated.disconnect(update_stats)
+		my_combatant.perished.disconnect(perish)
 		my_combatant = null
 	sprite.texture = null
 	health_label.text = ""
 	attack_label.text = ""
 	visible = false
+	unperish()

@@ -9,6 +9,7 @@ var combatant_categories:Dictionary[StringName, int]
 var extra_tooltip:String
 
 signal stats_updated
+signal perished
 
 var base_health:int
 var base_attack:int
@@ -91,6 +92,7 @@ func check_if_dead_now() -> void:
 func perish() -> void:
 	dead = true
 	CombatEvents.combatant_died.emit(self)
+	perished.emit()
 
 func take_turn() -> void:
 	on_start_turn_functions()
