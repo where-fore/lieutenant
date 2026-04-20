@@ -198,17 +198,24 @@ func stop_combat() -> void:
 			combatant.unsetup()
 	combatants.clear()
 
-func pre_combat(enemy:Combatant) -> void:
+func pre_combat(enemy_template:Combatant) -> void:
 	if not current_player:
 		current_player = setup_combatant(create_player_combatant(), true)
 		add_child(current_player)
 	else:
 		current_player = setup_combatant(current_player, true)
 	combatants.append(current_player)
+	var players_to_send_to_ui:Array[Combatant] = [current_player]
+	HudEvents.send_player_combatants_to_ui.emit(players_to_send_to_ui)
 	
-	current_enemy = setup_combatant(enemy)
-	add_child(enemy)
+	current_enemy = setup_combatant(enemy_template)
+	add_child(current_enemy)
 	combatants.append(current_enemy)
+	var current_enemy2:Combatant = setup_combatant(enemy_template.duplicate())
+	add_child(current_enemy2)
+	combatants.append(current_enemy)
+	var enemies_to_send_to_ui:Array[Combatant] = [current_enemy, current_enemy2]
+	HudEvents.send_enemy_combatants_to_ui.emit(enemies_to_send_to_ui)
 	
 	current_player.current_target = current_enemy
 	current_enemy.current_target = current_player
@@ -228,7 +235,7 @@ func pre_combat(enemy:Combatant) -> void:
 	
 	can_start_combat = true
 
-func setup_combatant(new_combatant:Combatant, is_the_player:bool = false) -> Combatant:	
+func setup_combatant(new_combatant:Combatant, is_the_player:bool = false) -> Combatant:
 	if is_the_player: new_combatant.setup(true)
 	elif not is_the_player: new_combatant.setup(false)
 	

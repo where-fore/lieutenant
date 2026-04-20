@@ -81,8 +81,11 @@ position = Vector2(-304, -79)
 script = ExtResource("20_brhm6")
 
 [node name="CombatUI" parent="FullGame/GameMain/Control/MainUI" instance=ExtResource("7_8s366")]
-visible = false
 layout_mode = 1
+offset_left = 0.0
+offset_top = -200.0
+offset_right = 306.0
+offset_bottom = 0.0
 
 [node name="RewardUI" parent="FullGame/GameMain/Control/MainUI" instance=ExtResource("14_hfile")]
 visible = false

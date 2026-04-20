@@ -8,6 +8,8 @@ var combatant_texture:Texture2D
 var combatant_categories:Dictionary[StringName, int]
 var extra_tooltip:String
 
+signal stats_updated
+
 var base_health:int
 var base_attack:int
 
@@ -31,9 +33,7 @@ var dead:bool = false
 var damage_taken:int = 0:
 	set(value):
 		damage_taken = value
-		
-		if is_the_player: HudEvents.player_health_update.emit(get_damaged_health())
-		else: HudEvents.enemy_health_update.emit(get_damaged_health())
+		stats_updated.emit()
 
 func get_damaged_health() -> int:
 	return current_stats[Stats.health] - damage_taken
@@ -51,7 +51,6 @@ func setup(should_be_the_player:bool = false) -> void:
 	starting_stats[Stats.health] = scaled_health
 	starting_stats[Stats.attack] = scaled_attack
 	reset_current_stats_to_base()
-	send_sprite_to_ui()
 	
 	active = true
 	set_block_signals(!active)
@@ -94,9 +93,6 @@ func perish() -> void:
 	dead = true
 	CombatEvents.combatant_died.emit(self)
 
-func send_sprite_to_ui() -> void:
-	if is_an_enemy: HudEvents.send_enemy_sprite.emit(combatant_texture)
-
 func take_turn() -> void:
 	on_start_turn_functions()
 	
@@ -114,10 +110,7 @@ func recalculate_stats(additive_aura_dictionary:Dictionary[StringName, int], mul
 	sum_aura_and_base_stats(additive_aura_dictionary)
 	multiply_aura_and_current_stats(multiplicative_aura_dictionary)
 	
-	push_error("telling the hud to update the player, should send a combatant for the hud to check?")
-	HudEvents.player_health_update.emit(get_damaged_health())
-	HudEvents.player_attack_update.emit(current_stats[Stats.attack])
-
+	stats_updated.emit()
 	check_if_dead_now()
 
 func sum_aura_and_base_stats(auraDictionary:Dictionary[StringName,int]) -> void:

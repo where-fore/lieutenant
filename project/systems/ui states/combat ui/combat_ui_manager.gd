@@ -1,12 +1,7 @@
 extends Control
 
-@onready var player_health_label:Label = $Panel/Combatants/Player/Stats/Health/HBoxContainer/Label
-@onready var enemy_health_label:Label  = $Panel/Combatants/Enemy/Stats/Health/HBoxContainer/Label
-
-@onready var player_attack_label:Label  = $Panel/Combatants/Player/Stats/Attack/HBoxContainer/Label
-@onready var enemy_attack_label:Label  = $Panel/Combatants/Enemy/Stats/Attack/HBoxContainer/Label
-
 @onready var combat_button:TextureButton = $Panel/CombatButton
+@onready var edit_border:TextureRect = $EditBorder
 
 @onready var turn_button_container:Container = $TurnButtons
 @onready var pause_button_border:TextureRect = $TurnButtons/PauseButton/TextureRect
@@ -14,62 +9,52 @@ extends Control
 @onready var play_button_border:TextureRect = $TurnButtons/PlayButton/TextureRect
 @onready var play_fast_button_border:TextureRect = $TurnButtons/PlayFastButton/TextureRect
 
+@onready var player1_ui_combatant:UiCombatant = $Panel/PlayerCombatants/Player1
+@onready var player2_ui_combatant:UiCombatant = $Panel/PlayerCombatants/Player2
+@onready var player3_ui_combatant:UiCombatant = $Panel/PlayerCombatants/Player3
+@onready var player4_ui_combatant:UiCombatant = $Panel/PlayerCombatants/Player4
 
-@onready var player_sprite_display:TextureRect = $Panel/Combatants/Player/MarginContainer/Sprite
-@onready var enemy_sprite_display:TextureRect = $Panel/Combatants/Enemy/MarginContainer/Sprite
-@onready var player_turn_sprite:TextureRect = $Panel/Combatants/Player/MarginContainer/Sprite/TurnIndicator
-@onready var enemy_turn_sprite:TextureRect = $Panel/Combatants/Enemy/MarginContainer/Sprite/TurnIndicator
+@onready var enemy1_ui_combatant:UiCombatant = $Panel/EnemyCombatants/Enemy
+@onready var enemy2_ui_combatant:UiCombatant = $Panel/EnemyCombatants/Enemy2
+
+var player_ui_combatants:Array[UiCombatant]
+var enemy_ui_combatants:Array[UiCombatant]
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	HudEvents.player_health_update.connect(update_player_health)
-	HudEvents.player_attack_update.connect(update_player_attack)
-	HudEvents.enemy_health_update.connect(update_enemy_health)
-	HudEvents.enemy_attack_update.connect(update_enemy_attack)
-	CombatEvents.combatant_turn_ended.connect(update_turn_indicator)
+	HudEvents.send_player_combatants_to_ui.connect(assign_players_to_ui)
+	HudEvents.send_enemy_combatants_to_ui.connect(assign_enemies_to_ui)
 	HudEvents.combat_button_pressed.connect(set_first_turn_indicator)
-	HudEvents.send_enemy_sprite.connect(update_enemy_sprite)
 	MapEvents.enter_combat_in.connect(load_map_combat)
 	ScenarioEvents.begin_combat_with.connect(load_scenario_combat)
 	TimingEvents.everythings_ready.connect(on_scene_ready)
 	
 	turn_button_container.visible = false
-	player_turn_sprite.visible = false
-	enemy_turn_sprite.visible = false
+	edit_border.visible = false
+	
+	player_ui_combatants = [player1_ui_combatant, player2_ui_combatant, player3_ui_combatant, player4_ui_combatant]
+	enemy_ui_combatants = [enemy1_ui_combatant, enemy2_ui_combatant]
 
 func on_scene_ready() -> void:
 	pass
 
 func set_first_turn_indicator() -> void:
-	player_turn_sprite.visible = true
-	enemy_turn_sprite.visible = false
+	player1_ui_combatant.force_show_turn_indicator()
 
-func clear_turn_indicator() -> void:
-	player_turn_sprite.visible = false
-	enemy_turn_sprite.visible = false
+func assign_players_to_ui(players:Array[Combatant]) -> void:
+	var index_count:int = 0
+	for player:Combatant in players:
+		player_ui_combatants[index_count].assign_combatant(player)
+		player_ui_combatants[index_count].visible = true
+		index_count += 1
 
-func update_turn_indicator(source:Combatant) -> void:
-	if source.is_the_player:
-		player_turn_sprite.visible = false
-		enemy_turn_sprite.visible = true
-	elif not source.is_the_player:
-		player_turn_sprite.visible = true
-		enemy_turn_sprite.visible = false
-
-func update_enemy_sprite(new_sprite:Texture2D) -> void:
-	enemy_sprite_display.texture = new_sprite
-
-func update_player_health(value:int) -> void:
-	player_health_label.text = str(int(value))
-
-func update_enemy_health(value:int) -> void:
-	enemy_health_label.text = str(int(value))
-
-func update_player_attack(value:int) -> void:
-	player_attack_label.text = str(int(value))
-
-func update_enemy_attack(value:int) -> void:
-	enemy_attack_label.text = str(int(value))
+func assign_enemies_to_ui(enemies:Array[Combatant]) -> void:
+	var index_count:int = 0
+	for enemy:Combatant in enemies:
+		enemy_ui_combatants[index_count].assign_combatant(enemy)
+		enemy_ui_combatants[index_count].visible = true
+		index_count += 1
 
 func load_map_combat(map_tile:MapTile) -> void:
 	change_to(map_tile.tile_data.enemy)
@@ -80,7 +65,6 @@ func load_scenario_combat(enemy:Combatant) -> void:
 func change_to(enemy:Combatant) -> void:
 	CombatEvents.prepare_combat_with_enemy.emit(enemy)
 	
-	clear_turn_indicator()
 	combat_button.visible = true
 	turn_button_container.visible = true
 	fade_buttons_out()
@@ -91,7 +75,8 @@ func change_to(enemy:Combatant) -> void:
 	visible = true
 
 func change_from() -> void:
-	clear_turn_indicator()
+	for ui_combatant:UiCombatant in player_ui_combatants + enemy_ui_combatants:
+		ui_combatant.clear_combatant()
 	visible = false
 
 func set_last_chosen_speed_border() -> void:

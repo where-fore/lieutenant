@@ -84,7 +84,7 @@ func on_after_attack() -> void:
 		aura.on_attack(parent_combatant)
 
 func on_damage_taken(_damage_taken:int) -> void:
-	push_warning("aura manager never built a function for on_damage_taken")
+	pass #maybe do something here later
 
 func on_end_turn() -> void:
 	for aura:Aura in aura_dictionary.values():
