@@ -8,8 +8,7 @@ class_name UiCombatant
 var my_combatant:Combatant
 
 func _ready() -> void:
-	CombatEvents.combatant_turn_started.connect(hear_turn_ready)
-	CombatEvents.combatant_turn_ended.connect(hear_turn_ended)
+	HudEvents.combatant_turn_next.connect(hear_turn_ready)
 	
 	turn_indicator.visible = false
 	visible = false
@@ -27,9 +26,7 @@ func update_stats() -> void:
 func hear_turn_ready(source:Combatant) -> void:
 	if source == my_combatant:
 		turn_indicator.visible = true
-
-func hear_turn_ended(source:Combatant) -> void:
-	if source == my_combatant:
+	else:
 		turn_indicator.visible = false
 
 func force_show_turn_indicator() -> void:

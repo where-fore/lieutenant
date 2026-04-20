@@ -8,17 +8,19 @@
 [ext_resource type="Texture2D" uid="uid://jm7ccvlf38y4" path="res://sprites/sword.png" id="4_e712o"]
 
 [node name="Player" type="VBoxContainer"]
-custom_minimum_size = Vector2(64, 0)
+custom_minimum_size = Vector2(40, 0)
 anchors_preset = -1
 anchor_left = 0.4
 anchor_top = 0.5
 anchor_right = 0.4
 anchor_bottom = 0.5
 offset_left = -60.0
-offset_top = -56.0
-offset_bottom = 56.0
+offset_top = -58.0
+offset_right = -16.0
+offset_bottom = 46.0
 grow_horizontal = 0
 grow_vertical = 2
+theme_override_constants/separation = 2
 script = ExtResource("1_om6vs")
 
 [node name="Stats" type="VBoxContainer" parent="."]
@@ -30,13 +32,14 @@ theme_override_constants/separation = 0
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("2_3mp4b")
-theme_override_constants/margin_left = 4
+theme_override_constants/margin_left = 2
 theme_override_constants/margin_top = 2
-theme_override_constants/margin_right = 4
+theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Stats/Attack"]
 layout_mode = 2
+theme_override_constants/separation = 2
 
 [node name="Icon" type="TextureRect" parent="Stats/Attack/HBoxContainer"]
 custom_minimum_size = Vector2(16, 16)
@@ -48,20 +51,21 @@ expand_mode = 1
 
 [node name="Label" type="Label" parent="Stats/Attack/HBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "??"
+theme_override_font_sizes/font_size = 8
+text = "???"
 
 [node name="Health" type="MarginContainer" parent="Stats"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("2_3mp4b")
-theme_override_constants/margin_left = 4
+theme_override_constants/margin_left = 2
 theme_override_constants/margin_top = 2
-theme_override_constants/margin_right = 4
+theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Stats/Health"]
 layout_mode = 2
+theme_override_constants/separation = 2
 
 [node name="Icon" type="TextureRect" parent="Stats/Health/HBoxContainer"]
 custom_minimum_size = Vector2(16, 16)
@@ -73,8 +77,8 @@ expand_mode = 1
 
 [node name="Label" type="Label" parent="Stats/Health/HBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "??"
+theme_override_font_sizes/font_size = 8
+text = "???"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

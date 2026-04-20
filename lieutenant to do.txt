@@ -3,24 +3,18 @@ working notes
 --------------------------------------------------------
 
 
+current problems:
+turn swapping, previously turn manager was just saying "if player_turn, enemy.take_turn() turn=enemy_turn"
+	i want it to iterate through each array in sequence
 
 
 
 
-issue currently is:
-	the hud is completely separate from the combatants
-	how can the combatant send its data up, and the hud listen to it, and put it in the right place
-		does the hud need to reference a Combatant specifically, in their active_combatants array, and when they hear the signal up, they iterate through the array to find a match?
 
-okay so hud holds combatants
-	player1 = Combatant
-	player2 = Combatant
-		these are references to the literal combatants the combatManager instantiated.
-	when slotting those Combatant references into hud slots, it connects a signal stat_updated, and when the Combatant calls stat_updated, the hud hears it
 
-combat manager signals out a combatant array of players, and enemies
-hud manager pops_front (while size>0) and assigns to player array, and enemy array
-call update once?
+
+
+
 
 
 
@@ -231,6 +225,9 @@ func _unhandled_input(event: InputEvent) -> void:
 ---------------------------
 not right now, maybe:
 ---------------------------
+turn animation, i removed the end of turn slow down
+	not sure how to see into the future right now, but it would be nice to slow down near the end
+
 pixel tracks are louder than classical tracks
 	i think i'm supposed to put them on separate audio busses and have them be lower there? and swap between busses instead of replacing streams? but then how does the volume slider work?
 	could also edit the sound file before importing to godot i guess

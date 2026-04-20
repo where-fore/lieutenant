@@ -25,6 +25,7 @@ var scaled_attack:int:
 var is_the_player:bool = false
 var is_an_enemy:bool = true
 
+var possible_targets:Array[Combatant]
 var current_target:Combatant
 
 var active:bool = false
@@ -97,12 +98,16 @@ func take_turn() -> void:
 	on_start_turn_functions()
 	
 	CombatEvents.attack_launched.emit(self, current_stats[Stats.attack], current_target)
-	on_after_attack_functions()
+	on_after_attack_functions(current_target)
 	
 	on_end_turn_functions()
 
+func choose_target_this_turn() -> void:
+	current_target = possible_targets.pick_random()
+
 func reset_for_next_combat() -> void:
 	self.damage_taken = 0
+	possible_targets.clear()
 
 func recalculate_stats(additive_aura_dictionary:Dictionary[StringName, int], multiplicative_aura_dictionary:Dictionary[StringName, int]) -> void:
 	reset_current_stats_to_base()
@@ -148,14 +153,16 @@ func on_start_combat_functions() -> void:
 	aura_manager.on_start_combat()
 
 func on_start_turn_functions() -> void:
+	choose_target_this_turn()
+	
 	on_start_turn()
 	aura_manager.on_start_turn()
 	CombatEvents.combatant_turn_started.emit(self)
 
-func on_after_attack_functions() -> void:
+func on_after_attack_functions(chosen_target:Combatant) -> void:
 	on_after_attack()
 	aura_manager.on_after_attack()
-	CombatEvents.combatant_finished_attack.emit(self, current_target)
+	CombatEvents.combatant_finished_attack.emit(self, chosen_target)
 
 func on_damage_taken_functions(amount_taken:int) -> void:
 	on_damage_taken(amount_taken)
