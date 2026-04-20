@@ -22,7 +22,7 @@ var scaled_attack:int:
 		if not scaled_attack: return base_attack
 		else: return scaled_attack
 
-var is_the_player:bool = false
+var is_a_player:bool = false
 var is_an_enemy:bool = true
 
 var possible_targets:Array[Combatant]
@@ -34,7 +34,7 @@ var dead:bool = false
 var damage_taken:int = 0:
 	set(value):
 		damage_taken = value
-		stats_updated.emit()
+		emit_stat_update()
 
 func get_damaged_health() -> int:
 	return current_stats[Stats.health] - damage_taken
@@ -44,9 +44,9 @@ var current_stats:Dictionary[StringName, int] = {}
 
 var aura_manager:AuraManager
 
-func setup(should_be_the_player:bool = false) -> void:
-	if should_be_the_player:
-		is_the_player = true
+func setup(should_be_a_player:bool = false) -> void:
+	if should_be_a_player:
+		is_a_player = true
 		is_an_enemy = false
 	
 	starting_stats[Stats.health] = scaled_health
@@ -54,7 +54,6 @@ func setup(should_be_the_player:bool = false) -> void:
 	reset_current_stats_to_base()
 	
 	active = true
-	set_block_signals(!active)
 	
 	aura_manager = AuraManager.new()
 	add_child(aura_manager)
@@ -62,7 +61,6 @@ func setup(should_be_the_player:bool = false) -> void:
 
 func unsetup() -> void:
 	active = false
-	set_block_signals(!active)
 
 func take_damage(value:int) -> void:
 	if not dead:
@@ -97,16 +95,22 @@ func perish() -> void:
 func take_turn() -> void:
 	on_start_turn_functions()
 	
-	CombatEvents.attack_launched.emit(self, current_stats[Stats.attack], current_target)
-	on_after_attack_functions(current_target)
+	if not dead:
+		CombatEvents.attack_launched.emit(self, current_stats[Stats.attack], current_target)
+		on_after_attack_functions(current_target)
 	
 	on_end_turn_functions()
 
 func choose_target_this_turn() -> void:
-	current_target = possible_targets.pick_random()
+	var choices:Array[Combatant]
+	for possible_target:Combatant in possible_targets:
+		if not possible_target.dead:
+			choices.append(possible_target)
+	current_target = choices.pick_random()
 
 func reset_for_next_combat() -> void:
 	self.damage_taken = 0
+	dead = false
 	possible_targets.clear()
 
 func recalculate_stats(additive_aura_dictionary:Dictionary[StringName, int], multiplicative_aura_dictionary:Dictionary[StringName, int]) -> void:
@@ -115,7 +119,7 @@ func recalculate_stats(additive_aura_dictionary:Dictionary[StringName, int], mul
 	sum_aura_and_base_stats(additive_aura_dictionary)
 	multiply_aura_and_current_stats(multiplicative_aura_dictionary)
 	
-	stats_updated.emit()
+	emit_stat_update()
 	check_if_dead_now()
 
 func sum_aura_and_base_stats(auraDictionary:Dictionary[StringName,int]) -> void:
@@ -148,6 +152,9 @@ func get_tooltip() -> String:
 	if extra_tooltip: tooltip_text += "\n" + extra_tooltip
 	return tooltip_text
 
+func emit_stat_update() -> void:
+	stats_updated.emit()
+
 func on_start_combat_functions() -> void:
 	on_start_combat()
 	aura_manager.on_start_combat()
@@ -177,7 +184,7 @@ func on_end_turn_functions() -> void:
 func on_end_combat_functions() -> void:
 	on_combat_end()
 	aura_manager.on_combat_end()
-	if not dead: reset_for_next_combat()
+	reset_for_next_combat()
 
 
 #derived subclasses hook onto these functions

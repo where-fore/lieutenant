@@ -34,28 +34,28 @@ func on_scene_ready() -> void:
 	populate_starter_items()
 
 func on_turn_start(source:Combatant) -> void:
-	if source.is_the_player:
+	if source.is_a_player:
 		for slot:InventorySlot in inventory_slots: 
 			if slot.is_empty(): continue
 			if slot.item_in_slot:
 				slot.item_in_slot.on_turn_start(source)
 
 func on_attack(source:Combatant, target:Combatant) -> void:
-	if source.is_the_player:
+	if source.is_a_player:
 		for slot:InventorySlot in inventory_slots: 
 			if slot.is_empty(): continue
 			if slot.item_in_slot:
 				slot.item_in_slot.on_attack(source, target)
 
 func on_damage_taken(source:Combatant, amount_taken:int) -> void:
-	if source.is_the_player:
+	if source.is_a_player:
 		for slot:InventorySlot in inventory_slots: 
 			if slot.is_empty(): continue
 			if slot.item_in_slot:
 				slot.item_in_slot.on_damage_taken(source, amount_taken)
 
 func on_turn_end(source:Combatant) -> void:
-	if source.is_the_player:
+	if source.is_a_player:
 		for slot:InventorySlot in inventory_slots: 
 			if slot.is_empty(): continue
 			if slot.item_in_slot:

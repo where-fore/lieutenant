@@ -18,6 +18,7 @@ func assign_combatant(combatant:Combatant) -> void:
 	sprite.texture = my_combatant.combatant_texture
 	my_combatant.stats_updated.connect(update_stats)
 	update_stats()
+	visible = true
 
 func update_stats() -> void:
 	health_label.text = str(my_combatant.get_damaged_health())

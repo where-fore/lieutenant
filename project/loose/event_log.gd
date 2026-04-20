@@ -107,7 +107,7 @@ func report_death(newly_dead:Combatant) -> void:
 	
 	if newly_dead.is_an_enemy:
 		text_to_add = character_name + death_messages.pick_random()
-	elif newly_dead.is_the_player:
+	elif newly_dead.is_a_player:
 		text_to_add = character_name + retreat_messages.pick_random()
 	else:
 		push_error("dead combatant is neither an enemy or the player, according to the event log")

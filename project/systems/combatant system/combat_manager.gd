@@ -13,7 +13,8 @@ var current_combatant_turn:Combatant:
 		current_combatant_turn = value
 		if current_combatant_turn:
 			HudEvents.combatant_turn_next.emit(current_combatant_turn)
-var turn_number:int = 0
+
+var round_number:int = 0
 var turn_finished:bool = false
 var player_victorious:bool = false
 var player_lost:bool = false
@@ -56,7 +57,9 @@ func _ready() -> void:
 	CombatEvents.combat_ongoing = false
 	
 	create_player_combatant()
-	create_player_combatant()
+	var new_player:Combatant = setup_combatant(Database.get_combatant_by_id("basic_player_rogue"), true)
+	add_child(new_player)
+	player_combatants.append(new_player)
 
 func create_player_combatant() -> void:
 	var new_player:Combatant = setup_combatant(Database.get_combatant_by_id(player_template_id), true)
@@ -137,7 +140,7 @@ func next_turn(finished_combatant:Combatant = null) -> void:
 	elif enemy_turn:
 		var finished_index:int = enemy_combatants.find(current_combatant_turn)
 		if finished_index >= enemy_combatants.size() - 1:
-			turn_number += 1
+			round_number += 1
 			current_combatant_turn = player_combatants[0]
 		else:
 			current_combatant_turn = enemy_combatants[finished_index + 1]
@@ -153,7 +156,7 @@ func turn_animation() -> void:
 	if not play_speed:
 		set_speed(speed_normal)
 
-	var slow_opener:bool = turn_number <= 2
+	var slow_opener:bool = round_number <= 1
 	var failsafe:float = 0.2
 	
 	var animation_timer:Timer = Timer.new()
@@ -176,19 +179,20 @@ func turn_animation() -> void:
 	await animation_timer.timeout
 	animation_timer.queue_free()
 
-func handle_perishing_combatant(combatant_who_died:Combatant) -> void:
-	combatant_who_died.on_end_combat_functions()
-	
-	if combatant_who_died.is_the_player:
-		CombatEvents.combat_ongoing = false
+func handle_perishing_combatant(combatant_who_died:Combatant) -> void:	
+	if combatant_who_died.is_a_player:
+		var living_players:int = 0
+		for player:Combatant in player_combatants:
+			if not player.dead: living_players += 1
+		if living_players == 0:
+			CombatEvents.combat_ongoing = false
+			player_victorious = false
 	
 	elif combatant_who_died.is_an_enemy:
-		enemy_combatants.erase(combatant_who_died)
-		combatant_who_died.queue_free()
-		
-		var remaining_enemies:int = enemy_combatants.size()
-		
-		if remaining_enemies == 0:
+		var living_enemies:int = 0
+		for enemy:Combatant in enemy_combatants:
+			if not enemy.dead: living_enemies += 1
+		if living_enemies == 0:
 			CombatEvents.combat_ongoing = false
 			player_victorious = true
 
@@ -207,20 +211,15 @@ func stop_combat() -> void:
 	
 	player_victorious = false
 	
-	for combatant:Combatant in player_combatants + enemy_combatants:
-		if combatant.dead:
-			combatant.queue_free()
-		else:
-			combatant.unsetup()
-	
-	player_combatants.clear()
+	for combatant:Combatant in enemy_combatants:
+		combatant.queue_free()
 	enemy_combatants.clear()
 
 func pre_combat(enemy_template:Combatant) -> void:
 	HudEvents.send_player_combatants_to_ui.emit(player_combatants)
 	HudEvents.combatant_turn_next.emit(player_combatants[0])
 	
-	var enemy1:Combatant = setup_combatant(enemy_template)
+	var enemy1:Combatant = setup_combatant(enemy_template.duplicate())
 	add_child(enemy1)
 	enemy_combatants.append(enemy1)
 	var enemy2:Combatant = setup_combatant(enemy_template.duplicate())
@@ -229,9 +228,9 @@ func pre_combat(enemy_template:Combatant) -> void:
 	HudEvents.send_enemy_combatants_to_ui.emit(enemy_combatants)
 	
 	for ally:Combatant in player_combatants:
-		ally.possible_targets = enemy_combatants
+		ally.possible_targets = enemy_combatants.duplicate()
 	for enemy:Combatant in enemy_combatants:
-		enemy.possible_targets = player_combatants
+		enemy.possible_targets = player_combatants.duplicate()
 	
 	current_combatant_turn = null
 	CombatEvents.combat_ongoing = false
@@ -240,9 +239,9 @@ func pre_combat(enemy_template:Combatant) -> void:
 	
 	can_start_combat = true
 
-func setup_combatant(new_combatant:Combatant, is_the_player:bool = false) -> Combatant:
-	if is_the_player: new_combatant.setup(true)
-	elif not is_the_player: new_combatant.setup(false)
+func setup_combatant(new_combatant:Combatant, is_a_player:bool = false) -> Combatant:
+	if is_a_player: new_combatant.setup(true)
+	elif not is_a_player: new_combatant.setup(false)
 	
 	return new_combatant
 
@@ -265,4 +264,4 @@ func start_combat() -> void:
 
 
 func reset_turn_counter() -> void:
-	turn_number = 0
+	round_number = 0

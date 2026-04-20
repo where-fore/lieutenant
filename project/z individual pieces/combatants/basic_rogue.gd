@@ -1,13 +1,13 @@
 extends Combatant
 
 func _init() -> void:
-	combatant_id = "basic_player_fighter" # "generic_enemy"
-	combatant_name = "John the Fighter" # "Generic Combatant"
+	combatant_id = "basic_player_rogue" # "generic_enemy"
+	combatant_name = "Jon the Rogue" # "Generic Combatant"
 	combatant_texture = load("res://sprites/player.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	
-	base_health = BalanceData.player_base_health
-	base_attack = BalanceData.player_base_attack
+	base_health = BalanceData.player_base_health * 2/3
+	base_attack = BalanceData.player_base_attack * 2
 
 #you probably want to call this when instantiating it, to scale to something
 func scale_stats(power:int) -> void:

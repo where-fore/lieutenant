@@ -46,7 +46,6 @@ func assign_players_to_ui(players:Array[Combatant]) -> void:
 	var index_count:int = 0
 	for player:Combatant in players:
 		player_ui_combatants[index_count].assign_combatant(player)
-		player_ui_combatants[index_count].visible = true
 		index_count += 1
 
 func assign_enemies_to_ui(enemies:Array[Combatant]) -> void:
