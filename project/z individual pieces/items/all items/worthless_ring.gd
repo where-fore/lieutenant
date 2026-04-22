@@ -6,8 +6,8 @@ var my_health:int = 2
 
 func setup_basic_item_data() -> void:
 	item_id = "worthless_ring" # "generic_item"
-	item_name = "Pretty Ring" # "Generic Item"
-	item_sprite = load("res://sprites/ruby_ring.png")
+	reward_name = "Pretty Ring" # "Generic Item"
+	reward_sprite = load("res://sprites/ruby_ring.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	item_categories = {
 	}

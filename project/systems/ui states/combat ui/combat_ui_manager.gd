@@ -1,31 +1,23 @@
 extends Control
 
-@onready var combat_button:TextureButton = $VBoxContainer/CombatButton
+@onready var combat_button:TextureButton = $CombatControls/VBoxContainer/CombatButton
 @onready var edit_border:TextureRect = $EditBorder
 
-@onready var turn_button_container:Container = $VBoxContainer/TurnButtons
-@onready var pause_button_border:TextureRect = $VBoxContainer/TurnButtons/PauseButton/TextureRect
-@onready var step_button_border:TextureRect = $VBoxContainer/TurnButtons/StepButton/TextureRect
-@onready var play_button_border:TextureRect = $VBoxContainer/TurnButtons/PlayButton/TextureRect
-@onready var play_fast_button_border:TextureRect = $VBoxContainer/TurnButtons/PlayFastButton/TextureRect
-
-@onready var player1_ui_combatant:UiCombatant = $Panel/PlayerCombatants/Player1
-@onready var player2_ui_combatant:UiCombatant = $Panel/PlayerCombatants/Player2
-@onready var player3_ui_combatant:UiCombatant = $Panel/PlayerCombatants/Player3
-@onready var player4_ui_combatant:UiCombatant = $Panel/PlayerCombatants/Player4
+@onready var turn_button_container:Container = $CombatControls/VBoxContainer/TurnButtons
+@onready var pause_button_border:TextureRect = $CombatControls/VBoxContainer/TurnButtons/PauseButton/TextureRect
+@onready var step_button_border:TextureRect = $CombatControls/VBoxContainer/TurnButtons/StepButton/TextureRect
+@onready var play_button_border:TextureRect = $CombatControls/VBoxContainer/TurnButtons/PlayButton/TextureRect
+@onready var play_fast_button_border:TextureRect = $CombatControls/VBoxContainer/TurnButtons/PlayFastButton/TextureRect
 
 @onready var enemy1_ui_combatant:UiCombatant = $Panel/EnemyCombatants/Enemy
 @onready var enemy2_ui_combatant:UiCombatant = $Panel/EnemyCombatants/Enemy2
 
-var player_ui_combatants:Array[UiCombatant]
 var enemy_ui_combatants:Array[UiCombatant]
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	HudEvents.send_player_combatants_to_ui.connect(assign_players_to_ui)
 	HudEvents.send_enemy_combatants_to_ui.connect(assign_enemies_to_ui)
-	HudEvents.combat_button_pressed.connect(set_first_turn_indicator)
 	MapEvents.enter_combat_in.connect(load_map_combat)
 	ScenarioEvents.begin_combat_with.connect(load_scenario_combat)
 	TimingEvents.everythings_ready.connect(on_scene_ready)
@@ -33,20 +25,10 @@ func _ready() -> void:
 	turn_button_container.visible = false
 	edit_border.visible = false
 	
-	player_ui_combatants = [player1_ui_combatant, player2_ui_combatant, player3_ui_combatant, player4_ui_combatant]
 	enemy_ui_combatants = [enemy1_ui_combatant, enemy2_ui_combatant]
 
 func on_scene_ready() -> void:
 	pass
-
-func set_first_turn_indicator() -> void:
-	player1_ui_combatant.force_show_turn_indicator()
-
-func assign_players_to_ui(players:Array[Combatant]) -> void:
-	var index_count:int = 0
-	for player:Combatant in players:
-		player_ui_combatants[index_count].assign_combatant(player)
-		index_count += 1
 
 func assign_enemies_to_ui(enemies:Array[Combatant]) -> void:
 	var index_count:int = 0
@@ -71,11 +53,13 @@ func change_to(enemy:Combatant) -> void:
 	hide_all_button_borders()
 	set_last_chosen_speed_border()
 	
+	HudEvents.load_portrait_ui.emit()
 	visible = true
 
 func change_from() -> void:
-	for ui_combatant:UiCombatant in player_ui_combatants + enemy_ui_combatants:
+	for ui_combatant:UiCombatant in enemy_ui_combatants:
 		ui_combatant.clear_combatant()
+	HudEvents.unload_portrait_ui.emit()
 	visible = false
 
 func set_last_chosen_speed_border() -> void:

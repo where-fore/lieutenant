@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://d4ng5rexbupxm"]
+[gd_scene load_steps=18 format=3 uid="uid://d4ng5rexbupxm"]
 
 [ext_resource type="Script" uid="uid://b6t3c758hkbxo" path="res://systems/ui states/main combat/timing_manager.gd" id="1_uqbt6"]
 [ext_resource type="Texture2D" uid="uid://c7a1jxvk522q2" path="res://sprites/border_background.png" id="2_257w6"]
@@ -6,10 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://c23wtu7mtmkqh" path="res://systems/ui states/death ui/death_ui.tscn" id="4_gx7f6"]
 [ext_resource type="Texture2D" uid="uid://dukmtqmjs4v7y" path="res://sprites/ui_left_bar.png" id="4_lavsf"]
 [ext_resource type="PackedScene" uid="uid://8xcmye81t4or" path="res://systems/ui states/combat ui/combat_ui.tscn" id="7_8s366"]
+[ext_resource type="PackedScene" uid="uid://13a5ybo5k041" path="res://systems/ui states/combat ui/portrait_ui.tscn" id="9_d51yo"]
 [ext_resource type="Texture2D" uid="uid://dpjjrf7ekiuwc" path="res://sprites/box_outer.png" id="9_msc0u"]
 [ext_resource type="PackedScene" uid="uid://ctvt2g0gq4f60" path="res://systems/ui states/reward ui/reward_ui.tscn" id="14_hfile"]
-[ext_resource type="PackedScene" uid="uid://cto8ggdg8cw8x" path="res://systems/item system/inventory_slot.tscn" id="19_i3ysi"]
-[ext_resource type="Script" uid="uid://dfj0skb38br" path="res://systems/item system/inventory_manager.gd" id="20_brhm6"]
+[ext_resource type="PackedScene" uid="uid://cto8ggdg8cw8x" path="res://systems/reward system/item system/inventory_slot.tscn" id="19_i3ysi"]
+[ext_resource type="Script" uid="uid://dfj0skb38br" path="res://systems/reward system/item system/inventory_manager.gd" id="20_brhm6"]
 [ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="20_wceja"]
 [ext_resource type="Script" uid="uid://blwvxt1yxrwwk" path="res://z individual pieces/combatants/basic_skeleton.gd" id="23_uqbt6"]
 [ext_resource type="Script" uid="uid://ceied867nmx1x" path="res://z individual pieces/combatants/skeleton_berserker.gd" id="24_ak8mu"]
@@ -97,6 +98,13 @@ grow_vertical = 2
 visible = false
 layout_mode = 1
 reward_empty_texture = ExtResource("9_msc0u")
+
+[node name="PortraitUI" parent="FullGame/GameMain/Control/MainUI" instance=ExtResource("9_d51yo")]
+layout_mode = 1
+offset_left = 0.0
+offset_top = -230.0
+offset_right = 440.0
+offset_bottom = 0.0
 
 [node name="SideUI" type="Panel" parent="FullGame/GameMain/Control"]
 visible = false

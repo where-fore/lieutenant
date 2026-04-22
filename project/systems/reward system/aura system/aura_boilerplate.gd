@@ -5,8 +5,8 @@ var my_stat:int = 4
 
 func setup_basic_aura_data() -> void:
 	aura_id = "" # "generic_aura"
-	aura_name = "" # "Generic aura"
-	aura_sprite = null # load("res://icon.svg")
+	reward_name = "" # "Generic aura"
+	reward_sprite = null # load("res://icon.svg")
 	extra_tooltip = "" # "Generic flavourful description"
 	aura_categories = [] # [auraCategories.common_aura]
 

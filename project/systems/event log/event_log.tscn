@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b13o5cfslg2uj"]
 
-[ext_resource type="Script" uid="uid://d3defuvio82cj" path="res://loose/event_log.gd" id="1_2k0xk"]
+[ext_resource type="Script" uid="uid://d3defuvio82cj" path="res://systems/event log/event_log.gd" id="1_2k0xk"]
 
 [node name="EventLog" type="ScrollContainer"]
 anchors_preset = 15

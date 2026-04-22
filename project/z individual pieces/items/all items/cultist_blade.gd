@@ -3,12 +3,12 @@ extends Item
 var percent_of_damage_taken_gained_as_attack:int = 20
 var healing_per_attack_multiplier:int = 25
 var buff_aura:Aura
-var buff_aura_name:String = "Blood Glee"
+var buff_reward_name:String = "Blood Glee"
 
 func setup_basic_item_data() -> void:
 	item_id = "cultist_blade" # "generic_item"
-	item_name = "Cultist Blade" # "Generic Item"
-	item_sprite = load("res://sprites/curved_dagger.png")
+	reward_name = "Cultist Blade" # "Generic Item"
+	reward_sprite = load("res://sprites/curved_dagger.png")
 	extra_tooltip = "Increase attack by {val}% of damage taken every time you bleed".format({"val": percent_of_damage_taken_gained_as_attack}) # "Generic flavourful description"
 	extra_tooltip += "\nHeal for {val}% of attack when tasting blood".format({"val": healing_per_attack_multiplier}) # "Generic flavourful description"
 	item_categories = {
@@ -43,6 +43,6 @@ func clear_my_aura() -> void:
 	buff_aura = null
 
 func initialize_aura() -> void:
-	buff_aura = Aura.new().create_aura(buff_aura_name, true)
+	buff_aura = Aura.new().create_aura(buff_reward_name, true)
 	buff_aura.duration_type = AuraNames.DurationType.THIS_COMBAT
 	AuraEvents.give_aura_to_player.emit(buff_aura)

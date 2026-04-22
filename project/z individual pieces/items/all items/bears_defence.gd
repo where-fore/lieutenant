@@ -10,8 +10,8 @@ var base_health_multiplier:int = 150
 
 func setup_basic_item_data() -> void:
 	item_id = "bears_defence" # "generic_item"
-	item_name = "Defence of the Bear" # "Generic Item"
-	item_sprite = load("res://sprites/cross_necklace.png")
+	reward_name = "Defence of the Bear" # "Generic Item"
+	reward_sprite = load("res://sprites/cross_necklace.png")
 	extra_tooltip = "On your turn {turns}, violently swipe for your current health total".format({"turns": activate_on_turn,}) # "Generic flavourful description"
 	item_categories = {
 		Categories.item_rarity : Categories.Rarity.MYTHIC,

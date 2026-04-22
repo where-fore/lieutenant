@@ -7,8 +7,8 @@ var combat_log_message:String = "The tide ebbs."
 
 func setup_basic_aura_data() -> void:
 	aura_id = "crashing_waves_aura" # "generic_aura"
-	aura_name = "Surging Waves" # "Generic aura"
-	aura_sprite = load("res://sprites/hook_sword.png")
+	reward_name = "Surging Waves" # "Generic aura"
+	reward_sprite = load("res://sprites/hook_sword.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	aura_categories = [] # [auraCategories.common_aura]
 

@@ -2,19 +2,26 @@
 working notes
 --------------------------------------------------------
 
+
+
+
+
+
+
+
 aura and items do not work
 	getting an aura/item opens up the combat menu again, and you click on a combatant portrait?
 		or opens a lil dropdown with portaits and names
 
-combat log does not work
-	needs to write to its own frame
-	combat ui needs to grab a snippet from it
+combat log does needs a full frame expansion probably
 
 turn indicator looks a little ass, would be nice as a yellow animated thing probably
 
 
 
 
+when routing, hp goes to full
+maybe don't show dudes on death screen?
 
 
 

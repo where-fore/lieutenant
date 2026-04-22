@@ -1,9 +1,7 @@
-extends Resource
+extends Reward
 class_name Item
 
 var item_id:String
-var item_name:String
-var item_sprite:Texture2D
 var extra_tooltip:String
 var item_categories:Dictionary[StringName, int]
 
@@ -34,13 +32,13 @@ func get_aura() -> Aura:
 
 func initialize_my_aura() -> void:
 	setup_item_stats()
-	_runtime_aura = Aura.new().create_aura(item_name, false, additive_stat_dictionary, multiplicative_stat_dictionary)
+	_runtime_aura = Aura.new().create_aura(reward_name, false, additive_stat_dictionary, multiplicative_stat_dictionary)
 
 #this is copied from aura_base.gd
 func get_tooltip() -> String:
 	setup_item_stats()
 	
-	var tooltip_text:String = item_name
+	var tooltip_text:String = reward_name
 	for stat_change:StringName in additive_stat_dictionary:
 		var to_add:String = str(stat_change) + " increased by " + str(additive_stat_dictionary[stat_change])
 		tooltip_text += "\n" + to_add

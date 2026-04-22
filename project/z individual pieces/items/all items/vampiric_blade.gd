@@ -7,8 +7,8 @@ var healing_per_attack_multiplier:int = 15
 
 func setup_basic_item_data() -> void:
 	item_id = "vampiric_blade" # "generic_item"
-	item_name = "Vampiric Blade" # "Generic Item"
-	item_sprite = load("res://sprites/vamp_blade.png")
+	reward_name = "Vampiric Blade" # "Generic Item"
+	reward_sprite = load("res://sprites/vamp_blade.png")
 	extra_tooltip = "Heal for {val}% of attack when tasting blood".format({"val": healing_per_attack_multiplier}) # "Generic flavourful description"
 	item_categories = {
 		Categories.item_rarity : Categories.Rarity.RARE,

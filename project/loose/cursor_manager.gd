@@ -3,6 +3,8 @@ extends Node2D
 @onready var cursor_sprite:Sprite2D = $CanvasLayer/Sprite2D
 @export var normal_cursor:Texture2D
 @export var clicked_cursor:Texture2D
+@onready var selection_border:Sprite2D = $CanvasLayer/Sprite2D/SelectionBorder
+@onready var selection_sprite:Sprite2D = $CanvasLayer/Sprite2D/Selection
 
 var click_change_timer:Timer
 var click_change_duration:float = 0.25
@@ -12,6 +14,8 @@ func _ready() -> void:
 	validate_exports()
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	create_click_timer()
+	HudEvents.reward_aiming.connect(setup_selection_from_reward)
+	hide_selection()
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -41,6 +45,18 @@ func swap_to_normal_sprite() -> void:
 func check_for_errors() -> void:
 	if not normal_cursor: push_error("cursor normal texture not set")
 	if not clicked_cursor: push_error("cursor clicked texture not set")
+
+func setup_selection_from_reward(reward:Reward) -> void:
+	show_selection(reward.reward_sprite)
+
+func show_selection(new_selection_sprite:Texture2D) -> void:
+	selection_sprite.texture = new_selection_sprite
+	selection_border.visible = true
+	selection_sprite.visible = true
+
+func hide_selection() -> void:
+	selection_border.visible = false
+	selection_sprite.visible = false
 
 func validate_exports() -> void:
 	var properties:Array[Dictionary] = get_property_list()

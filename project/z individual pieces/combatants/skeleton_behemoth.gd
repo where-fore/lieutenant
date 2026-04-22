@@ -1,7 +1,7 @@
 extends Combatant
 
 var attack_per_turn:int = BalanceData.enemy_base_attack / 2
-var buff_aura_name:String = "Growing Impatience"
+var buff_reward_name:String = "Growing Impatience"
 var buff_aura:Aura
 
 func _init() -> void:
@@ -18,7 +18,7 @@ func _init() -> void:
 
 #called by Combatant
 func on_start_combat() -> void:
-	buff_aura = Aura.new().create_aura(buff_aura_name, true)
+	buff_aura = Aura.new().create_aura(buff_reward_name, true)
 	buff_aura.duration_type = AuraNames.DurationType.THIS_COMBAT
 	AuraEvents.give_aura_to_enemy.emit(buff_aura)
 

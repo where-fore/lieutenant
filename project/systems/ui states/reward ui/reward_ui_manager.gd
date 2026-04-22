@@ -2,18 +2,20 @@ extends Control
 
 @export var reward_empty_texture:Texture2D
 
-@onready var reward_button:TextureButton = $VBoxContainer/RewardButtons/RewardButton/VBoxContainer/TextureButton
-@onready var reward_button_container:MarginContainer = $VBoxContainer/RewardButtons/RewardButton
-@onready var reward_button_label:Label = $VBoxContainer/RewardButtons/RewardButton/VBoxContainer/Label
+@onready var edit_border:TextureRect = $EditBorder
 
-@onready var basic_reward_button:TextureButton = $VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/TextureButton
-@onready var basic_reward_button_container:MarginContainer = $VBoxContainer/RewardButtons/BasicRewardButton
-@onready var basic_reward_button_label:Label = $VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/Label
+@onready var reward_button:TextureButton = $Panel/VBoxContainer/RewardButtons/RewardButton/VBoxContainer/TextureButton
+@onready var reward_button_container:MarginContainer = $Panel/VBoxContainer/RewardButtons/RewardButton
+@onready var reward_button_label:Label = $Panel/VBoxContainer/RewardButtons/RewardButton/VBoxContainer/Label
 
-@onready var or_label:Label = $VBoxContainer/RewardButtons/OrLabel
+@onready var basic_reward_button:TextureButton = $Panel/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/TextureButton
+@onready var basic_reward_button_container:MarginContainer = $Panel/VBoxContainer/RewardButtons/BasicRewardButton
+@onready var basic_reward_button_label:Label = $Panel/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/Label
 
-@onready var title_text_label:Label = $VBoxContainer/Title/Title
-@onready var skip_button_container:MarginContainer = $SkipRewardButton
+@onready var or_label:Label = $Panel/VBoxContainer/RewardButtons/OrLabel
+
+@onready var title_text_label:Label = $Panel/VBoxContainer/Title
+@onready var skip_button_container:MarginContainer = $Panel/SkipRewardButton
 
 var basic_title_text_blurb:String = "Victory.\nClaim your boon."
 var current_title_text_blurb:String
@@ -31,6 +33,8 @@ func _ready() -> void:
 	ScenarioEvents.setup_reward.connect(prepare_from_scenario)
 	ScenarioEvents.present_rewards.connect(change_to)
 	
+	edit_border.visible = false
+	
 	setup_basic_rewards()
 	clear_reward()
 
@@ -42,6 +46,7 @@ func change_to() -> void:
 	
 	if current_reward:
 		visible = true
+		HudEvents.load_portrait_ui.emit()
 		if reward_button_container.visible == true and basic_reward_button_container.visible == true:
 			or_label.visible = true
 	else:
@@ -50,6 +55,7 @@ func change_to() -> void:
 
 func change_from() -> void:
 	clear_reward()
+	HudEvents.unload_portrait_ui.emit()
 	visible = false
 
 func prepare_from_map_tile(map_tile:MapTile) -> void:
@@ -66,7 +72,7 @@ func prepare_from_map_tile(map_tile:MapTile) -> void:
 		prepare_reward()
 
 func prepare_from_scenario(reward:Variant) -> void:
-	if (not reward is Item) and (not reward is Aura):
+	if (not reward is Reward):
 		push_error("tried to prepare reward from scenario, but was given class: " + reward.get_class())
 	current_reward = reward
 	prepare_reward()
@@ -74,11 +80,8 @@ func prepare_from_scenario(reward:Variant) -> void:
 func prepare_reward() -> void:
 	reward_button_container.visible = true
 	
-	if current_reward is Aura:
-		reward_button.texture_normal = current_reward.aura_sprite
-		reward_button.tooltip_text = current_reward.get_tooltip()
-	elif current_reward is Item:
-		reward_button.texture_normal = current_reward.item_sprite
+	if current_reward:
+		reward_button.texture_normal = current_reward.reward_sprite
 		reward_button.tooltip_text = current_reward.get_tooltip()
 	elif not current_reward:
 		current_reward_text_blurb = "Found nothing..."
@@ -92,7 +95,7 @@ func prepare_basic_reward() -> void:
 	
 	var basic_aura_array:Array[Aura] = setup_basic_rewards()
 	current_basic_reward = basic_aura_array.pick_random()
-	basic_reward_button.texture_normal = current_basic_reward.aura_sprite
+	basic_reward_button.texture_normal = current_basic_reward.reward_sprite
 	basic_reward_button.tooltip_text = current_basic_reward.get_tooltip()
 	basic_reward_button_label.text = "Rest"
 
@@ -132,7 +135,12 @@ func _on_reward_button_pressed() -> void:
 func _on_basic_reward_button_pressed() -> void:
 	accept_reward(current_basic_reward)
 
-func accept_reward(reward:Variant) -> void:
+func accept_reward(reward:Reward) -> void:
+	HudEvents.reward_aiming.emit(reward)
+	#change text to say "who are you applying to"
+	#listen to which combatant you click on
+	#call the apply_reward function on that combatant
+	#finish up with reward_selected()
 	if reward is Aura:
 		AuraEvents.give_aura_to_player.emit(reward)
 		reward_selected()
@@ -141,7 +149,7 @@ func accept_reward(reward:Variant) -> void:
 			InventoryEvents.send_item_to_inventory.emit(reward)
 			reward_selected()
 	else:
-		push_error("tried to accept a non-aura/item reward: " + reward)
+		push_error("tried to accept a non-aura/item reward: " + reward.resource_name)
 
 func _on_skip_button_pressed() -> void:
 	all_done()

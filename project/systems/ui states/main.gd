@@ -25,7 +25,7 @@ func _ready() -> void:
 	pause_menu_button_container.visible = true
 	text_blurb_container.visible = true
 	pause_menu_container.visible = false
-	scrolling_log_container.visible = true
+	scrolling_log_container.visible = false
 	right_side_ui_container.visible = true
 	
 	volume_slider.value = BackgroundMusicPlayer.get_current_volume() * 100

@@ -44,7 +44,7 @@ func is_empty() -> bool:
 
 
 func update_sprite() -> void:
-	if item_in_slot: slot_sprite.texture = item_in_slot.item_sprite
+	if item_in_slot: slot_sprite.texture = item_in_slot.reward_sprite
 	else: slot_sprite.texture = null
 
 

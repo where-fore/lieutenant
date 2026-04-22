@@ -37,17 +37,17 @@ func update_map_tile_info(tile:MapTile) -> void:
 		enemy_blurb.text = enemy_blurb_base.format({"enemy_name": enemy_name_fancy})
 	
 	if tile_info.item_reward:
-		reward_sprite.texture = tile_info.item_reward.item_sprite
+		reward_sprite.texture = tile_info.item_reward.reward_sprite
 		reward_sprite.tooltip_text = tile_info.item_reward.get_tooltip()
 		var reward_name_color:String = Color.SKY_BLUE.to_html()
-		var reward_name_fancy:String = "[color=#%s]%s[/color]" % [reward_name_color, tile_info.item_reward.item_name]
+		var reward_name_fancy:String = "[color=#%s]%s[/color]" % [reward_name_color, tile_info.item_reward.reward_name]
 		reward_blurb.text = item_reward_text_blurb.format({"reward_name": reward_name_fancy})
 	
 	if tile_info.aura_reward:
-		reward_sprite.texture = tile_info.aura_reward.aura_sprite
+		reward_sprite.texture = tile_info.aura_reward.reward_sprite
 		reward_sprite.tooltip_text = tile_info.aura_reward.get_tooltip()
 		#var reward_name_color:String = Color.SKY_BLUE.to_html()
-		#var reward_name_fancy:String = "[color=#%s]%s[/color]" % [reward_name_color, tile_info.item_reward.item_name]
+		#var reward_name_fancy:String = "[color=#%s]%s[/color]" % [reward_name_color, tile_info.item_reward.reward_name]
 		reward_blurb.text = aura_reward_text_blurb
 	
 	if tile.currently_disabled:

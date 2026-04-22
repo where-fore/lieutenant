@@ -70,8 +70,8 @@ func interpret_healing(source_object:Combatant, amount:int) -> void:
 
 func report_aura_removed(aura:Aura, combatant:Combatant) -> void:
 	if aura.visible:
-		var aura_name:String = aura.aura_name #this is redundant, to null check
-		if not aura.aura_name:
+		var reward_name:String = aura.reward_name #this is redundant, to null check
+		if not aura.reward_name:
 			push_error("fading aura has no name supplied")
 			push_error(aura.additive_stat_dictionary) #hopefully helps narrow down what the aura was
 		
@@ -81,7 +81,7 @@ func report_aura_removed(aura:Aura, combatant:Combatant) -> void:
 			
 			var text_to_add:String = "{aura} bolsters the spirit of {combatant}."
 			
-			var aura_fancy:String = "[color=#%s]%s[/color]" % [aura_color, aura.aura_name]
+			var aura_fancy:String = "[color=#%s]%s[/color]" % [aura_color, aura.reward_name]
 			var combatant_fancy:String = "[color=#%s]%s[/color]" % [combatant_color, combatant.combatant_name]
 			text_to_add = text_to_add.format({"aura": aura_fancy, "combatant": combatant_fancy})
 			
@@ -93,7 +93,7 @@ func report_aura_applied(aura:Aura, combatant:Combatant) -> void:
 	
 	var text_to_add:String = "{aura} bolsters the spirit of {combatant}."
 	
-	var aura_fancy:String = "[color=#%s]%s[/color]" % [aura_color, aura.aura_name]
+	var aura_fancy:String = "[color=#%s]%s[/color]" % [aura_color, aura.reward_name]
 	var combatant_fancy:String = "[color=#%s]%s[/color]" % [combatant_color, combatant.combatant_name]
 	text_to_add = text_to_add.format({"aura": aura_fancy, "combatant": combatant_fancy})
 	

@@ -6,8 +6,8 @@ var my_damage:int = 1
 
 func setup_basic_item_data() -> void:
 	item_id = "rock" # "generic_item"
-	item_name = "Rock" # "Generic Item"
-	item_sprite = load("res://sprites/rock.png")
+	reward_name = "Rock" # "Generic Item"
+	reward_sprite = load("res://sprites/rock.png")
 	extra_tooltip = "At least you feel prepared" # "Generic flavourful description"
 	item_categories = {
 	}

@@ -4,7 +4,7 @@ var turns_dormant:int = 3
 var current_turns_elapsed:int
 var dormant:bool
 var post_buff_attack:int
-var buff_aura_name:String = "Bloodthirsty"
+var buff_reward_name:String = "Bloodthirsty"
 var buff_message:String = "The cultist's pupils dilate as they enter a fury."
 
 func _init() -> void:
@@ -34,7 +34,7 @@ func on_end_turn() -> void:
 	current_turns_elapsed += 1
 
 func buff_attack() -> void:
-	var buff_aura:Aura = Aura.new().create_aura(buff_aura_name, true)
+	var buff_aura:Aura = Aura.new().create_aura(buff_reward_name, true)
 	buff_aura.duration_type = AuraNames.DurationType.THIS_COMBAT
 	buff_aura.additive_stat_dictionary[Stats.attack] = post_buff_attack
 	AuraEvents.give_aura_to_enemy.emit(buff_aura)

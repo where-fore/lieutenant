@@ -7,8 +7,8 @@ var health_multi:int = 50
 
 func setup_basic_item_data() -> void:
 	item_id = "iron_shield" # "generic_item"
-	item_name = "Iron Shield" # "Generic Item"
-	item_sprite = load("res://sprites/small_shield.png")
+	reward_name = "Iron Shield" # "Generic Item"
+	reward_sprite = load("res://sprites/small_shield.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	item_categories = {
 		Categories.item_rarity : Categories.Rarity.COMMON,

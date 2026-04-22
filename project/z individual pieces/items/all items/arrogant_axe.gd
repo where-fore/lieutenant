@@ -5,14 +5,14 @@ var my_health:int = BalanceData.shield_health
 
 var attack_threshold:int = BalanceData.sword_damage * 10
 var buff_aura:Aura
-var buff_aura_name:String = "Monumental arrogance"
+var buff_reward_name:String = "Monumental arrogance"
 
 var super_attack_growth:int = 50
 
 func setup_basic_item_data() -> void:
 	item_id = "arrogant_axe" # "generic_item"
-	item_name = "Arrogant Axe" # "Generic Item"
-	item_sprite = load("res://sprites/double_sided_axe.png")
+	reward_name = "Arrogant Axe" # "Generic Item"
+	reward_sprite = load("res://sprites/double_sided_axe.png")
 	extra_tooltip = "Only grants true power if you have {val} or more attack".format({"val": attack_threshold}) # "Generic flavourful description"
 	extra_tooltip += "\nTrue power: attack grows by {val}% of itself every swing".format({"val":super_attack_growth})
 	item_categories = {
@@ -42,7 +42,7 @@ func on_combat_end() -> void:
 #--end of functions called by parents--
 
 func apply_my_aura() -> void:
-	buff_aura = Aura.new().create_aura(buff_aura_name, true)
+	buff_aura = Aura.new().create_aura(buff_reward_name, true)
 	buff_aura.duration_type = AuraNames.DurationType.THIS_COMBAT
 	
 	buff_aura.additive_stat_dictionary[Stats.attack] = 0

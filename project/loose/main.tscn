@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=29 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://systems/ui states/main.gd" id="1_bbldx"]
 [ext_resource type="PackedScene" uid="uid://dsbt6u8ma1cpc" path="res://systems/map system/map_tile_system.tscn" id="2_16p2t"]
@@ -22,7 +22,9 @@
 [ext_resource type="Texture2D" uid="uid://dicmyh0qbtnav" path="res://sprites/cursor/cursor_particle.png" id="14_npwt7"]
 [ext_resource type="Texture2D" uid="uid://bmxnkkwdbmxdt" path="res://sprites/animations/backdrop/map_grid_base_1.png" id="14_wcgmp"]
 [ext_resource type="Material" uid="uid://densi0a6br74i" path="res://sprites/cursor/cursor_trail.tres" id="15_obmf6"]
-[ext_resource type="PackedScene" uid="uid://b13o5cfslg2uj" path="res://loose/event_log.tscn" id="18_h0uu6"]
+[ext_resource type="PackedScene" uid="uid://b13o5cfslg2uj" path="res://systems/event log/event_log.tscn" id="18_h0uu6"]
+[ext_resource type="Texture2D" uid="uid://cwjj6wggwg4n3" path="res://sprites/18px_border.png" id="18_nf78q"]
+[ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="18_xalbe"]
 [ext_resource type="PackedScene" uid="uid://l4er4w6epgd5" path="res://systems/ui states/text blurb/text_blurb_screen.tscn" id="19_bbldx"]
 [ext_resource type="PackedScene" uid="uid://cplxpgrp4s0m8" path="res://systems/map system/map info panel/map_info_panel.tscn" id="19_w1snj"]
 [ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="20_1fc2u"]
@@ -389,6 +391,21 @@ lifetime = 0.25
 speed_scale = 0.25
 randomness = 1.0
 process_material = ExtResource("15_obmf6")
+
+[node name="SelectionBorder" type="Sprite2D" parent="CursorManager/CanvasLayer/Sprite2D"]
+visible = false
+position = Vector2(-2, -2)
+scale = Vector2(2, 2)
+texture = ExtResource("18_nf78q")
+centered = false
+offset = Vector2(-8, -18)
+
+[node name="Selection" type="Sprite2D" parent="CursorManager/CanvasLayer/Sprite2D"]
+visible = false
+scale = Vector2(2, 2)
+texture = ExtResource("18_xalbe")
+centered = false
+offset = Vector2(-8, -18)
 
 [node name="MainGame" type="CanvasLayer" parent="."]
 

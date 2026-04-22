@@ -22,7 +22,7 @@ func apply_new_aura(new_aura:Aura) -> void:
 		new_aura = new_aura.create_aura()
 	
 	if new_aura.get_id() in aura_dictionary.keys():
-		push_warning("overwriting aura: " + new_aura.aura_name + ", on " + parent_combatant.combatant_name)
+		push_warning("overwriting aura: " + new_aura.reward_name + ", on " + parent_combatant.combatant_name)
 	
 	aura_dictionary[new_aura.get_id()] = new_aura
 	update_stats()
@@ -39,7 +39,7 @@ func remove_aura(old_aura:Aura) -> void:
 		push_error("trying to remove an aura that is a template")
 	
 	if old_aura.get_id() not in aura_dictionary.keys():
-		push_warning("tried to remove aura: " + old_aura.aura_name + ", but it wasn't there in the first place. on " + parent_combatant.combatant_name)
+		push_warning("tried to remove aura: " + old_aura.reward_name + ", but it wasn't there in the first place. on " + parent_combatant.combatant_name)
 	
 	aura_dictionary.erase(old_aura.get_id())
 	update_stats()

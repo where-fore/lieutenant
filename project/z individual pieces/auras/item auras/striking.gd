@@ -5,8 +5,8 @@ var multiplier:int = 200
 
 func setup_basic_aura_data() -> void:
 	aura_id = "striking" # "generic_aura"
-	aura_name = "Striking" # "Generic aura"
-	aura_sprite = load("res://sprites/sword.png")
+	reward_name = "Striking" # "Generic aura"
+	reward_sprite = load("res://sprites/sword.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	aura_categories = [] # [auraCategories.common_aura]
 

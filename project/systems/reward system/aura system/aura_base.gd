@@ -1,9 +1,7 @@
-extends Resource
+extends Reward
 class_name Aura
 
 var aura_id:String
-var aura_name:String
-var aura_sprite:Texture2D
 var extra_tooltip:String
 var aura_categories:Array[StringName]
 var visible:bool = false
@@ -28,7 +26,7 @@ func _init() -> void:
 func create_aura(name:String = "", should_be_visible:bool = false, additive_init:Dictionary[StringName, int] = {}, multiplicative_init:Dictionary[StringName, int] = {}) -> Aura:
 	var this_aura:Aura = self.duplicate()
 	
-	if name: this_aura.aura_name = name
+	if name: this_aura.reward_name = name
 	if should_be_visible: this_aura.visible = should_be_visible
 	
 	if additive_init: this_aura.additive_stat_dictionary = additive_init.duplicate()
@@ -54,7 +52,7 @@ func get_tooltip() -> String:
 	
 	var to_add:String
 	
-	var tooltip_text:String = aura_name
+	var tooltip_text:String = reward_name
 	
 	if duration_type == AuraNames.DurationType.TURNS:
 		to_add = "\n" + "Aura: " + str(current_duration) + AuraNames.DurationType_Labels.keys()[duration_type]

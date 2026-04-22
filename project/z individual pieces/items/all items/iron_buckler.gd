@@ -6,8 +6,8 @@ var my_health:int = BalanceData.shield_health * 2
 
 func setup_basic_item_data() -> void:
 	item_id = "iron_buckler" # "generic_item"
-	item_name = "Iron Buckler" # "Generic Item"
-	item_sprite = load("res://sprites/small_buckler.png")
+	reward_name = "Iron Buckler" # "Generic Item"
+	reward_sprite = load("res://sprites/small_buckler.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	item_categories = {
 		Categories.item_rarity : Categories.Rarity.COMMON,

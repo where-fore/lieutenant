@@ -39,7 +39,7 @@ func change_from() -> void:
 
 func generate_basic_reward() -> void:
 	var reward:Aura = basic_reward.pick_random().new().create_aura()
-	basic_reward_button.texture_normal = reward.aura_sprite
+	basic_reward_button.texture_normal = reward.reward_sprite
 	basic_reward_button.tooltip_text = reward.get_tooltip()
 	current_basic_aura = reward
 
@@ -64,7 +64,7 @@ func search_for_rare_reward() -> void:
 	
 	if current_search_reward:
 		search_reward_button_label.text = search_reward_text_blurb
-		search_reward_button.texture_normal = current_search_reward.item_sprite
+		search_reward_button.texture_normal = current_search_reward.reward_sprite
 		search_reward_button.tooltip_text = current_search_reward.get_tooltip()
 	else:
 		search_reward_button.texture_normal = search_reward_empty_texture

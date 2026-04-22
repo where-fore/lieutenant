@@ -5,8 +5,8 @@ var health_multi:int = 200
 
 func setup_basic_item_data() -> void:
 	item_id = "paladins_armor" # "generic_item"
-	item_name = "Fallen Paladin's Armor" # "Generic Item"
-	item_sprite = load("res://sprites/armor.png")
+	reward_name = "Fallen Paladin's Armor" # "Generic Item"
+	reward_sprite = load("res://sprites/armor.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	item_categories = {
 		Categories.item_rarity : Categories.Rarity.RARE,
