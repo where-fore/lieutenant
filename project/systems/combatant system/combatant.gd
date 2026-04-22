@@ -1,7 +1,6 @@
 extends Node2D
 class_name Combatant
 
-
 var combatant_id:String
 var combatant_name:String
 var combatant_texture:Texture2D
@@ -44,6 +43,8 @@ var starting_stats:Dictionary[StringName, int] = {}
 var current_stats:Dictionary[StringName, int] = {}
 
 var aura_manager:AuraManager
+
+
 
 func setup(should_be_a_player:bool = false) -> void:
 	if should_be_a_player:

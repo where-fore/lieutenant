@@ -1,29 +1,32 @@
-[gd_scene load_steps=7 format=3 uid="uid://drmvwdj1lrerg"]
+[gd_scene load_steps=12 format=3 uid="uid://drmvwdj1lrerg"]
 
-[ext_resource type="Texture2D" uid="uid://cbp6sg330uwef" path="res://sprites/player.png" id="1_ede0l"]
 [ext_resource type="Script" uid="uid://goyvs82tifpv" path="res://systems/ui states/combat ui/ui_combatant.gd" id="1_om6vs"]
 [ext_resource type="Theme" uid="uid://8g0oubdd3ix7" path="res://ui resources/marginTheme.tres" id="2_3mp4b"]
 [ext_resource type="Texture2D" uid="uid://dpjjrf7ekiuwc" path="res://sprites/box_outer.png" id="2_qnw2f"]
 [ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="3_qnw2f"]
 [ext_resource type="Texture2D" uid="uid://jm7ccvlf38y4" path="res://sprites/sword.png" id="4_e712o"]
+[ext_resource type="Texture2D" uid="uid://ubmjcik0bgn7" path="res://sprites/knight.png" id="5_om6vs"]
+[ext_resource type="Texture2D" uid="uid://ct2y2dcv3jogy" path="res://sprites/health_bar_background.png" id="6_3ns00"]
+[ext_resource type="Texture2D" uid="uid://ddj75cjrj64yg" path="res://sprites/health_bar_progress.png" id="7_mpdwj"]
+[ext_resource type="Texture2D" uid="uid://cwjj6wggwg4n3" path="res://sprites/18px_border.png" id="9_fvwj5"]
+[ext_resource type="Texture2D" uid="uid://drubnkihyub3w" path="res://sprites/items/basic_axe.png" id="9_gyisd"]
+[ext_resource type="Texture2D" uid="uid://bw8ct2x2ju746" path="res://sprites/items/basic_potion.png" id="10_fvwj5"]
 
 [node name="Player" type="VBoxContainer"]
 custom_minimum_size = Vector2(40, 0)
-anchors_preset = -1
-anchor_left = 0.4
-anchor_top = 0.5
-anchor_right = 0.4
-anchor_bottom = 0.5
-offset_left = -60.0
-offset_top = -58.0
-offset_right = -16.0
-offset_bottom = 46.0
-grow_horizontal = 0
-grow_vertical = 2
-theme_override_constants/separation = 2
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -81.0
+offset_right = 70.0
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 0
 script = ExtResource("1_om6vs")
 
 [node name="Stats" type="VBoxContainer" parent="."]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 0
@@ -80,24 +83,106 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "???"
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="Portrait" type="HBoxContainer" parent="."]
 layout_mode = 2
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_bottom = 4
+theme_override_constants/separation = 0
 
-[node name="Sprite" type="TextureRect" parent="MarginContainer"]
+[node name="Portrait" type="TextureRect" parent="Portrait"]
+custom_minimum_size = Vector2(58, 81)
 layout_mode = 2
-texture = ExtResource("1_ede0l")
-expand_mode = 4
+size_flags_horizontal = 2
+texture = ExtResource("5_om6vs")
+expand_mode = 5
+stretch_mode = 4
 
-[node name="TurnIndicator" type="TextureRect" parent="MarginContainer/Sprite"]
+[node name="TurnIndicator" type="TextureRect" parent="Portrait/Portrait"]
+visible = false
 layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.1
-anchor_top = -0.1
-anchor_right = 1.1
-anchor_bottom = 1.1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("2_qnw2f")
-stretch_mode = 5
+
+[node name="HealthBarBorder" type="NinePatchRect" parent="Portrait"]
+custom_minimum_size = Vector2(12, 0)
+layout_mode = 2
+texture = ExtResource("6_3ns00")
+
+[node name="HealthBar" type="TextureProgressBar" parent="Portrait/HealthBarBorder"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 75.0
+fill_mode = 3
+nine_patch_stretch = true
+texture_progress = ExtResource("7_mpdwj")
+
+[node name="Actives" type="VBoxContainer" parent="Portrait"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Ability" type="Control" parent="Portrait/Actives"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Portrait/Actives/Ability"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_fvwj5")
+expand_mode = 4
+
+[node name="TextureButton" type="TextureButton" parent="Portrait/Actives/Ability"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("9_gyisd")
+
+[node name="Item" type="Control" parent="Portrait/Actives"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Portrait/Actives/Item"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_fvwj5")
+expand_mode = 4
+
+[node name="TextureButton" type="TextureButton" parent="Portrait/Actives/Item"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("10_fvwj5")

@@ -1,13 +1,13 @@
 extends Control
 
-@onready var combat_button:TextureButton = $Panel/CombatButton
+@onready var combat_button:TextureButton = $VBoxContainer/CombatButton
 @onready var edit_border:TextureRect = $EditBorder
 
-@onready var turn_button_container:Container = $TurnButtons
-@onready var pause_button_border:TextureRect = $TurnButtons/PauseButton/TextureRect
-@onready var step_button_border:TextureRect = $TurnButtons/StepButton/TextureRect
-@onready var play_button_border:TextureRect = $TurnButtons/PlayButton/TextureRect
-@onready var play_fast_button_border:TextureRect = $TurnButtons/PlayFastButton/TextureRect
+@onready var turn_button_container:Container = $VBoxContainer/TurnButtons
+@onready var pause_button_border:TextureRect = $VBoxContainer/TurnButtons/PauseButton/TextureRect
+@onready var step_button_border:TextureRect = $VBoxContainer/TurnButtons/StepButton/TextureRect
+@onready var play_button_border:TextureRect = $VBoxContainer/TurnButtons/PlayButton/TextureRect
+@onready var play_fast_button_border:TextureRect = $VBoxContainer/TurnButtons/PlayFastButton/TextureRect
 
 @onready var player1_ui_combatant:UiCombatant = $Panel/PlayerCombatants/Player1
 @onready var player2_ui_combatant:UiCombatant = $Panel/PlayerCombatants/Player2

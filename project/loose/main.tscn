@@ -35,6 +35,7 @@ text_blurb_scene = ExtResource("19_bbldx")
 
 [node name="CRTFilter" type="CanvasLayer" parent="."]
 layer = 1000
+visible = false
 
 [node name="CRTMajor" type="ColorRect" parent="CRTFilter"]
 visible = false

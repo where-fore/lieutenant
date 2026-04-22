@@ -57,9 +57,13 @@ func _ready() -> void:
 	CombatEvents.combat_ongoing = false
 	
 	create_player_combatant()
-	var new_player:Combatant = setup_combatant(Database.get_combatant_by_id("basic_player_rogue"), true)
-	add_child(new_player)
-	player_combatants.append(new_player)
+	var add_test_characters:int = 3
+	while add_test_characters > 0:
+		var new_player:Combatant = setup_combatant(Database.get_combatant_by_id("basic_player_rogue"), true)
+		add_child(new_player)
+		player_combatants.append(new_player)
+		
+		add_test_characters -= 1
 
 func create_player_combatant() -> void:
 	var new_player:Combatant = setup_combatant(Database.get_combatant_by_id(player_template_id), true)

@@ -2,17 +2,15 @@
 working notes
 --------------------------------------------------------
 
+aura and items do not work
+	getting an aura/item opens up the combat menu again, and you click on a combatant portrait?
+		or opens a lil dropdown with portaits and names
 
-current problems:
-turn swapping, previously turn manager was just saying "if player_turn, enemy.take_turn() turn=enemy_turn"
-	i want it to iterate through each array in sequence
+combat log does not work
+	needs to write to its own frame
+	combat ui needs to grab a snippet from it
 
-
-
-
-
-
-
+turn indicator looks a little ass, would be nice as a yellow animated thing probably
 
 
 
@@ -323,6 +321,8 @@ flappy cameo, balloon in the distance
 ----------------------------------------------------------------------------------------------------------------
 things i know are hacky and should be cleaned up (or super duper back burner changes):
 ----------------------------------------------------------------------------------------------------------------
+no error checking at all for > 4 combatants on either side
+
 combat manager -> ui manager is not respecting combat order, which you will want to respect when you care in what order you take turns/trigger effects
 
 combat log should probably have the print functions (eg aura applied and removed) as a function, that takes a string + colors + variables, or something. DRY

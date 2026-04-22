@@ -1,10 +1,9 @@
 extends VBoxContainer
 class_name UiCombatant
 
-@onready var sprite:TextureRect = $MarginContainer/Sprite
-@onready var health_label:Label = $Stats/Health/HBoxContainer/Label
-@onready var attack_label:Label = $Stats/Attack/HBoxContainer/Label
-@onready var turn_indicator:TextureRect = $MarginContainer/Sprite/TurnIndicator
+@onready var sprite:TextureRect = $Portrait/Portrait
+@onready var health_bar:TextureProgressBar = $Portrait/HealthBarBorder/HealthBar
+@onready var turn_indicator:TextureRect = $Portrait/Portrait/TurnIndicator
 var my_combatant:Combatant
 
 func _ready() -> void:
@@ -22,12 +21,12 @@ func assign_combatant(combatant:Combatant) -> void:
 	visible = true
 
 func update_stats() -> void:
-	health_label.text = str(my_combatant.get_damaged_health())
-	attack_label.text = str(my_combatant.current_stats[Stats.attack])
+	health_bar.max_value = my_combatant.current_stats[Stats.health]
+	health_bar.value = my_combatant.get_damaged_health()
+	health_bar.tooltip_text = str(int(health_bar.value))
 
 func perish() -> void:
-	self.modulate = Color(0.3, 0.3, 0,3)
-	health_label.text = "X("
+	self.modulate = Color(0.6, 0.3, 0.3)
 
 func unperish() -> void:
 	self.modulate = Color(1, 1, 1)
@@ -50,7 +49,5 @@ func clear_combatant() -> void:
 		my_combatant.perished.disconnect(perish)
 		my_combatant = null
 	sprite.texture = null
-	health_label.text = ""
-	attack_label.text = ""
 	visible = false
 	unperish()
