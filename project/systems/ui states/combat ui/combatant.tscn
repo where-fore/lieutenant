@@ -131,7 +131,7 @@ theme_override_constants/separation = 0
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="Portrait/Actives/Ability"]
+[node name="Border" type="TextureRect" parent="Portrait/Actives/Ability"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -155,13 +155,15 @@ offset_right = 8.0
 offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
+tooltip_text = "Placeholder
+Text"
 texture_normal = ExtResource("9_gyisd")
 
 [node name="Item" type="Control" parent="Portrait/Actives"]
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="Portrait/Actives/Item"]
+[node name="Border" type="TextureRect" parent="Portrait/Actives/Item"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -185,4 +187,6 @@ offset_right = 8.0
 offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
+tooltip_text = "Placeholder
+Text"
 texture_normal = ExtResource("10_fvwj5")

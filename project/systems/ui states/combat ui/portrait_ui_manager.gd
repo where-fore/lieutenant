@@ -27,6 +27,7 @@ func assign_player_to_ui(player:Combatant) -> void:
 	for uiCombatant:UiCombatant in player_ui_combatants:
 		if not uiCombatant.my_combatant:
 			uiCombatant.assign_combatant(player)
+			uiCombatant.show_actives()
 			return #breaks the for loop
 
 func change_to() -> void:
