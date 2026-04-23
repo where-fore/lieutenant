@@ -104,4 +104,4 @@ func _on_search_skip_button_pressed() -> void:
 	reward_selected()
 
 func reward_selected() -> void:
-	HudEvents.reward_chosen.emit()
+	HudEvents.reward.emit()

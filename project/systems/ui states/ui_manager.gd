@@ -18,7 +18,7 @@ func _ready() -> void:
 	
 	HudEvents.combat_won.connect(end_combat_as_victory)
 	HudEvents.combat_lost.connect(end_combat_as_failure)
-	HudEvents.reward_chosen.connect(end_rewards_screen)
+	HudEvents.reward_choosing_complete.connect(end_rewards_screen)
 	HudEvents.rout_chosen.connect(_on_restart_button_pressed)
 	@warning_ignore("untyped_declaration")
 	MapEvents.enter_without_combat_in.connect(func(_unused_data) -> void: end_combat_as_victory())

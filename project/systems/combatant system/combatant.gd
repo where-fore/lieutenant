@@ -142,6 +142,10 @@ func multiply_aura_and_current_stats(auraDictionary:Dictionary[StringName,int]) 
 			#note that int() truncates, as i want
 			current_stats[stat] = int(current_stats[stat] * multiplier)
 
+@warning_ignore("unused_parameter")
+func apply_reward(reward:Reward) -> void:
+	pass
+
 #this is copied from aura_base.gd
 func get_tooltip() -> String:
 	var tooltip_text:String = name

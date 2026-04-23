@@ -2,8 +2,11 @@
 working notes
 --------------------------------------------------------
 
+reward menu doesn't wait for you apply the reward before swapping away
 
-
+combatants can't have items applied
+	there's no itemManager class prepared
+	
 
 
 

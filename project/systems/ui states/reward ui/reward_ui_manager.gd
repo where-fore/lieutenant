@@ -18,6 +18,7 @@ extends Control
 @onready var skip_button_container:MarginContainer = $Panel/SkipRewardButton
 
 var basic_title_text_blurb:String = "Victory.\nClaim your boon."
+var basic_waiting_to_apply_text_blurb:String = "Choose the hero to favour."
 var current_title_text_blurb:String
 var basic_reward_text_blurb:String = "Gather\nyour prize"
 var current_reward_text_blurb:String
@@ -32,6 +33,7 @@ func _ready() -> void:
 	MapEvents.venture_to.connect(prepare_from_map_tile)
 	ScenarioEvents.setup_reward.connect(prepare_from_scenario)
 	ScenarioEvents.present_rewards.connect(change_to)
+	CursorManager.clear_hovered_reward.connect(reward_selected)
 	
 	edit_border.visible = false
 	
@@ -137,19 +139,24 @@ func _on_basic_reward_button_pressed() -> void:
 
 func accept_reward(reward:Reward) -> void:
 	HudEvents.reward_aiming.emit(reward)
-	#change text to say "who are you applying to"
+	clear_reward()
+	skip_button_container.visible = false
+	title_text_label.text = basic_waiting_to_apply_text_blurb
 	#listen to which combatant you click on
 	#call the apply_reward function on that combatant
+		#done in the ui_combatant, it holds the reference and the clickbox
 	#finish up with reward_selected()
-	if reward is Aura:
-		AuraEvents.give_aura_to_player.emit(reward)
-		reward_selected()
-	elif reward is Item:
-		if not InventoryEvents.inventory_is_full:
-			InventoryEvents.send_item_to_inventory.emit(reward)
-			reward_selected()
-	else:
-		push_error("tried to accept a non-aura/item reward: " + reward.resource_name)
+		#this is now a signal - listen to when the cursor manager says it's all done
+	
+	#if reward is Aura:
+		#AuraEvents.give_aura_to_player.emit(reward)
+		#reward_selected()
+	#elif reward is Item:
+		#if not InventoryEvents.inventory_is_full:
+			#InventoryEvents.send_item_to_inventory.emit(reward)
+			#reward_selected()
+	#else:
+		#push_error("tried to accept a non-aura/item reward: " + reward.resource_name)
 
 func _on_skip_button_pressed() -> void:
 	all_done()
@@ -158,7 +165,7 @@ func reward_selected() -> void:
 	all_done()
 
 func all_done() -> void:
-	HudEvents.reward_chosen.emit()
+	HudEvents.reward_choosing_complete.emit()
 
 func clear_reward() -> void:
 	reward_button_label.text = ""

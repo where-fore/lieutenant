@@ -9,6 +9,8 @@ var my_combatant:Combatant
 
 func _ready() -> void:
 	HudEvents.combatant_turn_next.connect(hear_turn_ready)
+	@warning_ignore("untyped_declaration") #programmer short hand for yeeting all the arguments
+	CombatEvents.combat_finished.connect(func(_unused_data) -> void: force_hide_turn_indicator())
 	
 	turn_indicator.visible = false
 	visible = false
@@ -67,11 +69,12 @@ func _on_portrait_mouse_exited() -> void:
 		force_hide_turn_indicator()
 
 func apply_reward(reward:Reward) -> void:
-	my_combatant.aura_manager.apply_new_aura(reward)
+	my_combatant.apply_reward(reward)
 
 func _on_portrait_gui_input(event: InputEvent) -> void:
-	if CursorManager.hovering_a_reward:
-		if event is InputEventMouseButton:
-			if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			if CursorManager.hovering_a_reward:
 				apply_reward(CursorManager.hovering_reward)
 				CursorManager.take_hovered_reward()
+			#else open character sheet?
