@@ -31,26 +31,35 @@ func unequip_item(new_item:Item) -> void:
 	interpret_removed_item(new_item)
 
 func interpret_new_item(item:Item) -> void:
+	inventory.append(item)
+	
 	var item_aura:Aura = item.get_aura()
 	parent_combatant.apply_aura_or_item(item_aura)
+
+	var item_custom_auras:Array[Aura] = item.get_custom_auras()
+	if item_custom_auras:
+		for aura:Aura in item_custom_auras:
+			parent_combatant.apply_aura_or_item(aura)
 	
-	if item.applies_aura_on_equip():
-		var item_custom_aura:Aura = item.get_custom_aura()
-		if item_custom_aura:
-			parent_combatant.apply_aura_or_item(item_custom_aura)
+	item.custom_aura_added.connect(parent_combatant.apply_aura_or_item)
+	item.custom_aura_removed.connect(parent_combatant.remove_aura_or_item)
 
 func interpret_removed_item(item:Item) -> void:
+	inventory.erase(item)
+	
 	var item_aura:Aura = item.get_aura()
 	parent_combatant.remove_aura_or_item(item_aura)
 	
-	var item_custom_aura:Aura = item.get_custom_aura()
-	if item_custom_aura:
-		parent_combatant.remove_aura_or_item(item_custom_aura)
+	var item_custom_auras:Array[Aura] = item.get_custom_auras()
+	if item_custom_auras:
+		for aura:Aura in item_custom_auras:
+			parent_combatant.remove_aura_or_item(aura)
+	
+	item.custom_aura_added.disconnect(parent_combatant.apply_aura_or_item)
+	item.custom_aura_removed.disconnect(parent_combatant.remove_aura_or_item)
 
 func on_start_combat() -> void:
 	for item:Item in inventory:
-		var restarted_aura:Aura = item.restart_custom_auras()
-		if restarted_aura: AuraEvents.give_aura_to_player.emit(restarted_aura)
 		item.on_combat_start()
 
 func on_start_turn() -> void:

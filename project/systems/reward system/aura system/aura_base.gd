@@ -40,7 +40,7 @@ func create_aura(name:String = "", should_be_visible:bool = false, additive_init
 
 func update_aura() -> void:
 	#this should probably be in a setter somewhere
-	updated.emit(self)
+	updated.emit()
 
 func get_id() -> String:
 	if not unique_id: unique_id = str(ResourceUID.create_id())

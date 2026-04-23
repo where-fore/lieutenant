@@ -2,21 +2,20 @@
 working notes
 --------------------------------------------------------
 
-combatants can't have items applied
-	there's no itemManager class prepared
-	
+so items like warding pike which sometimes apply an aura don't work now
+since they used to just send to global ether
 
+i want this to be a more streamlined functionality
 
+my first thought is items have an array of custom auras, or specialty auras or something
 
+items should have:
+base aura with their base stats
+array of custom auras that do custom things with custom durations and custom applications
+	item could have a crashing waves aura, and a heal 2 hp per turn aura
 
-
-aura and items do not work
-	getting an aura/item opens up the combat menu again, and you click on a combatant portrait?
-		or opens a lil dropdown with portaits and names
-	no item manager set up for individual combatants yet
-
-turn indicator looks a little ass, would be nice as a yellow animated thing probably
-	probably want to reuse it for the reward hover
+so i'd need the auras themselves to know if they apply on combat start or what
+	and iterate through the custom aura array
 
 
 

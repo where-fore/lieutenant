@@ -13,11 +13,6 @@ func setup_basic_item_data() -> void:
 	item_categories = {
 		Categories.item_rarity : Categories.Rarity.COMMON,
 	}
-	
-	
-	#optional special visible aura
-	custom_aura_template = null # load("res://z individual pieces/items/all items/paladin's armor/paladins_might.tres")
-	aura_application_time = ApplyType.ON_EQUIP
 
 
 #--functions called by item_base.gd--

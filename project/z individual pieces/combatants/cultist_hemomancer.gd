@@ -24,17 +24,21 @@ func on_start_combat() -> void:
 	create_auras()
 	CombatLogEvents.custom_message.emit(message)
 
-#called by Combatant
 func create_auras() -> void:
-	var attack_to_steal:int = current_target.current_stats[Stats.attack] * attack_percentage_to_steal/100
+	var total_attack_to_steal:int = 0
+	
+	for enemy:Combatant in possible_targets:
+		var attack_to_steal:int = enemy.current_stats[Stats.attack] * attack_percentage_to_steal/100
+		
+		debuff_aura = Aura.new().create_aura(debuff_reward_name, true)
+		debuff_aura.duration_type = AuraNames.DurationType.THIS_COMBAT
+		debuff_aura.additive_stat_dictionary[Stats.attack] = -1 * attack_to_steal
+		debuff_aura.visible = false #this stops it from displays event log text, for now. hacky
+		enemy.apply_aura_or_item(debuff_aura)
+		
+		total_attack_to_steal += attack_to_steal
 	
 	buff_aura = Aura.new().create_aura(buff_reward_name, true)
 	buff_aura.duration_type = AuraNames.DurationType.THIS_COMBAT
-	buff_aura.additive_stat_dictionary[Stats.attack] = attack_to_steal
-	AuraEvents.give_aura_to_enemy.emit(buff_aura)
-	
-	debuff_aura = Aura.new().create_aura(debuff_reward_name, true)
-	debuff_aura.duration_type = AuraNames.DurationType.THIS_COMBAT
-	debuff_aura.additive_stat_dictionary[Stats.attack] = -1 * attack_to_steal
-	debuff_aura.visible = false #this stops it from displays text, for now. hacky
-	AuraEvents.give_aura_to_player.emit(debuff_aura)
+	buff_aura.additive_stat_dictionary[Stats.attack] = total_attack_to_steal
+	apply_aura_or_item(buff_aura)

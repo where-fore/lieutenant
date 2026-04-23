@@ -30,8 +30,8 @@ var normal_opener_turn_delay:float = 0.8
 var normal_middle_turn_delay:float = 0.8
 var normal_near_end_delay:float = 1.2
 
-var fast_opener_turn_delay:float = 0.3
-var fast_middle_turn_delay:float = 0.15
+var fast_opener_turn_delay:float = 0.15
+var fast_middle_turn_delay:float = 0.05
 var fast_near_end_delay:float = 0.4
 
 

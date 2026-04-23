@@ -9,6 +9,7 @@ var extra_tooltip:String
 
 signal stats_updated
 signal perished
+signal revived
 
 var base_health:int
 var base_attack:int
@@ -26,7 +27,12 @@ var is_a_player:bool = false
 var is_an_enemy:bool = true
 
 var possible_targets:Array[Combatant]
-var current_target:Combatant
+var current_target:Combatant:
+	get:
+		if not current_target:
+			choose_target_this_turn()
+			return current_target
+		else: return current_target
 
 var active:bool = false
 var dead:bool = false
@@ -104,6 +110,10 @@ func perish() -> void:
 	CombatEvents.combatant_died.emit(self)
 	perished.emit()
 
+func unperish() -> void:
+	dead = false
+	revived.emit()
+
 func take_turn() -> void:
 	on_start_turn_functions()
 	
@@ -114,6 +124,9 @@ func take_turn() -> void:
 	on_end_turn_functions()
 
 func choose_target_this_turn() -> void:
+	if not possible_targets:
+		push_error("tried to choose a target, but i have my possible targets array is null")
+	
 	var choices:Array[Combatant]
 	for possible_target:Combatant in possible_targets:
 		if not possible_target.dead:
@@ -122,7 +135,7 @@ func choose_target_this_turn() -> void:
 
 func reset_for_next_combat() -> void:
 	self.damage_taken = 0
-	dead = false
+	unperish()
 	possible_targets.clear()
 
 func recalculate_stats(additive_aura_dictionary:Dictionary[StringName, int], multiplicative_aura_dictionary:Dictionary[StringName, int]) -> void:

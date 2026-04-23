@@ -5,6 +5,7 @@ class_name UiCombatant
 @onready var health_bar:TextureProgressBar = $Portrait/HealthBarBorder/HealthBar
 @onready var turn_indicator:TextureRect = $Portrait/Portrait/TurnIndicator
 @onready var active_button_container:Control = $Portrait/Actives
+@onready var placeholder_attack:Control = $Portrait/Actives/Ability/TextureButton
 var my_combatant:Combatant
 
 func _ready() -> void:
@@ -21,6 +22,7 @@ func assign_combatant(combatant:Combatant) -> void:
 	sprite.texture = my_combatant.combatant_texture
 	my_combatant.stats_updated.connect(update_stats)
 	my_combatant.perished.connect(perish)
+	my_combatant.revived.connect(unperish)
 	update_stats()
 	visible = true
 
@@ -31,6 +33,7 @@ func update_stats() -> void:
 	health_bar.max_value = my_combatant.current_stats[Stats.health]
 	health_bar.value = my_combatant.get_damaged_health()
 	health_bar.tooltip_text = str(int(health_bar.value))
+	placeholder_attack.tooltip_text = str(my_combatant.current_stats[Stats.attack])
 
 func perish() -> void:
 	self.modulate = Color(0.6, 0.3, 0.3)
@@ -54,6 +57,7 @@ func clear_combatant() -> void:
 	if my_combatant:
 		my_combatant.stats_updated.disconnect(update_stats)
 		my_combatant.perished.disconnect(perish)
+		my_combatant.revived.disconnect(unperish)
 		my_combatant = null
 	sprite.texture = null
 	visible = false
@@ -70,6 +74,7 @@ func _on_portrait_mouse_exited() -> void:
 
 func apply_reward(reward:Reward) -> void:
 	my_combatant.apply_aura_or_item(reward)
+	force_hide_turn_indicator()
 
 func _on_portrait_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:

@@ -47,8 +47,8 @@ func apply_my_aura() -> void:
 	
 	buff_aura.additive_stat_dictionary[Stats.attack] = 0
 	
-	AuraEvents.give_aura_to_player.emit(buff_aura)
+	add_to_custom_auras(buff_aura)
 
 func clear_my_aura() -> void:
-	AuraEvents.remove_aura_from_player.emit(buff_aura)
+	remove_from_custom_auras(buff_aura)
 	buff_aura = null

@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://13a5ybo5k041" path="res://systems/ui states/combat ui/portrait_ui.tscn" id="9_d51yo"]
 [ext_resource type="Texture2D" uid="uid://dpjjrf7ekiuwc" path="res://sprites/box_outer.png" id="9_msc0u"]
 [ext_resource type="PackedScene" uid="uid://ctvt2g0gq4f60" path="res://systems/ui states/reward ui/reward_ui.tscn" id="14_hfile"]
-[ext_resource type="PackedScene" uid="uid://cto8ggdg8cw8x" path="res://systems/reward system/item system/inventory_slot.tscn" id="19_i3ysi"]
+[ext_resource type="PackedScene" uid="uid://cto8ggdg8cw8x" path="res://zz old scripts/old inventory/inventory_slot.tscn" id="19_i3ysi"]
 [ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="20_wceja"]
 [ext_resource type="Script" uid="uid://c4226uk3kd0at" path="res://systems/combatant system/combat_manager.gd" id="25_388va"]
 

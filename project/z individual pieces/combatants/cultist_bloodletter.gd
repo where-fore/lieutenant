@@ -20,6 +20,6 @@ func _init() -> void:
 func on_start_combat() -> void:
 	CombatLogEvents.custom_message.emit(message)
 	
-	var damage_to_deal:int = current_target.get_damaged_health() * health_cut_on_start/100
 	for enemy:Combatant in possible_targets:
+		var damage_to_deal:int = enemy.get_damaged_health() * health_cut_on_start/100
 		enemy.take_damage(damage_to_deal)

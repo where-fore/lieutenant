@@ -142,21 +142,6 @@ func accept_reward(reward:Reward) -> void:
 	clear_reward()
 	skip_button_container.visible = false
 	title_text_label.text = basic_waiting_to_apply_text_blurb
-	#listen to which combatant you click on
-	#call the apply_reward function on that combatant
-		#done in the ui_combatant, it holds the reference and the clickbox
-	#finish up with reward_selected()
-		#this is now a signal - listen to when the cursor manager says it's all done
-	
-	#if reward is Aura:
-		#AuraEvents.give_aura_to_player.emit(reward)
-		#reward_selected()
-	#elif reward is Item:
-		#if not InventoryEvents.inventory_is_full:
-			#InventoryEvents.send_item_to_inventory.emit(reward)
-			#reward_selected()
-	#else:
-		#push_error("tried to accept a non-aura/item reward: " + reward.resource_name)
 
 func _on_skip_button_pressed() -> void:
 	all_done()

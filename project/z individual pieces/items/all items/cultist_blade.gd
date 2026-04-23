@@ -39,10 +39,10 @@ func on_combat_end() -> void:
 	if buff_aura: clear_my_aura()
 
 func clear_my_aura() -> void:
-	AuraEvents.remove_aura_from_player.emit(buff_aura)
+	remove_from_custom_auras(buff_aura)
 	buff_aura = null
 
 func initialize_aura() -> void:
 	buff_aura = Aura.new().create_aura(buff_reward_name, true)
 	buff_aura.duration_type = AuraNames.DurationType.THIS_COMBAT
-	AuraEvents.give_aura_to_player.emit(buff_aura)
+	add_to_custom_auras(buff_aura)

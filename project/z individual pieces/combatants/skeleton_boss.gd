@@ -19,7 +19,7 @@ func _init() -> void:
 func on_start_combat() -> void:
 	buff_aura = Aura.new().create_aura(buff_reward_name, true)
 	buff_aura.duration_type = AuraNames.DurationType.THIS_COMBAT
-	AuraEvents.give_aura_to_enemy.emit(buff_aura)
+	apply_aura_or_item(buff_aura)
 	
 	CombatLogEvents.custom_message.emit("A menacing foe approaches")
 

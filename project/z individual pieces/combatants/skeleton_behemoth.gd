@@ -20,7 +20,7 @@ func _init() -> void:
 func on_start_combat() -> void:
 	buff_aura = Aura.new().create_aura(buff_reward_name, true)
 	buff_aura.duration_type = AuraNames.DurationType.THIS_COMBAT
-	AuraEvents.give_aura_to_enemy.emit(buff_aura)
+	apply_aura_or_item(buff_aura)
 
 func on_after_attack() -> void:
 	if not buff_aura.additive_stat_dictionary.has(Stats.attack):
@@ -28,4 +28,4 @@ func on_after_attack() -> void:
 	buff_aura.additive_stat_dictionary[Stats.attack] += attack_per_turn
 	buff_aura.update_aura()
 	
-	CombatLogEvents.custom_message.emit(self.name + "'s roars")
+	CombatLogEvents.custom_message.emit(self.name + " roars")

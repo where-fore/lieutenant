@@ -11,10 +11,6 @@ func setup_basic_item_data() -> void:
 	item_categories = {
 		Categories.item_rarity : Categories.Rarity.RARE,
 	}
-	
-	#optional special visible aura
-	custom_aura_template = null#load("res://z individual pieces/items/all items/paladins_armor.tres")
-	aura_application_time = Item.ApplyType.ON_EQUIP
 
 
 #--functions called by item_base.gd--

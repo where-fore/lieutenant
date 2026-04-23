@@ -11,11 +11,6 @@ func setup_basic_item_data() -> void:
 	extra_tooltip = "At least you feel prepared" # "Generic flavourful description"
 	item_categories = {
 	}
-	
-	
-	#optional special visible aura
-	custom_aura_template = null # load("res://z individual pieces/items/all items/paladin's armor/paladins_might.tres")
-	aura_application_time = ApplyType.ON_EQUIP
 
 
 #--functions called by item_base.gd--

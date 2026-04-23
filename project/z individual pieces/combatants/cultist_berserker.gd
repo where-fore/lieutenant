@@ -37,7 +37,7 @@ func buff_attack() -> void:
 	var buff_aura:Aura = Aura.new().create_aura(buff_reward_name, true)
 	buff_aura.duration_type = AuraNames.DurationType.THIS_COMBAT
 	buff_aura.additive_stat_dictionary[Stats.attack] = post_buff_attack
-	AuraEvents.give_aura_to_enemy.emit(buff_aura)
+	apply_aura_or_item(buff_aura)
 	CombatLogEvents.custom_message.emit(buff_message)
 
 #copied from combatant.gd
