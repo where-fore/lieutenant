@@ -14,7 +14,9 @@ func _ready() -> void:
 	validate_exports()
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	create_click_timer()
-	HudEvents.reward_aiming.connect(setup_selection_from_reward)
+	CursorManager.clear_hovered_reward.connect(hide_selection)
+	CursorManager.new_hovered_reward.connect(setup_selection_from_reward)
+	
 	hide_selection()
 
 func _input(event: InputEvent) -> void:

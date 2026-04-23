@@ -38,9 +38,9 @@ func unperish() -> void:
 
 func hear_turn_ready(source:Combatant) -> void:
 	if source == my_combatant:
-		turn_indicator.visible = true
+		force_show_turn_indicator()
 	else:
-		turn_indicator.visible = false
+		force_hide_turn_indicator()
 
 func force_show_turn_indicator() -> void:
 	turn_indicator.visible = true
@@ -56,3 +56,22 @@ func clear_combatant() -> void:
 	sprite.texture = null
 	visible = false
 	unperish()
+
+
+func _on_portrait_mouse_entered() -> void:
+	if CursorManager.hovering_a_reward:
+		force_show_turn_indicator()
+
+func _on_portrait_mouse_exited() -> void:
+	if CursorManager.hovering_a_reward:
+		force_hide_turn_indicator()
+
+func apply_reward(reward:Reward) -> void:
+	my_combatant.aura_manager.apply_new_aura(reward)
+
+func _on_portrait_gui_input(event: InputEvent) -> void:
+	if CursorManager.hovering_a_reward:
+		if event is InputEventMouseButton:
+			if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+				apply_reward(CursorManager.hovering_reward)
+				CursorManager.take_hovered_reward()

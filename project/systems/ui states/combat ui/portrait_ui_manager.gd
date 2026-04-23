@@ -31,9 +31,7 @@ func assign_player_to_ui(player:Combatant) -> void:
 			return #breaks the for loop
 
 func change_to() -> void:
-	print_debug("load")
 	visible = true
 
 func change_from() -> void:
-	print_debug("unload")
 	visible = false

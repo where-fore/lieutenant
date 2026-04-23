@@ -1,16 +1,16 @@
 [gd_scene load_steps=12 format=3 uid="uid://drmvwdj1lrerg"]
 
-[ext_resource type="Script" uid="uid://goyvs82tifpv" path="res://systems/ui states/combat ui/ui_combatant.gd" id="1_om6vs"]
-[ext_resource type="Theme" uid="uid://8g0oubdd3ix7" path="res://ui resources/marginTheme.tres" id="2_3mp4b"]
-[ext_resource type="Texture2D" uid="uid://dpjjrf7ekiuwc" path="res://sprites/box_outer.png" id="2_qnw2f"]
-[ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="3_qnw2f"]
-[ext_resource type="Texture2D" uid="uid://jm7ccvlf38y4" path="res://sprites/sword.png" id="4_e712o"]
-[ext_resource type="Texture2D" uid="uid://ubmjcik0bgn7" path="res://sprites/knight.png" id="5_om6vs"]
-[ext_resource type="Texture2D" uid="uid://ct2y2dcv3jogy" path="res://sprites/health_bar_background.png" id="6_3ns00"]
-[ext_resource type="Texture2D" uid="uid://ddj75cjrj64yg" path="res://sprites/health_bar_progress.png" id="7_mpdwj"]
-[ext_resource type="Texture2D" uid="uid://cwjj6wggwg4n3" path="res://sprites/18px_border.png" id="9_fvwj5"]
-[ext_resource type="Texture2D" uid="uid://drubnkihyub3w" path="res://sprites/items/basic_axe.png" id="9_gyisd"]
-[ext_resource type="Texture2D" uid="uid://bw8ct2x2ju746" path="res://sprites/items/basic_potion.png" id="10_fvwj5"]
+[ext_resource type="Script" uid="uid://goyvs82tifpv" path="res://systems/ui states/combat ui/ui_combatant.gd" id="1_7msyj"]
+[ext_resource type="Theme" uid="uid://8g0oubdd3ix7" path="res://ui resources/marginTheme.tres" id="2_0x77s"]
+[ext_resource type="Texture2D" uid="uid://jm7ccvlf38y4" path="res://sprites/sword.png" id="3_uc5xc"]
+[ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="4_84yi5"]
+[ext_resource type="Texture2D" uid="uid://ubmjcik0bgn7" path="res://sprites/knight.png" id="5_4pj4e"]
+[ext_resource type="Texture2D" uid="uid://ict2euu6g4jy" path="res://sprites/hover_border.png" id="6_voin1"]
+[ext_resource type="Texture2D" uid="uid://ct2y2dcv3jogy" path="res://sprites/health_bar_background.png" id="7_y78i1"]
+[ext_resource type="Texture2D" uid="uid://ddj75cjrj64yg" path="res://sprites/health_bar_progress.png" id="8_x5yq3"]
+[ext_resource type="Texture2D" uid="uid://cwjj6wggwg4n3" path="res://sprites/18px_border.png" id="9_0gs1v"]
+[ext_resource type="Texture2D" uid="uid://drubnkihyub3w" path="res://sprites/items/basic_axe.png" id="10_37cry"]
+[ext_resource type="Texture2D" uid="uid://bw8ct2x2ju746" path="res://sprites/items/basic_potion.png" id="11_u2x64"]
 
 [node name="Player" type="VBoxContainer"]
 custom_minimum_size = Vector2(40, 0)
@@ -23,7 +23,7 @@ grow_vertical = 0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 0
-script = ExtResource("1_om6vs")
+script = ExtResource("1_7msyj")
 
 [node name="Stats" type="VBoxContainer" parent="."]
 visible = false
@@ -34,7 +34,7 @@ theme_override_constants/separation = 0
 [node name="Attack" type="MarginContainer" parent="Stats"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme = ExtResource("2_3mp4b")
+theme = ExtResource("2_0x77s")
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
@@ -49,7 +49,7 @@ custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("4_e712o")
+texture = ExtResource("3_uc5xc")
 expand_mode = 1
 
 [node name="Label" type="Label" parent="Stats/Attack/HBoxContainer"]
@@ -60,7 +60,7 @@ text = "???"
 [node name="Health" type="MarginContainer" parent="Stats"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme = ExtResource("2_3mp4b")
+theme = ExtResource("2_0x77s")
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
@@ -75,7 +75,7 @@ custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-texture = ExtResource("3_qnw2f")
+texture = ExtResource("4_84yi5")
 expand_mode = 1
 
 [node name="Label" type="Label" parent="Stats/Health/HBoxContainer"]
@@ -91,25 +91,26 @@ theme_override_constants/separation = 0
 custom_minimum_size = Vector2(58, 81)
 layout_mode = 2
 size_flags_horizontal = 2
-texture = ExtResource("5_om6vs")
+texture = ExtResource("5_4pj4e")
 expand_mode = 5
 stretch_mode = 4
 
 [node name="TurnIndicator" type="TextureRect" parent="Portrait/Portrait"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("2_qnw2f")
+texture = ExtResource("6_voin1")
+expand_mode = 5
 
 [node name="HealthBarBorder" type="NinePatchRect" parent="Portrait"]
 custom_minimum_size = Vector2(12, 0)
 layout_mode = 2
-texture = ExtResource("6_3ns00")
+texture = ExtResource("7_y78i1")
 
 [node name="HealthBar" type="TextureProgressBar" parent="Portrait/HealthBarBorder"]
 layout_mode = 1
@@ -121,7 +122,7 @@ grow_vertical = 2
 value = 75.0
 fill_mode = 3
 nine_patch_stretch = true
-texture_progress = ExtResource("7_mpdwj")
+texture_progress = ExtResource("8_x5yq3")
 
 [node name="Actives" type="VBoxContainer" parent="Portrait"]
 layout_mode = 2
@@ -138,7 +139,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("9_fvwj5")
+texture = ExtResource("9_0gs1v")
 expand_mode = 4
 
 [node name="TextureButton" type="TextureButton" parent="Portrait/Actives/Ability"]
@@ -157,7 +158,7 @@ grow_horizontal = 2
 grow_vertical = 2
 tooltip_text = "Placeholder
 Text"
-texture_normal = ExtResource("9_gyisd")
+texture_normal = ExtResource("10_37cry")
 
 [node name="Item" type="Control" parent="Portrait/Actives"]
 custom_minimum_size = Vector2(18, 18)
@@ -170,7 +171,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("9_fvwj5")
+texture = ExtResource("9_0gs1v")
 expand_mode = 4
 
 [node name="TextureButton" type="TextureButton" parent="Portrait/Actives/Item"]
@@ -189,4 +190,8 @@ grow_horizontal = 2
 grow_vertical = 2
 tooltip_text = "Placeholder
 Text"
-texture_normal = ExtResource("10_fvwj5")
+texture_normal = ExtResource("11_u2x64")
+
+[connection signal="gui_input" from="Portrait/Portrait" to="." method="_on_portrait_gui_input"]
+[connection signal="mouse_entered" from="Portrait/Portrait" to="." method="_on_portrait_mouse_entered"]
+[connection signal="mouse_exited" from="Portrait/Portrait" to="." method="_on_portrait_mouse_exited"]

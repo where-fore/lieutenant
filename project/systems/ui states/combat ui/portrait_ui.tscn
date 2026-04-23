@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://1tfpy1jt815v" path="res://systems/ui states/combat ui/portrait_ui_manager.gd" id="1_vx1xx"]
 [ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="2_en73q"]
-[ext_resource type="PackedScene" uid="uid://drmvwdj1lrerg" path="res://systems/ui states/combat ui/combatant.tscn" id="3_rojik"]
+[ext_resource type="PackedScene" uid="uid://drmvwdj1lrerg" path="res://systems/ui states/combat ui/ui_combatant.tscn" id="3_rojik"]
 [ext_resource type="PackedScene" uid="uid://b13o5cfslg2uj" path="res://systems/event log/event_log.tscn" id="4_en73q"]
 [ext_resource type="Texture2D" uid="uid://c7a1jxvk522q2" path="res://sprites/border_background.png" id="4_rojik"]
 
