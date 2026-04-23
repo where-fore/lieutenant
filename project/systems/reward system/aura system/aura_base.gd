@@ -95,7 +95,7 @@ func expire_aura() -> void:
 func setup_aura_stats() -> void:
 	pass
 
-func on_attack(_source:Combatant) -> void:
+func on_attack(_source:Combatant, _target:Combatant) -> void:
 	pass
 
 func on_combat_start() -> void:

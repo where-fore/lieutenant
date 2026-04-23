@@ -2,8 +2,6 @@
 working notes
 --------------------------------------------------------
 
-reward menu doesn't wait for you apply the reward before swapping away
-
 combatants can't have items applied
 	there's no itemManager class prepared
 	
@@ -58,6 +56,7 @@ map:
 		in my playtests it seems more fun to build your character up, than to counter specific enemies, so no need for map info (except for rewards)
 			so designate tiles as "magic/chest/event/etc" rewards? cofidy types of rewards between active items, passive stat items, rare defining items, etc
 
+	add in parralax
 
 	
 combat:
@@ -120,10 +119,43 @@ ui:
 		acceleration generally feels bad (path of achra)
 
 
+items:
+	2 categories - attuned and non-attunement
+		any item can also be "active" where it has an active effect. maybe only attuned items?
+	some limited attunement slots, 5?
+		can play with these, say a character has an extra or one less, maybe an event can bestow you with an extra slot, maybe an item attuned for 20 game turns transforms into something stronger or more cursed
+	infinite non-attuned items, things like rings of protection and broaches
+	
+	generally the attunement items are cool and unique and have triggers and the like. the non-equipped are smaller but still tangible rewards from events and other interactions
+	
+	items are different from auras since you can re-equip them around. auras you cannot move
+		can play with this too, an event could let you move 5 auras around or something
+	
+	make sure to tutorialize well - "attuned" and "not attuned" could very easily feel like "getting benefit" and "not getting benefit" - make it clear non-attuned items still give a benefit. "attuned" and "equipped" perhaps?
+		give all attunement items some base stats you still get when not-attuned (and active items some non-active benefit) - so there's still benefit and use to finding items when your slots are full
+		can balance around "item reward" where attunement and non-attunement have similar base power effects, and balance around you have ~5 attunement items. no need for items to be more or less powerful
+			gives constant power growth
+				could consider not wanting this - maybe i want all items to be sidegrades? only attunement slots, so you can choose your build, and maybe get a slight power upgrade sometimes, but mostly just be 5 inventory slot guy?
+				currently i like the constant growth, but good to consider
+		make sure there's noticeable fx and ui for where the items go, and their effects, so it's clear they are working in their respective places
+			have the tooltip broken into sections for "on equip" "on attuned" "on activation" which each grey out / light up as you put into respective places
+		tutorialize an early combat where you need to attune or unattune a certain item
+		
+	so i want each combatant to have their inventory, with 3 arrays of slots to put items
+		for now, i'll skip active and attunement, and just throw everything into the infinite "equipped"
 
-
-
-
+	so do i need a global inventory?
+		would let you completely unequip items?
+		seems like a noob trab like the skip button?
+		
+	how else am i going to send items between combatants? i was thinking a dropdown, but how does the dropdown know who's who?
+		well i guess the dropdown will have to be bespoke anyways
+			i suppose i could use that instead of the half portrait ui
+				i do like you usually using the same interface as combat though
+				can items maybe be sent through that ui?
+					would have to close the character/inventory screen though, i don't want to do that
+					
+	so no global inventory, just like auras, only components on combatants
 
 
 

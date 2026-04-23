@@ -21,15 +21,9 @@ func setup_aura_stats() -> void:
 	#whatever the aura does
 	additive_stat_dictionary[Stats.attack] = base_attack
 
-func on_attack(_source:Combatant) -> void:
+func on_attack(_source:Combatant, _target:Combatant) -> void:
 	additive_stat_dictionary[Stats.attack] += attack_per_turn
 	update_aura()
 	CombatLogEvents.custom_message.emit(combat_log_message)
-
-func on_combat_start() -> void:
-	pass
-
-func on_combat_end() -> void:
-	pass
 
 #--end of functions called by aura_base.gd--

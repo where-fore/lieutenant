@@ -1,7 +1,5 @@
 extends Node2D
 
-@export var random_enemy_selection:Array[GDScript]
-
 var player_combatant:Combatant
 var player_template_id:String = "basic_player_fighter"
 

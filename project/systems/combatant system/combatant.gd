@@ -43,6 +43,7 @@ var starting_stats:Dictionary[StringName, int] = {}
 var current_stats:Dictionary[StringName, int] = {}
 
 var aura_manager:AuraManager
+var item_manager:ItemManager
 
 
 
@@ -57,9 +58,17 @@ func setup(should_be_a_player:bool = false) -> void:
 	
 	active = true
 	
+	prepare_aura_manager()
+	prepare_item_manager()
+
+func prepare_aura_manager() -> void:
 	aura_manager = AuraManager.new()
 	add_child(aura_manager)
 	aura_manager.send_auras_to_parent.connect(recalculate_stats)
+
+func prepare_item_manager() -> void:
+	item_manager = ItemManager.new()
+	add_child(item_manager)
 
 func unsetup() -> void:
 	active = false
@@ -142,9 +151,15 @@ func multiply_aura_and_current_stats(auraDictionary:Dictionary[StringName,int]) 
 			#note that int() truncates, as i want
 			current_stats[stat] = int(current_stats[stat] * multiplier)
 
-@warning_ignore("unused_parameter")
-func apply_reward(reward:Reward) -> void:
-	pass
+func apply_aura_or_item(reward:Reward) -> void:
+	if reward is Item: item_manager.equip_item(reward)
+	elif reward is Aura: aura_manager.apply_new_aura(reward)
+	else: push_error("tried to apply a non-item/aura reward \"", reward.reward_name, "\" to combatant: ", combatant_name)
+
+func remove_aura_or_item(reward:Reward) -> void:
+	if reward is Item: item_manager.unequip_item(reward)
+	elif reward is Aura: aura_manager.remove_aura(reward)
+	else: push_error("tried to apply a non-item/aura reward \"", reward.reward_name, "\" to combatant: ", combatant_name)
 
 #this is copied from aura_base.gd
 func get_tooltip() -> String:
@@ -164,32 +179,38 @@ func emit_stat_update() -> void:
 
 func on_start_combat_functions() -> void:
 	on_start_combat()
+	item_manager.on_start_combat()
 	aura_manager.on_start_combat()
 
 func on_start_turn_functions() -> void:
 	choose_target_this_turn()
 	
 	on_start_turn()
+	item_manager.on_start_turn()
 	aura_manager.on_start_turn()
 	CombatEvents.combatant_turn_started.emit(self)
 
 func on_after_attack_functions(chosen_target:Combatant) -> void:
 	on_after_attack()
-	aura_manager.on_after_attack()
+	item_manager.on_after_attack(chosen_target)
+	aura_manager.on_after_attack(chosen_target)
 	CombatEvents.combatant_finished_attack.emit(self, chosen_target)
 
 func on_damage_taken_functions(amount_taken:int) -> void:
 	on_damage_taken(amount_taken)
+	item_manager.on_damage_taken(amount_taken)
 	aura_manager.on_damage_taken(amount_taken)
 	CombatEvents.combatant_damaged.emit(self, amount_taken)
 
 func on_end_turn_functions() -> void:
 	on_end_turn()
+	item_manager.on_end_turn()
 	aura_manager.on_end_turn()
 	CombatEvents.combatant_turn_ended.emit(self)
 
 func on_end_combat_functions() -> void:
 	on_combat_end()
+	item_manager.on_combat_end()
 	aura_manager.on_combat_end()
 	reset_for_next_combat()
 

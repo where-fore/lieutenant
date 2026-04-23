@@ -69,7 +69,7 @@ func _on_portrait_mouse_exited() -> void:
 		force_hide_turn_indicator()
 
 func apply_reward(reward:Reward) -> void:
-	my_combatant.apply_reward(reward)
+	my_combatant.apply_aura_or_item(reward)
 
 func _on_portrait_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:

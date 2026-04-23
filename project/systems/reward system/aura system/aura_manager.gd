@@ -79,9 +79,9 @@ func on_start_turn() -> void:
 	for aura:Aura in aura_dictionary.values(): 
 		aura.on_combat_start()
 
-func on_after_attack() -> void:
+func on_after_attack(target:Combatant) -> void:
 	for aura:Aura in aura_dictionary.values(): 
-		aura.on_attack(parent_combatant)
+		aura.on_attack(parent_combatant, target)
 
 func on_damage_taken(_damage_taken:int) -> void:
 	pass #maybe do something here later

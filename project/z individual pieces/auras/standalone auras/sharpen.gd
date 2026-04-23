@@ -17,13 +17,4 @@ func setup_aura_stats() -> void:
 	#whatever the aura does
 	additive_stat_dictionary[Stats.attack] = attack_increase
 
-func on_attack(_source:Combatant) -> void:
-	pass
-
-func on_combat_start() -> void:
-	pass
-
-func on_combat_end() -> void:
-	pass
-
 #--end of functions called by aura_base.gd--
