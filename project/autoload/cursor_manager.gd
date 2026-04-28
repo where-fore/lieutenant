@@ -9,6 +9,10 @@ var hovering_a_reward:bool
 var hovering_reward:Reward
 
 func take_hovered_reward() -> void:
+	#i probably shouldn't do this - if i notice my inventory is full, and go to the inventory
+	#or even just open the main menu lmao
+	#i'm taking that reward onto my cursor elsewhere - i don't want it on the main menu/inventory cursor
+	
 	hovering_a_reward = false
 	hovering_reward = null
 	clear_hovered_reward.emit()

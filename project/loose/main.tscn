@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=31 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://systems/ui states/main.gd" id="1_bbldx"]
 [ext_resource type="PackedScene" uid="uid://dsbt6u8ma1cpc" path="res://systems/map system/map_tile_system.tscn" id="2_16p2t"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://crpikhlk7g3eu" path="res://sprites/cog.png" id="8_bbldx"]
 [ext_resource type="Script" uid="uid://c83t3y7en3pq0" path="res://loose/cursor_manager.gd" id="8_xalbe"]
 [ext_resource type="Texture2D" uid="uid://xr6idafv8gpe" path="res://sprites/cursor.png" id="9_nf78q"]
+[ext_resource type="Texture2D" uid="uid://cy48iap8gerbw" path="res://sprites/bag.png" id="10_1j0u7"]
 [ext_resource type="Texture2D" uid="uid://c7a1jxvk522q2" path="res://sprites/border_background.png" id="10_qmb71"]
 [ext_resource type="Texture2D" uid="uid://cqrq7atbyo80a" path="res://sprites/speaker.png" id="11_f4q0r"]
 [ext_resource type="Texture2D" uid="uid://cqhb4p4tf4jbg" path="res://sprites/paper.png" id="11_obmf6"]
@@ -28,6 +29,7 @@
 [ext_resource type="PackedScene" uid="uid://l4er4w6epgd5" path="res://systems/ui states/text blurb/text_blurb_screen.tscn" id="19_bbldx"]
 [ext_resource type="PackedScene" uid="uid://cplxpgrp4s0m8" path="res://systems/map system/map info panel/map_info_panel.tscn" id="19_w1snj"]
 [ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="20_1fc2u"]
+[ext_resource type="PackedScene" uid="uid://carnrr8rlj0uw" path="res://systems/ui states/stats ui/stats_ui.tscn" id="29_1j0u7"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_bbldx")
@@ -112,35 +114,53 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="PauseMenuButton" type="Control" parent="MainUI"]
-layout_mode = 3
-anchors_preset = 0
+[node name="TopButtons" type="HBoxContainer" parent="MainUI"]
+offset_right = 40.0
+offset_bottom = 18.0
 
-[node name="PanelContainer" type="PanelContainer" parent="MainUI/PauseMenuButton"]
-layout_mode = 0
-offset_left = 3.0
-offset_top = 3.0
-offset_right = 27.0
-offset_bottom = 27.0
+[node name="PauseMenuButton" type="PanelContainer" parent="MainUI/TopButtons"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MainUI/PauseMenuButton/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MainUI/TopButtons/PauseMenuButton"]
 layout_mode = 2
 theme_override_constants/margin_left = 1
 theme_override_constants/margin_top = 1
 theme_override_constants/margin_right = 1
 theme_override_constants/margin_bottom = 1
 
-[node name="UIBackground" type="TextureRect" parent="MainUI/PauseMenuButton/PanelContainer/MarginContainer"]
+[node name="UIBackground" type="TextureRect" parent="MainUI/TopButtons/PauseMenuButton/MarginContainer"]
 layout_mode = 2
 texture = ExtResource("10_qmb71")
 expand_mode = 2
 
-[node name="PauseMenuButton" type="TextureButton" parent="MainUI/PauseMenuButton/PanelContainer/MarginContainer"]
+[node name="PauseMenuButton" type="TextureButton" parent="MainUI/TopButtons/PauseMenuButton/MarginContainer"]
 layout_mode = 2
 texture_normal = ExtResource("8_bbldx")
 stretch_mode = 4
 
+[node name="InventoryMenuButton" type="PanelContainer" parent="MainUI/TopButtons"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MainUI/TopButtons/InventoryMenuButton"]
+layout_mode = 2
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
+
+[node name="UIBackground" type="TextureRect" parent="MainUI/TopButtons/InventoryMenuButton/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("10_qmb71")
+expand_mode = 2
+
+[node name="InventoryMenuButton" type="TextureButton" parent="MainUI/TopButtons/InventoryMenuButton/MarginContainer"]
+layout_mode = 2
+texture_normal = ExtResource("10_1j0u7")
+stretch_mode = 4
+
 [node name="PauseMenu" type="Control" parent="MainUI"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -483,6 +503,12 @@ mouse_filter = 2
 layout_mode = 2
 mouse_filter = 2
 
+[node name="StatsUIContainer" type="Control" parent="MainGame/MarginContainer"]
+layout_mode = 2
+
+[node name="StatsUI" parent="MainGame/MarginContainer/StatsUIContainer" instance=ExtResource("29_1j0u7")]
+layout_mode = 1
+
 [node name="UIBorder" type="TextureRect" parent="MainGame"]
 anchors_preset = 15
 anchor_right = 1.0
@@ -493,7 +519,8 @@ mouse_filter = 2
 texture = ExtResource("20_1fc2u")
 
 [connection signal="pressed" from="MainUI/GameStarter/GameStartButtons/NewGameButton" to="." method="_on_new_game_button_pressed"]
-[connection signal="pressed" from="MainUI/PauseMenuButton/PanelContainer/MarginContainer/PauseMenuButton" to="." method="_on_pause_menu_button_pressed"]
+[connection signal="pressed" from="MainUI/TopButtons/PauseMenuButton/MarginContainer/PauseMenuButton" to="." method="_on_pause_menu_button_pressed"]
+[connection signal="pressed" from="MainUI/TopButtons/InventoryMenuButton/MarginContainer/InventoryMenuButton" to="." method="_on_inventory_menu_button_pressed"]
 [connection signal="pressed" from="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer/VolumeIcon" to="." method="_on_volume_icon_pressed"]
 [connection signal="value_changed" from="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
 [connection signal="pressed" from="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer/ShuffleIcon" to="." method="_on_shuffle_icon_pressed"]

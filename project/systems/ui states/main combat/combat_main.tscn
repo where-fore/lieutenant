@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://d4ng5rexbupxm"]
+[gd_scene load_steps=14 format=3 uid="uid://d4ng5rexbupxm"]
 
 [ext_resource type="Script" uid="uid://b6t3c758hkbxo" path="res://systems/ui states/main combat/timing_manager.gd" id="1_uqbt6"]
 [ext_resource type="Texture2D" uid="uid://c7a1jxvk522q2" path="res://sprites/border_background.png" id="2_257w6"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dukmtqmjs4v7y" path="res://sprites/ui_left_bar.png" id="4_lavsf"]
 [ext_resource type="PackedScene" uid="uid://8xcmye81t4or" path="res://systems/ui states/combat ui/combat_ui.tscn" id="7_8s366"]
 [ext_resource type="PackedScene" uid="uid://13a5ybo5k041" path="res://systems/ui states/combat ui/portrait_ui.tscn" id="9_d51yo"]
+[ext_resource type="PackedScene" uid="uid://carnrr8rlj0uw" path="res://systems/ui states/stats ui/stats_ui.tscn" id="9_hpc48"]
 [ext_resource type="Texture2D" uid="uid://dpjjrf7ekiuwc" path="res://sprites/box_outer.png" id="9_msc0u"]
 [ext_resource type="PackedScene" uid="uid://ctvt2g0gq4f60" path="res://systems/ui states/reward ui/reward_ui.tscn" id="14_hfile"]
 [ext_resource type="PackedScene" uid="uid://cto8ggdg8cw8x" path="res://zz old scripts/old inventory/inventory_slot.tscn" id="19_i3ysi"]
@@ -91,6 +92,13 @@ layout_mode = 1
 reward_empty_texture = ExtResource("9_msc0u")
 
 [node name="PortraitUI" parent="FullGame/GameMain/Control/MainUI" instance=ExtResource("9_d51yo")]
+layout_mode = 1
+offset_left = 0.0
+offset_top = -230.0
+offset_right = 440.0
+offset_bottom = 0.0
+
+[node name="StatsUI" parent="FullGame/GameMain/Control/MainUI" instance=ExtResource("9_hpc48")]
 layout_mode = 1
 offset_left = 0.0
 offset_top = -230.0

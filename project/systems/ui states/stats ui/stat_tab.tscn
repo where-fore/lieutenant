@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://cfwbkw5t7vyfp"]
+
+[ext_resource type="Texture2D" uid="uid://cwjj6wggwg4n3" path="res://sprites/18px_border.png" id="1_2dpia"]
+[ext_resource type="Script" uid="uid://bntq5hxcbt5jw" path="res://systems/ui states/stats ui/stat_tab.gd" id="2_0nj4h"]
+[ext_resource type="Texture2D" uid="uid://ubmjcik0bgn7" path="res://sprites/knight.png" id="2_xdtyf"]
+
+[node name="StatTab" type="TextureButton"]
+custom_minimum_size = Vector2(80, 32)
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -16.0
+offset_right = 80.0
+offset_bottom = 16.0
+grow_vertical = 2
+texture_normal = ExtResource("1_2dpia")
+stretch_mode = 0
+script = ExtResource("2_0nj4h")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Portrait" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(18, 0)
+layout_mode = 2
+texture = ExtResource("2_xdtyf")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "John"
+vertical_alignment = 1

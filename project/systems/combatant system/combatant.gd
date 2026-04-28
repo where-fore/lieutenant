@@ -54,10 +54,6 @@ var item_manager:ItemManager
 
 
 func setup(should_be_a_player:bool = false) -> void:
-	if should_be_a_player:
-		is_a_player = true
-		is_an_enemy = false
-	
 	starting_stats[Stats.health] = scaled_health
 	starting_stats[Stats.attack] = scaled_attack
 	reset_current_stats_to_base()
@@ -66,6 +62,12 @@ func setup(should_be_a_player:bool = false) -> void:
 	
 	prepare_aura_manager()
 	prepare_item_manager()
+	
+	if should_be_a_player:
+		is_a_player = true
+		HudEvents.send_player_combatant_to_ui.emit(self)
+		
+		is_an_enemy = false
 
 func prepare_aura_manager() -> void:
 	aura_manager = AuraManager.new()

@@ -29,7 +29,6 @@ var current_map_tile:MapTile
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	InventoryEvents.full_status_updated.connect(update_text_blurb_and_inventory_full_indicator)
 	MapEvents.venture_to.connect(prepare_from_map_tile)
 	ScenarioEvents.setup_reward.connect(prepare_from_scenario)
 	ScenarioEvents.present_rewards.connect(change_to)
@@ -104,11 +103,13 @@ func prepare_basic_reward() -> void:
 func update_text_blurb_and_inventory_full_indicator() -> void:
 	reward_button.modulate = Color(1,1,1)
 	if current_reward is Item:
-		if InventoryEvents.inventory_is_full:
-			reward_button.modulate = Color(0.3,0.3,0.3)
-			reward_button_label.text = "Inventory Full"
-		else:
-			update_reward_text_blurb()
+		#should check on hover, maybe on the cursor
+		#if combatant.inventory_is_full() then tooltip.text = "inventory full"
+		#if InventoryEvents.inventory_is_full:
+			#reward_button.modulate = Color(0.3,0.3,0.3)
+			#reward_button_label.text = "Inventory Full"
+		#else:
+		update_reward_text_blurb()
 	else:
 		update_reward_text_blurb()
 

@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://dk7qdyba0te4d"]
+
+[ext_resource type="Texture2D" uid="uid://c7a1jxvk522q2" path="res://sprites/border_background.png" id="1_eud57"]
+[ext_resource type="PackedScene" uid="uid://ckmvwnsn3a6og" path="res://systems/ui states/stats ui/stat_individual.tscn" id="2_voecg"]
+
+[node name="Items" type="TextureRect"]
+offset_right = 215.0
+offset_bottom = 95.0
+size_flags_horizontal = 3
+texture = ExtResource("1_eud57")
+expand_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
+layout_mode = 2
+vertical_scroll_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="IndividualStat" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_voecg")]
+layout_mode = 2
+
+[node name="IndividualStat2" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_voecg")]
+layout_mode = 2
+
+[node name="IndividualStat3" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_voecg")]
+layout_mode = 2
+
+[node name="IndividualStat4" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_voecg")]
+layout_mode = 2
+
+[node name="IndividualStat5" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_voecg")]
+layout_mode = 2

@@ -10,10 +10,12 @@ extends Node2D
 
 @onready var crt_filter_container:CanvasLayer = $CRTFilter
 @onready var game_start_button_container:Control = $MainUI/GameStarter
-@onready var pause_menu_button_container:Control = $MainUI/PauseMenuButton
+@onready var pause_button_container:Control = $MainUI/TopButtons/PauseMenuButton
+@onready var inventory_menu_button_container:Control = $MainUI/TopButtons/InventoryMenuButton
 @onready var pause_menu_container:Control = $MainUI/PauseMenu
 @onready var scrolling_log_container:Control = $MainGame/MarginContainer/RightSideUI/EventLog
 @onready var right_side_ui_container:Control = $MainGame/MarginContainer/RightSideUI
+@onready var stats_ui_container:Control = $MainGame/MarginContainer/StatsUIContainer
 
 @onready var volume_slider:HSlider = $MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer/VolumeSlider
 
@@ -22,11 +24,13 @@ func _ready() -> void:
 	HudEvents.chapter_completed.connect(_on_restart_button_pressed)
 	
 	game_start_button_container.visible = true
-	pause_menu_button_container.visible = true
+	pause_button_container.visible = true
+	inventory_menu_button_container.visible = false
 	text_blurb_container.visible = true
 	pause_menu_container.visible = false
 	scrolling_log_container.visible = false
 	right_side_ui_container.visible = true
+	stats_ui_container.visible = false
 	
 	volume_slider.value = BackgroundMusicPlayer.get_current_volume() * 100
 
@@ -65,6 +69,7 @@ func _on_new_game_button_pressed() -> void:
 	
 	game_start_button_container.visible = false
 	start_game()
+	inventory_menu_button_container.visible = true
 
 func _on_restart_button_pressed() -> void:
 	get_tree().reload_current_scene()
@@ -92,3 +97,6 @@ func _on_volume_icon_pressed() -> void:
 
 func _on_shuffle_icon_pressed() -> void:
 	BackgroundMusicPlayer.shuffle_playlist()
+
+func _on_inventory_menu_button_pressed() -> void:
+	stats_ui_container.visible = !stats_ui_container.visible

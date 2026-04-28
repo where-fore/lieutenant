@@ -2,33 +2,35 @@
 working notes
 --------------------------------------------------------
 
-so items like warding pike which sometimes apply an aura don't work now
-since they used to just send to global ether
-
-i want this to be a more streamlined functionality
-
-my first thought is items have an array of custom auras, or specialty auras or something
-
-items should have:
-base aura with their base stats
-array of custom auras that do custom things with custom durations and custom applications
-	item could have a crashing waves aura, and a heal 2 hp per turn aura
-
-so i'd need the auras themselves to know if they apply on combat start or what
-	and iterate through the custom aura array
-
-
-
-
-when routing, hp bar goes to full and looks weird
-	maybe don't show dudes on death screen?
-
-would be nice if the change to/from were faded animations or something
-	decouple the change/to from of the portrait into a big boy manager, so it won't re-animate between combat->reward
+to do:
+		
+	start on map overhaul?
+		tiles can hold events
+		player on tile, not rows being enabled/disabled
+		have tiles off screen and slide on as you progress
+		
+	character/inventory screen
+		see all items / auras
+			active/attuned items too
+			give items to others etc
+			
+	combat log popout
+		and more readability for the mini one
+		
+	enemy scaling?
+		day night system, still not too sure where we land on this
+			distinct phases which strengthen enemies?
+		
+any of the below, of course
 
 
 
-map:
+
+
+
+
+
+map overhaul:
 	scroll to the side
 	until the wall, stop it mid screen
 	unlock post wall sightlines
@@ -41,6 +43,7 @@ map:
 		maybe both? fog covers completely invisible tiles, and darkened covers tiles you've seen but not able to access; ala civ fog of war
 	
 	how to do the wall? big tile? actual gap in MapTiles?
+		feeling a gap in tiles
 	
 	hold events too, not just enemies
 		restructure signals - enter tile, do event (combat?), end event, end tile.
@@ -55,70 +58,32 @@ map:
 		in my playtests it seems more fun to build your character up, than to counter specific enemies, so no need for map info (except for rewards)
 			so designate tiles as "magic/chest/event/etc" rewards? cofidy types of rewards between active items, passive stat items, rare defining items, etc
 
-	add in parralax
+	add in parallax
 
 	
-combat:
-			
+combat overhaul:
 	active effects
 		items with active effects
-			brainstorm some of these
-		maybe have active effects restore with mana, not with time/combats? and mana can be found in events, given my int, items, etc. warriors can have +mana items they use on casters?
-		enemies with actives too?
-			mana steal abilities?
-		
-	larger inventory of passive items / buffs
-		inventory slots? one armor per character? maybe, if that solves a problem then sure
-		without, items seem forgettable? if you don't make a decision with them, just get +20 str, what's the point?
-			wait if you get an axe of +20str, who does it go on?
-			ah so items are character specific?
-			okay so item slots still a maybe, but they should go on specific characters
-			
-			items can be moved, auras cannot - putting +20 str on someone is permanent, but a +20 str ring can be moved as you see fit
-			
+			basics: double attack for 2 turns, deal 30 damage immediately, all party members get 10 attack for a turn
 		
 	primary/derived stats
 		probably str/dex/int or similar. choose one as primary, and deal that as damage, rest gives you bonuses?
 		derived like dodge/mana regen/crit chance
 		
-	
-	multiple characters
-		hit all party members? attack only top (x stat)?
-		what happens when one dies?
-			just no more effects until alive again?
-			no consequence next fight?
-			careful to avoid death spirals - losing one character makes you weaker that fight, so you actually have an obtuse breakpoint where you "lose" the fight much earlier than you expected eg losing 200 of your parties 800 hp is a death sentence
-				maybe each character has an enrage? a buff they get when a party member dies?
-				have an enrage build where you sacrifice one party member every fight?
-		separate buffs and items onto combatants
-		
-	
 	boss fight with active effects?
-		if normal monster fights are only (if hp <= 0, failure); then a longer boss fight requires proportinally less attack value, is not as scary
+		if normal monster fights are only (if hp <= 0, failure); then a longer boss fight requires proportionally less attack value, which is not as scary to see the boss with less attack than a regular dude (even if it's 1/2 attack and 4x hp for 2x total power)
 			maybe have healing in boss fights? make them back to back phases you heal in between (where you have beat 4 of 5?) ala he is coming hydra
 		maybe make normal fights permanent loss of something?
 			i don't really want to do straight hp ala slay the spire, feels too punishing in an autobattler
+			mana? followers? supplies?
 		really not sure what to do for a climactic fight with this combat system
+			phases with cutscenes/dialogue?
 
 
-ui:
-	stat screen
-		just the combat screen, but no enemies?
-	aura screen
-		party wide, character 1, character 2, character 3 etc
-	bigger non-active inventory
-	
-	have them all openable/closeable?
-		combat tab glows during combat?
-	
-	combat turns:
-		3 keybinds, hold to autobattle at certain speed (or press to toggle maybe)
-		space to pause immediately
-			each step of the turn (after attack, turn start etc) could check if paused, instead of the whole turn
-		acceleration generally feels bad (path of achra)
-
-
-items:
+item overhaul:
+	maybe do this after basic stat system?
+		
+		
 	2 categories - attuned and non-attunement
 		any item can also be "active" where it has an active effect. maybe only attuned items?
 	some limited attunement slots, 5?
@@ -155,6 +120,17 @@ items:
 					would have to close the character/inventory screen though, i don't want to do that
 					
 	so no global inventory, just like auras, only components on combatants
+
+
+assorted notes:
+
+	when routing, hp bar goes to full and looks weird
+		maybe don't show dudes on death screen?
+		or show them as dead still?
+			don't revive_for_next_combat if combat_failed, until rout is pressed?
+
+	would be nice if the change to/from were faded animations or something
+		decouple the change/to from of the portrait into a big boy manager, so it won't re-animate between combat->reward
 
 
 
@@ -365,6 +341,9 @@ flappy cameo, balloon in the distance
 ----------------------------------------------------------------------------------------------------------------
 things i know are hacky and should be cleaned up (or super duper back burner changes):
 ----------------------------------------------------------------------------------------------------------------
+settings menu (save to json?)
+	speed for each speed setting, default speed?
+
 no error checking at all for > 4 combatants on either side
 
 combat manager -> ui manager is not respecting combat order, which you will want to respect when you care in what order you take turns/trigger effects

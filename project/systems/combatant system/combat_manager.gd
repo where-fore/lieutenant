@@ -54,20 +54,15 @@ func _ready() -> void:
 	HudEvents.game_paused.connect(pause_button_pressed)
 	CombatEvents.combat_ongoing = false
 	
-	create_player_combatant()
+	create_player_combatant(Database.get_combatant_by_id(player_template_id))
 	var add_test_characters:int = 3
 	while add_test_characters > 0:
-		var new_player:Combatant = setup_combatant(Database.get_combatant_by_id("basic_player_rogue"), true)
-		add_child(new_player)
-		HudEvents.send_player_combatants_to_ui.emit(new_player)
-		player_combatants.append(new_player)
-		
+		create_player_combatant(Database.get_combatant_by_id("basic_player_rogue"))
 		add_test_characters -= 1
 
-func create_player_combatant() -> void:
-	var new_player:Combatant = setup_combatant(Database.get_combatant_by_id(player_template_id), true)
+func create_player_combatant(combatant_template:Combatant) -> void:
+	var new_player:Combatant = setup_combatant(combatant_template, true)
 	add_child(new_player)
-	HudEvents.send_player_combatants_to_ui.emit(new_player)
 	player_combatants.append(new_player)
 
 func pause_button_pressed() -> void:
