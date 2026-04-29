@@ -49,6 +49,9 @@ func remove_aura(old_aura:Aura) -> void:
 		CombatLogEvents.aura_removed.emit(old_aura, parent_combatant)
 		if parent_combatant.is_a_player: HudEvents.reward_removed.emit(parent_combatant, old_aura)
 
+func get_all_auras() -> Array[Aura]:
+	return aura_dictionary.values()
+
 func update_aura() -> void:
 	#i don't think i actually do anything? the aura should have already updated before signalling?
 	#maybe this should only update one aura? but i have to recalculate it all anyways incase they interact

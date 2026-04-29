@@ -5,10 +5,6 @@ working notes
 items populate top to bottom, i want bottom to top (newest at top)
 	instantiate to bottom of tree?
 
-tabs don't populate somehow
-
-top portrait section doesn't populate at all
-
 doesn't populate when adding a new combatant with items/auras already, only listens to invidiual add/removes
 
 

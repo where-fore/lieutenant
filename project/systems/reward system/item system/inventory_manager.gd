@@ -24,6 +24,9 @@ func populate_starter_items() -> void:
 	for item_id:String in starting_inventory:
 		equip_item(Database.get_item_by_id(item_id))
 
+func get_all_equipped_items() -> Array[Item]:
+	return inventory
+
 func equip_item(new_item:Item) -> void:
 	interpret_new_item(new_item)
 	if parent_combatant.is_a_player: HudEvents.reward_added.emit(parent_combatant, new_item)

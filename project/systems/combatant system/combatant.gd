@@ -176,6 +176,12 @@ func remove_aura_or_item(reward:Reward) -> void:
 	elif reward is Aura: aura_manager.remove_aura(reward)
 	else: push_error("tried to apply a non-item/aura reward \"", reward.reward_name, "\" to combatant: ", combatant_name)
 
+func get_all_items() -> Array[Item]:
+	return item_manager.get_all_equipped_items()
+
+func get_all_auras() -> Array[Aura]:
+	return aura_manager.get_all_auras()
+
 #this is copied from aura_base.gd
 func get_tooltip() -> String:
 	var tooltip_text:String = name
