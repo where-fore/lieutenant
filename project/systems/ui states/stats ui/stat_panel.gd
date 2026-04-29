@@ -3,7 +3,7 @@ class_name StatPanel
 
 @onready var individual_stat_container:Control = $MarginContainer/ScrollContainer/VBoxContainer
 @export var individual_stat_scene:PackedScene
-var my_stats:Dictionary[String, StatIndividual]
+var my_stats:Dictionary[Reward, StatIndividual]
 
 func _ready() -> void:
 	clear_editor_placeholders()
@@ -18,11 +18,11 @@ func add_stat(new_reward:Reward) -> void:
 	
 	new_stat.populate(new_reward)
 	
-	var new_reward_key:String = new_reward.resource_scene_unique_id
+	var new_reward_key:Reward = new_reward
 	my_stats[new_reward_key] = new_stat
 
 func remove_stat(old_reward:Reward) -> void:
-	var old_reward_key:String = old_reward.resource_scene_unique_id
+	var old_reward_key:Reward = old_reward
 	var old_stat:StatIndividual = my_stats.get(old_reward_key)
 	if old_stat:
 		old_stat.queue_free()

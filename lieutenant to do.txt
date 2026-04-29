@@ -3,11 +3,6 @@ working notes
 --------------------------------------------------------
 
 
-
-auras dont remove
-
-crashing waves tooltip doesnt update 
-
 tabs don't populate somehow
 
 top portrait section doesn't populate at all
@@ -18,8 +13,9 @@ would be nice to show total health/attack on this screen somewhere, iguess in pl
 
 need to be able to yeet items (and auras? not actually cause debuffs? not sure. maybe a "yeetable" (as well as visible) property on rewards?
 
+would like to be able to give combatants test items, or something similar to test out items
 
-
+panel doesn't have an "items" or "auras" header, it's just a load of stuff
 
 to do:
 		
@@ -84,6 +80,12 @@ combat overhaul:
 	active effects
 		items with active effects
 			basics: double attack for 2 turns, deal 30 damage immediately, all party members get 10 attack for a turn
+		have it so you can click anytime ,and when it's locked in that character will now do it on their next turn (put in a check before the attack)
+			would be nice to have a way to do after attacks too? probably?
+			
+			or maybe just do it instantly?
+				i don't really wanna break logic chains, feels like it should be turn related like everything else
+				but i want it to feel big and impactful.  maybe the pause and animation will do that enough?
 		
 	primary/derived stats
 		probably str/dex/int or similar. choose one as primary, and deal that as damage, rest gives you bonuses?
@@ -262,6 +264,12 @@ func _unhandled_input(event: InputEvent) -> void:
 ---------------------------
 not right now, maybe:
 ---------------------------
+
+stat screen polish/features:
+	separate stats tab into temporary and permanent auras, somehow?
+	
+	stat screen showing the math to get your current stats?
+
 turn animation, i removed the end of turn slow down
 	not sure how to see into the future right now, but it would be nice to slow down near the end
 

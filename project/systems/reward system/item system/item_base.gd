@@ -54,12 +54,18 @@ func initialize_my_custom_auras() -> void:
 		_custom_auras.append(template.new().create_aura("", true))
 
 func add_to_custom_auras(new_aura:Aura) -> void:
-	_custom_auras.append(new_aura)
-	custom_aura_added.emit(new_aura)
+	if new_aura:
+		_custom_auras.append(new_aura)
+		custom_aura_added.emit(new_aura)
+	else:
+		push_error("somehow tried to add a null aura")
 
-func remove_from_custom_auras(new_aura:Aura) -> void:
-	_custom_auras.erase(new_aura)
-	custom_aura_removed.emit(new_aura)
+func remove_from_custom_auras(old_aura:Aura) -> void:
+	if old_aura:
+		_custom_auras.erase(old_aura)
+		custom_aura_removed.emit(old_aura)
+	else:
+		push_error("somehow tried to remove a null aura")
 
 #derived subclasses hook onto and override these functions
 func setup_item_stats() -> void:

@@ -51,5 +51,6 @@ func apply_my_aura() -> void:
 	add_to_custom_auras(buff_aura)
 
 func clear_my_aura() -> void:
-	remove_from_custom_auras(buff_aura)
-	buff_aura = null
+	if buff_aura:
+		remove_from_custom_auras(buff_aura)
+		buff_aura = null

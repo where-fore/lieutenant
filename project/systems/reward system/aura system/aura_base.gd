@@ -49,8 +49,6 @@ func get_id() -> String:
 
 #this is copied from item_base.gd
 func get_tooltip() -> String:
-	setup_aura_stats()
-	
 	var to_add:String
 	
 	var tooltip_text:String = reward_name

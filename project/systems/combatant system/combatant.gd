@@ -175,8 +175,6 @@ func remove_aura_or_item(reward:Reward) -> void:
 	if reward is Item: item_manager.unequip_item(reward)
 	elif reward is Aura: aura_manager.remove_aura(reward)
 	else: push_error("tried to apply a non-item/aura reward \"", reward.reward_name, "\" to combatant: ", combatant_name)
-	
-	if is_a_player: HudEvents.reward_removed.emit(self, reward)
 
 #this is copied from aura_base.gd
 func get_tooltip() -> String:
