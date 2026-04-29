@@ -23,8 +23,8 @@ func add_combatant_to_tracking(new_combatant:Combatant) -> void:
 	if tabs.size() >= BalanceData.max_party_size:
 		push_error("tried to track a new player combatant stats when already at max party size. attempted new combatant: ", new_combatant.combatant_name)
 	else:
-		add_new_tab(new_combatant)
 		add_new_info_panel(new_combatant)
+		add_new_tab(new_combatant)
 
 func remove_combatant_from_tracking(old_combatant:Combatant) -> void:
 	remove_tab(old_combatant)
@@ -32,7 +32,12 @@ func remove_combatant_from_tracking(old_combatant:Combatant) -> void:
 
 func add_new_tab(new_combatant:Combatant) -> void:
 	if not tabs.has(new_combatant):
-		tabs[new_combatant] = empty_tabs.pop_front()
+		var new_tab:StatTab = empty_tabs.pop_front()
+		tabs[new_combatant] = new_tab
+		new_tab.setup_from_combatant(new_combatant)
+		new_tab.set_info_panel(info_panels.get(new_combatant))
+		new_tab.tab_pressed.connect(swap_to_info_panel)
+		new_tab.visible = true
 	else:
 		push_error("tried to overwrite ui tab containing: ", new_combatant.combatant_name)
 
@@ -42,6 +47,9 @@ func add_new_info_panel(new_combatant:Combatant) -> void:
 		info_panels[new_combatant] = new_info_panel
 		info_panel_container.add_child(new_info_panel)
 		new_info_panel.position = Vector2.ZERO
+		new_info_panel.my_combatant = new_combatant
+		new_info_panel.connect_signals()
+		new_info_panel.update_title_stats()
 	else:
 		push_error("tried to overwrite stat info tab containing: ", new_combatant.combatant_name)
 
@@ -88,3 +96,14 @@ func set_party_tab(tab:StatTab) -> void:
 	empty_tabs.erase(tab)
 	tab.set_label("Party")
 	tab.set_portrait(load("res://sprites/player.png"))
+	tab.tab_pressed.connect(swap_to_party_panel)
+
+func swap_to_info_panel(tab_pressed:StatTab) -> void:
+	for panel:InfoPanel in info_panels.values():
+		panel.visible = false
+	tab_pressed.my_info_panel.visible = true
+
+func swap_to_party_panel(_unused_arg:Variant) -> void:
+	for panel:InfoPanel in info_panels.values():
+		panel.visible = false
+	

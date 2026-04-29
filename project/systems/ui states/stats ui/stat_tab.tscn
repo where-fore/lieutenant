@@ -41,10 +41,14 @@ expand_mode = 5
 stretch_mode = 5
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 26)
 layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 8
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 6
 text = "John"
 vertical_alignment = 1
+autowrap_mode = 3
+text_overrun_behavior = 3
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

@@ -2,6 +2,8 @@
 working notes
 --------------------------------------------------------
 
+items populate top to bottom, i want bottom to top (newest at top)
+	instantiate to bottom of tree?
 
 tabs don't populate somehow
 
@@ -9,13 +11,11 @@ top portrait section doesn't populate at all
 
 doesn't populate when adding a new combatant with items/auras already, only listens to invidiual add/removes
 
-would be nice to show total health/attack on this screen somewhere, iguess in place of that top section for now
 
 need to be able to yeet items (and auras? not actually cause debuffs? not sure. maybe a "yeetable" (as well as visible) property on rewards?
 
 would like to be able to give combatants test items, or something similar to test out items
 
-panel doesn't have an "items" or "auras" header, it's just a load of stuff
 
 i really need to have some sort of system for making temporary custom auras on items, like the warding pike/arrogant axe. DRY
 

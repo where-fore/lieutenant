@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://bcp8cmhkfnrrs"]
+[gd_scene load_steps=8 format=3 uid="uid://bcp8cmhkfnrrs"]
 
 [ext_resource type="Script" uid="uid://cqu36mhe1wslh" path="res://systems/ui states/stats ui/info_panel.gd" id="1_lufp6"]
 [ext_resource type="Texture2D" uid="uid://c7a1jxvk522q2" path="res://sprites/border_background.png" id="1_o4t6l"]
 [ext_resource type="Texture2D" uid="uid://ubmjcik0bgn7" path="res://sprites/knight.png" id="2_lufp6"]
 [ext_resource type="Texture2D" uid="uid://cwjj6wggwg4n3" path="res://sprites/18px_border.png" id="3_wmmmq"]
 [ext_resource type="PackedScene" uid="uid://dk7qdyba0te4d" path="res://systems/ui states/stats ui/stat_panel.tscn" id="4_mknp8"]
+[ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="5_mknp8"]
+[ext_resource type="Texture2D" uid="uid://jm7ccvlf38y4" path="res://sprites/sword.png" id="6_5pvru"]
 
 [node name="InfoPanel" type="Panel"]
 offset_left = 16.0
@@ -124,6 +126,55 @@ layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("3_wmmmq")
 expand_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "John the Figher"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+text_overrun_behavior = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HealthImage" type="TextureRect" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("5_mknp8")
+expand_mode = 2
+
+[node name="HealthLabel" type="Label" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "132"
+
+[node name="Spacer2" type="Control" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AttackImage" type="TextureRect" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_5pvru")
+expand_mode = 2
+
+[node name="AttackLabel" type="Label" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "132"
+
+[node name="Spacer3" type="Control" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="Body" type="Panel" parent="VBoxContainer"]
 layout_mode = 2
