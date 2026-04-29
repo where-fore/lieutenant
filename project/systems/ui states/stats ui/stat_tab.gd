@@ -16,5 +16,6 @@ func clear_data() -> void:
 	visible = false
 
 func _on_pressed() -> void:
+	print_debug(name)
 	pass # Replace with function body.
 	#change to the panel or something

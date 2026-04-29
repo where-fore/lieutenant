@@ -9,7 +9,7 @@ offset_right = 215.0
 offset_bottom = 95.0
 size_flags_horizontal = 3
 texture = ExtResource("1_eud57")
-expand_mode = 3
+expand_mode = 2
 script = ExtResource("2_q2cm6")
 individual_stat_scene = ExtResource("2_voecg")
 
@@ -47,4 +47,19 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="IndividualStat5" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_voecg")]
+layout_mode = 2
+
+[node name="IndividualStat6" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_voecg")]
+layout_mode = 2
+
+[node name="IndividualStat7" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_voecg")]
+layout_mode = 2
+
+[node name="IndividualStat8" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_voecg")]
+layout_mode = 2
+
+[node name="IndividualStat9" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_voecg")]
+layout_mode = 2
+
+[node name="IndividualStat10" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_voecg")]
 layout_mode = 2

@@ -17,6 +17,9 @@ would like to be able to give combatants test items, or something similar to tes
 
 panel doesn't have an "items" or "auras" header, it's just a load of stuff
 
+i really need to have some sort of system for making temporary custom auras on items, like the warding pike/arrogant axe. DRY
+
+
 to do:
 		
 	start on map overhaul?

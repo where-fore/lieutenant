@@ -23,9 +23,8 @@ grow_vertical = 2
 theme_override_constants/separation = 0
 
 [node name="Portrait" type="Panel" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 90)
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
-size_flags_vertical = 3
 mouse_filter = 1
 
 [node name="Border" type="TextureRect" parent="VBoxContainer/Portrait"]
@@ -62,6 +61,7 @@ expand_mode = 3
 stretch_mode = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
@@ -148,7 +148,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 2
+theme_override_constants/margin_top = 22
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 2
 
@@ -161,3 +161,56 @@ layout_mode = 2
 
 [node name="Auras" parent="VBoxContainer/Body/MarginContainer/HBoxContainer" instance=ExtResource("4_mknp8")]
 layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/Body"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+offset_bottom = -118.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Body/MarginContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="ItemLabel" type="TextureRect" parent="VBoxContainer/Body/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_o4t6l")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Body/MarginContainer2/HBoxContainer/ItemLabel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 6
+text = "Items"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AuraLabel" type="TextureRect" parent="VBoxContainer/Body/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_o4t6l")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Body/MarginContainer2/HBoxContainer/AuraLabel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 6
+text = "Auras"
+horizontal_alignment = 1
+vertical_alignment = 1
