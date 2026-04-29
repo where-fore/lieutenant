@@ -29,6 +29,7 @@ func apply_new_aura(new_aura:Aura) -> void:
 	
 	if new_aura.visible:
 		CombatLogEvents.aura_applied.emit(new_aura, parent_combatant)
+		if parent_combatant.is_a_player: HudEvents.reward_added.emit(parent_combatant, new_aura)
 	
 	new_aura.expired.connect(remove_aura, CONNECT_ONE_SHOT)
 	new_aura.updated.connect(update_aura)
@@ -43,7 +44,10 @@ func remove_aura(old_aura:Aura) -> void:
 	
 	aura_dictionary.erase(old_aura.get_id())
 	update_stats()
-	CombatLogEvents.aura_removed.emit(old_aura, parent_combatant)
+	
+	if old_aura.visible:
+		CombatLogEvents.aura_removed.emit(old_aura, parent_combatant)
+		if parent_combatant.is_a_player: HudEvents.reward_removed.emit(parent_combatant, old_aura)
 
 func update_aura() -> void:
 	#i don't think i actually do anything? the aura should have already updated before signalling?

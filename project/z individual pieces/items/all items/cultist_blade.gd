@@ -14,11 +14,13 @@ func setup_basic_item_data() -> void:
 	item_categories = {
 		Categories.item_rarity : Categories.Rarity.MYTHIC,
 	}
-	
 
 #--functions called by item_base.gd--
 func setup_item_stats() -> void:
 	setup_basic_item_data()
+
+func on_combat_start() -> void:
+	apply_my_aura()
 
 func on_attack(source:Combatant, _target:Combatant) -> void:
 	var healing:int = source.current_stats[Stats.attack] * healing_per_attack_multiplier / 100
@@ -27,22 +29,13 @@ func on_attack(source:Combatant, _target:Combatant) -> void:
 func on_damage_taken(_source:Combatant, amount_taken:int) -> void:
 	var attack_to_gain:int = amount_taken * percent_of_damage_taken_gained_as_attack / 100
 	
-	if not buff_aura:
-		initialize_aura()
-	
 	if not buff_aura.additive_stat_dictionary.has(Stats.attack):
 		buff_aura.additive_stat_dictionary[Stats.attack] = 0
 	buff_aura.additive_stat_dictionary[Stats.attack] += attack_to_gain
 	buff_aura.update_aura()
 
-func on_combat_end() -> void:
-	if buff_aura: clear_my_aura()
-
-func clear_my_aura() -> void:
-	remove_from_custom_auras(buff_aura)
-	buff_aura = null
-
-func initialize_aura() -> void:
-	buff_aura = Aura.new().create_aura(buff_reward_name, true)
+func apply_my_aura() -> void:
+	buff_aura = Aura.new().create_aura(buff_reward_name)
 	buff_aura.duration_type = AuraNames.DurationType.THIS_COMBAT
+	buff_aura.reward_sprite = reward_sprite
 	add_to_custom_auras(buff_aura)

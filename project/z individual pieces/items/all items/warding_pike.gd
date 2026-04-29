@@ -37,7 +37,8 @@ func on_combat_end() -> void:
 
 func apply_my_aura() -> void:
 	buff_aura = Aura.new().create_aura(buff_reward_name, true)
-	buff_aura.duration_type = AuraNames.DurationType.THIS_COMBAT
+	buff_aura.duration_type = AuraNames.DurationType.SPECIAL
+	buff_aura.reward_sprite = reward_sprite
 	
 	buff_aura.multiplicative_stat_dictionary[Stats.health] = super_health_multiplier
 	

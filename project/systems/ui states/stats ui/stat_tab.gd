@@ -9,3 +9,12 @@ func set_portrait(new_texture:Texture2D) -> void:
 
 func set_label(new_text:String) -> void:
 	_my_label_parent.text = new_text
+
+func clear_data() -> void:
+	_my_portrait_parent.texture = null
+	_my_label_parent.text = ""
+	visible = false
+
+func _on_pressed() -> void:
+	pass # Replace with function body.
+	#change to the panel or something

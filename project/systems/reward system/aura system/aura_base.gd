@@ -4,12 +4,12 @@ class_name Aura
 var aura_id:String
 var extra_tooltip:String
 var aura_categories:Array[StringName]
-var visible:bool = false
+var visible:bool
 
 signal expired(aura_instance:Aura)
 signal updated(aura_instance:Aura)
 
-var duration_type:AuraNames.DurationType = AuraNames.DurationType.PERMANENT
+var duration_type:AuraNames.DurationType
 var base_duration:int:
 	set(value):
 		current_duration = value
@@ -23,8 +23,8 @@ var multiplicative_stat_dictionary:Dictionary[StringName, int] = {}
 func _init() -> void:
 	setup_aura_stats()
 
-func create_aura(name:String = "", should_be_visible:bool = false, additive_init:Dictionary[StringName, int] = {}, multiplicative_init:Dictionary[StringName, int] = {}) -> Aura:
-	var this_aura:Aura = self.duplicate()
+func create_aura(name:String = "", should_be_visible:bool = true, additive_init:Dictionary[StringName, int] = {}, multiplicative_init:Dictionary[StringName, int] = {}) -> Aura:
+	var this_aura:Aura = self.duplicate(true)
 	
 	if name: this_aura.reward_name = name
 	if should_be_visible: this_aura.visible = should_be_visible
@@ -34,6 +34,7 @@ func create_aura(name:String = "", should_be_visible:bool = false, additive_init
 	if multiplicative_init: this_aura.multiplicative_stat_dictionary = multiplicative_init.duplicate()
 	else: this_aura.multiplicative_stat_dictionary = multiplicative_stat_dictionary.duplicate()
 	
+	if not duration_type: this_aura.duration_type = AuraNames.DurationType.PERMANENT
 	if base_duration: this_aura.current_duration = base_duration
 	
 	return this_aura
@@ -55,9 +56,9 @@ func get_tooltip() -> String:
 	var tooltip_text:String = reward_name
 	
 	if duration_type == AuraNames.DurationType.TURNS:
-		to_add = "\n" + "Aura: " + str(current_duration) + AuraNames.DurationType_Labels.keys()[duration_type]
+		to_add = "\n" + "Duration: " + str(current_duration) + " " + AuraNames.DurationType_Labels[duration_type]
 	else:
-		to_add = "\n" + "Aura: " + AuraNames.DurationType_Labels[duration_type]
+		to_add = "\n" + "Duration: " + AuraNames.DurationType_Labels[duration_type]
 	tooltip_text += to_add
 	to_add = ""
 	

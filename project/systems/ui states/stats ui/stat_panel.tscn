@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dk7qdyba0te4d"]
+[gd_scene load_steps=4 format=3 uid="uid://dk7qdyba0te4d"]
 
 [ext_resource type="Texture2D" uid="uid://c7a1jxvk522q2" path="res://sprites/border_background.png" id="1_eud57"]
+[ext_resource type="Script" uid="uid://debst8m3ba3t" path="res://systems/ui states/stats ui/stat_panel.gd" id="2_q2cm6"]
 [ext_resource type="PackedScene" uid="uid://ckmvwnsn3a6og" path="res://systems/ui states/stats ui/stat_individual.tscn" id="2_voecg"]
 
 [node name="Items" type="TextureRect"]
@@ -9,6 +10,8 @@ offset_bottom = 95.0
 size_flags_horizontal = 3
 texture = ExtResource("1_eud57")
 expand_mode = 3
+script = ExtResource("2_q2cm6")
+individual_stat_scene = ExtResource("2_voecg")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -28,6 +31,8 @@ vertical_scroll_mode = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="IndividualStat" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_voecg")]
 layout_mode = 2

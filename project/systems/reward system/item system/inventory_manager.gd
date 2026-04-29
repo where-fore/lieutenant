@@ -26,9 +26,11 @@ func populate_starter_items() -> void:
 
 func equip_item(new_item:Item) -> void:
 	interpret_new_item(new_item)
+	if parent_combatant.is_a_player: HudEvents.reward_added.emit(parent_combatant, new_item)
 
-func unequip_item(new_item:Item) -> void:
-	interpret_removed_item(new_item)
+func unequip_item(old_item:Item) -> void:
+	interpret_removed_item(old_item)
+	if parent_combatant.is_a_player: HudEvents.reward_removed.emit(parent_combatant, old_item)
 
 func interpret_new_item(item:Item) -> void:
 	inventory.append(item)

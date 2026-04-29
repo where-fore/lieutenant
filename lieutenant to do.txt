@@ -2,6 +2,25 @@
 working notes
 --------------------------------------------------------
 
+
+
+auras dont remove
+
+crashing waves tooltip doesnt update 
+
+tabs don't populate somehow
+
+top portrait section doesn't populate at all
+
+doesn't populate when adding a new combatant with items/auras already, only listens to invidiual add/removes
+
+would be nice to show total health/attack on this screen somewhere, iguess in place of that top section for now
+
+need to be able to yeet items (and auras? not actually cause debuffs? not sure. maybe a "yeetable" (as well as visible) property on rewards?
+
+
+
+
 to do:
 		
 	start on map overhaul?

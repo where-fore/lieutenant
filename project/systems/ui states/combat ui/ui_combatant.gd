@@ -65,11 +65,11 @@ func clear_combatant() -> void:
 
 
 func _on_portrait_mouse_entered() -> void:
-	if CursorManager.hovering_a_reward:
+	if CursorManager.hovering_reward:
 		force_show_turn_indicator()
 
 func _on_portrait_mouse_exited() -> void:
-	if CursorManager.hovering_a_reward:
+	if CursorManager.hovering_reward:
 		force_hide_turn_indicator()
 
 func apply_reward(reward:Reward) -> void:
@@ -79,7 +79,7 @@ func apply_reward(reward:Reward) -> void:
 func _on_portrait_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			if CursorManager.hovering_a_reward:
+			if CursorManager.hovering_reward:
 				apply_reward(CursorManager.hovering_reward)
 				CursorManager.take_hovered_reward()
 			#else open character sheet?

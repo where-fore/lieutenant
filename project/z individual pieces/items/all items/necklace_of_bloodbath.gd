@@ -1,6 +1,5 @@
 extends Item
 
-var turn_counter:int
 var turns_active:int = 4
 var buff_aura:Aura
 var buff_reward_name:String = "Safe Haven"
@@ -14,31 +13,21 @@ func setup_basic_item_data() -> void:
 	item_categories = {
 		Categories.item_rarity : Categories.Rarity.RARE,
 	}
-	
 
 #--functions called by parents--
 func setup_item_stats() -> void:
 	setup_basic_item_data()
 
 func on_combat_start() -> void:
-	turn_counter = 0
 	apply_my_aura()
-
-func on_turn_start(_source:Combatant) -> void:
-	turn_counter += 1
-	if turn_counter > turns_active and buff_aura:
-		clear_my_aura()
 
 #--end of functions called by parents--
 
 func apply_my_aura() -> void:
-	buff_aura = Aura.new().create_aura(buff_reward_name, true)
-	buff_aura.duration_type = AuraNames.DurationType.THIS_COMBAT
-	
+	buff_aura = Aura.new().create_aura(buff_reward_name)
+	buff_aura.duration_type = AuraNames.DurationType.TURNS
+	buff_aura.base_duration = turns_active
+	buff_aura.reward_sprite = reward_sprite
 	buff_aura.additive_stat_dictionary[Stats.health] = shield
 	
 	add_to_custom_auras(buff_aura)
-
-func clear_my_aura() -> void:
-	remove_from_custom_auras(buff_aura)
-	buff_aura = null
