@@ -6,8 +6,8 @@ func _init() -> void:
 	combatant_texture = load("res://sprites/knight.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	
-	base_health = BalanceData.player_base_health * 10
-	base_attack = BalanceData.player_base_attack * 2
+	base_health = BalanceData.player_base_health
+	base_attack = BalanceData.player_base_attack
 
 #you probably want to call this when instantiating it, to scale to something
 func scale_stats(power:int) -> void:

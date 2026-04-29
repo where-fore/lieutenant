@@ -15,6 +15,7 @@ func clear_editor_placeholders() -> void:
 func add_stat(new_reward:Reward) -> void:
 	var new_stat:StatIndividual = individual_stat_scene.instantiate()
 	individual_stat_container.add_child(new_stat)
+	individual_stat_container.move_child(new_stat, 0) #to top of tree ie. top of box
 	
 	new_stat.populate(new_reward)
 	

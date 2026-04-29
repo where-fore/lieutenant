@@ -2,18 +2,7 @@
 working notes
 --------------------------------------------------------
 
-items populate top to bottom, i want bottom to top (newest at top)
-	instantiate to bottom of tree?
 
-doesn't populate when adding a new combatant with items/auras already, only listens to invidiual add/removes
-
-
-need to be able to yeet items (and auras? not actually cause debuffs? not sure. maybe a "yeetable" (as well as visible) property on rewards?
-
-would like to be able to give combatants test items, or something similar to test out items
-
-
-i really need to have some sort of system for making temporary custom auras on items, like the warding pike/arrogant axe. DRY
 
 
 to do:
@@ -22,11 +11,6 @@ to do:
 		tiles can hold events
 		player on tile, not rows being enabled/disabled
 		have tiles off screen and slide on as you progress
-		
-	character/inventory screen
-		see all items / auras
-			active/attuned items too
-			give items to others etc
 			
 	combat log popout
 		and more readability for the mini one
@@ -35,6 +19,13 @@ to do:
 		day night system, still not too sure where we land on this
 			distinct phases which strengthen enemies?
 		
+	would like to be able to give combatants test items, or something similar to test out items
+		ill need combatants to start with items anyways, probably want jon the thief to have a few items when you recruit them, for example
+		and enemies with items!!!!
+		
+	i really need to have some sort of system for making temporary custom auras on items, like the warding pike/arrogant axe. DRY
+
+	
 any of the below, of course
 
 
@@ -141,6 +132,22 @@ item overhaul:
 					
 	so no global inventory, just like auras, only components on combatants
 
+
+stat screen:
+	be able to delete items / give to other party members
+		give rewards the "deleteable" property, false for cursed items? important character items?
+	
+		probably a drop down with each party member, and delete at the bottom with a confirmation? the label text changes from delete to you sure?
+		
+	active / attuned items
+		that system doesn't exist yet
+	
+	party screen implemented
+		that system also doesn't exist yet
+
+	please god a 9-patch or somethin else that doesn't look terrible
+	
+	
 
 assorted notes:
 
