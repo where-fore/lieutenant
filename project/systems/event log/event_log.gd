@@ -25,17 +25,25 @@ func _ready() -> void:
 	CombatEvents.healing_applied.connect(interpret_healing)
 	CombatLogEvents.aura_removed.connect(report_aura_removed)
 	CombatLogEvents.aura_applied.connect(report_aura_applied)
-	HudEvents.change_to_combat_screen.connect(clear_log)
-	MapEvents.combat_all_done.connect(clear_log)
+	CombatLogEvents.item_equipped.connect(report_item_equipped)
 	CombatEvents.combatant_died.connect(report_death)
 	CombatLogEvents.custom_message.connect(print_custom_message)
 	HudEvents.chapter_lost.connect(clear_log)
-	HudEvents.chapter_won.connect(clear_log)
+	#HudEvents.chapter_won.connect(clear_log)
+	#MapEvents.combat_all_done.connect(clear_log)
+	@warning_ignore("untyped_declaration") #programmer short hand for yeeting all the arguments
+	MapEvents.enter_combat_in.connect(func(_unused_data) -> void: clear_log())
+	@warning_ignore("untyped_declaration") #programmer short hand for yeeting all the arguments
+	ScenarioEvents.begin_combat_with.connect(func(_unused_data) -> void: clear_log())
 
 
 func clear_log() -> void:
 	label.text = ""
-	
+
+func new_combat_line() -> void:
+	label.text += "\n"
+	label.text += "    ENTERING COMBAT"
+	label.text += "\n"
 
 func interpret_attack(source_object:Combatant, _amount:int, target_object:Combatant) -> void:
 	var source_name:String = source_object.combatant_name
@@ -96,6 +104,18 @@ func report_aura_applied(aura:Aura, combatant:Combatant) -> void:
 	var aura_fancy:String = "[color=#%s]%s[/color]" % [aura_color, aura.reward_name]
 	var combatant_fancy:String = "[color=#%s]%s[/color]" % [combatant_color, combatant.combatant_name]
 	text_to_add = text_to_add.format({"aura": aura_fancy, "combatant": combatant_fancy})
+	
+	append_to_label(text_to_add)
+
+func report_item_equipped(item:Item, combatant:Combatant) -> void:
+	var item_color:String = Color.GOLDENROD.to_html()
+	var combatant_color:String = Color.MEDIUM_VIOLET_RED.to_html()
+	
+	var text_to_add:String = "{item} now wielded by the hands of {combatant}."
+	
+	var item_fancy:String = "[color=#%s]%s[/color]" % [item_color, item.reward_name]
+	var combatant_fancy:String = "[color=#%s]%s[/color]" % [combatant_color, combatant.combatant_name]
+	text_to_add = text_to_add.format({"item": item_fancy, "combatant": combatant_fancy})
 	
 	append_to_label(text_to_add)
 

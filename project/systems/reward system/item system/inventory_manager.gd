@@ -29,7 +29,9 @@ func get_all_equipped_items() -> Array[Item]:
 
 func equip_item(new_item:Item) -> void:
 	interpret_new_item(new_item)
-	if parent_combatant.is_a_player: HudEvents.reward_added.emit(parent_combatant, new_item)
+	if parent_combatant.is_a_player:
+		HudEvents.reward_added.emit(parent_combatant, new_item)
+		CombatLogEvents.item_equipped.emit(new_item, parent_combatant)
 
 func unequip_item(old_item:Item) -> void:
 	interpret_removed_item(old_item)

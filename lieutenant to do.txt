@@ -2,8 +2,6 @@
 working notes
 --------------------------------------------------------
 
-add tooltip to menu buttons at top, maybe make them smaller or something?
-
 
 to do:
 		
@@ -11,9 +9,6 @@ to do:
 		tiles can hold events
 		player on tile, not rows being enabled/disabled
 		have tiles off screen and slide on as you progress
-			
-	combat log popout
-		and more readability for the mini one
 		
 	enemy scaling?
 		day night system, still not too sure where we land on this

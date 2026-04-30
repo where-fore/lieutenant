@@ -7,6 +7,7 @@ extends Node2D
 @onready var map_container:Control = $MainGame/MarginContainer/MapContainer
 @export var text_blurb_scene:PackedScene
 @onready var text_blurb_container:Control = $MainGame/MarginContainer/TextBlurbContainer
+@onready var combat_log_container:Control = $MainGame/MarginContainer/CombatLogContainer
 
 @onready var crt_filter_container:CanvasLayer = $CRTFilter
 @onready var game_start_button_container:Control = $MainUI/GameStarter
@@ -32,6 +33,7 @@ func _ready() -> void:
 	scrolling_log_container.visible = false
 	right_side_ui_container.visible = true
 	stats_ui_container.visible = false
+	combat_log_container.visible = false
 	
 	volume_slider.value = BackgroundMusicPlayer.get_current_volume() * 100
 
@@ -103,3 +105,6 @@ func _on_shuffle_icon_pressed() -> void:
 
 func _on_inventory_menu_button_pressed() -> void:
 	stats_ui_container.visible = !stats_ui_container.visible
+
+func _on_combat_log_button_pressed() -> void:
+	combat_log_container.visible = !combat_log_container.visible
