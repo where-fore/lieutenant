@@ -136,6 +136,7 @@ expand_mode = 2
 
 [node name="PauseMenuButton" type="TextureButton" parent="MainUI/TopButtons/PauseMenuButton/MarginContainer"]
 layout_mode = 2
+tooltip_text = "Settings"
 texture_normal = ExtResource("8_bbldx")
 stretch_mode = 4
 
@@ -156,6 +157,7 @@ expand_mode = 2
 
 [node name="InventoryMenuButton" type="TextureButton" parent="MainUI/TopButtons/InventoryMenuButton/MarginContainer"]
 layout_mode = 2
+tooltip_text = "Inventory"
 texture_normal = ExtResource("10_1j0u7")
 stretch_mode = 4
 

@@ -2,7 +2,7 @@
 working notes
 --------------------------------------------------------
 
-
+add tooltip to menu buttons at top, maybe make them smaller or something?
 
 
 to do:

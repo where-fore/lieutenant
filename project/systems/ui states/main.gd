@@ -22,6 +22,7 @@ extends Node2D
 
 func _ready() -> void:
 	HudEvents.chapter_completed.connect(_on_restart_button_pressed)
+	ScenarioEvents.item_tutorial_ready.connect(show_inventory_button)
 	
 	game_start_button_container.visible = true
 	pause_button_container.visible = true
@@ -69,13 +70,15 @@ func _on_new_game_button_pressed() -> void:
 	
 	game_start_button_container.visible = false
 	start_game()
-	inventory_menu_button_container.visible = true
 
 func _on_restart_button_pressed() -> void:
 	get_tree().reload_current_scene()
 
 func _on_resume_button_pressed() -> void:
 	close_pause_menu()
+
+func show_inventory_button() -> void:
+	inventory_menu_button_container.visible = true
 
 func close_pause_menu() -> void:
 	if pause_menu_container.visible:

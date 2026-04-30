@@ -8,6 +8,7 @@ var tutorial_stage:int = 0
 
 @warning_ignore_start("unused_signal")
 signal resuming_tutorial()
+signal item_tutorial_ready()
 signal updated()
 signal on_last_page()
 signal begin_combat_with(combatant:Combatant)
@@ -24,6 +25,7 @@ func load_tutorial_first_scenario() -> void:
 	updated.emit()
 
 func load_tutorial_second_scenario() -> void:
+	item_tutorial_ready.emit()
 	current_scenario = load(tutorial_second_scenario_path).new() as Scenario
 	tutorial_stage = 2
 	current_scenario.start_scenario()
