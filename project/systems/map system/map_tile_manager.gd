@@ -10,13 +10,13 @@ var debug_vision:bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#only checking this on victory, for now
-	MapEvents.reward_offered.connect(hide_current_row_and_increment)
+	MapEvents.point_of_no_return.connect(hide_current_row_and_increment)
 	#MapEvents.combat_all_done.connect(hide_current_row_and_increment)
 	
 	MapEvents.maptile_created.connect(add_to_database)
 	MapEvents.map_grid_ready.connect(hide_all_but_tutorial_row)
 	MapEvents.venture_to.connect(handle_map_transition)
-	MapEvents.reward_offered.connect(fully_cleared_tile)
+	MapEvents.point_of_no_return.connect(fully_cleared_tile)
 	HudEvents.rout_chosen.connect(fully_cleared_tile)
 	
 	maptile_spawner_parent.populate_tiles()
@@ -24,7 +24,9 @@ func _ready() -> void:
 func handle_map_transition(map_tile:MapTile) -> void:
 	current_tile_encounter = map_tile
 	
-	if map_tile.tile_data.enemy:
+	if map_tile.tile_data.scenario:
+		MapEvents.enter_scenario_in.emit(map_tile)
+	elif map_tile.tile_data.enemy:
 		MapEvents.enter_combat_in.emit(map_tile)
 	else:
 		MapEvents.enter_without_combat_in.emit(map_tile)

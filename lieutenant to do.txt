@@ -24,8 +24,19 @@ so to do:
 	
 
 
+some sort of ui for the map panel with scenarios
+	if scenario,
+		disable enemy/item maybe?
+		something you can't quite make out awaits you...
 
-
+okay so
+	works mostly, yay
+	map:
+		doesn't progress map, or disables tile
+		map info panel doesn't look good
+	reward:
+		still offers basic reward
+		bottom text says "found nothing..."
 
 
 

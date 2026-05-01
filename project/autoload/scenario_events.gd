@@ -15,8 +15,13 @@ signal begin_combat_with(combatant:Combatant)
 signal present_rewards()
 signal completed_combat_as_victory()
 signal completed_combat_as_loss()
-signal setup_reward(reward:Variant)
+signal setup_reward(reward:Reward)
 @warning_ignore_restore("unused_signal")
+
+func load_scenario(new_scenario:Scenario) -> void:
+	current_scenario = new_scenario
+	current_scenario.start_scenario()
+	updated.emit()
 
 func load_tutorial_first_scenario() -> void:
 	current_scenario = load(tutorial_first_scenario_path).new() as Scenario

@@ -23,8 +23,8 @@ var current_title_text_blurb:String
 var basic_reward_text_blurb:String = "Gather\nyour prize"
 var current_reward_text_blurb:String
 
-var current_reward:Variant
-var current_basic_reward:Variant
+var current_reward:Reward
+var current_basic_reward:Reward
 var current_map_tile:MapTile
 
 # Called when the node enters the scene tree for the first time.
@@ -70,9 +70,10 @@ func prepare_from_map_tile(map_tile:MapTile) -> void:
 		if not ScenarioEvents.tutorial_stage: prepare_basic_reward()
 		prepare_reward()
 
-func prepare_from_scenario(reward:Variant) -> void:
+func prepare_from_scenario(reward:Reward) -> void:
 	if (not reward is Reward):
 		push_error("tried to prepare reward from scenario, but was given class: " + reward.get_class())
+	clear_reward()
 	current_reward = reward
 	prepare_reward()
 

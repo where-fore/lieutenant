@@ -11,6 +11,7 @@ func _ready() -> void:
 	HudEvents.chapter_won.connect(win_chapter)
 	HudEvents.chapter_lost.connect(lose_chapter)
 	HudEvents.chapter_started.connect(start_chapter)
+	MapEvents.enter_scenario_in.connect(start_scenario)
 	ScenarioEvents.updated.connect(update_blurb_to_event)
 	ScenarioEvents.on_last_page.connect(change_next_button_to_continue)
 	ScenarioEvents.begin_combat_with.connect(change_to_combat)
@@ -36,6 +37,11 @@ func start_chapter() -> void:
 	ScenarioEvents.load_tutorial_first_scenario()
 
 func resume_tutorial() -> void:
+	show_screen()
+	next_page_button.visible = true
+
+func start_scenario(enetered_map_tile:MapTile) -> void:
+	ScenarioEvents.load_scenario(enetered_map_tile.tile_data.scenario)
 	show_screen()
 	next_page_button.visible = true
 

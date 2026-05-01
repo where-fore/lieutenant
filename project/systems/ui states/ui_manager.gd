@@ -20,8 +20,7 @@ func _ready() -> void:
 	MapEvents.enter_without_combat_in.connect(func(_unused_data) -> void: end_combat_as_victory())
 
 func end_combat_as_victory() -> void:
-	if not ScenarioEvents.current_scenario:
-		MapEvents.reward_offered.emit()
+	MapEvents.point_of_no_return.emit()
 	
 	combat_ui_manager.change_from()
 	reward_ui_manager.change_to()
