@@ -77,7 +77,7 @@ func populate_tile_data(tile:MapTile) -> void:
 	#tutorial: first encounter (fetch quest)
 	elif tile.x_coordinate == columns_to_disable_at_start:
 		tile.apply_data(tutorial_fetch_tile.new())
-		tile.tile_data.item_reward = tutorial_fetch_rewards.pop_front()
+		tile.tile_data.reward = tutorial_fetch_rewards.pop_front()
 	
 	#tutorial: first encounter (unique)
 	elif tile.x_coordinate == columns_to_disable_at_start + 1:
@@ -86,7 +86,7 @@ func populate_tile_data(tile:MapTile) -> void:
 		if first_rewards.size() == 0:
 			push_error("reached end of items of this rarity before reached end of special tiles")
 			populate_first_rewards()
-		tile.tile_data.item_reward = first_rewards.pop_front()
+		tile.tile_data.reward = first_rewards.pop_front()
 	
 	#scaling bandaid: first fight is common reward
 	#elif tile.x_coordinate == columns_to_disable_at_start + 2:

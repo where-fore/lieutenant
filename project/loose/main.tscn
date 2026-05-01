@@ -140,27 +140,6 @@ tooltip_text = "Settings"
 texture_normal = ExtResource("8_bbldx")
 stretch_mode = 4
 
-[node name="InventoryMenuButton" type="PanelContainer" parent="MainUI/TopButtons"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="MainUI/TopButtons/InventoryMenuButton"]
-layout_mode = 2
-theme_override_constants/margin_left = 1
-theme_override_constants/margin_top = 1
-theme_override_constants/margin_right = 1
-theme_override_constants/margin_bottom = 1
-
-[node name="UIBackground" type="TextureRect" parent="MainUI/TopButtons/InventoryMenuButton/MarginContainer"]
-layout_mode = 2
-texture = ExtResource("10_qmb71")
-expand_mode = 2
-
-[node name="InventoryMenuButton" type="TextureButton" parent="MainUI/TopButtons/InventoryMenuButton/MarginContainer"]
-layout_mode = 2
-tooltip_text = "Inventory"
-texture_normal = ExtResource("10_1j0u7")
-stretch_mode = 4
-
 [node name="CombatLogButton" type="PanelContainer" parent="MainUI/TopButtons"]
 layout_mode = 2
 
@@ -180,6 +159,27 @@ expand_mode = 2
 layout_mode = 2
 tooltip_text = "Combat Log"
 texture_normal = ExtResource("11_obmf6")
+stretch_mode = 4
+
+[node name="InventoryMenuButton" type="PanelContainer" parent="MainUI/TopButtons"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MainUI/TopButtons/InventoryMenuButton"]
+layout_mode = 2
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
+
+[node name="UIBackground" type="TextureRect" parent="MainUI/TopButtons/InventoryMenuButton/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("10_qmb71")
+expand_mode = 2
+
+[node name="InventoryMenuButton" type="TextureButton" parent="MainUI/TopButtons/InventoryMenuButton/MarginContainer"]
+layout_mode = 2
+tooltip_text = "Inventory"
+texture_normal = ExtResource("10_1j0u7")
 stretch_mode = 4
 
 [node name="PauseMenu" type="Control" parent="MainUI"]
@@ -536,6 +536,7 @@ offset_top = -248.0
 offset_bottom = -10.0
 
 [node name="CombatLogContainer" type="Control" parent="MainGame/MarginContainer"]
+visible = false
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MainGame/MarginContainer/CombatLogContainer"]
@@ -589,8 +590,8 @@ texture = ExtResource("20_1fc2u")
 
 [connection signal="pressed" from="MainUI/GameStarter/GameStartButtons/NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="MainUI/TopButtons/PauseMenuButton/MarginContainer/PauseMenuButton" to="." method="_on_pause_menu_button_pressed"]
-[connection signal="pressed" from="MainUI/TopButtons/InventoryMenuButton/MarginContainer/InventoryMenuButton" to="." method="_on_inventory_menu_button_pressed"]
 [connection signal="pressed" from="MainUI/TopButtons/CombatLogButton/MarginContainer/CombatLogButton" to="." method="_on_combat_log_button_pressed"]
+[connection signal="pressed" from="MainUI/TopButtons/InventoryMenuButton/MarginContainer/InventoryMenuButton" to="." method="_on_inventory_menu_button_pressed"]
 [connection signal="pressed" from="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer/VolumeIcon" to="." method="_on_volume_icon_pressed"]
 [connection signal="value_changed" from="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
 [connection signal="pressed" from="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer/ShuffleIcon" to="." method="_on_shuffle_icon_pressed"]

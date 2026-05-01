@@ -4,7 +4,7 @@ func _init() -> void:
 	internal_name = "common enemy"
 	tile_animation = pick_animation()
 	enemy = pick_enemy()
-	item_reward = pick_item()
+	reward = pick_item()
 
 func pick_animation() -> SpriteFrames:
 	var possible_animations:Array[SpriteFrames]

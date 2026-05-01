@@ -2,6 +2,35 @@
 working notes
 --------------------------------------------------------
 
+i think i want maptiles to be able to have or not have scenarios
+	when venturing, checks
+	if scenario: loadscenario()
+	elif enemy: loadcombatwithenemy()
+	elif reward: loadreward()
+	else donothing()
+	
+	this way i can populate enemies to the map tiles, and scenarios separately - or scenarios with specific enemies. i can have a generic "bandit raid" scenario with dynamic bandits the scenario doesn't need to control; or i can have "demon bargain" with unique demon the scenario does care about
+
+	also fits into my current system best - i can keep doing what i'm doing, and sometimes add scenarios, and it all fits
+
+
+so to do:
+	have a test scenario with a specific enemy
+	have a test scenario that loads the map tile enemy
+		not sure on the failsafe - just an error for now i guess
+	have the forests load those scenarios at random, instead of their current
+		requires the venture_to thing to load scenarios if present
+	
+	
+
+
+
+
+
+
+
+
+
 
 to do:
 		
@@ -13,6 +42,7 @@ to do:
 	enemy scaling?
 		day night system, still not too sure where we land on this
 			distinct phases which strengthen enemies?
+			probably do this with map update
 		
 	would like to be able to give combatants test items, or something similar to test out items
 		ill need combatants to start with items anyways, probably want jon the thief to have a few items when you recruit them, for example
@@ -146,13 +176,11 @@ stat screen:
 
 assorted notes:
 
-	when routing, hp bar goes to full and looks weird
-		maybe don't show dudes on death screen?
-		or show them as dead still?
-			don't revive_for_next_combat if combat_failed, until rout is pressed?
-
 	would be nice if the change to/from were faded animations or something
 		decouple the change/to from of the portrait into a big boy manager, so it won't re-animate between combat->reward
+	
+	would be nice to support multiple rewards
+		esp as we have multiple combatants, winning 3 items would be rad
 
 
 

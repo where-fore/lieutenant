@@ -65,10 +65,8 @@ func prepare_from_map_tile(map_tile:MapTile) -> void:
 	if current_map_tile.end_of_chapter:
 		pass
 	else:
-		if current_map_tile.tile_data.aura_reward:
-			current_reward = current_map_tile.tile_data.aura_reward as Aura
-		elif current_map_tile.tile_data.item_reward:
-			current_reward = current_map_tile.tile_data.item_reward as Item
+		if current_map_tile.tile_data.reward:
+			current_reward = current_map_tile.tile_data.reward
 		if not ScenarioEvents.tutorial_stage: prepare_basic_reward()
 		prepare_reward()
 

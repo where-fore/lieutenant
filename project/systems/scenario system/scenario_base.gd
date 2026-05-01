@@ -4,8 +4,7 @@ class_name Scenario
 var text_pages:Array[String]
 var current_page:int = 0
 var enemies:Array[Combatant]
-var item_rewards:Array[Item]
-var aura_rewards:Array[Aura]
+var rewards:Array[Reward]
 
 func next_page_base() -> void:
 	var amount_of_pages:int = text_pages.size()
