@@ -14,12 +14,15 @@ extends Control
 
 var enemy_ui_combatants:Array[UiCombatant]
 
+var temporary_map_tile:MapTile
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	HudEvents.send_enemy_combatants_to_ui.connect(assign_enemies_to_ui)
+	MapEvents.venture_to.connect(save_potential_map_tile)
 	MapEvents.enter_combat_in.connect(load_map_combat)
 	ScenarioEvents.begin_combat_with.connect(load_scenario_combat)
+	ScenarioEvents.begin_combat_with_map_enemy.connect(load_scenario_combat_from_tile)
 	TimingEvents.everythings_ready.connect(on_scene_ready)
 	
 	turn_button_container.visible = false
@@ -39,6 +42,14 @@ func assign_enemies_to_ui(enemies:Array[Combatant]) -> void:
 
 func load_map_combat(map_tile:MapTile) -> void:
 	change_to(map_tile.tile_data.enemy)
+
+func save_potential_map_tile(map_tile:MapTile) -> void:
+	temporary_map_tile = map_tile
+
+func load_scenario_combat_from_tile() -> void:
+	if not temporary_map_tile:
+		push_error("tried to load combatant from map tile because event told me to, but a combatant was never saved")
+	ScenarioEvents.begin_combat_with.emit(temporary_map_tile.tile_data.enemy)
 
 func load_scenario_combat(enemy:Combatant) -> void:
 	change_to(enemy)
