@@ -16,6 +16,9 @@ func _init() -> void:
 		load("res://z individual pieces/auras/standalone auras/rested.gd").new().create_aura(),
 		Database.get_item_by_id("iron_sword"),
 	]
+	
+	#display_blurb = "testing"
+	#display_sprite = load("res://sprites/hook_sword.png")
 
 func next_page() -> void:
 	if current_page == 2:

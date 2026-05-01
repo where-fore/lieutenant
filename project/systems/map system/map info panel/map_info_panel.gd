@@ -1,10 +1,16 @@
 extends MarginContainer
 
+@onready var enemy_info_container:Control = $MarginContainer/VBoxContainer/EnemyInfo
 @onready var enemy_sprite:TextureRect = $MarginContainer/VBoxContainer/EnemyInfo/EnemySprite
 @onready var enemy_blurb:RichTextLabel = $MarginContainer/VBoxContainer/EnemyInfo/EnemyBlurb
 @onready var reward_sprite:TextureRect = $MarginContainer/VBoxContainer/RewardInfo/RewardSprite
 @onready var reward_blurb:RichTextLabel = $MarginContainer/VBoxContainer/RewardInfo/RewardBlurb
+@onready var scenario_blurb_container:Control = $MarginContainer/VBoxContainer/ScenarioBlurb
+@onready var scenario_sprite:TextureRect = $MarginContainer/VBoxContainer/ScenarioBlurb/ScenarioSprite
+@onready var scenario_blurb:RichTextLabel = $MarginContainer/VBoxContainer/ScenarioBlurb/ScenarioBlurb
 const enemy_blurb_base:String = "Your scouts spot a {enemy_name} in this land."
+const scenario_blurb_base:String = "Your scouts spot nothing. You expect a surprise."
+var scenario_sprite_base:Texture2D = load("res://sprites/question.png")
 const item_reward_text_blurb:String = "They also noticed what looked to be a {reward_name}, ripe for the taking."
 const aura_reward_text_blurb:String = "A protected spot to resupply."
 @onready var venture_button:TextureButton = $MarginContainer/CenterContainer/TextureButton
@@ -29,22 +35,38 @@ func update_map_tile_info(tile:MapTile) -> void:
 	visible = true
 	begin_to_hide()
 	
-	if tile_info.enemy:
-		enemy_sprite.texture = tile_info.enemy.combatant_texture
-		enemy_sprite.tooltip_text = tile_info.enemy.get_tooltip()
-		var enemy_name_color:String = Color.ORANGE_RED.to_html()
-		var enemy_name_fancy:String = "[color=#%s]%s[/color]" % [enemy_name_color, tile_info.enemy.combatant_name]
-		enemy_blurb.text = enemy_blurb_base.format({"enemy_name": enemy_name_fancy})
-	
-	if tile_info.reward:
-		reward_sprite.texture = tile_info.reward.reward_sprite
-		reward_sprite.tooltip_text = tile_info.reward.get_tooltip()
-	if tile_info.reward is Aura:
-		reward_blurb.text = aura_reward_text_blurb
-	elif tile_info.reward is Item:
-		var reward_name_color:String = Color.SKY_BLUE.to_html()
-		var reward_name_fancy:String = "[color=#%s]%s[/color]" % [reward_name_color, tile_info.reward.reward_name]
-		reward_blurb.text = item_reward_text_blurb.format({"reward_name": reward_name_fancy})
+	if tile_info.scenario:
+		scenario_blurb_container.visible = true
+		enemy_info_container.visible = false
+		
+		if tile_info.scenario.display_blurb:
+			scenario_blurb.text = tile_info.scenario.display_blurb
+		else: scenario_blurb.text = scenario_blurb_base
+		
+		if tile_info.scenario.display_sprite:
+			scenario_sprite.texture = tile_info.scenario.display_sprite
+		else: scenario_sprite.texture = scenario_sprite_base
+		
+	else:
+		scenario_blurb_container.visible = false
+		enemy_info_container.visible = true
+		
+		if tile_info.enemy:
+			enemy_sprite.texture = tile_info.enemy.combatant_texture
+			enemy_sprite.tooltip_text = tile_info.enemy.get_tooltip()
+			var enemy_name_color:String = Color.ORANGE_RED.to_html()
+			var enemy_name_fancy:String = "[color=#%s]%s[/color]" % [enemy_name_color, tile_info.enemy.combatant_name]
+			enemy_blurb.text = enemy_blurb_base.format({"enemy_name": enemy_name_fancy})
+		
+		if tile_info.reward:
+			reward_sprite.texture = tile_info.reward.reward_sprite
+			reward_sprite.tooltip_text = tile_info.reward.get_tooltip()
+		if tile_info.reward is Aura:
+			reward_blurb.text = aura_reward_text_blurb
+		elif tile_info.reward is Item:
+			var reward_name_color:String = Color.SKY_BLUE.to_html()
+			var reward_name_fancy:String = "[color=#%s]%s[/color]" % [reward_name_color, tile_info.reward.reward_name]
+			reward_blurb.text = item_reward_text_blurb.format({"reward_name": reward_name_fancy})
 	
 	if tile.currently_disabled:
 		venture_button.modulate = Color(0.5,0.5,0.5)
@@ -84,6 +106,8 @@ func clear_info() -> void:
 	reward_sprite.texture = null
 	reward_blurb.text = ""
 	current_tile = null
+	scenario_blurb_container.visible = false
+	enemy_info_container.visible = false
 
 func _on_combat_button_pressed() -> void:
 	if not current_tile.currently_disabled:

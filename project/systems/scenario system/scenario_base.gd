@@ -5,6 +5,8 @@ var text_pages:Array[String]
 var current_page:int = 0
 var enemies:Array[Combatant]
 var rewards:Array[Reward]
+var display_blurb:String
+var display_sprite:Texture2D
 
 func next_page_base() -> void:
 	var amount_of_pages:int = text_pages.size()

@@ -512,11 +512,6 @@ grow_horizontal = 0
 [node name="MapInfo" parent="MainGame/MarginContainer/RightSideUI" instance=ExtResource("19_w1snj")]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 1.0
-offset_left = -88.0
-offset_top = 24.0
-offset_bottom = -24.0
-grow_horizontal = 0
 
 [node name="CombatContainer" type="Control" parent="MainGame/MarginContainer"]
 layout_mode = 2
