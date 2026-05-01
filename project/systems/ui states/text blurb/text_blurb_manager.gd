@@ -41,9 +41,9 @@ func resume_tutorial() -> void:
 	next_page_button.visible = true
 
 func start_scenario(enetered_map_tile:MapTile) -> void:
+	next_page_button.visible = true
 	ScenarioEvents.load_scenario(enetered_map_tile.tile_data.scenario)
 	show_screen()
-	next_page_button.visible = true
 
 func update_blurb_to_event() -> void:
 	main_body_text.text = ScenarioEvents.current_scenario.get_current_text()

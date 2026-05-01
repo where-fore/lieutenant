@@ -123,10 +123,8 @@ func setup_basic_rewards() -> Array[Aura]:
 	return basic_reward_array
 
 func update_reward_text_blurb() -> void:
-	if not current_reward_text_blurb:
-		current_reward_text_blurb = basic_reward_text_blurb
-	if not current_title_text_blurb:
-		current_title_text_blurb = basic_title_text_blurb
+	current_reward_text_blurb = basic_reward_text_blurb
+	current_title_text_blurb = basic_title_text_blurb
 	
 	reward_button_label.text = current_reward_text_blurb
 	title_text_label.text = current_title_text_blurb

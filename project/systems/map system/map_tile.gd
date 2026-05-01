@@ -15,13 +15,16 @@ var x_coordinate:int
 ## 0,0 is the first tile spawned
 var y_coordinate:int
 
-@onready var tooltip_holder:Control = $Area2D/PanelContainer
+@onready var tooltip_holder:Control = $Clickbox/Tooltip
 @onready var animated_sprite_component:AnimatedSprite2D = $BaseAnimation
 var idle_animation_speed:float = 0.2
 @onready var hover_animation_component:AnimatedSprite2D = $HoverAnimation
 var hover_animation_speed:float = 0.8
-@onready var selection_sprite:Sprite2D = $Sprite2D
-@onready var selection_effect_timer:Timer = $Sprite2D/Timer
+@onready var selection_sprite:Sprite2D = $SelectionAnimation
+@onready var selection_effect_timer:Timer = $SelectionAnimation/Timer
+@onready var player_indicator:AnimatedSprite2D = $PlayerIndicator
+
+var scenario_for_retreading:Scenario = load("res://z individual pieces/scenarios/retreading_base.gd").new()
 
 func apply_data(data:MapTileData) -> void:
 	tile_data = data
@@ -38,10 +41,12 @@ func _init() -> void:
 func _ready() -> void:
 	MapEvents.combat_all_done.connect(stop_hover_animation)
 	HudEvents.map_tile_hovered.connect(if_not_me_stop_hovering)
+	MapEvents.venture_to.connect(show_player_indicator_if_match)
 	
 	hover_animation_component.visible = false
 	selection_sprite.visible = false
 	tooltip_holder.visible = false
+	hide_player_indicator()
 	
 	animated_sprite_component.speed_scale = idle_animation_speed
 	hover_animation_component.speed_scale = hover_animation_speed
@@ -53,6 +58,11 @@ func mark_as_boss() -> void:
 	lethal_encounter = true
 	make_permanently_visible()
 	disable()
+
+func clear_objects_of_interest() -> void:
+	tile_data.enemy = null
+	tile_data.reward = null
+	tile_data.scenario = scenario_for_retreading
 
 func make_permanently_visible() -> void:
 	permanently_visible = true
@@ -90,6 +100,14 @@ func enable() -> void:
 	if currently_disabled and not permanently_disabled:
 		currently_disabled = false
 		animated_sprite_component.modulate = Color(1,1,1,1)
+
+func show_player_indicator_if_match(maptile:MapTile) -> void:
+	hide_player_indicator()
+	if maptile == self:
+		player_indicator.visible = true
+
+func hide_player_indicator() -> void:
+	player_indicator.visible = false
 
 func start_hover_animation() -> void:
 	hover_animation_component.visible = true

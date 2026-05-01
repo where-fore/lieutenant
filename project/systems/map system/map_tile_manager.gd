@@ -9,13 +9,10 @@ var debug_vision:bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#only checking this on victory, for now
-	MapEvents.point_of_no_return.connect(hide_current_row_and_increment)
-	#MapEvents.combat_all_done.connect(hide_current_row_and_increment)
-	
 	MapEvents.maptile_created.connect(add_to_database)
 	MapEvents.map_grid_ready.connect(hide_all_but_tutorial_row)
 	MapEvents.venture_to.connect(handle_map_transition)
+	MapEvents.point_of_no_return.connect(enable_adjacent_tiles)
 	MapEvents.point_of_no_return.connect(fully_cleared_tile)
 	HudEvents.rout_chosen.connect(fully_cleared_tile)
 	
@@ -30,6 +27,18 @@ func handle_map_transition(map_tile:MapTile) -> void:
 		MapEvents.enter_combat_in.emit(map_tile)
 	else:
 		MapEvents.enter_without_combat_in.emit(map_tile)
+
+func enable_adjacent_tiles() -> void:
+	if current_tile_encounter:
+		var all_tiles:Array[Array] = get_tiles_diagonally_around_tile(current_tile_encounter)
+		var valid_tiles:Array[MapTile] = all_tiles[0]
+		var invalid_tiles:Array[MapTile] = all_tiles[1]
+		
+		for map_tile:MapTile in valid_tiles:
+			map_tile.enable()
+		
+		for map_tile:MapTile in invalid_tiles:
+			map_tile.disable()
 
 func hide_current_row_and_increment() -> void:
 	if current_tile_encounter.x_coordinate == 1: #tutorial
@@ -73,7 +82,6 @@ func hide_rows() -> void:
 
 func show_rows() -> void:
 	for maptile:MapTile in current_map_tiles:
-		print_debug(maptile.tile_data.internal_name)
 		maptile.permanently_disabled = false
 		maptile.enable()
 
@@ -100,8 +108,25 @@ func add_to_database(new_map_tile:MapTile) -> void:
 
 func fully_cleared_tile() -> void:
 	if current_tile_encounter:
-		current_tile_encounter.permanently_disable()
+		current_tile_encounter.clear_objects_of_interest()
 		current_tile_encounter = null
+
+func get_tiles_diagonally_around_tile(tile_to_check:MapTile, range_to_check:int = 1) -> Array[Array]:
+	var max_x:int = tile_to_check.x_coordinate + range_to_check
+	var min_x:int = tile_to_check.x_coordinate - range_to_check
+	var max_y:int = tile_to_check.y_coordinate + range_to_check
+	var min_y:int = tile_to_check.y_coordinate - range_to_check
+	var valid_tiles:Array[MapTile]
+	var invalid_tiles:Array[MapTile]
+	
+	for map_tile:MapTile in current_map_tiles:
+		if map_tile.x_coordinate <= max_x and map_tile.x_coordinate >= min_x:
+			if map_tile.y_coordinate <= max_y and map_tile.y_coordinate >= min_y:
+				valid_tiles.append(map_tile)
+			else: invalid_tiles.append(map_tile)
+		else: invalid_tiles.append(map_tile)
+	
+	return [valid_tiles,invalid_tiles]
 
 #debug command catcher
 func _unhandled_input(event: InputEvent) -> void:

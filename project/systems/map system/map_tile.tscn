@@ -1,10 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://dxldisnu3aaoo"]
+[gd_scene load_steps=9 format=3 uid="uid://dxldisnu3aaoo"]
 
 [ext_resource type="Script" uid="uid://wrg8ncrbysqw" path="res://systems/map system/map_tile.gd" id="1_eader"]
 [ext_resource type="SpriteFrames" uid="uid://b77jkv0h1kj7x" path="res://z individual pieces/map tiles/animations/forest_basic.tres" id="2_eader"]
 [ext_resource type="SpriteFrames" uid="uid://bk27qe7w4wwaf" path="res://systems/map system/hovered.tres" id="3_7cb8i"]
 [ext_resource type="Texture2D" uid="uid://sx580844syvk" path="res://sprites/tile_selection.png" id="4_mrii7"]
 [ext_resource type="Theme" uid="uid://wymfijcko1gs" path="res://ui resources/basic_ui_theme.tres" id="5_etpom"]
+[ext_resource type="Texture2D" uid="uid://cwjj6wggwg4n3" path="res://sprites/18px_border.png" id="6_3q300"]
+[ext_resource type="Texture2D" uid="uid://cbp6sg330uwef" path="res://sprites/player.png" id="7_efpam"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8o1ix"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_3q300")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="MapTile" type="Node2D"]
 script = ExtResource("1_eader")
@@ -19,19 +32,19 @@ scale = Vector2(0.5, 0.5)
 sprite_frames = ExtResource("3_7cb8i")
 frame_progress = 0.6266568
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="SelectionAnimation" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_mrii7")
 
-[node name="Timer" type="Timer" parent="Sprite2D"]
+[node name="Timer" type="Timer" parent="SelectionAnimation"]
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Clickbox" type="Area2D" parent="."]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Clickbox"]
 scale = Vector2(0.5, 0.5)
 polygon = PackedVector2Array(-48, 46, -36, 14, 22, 14, 10, 46, -48, 46)
 
-[node name="PanelContainer" type="PanelContainer" parent="Area2D"]
+[node name="Tooltip" type="PanelContainer" parent="Clickbox"]
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = -22.0
@@ -45,7 +58,7 @@ mouse_filter = 2
 theme = ExtResource("5_etpom")
 theme_type_variation = &"TooltipPanel"
 
-[node name="Label" type="Label" parent="Area2D/PanelContainer"]
+[node name="Label" type="Label" parent="Clickbox/Tooltip"]
 layout_mode = 2
 theme = ExtResource("5_etpom")
 theme_type_variation = &"TooltipLabel"
@@ -54,7 +67,14 @@ text = "too far"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="timeout" from="Sprite2D/Timer" to="." method="_on_timer_timeout"]
-[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
-[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
-[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
+[node name="PlayerIndicator" type="AnimatedSprite2D" parent="."]
+position = Vector2(-8, 8)
+sprite_frames = SubResource("SpriteFrames_8o1ix")
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerIndicator"]
+texture = ExtResource("7_efpam")
+
+[connection signal="timeout" from="SelectionAnimation/Timer" to="." method="_on_timer_timeout"]
+[connection signal="input_event" from="Clickbox" to="." method="_on_area_2d_input_event"]
+[connection signal="mouse_entered" from="Clickbox" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Clickbox" to="." method="_on_area_2d_mouse_exited"]

@@ -2,41 +2,12 @@
 working notes
 --------------------------------------------------------
 
-i think i want maptiles to be able to have or not have scenarios
-	when venturing, checks
-	if scenario: loadscenario()
-	elif enemy: loadcombatwithenemy()
-	elif reward: loadreward()
-	else donothing()
-	
-	this way i can populate enemies to the map tiles, and scenarios separately - or scenarios with specific enemies. i can have a generic "bandit raid" scenario with dynamic bandits the scenario doesn't need to control; or i can have "demon bargain" with unique demon the scenario does care about
-
-	also fits into my current system best - i can keep doing what i'm doing, and sometimes add scenarios, and it all fits
 
 
-so to do:
-	have a test scenario with a specific enemy
-	have a test scenario that loads the map tile enemy
-		not sure on the failsafe - just an error for now i guess
-	have the forests load those scenarios at random, instead of their current
-		requires the venture_to thing to load scenarios if present
-	
-	
 
 
-some sort of ui for the map panel with scenarios
-	if scenario,
-		disable enemy/item maybe?
-		something you can't quite make out awaits you...
 
-okay so
-	works mostly, yay
-	map:
-		doesn't progress map, or disables tile
-		map info panel doesn't look good
-	reward:
-		still offers basic reward
-		bottom text says "found nothing..."
+
 
 
 
@@ -46,7 +17,6 @@ okay so
 to do:
 		
 	start on map overhaul?
-		tiles can hold events
 		player on tile, not rows being enabled/disabled
 		have tiles off screen and slide on as you progress
 		
@@ -193,6 +163,7 @@ assorted notes:
 	would be nice to support multiple rewards
 		esp as we have multiple combatants, winning 3 items would be rad
 
+	fix/remove debug commands
 
 
 --------------------------------------------------------
@@ -304,6 +275,9 @@ func _unhandled_input(event: InputEvent) -> void:
 ---------------------------
 not right now, maybe:
 ---------------------------
+when you click a reward it bleeds into clicking the map and feels bad
+
+would be nice to have a path of progress on the map
 
 stat screen polish/features:
 	separate stats tab into temporary and permanent auras, somehow?
