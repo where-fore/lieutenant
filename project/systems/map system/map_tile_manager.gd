@@ -5,7 +5,9 @@ var current_column_sunsetting:int = 1
 var tiles_you_can_see_into_fog_of_war:int = 4
 var current_tile_encounter:MapTile
 var debug_vision:bool = false
+var camera_has_met_right_edge:bool = false
 @onready var maptile_spawner_parent:Node2D = $MapTileSpawner
+var scroll_animation_delay:float = 1.5
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -15,11 +17,15 @@ func _ready() -> void:
 	MapEvents.point_of_no_return.connect(enable_adjacent_tiles)
 	MapEvents.point_of_no_return.connect(fully_cleared_tile)
 	HudEvents.rout_chosen.connect(fully_cleared_tile)
+	MapEvents.map_grid_right_edge_reached.connect(clamp_right_edge_scrolling)
 	
 	maptile_spawner_parent.populate_tiles()
 
 func handle_map_transition(map_tile:MapTile) -> void:
 	current_tile_encounter = map_tile
+	
+	await scroll_camera_check(current_tile_encounter)
+	#probably await an animation or something
 	
 	if map_tile.tile_data.scenario:
 		MapEvents.enter_scenario_in.emit(map_tile)
@@ -27,6 +33,23 @@ func handle_map_transition(map_tile:MapTile) -> void:
 		MapEvents.enter_combat_in.emit(map_tile)
 	else:
 		MapEvents.enter_without_combat_in.emit(map_tile)
+
+func scroll_camera_check(map_tile:MapTile) -> void:
+	var center_of_screen:float = get_viewport_rect().size.x / 8
+	var tile_pos:float = map_tile.global_position.x
+		#this checks the global position, and all tiles in a column have different x positions
+		#due to isometric offset
+		#could lead to map scrolling on the top row tile, but not the bottom row tile, confusingly
+	if not camera_has_met_right_edge:
+		if tile_pos > center_of_screen:
+			await scroll_camera(-1 * map_tile.width) #negative because i want the map to go to the left
+
+func scroll_camera(delta_to_scroll:int) -> void:
+	var tween:Tween = create_tween()
+	var final_position:Vector2 = Vector2(self.position.x + delta_to_scroll, self.position.y)
+	tween.tween_property(self, "position", final_position, scroll_animation_delay)
+	
+	await get_tree().create_timer(scroll_animation_delay).timeout
 
 func enable_adjacent_tiles() -> void:
 	if current_tile_encounter:
@@ -127,6 +150,9 @@ func get_tiles_diagonally_around_tile(tile_to_check:MapTile, range_to_check:int 
 		else: invalid_tiles.append(map_tile)
 	
 	return [valid_tiles,invalid_tiles]
+
+func clamp_right_edge_scrolling() -> void:
+	camera_has_met_right_edge = true
 
 #debug command catcher
 func _unhandled_input(event: InputEvent) -> void:

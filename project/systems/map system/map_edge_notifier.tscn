@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7fq3wa0qjn8m"]
+
+[ext_resource type="Script" uid="uid://cktwvd11wab8f" path="res://systems/map system/map_edge_notifier.gd" id="1_ka7nw"]
+
+[node name="MapEdgeNotifier" type="Node2D"]
+script = ExtResource("1_ka7nw")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(0, 0, 20, 270)
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]

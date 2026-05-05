@@ -2,8 +2,49 @@
 working notes
 --------------------------------------------------------
 
+want to scroll
+
+want to generate tiles off screen
+when do i want it to scroll
+	how will i even know
+	could have a area2d or something that's under the map area but doesn't move with it
+	when that area2d notices a maptile sets itself as "player_here"
+	send signal to move_left or move_right
+	
+	hm
+	
+	maybe if past x point, slide to y point? specific dolly positions?
+		maybe later
+	maybe if past half way point, slide one tile over?
+		most flexible for now, can add dolly points later
+	
+	so half way point is monitor/viewport centered. maybe when the tiles change to add player, they check the viewport and signal up to the manager to slide if past half?
+		var slide_threshold = global_viewport.x / 2
+		var my_x_pos = global_position.x
+		if my_x_pos > slide_threshold
+		slide()
+	
+	to actually move, thinking to simply just translate the manager parent node in 2d space by (tile_width, a field in the manager)
+		lerp or tween it ofc for a gentle slide
+	want to add parallax
+		when the manger moves, the parallax_background_manager hears a signal to move x pixel (and the parallax manager decides that moving x pixels means x * 7/8 pixels or whatever parallax multiplier)
+		
+
+so scrolling:
+	i could have it slide with player, so when you're on the left you move forward, on the right you move forward, but in the center the map slides under you like a treadmill
+		just don't it to feel like a treadmill
+		i know most adventure games do this, it's normal to have the scenery slide under you
+			parallax should help a lot
+	i could have a scroll-container like thing, where arrow keys / mouse edge panning / scroll wheel moves your camera across the map. left and right sides bound it
+		i kinda like not knowing what's comming next, having it unveil, so doing option 1
 
 
+
+
+
+
+make a left side scroll block too
+	probably just a variable on the scroll block script, set_right_side() or set_left_side() that sets a variable, and the signal checks which variable/side it is before emitting the correct signal
 
 
 
@@ -17,7 +58,6 @@ working notes
 to do:
 		
 	start on map overhaul?
-		player on tile, not rows being enabled/disabled
 		have tiles off screen and slide on as you progress
 		
 	enemy scaling?
@@ -86,6 +126,9 @@ combat overhaul:
 	primary/derived stats
 		probably str/dex/int or similar. choose one as primary, and deal that as damage, rest gives you bonuses?
 		derived like dodge/mana regen/crit chance
+			str - more damage and health (basic stat check number go up gameplay)
+			dex - crit chance (entropy based, and things trigger on crit, crit multiplier etc. glass cannoney interaction based builds)
+			int - more mana / ability damage (burst, situational, big brain time)
 		
 	boss fight with active effects?
 		if normal monster fights are only (if hp <= 0, failure); then a longer boss fight requires proportionally less attack value, which is not as scary to see the boss with less attack than a regular dude (even if it's 1/2 attack and 4x hp for 2x total power)

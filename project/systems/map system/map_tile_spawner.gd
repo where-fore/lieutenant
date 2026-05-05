@@ -14,12 +14,15 @@ extends Node2D
 @export var mapTileBase:PackedScene
 @export var rows:int = 3
 @export var vertical_spacing:int = 17
-@export var columns:int = 17
+@export var columns:int = 25
 @export var horizontal_spacing:int = 31
 @export var isometric_offset:int = 6
 @export_enum("Top Left", "Bottom Left") var this_spawner_is_placed_at:int = 0
 @export var columns_to_disable_at_end:int = 5
 @export var columns_to_disable_at_start:int = 1
+
+@export_category("Other")
+@export var map_edge_notifier:PackedScene
 
 var first_rewards:Array[Item]
 var tutorial_fetch_rewards:Array[Item]
@@ -50,10 +53,20 @@ func populate_tiles() -> void:
 			elif this_spawner_is_placed_at == 1:
 				new_tile.position = Vector2(x * horizontal_spacing + y * isometric_offset, rows-y * vertical_spacing)
 			
+			new_tile.width = horizontal_spacing
 			new_tile.x_coordinate = x
 			new_tile.y_coordinate = y
 			populate_tile_data(new_tile)
 			MapEvents.maptile_created.emit(new_tile)
+	
+	var new_map_edge_notifier:Node2D = map_edge_notifier.instantiate() as Node2D
+	#change position to after the last tile
+	#not sure how to get the position of the last tile column
+	#just going to guess for now
+	new_map_edge_notifier.position.x = columns * horizontal_spacing
+	add_child(new_map_edge_notifier)
+	
+	
 	MapEvents.map_grid_ready.emit()
 
 func populate_tile_data(tile:MapTile) -> void:

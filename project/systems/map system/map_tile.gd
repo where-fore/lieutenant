@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 class_name MapTile
 
 var unique_tile_id:String
@@ -14,6 +14,7 @@ var power:int
 var x_coordinate:int
 ## 0,0 is the first tile spawned
 var y_coordinate:int
+var width:int
 
 @onready var tooltip_holder:Control = $Clickbox/Tooltip
 @onready var animated_sprite_component:AnimatedSprite2D = $BaseAnimation
