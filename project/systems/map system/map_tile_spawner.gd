@@ -18,7 +18,7 @@ extends Node2D
 @export var horizontal_spacing:int = 31
 @export var isometric_offset:int = 6
 @export_enum("Top Left", "Bottom Left") var this_spawner_is_placed_at:int = 0
-@export var columns_to_disable_at_end:int = 5
+@export var columns_to_disable_at_end:int = 1
 @export var columns_to_disable_at_start:int = 1
 
 @export_category("Other")
@@ -43,6 +43,8 @@ func _ready() -> void:
 #the bottom rows will draw over the top rows
 #the right-hand rows will draw over the left-hand rows
 func populate_tiles() -> void:
+	create_edge_notifier(true)
+	
 	for x:int in columns:
 		for y:int in rows:
 			var new_tile:MapTile = mapTileBase.instantiate()
@@ -59,13 +61,7 @@ func populate_tiles() -> void:
 			populate_tile_data(new_tile)
 			MapEvents.maptile_created.emit(new_tile)
 	
-	var new_map_edge_notifier:Node2D = map_edge_notifier.instantiate() as Node2D
-	#change position to after the last tile
-	#not sure how to get the position of the last tile column
-	#just going to guess for now
-	new_map_edge_notifier.position.x = columns * horizontal_spacing
-	add_child(new_map_edge_notifier)
-	
+	create_edge_notifier(false)
 	
 	MapEvents.map_grid_ready.emit()
 
@@ -111,6 +107,23 @@ func populate_tile_data(tile:MapTile) -> void:
 	
 	if tile.tile_data.enemy:
 		tile.tile_data.enemy.scale_stats(tile.power) 
+
+func create_edge_notifier(is_left_edge:bool) -> void:
+	var new_map_edge_notifier:MapEdgeNotifier = map_edge_notifier.instantiate() as MapEdgeNotifier
+	
+	if is_left_edge:
+		new_map_edge_notifier.is_left_side_edge = true
+	else:
+		new_map_edge_notifier.is_right_side_edge = true
+			#change position to after the last tile
+			#not sure how to get the position of the last tile column
+			#just going to guess for now
+		new_map_edge_notifier.position.x = (columns-2) * horizontal_spacing
+			#2 steps earlier, since
+			#i want it to notify on before the last tile, not on the last tile
+			#and the first tile is at 0, not at 1*horizontal spacing, and column*spacing starts at 1*spacing
+	
+	add_child(new_map_edge_notifier)
 
 func populate_first_rewards() -> void:
 	var all_of_rarity:Array[Item] = Database.get_items_by_category(Categories.item_rarity, [Categories.Rarity.MYTHIC])

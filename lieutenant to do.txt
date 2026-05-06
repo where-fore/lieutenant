@@ -2,107 +2,120 @@
 working notes
 --------------------------------------------------------
 
-want to scroll
 
-want to generate tiles off screen
-when do i want it to scroll
-	how will i even know
-	could have a area2d or something that's under the map area but doesn't move with it
-	when that area2d notices a maptile sets itself as "player_here"
-	send signal to move_left or move_right
+
+
+
+
+
+
+
+
+--------------------------------------------------------
+work to do
+--------------------------------------------------------
+enemy scaling?
+	day night system, still not too sure where we land on this
+		distinct phases which strengthen enemies?
+		probably do this with map update
+	would like the night sky to actually move
+		maybe every step moves it a bit
+		every 3 steps changes phases (early night, mid night, late night; early morning etc)
+			which scales enemies
+			and changes the colour of the map-wide filter :o
+
+stat gaming
+	do the overhaul
+
+would like to be able to give combatants test items, or something similar to test out items
+	ill need combatants to start with items anyways, probably want jon the thief to have a few items when you recruit them, for example
+	and enemies with items!!!!
 	
-	hm
-	
-	maybe if past x point, slide to y point? specific dolly positions?
-		maybe later
-	maybe if past half way point, slide one tile over?
-		most flexible for now, can add dolly points later
-	
-	so half way point is monitor/viewport centered. maybe when the tiles change to add player, they check the viewport and signal up to the manager to slide if past half?
-		var slide_threshold = global_viewport.x / 2
-		var my_x_pos = global_position.x
-		if my_x_pos > slide_threshold
-		slide()
-	
-	to actually move, thinking to simply just translate the manager parent node in 2d space by (tile_width, a field in the manager)
-		lerp or tween it ofc for a gentle slide
-	want to add parallax
-		when the manger moves, the parallax_background_manager hears a signal to move x pixel (and the parallax manager decides that moving x pixels means x * 7/8 pixels or whatever parallax multiplier)
-		
+i really need to have some sort of system for making temporary custom auras on items, like the warding pike/arrogant axe. DRY
 
-so scrolling:
-	i could have it slide with player, so when you're on the left you move forward, on the right you move forward, but in the center the map slides under you like a treadmill
-		just don't it to feel like a treadmill
-		i know most adventure games do this, it's normal to have the scenery slide under you
-			parallax should help a lot
-	i could have a scroll-container like thing, where arrow keys / mouse edge panning / scroll wheel moves your camera across the map. left and right sides bound it
-		i kinda like not knowing what's comming next, having it unveil, so doing option 1
+be able to delete items / give to other party members
+	give rewards the "deleteable" property, false for cursed items? important character items?
+
+	probably a drop down with each party member, and delete at the bottom with a confirmation? the label text changes from delete to you sure?
+
+would be nice to support multiple rewards
+	esp as we have multiple combatants, winning 3 items would be rad
+
+fix/remove debug commands
+
+tutorial probably shouldn't be hardcoded - have the hut at the start, the ring, go back to the hut, etc
+	and it rewards you with a key or something to let you travel past the first tree wall?
+
+have a "pre-turn" turn for combat start effects
+	combat log "prepares for attack"
 
 
 
+--------------------------------------------------------
+playtest notes
+--------------------------------------------------------
+
+people keep pressing the skip button for the treasure
+	- the reward doesn't look like a button, it's too flat and unresponsive. have it stick out, change when hovered over, have a particle glow, etc
+	- maybe given you know what the reward is, it's obvious you get it - why would you ever skip it?
+	- maybe given all the unimportant text (three full lines top and bottom that don't actually convey any meaning), it looks like exposition?
+		changed text to "skip reward"
+	- maybe have an animation - as the player reads "collect your boon", the boon fades in, tying them together
+	- maybe people don't feel like they "need" the reward, and are just going wandering through the game? no challenge at the start / problem to solve? no hook?
+
+people keep having no idea how the map/map info panel works
+	- the info panel is so far away from what you clicked, it's not natural to hover over the info
+	- the info panel is also quite verbose, so why would you search for more info
+	- the whole map looks cool and inviting, why show it all if it's all nothing
+
+richard passed on that their friends mentioned being "locked in" to a build at the start
+	note too sure on this feedback - it was given while the map balance was too light on rare rewards, so all rewards were indeed common stat sticks. could simply be solved with more items and stats, which we already plan to do
+	- have more avenues that can change per run?
+	- have a "flexible" unique at the start, not a build definer? a strong immediate stat stick, or something that increases found rarity, or the like
+		find build definers mid run?
+	- could also be avoided by choosing a class at start, instead of an item; feels less like random chance is locking you into a build?
 
 
 
-make a left side scroll block too
-	probably just a variable on the scroll block script, set_right_side() or set_left_side() that sets a variable, and the signal checks which variable/side it is before emitting the correct signal
+--------------------------------------------------------
+concepts i know i should tutorialize:
+--------------------------------------------------------
+how-to-play-the-game:
+
+	reward buttons dont look like buttons - most buttons don't, in fact
 
 
+how-to-understand-the-game:
+
+	percentage multipliers rounding down, maybe even each step
+	item effect ordering vs auras
+	fighting rares early means being able to fight two rares?
 
 
+--------------------------------------------------------
+debug keybinds:
+--------------------------------------------------------
+	KEY_F11 = crt filter on/off, main.gd 73
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed:
+		if event.keycode == KEY_F11:
+			crt_filter_container.visible = !crt_filter_container.visible
 
 
+---------------------------
+not right now, maybe:
+---------------------------
 
-
-
-
-to do:
-		
-	start on map overhaul?
-		have tiles off screen and slide on as you progress
-		
-	enemy scaling?
-		day night system, still not too sure where we land on this
-			distinct phases which strengthen enemies?
-			probably do this with map update
-		
-	would like to be able to give combatants test items, or something similar to test out items
-		ill need combatants to start with items anyways, probably want jon the thief to have a few items when you recruit them, for example
-		and enemies with items!!!!
-		
-	i really need to have some sort of system for making temporary custom auras on items, like the warding pike/arrogant axe. DRY
-
-	
-any of the below, of course
-
-
-
-
-
-
-
-
-map overhaul:
-	scroll to the side
-	until the wall, stop it mid screen
-	unlock post wall sightlines
-		maybe a scouting-type pan to put wall on left
-	
-	difficulty scale by time/moon, not by row/tile power
-		should be same code, just reference global world properties? set those properties after tile complete?
-	
+map overhaul:	
 	some sort of fog of war type thing, instead of the darkened tiles
 		maybe both? fog covers completely invisible tiles, and darkened covers tiles you've seen but not able to access; ala civ fog of war
+		i kinda like being able to sorta see what's coming, but i do think fog would look sick. maybe fog for past-the wall type locations?
+		have it so the map does scroll to the center, not start at the left, and have fog to the sides?
+			two levels of scouting range, traversable-range and visible-range (probably hardcoded per act)
 	
 	how to do the wall? big tile? actual gap in MapTiles?
-		feeling a gap in tiles
-	
-	hold events too, not just enemies
-		restructure signals - enter tile, do event (combat?), end event, end tile.
-		tutorial probably shouldn't be hardcoded - have the hut at the start, the ring, go back to the hut, etc
-			could keep as it is, just the wolf fight event has text after, like "the master speaks to your through the ring" or something
-	
-	indicator for player location, and can only move orthagonally
-		"find adjacent tiles" shoot a raycast of distance = tile width/radius, in each cardinal direction, and return the MapTiles intersected
+		feeling a gap in tiles. spawner just creates a sprite thing with width = 2x tile_width
 	
 	not sure about map tooltips, the map info panel. it popping up over the map sounds terrible, and it popping up over the right hand side also sounds bad
 		what do i need this info for? what do i want to show? if we're doing ftl-like exploration, no need to plan ahead
@@ -110,18 +123,27 @@ map overhaul:
 			so designate tiles as "magic/chest/event/etc" rewards? cofidy types of rewards between active items, passive stat items, rare defining items, etc
 
 	add in parallax
-
 	
+	i could have the map be a scroll-container like thing, where arrow keys / mouse edge panning / scroll wheel moves your camera across the map. left and right sides bound it
+		i kinda like not knowing what's comming next, having it unveil
+	
+	have the spawner take a ChapterMapData object
+		has fields for columns, special things to put in special locations (like wall at end or start) etc
+-
+
+
 combat overhaul:
 	active effects
 		items with active effects
-			basics: double attack for 2 turns, deal 30 damage immediately, all party members get 10 attack for a turn
-		have it so you can click anytime ,and when it's locked in that character will now do it on their next turn (put in a check before the attack)
+			basics: double attack for 2 turns; deal 30 damage immediately; all party members get 10 attack for a turn
+		have it so you can click anytime, and when it's locked in, that character will now do it on their next turn (put in a check before the attack)
 			would be nice to have a way to do after attacks too? probably?
 			
 			or maybe just do it instantly?
 				i don't really wanna break logic chains, feels like it should be turn related like everything else
-				but i want it to feel big and impactful.  maybe the pause and animation will do that enough?
+				but i want it to feel big and impactful, and do the big powerful thing when you click it.  maybe the pause and animation will do that enough?
+				maybe having it sequence break is cool and rad
+					i dont really trust my logic-making skills for this though
 		
 	primary/derived stats
 		probably str/dex/int or similar. choose one as primary, and deal that as damage, rest gives you bonuses?
@@ -130,14 +152,16 @@ combat overhaul:
 			dex - crit chance (entropy based, and things trigger on crit, crit multiplier etc. glass cannoney interaction based builds)
 			int - more mana / ability damage (burst, situational, big brain time)
 		
-	boss fight with active effects?
+	climactic fights?
 		if normal monster fights are only (if hp <= 0, failure); then a longer boss fight requires proportionally less attack value, which is not as scary to see the boss with less attack than a regular dude (even if it's 1/2 attack and 4x hp for 2x total power)
-			maybe have healing in boss fights? make them back to back phases you heal in between (where you have beat 4 of 5?) ala he is coming hydra
+			maybe have healing in boss fights? make them back to back phases (where you have beat 4 of 5?) ala he is coming hydra
 		maybe make normal fights permanent loss of something?
 			i don't really want to do straight hp ala slay the spire, feels too punishing in an autobattler
 			mana? followers? supplies?
 		really not sure what to do for a climactic fight with this combat system
 			phases with cutscenes/dialogue?
+		change the ui a bunch during a lethal fight - the dark wrought iron turns bright and covered with blood? (as if you were in darkness before but now can see the horrors)
+-
 
 
 item overhaul:
@@ -180,152 +204,30 @@ item overhaul:
 					would have to close the character/inventory screen though, i don't want to do that
 					
 	so no global inventory, just like auras, only components on combatants
-
-
-stat screen:
-	be able to delete items / give to other party members
-		give rewards the "deleteable" property, false for cursed items? important character items?
-	
-		probably a drop down with each party member, and delete at the bottom with a confirmation? the label text changes from delete to you sure?
-		
-	active / attuned items
-		that system doesn't exist yet
-	
-	party screen implemented
-		that system also doesn't exist yet
-
-	please god a 9-patch or somethin else that doesn't look terrible
-	
-	
-
-assorted notes:
-
-	would be nice if the change to/from were faded animations or something
-		decouple the change/to from of the portrait into a big boy manager, so it won't re-animate between combat->reward
-	
-	would be nice to support multiple rewards
-		esp as we have multiple combatants, winning 3 items would be rad
-
-	fix/remove debug commands
-
-
---------------------------------------------------------
-playtest notes
---------------------------------------------------------
-
-people keep pressing the skip button for the treasure
-	- the reward doesn't look like a button, it's too flat and unresponsive. have it stick out, change when hovered over, have a particle glow, etc
-	- maybe given you know what the reward is, it's obvious you get it - why would you ever skip it?
-	- maybe given all the unimportant text (three full lines top and bottom that don't actually convey any meaning), it looks like exposition?
-		changed text to "skip reward"
-	- maybe have an animation - as the player reads "collect your boon", the boon shows up, tying them together
-
-people keep having no idea how the map/map info panel works
-	- the info panel is so far away from what you clicked, it's not natural to hover over the info
-	- the info panel is also quite verbose, so why would you search for more info
-	- the whole map looks cool and inviting, why show it all if it's all nothing
-
-richard passed on that their friends mentioned being "locked in" to a build at the start
-	note too sure on this feedback - it was given while the map balance was too light on rare rewards, so all rewards were indeed common stat sticks. could simply be solved with more items and stats, which we already plan to do
-	- have more avenues that can change per run?
-	- have a "flexible" unique at the start, not a build definer? a strong immediate stat stick, or something that increases found rarity, or the like
-		find build definers mid run?
-		
-
-
---------------------------------------------------------
-work to do
---------------------------------------------------------
-
-moving map, fog, something non-static
-	not sure how we want to do this
-		ftl-like has no moving map, but moving player
-		he-is-coming like has a large, prebaked map. moving player
-		infinity-engine like has areas and chapters, like we have atm
-
-event system: not sure how to program map tiles holding an event
-	have all map tiles just hold events, mostly with no text? map tiles are just animation + event, events are text+enemies+rewards?
-	maybe when entering and ending a maptile it sends out a signal about that tile
-		tutorial: on game start, start event. on wolf tile completed, hear signal wolf_tutorial_tile is completed, fire second half of dialogue
+-
 
 big ui overhaul
-	tabs for combat log, auras/inventory, map tile info
 	can open and close pop ups - can hide combat to browse the map, can hide event text (on game loss) to browse the combat log
-	some fadein/outs for restarting/combat/panel popping in etc. dither fades? blood pouring down from the top?
-	combat:
-		a turn counter somewhere?
-
-combat log polish
-	have it fade out at the bottom
-	have a ton of empty space
-	maybe don't draw the scroll bar at all
-	have it draw new entries to the top
-	maybe just have a background in the ui overhaul mode?
-
-general event-naming overhaul
-	break hudevents into hudevents and stateevents (combat won is a state change, player health updated is a hud update)
-
-have a "pre-turn" turn for combat start effects
-	combat log "prepares for attack"
-
-check out orphan nodes, i think auras may be danglin
-	enemy auras specifically?
-
-if losing all rare fights, map doesn't open up, and you're essentially soft locked
-	currently hide_rows() only gets called on winning a fight. the logic is correct enough, but never fires when losing all fights. 
-		the logic isn't quite right - you can see past failed fights.
-		not sure what i even want it to be
-			cant see past rare tiles, unless you succeed one or fail all?
-			maybe just if no_available_tiles, failsafe?
-	maybe all this is cringe anyways, since i eventually want to be a player on the map moving? so i can just see adjacent or something? not sure
-
-the map visibility thing feels pretty bad right now
-	why an you see (but not travel to) boss when <4 tiles away? (it's because they are behind the rares, but doesn't feel good.)
-	maybe "permanently visible" should have some sort of indicator that isn't the same as "active and reachable"
-	maybe some sort of tooltip or something for the permanently non-visible tiles, or make them fully bright but less passable-looking? maybe don't even have them be tiles, like the top/bottom rows of the current map holder?
-
-trim the music down
-	at least have a track selector in game, so i can actually test them all with people
-
-go back and save builds for each milestone, for archaelogy's sake. for not-worrying-about-permanently-breaking-the-game's sake, preservation. 
-
---------------------------------------------------------
-concepts i know i should tutorialize:
---------------------------------------------------------
-how-to-play-the-game:
-
-	reward buttons dont look like buttons - most buttons don't, in fact
-
-
-how-to-understand-the-game:
-
-	percentage multipliers rounding down, maybe even each step
-	item effect ordering vs auras
-	fighting rares early means being able to fight two rares?
-
-
---------------------------------------------------------
-debug keybinds:
---------------------------------------------------------
-	KEY_F11 = crt filter on/off, main.gd 73
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed:
-		if event.keycode == KEY_F11:
-			crt_filter_container.visible = !crt_filter_container.visible
-
-
----------------------------
-not right now, maybe:
----------------------------
-when you click a reward it bleeds into clicking the map and feels bad
-
-would be nice to have a path of progress on the map
-
-stat screen polish/features:
-	separate stats tab into temporary and permanent auras, somehow?
 	
-	stat screen showing the math to get your current stats?
+	some fadein/outs for restarting/combat/panel popping in etc. dither fades? blood pouring down from the top?
+		decouple the change/to from of the portrait into a big boy manager, so it won't re-animate between combat->reward
+		
+	combat:	a turn counter somewhere?
+	
+	"player" on map be an animated guy that does stuff, instead of an instant sprite change on map_tile
+		would be nice to have a path of progress on the map too
+	
+	stat screen polish/features:
+		separate stats tab into temporary and permanent auras, somehow?
+			can filter by duration==permanent pretty easily...
+		
+		stat screen showing the math to get your current stats?
+	
+	add mouse blocks or something, so you can't interact with the map while in combat
+-
+
+
+when you click a reward it bleeds into clicking the map and feels bad
 
 turn animation, i removed the end of turn slow down
 	not sure how to see into the future right now, but it would be nice to slow down near the end
@@ -337,17 +239,12 @@ pixel tracks are louder than classical tracks
 https://alkakrab.itch.io/snowfall-ambient-music-pack
 
 put the endless battler back in after the boss is beaten?
-
-start the game with the available tiles in the center, and as it opens up you slide along to the left as you see more ahead of you?
-	maybe you start with 2 tiles, fog all around.. then see to the edge of the screen. that's the midpoint where you have to defeat a medium enemy, then that unlocks the full map with the boss at the end?
-
-"too far" map tile tooltip doesn't show up on previously completed tiles
-	because they are permanently disabled as they should be, but the tooltip is checking that
-	which is good for permenently disabled tiles like front and back edges.. maybe they should say "nothing of value lies here" or something?
+	at least for now?
 
 could put a +-10% in the scale stats function
 
 combat log has a collection of colours, and can pull from that when emitting a custom message
+	instead of hard coding into functions
 
 a debug console: spawn items, enable whole map, dump item database of rarity, increase stats. maybe even hotkey some of these
 	can also just do lil bandaids, like "should start with" in item fields
@@ -361,11 +258,7 @@ make some map movement/traversal/exploration
 	
 make the tooltip nice and good and cool
 	would be nice if tooltips showed on click too, esp for touch devices
-
-would be nice to have a .txt of coordinate -> mapData that richard can write and my constructor can read
-
-have a non-equipped inventory: a list of icon:names in a popup window (maybe a bag button too), and you can click an item in inventory (swap, delete)
-	pop up character panel with stats etc maybe even breakdowns of multipliers
+		if on touch device, click = tooltip, click if tooltip = actual click?
 
 save and load, spooky
 	look into saving resources directly - if not, can change combatantData etc to refCounted
@@ -386,6 +279,10 @@ different map tile setups (thanks mr. fenn)
 a target dummy - if i want a big inventory system, and build swapping, it'd be quite nice to be able to test your new build (to find fatal flaws that would end your run and feel bad)
 	can tutorialize- when swapping 3+ items, npc tells you "hey wanna test it on this dummy"
 	also good for debug testing
+	can have it "at camp", maybe in the rest menu popup?
+	want to make sure not to enable certain items, say you have a demon sword which strengthens after shedding 200 blood
+
+go back and save builds for each milestone, for archaelogy's sake. for not-worrying-about-permanently-breaking-the-game's sake, preservation. 
 
 --------------------------------------------------------
 to research:
@@ -394,24 +291,18 @@ look up old might & magic, ultima, and others.. find more modern takes, or reaso
 
 look up ice-related mythologies, siberia etc
 
+other autobattlers
+	item slot battlers: backpack battler, super auto pets, bazaar, etc
+	real time with pause rpgs
+
 https://trello.com/b/u4nqJwNI/lieutenant
-
-
-
---------------------------------------------------------
-combat prototypes:
---------------------------------------------------------
-look at some schell lenses for the combat system
-
-if i just make it more complicated (so it's less easy to eyeball the result) is that enough uncertainty? 2+ party members whose builds interact, enemies who attack a certain one (highest speed, highest rarity, etc)? 10-30x the numbers so it's less granular?
-
-
 
 
 --------------------------------------------------------
 other neat ideas:
 --------------------------------------------------------
 have a mage companion that lets you click off visible, beneficial auras
+
 have a weapon that transforms after x attacks / x health damage dealt
 
 hotkey f12 to open an ingame calculator lmao
@@ -425,6 +316,9 @@ flappy cameo, balloon in the distance
 ----------------------------------------------------------------------------------------------------------------
 things i know are hacky and should be cleaned up (or super duper back burner changes):
 ----------------------------------------------------------------------------------------------------------------
+
+check out orphan nodes periodicially for memory leaks
+
 settings menu (save to json?)
 	speed for each speed setting, default speed?
 
@@ -445,13 +339,6 @@ cultist berseker - dormant enemy. currently overwriting combatant scale_stats wi
 	bad if i ever change that formula in combatant - it won't propogate
 	also maybe this should be codified
 
-can click on a maptile in combat, and it blocks the combat log
-	no way to close the map info panel
-	and you probably shouldn't be able to...
-		but if i put a stop control on the combat manager, you can't read the combat log?
-			z index the combat log higher?
-	probably deal with this with when i overhaul ui
-
 so threshold auras:
 	should be held on the combatant
 	should have a "check stat threshold" function, which takes in a stat and a threshold
@@ -467,9 +354,6 @@ something about generating rewards on tiles is off
 		i have a tile i want to generate better rewards based on tile power, and that isn't handled in the tileData.gd?
 		not sure when i should call it. have a tileData.on_applied_to_tile()?
 
-breakdown the ui into scenes and have a manager create them, probably
-	has a cleaner scene tree for work, no need for the visible on and off stuff too
-
 maybe auras should have x combats, or until end of act, designations. good event rewards
 
 auras vs items should be better designated, different coloured borders maybe?
@@ -479,17 +363,12 @@ map tiles are spawned starting at 0,0 - it's more natural to me to start at 1,1.
 
 the map info panel is a vbox/center container hybrid abomination. probably want to codify this into the bottom info is anchored to the venture button, and text grows down, or something? idk
 
-aura.create_aura() and item.duplicate() is impossible to keep track of. codify which one, where, and make it automatic
-	this is connected to that interchangability problem
-
-somehow have aura and items be interchangeable, maybe Boon class, with baseline names and stuff. having to separate my reward function in two is lame
-	i do need some splitting anyways, eg. dont want to grey out an aura reward if inventory is full
-	currently scenarioEvents is taking a reward as a Variant, which is dangerous. would be great if there was an umbrella term
-
 clean up the item "on_attack" timings - currently crashing waves +attack applies after vampiric blade 50% healing, no matter the inventory order
 	probably just await(item_in_slot.on_attack) or something
 	also maybe support inventory slot juggling
 	potentially codify whether auras are before or after items (probably after, since i want items to spawn "surging waves" on combat start, and trigger after attacks)
+	
+	not sure if this is still true with new inventory system - but something similar is still a problem. you'll want different triggers at different times, and you can't control that (or even really see which order) right now
 
 z-indexes for ui are hardcoded into scene tree hierarchy
 
@@ -499,34 +378,11 @@ tooltip esp for items
 
 aura folder structure is flexible, item folder structure is rigid. would like item to be flexible too, so i can randomly categorize things
 	there is thought to NOT categorizing by folder structure - so i have to categorize by code....
-
-item balance:
-instead of bespoke stats to each item, have each item do unique percentage math from a global power/balance level
-	eg.
-		daggers do 0.5x damage but 2.2x attack speed
-		axes do 1.5x damage but 0.8x attack speed
-		
-		iron items have a power budget of 20
-		steel items have a power budget of 60
-		
-		iron daggers do 20*0.5=10 damage, 2.2 times per second
-		steel axes do  60*1.5=90 damage, 0.8 times per second
-		
-		my special goblin slayer item deals 1.1x damage per rarity, and special 3x damage against goblins
-		a goblin slaying steel dagger of epic (3) rarity, would deal
-		60 * 1.5 * 1.3 = 117 damage, *3 if target is a goblin (special script), and attacks 0.8 times per second
-
-this way i can 10x damage numbers for granularity with ease, each item has its own bespoke modifiers, and there's enough knobs to play with
-so every item is just a fresh .gdscript, top (master) defines the basics (name, sprite, etc). second part defines basic stats (iron sword has 1x damage and 1x attack speed), third part defines special behaviour (heals 20% damage on strike)
+	can always just search in godot file structure search bar
 
 take a pass at my instiated var's - some should probably be consts
 
 canvaslayer layers are not codified - i just put the pause menu as 99
-
-enemy custom auras are persisting as objects, not sure what they're attached to, but should probably yeet them. maybe the Aura.new()?
-	i think old players or enemies may be too
-
-why is my player aura dictionary a [StringName, Aura]? if i'm instantiating new auras, there is no need for unique id? and surely if i want to remove a specific aura (have two iron swords, unequip one), i can search the array for that specific aura?
 
 writing strings in the code, instead of a spreadsheet for localization etc
 	even as dank as button tooltips on control nodes hidden in the scene tree
@@ -537,8 +393,6 @@ using pick_random(), but no random seed management
 
 ui has a bunch of minimum pixel sizes - this is probably a fine practice, but things like the combatants numbers getting fucked over 3 digits is not good
 
-these signals really are poorly named, i'm connecting to hudevents.change_to_combat_screen for my inventory restarting of combat auras? terrible
-
 hmmmm something is fishy about combatant damage - the combat manager calls for the combatants to take damage based on their attack, which seems bad cause the stat manager might care about custom auras reducing damage from goblins or something. also maybe damage taken should be saved on the player aura thing?
 
 hmm i think the inventory manager hooking onto "on attack" is bad timing - i don't know the order of operations between buffing attack and taking damage, should probably have an intermediate event
@@ -546,19 +400,9 @@ hmm i think the inventory manager hooking onto "on attack" is bad timing - i don
 the unique id thing is instance_id + current clock time? sounds super fucked. does it even work on all clocks? what the hell is an instance id, and am i sure you can't create two instance_ids at the same second?
 	should probably deal with this when learning how to save the game
 
-currently i'm updating the player stats on every item equipped, which maybe seems bad when i open combat and immediately equip 6 items?
-	maybe not as relevant when the inventory persists through the game
-
-currently my inventory is global - should each combatant have their own inventory? given i'm planning to have more than one
-
 timing architecture:
 	the timing of "on_scene_ready" architecture in inventory_manager.gd should be project wide
 	using async and deferred calls and shit, i should have a much better understanding of when code gets called (instances get created), and maybe even a "timing manager" that signals when to fire events in order
-
-all this is_this_the_player(), and "update player health" nonsense is bad - combatant should have "update health" only, and fire signals like that, somehow. maybe they always fire the "is_this_the_player", or other origin, with their signals?
-	a "combatant" that handles most stuff, and "player" parent that listens to signals and sends more?
-	have a "player" class extended from "combatant" class? so i can check if is player, and if is combatant? not sure how this oop works in godot
-	combat manager spawns the player with an export variable for their stat sheet - that sounds terrible, i should be checking the properties of that player to read their base stats, the combat manager doesn't care
 
 signals are a bit disorganized:
 	the signal busses aren't really organized by their title very well, codify that distinction
@@ -566,37 +410,18 @@ signals are a bit disorganized:
 	
 	combatant: the signal that sends out when a stat is updated, should be on a function wrapper for editing that value; not just tacked onto functions that edit that value
 	ui only updating on signals may be good practice, but it could also update every frame? currently i have to remember to put a signal whenever anything changes ->> i should wrap the signal *into* the change functions
-	
-	statevents.send_auras_to_combatants doesn't scale to multiple combatants
-
-
-debug/crash failsafes
-	currently i have two obvious crash conditions:
-		auto battle combat never decides to swap turns
-			can have a "kill combat" button that is turnagnostic - maybe it resets the combat? exit to main menu (saves game?)
-		instantiated enemies never get created and they don't tell the combat to start
-			same fix as above? restart the combat?
-
 
 the scene changes should be fully fledged - main manager deletes/instantiates the combat ui and manager and combatants, deletes/instantiates reward screen, etc	
 	hm now that i think about it, there isn't an obvious reason for this. i don't run timers or process on anything, so them being invisible is fine?
 		but it future proofs me for if i want to run timers or processes - especially with animations
 
-
-have things be more readable - by future me, and richard:
+have code be more readable - by future me, and richard:
 	_get_configuration_warnings() to popup on gui when things aren't setup right
 	do a code pass, try to explain it on video
 	or maybe some just readme files in each folder?
 
-
 i've got some hard reference to children in scripts, which rely on their string name
-	# Fastest. Doesn't break if node is moved in the Scene tree dock.
-	# Node must be selected in the inspector as it's an exported property.
-	@export var child: Node
-	func lookup_and_cache_for_future_access():
-		print(child)
-		
-	and then add a configuration warning if nothing is selected
+	can set an @export instead of a $reference, and then check_exports() using my catchall function
 
 clarify 'base stats' - esp in statmanager.gd. base as in "before combat damage/temporary effects" or base as in "before items" ?
 

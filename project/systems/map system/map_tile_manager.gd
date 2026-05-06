@@ -5,7 +5,8 @@ var current_column_sunsetting:int = 1
 var tiles_you_can_see_into_fog_of_war:int = 4
 var current_tile_encounter:MapTile
 var debug_vision:bool = false
-var camera_has_met_right_edge:bool = false
+var map_should_scroll_right:bool = true
+var map_should_scroll_left:bool = true
 @onready var maptile_spawner_parent:Node2D = $MapTileSpawner
 var scroll_animation_delay:float = 1.5
 
@@ -17,14 +18,15 @@ func _ready() -> void:
 	MapEvents.point_of_no_return.connect(enable_adjacent_tiles)
 	MapEvents.point_of_no_return.connect(fully_cleared_tile)
 	HudEvents.rout_chosen.connect(fully_cleared_tile)
-	MapEvents.map_grid_right_edge_reached.connect(clamp_right_edge_scrolling)
+	MapEvents.map_grid_right_edge_visible.connect(check_to_clamp_right_edge_scrolling)
+	MapEvents.map_grid_left_edge_visible.connect(check_to_clamp_left_edge_scrolling)
 	
 	maptile_spawner_parent.populate_tiles()
 
 func handle_map_transition(map_tile:MapTile) -> void:
 	current_tile_encounter = map_tile
 	
-	await scroll_camera_check(current_tile_encounter)
+	await scroll_map_check(current_tile_encounter)
 	#probably await an animation or something
 	
 	if map_tile.tile_data.scenario:
@@ -34,17 +36,22 @@ func handle_map_transition(map_tile:MapTile) -> void:
 	else:
 		MapEvents.enter_without_combat_in.emit(map_tile)
 
-func scroll_camera_check(map_tile:MapTile) -> void:
-	var center_of_screen:float = get_viewport_rect().size.x / 8
+func scroll_map_check(map_tile:MapTile) -> void:
+	var right_scroll_threshold:float = get_viewport_rect().size.x * 0.5
+	var left_scroll_threshold:float = get_viewport_rect().size.x * 0.5
 	var tile_pos:float = map_tile.global_position.x
-		#this checks the global position, and all tiles in a column have different x positions
+		#this checks the global position, and all tiles in a column have different x positions,
 		#due to isometric offset
 		#could lead to map scrolling on the top row tile, but not the bottom row tile, confusingly
-	if not camera_has_met_right_edge:
-		if tile_pos > center_of_screen:
-			await scroll_camera(-1 * map_tile.width) #negative because i want the map to go to the left
+	
+	if map_should_scroll_right:
+		if tile_pos > right_scroll_threshold:
+			await scroll_map(-1 * map_tile.width) #negative because i want the map to go to the left
+	if map_should_scroll_left:
+		if tile_pos < left_scroll_threshold:
+			await scroll_map(1 * map_tile.width) #positive because i want the map to go to the right
 
-func scroll_camera(delta_to_scroll:int) -> void:
+func scroll_map(delta_to_scroll:int) -> void:
 	var tween:Tween = create_tween()
 	var final_position:Vector2 = Vector2(self.position.x + delta_to_scroll, self.position.y)
 	tween.tween_property(self, "position", final_position, scroll_animation_delay)
@@ -151,8 +158,17 @@ func get_tiles_diagonally_around_tile(tile_to_check:MapTile, range_to_check:int 
 	
 	return [valid_tiles,invalid_tiles]
 
-func clamp_right_edge_scrolling() -> void:
-	camera_has_met_right_edge = true
+func check_to_clamp_right_edge_scrolling(saw_edge:bool) -> void:
+	if saw_edge:
+		map_should_scroll_right = false
+	else:
+		map_should_scroll_right = true
+
+func check_to_clamp_left_edge_scrolling(saw_edge:bool) -> void:
+	if saw_edge:
+		map_should_scroll_left = false
+	else:
+		map_should_scroll_left = true
 
 #debug command catcher
 func _unhandled_input(event: InputEvent) -> void:
