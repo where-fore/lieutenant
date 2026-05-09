@@ -4,16 +4,12 @@ working notes
 
 
 
-
-
-
-
-
-
-
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
+
+organize these notes and brainstorm
+
 enemy scaling?
 	day night system, still not too sure where we land on this
 		distinct phases which strengthen enemies?
@@ -45,6 +41,7 @@ fix/remove debug commands
 
 tutorial probably shouldn't be hardcoded - have the hut at the start, the ring, go back to the hut, etc
 	and it rewards you with a key or something to let you travel past the first tree wall?
+	make events that trigger differently when you re-enter them
 
 have a "pre-turn" turn for combat start effects
 	combat log "prepares for attack"
@@ -67,6 +64,7 @@ people keep having no idea how the map/map info panel works
 	- the info panel is so far away from what you clicked, it's not natural to hover over the info
 	- the info panel is also quite verbose, so why would you search for more info
 	- the whole map looks cool and inviting, why show it all if it's all nothing
+	- have the map slide in, and then the player icon thing pops up on a side. should be more clear?
 
 richard passed on that their friends mentioned being "locked in" to a build at the start
 	note too sure on this feedback - it was given while the map balance was too light on rare rewards, so all rewards were indeed common stat sticks. could simply be solved with more items and stats, which we already plan to do
@@ -106,6 +104,7 @@ func _unhandled_input(event: InputEvent) -> void:
 ---------------------------
 not right now, maybe:
 ---------------------------
+
 
 map overhaul:	
 	some sort of fog of war type thing, instead of the darkened tiles
@@ -241,10 +240,11 @@ https://alkakrab.itch.io/snowfall-ambient-music-pack
 put the endless battler back in after the boss is beaten?
 	at least for now?
 
-could put a +-10% in the scale stats function
+could put a +-10% in the scale stats to power function
 
-combat log has a collection of colours, and can pull from that when emitting a custom message
+combat log could have a collection of colours, and can pull from that when emitting a custom message
 	instead of hard coding into functions
+	maybe like StatNames, TextColours.Enemy is red
 
 a debug console: spawn items, enable whole map, dump item database of rarity, increase stats. maybe even hotkey some of these
 	can also just do lil bandaids, like "should start with" in item fields
@@ -253,6 +253,7 @@ a button on the map info panel to hide it immediately would feel good
 	maybe a slide bar handle?
 
 random seed system, so you can replay a certain combination etc
+	print seed to console, or show in debug window in main menu
 
 make some map movement/traversal/exploration
 	
@@ -395,8 +396,6 @@ ui has a bunch of minimum pixel sizes - this is probably a fine practice, but th
 
 hmmmm something is fishy about combatant damage - the combat manager calls for the combatants to take damage based on their attack, which seems bad cause the stat manager might care about custom auras reducing damage from goblins or something. also maybe damage taken should be saved on the player aura thing?
 
-hmm i think the inventory manager hooking onto "on attack" is bad timing - i don't know the order of operations between buffing attack and taking damage, should probably have an intermediate event
-
 the unique id thing is instance_id + current clock time? sounds super fucked. does it even work on all clocks? what the hell is an instance id, and am i sure you can't create two instance_ids at the same second?
 	should probably deal with this when learning how to save the game
 
@@ -414,6 +413,7 @@ signals are a bit disorganized:
 the scene changes should be fully fledged - main manager deletes/instantiates the combat ui and manager and combatants, deletes/instantiates reward screen, etc	
 	hm now that i think about it, there isn't an obvious reason for this. i don't run timers or process on anything, so them being invisible is fine?
 		but it future proofs me for if i want to run timers or processes - especially with animations
+	there also isn't really an inherent benefit, it's faster & signals work better when they just always exist in reserve
 
 have code be more readable - by future me, and richard:
 	_get_configuration_warnings() to popup on gui when things aren't setup right
@@ -425,7 +425,8 @@ i've got some hard reference to children in scripts, which rely on their string 
 
 clarify 'base stats' - esp in statmanager.gd. base as in "before combat damage/temporary effects" or base as in "before items" ?
 
-the getter-setters in eg. combatant health, the health variable should be underscored so i don't edit them without the function
+do a getter-setter pass, especially for things that hook into ui updates
+	consider underscoring certain stats i don't want accessed from outside
 
 add a button somehwere in the main menu to open the saves folder (it's different on each os, and can't bake it in since idk where they will install it on their pc)
 func _on_open_saves_button_pressed():
