@@ -30,6 +30,11 @@ var damage_taken:int = 0:
 		damage_taken = value
 		emit_stat_update()
 
+var shield:int = 0:
+	set(value):
+		shield = value
+		emit_stat_update()
+
 func get_damaged_health() -> int:
 	return current_stats[Stats.health] - damage_taken
 
@@ -73,7 +78,15 @@ func take_damage(value:int) -> void:
 		if value < 0: push_error("tried to take negative damage on: " + name)
 		elif value == 0: pass
 		else:
-			self.damage_taken += value
+			if shield:
+				shield -= value
+				if shield < 0: #ie. shield was overpierced
+					var damage_to_take:int = shield * -1 #take damage equal to the overkill
+					shield = 0 #remove vestigial negative shield
+					self.damage_taken += damage_to_take
+			else:
+				self.damage_taken += value
+			
 			CombatEvents.damage_applied.emit(self, value)
 			check_if_dead_now()
 		
@@ -86,6 +99,14 @@ func heal(value:int) -> void:
 		else:
 			self.damage_taken -= value
 			CombatEvents.healing_applied.emit(self, value)
+
+func apply_shield(value:int) -> void:
+	shield += value
+	if shield < 0: shield = 0
+
+func remove_shield(value:int) -> void:
+	shield -= value
+	if shield < 0: shield = 0
 
 func reset_current_stats_to_base() -> void:
 	current_stats = starting_stats.duplicate()
@@ -123,6 +144,7 @@ func choose_target_this_turn() -> void:
 	current_target = choices.pick_random()
 
 func reset_for_next_combat() -> void:
+	shield = 0
 	self.damage_taken = 0
 	unperish()
 	possible_targets.clear()
@@ -199,6 +221,10 @@ func get_all_items() -> Array[Item]:
 func get_all_auras() -> Array[Aura]:
 	return aura_manager.get_all_auras()
 
+func get_shield_from_int() -> void:
+	var shield_to_add:int = current_stats.get(Stats.intelligence, 0) / Stats.intelligence_per_shield_per_turn
+	shield += shield_to_add
+
 #this is copied from aura_base.gd
 func get_tooltip() -> String:
 	var tooltip_text:String = name
@@ -226,6 +252,9 @@ func on_start_turn_functions() -> void:
 	on_start_turn()
 	item_manager.on_start_turn()
 	aura_manager.on_start_turn()
+	
+	get_shield_from_int()
+	
 	CombatEvents.combatant_turn_started.emit(self)
 
 func on_after_attack_functions(chosen_target:Combatant) -> void:

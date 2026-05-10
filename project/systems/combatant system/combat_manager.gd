@@ -55,7 +55,7 @@ func _ready() -> void:
 	CombatEvents.combat_ongoing = false
 	
 	create_player_combatant(Database.get_combatant_by_id(player_template_id))
-	var add_test_characters:int = 3
+	var add_test_characters:int = 0
 	while add_test_characters > 0:
 		create_player_combatant(Database.get_combatant_by_id("basic_player_rogue"))
 		add_test_characters -= 1
@@ -220,9 +220,9 @@ func pre_combat(enemy_template:Combatant) -> void:
 	var enemy1:Combatant = setup_combatant(enemy_template.duplicate())
 	add_child(enemy1)
 	enemy_combatants.append(enemy1)
-	var enemy2:Combatant = setup_combatant(enemy_template.duplicate())
-	add_child(enemy2)
-	enemy_combatants.append(enemy2)
+	#var enemy2:Combatant = setup_combatant(enemy_template.duplicate())
+	#add_child(enemy2)
+	#enemy_combatants.append(enemy2)
 	HudEvents.send_enemy_combatants_to_ui.emit(enemy_combatants)
 	
 	for ally:Combatant in player_combatants:

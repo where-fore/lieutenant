@@ -30,10 +30,13 @@ func show_actives() -> void:
 	active_button_container.visible = true
 
 func update_stats() -> void:
+	placeholder_attack.tooltip_text = str(my_combatant.current_stats[Stats.attack])
+	
 	health_bar.max_value = my_combatant.current_stats[Stats.health]
 	health_bar.value = my_combatant.get_damaged_health()
 	health_bar.tooltip_text = str(int(health_bar.value))
-	placeholder_attack.tooltip_text = str(my_combatant.current_stats[Stats.attack])
+	if my_combatant.shield > 0:
+		health_bar.tooltip_text += " + " + str(my_combatant.shield)
 
 func perish() -> void:
 	self.modulate = Color(0.6, 0.3, 0.3)

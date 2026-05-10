@@ -2,22 +2,26 @@
 working notes
 --------------------------------------------------------
 
-decide what non-strength stats are going to be
+
+dex = high attack, low hp, high crit
+str = moderate attack & hp
+int = shield every turn, low stats but lots of items that scale with it
+
+so i need to add shield, and crit
+
+
+
+
 overhaul items to use primary stats
+
+
 
 
 
 non-stats:
 ------
-
-add shield as a mechanic
-
 then do time of day + monster scaling
-	maybe make the scaling a bit exponential, since player power probably will be with loops etc 
-
-add a tooltip to the stats ui with what they do
-	not sure how to codify this, so it pulls from the same formula
-	maybe in Stats have the derivation values? and combatant.gd and the stat panel tooltip both pull from that?
+	maybe make the scaling a bit exponential, since player power probably will be with loops etc
 
 
 --------------------------------------------------------
@@ -35,9 +39,6 @@ enemy scaling?
 		every 3 steps changes phases (early night, mid night, late night; early morning etc)
 			which scales enemies
 			and changes the colour of the map-wide filter :o
-
-stat gaming
-	do the overhaul
 
 would like to be able to give combatants test items, or something similar to test out items
 	ill need combatants to start with items anyways, probably want jon the thief to have a few items when you recruit them, for example
@@ -120,6 +121,10 @@ func _unhandled_input(event: InputEvent) -> void:
 ---------------------------
 not right now, maybe:
 ---------------------------
+
+entropy roll system:
+	entropy:Dictionary[StringName, int] = {Stats.crit_chance = 20}
+	maybe Random.Entropy as a dictionary of variant, dictionary  - a reference to a source and its entropy dictionary. when an entity wants a random value, it calls Random.roll(self, roll_name, 20) and to roll a 20% chance under roll_name
 
 add combat failsafe
 	if both combatants can't kill each other, it goes forever
@@ -249,6 +254,8 @@ big ui overhaul
 	add mouse blocks or something, so you can't interact with the map while in combat
 	
 	make sure labels won't overflow with long numbers. set their clipping to true, and maybe if clipped add a tooltip?
+	
+	combatant ui stat health + shield, not sure how to show. at least have the tooltip have a blue hue for shield text? maybe cover some portion of the red bar with blue ala poe?
 -
 
 
