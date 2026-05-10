@@ -142,12 +142,42 @@ func reset_for_next_combat() -> void:
 
 func recalculate_stats(additive_aura_dictionary:Dictionary[StringName, int], multiplicative_aura_dictionary:Dictionary[StringName, int]) -> void:
 	reset_current_stats_to_base()
-
+	
+	#cut primaries out, so i can work them separately
+	var primary_stats:Array[StringName] = [Stats.strength, Stats.dexterity, Stats.intelligence]
+	var primary_stat_additive_dictionary:Dictionary[StringName, int]
+	var primary_stat_multiplicative_dictionary:Dictionary[StringName, int]
+	for stat:StringName in additive_aura_dictionary.keys():
+		if stat in primary_stats:
+			primary_stat_additive_dictionary[stat] = additive_aura_dictionary[stat]
+			additive_aura_dictionary.erase(stat)
+	for stat:StringName in multiplicative_aura_dictionary.keys():
+		if stat in primary_stats:
+			primary_stat_multiplicative_dictionary[stat] = multiplicative_aura_dictionary[stat]
+			multiplicative_aura_dictionary.erase(stat)
+	
+	#figure out primaries first
+	sum_aura_and_base_stats(primary_stat_additive_dictionary)
+	multiply_aura_and_current_stats(primary_stat_multiplicative_dictionary)
+	derive_stats()
+	
+	#figure out derived next
 	sum_aura_and_base_stats(additive_aura_dictionary)
 	multiply_aura_and_current_stats(multiplicative_aura_dictionary)
 	
 	emit_stat_update()
 	check_if_dead_now()
+
+func derive_stats() -> void:
+	var strength:int = current_stats.get(Stats.strength, 0)
+	var dexterity:int = current_stats.get(Stats.dexterity, 0)
+	#var intelligence:int = current_stats.get(Stats.intelligence, 0)
+	
+	var attack_to_add:int = strength/5 + dexterity/2
+	var health_to_add:int = strength
+	
+	current_stats[Stats.attack] += attack_to_add
+	current_stats[Stats.health] += health_to_add
 
 func sum_aura_and_base_stats(auraDictionary:Dictionary[StringName,int]) -> void:
 	for stat:String in auraDictionary:
@@ -155,8 +185,8 @@ func sum_aura_and_base_stats(auraDictionary:Dictionary[StringName,int]) -> void:
 			current_stats[stat] = auraDictionary[stat] + starting_stats[stat]
 		else:
 			current_stats[stat] = auraDictionary[stat]
-		if current_stats[stat] < 0:
-			current_stats[stat] = 0
+		#if current_stats[stat] < 0:
+			#current_stats[stat] = 0
 			#print_debug("raising stat from negative to 0: " + stat)
 
 func multiply_aura_and_current_stats(auraDictionary:Dictionary[StringName,int]) -> void:

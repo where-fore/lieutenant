@@ -2,7 +2,16 @@
 working notes
 --------------------------------------------------------
 
+dervied stats as an aura, function takes the aura, clears it, repopulates it, recalcs stats
 
+stats - like poe - 2 attack per 5 str; 1 attack + 1% crit per 5 dex; etc
+
+
+
+add shield as a mechanic
+
+then do time of day + monster scaling
+	maybe make the scaling a bit exponential, since player power probably will be with loops etc 
 
 --------------------------------------------------------
 work to do
@@ -104,7 +113,14 @@ func _unhandled_input(event: InputEvent) -> void:
 ---------------------------
 not right now, maybe:
 ---------------------------
-
+add combat failsafe
+	if both combatants can't kill each other, it goes forever
+	(like oaken tower/battle royales, hp damage if no winner)
+	maybe a rout/concede button
+	maybe a trigger on turn X that calls a stalemate
+	depending on story event, it maybe shouldn't be a loss
+		when plundering a castle for loot, stalemate = loss
+		when defening a town from monsters, stalemate = victory, for now?
 
 map overhaul:	
 	some sort of fog of war type thing, instead of the darkened tiles
