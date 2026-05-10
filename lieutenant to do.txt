@@ -3,12 +3,6 @@ working notes
 --------------------------------------------------------
 
 
-dex = high attack, low hp, high crit
-str = moderate attack & hp
-int = shield every turn, low stats but lots of items that scale with it
-
-so i need to add shield, and crit
-
 
 
 
@@ -22,6 +16,7 @@ non-stats:
 ------
 then do time of day + monster scaling
 	maybe make the scaling a bit exponential, since player power probably will be with loops etc
+
 
 
 --------------------------------------------------------
@@ -256,6 +251,9 @@ big ui overhaul
 	make sure labels won't overflow with long numbers. set their clipping to true, and maybe if clipped add a tooltip?
 	
 	combatant ui stat health + shield, not sure how to show. at least have the tooltip have a blue hue for shield text? maybe cover some portion of the red bar with blue ala poe?
+	
+	would be nice if i just had a "all stats" dump on a ui page, which was just current_stats.values : current_stats.keys
+		currently can't see my crit chance or crit multiplier, or any other stats i add
 -
 
 

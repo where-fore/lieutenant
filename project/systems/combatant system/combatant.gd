@@ -109,6 +109,9 @@ func remove_shield(value:int) -> void:
 	if shield < 0: shield = 0
 
 func reset_current_stats_to_base() -> void:
+	if not starting_stats.has(Stats.crit_multi):
+		starting_stats[Stats.crit_multi] = Stats.base_crit_multi
+		
 	current_stats = starting_stats.duplicate()
 
 func check_if_dead_now() -> void:
@@ -128,7 +131,15 @@ func take_turn() -> void:
 	on_start_turn_functions()
 	
 	if not dead:
-		CombatEvents.attack_launched.emit(self, current_stats[Stats.attack], current_target)
+		var amount_to_attack_for:int = current_stats[Stats.attack]
+		
+		if current_stats.has(Stats.crit_chance):
+			var roll:int = randi_range(1, 100)
+			if roll <= current_stats[Stats.crit_chance]:
+				var multiplier:float = float(current_stats[Stats.crit_multi]) / 100.0
+				amount_to_attack_for = int(amount_to_attack_for * multiplier)
+		
+		CombatEvents.attack_launched.emit(self, amount_to_attack_for, current_target)
 		on_after_attack_functions(current_target)
 	
 	on_end_turn_functions()
@@ -184,9 +195,11 @@ func derive_stats() -> void:
 	
 	var attack_to_add:int = strength/Stats.strength_per_attack + dexterity/Stats.dexterity_per_attack
 	var health_to_add:int = strength/Stats.strength_per_health
+	var crit_to_add:int = dexterity/Stats.dexterity_per_crit_percent
 	
 	current_stats[Stats.attack] = current_stats.get(Stats.attack, 0) + attack_to_add
 	current_stats[Stats.health] = current_stats.get(Stats.health, 0) + health_to_add
+	current_stats[Stats.crit_chance] = current_stats.get(Stats.crit_chance, 0) + crit_to_add
 
 func sum_aura_and_base_stats(auraDictionary:Dictionary[StringName,int]) -> void:
 	for stat:String in auraDictionary:

@@ -16,3 +16,5 @@ const dexterity_per_crit_percent:int = 5
 const intelligence_per_shield_per_turn:int = 10
 
 const crit_chance:StringName = &"Crit Chance"
+const crit_multi:StringName = &"Crit Multiplier"
+const base_crit_multi:int = 200
