@@ -43,6 +43,7 @@ var item_manager:ItemManager
 
 func setup(should_be_a_player:bool = false) -> void:
 	reset_current_stats_to_base()
+	derive_stats()
 	
 	active = true
 	
@@ -159,11 +160,11 @@ func derive_stats() -> void:
 	var dexterity:int = current_stats.get(Stats.dexterity, 0)
 	#var intelligence:int = current_stats.get(Stats.intelligence, 0)
 	
-	var attack_to_add:int = strength/5 + dexterity/2
-	var health_to_add:int = strength
+	var attack_to_add:int = strength/Stats.strength_per_attack + dexterity/Stats.dexterity_per_attack
+	var health_to_add:int = strength/Stats.strength_per_health
 	
-	current_stats[Stats.attack] += attack_to_add
-	current_stats[Stats.health] += health_to_add
+	current_stats[Stats.attack] = current_stats.get(Stats.attack, 0) + attack_to_add
+	current_stats[Stats.health] = current_stats.get(Stats.health, 0) + health_to_add
 
 func sum_aura_and_base_stats(auraDictionary:Dictionary[StringName,int]) -> void:
 	for stat:String in auraDictionary:

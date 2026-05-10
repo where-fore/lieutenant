@@ -6,6 +6,5 @@ func _init() -> void:
 	combatant_texture = load("res://sprites/portraits/man_1.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	
-	starting_stats[Stats.health] = BalanceData.player_base_health * 2/3
-	starting_stats[Stats.attack] = BalanceData.player_base_attack * 2
-	starting_stats[Stats.dexterity] = 10
+	starting_stats[Stats.dexterity] = 20
+	starting_stats[Stats.strength] = 10

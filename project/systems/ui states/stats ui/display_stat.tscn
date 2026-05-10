@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cftv6xngx4kbv"]
+
+[ext_resource type="Texture2D" uid="uid://b806345r0gqph" path="res://sprites/strength.png" id="1_ti1uk"]
+[ext_resource type="Script" uid="uid://bkv8mcd0ccajy" path="res://systems/ui states/stats ui/display_stat.gd" id="1_xntwk"]
+
+[node name="DisplayStat" type="HBoxContainer"]
+script = ExtResource("1_xntwk")
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_ti1uk")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+mouse_filter = 1
+theme_override_font_sizes/font_size = 8
+text = "132"
