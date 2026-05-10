@@ -9,5 +9,5 @@ func _init() -> void:
 		Categories.enemy_rarity: Categories.Rarity.COMMON,
 	}
 
-	base_health = BalanceData.enemy_base_health
-	base_attack = BalanceData.enemy_base_attack
+	starting_stats[Stats.health] = BalanceData.enemy_base_health
+	starting_stats[Stats.attack] = BalanceData.enemy_base_attack

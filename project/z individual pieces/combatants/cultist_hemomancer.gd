@@ -16,8 +16,8 @@ func _init() -> void:
 		Categories.enemy_rarity: Categories.Rarity.MYTHIC,
 	}
 	
-	base_health = BalanceData.enemy_base_health * 3/2
-	base_attack = BalanceData.enemy_base_attack * 1
+	starting_stats[Stats.health] = BalanceData.enemy_base_health * 3/2
+	starting_stats[Stats.attack] = BalanceData.enemy_base_attack * 1
 
 #called by Combatant
 func on_start_combat() -> void:

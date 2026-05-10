@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bcp8cmhkfnrrs"]
+[gd_scene load_steps=11 format=3 uid="uid://bcp8cmhkfnrrs"]
 
 [ext_resource type="Script" uid="uid://cqu36mhe1wslh" path="res://systems/ui states/stats ui/info_panel.gd" id="1_lufp6"]
 [ext_resource type="Texture2D" uid="uid://c7a1jxvk522q2" path="res://sprites/border_background.png" id="1_o4t6l"]
@@ -7,6 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://dk7qdyba0te4d" path="res://systems/ui states/stats ui/stat_panel.tscn" id="4_mknp8"]
 [ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="5_mknp8"]
 [ext_resource type="Texture2D" uid="uid://jm7ccvlf38y4" path="res://sprites/sword.png" id="6_5pvru"]
+[ext_resource type="Texture2D" uid="uid://b806345r0gqph" path="res://sprites/strength.png" id="7_eiq13"]
+[ext_resource type="Texture2D" uid="uid://dpviso477bmgk" path="res://sprites/dexterity.png" id="8_h3ji0"]
+[ext_resource type="Texture2D" uid="uid://bfhhvwqv0gx0" path="res://sprites/intelligence.png" id="9_o2rrx"]
 
 [node name="InfoPanel" type="Panel"]
 offset_left = 16.0
@@ -173,6 +176,48 @@ layout_mode = 2
 text = "132"
 
 [node name="Spacer3" type="Control" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StrengthImage" type="TextureRect" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("7_eiq13")
+expand_mode = 2
+
+[node name="StrengthLabel2" type="Label" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "132"
+
+[node name="Spacer4" type="Control" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DexterityImage" type="TextureRect" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("8_h3ji0")
+expand_mode = 2
+
+[node name="DexterityLabel3" type="Label" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "132"
+
+[node name="Spacer5" type="Control" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="IntelligenceImage" type="TextureRect" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("9_o2rrx")
+expand_mode = 2
+
+[node name="IntelligenceLabel" type="Label" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "132"
+
+[node name="Spacer6" type="Control" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 

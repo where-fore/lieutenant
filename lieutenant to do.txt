@@ -2,16 +2,23 @@
 working notes
 --------------------------------------------------------
 
-dervied stats as an aura, function takes the aura, clears it, repopulates it, recalcs stats
+decide what non-strength stats are going to be
+overhaul items to use primary stats
 
-stats - like poe - 2 attack per 5 str; 1 attack + 1% crit per 5 dex; etc
 
 
+non-stats:
+------
 
 add shield as a mechanic
 
 then do time of day + monster scaling
 	maybe make the scaling a bit exponential, since player power probably will be with loops etc 
+
+add a tooltip to the stats ui with what they do
+	not sure how to codify this, so it pulls from the same formula
+	maybe in Stats have the derivation values? and combatant.gd and the stat panel tooltip both pull from that?
+
 
 --------------------------------------------------------
 work to do
@@ -113,6 +120,7 @@ func _unhandled_input(event: InputEvent) -> void:
 ---------------------------
 not right now, maybe:
 ---------------------------
+
 add combat failsafe
 	if both combatants can't kill each other, it goes forever
 	(like oaken tower/battle royales, hp damage if no winner)
@@ -239,6 +247,8 @@ big ui overhaul
 		stat screen showing the math to get your current stats?
 	
 	add mouse blocks or something, so you can't interact with the map while in combat
+	
+	make sure labels won't overflow with long numbers. set their clipping to true, and maybe if clipped add a tooltip?
 -
 
 

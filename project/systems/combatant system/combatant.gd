@@ -11,18 +11,6 @@ signal stats_updated
 signal perished
 signal revived
 
-var base_health:int
-var base_attack:int
-
-var scaled_health:int:
-	get:
-		if not scaled_health: return base_health
-		else: return scaled_health
-var scaled_attack:int:
-	get:
-		if not scaled_attack: return base_attack
-		else: return scaled_attack
-
 var is_a_player:bool = false
 var is_an_enemy:bool = true
 
@@ -54,8 +42,6 @@ var item_manager:ItemManager
 
 
 func setup(should_be_a_player:bool = false) -> void:
-	starting_stats[Stats.health] = scaled_health
-	starting_stats[Stats.attack] = scaled_attack
 	reset_current_stats_to_base()
 	
 	active = true
@@ -217,9 +203,9 @@ func get_tooltip() -> String:
 	var tooltip_text:String = name
 	
 	var to_add:String
-	to_add = "Health:" + str(scaled_health)
+	to_add = "Health:" + str(starting_stats[Stats.health])
 	tooltip_text += "\n" + to_add
-	to_add = "Attack:" + str(scaled_attack)
+	to_add = "Attack:" + str(starting_stats[Stats.attack])
 	tooltip_text += "\n" + to_add
 	
 	if extra_tooltip: tooltip_text += "\n" + extra_tooltip
@@ -288,6 +274,6 @@ func on_combat_end() -> void:
 func setup_stats() -> void:
 	pass
 
-func scale_stats(power:int) -> void:
-	scaled_health = base_health * BalanceData.enemy_beginning_health_scaling / 100 + (power * base_health * BalanceData.enemy_health_scaling_per_power)/100
-	scaled_attack = base_attack + (power * base_attack * BalanceData.enemy_attack_scaling_per_power)/100
+#func scale_stats(power:int) -> void:
+	#scaled_health = base_health * BalanceData.enemy_beginning_health_scaling / 100 + (power * base_health * BalanceData.enemy_health_scaling_per_power)/100
+	#scaled_attack = base_attack + (power * base_attack * BalanceData.enemy_attack_scaling_per_power)/100

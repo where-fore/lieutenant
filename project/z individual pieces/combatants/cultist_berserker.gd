@@ -16,8 +16,8 @@ func _init() -> void:
 		Categories.enemy_rarity: Categories.Rarity.MYTHIC,
 	}
 	
-	base_health = BalanceData.enemy_base_health * 3/2
-	base_attack = 0
+	starting_stats[Stats.health] = BalanceData.enemy_base_health * 3/2
+	starting_stats[Stats.attack] = 0
 	post_buff_attack = BalanceData.enemy_base_attack * 7
 
 #called by Combatant
@@ -39,8 +39,3 @@ func buff_attack() -> void:
 	buff_aura.additive_stat_dictionary[Stats.attack] = post_buff_attack
 	apply_aura_or_item(buff_aura)
 	CombatLogEvents.custom_message.emit(buff_message)
-
-#copied from combatant.gd
-func scale_stats(power:int) -> void:
-	scaled_health = base_health * BalanceData.enemy_beginning_health_scaling / 100 + (power * base_health * BalanceData.enemy_health_scaling_per_power)/100
-	post_buff_attack = post_buff_attack + (power * post_buff_attack * BalanceData.enemy_attack_scaling_per_power)/100
