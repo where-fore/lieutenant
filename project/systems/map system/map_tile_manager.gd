@@ -66,7 +66,7 @@ func enable_adjacent_tiles(already_visited_only:bool = false) -> void:
 		var invalid_tiles:Array[MapTile] = all_tiles[1]
 		
 		for map_tile:MapTile in valid_tiles:
-			if already_visited_only and not map_tile.player_has_been_here:
+			if already_visited_only and not map_tile.player_has_been_here and not map_tile == current_tile_encounter:
 				invalid_tiles.append(map_tile)
 			else:
 				map_tile.enable()
