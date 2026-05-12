@@ -7,14 +7,11 @@
 
 [node name="StatsUI" type="Control"]
 layout_mode = 3
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
+anchors_preset = 0
 offset_left = 16.0
-offset_top = -254.0
+offset_top = 16.0
 offset_right = 464.0
-offset_bottom = -16.0
-grow_vertical = 0
+offset_bottom = 254.0
 mouse_filter = 1
 script = ExtResource("1_stf8e")
 info_panel_scene = ExtResource("3_1yman")

@@ -177,12 +177,12 @@ func recalculate_stats(additive_aura_dictionary:Dictionary[StringName, int], mul
 			multiplicative_aura_dictionary.erase(stat)
 	
 	#figure out primaries first
-	sum_aura_and_base_stats(primary_stat_additive_dictionary)
+	sum_aura_and_current_stats(primary_stat_additive_dictionary)
 	multiply_aura_and_current_stats(primary_stat_multiplicative_dictionary)
 	derive_stats()
 	
 	#figure out derived next
-	sum_aura_and_base_stats(additive_aura_dictionary)
+	sum_aura_and_current_stats(additive_aura_dictionary)
 	multiply_aura_and_current_stats(multiplicative_aura_dictionary)
 	
 	emit_stat_update()
@@ -201,22 +201,20 @@ func derive_stats() -> void:
 	current_stats[Stats.health] = current_stats.get(Stats.health, 0) + health_to_add
 	current_stats[Stats.crit_chance] = current_stats.get(Stats.crit_chance, 0) + crit_to_add
 
-func sum_aura_and_base_stats(auraDictionary:Dictionary[StringName,int]) -> void:
+func sum_aura_and_current_stats(auraDictionary:Dictionary[StringName,int]) -> void:
 	for stat:String in auraDictionary:
-		if starting_stats.has(stat):
-			current_stats[stat] = auraDictionary[stat] + starting_stats[stat]
-		else:
+		if not current_stats.has(stat):
 			current_stats[stat] = auraDictionary[stat]
-		#if current_stats[stat] < 0:
-			#current_stats[stat] = 0
-			#print_debug("raising stat from negative to 0: " + stat)
+		else:
+			current_stats[stat] += auraDictionary[stat]
 
 func multiply_aura_and_current_stats(auraDictionary:Dictionary[StringName,int]) -> void:
 	for stat:String in auraDictionary:
 		if current_stats.has(stat):
 			var multiplier:float = (100.0 + float(auraDictionary[stat]))/100.0
-			#note that int() truncates, as i want
+				#note that int() truncates, as i want
 			current_stats[stat] = int(current_stats[stat] * multiplier)
+		#else do nothing, no stat to multiply so all good
 
 func apply_aura_or_item(reward:Reward) -> void:
 	if reward is Item: item_manager.equip_item(reward)
