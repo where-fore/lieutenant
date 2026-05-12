@@ -2,29 +2,11 @@
 working notes
 --------------------------------------------------------
 
-so currently map tiles hold literal combatants
-	note this would let me kill one enemy, leave, come back, and the first would remain dead
-	it also lets me place permanent buffs or something on the enemies
-	or a combat log message when they disappear
-	
-	maybe when enemies die, they shouldn't be culled, they like players will only be culled if they lost
-	
-	something like
-		if all enemies in enemy_combatants are dead:
-			win(players)
-			tile.clear_enemies
-			rewards()
-		elif all players dead:
-			win(enemies)
-			rout()
-		else
-			push error "idk who won"
-	
-	win()
-		for each combatant, combatant.revive_for_next_combat
+hp ring is setting max hp to value, not adding?
+	something about derivation order of operations probably
 
-and the map tile needs to know when to update its enemies info, since it's currently referencing ghosts
-	can listen to signals on tile_complete? or similar
+combat log and inventory aren't aligned when toggling them
+
 
 
 
@@ -73,6 +55,8 @@ then do time of day + monster scaling
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
+
+clear that ghost array when pushing more combatants from a maptile than im ready for (combat_ui_manager.assign_enemies_to_ui())
 
 organize these notes and brainstorm
 

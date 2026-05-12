@@ -15,3 +15,6 @@ var stops_vision:bool = false
 @warning_ignore("unused_parameter")
 func apply_to_tile(parent_tile:MapTile) -> void:
 	pass
+
+func generate_encounters() -> void:
+	pass

@@ -56,7 +56,7 @@ func _ready() -> void:
 	selection_effect_timer.wait_time = hover_animation_speed / frames_in_hover_animation
 
 func encounter_this_tile() -> void:
-	generate_encounters()
+	tile_data.generate_encounters()
 	
 	if tile_data.scenario:
 		MapEvents.enter_scenario_in.emit(self)
@@ -165,7 +165,3 @@ func hide_selection_effect() -> void:
 
 func _on_timer_timeout() -> void:
 	hide_selection_effect()
-
-#overwritten by children
-func generate_encounters() -> void:
-	pass
