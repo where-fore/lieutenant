@@ -30,12 +30,7 @@ func handle_map_transition(map_tile:MapTile) -> void:
 	await scroll_map_check(current_tile_encounter)
 	#probably await an animation or something
 	
-	if map_tile.tile_data.scenario:
-		MapEvents.enter_scenario_in.emit(map_tile)
-	elif map_tile.tile_data.enemy:
-		MapEvents.enter_combat_in.emit(map_tile)
-	else:
-		MapEvents.enter_without_combat_in.emit(map_tile)
+	map_tile.encounter_this_tile()
 
 func scroll_map_check(map_tile:MapTile) -> void:
 	var right_scroll_threshold:float = get_viewport_rect().size.x * 0.5
@@ -79,7 +74,7 @@ func enable_adjacent_tiles_already_visited() -> void:
 
 func set_visited_on_current_tile() -> void:
 	if not current_tile_encounter:
-		push_error("finished up on a tile, tried to set it to complete, but i have no tile in memory")
+		push_warning("finished up on a tile, tried to set it to complete, but i have no tile in memory")
 	else:
 		current_tile_encounter.player_has_been_here = true
 

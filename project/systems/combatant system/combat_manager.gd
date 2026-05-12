@@ -204,25 +204,27 @@ func stop_combat() -> void:
 	CombatEvents.combat_finished.emit(player_combatants + enemy_combatants)
 	
 	if player_victorious:
+		for combatant:Combatant in enemy_combatants:
+			combatant.queue_free()
 		HudEvents.combat_won.emit()
-	else:
+	elif not player_victorious:
+		for combatant:Combatant in enemy_combatants:
+			combatant.unsetup()
 		HudEvents.combat_lost.emit()
+	else:
+		push_error("combat finished but nobody won?")
+		print_stack()
+	
+	enemy_combatants.clear()
 	
 	player_victorious = false
-	
-	for combatant:Combatant in enemy_combatants:
-		combatant.queue_free()
-	enemy_combatants.clear()
 
-func pre_combat(enemy_template:Combatant) -> void:
+func pre_combat(enemies:Array[Combatant]) -> void:
 	HudEvents.combatant_turn_next.emit(player_combatants[0])
 	
-	var enemy1:Combatant = setup_combatant(enemy_template.duplicate())
-	add_child(enemy1)
-	enemy_combatants.append(enemy1)
-	#var enemy2:Combatant = setup_combatant(enemy_template.duplicate())
-	#add_child(enemy2)
-	#enemy_combatants.append(enemy2)
+	for enemy:Combatant in enemies:
+		enemy = setup_combatant(enemy)
+		enemy_combatants.append(enemy)
 	HudEvents.send_enemy_combatants_to_ui.emit(enemy_combatants)
 	
 	for ally:Combatant in player_combatants:

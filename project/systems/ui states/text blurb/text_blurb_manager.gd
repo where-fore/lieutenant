@@ -14,7 +14,8 @@ func _ready() -> void:
 	MapEvents.enter_scenario_in.connect(start_scenario)
 	ScenarioEvents.updated.connect(update_blurb_to_event)
 	ScenarioEvents.on_last_page.connect(change_next_button_to_continue)
-	ScenarioEvents.begin_combat_with.connect(change_to_combat)
+	@warning_ignore("untyped_declaration") #programmer short hand for yeeting all the arguments
+	ScenarioEvents.begin_combat_with.connect(func(_unused_data) -> void: change_to_combat())
 	ScenarioEvents.completed_combat_as_victory.connect(resume_scenario_as_victory)
 	ScenarioEvents.completed_combat_as_loss.connect(resume_scenario_as_loss)
 	ScenarioEvents.resuming_tutorial.connect(resume_tutorial)
@@ -62,7 +63,7 @@ func resume_scenario_as_loss() -> void:
 	ScenarioEvents.current_scenario.end_combat()
 	show_screen()
 
-func change_to_combat(_enemy:Combatant) -> void:
+func change_to_combat() -> void:
 	hide_screen()
 
 func show_screen() -> void:

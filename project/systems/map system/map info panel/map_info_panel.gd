@@ -51,11 +51,12 @@ func update_map_tile_info(tile:MapTile) -> void:
 		scenario_blurb_container.visible = false
 		enemy_info_container.visible = true
 		
-		if tile_info.enemy:
-			enemy_sprite.texture = tile_info.enemy.combatant_texture
-			enemy_sprite.tooltip_text = tile_info.enemy.get_tooltip()
+		if tile_info.enemies:
+			var display_enemy:Combatant = tile_info.enemies[0]
+			enemy_sprite.texture = display_enemy.combatant_texture
+			enemy_sprite.tooltip_text = display_enemy.get_tooltip()
 			var enemy_name_color:String = Color.ORANGE_RED.to_html()
-			var enemy_name_fancy:String = "[color=#%s]%s[/color]" % [enemy_name_color, tile_info.enemy.combatant_name]
+			var enemy_name_fancy:String = "[color=#%s]%s[/color]" % [enemy_name_color, display_enemy.combatant_name]
 			enemy_blurb.text = enemy_blurb_base.format({"enemy_name": enemy_name_fancy})
 		
 		if tile_info.reward:

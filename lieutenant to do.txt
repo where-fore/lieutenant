@@ -2,13 +2,57 @@
 working notes
 --------------------------------------------------------
 
+so currently map tiles hold literal combatants
+	note this would let me kill one enemy, leave, come back, and the first would remain dead
+	it also lets me place permanent buffs or something on the enemies
+	or a combat log message when they disappear
+	
+	maybe when enemies die, they shouldn't be culled, they like players will only be culled if they lost
+	
+	something like
+		if all enemies in enemy_combatants are dead:
+			win(players)
+			tile.clear_enemies
+			rewards()
+		elif all players dead:
+			win(enemies)
+			rout()
+		else
+			push error "idk who won"
+	
+	win()
+		for each combatant, combatant.revive_for_next_combat
+
+and the map tile needs to know when to update its enemies info, since it's currently referencing ghosts
+	can listen to signals on tile_complete? or similar
+
+
+
 remove hardcoded tutorial
 	need to have a tile who doesn't clear when the scenario is done
 	just finishes and saves the "step" of the scenario
+		probably a flag on the scenarios, same as the pages but meta_step not page_number
+		on finish_scenario:
+			if current_meta_step = final_meta_step
+				clear_data
+			else
+				current_meta_step += 1
 	
 	thinking the tutorial should be a hut at the start, you have to go out to the wolves and gather, and then come back
 	otherwise the monsters in the forest beat you
 
+
+so currently the map system initializes a combatant on every single tile as it gets created to the map
+	things check this, like map_tile_manager checks if tile_data.enemy, then enter_combat
+i want a more dynamic system where based on time of day, different enemies (or lack thereof) are present
+	so when entering a tile, i want it to calls its "check for encounters" function?
+	and its check for encounters could be a hardcoded enemy (the boss)
+	could be a random encounter (forests have 50% chance of enemies, 75% chance at night)
+	could be a static encounter but scaled (skeleton before day 5, skeleton berserker before day 10, skeleton lich after day 10 etc)
+
+so thinking map_tile has encounter_encounter() -> void:
+calls generate_encounter() which is a function that can get overwritten
+then after that, copies the map manager code - if scenario, enter scenario etc
 
 
 
@@ -175,6 +219,10 @@ combat overhaul:
 				but i want it to feel big and impactful, and do the big powerful thing when you click it.  maybe the pause and animation will do that enough?
 				maybe having it sequence break is cool and rad
 					i dont really trust my logic-making skills for this though
+		
+		have them cost hp
+			not shield, and be non-lethal - so you can negate the cost by focusing on shield and not hp, intelligence build
+				non-lethal damage, when taking damage have a "lethal" optional argument, and at the end if hp <= 0, if non-lethal hp = 1
 		
 	primary/derived stats
 		probably str/dex/int or similar. choose one as primary, and deal that as damage, rest gives you bonuses?
@@ -365,6 +413,8 @@ the ui is currently being managed by main.gd, which i don't want main.gd to do. 
 	it's also not attached to the game atm, because when i reload the scene tree in main.gd, it doesn't reload, since it's a global
 	
 	i want anyone to just be able to check what time it is easily, so global made sense
+		like the maptiles want to scale/spawn enemies based on time of day, i don't need every map tile to hear updates about the time changing
+		
 
 check out orphan nodes periodicially for memory leaks
 

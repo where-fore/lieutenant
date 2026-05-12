@@ -147,12 +147,12 @@ func take_turn() -> void:
 func choose_target_this_turn() -> void:
 	if not possible_targets:
 		push_error("tried to choose a target, but i have my possible targets array is null")
-	
-	var choices:Array[Combatant]
-	for possible_target:Combatant in possible_targets:
-		if not possible_target.dead:
-			choices.append(possible_target)
-	current_target = choices.pick_random()
+	else:
+		var choices:Array[Combatant]
+		for possible_target:Combatant in possible_targets:
+			if not possible_target.dead:
+				choices.append(possible_target)
+		current_target = choices.pick_random()
 
 func reset_for_next_combat() -> void:
 	shield = 0

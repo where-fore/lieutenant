@@ -10,7 +10,6 @@ var permanently_visible:bool = false
 var player_has_been_here:bool = false
 var end_of_chapter:bool = false
 var lethal_encounter:bool = false
-var power:int
 ## 0,0 is the first tile spawned
 var x_coordinate:int
 ## 0,0 is the first tile spawned
@@ -56,6 +55,16 @@ func _ready() -> void:
 	var frames_in_hover_animation:int = hover_animation_component.sprite_frames.get_frame_count(hover_animation_component.animation)
 	selection_effect_timer.wait_time = hover_animation_speed / frames_in_hover_animation
 
+func encounter_this_tile() -> void:
+	generate_encounters()
+	
+	if tile_data.scenario:
+		MapEvents.enter_scenario_in.emit(self)
+	elif tile_data.enemies:
+		MapEvents.enter_combat_in.emit(self)
+	else:
+		MapEvents.enter_without_combat_in.emit(self)
+
 func mark_as_boss() -> void:
 	end_of_chapter = true
 	lethal_encounter = true
@@ -63,7 +72,7 @@ func mark_as_boss() -> void:
 	disable()
 
 func clear_objects_of_interest() -> void:
-	tile_data.enemy = null
+	tile_data.enemies = []
 	tile_data.reward = null
 	tile_data.scenario = scenario_for_retreading
 
@@ -156,3 +165,7 @@ func hide_selection_effect() -> void:
 
 func _on_timer_timeout() -> void:
 	hide_selection_effect()
+
+#overwritten by children
+func generate_encounters() -> void:
+	pass

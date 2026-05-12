@@ -34,6 +34,21 @@ func on_scene_ready() -> void:
 	pass
 
 func assign_enemies_to_ui(enemies:Array[Combatant]) -> void:
+	if enemies.size() > enemy_ui_combatants.size():
+		push_error("was given ", enemies.size(), " enemies, but only have ", enemy_ui_combatants.size(), " enemy ui spots. eradicating extraneous enemies.")
+		
+		var extra_enemies:int = enemies.size() - enemy_ui_combatants.size()
+		var to_eradicate:Array[Combatant] = enemies.slice(-1 * extra_enemies)
+		
+		enemies.resize(enemy_ui_combatants.size())
+		
+		#signal to the tile to shape up its enemies array
+		#currently the map tile will continue to have ghost references in the array, and probably crash
+		
+		for enemy:Combatant in to_eradicate:
+			if is_instance_valid(enemy):
+				enemy.queue_free()
+	
 	var index_count:int = 0
 	for enemy:Combatant in enemies:
 		enemy_ui_combatants[index_count].assign_combatant(enemy)
@@ -41,7 +56,7 @@ func assign_enemies_to_ui(enemies:Array[Combatant]) -> void:
 		index_count += 1
 
 func load_map_combat(map_tile:MapTile) -> void:
-	change_to(map_tile.tile_data.enemy)
+	change_to(map_tile.tile_data.enemies)
 
 func save_potential_map_tile(map_tile:MapTile) -> void:
 	temporary_map_tile = map_tile
@@ -49,15 +64,15 @@ func save_potential_map_tile(map_tile:MapTile) -> void:
 func load_scenario_combat_from_tile() -> void:
 	if not temporary_map_tile:
 		push_error("tried to load combatant from map tile because event told me to, but a combatant was never saved")
-	if not temporary_map_tile.tile_data.enemy:
+	if not temporary_map_tile.tile_data.enemies:
 		push_error("tried to load a map tile combat, but there's no enemy on this tile: " + temporary_map_tile.tile_data.internal_name)
-	ScenarioEvents.begin_combat_with.emit(temporary_map_tile.tile_data.enemy)
+	ScenarioEvents.begin_combat_with.emit(temporary_map_tile.tile_data.enemies)
 
-func load_scenario_combat(enemy:Combatant) -> void:
-	change_to(enemy)
+func load_scenario_combat(enemies:Array[Combatant]) -> void:
+	change_to(enemies)
 
-func change_to(enemy:Combatant) -> void:
-	CombatEvents.prepare_combat_with_enemy.emit(enemy)
+func change_to(enemies:Array[Combatant]) -> void:
+	CombatEvents.prepare_combat_with_enemy.emit(enemies)
 	
 	combat_button.visible = true
 	turn_button_container.visible = true

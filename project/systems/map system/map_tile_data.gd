@@ -2,8 +2,8 @@ extends Resource
 class_name MapTileData
 
 var tile_animation:SpriteFrames
-var enemy:Combatant
 var scenario:Scenario
+var enemies:Array[Combatant]
 var reward:Reward
 var item_reward:Item
 var aura_reward:Aura

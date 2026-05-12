@@ -66,8 +66,8 @@ func populate_tiles() -> void:
 	MapEvents.map_grid_ready.emit()
 
 func populate_tile_data(tile:MapTile) -> void:
-	var this_tile_power:int = tile.x_coordinate - columns_to_disable_at_start
-	tile.power = this_tile_power - 1 #ignoring 1 tile, for the tutorial is the first tile
+	#var this_tile_power:int = tile.x_coordinate - columns_to_disable_at_start
+	#tile.power = this_tile_power - 1 #ignoring 1 tile, for the tutorial is the first tile
 	
 	#final boss stretch
 	if tile.x_coordinate == columns - columns_to_disable_at_end - 1: #the last column
