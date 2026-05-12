@@ -2,10 +2,12 @@ extends Node
 
 signal time_moved_forward()
 
-var current_time_step:int = 1
-var current_day:int = 1
+var current_time_step:int
+var current_day:int
 
 var steps_per_day:int = 4
+var starting_time_step:int = 1
+var starting_day:int = 1
 
 func step_time_forward() -> void:
 	if current_time_step == steps_per_day:
@@ -20,5 +22,11 @@ func next_day() -> void:
 	current_time_step = 1
 	current_day += 1
 
+func restart_clock() -> void:
+	current_time_step = starting_time_step
+	current_day = starting_day
+
 func _ready() -> void:
 	MapEvents.tile_all_done.connect(step_time_forward)
+	TimingEvents.restarting_game.connect(restart_clock)
+	restart_clock()

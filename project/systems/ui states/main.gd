@@ -80,6 +80,7 @@ func _on_new_game_button_pressed() -> void:
 	start_game()
 
 func _on_restart_button_pressed() -> void:
+	TimingEvents.restarting_game.emit()
 	get_tree().reload_current_scene()
 
 func _on_resume_button_pressed() -> void:
