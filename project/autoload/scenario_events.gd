@@ -44,13 +44,23 @@ func finish_tutorial() -> void:
 func finish_scenario() -> void:
 	current_scenario.on_finish_scenario()
 	current_scenario = null
+	MapEvents.tile_completed_new_ground.emit()
 	MapEvents.tile_all_done.emit()
 
-func check_if_scenario_active() -> void:
+func finish_tile_as_victory_if_no_scenario() -> void:
 	if current_scenario:
 		pass
 	else:
+		MapEvents.tile_completed_new_ground.emit()
+		MapEvents.tile_all_done.emit()
+
+func finish_tile_as_defeat_if_no_scenario() -> void:
+	if current_scenario:
+		pass
+	else:
+		MapEvents.tile_completed_no_new_ground.emit()
 		MapEvents.tile_all_done.emit()
 
 func _ready() -> void:
-	MapEvents.combat_all_done.connect(check_if_scenario_active)
+	MapEvents.combat_finished_as_victory.connect(finish_tile_as_victory_if_no_scenario)
+	MapEvents.combat_finished_as_defeat.connect(finish_tile_as_defeat_if_no_scenario)

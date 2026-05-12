@@ -7,6 +7,7 @@ var currently_disabled:bool = false
 var permanently_disabled:bool = false
 var permanently_enabled:bool = false
 var permanently_visible:bool = false
+var player_has_been_here:bool = false
 var end_of_chapter:bool = false
 var lethal_encounter:bool = false
 var power:int

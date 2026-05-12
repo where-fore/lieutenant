@@ -15,10 +15,10 @@ func _ready() -> void:
 	MapEvents.maptile_created.connect(add_to_database)
 	MapEvents.map_grid_ready.connect(hide_all_but_tutorial_row)
 	MapEvents.venture_to.connect(handle_map_transition)
-	@warning_ignore("untyped_declaration") #programmer short hand for yeeting all the arguments
-	MapEvents.venture_to.connect(func(_unused_data) -> void: enable_adjacent_tiles())
-	MapEvents.tile_all_done.connect(fully_cleared_tile)
-	HudEvents.rout_chosen.connect(fully_cleared_tile)
+	MapEvents.tile_completed_new_ground.connect(set_visited_on_current_tile)
+	MapEvents.tile_completed_new_ground.connect(enable_adjacent_tiles)
+	MapEvents.tile_completed_new_ground.connect(fully_cleared_tile)
+	MapEvents.tile_completed_no_new_ground.connect(enable_adjacent_tiles_already_visited)
 	MapEvents.map_grid_right_edge_visible.connect(check_to_clamp_right_edge_scrolling)
 	MapEvents.map_grid_left_edge_visible.connect(check_to_clamp_left_edge_scrolling)
 	
@@ -59,17 +59,29 @@ func scroll_map(delta_to_scroll:int) -> void:
 	
 	await get_tree().create_timer(scroll_animation_delay).timeout
 
-func enable_adjacent_tiles() -> void:
+func enable_adjacent_tiles(already_visited_only:bool = false) -> void:
 	if current_tile_encounter:
 		var all_tiles:Array[Array] = get_tiles_diagonally_around_tile(current_tile_encounter)
 		var valid_tiles:Array[MapTile] = all_tiles[0]
 		var invalid_tiles:Array[MapTile] = all_tiles[1]
 		
 		for map_tile:MapTile in valid_tiles:
-			map_tile.enable()
+			if already_visited_only and not map_tile.player_has_been_here:
+				invalid_tiles.append(map_tile)
+			else:
+				map_tile.enable()
 		
 		for map_tile:MapTile in invalid_tiles:
 			map_tile.disable()
+
+func enable_adjacent_tiles_already_visited() -> void:
+	enable_adjacent_tiles(true)
+
+func set_visited_on_current_tile() -> void:
+	if not current_tile_encounter:
+		push_error("finished up on a tile, tried to set it to complete, but i have no tile in memory")
+	else:
+		current_tile_encounter.player_has_been_here = true
 
 func hide_current_row_and_increment() -> void:
 	if current_tile_encounter.x_coordinate == 1: #tutorial

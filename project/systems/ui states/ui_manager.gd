@@ -29,13 +29,15 @@ func end_combat_as_failure() -> void:
 
 func end_rewards_screen() -> void:
 	reward_ui_manager.change_from()
-	MapEvents.combat_all_done.emit()
 	if ScenarioEvents.current_scenario:
 		ScenarioEvents.completed_combat_as_victory.emit()
 	if ScenarioEvents.tutorial_stage:
 		ScenarioEvents.load_tutorial_second_scenario()
+	MapEvents.combat_finished_as_victory.emit()
+	MapEvents.combat_all_done.emit()
 
 func _on_restart_button_pressed() -> void:
-	MapEvents.combat_all_done.emit()
 	if ScenarioEvents.current_scenario:
 		ScenarioEvents.completed_combat_as_loss.emit()
+	MapEvents.combat_finished_as_defeat.emit()
+	MapEvents.combat_all_done.emit()

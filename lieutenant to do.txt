@@ -3,14 +3,11 @@ working notes
 --------------------------------------------------------
 
 remove hardcoded tutorial
-
-
-the issue is
-if you enter no event, just combat
-combat manager finishes up, and you're all done, so the signal should fire when the combat manager is all done
-if you enter a scenario with some combat, then more scenario
-combat manager finishes up, you're not all done, so the signal shouldn't fire?
-how could the combat manager know if you're all done or not, it just knows about combat.
+	need to have a tile who doesn't clear when the scenario is done
+	just finishes and saves the "step" of the scenario
+	
+	thinking the tutorial should be a hut at the start, you have to go out to the wolves and gather, and then come back
+	otherwise the monsters in the forest beat you
 
 
 
@@ -359,6 +356,15 @@ flappy cameo, balloon in the distance
 ----------------------------------------------------------------------------------------------------------------
 things i know are hacky and should be cleaned up (or super duper back burner changes):
 ----------------------------------------------------------------------------------------------------------------
+time of day is a global script, not tied to the game instance
+the ui is currently being managed by main.gd, which i don't want main.gd to do. i want the time of day actor to be indepedent
+	but i couldn't figure out who to parent it to - not the combat, since you care outside combat
+	not the map, since it's not map related
+	it is a ui button
+	
+	it's also not attached to the game atm, because when i reload the scene tree in main.gd, it doesn't reload, since it's a global
+	
+	i want anyone to just be able to check what time it is easily, so global made sense
 
 check out orphan nodes periodicially for memory leaks
 
