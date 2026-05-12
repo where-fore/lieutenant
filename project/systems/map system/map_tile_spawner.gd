@@ -104,9 +104,6 @@ func populate_tile_data(tile:MapTile) -> void:
 	#everything else
 	else:
 		tile.apply_data(choose_filler_tile())
-	
-	#if tile.tile_data.enemy:
-		#tile.tile_data.enemy.scale_stats(tile.power)
 
 func create_edge_notifier(is_left_edge:bool) -> void:
 	var new_map_edge_notifier:MapEdgeNotifier = map_edge_notifier.instantiate() as MapEdgeNotifier

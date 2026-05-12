@@ -2,11 +2,21 @@
 working notes
 --------------------------------------------------------
 
+remove hardcoded tutorial
+
+
+the issue is
+if you enter no event, just combat
+combat manager finishes up, and you're all done, so the signal should fire when the combat manager is all done
+if you enter a scenario with some combat, then more scenario
+combat manager finishes up, you're not all done, so the signal shouldn't fire?
+how could the combat manager know if you're all done or not, it just knows about combat.
 
 
 
 
 overhaul items to use primary stats
+	i feel like i should do that once i have balance knobs available, from day+night
 
 
 
@@ -93,6 +103,7 @@ concepts i know i should tutorialize:
 how-to-play-the-game:
 
 	reward buttons dont look like buttons - most buttons don't, in fact
+	time system - maybe have an early event which you run into during the day, but requires it to be night and you get told to wait for night or something
 
 
 how-to-understand-the-game:

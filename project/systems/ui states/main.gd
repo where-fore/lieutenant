@@ -13,6 +13,8 @@ extends Node2D
 @onready var game_start_button_container:Control = $MainUI/GameStarter
 @onready var pause_button_container:Control = $MainUI/TopButtons/PauseMenuButton
 @onready var inventory_menu_button_container:Control = $MainUI/TopButtons/InventoryMenuButton
+@onready var time_button_container:Control = $MainUI/TopButtons/TimeButton
+@onready var time_button:Control = $MainUI/TopButtons/TimeButton/MarginContainer/TimeButton
 @onready var pause_menu_container:Control = $MainUI/PauseMenu
 @onready var scrolling_log_container:Control = $MainGame/MarginContainer/RightSideUI/EventLog
 @onready var right_side_ui_container:Control = $MainGame/MarginContainer/RightSideUI
@@ -24,12 +26,16 @@ extends Node2D
 func _ready() -> void:
 	HudEvents.chapter_completed.connect(_on_restart_button_pressed)
 	ScenarioEvents.item_tutorial_ready.connect(show_inventory_button)
+	TimeOfDay.time_moved_forward.connect(update_time_of_day_ui)
 	
 	game_start_button_container.visible = true
 	pause_button_container.visible = true
 	inventory_menu_button_container.visible = false
+	time_button_container.visible = false
+	
 	text_blurb_container.visible = true
 	pause_menu_container.visible = false
+	
 	scrolling_log_container.visible = false
 	right_side_ui_container.visible = true
 	stats_ui_container.visible = false
@@ -108,3 +114,10 @@ func _on_inventory_menu_button_pressed() -> void:
 
 func _on_combat_log_button_pressed() -> void:
 	combat_log_container.visible = !combat_log_container.visible
+
+func update_time_of_day_ui() -> void:
+	if time_button_container.visible == false:
+		time_button_container.visible = true
+	var day:String = "Day " + str(TimeOfDay.current_day)
+	var time:String = str(TimeOfDay.current_time_step * 4) + "h"
+	time_button.tooltip_text = day + " " + time

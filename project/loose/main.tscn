@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=32 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://systems/ui states/main.gd" id="1_bbldx"]
 [ext_resource type="PackedScene" uid="uid://dsbt6u8ma1cpc" path="res://systems/map system/map_tile_system.tscn" id="2_16p2t"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://cqhb4p4tf4jbg" path="res://sprites/paper.png" id="11_obmf6"]
 [ext_resource type="Texture2D" uid="uid://dngm38c2cqh5o" path="res://sprites/animations/backdrop/sky background.png" id="12_bbldx"]
 [ext_resource type="SpriteFrames" uid="uid://dbriv3a7topvw" path="res://sprites/animations/backdrop/background edge/background_edge.tres" id="12_g13l7"]
+[ext_resource type="Texture2D" uid="uid://dtf7pc3ra7qf5" path="res://sprites/moon.png" id="12_ireyf"]
 [ext_resource type="Texture2D" uid="uid://cq6dr4bnpi0wp" path="res://sprites/shuffle.png" id="12_yqr2s"]
 [ext_resource type="SpriteFrames" uid="uid://c3xi07klbwfxm" path="res://sprites/animations/backdrop/foreground edge/foreground_edge.tres" id="13_npwt7"]
 [ext_resource type="Texture2D" uid="uid://0pkmth45mucx" path="res://sprites/animations/backdrop/sky foreground.png" id="13_uaqc7"]
@@ -138,6 +139,28 @@ expand_mode = 2
 layout_mode = 2
 tooltip_text = "Settings"
 texture_normal = ExtResource("8_bbldx")
+stretch_mode = 4
+
+[node name="TimeButton" type="PanelContainer" parent="MainUI/TopButtons"]
+layout_mode = 2
+tooltip_text = "test"
+mouse_filter = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MainUI/TopButtons/TimeButton"]
+layout_mode = 2
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
+
+[node name="UIBackground" type="TextureRect" parent="MainUI/TopButtons/TimeButton/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("10_qmb71")
+expand_mode = 2
+
+[node name="TimeButton" type="TextureButton" parent="MainUI/TopButtons/TimeButton/MarginContainer"]
+layout_mode = 2
+texture_normal = ExtResource("12_ireyf")
 stretch_mode = 4
 
 [node name="CombatLogButton" type="PanelContainer" parent="MainUI/TopButtons"]

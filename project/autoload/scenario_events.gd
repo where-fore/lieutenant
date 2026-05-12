@@ -44,4 +44,13 @@ func finish_tutorial() -> void:
 func finish_scenario() -> void:
 	current_scenario.on_finish_scenario()
 	current_scenario = null
-	MapEvents.point_of_no_return.emit()
+	MapEvents.tile_all_done.emit()
+
+func check_if_scenario_active() -> void:
+	if current_scenario:
+		pass
+	else:
+		MapEvents.tile_all_done.emit()
+
+func _ready() -> void:
+	MapEvents.combat_all_done.connect(check_if_scenario_active)

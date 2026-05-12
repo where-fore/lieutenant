@@ -40,7 +40,8 @@ func _init() -> void:
 	unique_tile_id = str(ResourceUID.create_id())
 
 func _ready() -> void:
-	MapEvents.combat_all_done.connect(stop_hover_animation)
+	@warning_ignore("untyped_declaration") #programmer short hand for yeeting all the arguments
+	MapEvents.venture_to.connect(func(_unused_data) -> void: stop_hover_animation())
 	HudEvents.map_tile_hovered.connect(if_not_me_stop_hovering)
 	MapEvents.venture_to.connect(show_player_indicator_if_match)
 	

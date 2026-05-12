@@ -15,8 +15,9 @@ func _ready() -> void:
 	MapEvents.maptile_created.connect(add_to_database)
 	MapEvents.map_grid_ready.connect(hide_all_but_tutorial_row)
 	MapEvents.venture_to.connect(handle_map_transition)
-	MapEvents.point_of_no_return.connect(enable_adjacent_tiles)
-	MapEvents.point_of_no_return.connect(fully_cleared_tile)
+	@warning_ignore("untyped_declaration") #programmer short hand for yeeting all the arguments
+	MapEvents.venture_to.connect(func(_unused_data) -> void: enable_adjacent_tiles())
+	MapEvents.tile_all_done.connect(fully_cleared_tile)
 	HudEvents.rout_chosen.connect(fully_cleared_tile)
 	MapEvents.map_grid_right_edge_visible.connect(check_to_clamp_right_edge_scrolling)
 	MapEvents.map_grid_left_edge_visible.connect(check_to_clamp_left_edge_scrolling)

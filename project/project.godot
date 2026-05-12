@@ -41,6 +41,7 @@ ScenarioEvents="*res://autoload/scenario_events.gd"
 BackgroundMusicPlayer="*res://audio resources/background_music_player.tscn"
 TestingCommands="*res://autoload/testing_commands.gd"
 CursorManager="*res://autoload/cursor_manager.gd"
+TimeOfDay="*res://autoload/time_of_day.gd"
 
 [debug]
 
