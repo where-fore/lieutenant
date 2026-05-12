@@ -14,14 +14,10 @@
 [ext_resource type="Script" uid="uid://c4226uk3kd0at" path="res://systems/combatant system/combat_manager.gd" id="25_388va"]
 
 [node name="TimingManager" type="PanelContainer"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
 offset_left = 16.0
-offset_top = -254.0
+offset_top = 16.0
 offset_right = 464.0
-offset_bottom = -16.0
-grow_vertical = 0
+offset_bottom = 254.0
 mouse_filter = 2
 script = ExtResource("1_uqbt6")
 

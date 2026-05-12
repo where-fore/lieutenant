@@ -550,8 +550,12 @@ layout_mode = 2
 
 [node name="StatsUI" parent="MainGame/MarginContainer/StatsUIContainer" instance=ExtResource("29_1j0u7")]
 layout_mode = 1
-offset_top = -248.0
-offset_bottom = -10.0
+anchors_preset = 0
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_top = 16.0
+offset_bottom = 254.0
+grow_vertical = 1
 
 [node name="CombatLogContainer" type="Control" parent="MainGame/MarginContainer"]
 visible = false
@@ -559,15 +563,10 @@ layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MainGame/MarginContainer/CombatLogContainer"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 offset_left = 16.0
-offset_top = 10.0
-offset_right = -10.0
-offset_bottom = -16.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_top = 16.0
+offset_right = 464.0
+offset_bottom = 254.0
 texture = ExtResource("10_qmb71")
 expand_mode = 1
 
