@@ -40,6 +40,8 @@ then do time of day + monster scaling
 work to do
 --------------------------------------------------------
 
+move main.gd functions relating to the buttons to main_ui.gd (new)
+
 clear that ghost array when pushing more combatants from a maptile than im ready for (combat_ui_manager.assign_enemies_to_ui())
 
 organize these notes and brainstorm

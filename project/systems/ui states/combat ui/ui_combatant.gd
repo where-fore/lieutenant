@@ -15,7 +15,7 @@ func _ready() -> void:
 	
 	turn_indicator.visible = false
 	visible = false
-	active_button_container.visible = false
+	active_button_container.visible = true
 
 func assign_combatant(combatant:Combatant) -> void:
 	my_combatant = combatant
