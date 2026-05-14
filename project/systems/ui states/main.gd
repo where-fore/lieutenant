@@ -121,3 +121,7 @@ func update_time_of_day_ui() -> void:
 	var day:String = "Day " + str(TimeOfDay.current_day)
 	var time:String = str(TimeOfDay.current_time_step * 4) + "h"
 	time_button.tooltip_text = day + " " + time
+
+func _on_time_button_pressed() -> void:
+	if not CombatEvents.combat_ongoing and not ScenarioEvents.current_scenario:
+		TimeOfDay.step_time_forward()

@@ -57,8 +57,10 @@ func _ready() -> void:
 
 func encounter_this_tile() -> void:
 	tile_data.generate_encounters()
+	tile_data.scale_stats()
 	
 	if tile_data.scenario:
+		tile_data.scenario.encounter_this_scenario()
 		MapEvents.enter_scenario_in.emit(self)
 	elif tile_data.enemies:
 		MapEvents.enter_combat_in.emit(self)

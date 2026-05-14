@@ -10,10 +10,8 @@ var starting_inventory:Array[String] = [
 
 var inventory:Array[Item]
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	parent_combatant = get_parent() as Combatant
+func setup(new_parent:Combatant) -> void:
+	parent_combatant = new_parent
 	populate_starter_items()
 
 func clear_inventory() -> void:

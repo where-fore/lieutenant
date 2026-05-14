@@ -601,6 +601,7 @@ texture = ExtResource("20_1fc2u")
 
 [connection signal="pressed" from="MainUI/GameStarter/GameStartButtons/NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="MainUI/TopButtons/PauseMenuButton/MarginContainer/PauseMenuButton" to="." method="_on_pause_menu_button_pressed"]
+[connection signal="pressed" from="MainUI/TopButtons/TimeButton/MarginContainer/TimeButton" to="." method="_on_time_button_pressed"]
 [connection signal="pressed" from="MainUI/TopButtons/CombatLogButton/MarginContainer/CombatLogButton" to="." method="_on_combat_log_button_pressed"]
 [connection signal="pressed" from="MainUI/TopButtons/InventoryMenuButton/MarginContainer/InventoryMenuButton" to="." method="_on_inventory_menu_button_pressed"]
 [connection signal="pressed" from="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer/VolumeIcon" to="." method="_on_volume_icon_pressed"]

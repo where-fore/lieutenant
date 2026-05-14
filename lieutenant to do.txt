@@ -2,10 +2,11 @@
 working notes
 --------------------------------------------------------
 
-hp ring is setting max hp to value, not adding?
-	something about derivation order of operations probably
+time button to progress time while doing nothing on the map
+	at least for now
 
-combat log and inventory aren't aligned when toggling them
+enemy ui combatants arent showing their attack like players are
+
 
 
 
@@ -24,29 +25,12 @@ remove hardcoded tutorial
 	otherwise the monsters in the forest beat you
 
 
-so currently the map system initializes a combatant on every single tile as it gets created to the map
-	things check this, like map_tile_manager checks if tile_data.enemy, then enter_combat
-i want a more dynamic system where based on time of day, different enemies (or lack thereof) are present
-	so when entering a tile, i want it to calls its "check for encounters" function?
-	and its check for encounters could be a hardcoded enemy (the boss)
-	could be a random encounter (forests have 50% chance of enemies, 75% chance at night)
-	could be a static encounter but scaled (skeleton before day 5, skeleton berserker before day 10, skeleton lich after day 10 etc)
-
-so thinking map_tile has encounter_encounter() -> void:
-calls generate_encounter() which is a function that can get overwritten
-then after that, copies the map manager code - if scenario, enter scenario etc
 
 
+actual game design / balance:
 
 overhaul items to use primary stats
-	i feel like i should do that once i have balance knobs available, from day+night
 
-
-
-
-
-non-stats:
-------
 then do time of day + monster scaling
 	maybe make the scaling a bit exponential, since player power probably will be with loops etc
 
@@ -93,7 +77,9 @@ tutorial probably shouldn't be hardcoded - have the hut at the start, the ring, 
 have a "pre-turn" turn for combat start effects
 	combat log "prepares for attack"
 
-
+have a proper mechanism to check if it's fine to pass time forward by pressing the button
+	probably related to save games - have a "somethings happening" value, and whenver that is set to about to be changed, save the game?
+		i may want to save the game before the choice is made, so you can go back and pick the other choice
 
 --------------------------------------------------------
 playtest notes

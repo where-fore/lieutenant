@@ -44,8 +44,6 @@ var current_stats:Dictionary[StringName, int] = {}
 var aura_manager:AuraManager
 var item_manager:ItemManager
 
-
-
 func setup(should_be_a_player:bool = false) -> void:
 	reset_current_stats_to_base()
 	derive_stats()
@@ -64,11 +62,13 @@ func setup(should_be_a_player:bool = false) -> void:
 func prepare_aura_manager() -> void:
 	aura_manager = AuraManager.new()
 	add_child(aura_manager)
+	aura_manager.setup(self)
 	aura_manager.send_auras_to_parent.connect(recalculate_stats)
 
 func prepare_item_manager() -> void:
 	item_manager = ItemManager.new()
 	add_child(item_manager)
+	item_manager.setup(self)
 
 func unsetup() -> void:
 	active = false
@@ -252,6 +252,27 @@ func get_tooltip() -> String:
 func emit_stat_update() -> void:
 	stats_updated.emit()
 
+func scale_stats_basic_exponential(tile_scaling_factor:int) -> void:
+	var base:float = 1.18
+	var scaling_factor:float = base ** tile_scaling_factor
+	var stats_to_scale:Array[StringName] = [
+		Stats.strength,
+		Stats.dexterity,
+		Stats.intelligence,
+		Stats.health,
+		Stats.attack,
+	]
+	for stat:StringName in stats_to_scale:
+		if starting_stats.has(stat):
+			#print("stat ", stat, " was ", starting_stats[stat])
+			starting_stats[stat] = int(scaling_factor * starting_stats[stat])
+			#print("stat ", stat, " is now ", starting_stats[stat])
+	
+	#starting_stats[Stats.health] = starting_stats[Stats.health] * BalanceData.enemy_beginning_health_scaling / 100 + (power * starting_stats[Stats.health] * BalanceData.enemy_health_scaling_per_power)/100
+	#starting_stats[Stats.attack] = starting_stats[Stats.attack] + (power * starting_stats[Stats.attack] * BalanceData.enemy_attack_scaling_per_power)/100
+
+
+#calling functions on other things
 func on_start_combat_functions() -> void:
 	on_start_combat()
 	item_manager.on_start_combat()
@@ -314,7 +335,3 @@ func on_combat_end() -> void:
 
 func setup_stats() -> void:
 	pass
-
-#func scale_stats(power:int) -> void:
-	#scaled_health = base_health * BalanceData.enemy_beginning_health_scaling / 100 + (power * base_health * BalanceData.enemy_health_scaling_per_power)/100
-	#scaled_attack = base_attack + (power * base_attack * BalanceData.enemy_attack_scaling_per_power)/100

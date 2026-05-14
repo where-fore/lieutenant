@@ -30,12 +30,33 @@ func check_if_on_last_page() -> void:
 	if current_page == amount_of_pages:
 		ScenarioEvents.on_last_page.emit()
 
+func basic_scale_enemy_stats_by_day() -> void:
+	if enemies:
+		for enemy:Combatant in enemies:
+			if is_instance_valid(enemy):
+				enemy.scale_stats_basic_exponential(TimeOfDay.current_day)
+			else:
+				#let's clear it out
+				#there's probably better places to do this,
+				#but it's a failsafe?
+				enemies.erase(enemy)
+
+func encounter_this_scenario() -> void:
+	generate_encounters()
+	scale_scenario_to_time()
+
 #derived subclasses hook onto and overwrite these functions
 func next_page() -> void:
 	next_page_base()
 
 func end_combat() -> void:
 	next_page_base()
+
+func generate_encounters() -> void:
+	pass
+
+func scale_scenario_to_time() -> void:
+	basic_scale_enemy_stats_by_day()
 
 #called by ScenarioEvents
 func on_finish_scenario() -> void:

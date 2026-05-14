@@ -10,9 +10,8 @@ var parent_combatant:Combatant
 
 signal send_auras_to_parent(additive_aura_dictionary:Dictionary[StringName, int], multiplicative_aura_dictionary:Dictionary[StringName, int])
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	parent_combatant = get_parent() as Combatant
+func setup(new_parent:Combatant) -> void:
+	parent_combatant = new_parent
 	update_stats()
 
 func apply_new_aura(new_aura:Aura) -> void:
