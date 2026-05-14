@@ -194,12 +194,10 @@ func derive_stats() -> void:
 	#var intelligence:int = current_stats.get(Stats.intelligence, 0)
 	
 	var attack_to_add:int = strength/Stats.strength_per_attack + dexterity/Stats.dexterity_per_attack
-	var health_to_add:int = strength/Stats.strength_per_health
-	var crit_to_add:int = dexterity/Stats.dexterity_per_crit_percent
+	var health_to_add:int = strength/Stats.strength_per_health + dexterity/Stats.dexterity_per_health
 	
 	current_stats[Stats.attack] = current_stats.get(Stats.attack, 0) + attack_to_add
 	current_stats[Stats.health] = current_stats.get(Stats.health, 0) + health_to_add
-	current_stats[Stats.crit_chance] = current_stats.get(Stats.crit_chance, 0) + crit_to_add
 
 func sum_aura_and_current_stats(auraDictionary:Dictionary[StringName,int]) -> void:
 	for stat:String in auraDictionary:
@@ -241,10 +239,9 @@ func get_tooltip() -> String:
 	var tooltip_text:String = name
 	
 	var to_add:String
-	to_add = "Health:" + str(starting_stats[Stats.health])
-	tooltip_text += "\n" + to_add
-	to_add = "Attack:" + str(starting_stats[Stats.attack])
-	tooltip_text += "\n" + to_add
+	for stat:StringName in starting_stats:
+		to_add = stat + ": " + str(starting_stats[stat])
+		tooltip_text += "\n" + to_add
 	
 	if extra_tooltip: tooltip_text += "\n" + extra_tooltip
 	return tooltip_text

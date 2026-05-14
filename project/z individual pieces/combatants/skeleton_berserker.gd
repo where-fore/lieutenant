@@ -9,5 +9,4 @@ func _init() -> void:
 		Categories.enemy_rarity: Categories.Rarity.RARE,
 	}
 	
-	starting_stats[Stats.health] = BalanceData.enemy_base_health / 2
-	starting_stats[Stats.attack] = BalanceData.enemy_base_attack * 3
+	starting_stats[Stats.dexterity] = BalanceData.enemy_rare_stat_budget

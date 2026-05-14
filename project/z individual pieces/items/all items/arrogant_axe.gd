@@ -26,7 +26,10 @@ func setup_item_stats() -> void:
 	additive_stat_dictionary[Stats.health] = my_health
 
 func on_turn_start(source:Combatant) -> void:
-	if source.current_stats[Stats.attack] >= attack_threshold: #note i'm not checking pre-this buff, so it's almost impossible to drop off once it's active
+	if source.current_stats[Stats.attack] >= attack_threshold:
+			#note i'm not checking pre-this buff, so it's almost impossible to drop off once it's active
+				#could drop the buff, recalculate stats, then check threshold, and reapply buff
+				#seems a bit hacky, things which trigger on applying auras or whatever might double trigger
 		if not buff_aura:
 			apply_my_aura()
 		var attack_to_add:int = source.current_stats[Stats.attack] * super_attack_growth_percent / 100

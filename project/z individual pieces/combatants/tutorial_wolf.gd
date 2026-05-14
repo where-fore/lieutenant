@@ -8,5 +8,5 @@ func _init() -> void:
 	combatant_categories = {
 	}
 
-	starting_stats[Stats.health] = BalanceData.tutorial_base_health
-	starting_stats[Stats.attack] = BalanceData.tutorial_base_attack
+	starting_stats[Stats.strength] = BalanceData.enemy_tutorial_stat_budget / 2
+	starting_stats[Stats.dexterity] = BalanceData.enemy_tutorial_stat_budget / 2

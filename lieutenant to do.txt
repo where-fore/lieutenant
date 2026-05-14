@@ -2,14 +2,50 @@
 working notes
 --------------------------------------------------------
 
-time button to progress time while doing nothing on the map
-	at least for now
 
-enemy ui combatants arent showing their attack like players are
+do item/aura pass, esp with new item sprites / stats
 
 
 
 
+
+re-generate enemies every day to fix scaling functions
+
+	generate
+		if enemies
+			enemy.scale_to_current_day
+		if not
+			generate_enemies
+
+	memory leak currently, and so:
+		okay seems like my combatants can simply be RefCounted resources, isntead of nodes. i don't see any reason they currently need to be nodes
+			refactor all the add_child to just putting into an array (i think most already do this, just remove the add_child part)
+			refactor item/aura managers to be resources too, and remove their add child
+
+	potential performance concerns with regenerating
+		i think the maps will be small enough this isn't a problem - there's no noticeable performance hiccup when starting the game and generating the map that way, and this is cheaper
+		can always tie it to a day/night animation anyhow
+-
+
+would be nice to have a blue aura around health bar if shielded or something
+	maybe 1px border blue
+	and extra 1-2px border based on %max hp shielded? like poe
+
+--------------------------------------------------------
+work to do
+--------------------------------------------------------
+
+targeting
+	let players choose targets somehow
+	have enemies target somehow
+
+probably should get that infinite-combat-breakpoint somewhere
+	could quickly have a main menu -> forfeit combat option
+	would like it to be systematic at some point
+		maybe each side only takes turns as long as they have stamina? and without stamina you instantly die?
+			stamina = total stats?
+			balanced to turns possible or something
+		
 
 remove hardcoded tutorial
 	need to have a tile who doesn't clear when the scenario is done
@@ -25,20 +61,6 @@ remove hardcoded tutorial
 	otherwise the monsters in the forest beat you
 
 
-
-
-actual game design / balance:
-
-overhaul items to use primary stats
-
-then do time of day + monster scaling
-	maybe make the scaling a bit exponential, since player power probably will be with loops etc
-
-
-
---------------------------------------------------------
-work to do
---------------------------------------------------------
 
 move main.gd functions relating to the buttons to main_ui.gd (new)
 

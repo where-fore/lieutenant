@@ -28,7 +28,7 @@ func update_title_stats() -> void:
 	my_strength.tooltip_text = str(Stats.strength_per_attack) + " strength = 1 attack" + "\n" + str(Stats.strength_per_health) + " strength = 1 health"
 	
 	my_dexterity.my_label.text = str(my_combatant.current_stats.get(Stats.dexterity, 0))
-	my_dexterity.tooltip_text = str(Stats.dexterity_per_attack) + " dexterity = 1 attack" + "\n" + str(Stats.dexterity_per_crit_percent) + " dexterity = 1% crit chance"
+	my_dexterity.tooltip_text = str(Stats.dexterity_per_attack) + " dexterity = 1 attack" + "\n" + str(Stats.dexterity_per_health) + " dexterity = 1 health"
 	
 	my_intelligence.my_label.text = str(my_combatant.current_stats.get(Stats.intelligence, 0))
 	my_intelligence.tooltip_text = str(Stats.intelligence_per_shield_per_turn) + " intelligence = 1 shield per turn"

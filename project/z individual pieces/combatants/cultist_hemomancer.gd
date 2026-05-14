@@ -1,6 +1,7 @@
 extends Combatant
 
 var attack_percentage_to_steal:int = 50
+
 var message:String = "Your power drains from you as the cultist's eyes alight with glee."
 var buff_aura:Aura
 var buff_reward_name:String = "The Thirst"
@@ -16,8 +17,7 @@ func _init() -> void:
 		Categories.enemy_rarity: Categories.Rarity.MYTHIC,
 	}
 	
-	starting_stats[Stats.health] = BalanceData.enemy_base_health * 3/2
-	starting_stats[Stats.attack] = BalanceData.enemy_base_attack * 1
+	starting_stats[Stats.strength] = BalanceData.enemy_mythic_stat_budget
 
 #called by Combatant
 func on_start_combat() -> void:
@@ -29,6 +29,9 @@ func create_auras() -> void:
 	
 	for enemy:Combatant in possible_targets:
 		var attack_to_steal:int = enemy.current_stats[Stats.attack] * attack_percentage_to_steal/100
+			#note this steals 50% of current attack, and applies that amount as a flat -attack debuff
+			#which means a character with say +100% attack, will get a very large portion stolen
+			#since it steals current attack, not pre-multiplication attack
 		
 		debuff_aura = Aura.new().create_aura(debuff_reward_name, true)
 		debuff_aura.duration_type = AuraNames.DurationType.THIS_COMBAT
