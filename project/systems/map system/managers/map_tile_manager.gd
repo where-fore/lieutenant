@@ -21,8 +21,16 @@ func _ready() -> void:
 	MapEvents.tile_completed_no_new_ground.connect(enable_adjacent_tiles_already_visited)
 	MapEvents.map_grid_right_edge_visible.connect(check_to_clamp_right_edge_scrolling)
 	MapEvents.map_grid_left_edge_visible.connect(check_to_clamp_left_edge_scrolling)
+	TimeOfDay.new_day.connect(refresh_tiles_for_new_day)
 	
 	maptile_spawner_parent.populate_tiles()
+
+func refresh_tiles_for_new_day() -> void:
+	#maybe for performance i should do a more thorough filter
+	#something like only checking "active" tiles? not-permanently disabled tiles?
+	#currently just iterating over every single map tile for completeness, with no performance problem atm
+	for tile:MapTile in current_map_tiles:
+		tile.new_day_check()
 
 func handle_map_transition(map_tile:MapTile) -> void:
 	current_tile_encounter = map_tile

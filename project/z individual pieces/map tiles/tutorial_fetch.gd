@@ -7,4 +7,5 @@ func _init() -> void:
 
 func generate_encounters() -> void:
 	if TimeOfDay.current_day >= 2:
-		enemies = [Database.get_combatant_by_id("tutorial_wolf"), Database.get_combatant_by_id("tutorial_wolf")]
+		enemies = [Database.get_combatant_by_id("cultist_bloodletter")]
+		#enemies = [Database.get_combatant_by_id("tutorial_wolf"), Database.get_combatant_by_id("tutorial_wolf")]

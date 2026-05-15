@@ -7,15 +7,15 @@ var tutorial_second_scenario_path:String = "res://z individual pieces/scenarios/
 var tutorial_stage:int = 0
 
 @warning_ignore_start("unused_signal")
-signal resuming_tutorial()
-signal item_tutorial_ready()
-signal updated()
-signal on_last_page()
+signal resuming_tutorial
+signal item_tutorial_ready
+signal updated
+signal on_last_page
 signal begin_combat_with(combatant:Combatant)
-signal begin_combat_with_map_enemy()
-signal present_rewards()
-signal completed_combat_as_victory()
-signal completed_combat_as_loss()
+signal begin_combat_with_map_enemy
+signal present_rewards
+signal completed_combat_as_victory
+signal completed_combat_as_loss
 signal setup_reward(reward:Reward)
 @warning_ignore_restore("unused_signal")
 

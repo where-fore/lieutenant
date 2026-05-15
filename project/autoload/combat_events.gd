@@ -7,12 +7,12 @@ signal attack_launched(attacker:Combatant, amount:int, target:Combatant)
 signal damage_applied(damage_receipient:Combatant, amount:int)
 signal healing_applied(heal_receipient:Combatant, amount:int)
 signal turn_finished(source:Combatant)
-signal player_turn_should_start()
-signal enemy_turn_should_start()
-signal pause_button_pressed()
-signal step_button_pressed()
-signal play_button_pressed()
-signal play_fast_button_pressed()
+signal player_turn_should_start
+signal enemy_turn_should_start
+signal pause_button_pressed
+signal step_button_pressed
+signal play_button_pressed
+signal play_fast_button_pressed
 signal combatant_died(combatant_who_died:Combatant)
 signal prepare_combat_with_enemy(combatants:Array[Combatant])
 signal combat_finished(combatants:Array[Combatant])

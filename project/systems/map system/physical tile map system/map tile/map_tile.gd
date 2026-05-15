@@ -55,10 +55,12 @@ func _ready() -> void:
 	var frames_in_hover_animation:int = hover_animation_component.sprite_frames.get_frame_count(hover_animation_component.animation)
 	selection_effect_timer.wait_time = hover_animation_speed / frames_in_hover_animation
 
-func encounter_this_tile() -> void:
+func new_day_check() -> void:
 	tile_data.generate_encounters()
 	tile_data.scale_stats()
-	
+	HudEvents.map_tile_updated.emit(self)
+
+func encounter_this_tile() -> void:
 	if tile_data.scenario:
 		tile_data.scenario.encounter_this_scenario()
 		MapEvents.enter_scenario_in.emit(self)

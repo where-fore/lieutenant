@@ -23,9 +23,16 @@ var current_tile:MapTile
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	HudEvents.map_tile_hovered.connect(update_map_tile_info)
+	HudEvents.map_tile_updated.connect(refresh_current_selection)
+	
 	visible = false
 	clear_info()
 	close_timer.wait_time = time_to_close_panel
+
+func refresh_current_selection(tile_updated:MapTile) -> void:
+	if current_tile:
+		if tile_updated == current_tile:
+			update_map_tile_info(current_tile)
 
 func update_map_tile_info(tile:MapTile) -> void:
 	clear_info()

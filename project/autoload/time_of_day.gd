@@ -1,6 +1,7 @@
 extends Node
 
-signal time_moved_forward()
+signal time_moved_forward
+signal new_day
 
 var current_time_step:int
 var current_day:int
@@ -21,6 +22,7 @@ func step_time_forward() -> void:
 func next_day() -> void:
 	current_time_step = 1
 	current_day += 1
+	new_day.emit()
 
 func restart_clock() -> void:
 	current_time_step = starting_time_step
