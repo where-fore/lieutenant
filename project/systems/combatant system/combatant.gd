@@ -1,4 +1,4 @@
-extends Node2D
+extends Resource
 class_name Combatant
 
 var combatant_id:String
@@ -61,13 +61,11 @@ func setup(should_be_a_player:bool = false) -> void:
 
 func prepare_aura_manager() -> void:
 	aura_manager = AuraManager.new()
-	add_child(aura_manager)
 	aura_manager.setup(self)
 	aura_manager.send_auras_to_parent.connect(recalculate_stats)
 
 func prepare_item_manager() -> void:
 	item_manager = ItemManager.new()
-	add_child(item_manager)
 	item_manager.setup(self)
 
 func unsetup() -> void:
@@ -75,7 +73,7 @@ func unsetup() -> void:
 
 func take_damage(value:int) -> void:
 	if not dead:
-		if value < 0: push_error("tried to take negative damage on: " + name)
+		if value < 0: push_error("tried to take negative damage on: " + combatant_name)
 		elif value == 0: pass
 		else:
 			if shield:
@@ -94,7 +92,7 @@ func take_damage(value:int) -> void:
 
 func heal(value:int) -> void:
 	if not dead:
-		if value < 0: push_error("tried to heal for less than 0 on: " + name)
+		if value < 0: push_error("tried to heal for less than 0 on: " + combatant_name)
 		elif value == 0: pass
 		else:
 			self.damage_taken -= value
@@ -236,7 +234,7 @@ func get_shield_from_int() -> void:
 
 #this is copied from aura_base.gd
 func get_tooltip() -> String:
-	var tooltip_text:String = name
+	var tooltip_text:String = combatant_name
 	
 	var to_add:String
 	for stat:StringName in starting_stats:

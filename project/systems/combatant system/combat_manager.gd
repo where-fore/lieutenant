@@ -62,7 +62,6 @@ func _ready() -> void:
 
 func create_player_combatant(combatant_template:Combatant) -> void:
 	var new_player:Combatant = setup_combatant(combatant_template, true)
-	add_child(new_player)
 	player_combatants.append(new_player)
 
 func pause_button_pressed() -> void:
@@ -203,13 +202,12 @@ func stop_combat() -> void:
 	
 	CombatEvents.combat_finished.emit(player_combatants + enemy_combatants)
 	
+	for combatant:Combatant in enemy_combatants:
+		combatant.unsetup()
+	
 	if player_victorious:
-		for combatant:Combatant in enemy_combatants:
-			combatant.queue_free()
 		HudEvents.combat_won.emit()
 	elif not player_victorious:
-		for combatant:Combatant in enemy_combatants:
-			combatant.unsetup()
 		HudEvents.combat_lost.emit()
 	else:
 		push_error("combat finished but nobody won?")

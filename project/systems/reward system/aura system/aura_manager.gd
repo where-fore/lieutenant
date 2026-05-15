@@ -1,4 +1,4 @@
-extends Node2D
+extends Resource
 class_name AuraManager
 
 var aura_dictionary:Dictionary[String, Aura]

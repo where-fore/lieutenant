@@ -21,11 +21,9 @@ func _init() -> void:
 		#ie. double scaling from strength for hp only
 	attack_per_turn = starting_stats[Stats.strength] / Stats.strength_per_attack / turns_to_double_stats
 	attack_per_turn = max(1, attack_per_turn)
-	print_debug("starting stat on init: ", starting_stats[Stats.strength])
 
 #called by Combatant
 func on_start_combat() -> void:
-	print_debug("starting stat on combat start: ", starting_stats[Stats.strength])
 	buff_aura = Aura.new().create_aura(buff_reward_name, true)
 	buff_aura.duration_type = AuraNames.DurationType.THIS_COMBAT
 	apply_aura_or_item(buff_aura)

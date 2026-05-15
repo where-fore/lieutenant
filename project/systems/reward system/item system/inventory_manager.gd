@@ -1,4 +1,4 @@
-extends Node2D
+extends Resource
 class_name ItemManager
 
 var parent_combatant:Combatant
