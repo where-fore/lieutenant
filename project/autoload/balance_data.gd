@@ -1,15 +1,13 @@
 extends Node
 
-var basic_stat:int = 10
-var basic_stat_scaling:int = 25
-var basic_health:int = 20
-
-var sword_damage:int = 6
-var shield_health:int = 30
-
 var player_base_strength:int = 10
 var player_base_dexterity:int = 5
 var player_base_intelligence:int = 0
+
+var basic_stat:int = 10
+var basic_stat_scaling:int = 25
+var basic_health:int = 20
+var basic_attack:int = 5
 
 var rest_hp:int = 20
 var sharpen_attack:int = 5

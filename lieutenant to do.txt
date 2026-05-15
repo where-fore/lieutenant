@@ -2,6 +2,16 @@
 working notes
 --------------------------------------------------------
 
+would be nice to have a little target dummy set up for testing
+	i could have a target dummy button, it takes you to a combat with a target dummy
+		messes with permanent effects from combat - if i have a weapon that transforms, or permanent healing, or any other meta benefit
+	i could have a target dummy scene, where starting that scene is just combat with a target dummy
+		makes sense to me, but i'm not sure how to set this up. something that loads the main packed scene, with some custom function setup that fires through everything to get me to a certain scenario?
+	i could have a target dummy scenario, which i slot into whatever is the first set of tiles in my current version of the game
+		bit annoying to scale as i put in a tutorial - even right now i have to click through a few things to even get to the first scenario
+
+want to have a nice way to start with an item
+
 figure out how i want items to make temporary auras
 	i could do the crashing-waves type where i have built in basic auras
 		and i could grab those, tweak some values, and send it
@@ -9,46 +19,30 @@ figure out how i want items to make temporary auras
 		i should probably move some of this to the parent class?
 	
 	probably do crashing-waves style once i do the same thing twice, but arrogant axe style the first time?
+	
+	
+	threshold auras - i really like these ideas so far, and i want to codify how they work
+		when do they check?
+			atm thinking on turn start. lets you do some weird interactions like "while hp >65%, 2x attack" and "after getting hit, retaliate for 1/2 attack" calling the retaliate even if you dip below threshold - or even if an ally hurts you below the threshold before the enemy even attacks
+			
+			could also just tie to stat update events
+				item manager listens to stat update, and calls all_items.check_thresholds
+				or items themselves subscribe to the events, but that sounds wrong
+				
+				be wary of circular checks - if i have a str threshold for +hp, and an hp threshold, i need to check multiple times in sequence
+					probably just call the stat_update again when the first str threshold falls, so the hp threshold is checked
+		
+		could also be an aura property - maybe the items just apply an aura "if str > 50 then", the threshold being a sub property
+		and on stat update on a combatant, aura manager checks all thresholds
+			circular check here too ofc
+			
+			maybe on any stat update, so i can have thresholds of "enemy attack > 50"
+				hm not sure how to grab aura's enemies
+				same problem as the flanking sword ideally
 
 
-generally
-axes + str
-swords + dex
-
-note that %stat scaling is mixed attack and hp - all power
-	%attack or %health scaling is focused - but also double dips in a way with %stat, since %stat gives str which gives health with %health gives
-
-
-so i want
-axe + str
-axe + str and % str
-axe health threshold to do str damage on hit
-axe % attack and % health while current hp > threshold (rewards high hp since it's uptime is higher)
-axe + attack per hit (hacker)
-
-sword + dex
-sword + dex and % dex
-sword per x dex deal dex damage on attack
-sword + dex per attack
-sword + str to allies (flanking sword)
-	i dont think items know how to do this, owner.allies?
-
-shield flat hp
-shield flat hp and % hp
-armor %hp
-
-rings of flat stats
-rings of % stats
-
-
-
-int stuff later
-
-fireball flat damage every x turns, flat damage scales a bit
-blood bolt flat damage costs flat hp
-blood burst flat damage costs %hp
-orb + int, damage per shield
-
+fix script warnings
+update math_info tooltip to include info about primary stats caluclating before percentages
 
 
 

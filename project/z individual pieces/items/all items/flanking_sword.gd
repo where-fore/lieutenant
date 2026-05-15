@@ -22,5 +22,6 @@ func setup_item_stats() -> void:
 	
 	#whatever the item does
 	additive_stat_dictionary[my_stat] = my_stat_add
-
-#something about creating a this-combat buff, and giving it to your allies
+	
+	push_warning(reward_name," script not ready")
+	#something about creating a this-combat buff, and giving it to your allies

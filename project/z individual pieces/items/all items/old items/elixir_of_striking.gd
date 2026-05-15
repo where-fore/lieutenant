@@ -4,7 +4,6 @@ extends Item
 var striking_aura_template:Aura = load("res://z individual pieces/auras/item auras/striking.gd").new()
 
 func setup_basic_item_data() -> void:	
-	item_id = "elixir_of_striking" # "generic_item"
 	reward_name = "Elixir of Striking" # "Generic Item"
 	reward_sprite = load("res://sprites/potion.png")
 	extra_tooltip = "You strike with frightening vigour for {multiplier}% attack, briefly".format({"multiplier":  str(striking_aura_template.multiplier)}) # "Generic flavourful description"
