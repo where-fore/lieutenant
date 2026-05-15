@@ -8,3 +8,4 @@ func _init() -> void:
 	
 	starting_stats[Stats.strength] = BalanceData.player_base_strength
 	starting_stats[Stats.dexterity] = BalanceData.player_base_dexterity
+	starting_stats[Stats.intelligence] = BalanceData.player_base_intelligence

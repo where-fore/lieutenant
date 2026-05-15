@@ -3,6 +3,10 @@ class_name UiCombatant
 
 @onready var sprite:TextureRect = $Portrait/Portrait
 @onready var health_bar:TextureProgressBar = $Portrait/HealthBarBorder/HealthBar
+@onready var shield_bar:TextureProgressBar = $Portrait/HealthBarBorder/ShieldBar
+@onready var health_bar_border:NinePatchRect = $Portrait/HealthBarBorder
+@onready var shield_border_swap:Texture2D = load("res://sprites/shield_border.png")
+@onready var regular_border:Texture2D = health_bar_border.texture
 @onready var turn_indicator:TextureRect = $Portrait/Portrait/TurnIndicator
 @onready var active_button_container:Control = $Portrait/Actives
 @onready var placeholder_attack:Control = $Portrait/Actives/Ability/TextureButton
@@ -16,6 +20,8 @@ func _ready() -> void:
 	turn_indicator.visible = false
 	visible = false
 	active_button_container.visible = true
+	
+	shield_bar.visible = false
 
 func assign_combatant(combatant:Combatant) -> void:
 	my_combatant = combatant
@@ -35,8 +41,17 @@ func update_stats() -> void:
 	health_bar.max_value = my_combatant.current_stats[Stats.health]
 	health_bar.value = my_combatant.get_damaged_health()
 	health_bar.tooltip_text = str(int(health_bar.value))
+	
 	if my_combatant.shield > 0:
+		health_bar_border.texture = shield_border_swap
+		
+		shield_bar.max_value = my_combatant.current_stats[Stats.health]
+		shield_bar.value = my_combatant.shield
+		
 		health_bar.tooltip_text += " + " + str(my_combatant.shield)
+		shield_bar.visible = true
+	else:
+		health_bar_border.texture = regular_border
 
 func perish() -> void:
 	self.modulate = Color(0.6, 0.3, 0.3)

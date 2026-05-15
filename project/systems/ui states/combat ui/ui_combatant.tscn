@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://drmvwdj1lrerg"]
+[gd_scene load_steps=13 format=3 uid="uid://drmvwdj1lrerg"]
 
 [ext_resource type="Script" uid="uid://goyvs82tifpv" path="res://systems/ui states/combat ui/ui_combatant.gd" id="1_7msyj"]
 [ext_resource type="Theme" uid="uid://8g0oubdd3ix7" path="res://ui resources/marginTheme.tres" id="2_0x77s"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://ct2y2dcv3jogy" path="res://sprites/health_bar_background.png" id="7_y78i1"]
 [ext_resource type="Texture2D" uid="uid://ddj75cjrj64yg" path="res://sprites/health_bar_progress.png" id="8_x5yq3"]
 [ext_resource type="Texture2D" uid="uid://cwjj6wggwg4n3" path="res://sprites/18px_border.png" id="9_0gs1v"]
+[ext_resource type="Texture2D" uid="uid://cv5ut6hntccyt" path="res://sprites/shield_progress.png" id="9_0x77s"]
 [ext_resource type="Texture2D" uid="uid://drubnkihyub3w" path="res://sprites/items/basic_axe.png" id="10_37cry"]
 [ext_resource type="Texture2D" uid="uid://bw8ct2x2ju746" path="res://sprites/items/basic_potion.png" id="11_u2x64"]
 
@@ -119,10 +120,25 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-value = 75.0
+value = 60.0
 fill_mode = 3
 nine_patch_stretch = true
 texture_progress = ExtResource("8_x5yq3")
+
+[node name="ShieldBar" type="TextureProgressBar" parent="Portrait/HealthBarBorder"]
+modulate = Color(1, 1, 1, 0.49019608)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+value = 100.0
+fill_mode = 3
+nine_patch_stretch = true
+texture_progress = ExtResource("9_0x77s")
 
 [node name="Actives" type="VBoxContainer" parent="Portrait"]
 layout_mode = 2
