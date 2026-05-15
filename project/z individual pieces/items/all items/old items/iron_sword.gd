@@ -1,12 +1,12 @@
 extends Item
 
 #whatever the item does, doesn't do anything until you do something with it
-var my_stat_add:int = BalanceData.basic_stat
-var my_stat_multi:int = BalanceData.basic_stat_scaling
-var my_stat:StringName = Stats.dexterity
+var my_damage:int = BalanceData.sword_damage
+var my_multiplier:int = 50
 
 
 func setup_basic_item_data() -> void:
+	item_id = "iron_sword" # "generic_item"
 	reward_name = "Iron Sword" # "Generic Item"
 	reward_sprite = load("res://sprites/sword.png")
 	extra_tooltip = "" # "Generic flavourful description"
@@ -19,5 +19,5 @@ func setup_item_stats() -> void:
 	setup_basic_item_data()
 	
 	#whatever the item does
-	additive_stat_dictionary[my_stat] = my_stat_add
-	multiplicative_stat_dictionary[my_stat] = my_stat_multi
+	additive_stat_dictionary[Stats.attack] = my_damage
+	multiplicative_stat_dictionary[Stats.attack] = my_multiplier

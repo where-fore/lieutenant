@@ -1,7 +1,6 @@
 extends Combatant
 
 func _init() -> void:
-	combatant_id = "basic_skeleton" # "generic_enemy"
 	combatant_name = "Skeleton Warrior" # "Generic Combatant"
 	combatant_texture = load("res://sprites/enemy_skull.png")
 	extra_tooltip = "An enemy of balanced strength" # "Generic flavourful description"

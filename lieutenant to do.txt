@@ -2,34 +2,61 @@
 working notes
 --------------------------------------------------------
 
+figure out how i want items to make temporary auras
+	i could do the crashing-waves type where i have built in basic auras
+		and i could grab those, tweak some values, and send it
+	i could do arrogant axe style, have a full aura creation function in the item
+		i should probably move some of this to the parent class?
+	
+	probably do crashing-waves style once i do the same thing twice, but arrogant axe style the first time?
 
-do item/aura pass, esp with new item sprites / stats
+
+generally
+axes + str
+swords + dex
+
+note that %stat scaling is mixed attack and hp - all power
+	%attack or %health scaling is focused - but also double dips in a way with %stat, since %stat gives str which gives health with %health gives
+
+
+so i want
+axe + str
+axe + str and % str
+axe health threshold to do str damage on hit
+axe % attack and % health while current hp > threshold (rewards high hp since it's uptime is higher)
+axe + attack per hit (hacker)
+
+sword + dex
+sword + dex and % dex
+sword per x dex deal dex damage on attack
+sword + dex per attack
+sword + str to allies (flanking sword)
+	i dont think items know how to do this, owner.allies?
+
+shield flat hp
+shield flat hp and % hp
+armor %hp
+
+rings of flat stats
+rings of % stats
+
+
+
+int stuff later
+
+fireball flat damage every x turns, flat damage scales a bit
+blood bolt flat damage costs flat hp
+blood burst flat damage costs %hp
+orb + int, damage per shield
 
 
 
 
 
-re-generate enemies every day to fix scaling functions
 
-	generate
-		if enemies
-			enemy.scale_to_current_day
-		if not
-			generate_enemies
 
-	memory leak currently, and so:
-		okay seems like my combatants can simply be RefCounted resources, isntead of nodes. i don't see any reason they currently need to be nodes
-			refactor all the add_child to just putting into an array (i think most already do this, just remove the add_child part)
-			refactor item/aura managers to be resources too, and remove their add child
 
-	potential performance concerns with regenerating
-		i think the maps will be small enough this isn't a problem - there's no noticeable performance hiccup when starting the game and generating the map that way, and this is cheaper
-		can always tie it to a day/night animation anyhow
--
 
-would be nice to have a blue aura around health bar if shielded or something
-	maybe 1px border blue
-	and extra 1-2px border based on %max hp shielded? like poe
 
 --------------------------------------------------------
 work to do

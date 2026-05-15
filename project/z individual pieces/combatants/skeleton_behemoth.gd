@@ -8,7 +8,6 @@ var buff_reward_name:String = "Growing Impatience"
 var buff_aura:Aura
 
 func _init() -> void:
-	combatant_id = "skeleton_behemoth" # "generic_enemy"
 	combatant_name = "The Marrow" # "Generic Combatant"
 	combatant_texture = load("res://sprites/enemy_shattered.png")
 	extra_tooltip = "Monstrously tough and imposingly large\nAttacks more savagely as blood is shed" # "Generic flavourful description"

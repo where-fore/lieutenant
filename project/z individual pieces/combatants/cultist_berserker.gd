@@ -6,7 +6,6 @@ var debuff_name:String = "Dormant"
 #var buff_message:String = "The cultist's pupils dilate as they enter a fury."
 
 func _init() -> void:
-	combatant_id = "cultist_berserker" # "generic_enemy"
 	combatant_name = "The Vein" # "Generic Combatant"
 	combatant_texture = load("res://sprites/transformed_cultist.png")
 	extra_tooltip = "Gathering power..." # "Generic flavourful description"

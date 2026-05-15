@@ -128,9 +128,9 @@ func populate_first_rewards() -> void:
 	first_rewards = all_of_rarity
 
 func populate_tutorial_fetch_rewards() -> void:
-	tutorial_fetch_rewards.append(Database.get_item_by_id("old_mans_ring"))
+	tutorial_fetch_rewards.append(Database.get_item_by_id("iron_sword"))
 	for row:int in rows - 1: #fill rest of rows with a rock
-		tutorial_fetch_rewards.append(Database.get_item_by_id("worthless_ring"))
+		tutorial_fetch_rewards.append(Database.get_item_by_id("iron_dirk"))
 	tutorial_fetch_rewards.shuffle()
 
 func create_chunk() -> Array[MapTileData]:

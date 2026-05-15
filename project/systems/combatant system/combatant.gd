@@ -1,7 +1,7 @@
 extends Resource
 class_name Combatant
 
-var combatant_id:String
+var resource_path_id:String
 var combatant_name:String
 var combatant_texture:Texture2D
 var combatant_categories:Dictionary[StringName, int]

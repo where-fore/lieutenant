@@ -1,5 +1,9 @@
 extends Node
 
+var basic_stat:int = 10
+var basic_stat_scaling:int = 25
+var basic_health:int = 20
+
 var sword_damage:int = 6
 var shield_health:int = 30
 

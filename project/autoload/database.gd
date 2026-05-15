@@ -11,6 +11,7 @@ func _ready() -> void:
 
 func get_item_by_id(item_id:String) -> Item:
 	var item:Item = all_items.get(item_id)
+	if not item: push_error("no item found with id: " + item_id)
 	return item.duplicate()
 
 func get_combatant_by_id(combatant_id:String) -> Combatant:
@@ -46,13 +47,14 @@ func get_combatants_by_category(category_title:StringName, category_names:Array[
 func populate_item_database(resource_array:Array[Resource]) -> void:
 	for instantiated_script:Resource in resource_array:
 		var item_instance:Item = instantiated_script.new()
-		all_items[item_instance.item_id] = item_instance
-		#print_debug("Loaded item: ", item_instance.item_id)
+		item_instance.resource_path_id = instantiated_script.resource_path.get_file().get_basename()
+		all_items[item_instance.resource_path_id] = item_instance
 
 func populate_combatant_database(resource_array:Array[Resource]) -> void:
 	for instantiated_script:Resource in resource_array:
 		var combatant_data_instance:Combatant = instantiated_script.new()
-		all_combatants[combatant_data_instance.combatant_id] = combatant_data_instance
+		combatant_data_instance.resource_path_id = instantiated_script.resource_path.get_file().get_basename()
+		all_combatants[combatant_data_instance.resource_path_id] = combatant_data_instance
 		#print_debug("read and created combatant to database: " + combatant_data_instance.combatant_id)
 
 func read_database_from_folder(folder_path:String) -> Array[Resource]:

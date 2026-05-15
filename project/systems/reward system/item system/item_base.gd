@@ -1,7 +1,7 @@
 extends Reward
 class_name Item
 
-var item_id:String
+var resource_path_id:String
 var extra_tooltip:String
 var item_categories:Dictionary[StringName, int]
 
