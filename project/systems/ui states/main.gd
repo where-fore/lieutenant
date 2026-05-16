@@ -25,7 +25,6 @@ extends Node2D
 
 func _ready() -> void:
 	HudEvents.chapter_completed.connect(_on_restart_button_pressed)
-	ScenarioEvents.item_tutorial_ready.connect(show_inventory_button)
 	TimeOfDay.time_moved_forward.connect(update_time_of_day_ui)
 	
 	game_start_button_container.visible = true
@@ -51,6 +50,7 @@ func start_game() -> void:
 	#wait for the above to finish
 	await get_tree().process_frame
 	HudEvents.chapter_started.emit()
+	show_inventory_button()
 
 func clear_scene(node_parent:Control) -> void:
 	for child:Node in node_parent.get_children():

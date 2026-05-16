@@ -9,9 +9,9 @@ var stat_to_check:StringName = Stats.dexterity
 func setup_basic_item_data() -> void:
 	reward_name = "Moon Kris" # "Generic Item"
 	reward_sprite = load("res://sprites/items/wavy_dagger.png")
-	extra_tooltip = "After attacking, for every {threshold} {stat}, deal damage equal to {percent}% of your {stat}".format({"threshold": threshold_per_hit, "stat": stat_to_check,  "percent": percent_stat_to_deal}) # "Generic flavourful description"
+	extra_tooltip = "After attacking, for every {threshold} {stat},\ndeal damage equal to {percent}% of your {stat}".format({"threshold": threshold_per_hit, "stat": stat_to_check,  "percent": percent_stat_to_deal}) # "Generic flavourful description"
 	item_categories = {
-		Categories.item_rarity : Categories.Rarity.RARE,
+		Categories.item_rarity : Categories.Rarity.MYTHIC,
 	}
 
 #--functions called by item_base.gd--

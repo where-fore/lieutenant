@@ -1,7 +1,7 @@
 extends Node
 
 var player_base_strength:int = 10
-var player_base_dexterity:int = 5
+var player_base_dexterity:int = 10
 var player_base_intelligence:int = 0
 
 var basic_stat:int = 10

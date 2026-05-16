@@ -9,7 +9,7 @@ var my_stat_per_attack:int = BalanceData.basic_stat
 func setup_basic_item_data() -> void:
 	reward_name = "Lungfiller" # "Generic Item"
 	reward_sprite = load("res://sprites/items/nature_sword.png")
-	extra_tooltip = "Fills you with endurance as you fight, adding {amount} {stat} per turn".format({"amount": my_stat_per_attack, "stat": my_stat}) # "Generic flavourful description"
+	extra_tooltip = "Fills you with endurance as you fight,\nadding {amount} {stat} per turn".format({"amount": my_stat_per_attack, "stat": my_stat}) # "Generic flavourful description"
 	item_categories = {
 		Categories.item_rarity : Categories.Rarity.RARE,
 	}

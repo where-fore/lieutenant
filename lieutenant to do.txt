@@ -52,21 +52,16 @@ figure out how i want items to make temporary auras
 
 fix script warnings
 
-
-update math_info tooltip to include info about primary stats calculating before percentages
-
-
 would be nice to find a way for the tutorial fetch rewards to be on the tile, not in the spawner
 	not sure how, but i do want to do this regularly - have an array of something on the tile, that the spawner can draw from
 		instead of currently the spawner assigns rewards to be something in the spawner logic
 		id rather the spawner decide who gets index0 and who gets index1 from the tiles possibility array
 
 
-please god streamline these borders
+please god streamline these item/aura borders
 	some are 16x16 with red border
 	some are 16x16 with purple border
 	some are 16x16 with no border
-
 
 
 
@@ -98,6 +93,8 @@ new tutorial
 	
 	thinking the tutorial should be a hut at the start, you have to go out to the wolves and gather, and then come back
 	otherwise the monsters in the forest beat you
+	
+	i do really like unlocking the ui buttons as they become relevant
 
 
 move main.gd functions relating to the buttons to main_ui.gd (new)
@@ -128,8 +125,8 @@ have a "pre-turn" turn for combat start effects
 have a proper mechanism to check if it's fine to pass time forward by pressing the button
 	probably related to save games - have a "somethings happening" value, and whenver that is set to about to be changed, save the game?
 		i may want to save the game before the choice is made, so you can go back and pick the other choice
--
 
+have nice tooltips set up, can still use placeholder art
 
 
 

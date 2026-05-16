@@ -3,7 +3,6 @@ extends Node
 var current_scenario:Scenario
 
 @warning_ignore_start("unused_signal")
-signal item_tutorial_ready
 signal updated
 signal on_last_page
 signal begin_combat_with(combatant:Combatant)

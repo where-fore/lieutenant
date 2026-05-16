@@ -14,7 +14,7 @@ func setup_basic_item_data() -> void:
 	reward_sprite = load("res://sprites/gaudy_ruby_ring.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	item_categories = {
-		Categories.item_rarity : Categories.Rarity.COMMON,
+		Categories.item_rarity : Categories.Rarity.RARE,
 	}
 
 #--functions called by item_base.gd--

@@ -12,9 +12,9 @@ var my_threshold_attack_factor:int = 25
 func setup_basic_item_data() -> void:
 	reward_name = "Mountainslide" # "Generic Item"
 	reward_sprite = load("res://sprites/single_spiked_axe.png")
-	extra_tooltip = "If you are stronger than a mountain with more than {health_threshold} health, smash for an extra {percent} of your {stat} when attacking".format({"health_threshold": my_health_threshold,"percent": my_threshold_attack_factor, "stat": my_stat}) # "Generic flavourful description"
+	extra_tooltip = "If you are mighty as a mountain with more than {health_threshold} health,\nsmash for an extra {percent} of your {stat} when attacking".format({"health_threshold": my_health_threshold,"percent": my_threshold_attack_factor, "stat": my_stat}) # "Generic flavourful description"
 	item_categories = {
-		Categories.item_rarity : Categories.Rarity.RARE,
+		Categories.item_rarity : Categories.Rarity.MYTHIC,
 	}
 
 #--functions called by item_base.gd--
