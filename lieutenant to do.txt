@@ -10,7 +10,17 @@ would be nice to have a little target dummy set up for testing
 	i could have a target dummy scenario, which i slot into whatever is the first set of tiles in my current version of the game
 		bit annoying to scale as i put in a tutorial - even right now i have to click through a few things to even get to the first scenario
 
+	probably have a combat, and a keybind where pressing it just immediately calls the "enter combat with" with the dummy
+
+
 want to have a nice way to start with an item
+	for testing
+	
+	maybe a flag on the item? or a function
+	
+	maybe the testing thing is a scenario, where the first page is a reward which you set, and the second is the target dummy enemy
+		would still be nice to start a run with the item to test interactions
+
 
 figure out how i want items to make temporary auras
 	i could do the crashing-waves type where i have built in basic auras
@@ -18,7 +28,7 @@ figure out how i want items to make temporary auras
 	i could do arrogant axe style, have a full aura creation function in the item
 		i should probably move some of this to the parent class?
 	
-	probably do crashing-waves style once i do the same thing twice, but arrogant axe style the first time?
+	probably do crashing-waves style once i do the same thing twice, but arrogant axe style Nthe first time?
 	
 	
 	threshold auras - i really like these ideas so far, and i want to codify how they work
@@ -40,13 +50,22 @@ figure out how i want items to make temporary auras
 				hm not sure how to grab aura's enemies
 				same problem as the flanking sword ideally
 
-
 fix script warnings
+
+
 update math_info tooltip to include info about primary stats caluclating before percentages
 
 
+would be nice to find a way for the tutorial fetch rewards to be on the tile, not in the spawner
+	not sure how, but i do want to do this regularly - have an array of something on the tile, that the spawner can draw from
+		instead of currently the spawner assigns rewards to be something in the spawner logic
+		id rather the spawner decide who gets index0 and who gets index1 from the tiles possibility array
 
 
+please god streamline these borders
+	some are 16x16 with red border
+	some are 16x16 with purple border
+	some are 16x16 with no border
 
 
 
@@ -66,9 +85,8 @@ probably should get that infinite-combat-breakpoint somewhere
 		maybe each side only takes turns as long as they have stamina? and without stamina you instantly die?
 			stamina = total stats?
 			balanced to turns possible or something
-		
 
-remove hardcoded tutorial
+new tutorial
 	need to have a tile who doesn't clear when the scenario is done
 	just finishes and saves the "step" of the scenario
 		probably a flag on the scenarios, same as the pages but meta_step not page_number
@@ -82,22 +100,11 @@ remove hardcoded tutorial
 	otherwise the monsters in the forest beat you
 
 
-
 move main.gd functions relating to the buttons to main_ui.gd (new)
 
 clear that ghost array when pushing more combatants from a maptile than im ready for (combat_ui_manager.assign_enemies_to_ui())
 
 organize these notes and brainstorm
-
-enemy scaling?
-	day night system, still not too sure where we land on this
-		distinct phases which strengthen enemies?
-		probably do this with map update
-	would like the night sky to actually move
-		maybe every step moves it a bit
-		every 3 steps changes phases (early night, mid night, late night; early morning etc)
-			which scales enemies
-			and changes the colour of the map-wide filter :o
 
 would like to be able to give combatants test items, or something similar to test out items
 	ill need combatants to start with items anyways, probably want jon the thief to have a few items when you recruit them, for example
@@ -115,16 +122,16 @@ would be nice to support multiple rewards
 
 fix/remove debug commands
 
-tutorial probably shouldn't be hardcoded - have the hut at the start, the ring, go back to the hut, etc
-	and it rewards you with a key or something to let you travel past the first tree wall?
-	make events that trigger differently when you re-enter them
-
 have a "pre-turn" turn for combat start effects
 	combat log "prepares for attack"
 
 have a proper mechanism to check if it's fine to pass time forward by pressing the button
 	probably related to save games - have a "somethings happening" value, and whenver that is set to about to be changed, save the game?
 		i may want to save the game before the choice is made, so you can go back and pick the other choice
+-
+
+
+
 
 --------------------------------------------------------
 playtest notes

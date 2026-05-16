@@ -7,7 +7,7 @@ var my_stat:StringName = Stats.strength
 
 func setup_basic_item_data() -> void:
 	reward_name = "Iron Handaxe" # "Generic Item"
-	reward_sprite = load("res://sprites/items/basic_axe.png")
+	reward_sprite = load("res://sprites/iron_axe.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	item_categories = {
 		Categories.item_rarity : Categories.Rarity.COMMON,

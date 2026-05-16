@@ -18,7 +18,6 @@ func _ready() -> void:
 	ScenarioEvents.begin_combat_with.connect(func(_unused_data) -> void: change_to_combat())
 	ScenarioEvents.completed_combat_as_victory.connect(resume_scenario_as_victory)
 	ScenarioEvents.completed_combat_as_loss.connect(resume_scenario_as_loss)
-	ScenarioEvents.resuming_tutorial.connect(resume_tutorial)
 	
 	hide_screen()
 
@@ -34,12 +33,8 @@ func lose_chapter() -> void:
 
 func start_chapter() -> void:
 	show_screen()
-	next_page_button.visible = true
-	ScenarioEvents.load_tutorial_first_scenario()
-
-func resume_tutorial() -> void:
-	show_screen()
-	next_page_button.visible = true
+	continue_button.visible = true
+	main_body_text.text = "Your adventure begins!\n\nThe source of evil lies to the east.\n\nGather antique relics to grow strong enough to save the lands!"
 
 func start_scenario(enetered_map_tile:MapTile) -> void:
 	next_page_button.visible = true

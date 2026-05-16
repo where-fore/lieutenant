@@ -67,7 +67,7 @@ func prepare_from_map_tile(map_tile:MapTile) -> void:
 	else:
 		if current_map_tile.tile_data.reward:
 			current_reward = current_map_tile.tile_data.reward
-		if not ScenarioEvents.tutorial_stage: prepare_basic_reward()
+		prepare_basic_reward()
 		prepare_reward()
 
 func prepare_from_scenario(reward:Reward) -> void:

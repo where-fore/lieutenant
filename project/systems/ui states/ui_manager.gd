@@ -31,8 +31,6 @@ func end_rewards_screen() -> void:
 	reward_ui_manager.change_from()
 	if ScenarioEvents.current_scenario:
 		ScenarioEvents.completed_combat_as_victory.emit()
-	if ScenarioEvents.tutorial_stage:
-		ScenarioEvents.load_tutorial_second_scenario()
 	MapEvents.combat_finished_as_victory.emit()
 	MapEvents.combat_all_done.emit()
 

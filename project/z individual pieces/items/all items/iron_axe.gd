@@ -8,7 +8,7 @@ var my_stat_multi:int = BalanceData.basic_stat_scaling
 
 func setup_basic_item_data() -> void:
 	reward_name = "Iron Axe" # "Generic Item"
-	reward_sprite = load("res://sprites/iron_axe.png")
+	reward_sprite = load("res://sprites/items/basic_axe.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	item_categories = {
 		Categories.item_rarity : Categories.Rarity.COMMON,
