@@ -53,7 +53,7 @@ figure out how i want items to make temporary auras
 fix script warnings
 
 
-update math_info tooltip to include info about primary stats caluclating before percentages
+update math_info tooltip to include info about primary stats calculating before percentages
 
 
 would be nice to find a way for the tutorial fetch rewards to be on the tile, not in the spawner

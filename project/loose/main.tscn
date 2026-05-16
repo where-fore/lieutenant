@@ -206,7 +206,6 @@ texture_normal = ExtResource("10_1j0u7")
 stretch_mode = 4
 
 [node name="PauseMenu" type="Control" parent="MainUI"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -215,14 +214,14 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("7_yqr2s")
 
-[node name="ColorRect" type="ColorRect" parent="MainUI/PauseMenu"]
+[node name="TextureRect" type="TextureRect" parent="MainUI/PauseMenu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.92156863)
+texture = ExtResource("10_qmb71")
 
 [node name="MenuButtonCanvas" type="Control" parent="MainUI/PauseMenu"]
 layout_mode = 1
@@ -365,20 +364,6 @@ alignment = 1
 [node name="InfoButton" type="TextureButton" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/BottomRow"]
 custom_minimum_size = Vector2(64, 48)
 layout_mode = 2
-tooltip_text = "How the game does math:
-
-Everything is rounded down to whole numbers, at most steps of calculation.
-
-Percentage multipliers are all summed together first, then applied as a single
-multiplication to your total base.
-Eg.
-50% increased health, 100% increased health
-20 base health, item with +35 health, have taken 5 damage this combat
-
-20 + 35 = 55 base health. 100% base + 50% + 100% = 250% health
-
-55 * 250/100 = 137.5 -> 137 health
--5 damage taken this combat -> 132 health"
 texture_normal = ExtResource("11_obmf6")
 stretch_mode = 5
 
@@ -431,6 +416,113 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 8
 text = "Debug
 Keys"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MathInfoPanel" type="Panel" parent="MainUI/PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="TextureRect" type="TextureRect" parent="MainUI/PauseMenu/MathInfoPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_qmb71")
+expand_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MainUI/PauseMenu/MathInfoPanel/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MainUI/PauseMenu/MathInfoPanel/TextureRect/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainUI/PauseMenu/MathInfoPanel/TextureRect/MarginContainer/ScrollContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 6
+text = "How the game does math:
+------------------------
+
+Everything is rounded down to whole numbers, at most steps of calculation.
+
+------------------------------------------------
+
+Percentage multipliers are all summed together first, then applied as a single multiplication to your total base.
+
+Eg.
+50% increased health, 100% increased health
+20 base health, item with +35 health, have taken 5 damage this combat
+
+20 + 35 = 55 base health. 100% base + 50% + 100% = 250% health
+
+55 * 250/100 = 137.5 -> 137 health
+-5 damage taken this combat -> 132 health
+
+------------------------------------------------
+
+Primary Stats are summed and multiplied first, then their derived secondary stats are summed and then multiplied second.
+Note the \"strength per attack\" value below is made up, confirm in your character stat screen.
+
+Eg.
+10 Strength, 50% Strength, 10 non-Strength Attack, 50% Attack
+
+10 Strength * 150/100 -> 15 Strength. 5 Strength per Attack -> +3 attack
+
+10 non-Strength Attack + 3 Attack from Strength = 13 Attack * 150/100 -> 19.5 -> 19 Attack
+
+------------------------------------------------"
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="CloseButton" type="TextureButton" parent="MainUI/PauseMenu/MathInfoPanel/TextureRect"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -28.0
+offset_right = 25.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+texture_normal = ExtResource("18_nf78q")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="MainUI/PauseMenu/MathInfoPanel/TextureRect/CloseButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+text = "Close"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -609,3 +701,5 @@ texture = ExtResource("20_1fc2u")
 [connection signal="pressed" from="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer/ShuffleIcon" to="." method="_on_shuffle_icon_pressed"]
 [connection signal="pressed" from="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/BottomRow/InfoButton" to="MainUI/PauseMenu" method="_on_info_button_pressed"]
+[connection signal="pressed" from="MainUI/PauseMenu/MathInfoPanel/TextureRect/CloseButton" to="MainUI/PauseMenu" method="_on_close_button_pressed"]
