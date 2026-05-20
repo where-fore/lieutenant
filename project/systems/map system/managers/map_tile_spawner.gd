@@ -73,12 +73,10 @@ func populate_tile_data(tile:MapTile) -> void:
 	#tile.power = this_tile_power - 1 #ignoring 1 tile, for the tutorial is the first tile
 	
 	#maybe spawn a testing tile
-	if spawn_developer_target_dummy:
-		if tile.x_coordinate == columns_to_disable_at_start:
-			if tile.y_coordinate == 0:
-				tile.apply_data(developer_testing_ground.new())
-				tile.permanently_enable()
-				spawn_developer_target_dummy = false
+	if spawn_developer_target_dummy and tile.x_coordinate == columns_to_disable_at_start and tile.y_coordinate == 0:
+		tile.apply_data(developer_testing_ground.new())
+		tile.permanently_enable()
+		spawn_developer_target_dummy = false
 	
 	#final boss stretch
 	elif tile.x_coordinate == columns - columns_to_disable_at_end - 1: #the last column

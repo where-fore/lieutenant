@@ -54,3 +54,5 @@ Enemy deals 6 damage.
 "
 fit_content = true
 scroll_active = false
+scroll_following = true
+scroll_following_visible_characters = true

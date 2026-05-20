@@ -205,6 +205,7 @@ texture_normal = ExtResource("10_1j0u7")
 stretch_mode = 4
 
 [node name="PauseMenu" type="Control" parent="MainUI"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -419,6 +420,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="MathInfoPanel" type="Panel" parent="MainUI/PauseMenu"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -643,7 +645,6 @@ layout_mode = 2
 layout_mode = 1
 
 [node name="CombatLogContainer" type="Control" parent="MainGame/MarginContainer"]
-visible = false
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MainGame/MarginContainer/CombatLogContainer"]
@@ -670,10 +671,49 @@ theme_override_constants/margin_bottom = 4
 [node name="VBoxContainer" type="VBoxContainer" parent="MainGame/MarginContainer/CombatLogContainer/TextureRect/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MainGame/MarginContainer/CombatLogContainer/TextureRect/MarginContainer/VBoxContainer"]
+[node name="TitleBar" type="HBoxContainer" parent="MainGame/MarginContainer/CombatLogContainer/TextureRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="MainGame/MarginContainer/CombatLogContainer/TextureRect/MarginContainer/VBoxContainer/TitleBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MainGame/MarginContainer/CombatLogContainer/TextureRect/MarginContainer/VBoxContainer/TitleBar"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Combat Log"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacer 2" type="Control" parent="MainGame/MarginContainer/CombatLogContainer/TextureRect/MarginContainer/VBoxContainer/TitleBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FullLogButton" type="TextureButton" parent="MainGame/MarginContainer/CombatLogContainer/TextureRect/MarginContainer/VBoxContainer/TitleBar/Spacer 2"]
+custom_minimum_size = Vector2(42, 0)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -42.0
+offset_top = -9.0
+offset_bottom = 9.0
+grow_horizontal = 0
+grow_vertical = 2
+texture_normal = ExtResource("18_nf78q")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="MainGame/MarginContainer/CombatLogContainer/TextureRect/MarginContainer/VBoxContainer/TitleBar/Spacer 2/FullLogButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 4
+text = "Full Log"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -702,3 +742,4 @@ texture = ExtResource("20_1fc2u")
 [connection signal="pressed" from="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/BottomRow/InfoButton" to="MainUI/PauseMenu" method="_on_info_button_pressed"]
 [connection signal="pressed" from="MainUI/PauseMenu/MathInfoPanel/TextureRect/CloseButton" to="MainUI/PauseMenu" method="_on_close_button_pressed"]
+[connection signal="pressed" from="MainGame/MarginContainer/CombatLogContainer/TextureRect/MarginContainer/VBoxContainer/TitleBar/Spacer 2/FullLogButton" to="." method="_on_full_log_button_pressed"]

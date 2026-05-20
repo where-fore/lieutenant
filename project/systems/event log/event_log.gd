@@ -1,6 +1,10 @@
 extends ScrollContainer
 
 @onready var label:RichTextLabel = $MarginContainer/Label
+var linebreak:String = "\n"
+var full_log_history:Array[String]
+var short_log_history:Array[String]
+var short_log_max_size:int = 100
 
 #these probably should have a space at the start, and a period at the end
 var death_messages:Array[String] = [
@@ -31,19 +35,43 @@ func _ready() -> void:
 	HudEvents.chapter_lost.connect(clear_log)
 	#HudEvents.chapter_won.connect(clear_log)
 	#MapEvents.combat_all_done.connect(clear_log)
-	@warning_ignore("untyped_declaration") #programmer short hand for yeeting all the arguments
-	MapEvents.enter_combat_in.connect(func(_unused_data) -> void: clear_log())
-	@warning_ignore("untyped_declaration") #programmer short hand for yeeting all the arguments
-	ScenarioEvents.begin_combat_with.connect(func(_unused_data) -> void: clear_log())
+	MapEvents.enter_combat_in.connect(entering_combat)
+	ScenarioEvents.begin_combat_with.connect(entering_combat)
 
+func entering_combat(current_combat:Variant) -> void:
+	clear_log()
+	var current_enemies:Array[Combatant]
+	if current_combat is Array[Combatant]:
+		current_enemies = current_combat
+	elif current_combat is MapTile:
+		current_enemies = current_combat.tile_data.enemies
+	else:
+		push_error("got sent data type: ", type_string(typeof(current_combat)))
+	
+	new_combat_line(current_enemies)
 
 func clear_log() -> void:
 	label.text = ""
+	short_log_history.clear()
 
-func new_combat_line() -> void:
-	label.text += "\n"
-	label.text += "    ENTERING COMBAT"
-	label.text += "\n"
+func new_combat_line(combatants:Array[Combatant]) -> void:
+	var names:Array[String]
+	for enemy:Combatant in combatants:
+		names.append(enemy.combatant_name)
+	var enemies:String = ", ".join(names)
+	
+	var day:String = "Day " + str(TimeOfDay.current_day)
+	var time:String = str(TimeOfDay.current_time_step * 4) + "h"
+	var time_string:String = day + " " + time
+	
+	var to_append:String = ""
+	to_append += "\n"
+	to_append += " - The moon reads: " + time_string + " - "
+	to_append += "\n"
+	to_append += " -- Combat begins with foes: "
+	to_append += enemies + " -- " #maybe colour these?
+	to_append += "\n"
+	append_to_label(to_append)
 
 func interpret_attack(source_object:Combatant, _amount:int, target_object:Combatant) -> void:
 	var source_name:String = source_object.combatant_name
@@ -136,8 +164,26 @@ func report_death(newly_dead:Combatant) -> void:
 func print_custom_message(message:String) -> void:
 	append_to_label(message)
 
+func show_full_log() -> void:
+	create_text_paragraph(full_log_history)
+	_scroll_to_the_bottom()
+
 func append_to_label(text_to_append:String) -> void:
-	text_to_append = " " + text_to_append
-	var linebreak:String = "\n"
-	if label.text == "": label.text += text_to_append
-	else: label.text += linebreak + text_to_append
+	full_log_history.append(text_to_append)
+	short_log_history.append(text_to_append)
+	
+	while short_log_history.size() > short_log_max_size:
+		short_log_history.remove_at(0)
+	
+	create_text_paragraph(short_log_history)
+	
+	_scroll_to_the_bottom()
+
+func _scroll_to_the_bottom() -> void:
+	await get_tree().process_frame
+	var scrollbar:VScrollBar = get_v_scroll_bar()
+	scrollbar.value = scrollbar.max_value
+
+func create_text_paragraph(text_array:Array[String]) -> void:
+	var starter:String = linebreak + " "
+	label.text = starter.join(text_array)

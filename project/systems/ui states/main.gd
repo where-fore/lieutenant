@@ -8,6 +8,7 @@ extends Node2D
 @export var text_blurb_scene:PackedScene
 @onready var text_blurb_container:Control = $MainGame/MarginContainer/TextBlurbContainer
 @onready var combat_log_container:Control = $MainGame/MarginContainer/CombatLogContainer
+@onready var combat_log_object:Control = $MainGame/MarginContainer/CombatLogContainer/TextureRect/MarginContainer/VBoxContainer/EventLog
 
 @onready var crt_filter_container:CanvasLayer = $CRTFilter
 @onready var game_start_button_container:Control = $MainUI/GameStarter
@@ -115,6 +116,9 @@ func _on_inventory_menu_button_pressed() -> void:
 
 func _on_combat_log_button_pressed() -> void:
 	combat_log_container.visible = !combat_log_container.visible
+
+func _on_full_log_button_pressed() -> void:
+	combat_log_object.show_full_log()
 
 func update_time_of_day_ui() -> void:
 	if time_button_container.visible == false:

@@ -1,7 +1,6 @@
 extends Node2D
 class_name MapTile
 
-var unique_tile_id:String
 var tile_data:MapTileData
 var currently_disabled:bool = false
 var permanently_disabled:bool = false
@@ -37,9 +36,6 @@ func apply_data(data:MapTileData) -> void:
 	animated_sprite_component.sprite_frames = data.tile_animation
 	animated_sprite_component.play()
 
-func _init() -> void:
-	unique_tile_id = str(ResourceUID.create_id())
-
 func _ready() -> void:
 	@warning_ignore("untyped_declaration") #programmer short hand for yeeting all the arguments
 	MapEvents.venture_to.connect(func(_unused_data) -> void: stop_hover_animation())
@@ -57,9 +53,12 @@ func _ready() -> void:
 	selection_effect_timer.wait_time = hover_animation_speed / frames_in_hover_animation
 
 func new_day_check() -> void:
-	tile_data.generate_encounters()
-	tile_data.scale_stats()
-	HudEvents.map_tile_updated.emit(self)
+	if tile_data:
+		tile_data.generate_encounters()
+		tile_data.scale_stats()
+		HudEvents.map_tile_updated.emit(self)
+	else:
+		push_error("tile at x: ", x_coordinate, ", y: ", y_coordinate, " had no tile_data declared")
 
 func encounter_this_tile() -> void:
 	if tile_data.scenario:
