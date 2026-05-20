@@ -9,11 +9,14 @@ var display_blurb:String
 var display_sprite:Texture2D
 
 func next_page_base() -> void:
+	print_stack()
+	print_debug("starting on page: ", current_page)
 	var amount_of_pages:int = text_pages.size()
 	if current_page < amount_of_pages:
 		current_page += 1
 		ScenarioEvents.updated.emit()
 	else: pass
+	print_debug("now loading page: ", current_page)
 	
 	check_if_on_last_page()
 

@@ -25,11 +25,7 @@ func next_page() -> void:
 		var enemies_to_send:Array[Combatant] = [enemies[0]]
 		ScenarioEvents.setup_reward.emit(rewards.pick_random())
 		ScenarioEvents.begin_combat_with.emit(enemies_to_send)
-		end_combat()
 	else: next_page_base()
-
-func end_combat() -> void:
-	next_page_base()
 
 func scale_scenario_to_time() -> void:
 	if TimeOfDay.current_day >= 3:

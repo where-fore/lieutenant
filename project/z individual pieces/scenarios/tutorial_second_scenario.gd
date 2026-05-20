@@ -15,7 +15,7 @@ func next_page() -> void:
 	if current_page == 1:
 		ScenarioEvents.setup_reward.emit(rewards[0])
 		ScenarioEvents.present_rewards.emit()
-	next_page_base()
+	else: next_page_base()
 
 func on_finish_scenario() -> void:
 	ScenarioEvents.finish_tutorial()
