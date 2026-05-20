@@ -1,7 +1,6 @@
 extends MapTileData
 
 func _init() -> void:
-	internal_name = "common enemy"
 	tile_animation = pick_animation()
 	enemies = pick_enemies()
 	reward = pick_item()

@@ -1,7 +1,6 @@
 extends MapTileData
 
 func _init() -> void:
-	internal_name = "common enemy"
 	tile_animation = pick_animation()
 	#scenario = load("res://z individual pieces/scenarios/test_scenario_fixed.gd").new()
 	enemies = [Database.get_combatant_by_id("skeleton_behemoth")]

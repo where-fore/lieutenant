@@ -2,6 +2,26 @@
 working notes
 --------------------------------------------------------
 
+
+
+--------------------------------------------------------
+work to do
+--------------------------------------------------------
+
+items:
+	target dummy setup
+	way to start with items (for player testing, but also recruited player characters, and enemies)
+	temporary aura on item system
+	check the warnings to see if i have all the functionality ready
+	implement/test current ideas
+
+assorted:
+	scenario step system or similar, for re-treading
+	combat failsafe
+	tiles holding variable table rewards
+
+
+
 would be nice to have a little target dummy set up for testing
 	i could have a target dummy button, it takes you to a combat with a target dummy
 		messes with permanent effects from combat - if i have a weapon that transforms, or permanent healing, or any other meta benefit
@@ -22,7 +42,7 @@ want to have a nice way to start with an item
 		would still be nice to start a run with the item to test interactions
 
 
-figure out how i want items to make temporary auras
+figure out how i want items to make temporary auras from items
 	i could do the crashing-waves type where i have built in basic auras
 		and i could grab those, tweak some values, and send it
 	i could do arrogant axe style, have a full aura creation function in the item
@@ -30,6 +50,20 @@ figure out how i want items to make temporary auras
 	
 	probably do crashing-waves style once i do the same thing twice, but arrogant axe style Nthe first time?
 	
+	generally:
+		item:
+			my_aura = create_aura()
+			do stuff here, change duration and additive stats etc
+			send_aura(my_aura)
+		itemManager:
+			on equip: item.aura_sent.connect(send_item_aura)
+			send_item_aura(aura)
+			aura_sent.emit(aura)
+		combatant:
+			itemmanager.aura_sent.connect(auramanager.apply_aura_from_item)
+		auramanager:
+			apply_aura_from_item(aura):
+				apply_aura(aura)
 	
 	threshold auras - i really like these ideas so far, and i want to codify how they work
 		when do they check?
@@ -43,71 +77,113 @@ figure out how i want items to make temporary auras
 					probably just call the stat_update again when the first str threshold falls, so the hp threshold is checked
 		
 		could also be an aura property - maybe the items just apply an aura "if str > 50 then", the threshold being a sub property
+			remember i have duration special for this
 		and on stat update on a combatant, aura manager checks all thresholds
 			circular check here too ofc
 			
 			maybe on any stat update, so i can have thresholds of "enemy attack > 50"
 				hm not sure how to grab aura's enemies
 				same problem as the flanking sword ideally
+		
+		not sure if auras should know who their owner is - if so, easy "owner.attack > 50"
+			otherwise, can rely on auramanager signal, and auramanger sends down parent combatant
+			
+			feels like auras should know their parent, but also auras don't exist without a manager, so can work that way totally fine. i want say spellsteal abilites to be able to take an aura, not repurpose/recreate an aura
+			currently aura managers do all the checking, even duration ones, so makes sense for thresholds to follow the same logic
 
-fix script warnings
+fix script warnings for items
 
-would be nice to find a way for the tutorial fetch rewards to be on the tile, not in the spawner
-	not sure how, but i do want to do this regularly - have an array of something on the tile, that the spawner can draw from
-		instead of currently the spawner assigns rewards to be something in the spawner logic
-		id rather the spawner decide who gets index0 and who gets index1 from the tiles possibility array
 
 
 please god streamline these item/aura borders
 	some are 16x16 with red border
 	some are 16x16 with purple border
 	some are 16x16 with no border
+	
+	i think i want 16x16 drawings with 1px border all around for 18x18 total? double check on amount of items i want visible on screen/ui at once
+		and the borders to be separate, so i can change their colour based on active/rarity/item or aura type, and stuff
+
+
+--
 
 
 
+tile/scenario feature: check something, and present scenario accordingly. eg. if you've visited before, do second step of scenario (if you've visited before BUT NOT complete quest, do third step of scenario which is "come back later nerd")
+	could do elder scrolls journal step system?
+		maybe a scenario_step function on the scenario, and a selection of pages[] arrays. when entering, do a function to check what page array to actually load, then do that
+		or maybe have different literal scenario scripts, and a master_scenario holds a selection of them, and when doing the check it loads a certain one
+			maybe check master_scenario and it returns a scenario, for all those events
+			i would kinda prefer all the scenario to be on one file probably, cleaner for fetch quest with multiple simple steps to them
+			but if i want modular scenarios like a generic area looted, settlement abandoned, etc; would be better for master to load sub
+				i guess i could do both lmao
+		
+		make sure this doesn't interfere with the map_tiles reloading/re-generating on day start\
 
---------------------------------------------------------
-work to do
---------------------------------------------------------
+	alternatively, could just do if-statements per page
+		if quest_complete, then page1 = "good job!"
+		else if not quest_complete, then page1 = "come back later"
+		
+		seems clunky, i think i would rather the journal-step type system
+	
+	
+	implement: redo the tutorial as a hut at the very start, you go get ring, come back, trains you to beat the skeleton forest wall
 
-targeting
-	let players choose targets somehow
-	have enemies target somehow
 
 probably should get that infinite-combat-breakpoint somewhere
 	could quickly have a main menu -> forfeit combat option
 	would like it to be systematic at some point
 		maybe each side only takes turns as long as they have stamina? and without stamina you instantly die?
-			stamina = total stats?
-			balanced to turns possible or something
+			stamina = total stats? probably want it to scale a bit with game length (ie. more turns possible at end of game due to more complicated builds/higher hp), but not too drastically, there can be really long fights with small stat values
+				can just hardcode 50 turns or whatever for now
+				probably do this in the combat_manager
+				make sure to put a custom combat log message or something, so it's clear why the combat randomly ended
+-
 
-new tutorial
-	need to have a tile who doesn't clear when the scenario is done
-	just finishes and saves the "step" of the scenario
-		probably a flag on the scenarios, same as the pages but meta_step not page_number
-		on finish_scenario:
-			if current_meta_step = final_meta_step
-				clear_data
-			else
-				current_meta_step += 1
-	
-	thinking the tutorial should be a hut at the start, you have to go out to the wolves and gather, and then come back
-	otherwise the monsters in the forest beat you
-	
-	i do really like unlocking the ui buttons as they become relevant
 
+would be nice to find a way for the tile_tutorial_fetch rewards to be on the tile, not in the spawner script
+	not sure how, but i do want to do this regularly - have an array of something on the tile, that the spawner can draw from
+		instead of currently the spawner assigns rewards to be something in the spawner logic
+		id rather the spawner decide who gets index0 and who gets index1 from the tiles possibility array
+		
+		i guess the tile should have it in generate_encounters? but i want there to be 1 special ring and (number of rows - 1) normal rings on the rest of the column. the tiles can't know that
+			i guess the spawner generates an array for each row [1,2,3], then shuffles, then does generate_pool_based_reward(value)
+				generate_pool_based_value(value)
+					if value == 1:
+						reward = special_ring
+					else:
+						reward = regular_ring
+		
+		could also have a function on the tile to generate an array of items based on a table setup
+			generate_reward_pool(number_of_rewards) -> array
+				var array_to_return
+				
+				array_to_return += special_ring
+				number_of_rewards -= 1
+				
+				while number_of_rewards > 0:
+					array_to_return += basic_ring
+					number_of_rewards -= 1
+				
+				return array_to_return
+				
+				and spawner gives every tile pop_front from that shuffled array?
+				
+			have that function on every custom pool tile. easy to repurpose and individualize. can combine in tile function if i find myself repeating
+				not sure when that should be called, since not all tiles need it. i guess just manually in the spawner, and have an error in the tile if reward isn't spawned?
+					not sure where to put that error, reward will just be blank?
+		
+		make a lil-question mark item/aura as a dev placeholder for these kinds of tiles
+-
+
+targeting
+	let players choose targets somehow
+	have enemies target somehow
 
 move main.gd functions relating to the buttons to main_ui.gd (new)
 
 clear that ghost array when pushing more combatants from a maptile than im ready for (combat_ui_manager.assign_enemies_to_ui())
 
 organize these notes and brainstorm
-
-would like to be able to give combatants test items, or something similar to test out items
-	ill need combatants to start with items anyways, probably want jon the thief to have a few items when you recruit them, for example
-	and enemies with items!!!!
-	
-i really need to have some sort of system for making temporary custom auras on items, like the warding pike/arrogant axe. DRY
 
 be able to delete items / give to other party members
 	give rewards the "deleteable" property, false for cursed items? important character items?
@@ -167,6 +243,9 @@ how-to-play-the-game:
 
 
 how-to-understand-the-game:
+
+	user interface
+		i like unlocking them as you do things with them - combat log after the first enemy with a unique effect, inventory after getting an item etc
 
 	percentage multipliers rounding down, maybe even each step
 	item effect ordering vs auras

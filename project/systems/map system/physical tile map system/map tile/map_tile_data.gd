@@ -7,9 +7,15 @@ var enemies:Array[Combatant]
 var reward:Reward
 var item_reward:Item
 var aura_reward:Aura
-var internal_name:String
+var script_path:String
 
 var stops_vision:bool = false
+
+func setup() -> void:
+	set_script_path_to_file_name()
+
+func set_script_path_to_file_name() -> void:
+	script_path = get_script().resource_path.get_file().get_basename()
 
 func basic_scale_stats_by_day() -> void:
 	if enemies:

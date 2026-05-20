@@ -30,9 +30,10 @@ var scenario_for_retreading:Scenario = load("res://z individual pieces/scenarios
 func apply_data(data:MapTileData) -> void:
 	tile_data = data
 	tile_data.apply_to_tile(self)
+	tile_data.setup()
 
 	if not tile_data.tile_animation:
-		push_error("no animation set for tile: " + "\"" + tile_data.internal_name + "\"")
+		push_error("no animation set for tile: " + "\"" + tile_data.script_path + "\"")
 	animated_sprite_component.sprite_frames = data.tile_animation
 	animated_sprite_component.play()
 

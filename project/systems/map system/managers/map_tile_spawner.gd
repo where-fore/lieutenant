@@ -9,6 +9,7 @@ extends Node2D
 @export var tutorial_first_common_tile:GDScript
 @export var tutorial_fetch_tile:GDScript
 @export var tutorial_unique_tile:GDScript
+@export var developer_testing_ground:GDScript
 
 @export_category("Map Grid Builder")
 @export var mapTileBase:PackedScene
@@ -30,6 +31,8 @@ var tutorial_fetch_rewards:Array[Item]
 var rare_roll_entropy:int
 
 var current_chunk:Array[MapTileData]
+
+var spawn_developer_target_dummy:bool = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -69,8 +72,16 @@ func populate_tile_data(tile:MapTile) -> void:
 	#var this_tile_power:int = tile.x_coordinate - columns_to_disable_at_start
 	#tile.power = this_tile_power - 1 #ignoring 1 tile, for the tutorial is the first tile
 	
+	#maybe spawn a testing tile
+	if spawn_developer_target_dummy:
+		if tile.x_coordinate == columns_to_disable_at_start:
+			if tile.y_coordinate == 0:
+				tile.apply_data(developer_testing_ground.new())
+				tile.permanently_enable()
+				spawn_developer_target_dummy = false
+	
 	#final boss stretch
-	if tile.x_coordinate == columns - columns_to_disable_at_end - 1: #the last column
+	elif tile.x_coordinate == columns - columns_to_disable_at_end - 1: #the last column
 		if tile.y_coordinate == 0 or tile.y_coordinate == 2:
 			tile.apply_data(generic_border_data.new())
 			tile.permanently_disable()

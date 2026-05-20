@@ -65,7 +65,7 @@ func load_scenario_combat_from_tile() -> void:
 	if not temporary_map_tile:
 		push_error("tried to load combatant from map tile because event told me to, but a combatant was never saved")
 	if not temporary_map_tile.tile_data.enemies:
-		push_error("tried to load a map tile combat, but there's no enemy on this tile: " + temporary_map_tile.tile_data.internal_name)
+		push_error("tried to load a map tile combat, but there's no enemy on this tile: " + temporary_map_tile.tile_data.script_path)
 	ScenarioEvents.begin_combat_with.emit(temporary_map_tile.tile_data.enemies)
 
 func load_scenario_combat(enemies:Array[Combatant]) -> void:
