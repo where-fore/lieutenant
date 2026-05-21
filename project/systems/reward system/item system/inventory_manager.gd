@@ -27,10 +27,10 @@ func get_all_equipped_items() -> Array[Item]:
 	return inventory
 
 func equip_item(new_item:Item) -> void:
-	interpret_new_item(new_item)
 	if parent_combatant.is_a_player:
 		HudEvents.reward_added.emit(parent_combatant, new_item)
 		CombatLogEvents.item_equipped.emit(new_item, parent_combatant)
+	interpret_new_item(new_item)
 
 func unequip_item(old_item:Item) -> void:
 	interpret_removed_item(old_item)
@@ -38,6 +38,7 @@ func unequip_item(old_item:Item) -> void:
 
 func interpret_new_item(item:Item) -> void:
 	inventory.append(item)
+	item.setup(parent_combatant)
 	
 	var item_aura:Aura = item.get_aura()
 	parent_combatant.apply_aura_or_item(item_aura)
@@ -49,6 +50,8 @@ func interpret_new_item(item:Item) -> void:
 	
 	item.custom_aura_added.connect(parent_combatant.apply_aura_or_item)
 	item.custom_aura_removed.connect(parent_combatant.remove_aura_or_item)
+	
+	item.on_equip()
 
 func interpret_removed_item(item:Item) -> void:
 	inventory.erase(item)

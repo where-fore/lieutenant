@@ -23,6 +23,6 @@ func setup_item_stats() -> void:
 	
 	#whatever the item does
 	additive_stat_dictionary[my_stat] = my_stat_add
-	push_warning(reward_name," script not ready")
+	#push_warning(reward_name," script not ready")
 	#something about a threshold buff, and checking it against hp (on damage? on turn start?)
 	#like old arrogant axe

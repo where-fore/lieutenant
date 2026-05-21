@@ -23,6 +23,7 @@ func setup_item_stats() -> void:
 
 func on_attack(source:Combatant, target:Combatant) -> void:
 	var multiples_of_threshold:int = source.current_stats[stat_to_check] / threshold_per_hit
+		#note this is int division so it truncates, as i want
 	var damage_to_deal:int = source.current_stats[stat_to_check] * percent_stat_to_deal / 100
 	while multiples_of_threshold > 0:
 		target.take_damage(damage_to_deal)

@@ -5,6 +5,8 @@ var resource_path_id:String
 var extra_tooltip:String
 var item_categories:Dictionary[StringName, int]
 
+var parent_combatant:Combatant
+
 var custom_aura_templates:Array[GDScript]
 var _custom_auras:Array[Aura]
 signal custom_aura_added(new_aura:Aura)
@@ -16,6 +18,9 @@ var multiplicative_stat_dictionary:Dictionary[StringName, int] = {}
 
 func _init() -> void:
 	setup_item_stats()
+
+func setup(new_parent_combatant:Combatant) -> void:
+	parent_combatant = new_parent_combatant
 
 func get_aura() -> Aura:
 	if _runtime_aura: return _runtime_aura
@@ -41,6 +46,13 @@ func get_tooltip() -> String:
 		
 	if extra_tooltip: tooltip_text += "\n" + extra_tooltip
 	return tooltip_text
+
+func create_new_threshold(thresholds_to_check:Dictionary[StringName, int]) -> ThresholdBehaviour:
+	var new_threshold_behaviour:ThresholdBehaviour = ThresholdBehaviour.new()
+	new_threshold_behaviour.state_changed.connect(threshold_state_changed)
+	new_threshold_behaviour.setup(parent_combatant, thresholds_to_check)
+	
+	return new_threshold_behaviour
 
 func get_custom_auras() -> Array[Aura]:
 	if _custom_auras: return _custom_auras
@@ -71,6 +83,9 @@ func remove_from_custom_auras(old_aura:Aura) -> void:
 func setup_item_stats() -> void:
 	push_error("item tried to instantiate without overriding setup_item_stats()")
 
+func on_equip() -> void:
+	pass
+
 func on_combat_start() -> void:
 	pass
 
@@ -87,4 +102,7 @@ func on_turn_end(_source:Combatant) -> void:
 	pass
 
 func on_combat_end() -> void:
+	pass
+
+func threshold_state_changed(_threshold:ThresholdBehaviour) -> void:
 	pass
