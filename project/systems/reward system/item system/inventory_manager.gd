@@ -4,6 +4,7 @@ class_name ItemManager
 var parent_combatant:Combatant
 
 #this is magically referencing the item ids i want. be wary
+#also note this is global
 var starting_inventory:Array[String] = [
 	#"rock",
 ]

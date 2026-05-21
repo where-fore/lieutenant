@@ -10,7 +10,6 @@ var buff_reward_name:String = "Monumental arrogance"
 var super_attack_growth_percent:int = 50
 
 func setup_basic_item_data() -> void:
-	item_id = "arrogant_axe" # "generic_item"
 	reward_name = "Arrogant Axe" # "Generic Item"
 	reward_sprite = load("res://sprites/double_sided_axe.png")
 	extra_tooltip = "Only grants true power if you have {val} or more attack".format({"val": attack_threshold}) # "Generic flavourful description"

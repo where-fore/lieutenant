@@ -36,10 +36,6 @@ func on_start_combat() -> void:
 
 func on_after_attack() -> void:
 	for stat:StringName in stats_to_buff:
-		if not buff_aura.additive_stat_dictionary.has(stat):
-			buff_aura.additive_stat_dictionary[stat] = 0
-		buff_aura.additive_stat_dictionary[stat] += stat_growth_per_turn
-		
-	buff_aura.update_aura()
+		buff_aura.change_additive_aura(stat, stat_growth_per_turn, true)
 	
-	CombatLogEvents.custom_message.emit(self.name + "'s eyes flare brighter")
+	CombatLogEvents.custom_message.emit(self.combatant_name + "'s eyes flare brighter")

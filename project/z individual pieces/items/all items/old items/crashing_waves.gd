@@ -5,7 +5,6 @@ var my_damage:int = BalanceData.sword_damage / 2
 var aura_template:Aura = load("res://z individual pieces/auras/item auras/crashing_waves_aura.gd").new()
 
 func setup_basic_item_data() -> void:
-	item_id = "crashing_waves" # "generic_item"
 	reward_name = "Crashing Waves" # "Generic Item"
 	reward_sprite = load("res://sprites/hook_sword.png")
 	extra_tooltip = "Power surges by %s every attack" % aura_template.attack_per_turn # "Generic flavourful description"

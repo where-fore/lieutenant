@@ -23,6 +23,19 @@ var multiplicative_stat_dictionary:Dictionary[StringName, int] = {}
 func _init() -> void:
 	setup_aura_stats()
 
+func change_additive_aura(stat:StringName, value:int, add_to_existing:bool = false) -> void:
+	change_aura(additive_stat_dictionary, stat, value, add_to_existing)
+
+func change_multiplicative_aura(stat:StringName, value:int, add_to_existing:bool = false) -> void:
+	change_aura(multiplicative_stat_dictionary, stat, value, add_to_existing)
+
+func change_aura(aura_dict:Dictionary[StringName, int], stat:StringName, value:int, add_to_existing:bool = false) -> void:
+	if add_to_existing:
+		aura_dict[stat] = aura_dict.get(stat, 0) + value
+	else:
+		aura_dict[stat] = value
+	updated.emit()
+
 func create_aura(name:String = "", should_be_visible:bool = true, additive_init:Dictionary[StringName, int] = {}, multiplicative_init:Dictionary[StringName, int] = {}) -> Aura:
 	var this_aura:Aura = self.duplicate(true)
 	
@@ -38,10 +51,6 @@ func create_aura(name:String = "", should_be_visible:bool = true, additive_init:
 	if base_duration: this_aura.current_duration = base_duration
 	
 	return this_aura
-
-func update_aura() -> void:
-	#this should probably be in a setter somewhere
-	updated.emit()
 
 func get_id() -> String:
 	if not unique_id: unique_id = str(ResourceUID.create_id())

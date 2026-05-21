@@ -9,8 +9,6 @@ work to do
 --------------------------------------------------------
 
 items:
-	target dummy setup
-	way to start with items (for player testing, but also recruited player characters, and enemies)
 	temporary aura on item system
 	check the warnings to see if i have all the functionality ready
 	implement/test current ideas
@@ -18,28 +16,7 @@ items:
 assorted:
 	scenario step system or similar, for re-treading
 	combat failsafe
-	tiles holding variable table rewards
-
-
-
-would be nice to have a little target dummy set up for testing
-	i could have a target dummy button, it takes you to a combat with a target dummy
-		messes with permanent effects from combat - if i have a weapon that transforms, or permanent healing, or any other meta benefit
-	i could have a target dummy scene, where starting that scene is just combat with a target dummy
-		makes sense to me, but i'm not sure how to set this up. something that loads the main packed scene, with some custom function setup that fires through everything to get me to a certain scenario?
-	i could have a target dummy scenario, which i slot into whatever is the first set of tiles in my current version of the game
-		bit annoying to scale as i put in a tutorial - even right now i have to click through a few things to even get to the first scenario
-
-	probably have a combat, and a keybind where pressing it just immediately calls the "enter combat with" with the dummy
-
-
-want to have a nice way to start with an item
-	for testing
-	
-	maybe a flag on the item? or a function
-	
-	maybe the testing thing is a scenario, where the first page is a reward which you set, and the second is the target dummy enemy
-		would still be nice to start a run with the item to test interactions
+	tiles holding variable table rewards (like tutorial fetch atm assigned old and special rings, would rather that be in tiles themselves not the spawner)
 
 
 figure out how i want items to make temporary auras from items
@@ -204,7 +181,7 @@ have a proper mechanism to check if it's fine to pass time forward by pressing t
 
 have nice tooltips set up, can still use placeholder art
 
-
+have combatants be able to start with an inventory of items and/or auras
 
 --------------------------------------------------------
 playtest notes
