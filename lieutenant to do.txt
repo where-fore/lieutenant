@@ -2,11 +2,6 @@
 working notes
 --------------------------------------------------------
 
-need to hook up item_base.setup() from the manager to setup the parent relationship
-
-first combat log message isn't getting a space
-	why am i putting a space lmao, just make a margin container?
-
 
 
 
@@ -75,8 +70,6 @@ create_threshold_aura(stat=strength, threshold=60)
 okay so i want
 	create_custom_additive_aura(duration=this combat, stat=strength, value=20)
 	create_custom_multiplicative_aura(duration=turns, stat=strength, value=20, turns_length=4)
-	create_custom_threshold_aura(threshold_stat=strength, threshold_value=60)
-	create_custom_threshold_aura(threshold_stat=strength, stat=strength, value=20, turns_length=4)
 
 
 --------------------------------------------------------
@@ -257,6 +250,12 @@ have a proper mechanism to check if it's fine to pass time forward by pressing t
 have nice tooltips set up, can still use placeholder art
 
 have combatants be able to start with an inventory of items and/or auras
+
+combat log race conditions - equipping a new item that pushes you past an existing threshold, barks the threshold active first, then the new equip second - when i want the new equip to be first, because that's what actually happened
+also: first combat log message isn't getting a space
+	why am i putting a space lmao, just make a margin container?
+-
+
 
 --------------------------------------------------------
 playtest notes

@@ -38,13 +38,8 @@ func threshold_state_changed(threshold:ThresholdBehaviour) -> void:
 #--end of functions called by parents--
 
 func apply_my_aura() -> void:
-	buff_aura = Aura.new().create_aura(buff_reward_name, true)
-	buff_aura.duration_type = AuraNames.DurationType.SPECIAL
-	buff_aura.reward_sprite = reward_sprite
-	
-	buff_aura.multiplicative_stat_dictionary[Stats.health] = super_health_multiplier
-	
-	add_to_custom_auras(buff_aura)
+	buff_aura = create_new_custom_aura(AuraNames.DurationType.SPECIAL, buff_reward_name)
+	buff_aura.change_multiplicative_aura(Stats.health, super_health_multiplier)
 
 func clear_my_aura() -> void:
 	if buff_aura:

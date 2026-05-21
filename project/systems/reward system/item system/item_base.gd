@@ -54,6 +54,29 @@ func create_new_threshold(thresholds_to_check:Dictionary[StringName, int]) -> Th
 	
 	return new_threshold_behaviour
 
+func create_new_custom_aura(duration_type:AuraNames.DurationType, aura_name:String = "", aura_icon:Texture2D = null, duration_length:int = 0) -> Aura:
+	var new_aura_name:String
+	if aura_name: new_aura_name = aura_name
+	else: new_aura_name = reward_name
+	
+	var new_aura_icon:Texture2D
+	if aura_icon: new_aura_icon = aura_icon
+	else: new_aura_icon = reward_sprite
+	
+	var new_aura:Aura = Aura.new().create_aura(new_aura_name)
+	
+	new_aura.duration_type = duration_type
+	if duration_type == AuraNames.DurationType.TURNS:
+		if duration_length:
+			new_aura.base_duration = duration_length
+		else:
+			push_error("was told to make a custom aura for X turns, but was not supplied an X, for item: ", reward_name)
+	
+	new_aura.reward_sprite = new_aura_icon
+	
+	add_to_custom_auras(new_aura)
+	return new_aura
+
 func get_custom_auras() -> Array[Aura]:
 	if _custom_auras: return _custom_auras
 	if not custom_aura_templates: return []
