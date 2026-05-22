@@ -30,7 +30,6 @@ func on_start_combat() -> void:
 func on_after_attack() -> void:
 	if not buff_aura.additive_stat_dictionary.has(Stats.attack):
 		buff_aura.additive_stat_dictionary[Stats.attack] = 0
-	buff_aura.additive_stat_dictionary[Stats.attack] += attack_per_turn
-	buff_aura.update_aura()
+	buff_aura.change_additive_aura(Stats.attack, attack_per_turn, true)
 	
 	CombatLogEvents.custom_message.emit(combatant_name + " roars")

@@ -3,7 +3,7 @@ extends Item
 #whatever the item does, doesn't do anything until you do something with it
 var my_stat:int = BalanceData.basic_stat
 var threshold_per_hit:int = BalanceData.basic_stat * 5
-var percent_stat_to_deal:int = 50
+var percent_stat_to_deal:int = 20
 var stat_to_check:StringName = Stats.dexterity
 
 func setup_basic_item_data() -> void:

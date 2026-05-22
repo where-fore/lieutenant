@@ -2,6 +2,18 @@
 working notes
 --------------------------------------------------------
 
+create prefab buttons and ui frames
+change buttons and ui frames to those prefabs
+
+list out prefabs i need
+make them
+
+main game start large button
+pause menu large text buttons?
+
+large frames
+top ui small square buttons have a texture, and maybe a border, and maybe text overlayed like in pause menu
+small ui rectangle buttons that match text length - "full log" on combat log, "continue", "next page" on text blurb screen
 
 
 
@@ -10,8 +22,6 @@ working notes
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
-
-change ui elements to 9-patches instead of textures
 
 
 
@@ -34,6 +44,10 @@ please god streamline these item/aura borders
 
 --
 
+day and night cycle changing textures and etc
+	change textures
+	have a overlay somewhere that doesn't go over ui
+	
 
 
 tile/scenario feature: check something, and present scenario accordingly. eg. if you've visited before, do second step of scenario (if you've visited before BUT NOT complete quest, do third step of scenario which is "come back later nerd")
