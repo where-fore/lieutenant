@@ -8,16 +8,14 @@ extends Node2D
 @export var text_blurb_scene:PackedScene
 @onready var text_blurb_container:Control = $MainGame/MarginContainer/TextBlurbContainer
 @onready var combat_log_container:Control = $MainGame/MarginContainer/CombatLogContainer
-@onready var combat_log_object:Control = $MainGame/MarginContainer/CombatLogContainer/TextureRect/MarginContainer/VBoxContainer/EventLog
+@onready var combat_log_object:Control = $MainGame/MarginContainer/CombatLogContainer/Frame/MarginContainer/VBoxContainer/EventLog
 
 @onready var crt_filter_container:CanvasLayer = $CRTFilter
 @onready var game_start_button_container:Control = $MainUI/GameStarter
-@onready var pause_button_container:Control = $MainUI/TopButtons/PauseMenuButton
-@onready var inventory_menu_button_container:Control = $MainUI/TopButtons/InventoryMenuButton
-@onready var time_button_container:Control = $MainUI/TopButtons/TimeButton
-@onready var time_button:Control = $MainUI/TopButtons/TimeButton/MarginContainer/TimeButton
+@onready var pause_menu_button:Control = $MainUI/TopButtons/PauseMenuButton
+@onready var inventory_menu_button:Control = $MainUI/TopButtons/InventoryMenuButton
+@onready var time_button:Control = $MainUI/TopButtons/TimeButton
 @onready var pause_menu_container:Control = $MainUI/PauseMenu
-@onready var scrolling_log_container:Control = $MainGame/MarginContainer/RightSideUI/EventLog
 @onready var right_side_ui_container:Control = $MainGame/MarginContainer/RightSideUI
 @onready var stats_ui_container:Control = $MainGame/MarginContainer/StatsUIContainer
 
@@ -29,14 +27,13 @@ func _ready() -> void:
 	TimeOfDay.time_moved_forward.connect(update_time_of_day_ui)
 	
 	game_start_button_container.visible = true
-	pause_button_container.visible = true
-	inventory_menu_button_container.visible = false
-	time_button_container.visible = false
+	pause_menu_button.visible = true
+	inventory_menu_button.visible = false
+	time_button.visible = false
 	
 	text_blurb_container.visible = true
 	pause_menu_container.visible = false
 	
-	scrolling_log_container.visible = false
 	right_side_ui_container.visible = true
 	stats_ui_container.visible = false
 	combat_log_container.visible = false
@@ -88,7 +85,7 @@ func _on_resume_button_pressed() -> void:
 	close_pause_menu()
 
 func show_inventory_button() -> void:
-	inventory_menu_button_container.visible = true
+	inventory_menu_button.visible = true
 
 func close_pause_menu() -> void:
 	if pause_menu_container.visible:
@@ -121,8 +118,8 @@ func _on_full_log_button_pressed() -> void:
 	combat_log_object.show_full_log()
 
 func update_time_of_day_ui() -> void:
-	if time_button_container.visible == false:
-		time_button_container.visible = true
+	if time_button.visible == false:
+		time_button.visible = true
 	var day:String = "Day " + str(TimeOfDay.current_day)
 	var time:String = str(TimeOfDay.current_time_step * 4) + "h"
 	time_button.tooltip_text = day + " " + time

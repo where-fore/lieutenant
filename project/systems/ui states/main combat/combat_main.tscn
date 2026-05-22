@@ -1,8 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://djmb1odrj7pil"]
+[gd_scene load_steps=12 format=3 uid="uid://djmb1odrj7pil"]
 
 [ext_resource type="Script" uid="uid://b6t3c758hkbxo" path="res://systems/ui states/main combat/timing_manager.gd" id="1_uqbt6"]
-[ext_resource type="Texture2D" uid="uid://c7a1jxvk522q2" path="res://sprites/border_background.png" id="2_257w6"]
 [ext_resource type="Script" uid="uid://cknq3emhm8aah" path="res://systems/ui states/ui_manager.gd" id="2_ak8mu"]
+[ext_resource type="PackedScene" uid="uid://clrl0tbbkcowa" path="res://ui resources/reusable ui pieces/frame_recessed.tscn" id="2_ee10m"]
 [ext_resource type="PackedScene" uid="uid://c23wtu7mtmkqh" path="res://systems/ui states/death ui/death_ui.tscn" id="4_gx7f6"]
 [ext_resource type="Texture2D" uid="uid://dukmtqmjs4v7y" path="res://sprites/ui_left_bar.png" id="4_lavsf"]
 [ext_resource type="PackedScene" uid="uid://8xcmye81t4or" path="res://systems/ui states/combat ui/combat_ui.tscn" id="7_8s366"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://dpjjrf7ekiuwc" path="res://sprites/box_outer.png" id="9_msc0u"]
 [ext_resource type="PackedScene" uid="uid://ctvt2g0gq4f60" path="res://systems/ui states/reward ui/reward_ui.tscn" id="14_hfile"]
 [ext_resource type="PackedScene" uid="uid://cto8ggdg8cw8x" path="res://zz old scripts/old inventory/inventory_slot.tscn" id="19_i3ysi"]
-[ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="20_wceja"]
 [ext_resource type="Script" uid="uid://c4226uk3kd0at" path="res://systems/combatant system/combat_manager.gd" id="25_388va"]
 
 [node name="TimingManager" type="PanelContainer"]
@@ -25,16 +24,8 @@ script = ExtResource("1_uqbt6")
 layout_mode = 2
 mouse_filter = 2
 
-[node name="UIBackground" type="TextureRect" parent="FullGame"]
+[node name="FrameRecessed" parent="FullGame" instance=ExtResource("2_ee10m")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("2_257w6")
-expand_mode = 1
 
 [node name="GameMain" type="MarginContainer" parent="FullGame"]
 layout_mode = 1
@@ -44,10 +35,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 script = ExtResource("2_ak8mu")
 
 [node name="Control" type="Control" parent="FullGame/GameMain"]
@@ -56,25 +47,26 @@ mouse_filter = 2
 
 [node name="MainUI" type="Panel" parent="FullGame/GameMain/Control"]
 layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -116.0
-offset_right = 440.0
-offset_bottom = 114.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
 [node name="PortraitUI" parent="FullGame/GameMain/Control/MainUI" instance=ExtResource("9_d51yo")]
-visible = false
 layout_mode = 1
+anchors_preset = 15
+anchor_top = 0.0
+anchor_right = 1.0
 offset_left = 0.0
-offset_top = -230.0
-offset_right = 440.0
+offset_top = 0.0
+offset_right = 0.0
 offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="CombatUI" parent="FullGame/GameMain/Control/MainUI" instance=ExtResource("7_8s366")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_top = 0.0
@@ -162,17 +154,6 @@ layout_mode = 2
 
 [node name="Inventory Slot5" parent="FullGame/GameMain/Control/SideUI/SideMain/Inventory" instance=ExtResource("19_i3ysi")]
 layout_mode = 2
-
-[node name="UIBorder" type="TextureRect" parent="FullGame"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("20_wceja")
-expand_mode = 1
 
 [node name="CombatManager" type="Node2D" parent="."]
 script = ExtResource("25_388va")

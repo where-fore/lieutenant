@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ckmvwnsn3a6og"]
 
-[ext_resource type="Script" uid="uid://dbb0cjreqxq1v" path="res://systems/ui states/stats ui/stat_individual.gd" id="1_7dy54"]
+[ext_resource type="Script" uid="uid://dbb0cjreqxq1v" path="res://systems/ui states/stats ui/stats ui pieces/stat_individual.gd" id="1_7dy54"]
 [ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="1_mk4mn"]
 
 [node name="IndividualStat" type="Panel"]
@@ -34,7 +34,7 @@ stretch_mode = 5
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 8
-text = "Master's Love"
+text = "Sensei's Teachings"
 text_overrun_behavior = 3
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]

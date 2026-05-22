@@ -1,16 +1,16 @@
 extends Panel
 class_name InfoPanel
 
-@onready var my_item_panel:StatPanel = $VBoxContainer/Body/MarginContainer/HBoxContainer/Items
-@onready var my_aura_panel:StatPanel = $VBoxContainer/Body/MarginContainer/HBoxContainer/Auras
-@onready var my_title_label:Label = $VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/Label
-@onready var my_portrait:TextureRect = $VBoxContainer/Portrait/MarginContainer/HBoxContainer/Portrait
+@export var my_item_panel:StatPanel
+@export var my_aura_panel:StatPanel
+@export var my_title_label:Label
+@export var my_portrait:TextureRect
 
-@onready var my_health_label:Label = $VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/HealthLabel
-@onready var my_attack_label:Label = $VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/AttackLabel
-@onready var my_strength:DisplayStat = $VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Strength
-@onready var my_dexterity:DisplayStat = $VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Dexterity
-@onready var my_intelligence:DisplayStat = $VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Intelligence
+@export var my_health_label:Label
+@export var my_attack_label:Label
+@export var my_strength:DisplayStat
+@export var my_dexterity:DisplayStat
+@export var my_intelligence:DisplayStat
 
 var my_combatant:Combatant
 

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://ctvt2g0gq4f60"]
+[gd_scene load_steps=5 format=3 uid="uid://ctvt2g0gq4f60"]
 
 [ext_resource type="Script" uid="uid://dytvg3vigehc7" path="res://systems/ui states/reward ui/reward_ui_manager.gd" id="1_tb2ic"]
 [ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="2_mquhj"]
-[ext_resource type="Texture2D" uid="uid://dpjjrf7ekiuwc" path="res://sprites/box_outer.png" id="6_ffv3r"]
+[ext_resource type="Texture2D" uid="uid://cwjj6wggwg4n3" path="res://sprites/18px_border.png" id="3_13bmp"]
+[ext_resource type="Texture2D" uid="uid://drubnkihyub3w" path="res://sprites/items/basic_axe.png" id="3_mquhj"]
 
 [node name="RewardUI" type="Control"]
 layout_mode = 3
@@ -19,6 +20,7 @@ mouse_filter = 2
 script = ExtResource("1_tb2ic")
 
 [node name="EditBorder" type="TextureRect" parent="."]
+visible = false
 custom_minimum_size = Vector2(448, 238)
 layout_mode = 1
 anchors_preset = 15
@@ -79,13 +81,43 @@ theme_override_constants/margin_bottom = 6
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/RewardButtons/RewardButton"]
 layout_mode = 2
 
-[node name="TextureButton" type="TextureButton" parent="Panel/VBoxContainer/RewardButtons/RewardButton/VBoxContainer"]
+[node name="RewardButton" type="Button" parent="Panel/VBoxContainer/RewardButtons/RewardButton/VBoxContainer"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture_normal = ExtResource("6_ffv3r")
-stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/RewardButtons/RewardButton/VBoxContainer/RewardButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="RewardBorder" type="TextureRect" parent="Panel/VBoxContainer/RewardButtons/RewardButton/VBoxContainer/RewardButton/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("3_13bmp")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/RewardButtons/RewardButton/VBoxContainer/RewardButton/MarginContainer/RewardBorder"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="RewardIcon" type="TextureRect" parent="Panel/VBoxContainer/RewardButtons/RewardButton/VBoxContainer/RewardButton/MarginContainer/RewardBorder/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("3_mquhj")
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer/RewardButtons/RewardButton/VBoxContainer"]
 layout_mode = 2
@@ -110,13 +142,43 @@ theme_override_constants/margin_bottom = 6
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/RewardButtons/BasicRewardButton"]
 layout_mode = 2
 
-[node name="TextureButton" type="TextureButton" parent="Panel/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer"]
+[node name="BasicRewardButton" type="Button" parent="Panel/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture_normal = ExtResource("6_ffv3r")
-stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/BasicRewardButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="RewardBorder" type="TextureRect" parent="Panel/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/BasicRewardButton/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("3_13bmp")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/BasicRewardButton/MarginContainer/RewardBorder"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="RewardIcon" type="TextureRect" parent="Panel/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/BasicRewardButton/MarginContainer/RewardBorder/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("3_mquhj")
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer"]
 layout_mode = 2
@@ -148,12 +210,9 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="TextureButton" type="TextureButton" parent="Panel/SkipRewardButton"]
+[node name="TextureButton" type="Button" parent="Panel/SkipRewardButton"]
 custom_minimum_size = Vector2(44, 18)
 layout_mode = 2
-texture_normal = ExtResource("6_ffv3r")
-ignore_texture_size = true
-stretch_mode = 0
 
 [node name="Label" type="Label" parent="Panel/SkipRewardButton/TextureButton"]
 layout_mode = 1
@@ -164,11 +223,10 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 8
 theme_override_font_sizes/font_size = 6
-text = "Skip
-Reward"
+text = "Skip"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="pressed" from="Panel/VBoxContainer/RewardButtons/RewardButton/VBoxContainer/TextureButton" to="." method="_on_reward_button_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/TextureButton" to="." method="_on_basic_reward_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/RewardButtons/RewardButton/VBoxContainer/RewardButton" to="." method="_on_reward_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/BasicRewardButton" to="." method="_on_basic_reward_button_pressed"]
 [connection signal="pressed" from="Panel/SkipRewardButton/TextureButton" to="." method="_on_skip_button_pressed"]

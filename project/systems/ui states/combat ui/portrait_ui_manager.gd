@@ -2,7 +2,7 @@ extends Control
 
 @onready var edit_border:TextureRect = $EditBorder
 
-@onready var player_ui_combatant_container:Control = $Panel/PlayerCombatants
+@export var player_ui_combatant_container:Control
 var player_ui_combatants:Array[UiCombatant]
 
 # Called when the node enters the scene tree for the first time.

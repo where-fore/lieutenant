@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://carnrr8rlj0uw"]
 
 [ext_resource type="Script" uid="uid://b5fvkb467bl1b" path="res://systems/ui states/stats ui/stats_ui_manager.gd" id="1_stf8e"]
-[ext_resource type="PackedScene" uid="uid://bcp8cmhkfnrrs" path="res://systems/ui states/stats ui/info_panel.tscn" id="3_1yman"]
-[ext_resource type="Texture2D" uid="uid://c7a1jxvk522q2" path="res://sprites/border_background.png" id="3_exl47"]
-[ext_resource type="PackedScene" uid="uid://cfwbkw5t7vyfp" path="res://systems/ui states/stats ui/stat_tab.tscn" id="4_1yman"]
+[ext_resource type="PackedScene" uid="uid://bcp8cmhkfnrrs" path="res://systems/ui states/stats ui/stats ui pieces/info_panel.tscn" id="3_1yman"]
+[ext_resource type="PackedScene" uid="uid://0lhcbhnwyj1j" path="res://ui resources/reusable ui pieces/frame_protruding.tscn" id="3_hptkj"]
+[ext_resource type="PackedScene" uid="uid://cfwbkw5t7vyfp" path="res://systems/ui states/stats ui/stats ui pieces/stat_tab.tscn" id="4_1yman"]
 
 [node name="StatsUI" type="Control"]
 layout_mode = 3
@@ -16,16 +16,8 @@ mouse_filter = 1
 script = ExtResource("1_stf8e")
 info_panel_scene = ExtResource("3_1yman")
 
-[node name="EditBorder" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(448, 238)
+[node name="FrameProtruding" parent="." instance=ExtResource("3_hptkj")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_exl47")
-expand_mode = 2
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
@@ -42,7 +34,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "placeholder :)"
 
-[node name="InfoContainer" type="Panel" parent="."]
+[node name="InfoContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -50,41 +42,29 @@ anchor_bottom = 1.0
 offset_bottom = -36.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 6
 
 [node name="InfoPanel" parent="InfoContainer" instance=ExtResource("3_1yman")]
-layout_mode = 0
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 448.0
-offset_bottom = 202.0
+layout_mode = 2
 
-[node name="TabContainer" type="Panel" parent="."]
+[node name="TabContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -36.0
+offset_top = -38.0
 grow_horizontal = 2
 grow_vertical = 0
-
-[node name="Border" type="TextureRect" parent="TabContainer"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_exl47")
-expand_mode = 3
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TabContainer"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 alignment = 1
 
 [node name="StatTab" parent="TabContainer/HBoxContainer" instance=ExtResource("4_1yman")]

@@ -24,6 +24,7 @@ mouse_filter = 2
 script = ExtResource("1_sf58t")
 
 [node name="EditBorder" type="TextureRect" parent="."]
+visible = false
 custom_minimum_size = Vector2(448, 238)
 layout_mode = 1
 anchors_preset = 15
@@ -36,12 +37,9 @@ expand_mode = 2
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_bottom = -86.0
 grow_horizontal = 2
-grow_vertical = 2
 mouse_filter = 2
 
 [node name="EnemyCombatants" type="HBoxContainer" parent="Panel"]

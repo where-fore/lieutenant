@@ -13,7 +13,7 @@ const scenario_blurb_base:String = "Your scouts spot nothing. You expect a surpr
 var scenario_sprite_base:Texture2D = load("res://sprites/question.png")
 const item_reward_text_blurb:String = "They also noticed what looked to be a {reward_name}, ripe for the taking."
 const aura_reward_text_blurb:String = "A protected spot to resupply."
-@onready var venture_button:TextureButton = $MarginContainer/CenterContainer/TextureButton
+@onready var venture_button:Button = $MarginContainer/CenterContainer/TextureButton
 
 @onready var close_timer:Timer = $CloseTimer
 var time_to_close_panel:float = 5

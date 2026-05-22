@@ -4,12 +4,12 @@ extends Control
 
 @onready var edit_border:TextureRect = $EditBorder
 
-@onready var reward_button:TextureButton = $Panel/VBoxContainer/RewardButtons/RewardButton/VBoxContainer/TextureButton
-@onready var reward_button_container:MarginContainer = $Panel/VBoxContainer/RewardButtons/RewardButton
+@onready var reward_button_icon:TextureRect = $Panel/VBoxContainer/RewardButtons/RewardButton/VBoxContainer/RewardButton/MarginContainer/RewardBorder/MarginContainer/RewardIcon
+@onready var reward_button_container:Control = $Panel/VBoxContainer/RewardButtons/RewardButton/VBoxContainer/RewardButton
 @onready var reward_button_label:Label = $Panel/VBoxContainer/RewardButtons/RewardButton/VBoxContainer/Label
 
-@onready var basic_reward_button:TextureButton = $Panel/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/TextureButton
-@onready var basic_reward_button_container:MarginContainer = $Panel/VBoxContainer/RewardButtons/BasicRewardButton
+@onready var basic_reward_button_icon:TextureRect = $Panel/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/BasicRewardButton/MarginContainer/RewardBorder/MarginContainer/RewardIcon
+@onready var basic_reward_button_container:Control = $Panel/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/BasicRewardButton
 @onready var basic_reward_button_label:Label = $Panel/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/Label
 
 @onready var or_label:Label = $Panel/VBoxContainer/RewardButtons/OrLabel
@@ -20,7 +20,7 @@ extends Control
 var basic_title_text_blurb:String = "Victory.\nClaim your boon."
 var basic_waiting_to_apply_text_blurb:String = "Choose the hero to favour."
 var current_title_text_blurb:String
-var basic_reward_text_blurb:String = "Gather\nyour prize"
+var basic_reward_text_blurb:String = "Gather\nyour\nprize"
 var current_reward_text_blurb:String
 
 var current_reward:Reward
@@ -81,36 +81,23 @@ func prepare_reward() -> void:
 	reward_button_container.visible = true
 	
 	if current_reward:
-		reward_button.texture_normal = current_reward.reward_sprite
-		reward_button.tooltip_text = current_reward.get_tooltip()
+		reward_button_icon.texture = current_reward.reward_sprite
+		reward_button_container.tooltip_text = current_reward.get_tooltip()
 	elif not current_reward:
 		current_reward_text_blurb = "Found nothing..."
-		reward_button.texture_normal = reward_empty_texture
-		reward_button.tooltip_text = "Continue..."
+		reward_button_icon.texture = reward_empty_texture
+		reward_button_container.tooltip_text = "Continue..."
 	
-	update_text_blurb_and_inventory_full_indicator()
+	update_reward_text_blurb()
 
 func prepare_basic_reward() -> void:
 	basic_reward_button_container.visible = true
 	
 	var basic_aura_array:Array[Aura] = setup_basic_rewards()
 	current_basic_reward = basic_aura_array.pick_random()
-	basic_reward_button.texture_normal = current_basic_reward.reward_sprite
-	basic_reward_button.tooltip_text = current_basic_reward.get_tooltip()
+	basic_reward_button_icon.texture = current_basic_reward.reward_sprite
+	basic_reward_button_container.tooltip_text = current_basic_reward.get_tooltip()
 	basic_reward_button_label.text = "Rest"
-
-func update_text_blurb_and_inventory_full_indicator() -> void:
-	reward_button.modulate = Color(1,1,1)
-	if current_reward is Item:
-		#should check on hover, maybe on the cursor
-		#if combatant.inventory_is_full() then tooltip.text = "inventory full"
-		#if InventoryEvents.inventory_is_full:
-			#reward_button.modulate = Color(0.3,0.3,0.3)
-			#reward_button_label.text = "Inventory Full"
-		#else:
-		update_reward_text_blurb()
-	else:
-		update_reward_text_blurb()
 
 func setup_basic_rewards() -> Array[Aura]:
 	var basic_reward_array:Array[Aura]
@@ -152,13 +139,13 @@ func all_done() -> void:
 
 func clear_reward() -> void:
 	reward_button_label.text = ""
-	reward_button.texture_normal = reward_empty_texture
-	reward_button.tooltip_text = ""
+	reward_button_icon.texture = reward_empty_texture
+	reward_button_container.tooltip_text = ""
 	reward_button_container.visible = false
 	
 	basic_reward_button_label.text = ""
-	basic_reward_button.texture_normal = reward_empty_texture
-	basic_reward_button.tooltip_text = ""
+	basic_reward_button_icon.texture = reward_empty_texture
+	basic_reward_button_container.tooltip_text = ""
 	basic_reward_button_container.visible = false
 	
 	or_label.visible = false

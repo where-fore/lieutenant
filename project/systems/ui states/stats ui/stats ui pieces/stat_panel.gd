@@ -1,4 +1,4 @@
-extends TextureRect
+extends NinePatchRect
 class_name StatPanel
 
 @onready var individual_stat_container:Control = $MarginContainer/ScrollContainer/VBoxContainer

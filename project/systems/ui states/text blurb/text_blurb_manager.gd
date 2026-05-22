@@ -1,10 +1,10 @@
 extends PanelContainer
 
 @onready var main_body_text:RichTextLabel = $Panel/MarginContainer/VBoxContainer/RichTextLabel
-@onready var continue_button:TextureButton = $Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/ContinueButton
-@onready var next_page_button:TextureButton = $Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/NextPageButton
-@onready var complete_chapter_button:TextureButton = $Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/CompleteChapterButton
-@onready var lost_game_button:TextureButton = $Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/LostGameButton
+@onready var continue_button:Button = $Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/ContinueButton
+@onready var next_page_button:Button = $Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/NextPageButton
+@onready var complete_chapter_button:Button = $Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/CompleteChapterButton
+@onready var lost_game_button:Button = $Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/LostGameButton
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

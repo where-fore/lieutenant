@@ -1,15 +1,18 @@
 [gd_scene load_steps=4 format=3 uid="uid://dk7qdyba0te4d"]
 
-[ext_resource type="Texture2D" uid="uid://c7a1jxvk522q2" path="res://sprites/border_background.png" id="1_eud57"]
-[ext_resource type="Script" uid="uid://debst8m3ba3t" path="res://systems/ui states/stats ui/stat_panel.gd" id="2_q2cm6"]
-[ext_resource type="PackedScene" uid="uid://ckmvwnsn3a6og" path="res://systems/ui states/stats ui/stat_individual.tscn" id="2_voecg"]
+[ext_resource type="Texture2D" uid="uid://dwdk8fjcy2erl" path="res://sprites/ui/frame_console.png" id="1_2jfvw"]
+[ext_resource type="Script" uid="uid://debst8m3ba3t" path="res://systems/ui states/stats ui/stats ui pieces/stat_panel.gd" id="2_q2cm6"]
+[ext_resource type="PackedScene" uid="uid://ckmvwnsn3a6og" path="res://systems/ui states/stats ui/stats ui pieces/stat_individual.tscn" id="2_voecg"]
 
-[node name="Items" type="TextureRect"]
+[node name="Items" type="NinePatchRect"]
 offset_right = 215.0
 offset_bottom = 95.0
 size_flags_horizontal = 3
-texture = ExtResource("1_eud57")
-expand_mode = 2
+texture = ExtResource("1_2jfvw")
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
 script = ExtResource("2_q2cm6")
 individual_stat_scene = ExtResource("2_voecg")
 
@@ -20,10 +23,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
 layout_mode = 2

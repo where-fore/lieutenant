@@ -4,9 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="2_en73q"]
 [ext_resource type="PackedScene" uid="uid://drmvwdj1lrerg" path="res://systems/ui states/combat ui/ui_combatant.tscn" id="3_rojik"]
 [ext_resource type="PackedScene" uid="uid://b13o5cfslg2uj" path="res://systems/event log/event_log.tscn" id="4_en73q"]
-[ext_resource type="Texture2D" uid="uid://c7a1jxvk522q2" path="res://sprites/border_background.png" id="4_rojik"]
+[ext_resource type="PackedScene" uid="uid://b8lotu6wx3eem" path="res://ui resources/reusable ui pieces/frame_console.tscn" id="4_rojik"]
 
-[node name="PortraitUI" type="Control"]
+[node name="PortraitUI" type="Control" node_paths=PackedStringArray("player_ui_combatant_container")]
 layout_mode = 3
 anchors_preset = 2
 anchor_top = 1.0
@@ -18,8 +18,10 @@ offset_bottom = -24.0
 grow_vertical = 0
 mouse_filter = 2
 script = ExtResource("1_vx1xx")
+player_ui_combatant_container = NodePath("Panel/HBoxContainer/PlayerCombatants")
 
 [node name="EditBorder" type="TextureRect" parent="."]
+visible = false
 custom_minimum_size = Vector2(448, 238)
 layout_mode = 1
 anchors_preset = 15
@@ -32,85 +34,79 @@ expand_mode = 2
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 144.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 mouse_filter = 2
 
-[node name="PlayerCombatants" type="HBoxContainer" parent="Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 3.0
-offset_top = -85.0
-offset_right = -62.0
-offset_bottom = -4.0
-grow_horizontal = 0
+offset_top = -81.0
+grow_horizontal = 2
 grow_vertical = 0
+
+[node name="PlayerCombatants" type="HBoxContainer" parent="Panel/HBoxContainer"]
+layout_mode = 2
 theme_override_constants/separation = 2
 
-[node name="SpacerLeft" type="Control" parent="Panel/PlayerCombatants"]
+[node name="SpacerLeft" type="Control" parent="Panel/HBoxContainer/PlayerCombatants"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Player1" parent="Panel/PlayerCombatants" instance=ExtResource("3_rojik")]
+[node name="Player1" parent="Panel/HBoxContainer/PlayerCombatants" instance=ExtResource("3_rojik")]
 layout_mode = 2
 
-[node name="Spacer" type="Control" parent="Panel/PlayerCombatants"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Player2" parent="Panel/PlayerCombatants" instance=ExtResource("3_rojik")]
-layout_mode = 2
-
-[node name="Spacer2" type="Control" parent="Panel/PlayerCombatants"]
+[node name="Spacer" type="Control" parent="Panel/HBoxContainer/PlayerCombatants"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Player3" parent="Panel/PlayerCombatants" instance=ExtResource("3_rojik")]
+[node name="Player2" parent="Panel/HBoxContainer/PlayerCombatants" instance=ExtResource("3_rojik")]
 layout_mode = 2
 
-[node name="Spacer3" type="Control" parent="Panel/PlayerCombatants"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Player4" parent="Panel/PlayerCombatants" instance=ExtResource("3_rojik")]
-layout_mode = 2
-
-[node name="Spacer4" type="Control" parent="Panel/PlayerCombatants"]
+[node name="Spacer2" type="Control" parent="Panel/HBoxContainer/PlayerCombatants"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CombatLogBorder" type="TextureRect" parent="Panel"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -64.0
-offset_top = -86.0
-grow_horizontal = 0
-grow_vertical = 0
-texture = ExtResource("4_rojik")
-expand_mode = 4
+[node name="Player3" parent="Panel/HBoxContainer/PlayerCombatants" instance=ExtResource("3_rojik")]
+layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/CombatLogBorder"]
+[node name="Spacer3" type="Control" parent="Panel/HBoxContainer/PlayerCombatants"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Player4" parent="Panel/HBoxContainer/PlayerCombatants" instance=ExtResource("3_rojik")]
+layout_mode = 2
+
+[node name="Spacer4" type="Control" parent="Panel/HBoxContainer/PlayerCombatants"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Spacer" type="Control" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FrameConsole" parent="Panel/HBoxContainer" instance=ExtResource("4_rojik")]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/HBoxContainer/FrameConsole"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 1
-theme_override_constants/margin_top = 1
-theme_override_constants/margin_right = 1
-theme_override_constants/margin_bottom = 1
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
 
-[node name="EventLog" parent="Panel/CombatLogBorder/MarginContainer" instance=ExtResource("4_en73q")]
+[node name="EventLog" parent="Panel/HBoxContainer/FrameConsole/MarginContainer" instance=ExtResource("4_en73q")]
 layout_mode = 2

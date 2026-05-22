@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8lotu6wx3eem"]
+
+[ext_resource type="Texture2D" uid="uid://dwdk8fjcy2erl" path="res://sprites/ui/frame_console.png" id="1_b3n37"]
+
+[node name="FrameConsole" type="NinePatchRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_b3n37")
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6

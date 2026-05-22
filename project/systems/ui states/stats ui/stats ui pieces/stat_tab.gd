@@ -1,4 +1,4 @@
-extends TextureButton
+extends Button
 class_name StatTab
 
 @onready var _my_portrait_parent:TextureRect = $MarginContainer/HBoxContainer/Portrait
