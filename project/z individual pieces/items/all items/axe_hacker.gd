@@ -6,6 +6,7 @@ var my_stat:StringName = Stats.strength
 var my_stat_per_turn:StringName = Stats.attack
 var my_stat_per_attack:int = BalanceData.basic_attack
 
+var my_buff_aura:Aura
 
 func setup_basic_item_data() -> void:
 	reward_name = "Iron Hacker" # "Generic Item"
@@ -21,7 +22,9 @@ func setup_item_stats() -> void:
 	
 	#whatever the item does
 	additive_stat_dictionary[my_stat] = my_stat_add
-	
-	#push_warning(reward_name," script not ready")
-	#something about creating a this-combat buff, and scaling it per attack
-	#like crashing waves
+
+func on_combat_start() -> void:
+	my_buff_aura = create_new_custom_aura(AuraNames.DurationType.THIS_COMBAT)
+
+func on_turn_start(_source:Combatant) -> void:
+	my_buff_aura.change_additive_aura(my_stat_per_turn, my_stat_per_attack, true)

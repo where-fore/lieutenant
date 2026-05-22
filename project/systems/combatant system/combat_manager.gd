@@ -227,8 +227,12 @@ func pre_combat(enemies:Array[Combatant]) -> void:
 	
 	for ally:Combatant in player_combatants:
 		ally.possible_targets = enemy_combatants.duplicate()
+		ally.allies = player_combatants.duplicate()
+		ally.allies.erase(ally)
 	for enemy:Combatant in enemy_combatants:
 		enemy.possible_targets = player_combatants.duplicate()
+		enemy.allies = enemy_combatants.duplicate()
+		enemy.allies.erase(enemy)
 	
 	current_combatant_turn = null
 	CombatEvents.combat_ongoing = false

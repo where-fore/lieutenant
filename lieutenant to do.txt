@@ -7,136 +7,19 @@ working notes
 
 
 
-
-
-
-
-
-
-item_base has an internal constructor, takes
-duration, optional name + sprite
-	if not provided, uses item name + sprite
-
-item_base has different types of aura functions, so create_additive_stat_aura takes
-name, sprite, duration, additive_stat_dictionary
-
-create_threshold_aura takes
-name, sprite, duration, 
-
-
-Aura.new().create_aura(duration).with_additive_dictionary(my_additive_stats)
-
-
-
-so for arrogant axe, i want to be able to
-create_threshold_aura(stat=strength, threshold=60)
-	no no arrogant axe does custom stuff on threshold, and i dont know how i'd construct that
-	warding pike just gives conditional stats, so maybe that should be constructed like this?
-		when do i want threshold auras like this to check? combat start, turn start, stat update?
-			they read like stat update, just permanent equip bonuses
-			so i should probably do that
-		arrogant axe gives you the arrogance buff on threshold, like the pike gives health%
-			but arrogance buff doesn't do anything, like crashing waves doesn't - it increments every turn_start
-				tooltip is something like "at start of turn, grow in strength equal to part of your current strength"
-					side note, i probably don't want exponential strength, that's dex's playhouse. probably just strength per turn? attack per turn? mountainslide already does this, no need to rewrite
-			
-		so arrogant axe threshold gives a custom aura, pike gives a stat, so threshold auras should be able to hold a threshold, optional stats, optional custom auras
-			they dont even need stats, maybe they are just visual and some scenarios or items can interact with them - one ring does nothing on threshold, but its sister ring gives a benefit to everyone in your party with that aura?
-			i dont have a system to check "if aura exists on target", auras currently are referred to by an internal id, nothing to check against
-
-		so do i want all threshold auras to be hidden and simply provide a visible buff when threshold is reach?
-		pike is just a simple 100%hp aura, arrogance is a scaling aura, but both bespoke auras like crashing waves or striking
-		
-		i dont really want to have to create a custom aura script for every threshold, things like warding pike should be simple
-		
-		note i may want multiple - if dex > 50 then %hp, if str > 50 then %attack etc
-		
-		so i could have a "threshold aura" dummy created when create_custom_threshold_aura
-			not sure how to do this with multiples
-			currently the custom item script holds the reference, with my_buff_aura:Aura for example
-			
-		can i have some sort of function override for thresholds
-			so my item on update checks the threshold, if over, then calls the items if_threshold()
-				which create_custom_additive_aura(duration=this combat, stat=strength, value=20)
-		
-		maybe threshold items listen to signals?
-			item_manager checks on stat_update or combat_start or turn_start or whatever, and sends off true/false to the item
-				can hold any number of thresholds in a dictionary, key-value
-			item hears each threshold and if it changed, if so then does stuff to it
-				bespoke in custom code
-				
-				
-				
-okay so i want
-	create_custom_additive_aura(duration=this combat, stat=strength, value=20)
-	create_custom_multiplicative_aura(duration=turns, stat=strength, value=20, turns_length=4)
-
-
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
 
-items:
-	temporary aura on item system
-	check the warnings to see if i have all the functionality ready
-	implement/test current ideas
+change ui elements to 9-patches instead of textures
+
+
 
 assorted:
 	scenario step system or similar, for re-treading
 	combat failsafe
 	tiles holding variable table rewards (like tutorial fetch atm assigned old and special rings, would rather that be in tiles themselves not the spawner)
 
-
-figure out how i want items to make temporary auras from items
-	i could do the crashing-waves type where i have built in basic auras
-		and i could grab those, tweak some values, and send it
-	i could do arrogant axe style, have a full aura creation function in the item
-		i should probably move some of this to the parent class?
-	
-	probably do crashing-waves style once i do the same thing twice, but arrogant axe style Nthe first time?
-	
-	generally:
-		item:
-			my_aura = create_aura()
-			do stuff here, change duration and additive stats etc
-			send_aura(my_aura)
-		itemManager:
-			on equip: item.aura_sent.connect(send_item_aura)
-			send_item_aura(aura)
-			aura_sent.emit(aura)
-		combatant:
-			itemmanager.aura_sent.connect(auramanager.apply_aura_from_item)
-		auramanager:
-			apply_aura_from_item(aura):
-				apply_aura(aura)
-	
-	threshold auras - i really like these ideas so far, and i want to codify how they work
-		when do they check?
-			atm thinking on turn start. lets you do some weird interactions like "while hp >65%, 2x attack" and "after getting hit, retaliate for 1/2 attack" calling the retaliate even if you dip below threshold - or even if an ally hurts you below the threshold before the enemy even attacks
-			
-			could also just tie to stat update events
-				item manager listens to stat update, and calls all_items.check_thresholds
-				or items themselves subscribe to the events, but that sounds wrong
-				
-				be wary of circular checks - if i have a str threshold for +hp, and an hp threshold, i need to check multiple times in sequence
-					probably just call the stat_update again when the first str threshold falls, so the hp threshold is checked
-		
-		could also be an aura property - maybe the items just apply an aura "if str > 50 then", the threshold being a sub property
-			remember i have duration special for this
-		and on stat update on a combatant, aura manager checks all thresholds
-			circular check here too ofc
-			
-			maybe on any stat update, so i can have thresholds of "enemy attack > 50"
-				hm not sure how to grab aura's enemies
-				same problem as the flanking sword ideally
-		
-		not sure if auras should know who their owner is - if so, easy "owner.attack > 50"
-			otherwise, can rely on auramanager signal, and auramanger sends down parent combatant
-			
-			feels like auras should know their parent, but also auras don't exist without a manager, so can work that way totally fine. i want say spellsteal abilites to be able to take an aura, not repurpose/recreate an aura
-			currently aura managers do all the checking, even duration ones, so makes sense for thresholds to follow the same logic
-
-fix script warnings for items
 
 
 
@@ -172,7 +55,16 @@ tile/scenario feature: check something, and present scenario accordingly. eg. if
 	
 	
 	implement: redo the tutorial as a hut at the very start, you go get ring, come back, trains you to beat the skeleton forest wall
+	
+	also note currently the page step system is a bit fucked - the item_test_scenario.gd skips page 2 for the reward, but not page 4 for the combat??
+		not sure exactly how i want this, but i should streamline it
+-
 
+items cleanup:
+	flanking sword not successful - not sure how to give auras to allies
+	warding pike also added and it's str, so pool is unbalanced towards str items/away from dex
+	mountainslide doesn't provide an aura, so no visual feedback on character screen, like other threshold items?
+-
 
 probably should get that infinite-combat-breakpoint somewhere
 	could quickly have a main menu -> forfeit combat option
@@ -256,6 +148,7 @@ also: first combat log message isn't getting a space
 	why am i putting a space lmao, just make a margin container?
 -
 
+inventory ui doesn't update unless you re-open it, unlike the combat log
 
 --------------------------------------------------------
 playtest notes
@@ -553,6 +446,9 @@ flappy cameo, balloon in the distance
 ----------------------------------------------------------------------------------------------------------------
 things i know are hacky and should be cleaned up (or super duper back burner changes):
 ----------------------------------------------------------------------------------------------------------------
+thresholdBehaviour requires you to create_threshold, then on a second line check_threshold, to account for a race condition
+	 i don't really like this, it'd be nice if it was built in
+
 time of day is a global script, not tied to the game instance
 the ui is currently being managed by main.gd, which i don't want main.gd to do. i want the time of day actor to be indepedent
 	but i couldn't figure out who to parent it to - not the combat, since you care outside combat

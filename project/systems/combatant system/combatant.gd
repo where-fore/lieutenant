@@ -21,6 +21,7 @@ var current_target:Combatant:
 			choose_target_this_turn()
 			return current_target
 		else: return current_target
+var allies:Array[Combatant]
 
 var active:bool = false
 var dead:bool = false

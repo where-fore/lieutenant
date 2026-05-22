@@ -47,10 +47,10 @@ func get_tooltip() -> String:
 	if extra_tooltip: tooltip_text += "\n" + extra_tooltip
 	return tooltip_text
 
-func create_new_threshold(thresholds_to_check:Dictionary[StringName, int]) -> ThresholdBehaviour:
+func create_new_threshold(thresholds_to_check:Dictionary[StringName, int], percent_of_max_hp:int = 0) -> ThresholdBehaviour:
 	var new_threshold_behaviour:ThresholdBehaviour = ThresholdBehaviour.new()
 	new_threshold_behaviour.state_changed.connect(threshold_state_changed)
-	new_threshold_behaviour.setup(parent_combatant, thresholds_to_check)
+	new_threshold_behaviour.setup(parent_combatant, thresholds_to_check, percent_of_max_hp)
 	
 	return new_threshold_behaviour
 
