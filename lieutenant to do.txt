@@ -8,6 +8,8 @@ after routing i have to go back to an old tile, go through the old ground screen
 
 hm not sure how i want the opener, i want a bit more tutorial/time before making a build defining choice. this would solve the first enemy being too strong
 
+2x ring of the vitruvian
+guy who steals half your attack means with +100% attack you lose all your attack, since his steal is buffed by it
 
 --------------------------------------------------------
 work to do
@@ -21,19 +23,6 @@ assorted:
 	tiles holding variable table rewards (like tutorial fetch atm assigned old and special rings, would rather that be in tiles themselves not the spawner)
 	balance/fun pass
 
-
-
-
-please god streamline these item/aura borders
-	some are 16x16 with red border
-	some are 16x16 with purple border
-	some are 16x16 with no border
-	
-	i think i want 16x16 drawings with 1px border all around for 18x18 total? double check on amount of items i want visible on screen/ui at once
-		and the borders to be separate, so i can change their colour based on active/rarity/item or aura type, and stuff
-
-
---
 
 day and night cycle changing textures and etc
 	change textures

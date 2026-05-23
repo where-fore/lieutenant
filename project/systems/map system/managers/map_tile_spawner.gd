@@ -161,6 +161,37 @@ func populate_tutorial_fetch_rewards() -> void:
 	
 	tutorial_fetch_rewards.shuffle()
 
+
+func choose_filler_tile() -> MapTileData:
+	return choose_randomly()
+
+func choose_randomly() -> MapTileData:
+	var common_chance:int = 50
+	var uncommon_chance:int = 30
+	var rare_chance:int = 20
+	
+	if common_chance + uncommon_chance + rare_chance != 100:
+		push_error("map tile chances not summing to 100% chance!")
+	
+	var chosen_blueprint:GDScript
+	var roll:int = randi_range(1, 100)
+	if roll > 100 - rare_chance:
+		chosen_blueprint = rare_combat_tile
+	elif roll > 100 - rare_chance - uncommon_chance:
+		chosen_blueprint = uncommon_combat_tile
+	elif roll > 100 - rare_chance - uncommon_chance - common_chance:
+		chosen_blueprint = common_combat_tile
+	else:
+		push_error("rolled ", roll, " and not sure what to do with it")
+	
+	return chosen_blueprint.new() as MapTileData
+
+func choose_from_chunk() -> MapTileData:
+	if not current_chunk:
+		current_chunk = create_chunk()
+	var this_tile:MapTileData = current_chunk.pop_front()
+	return this_tile
+
 func create_chunk() -> Array[MapTileData]:
 	var this_chunk:Array[MapTileData]
 	var current_row:int = 1
@@ -183,12 +214,6 @@ func create_chunk() -> Array[MapTileData]:
 		current_row = 1
 	
 	return this_chunk
-
-func choose_filler_tile() -> MapTileData:
-	if not current_chunk:
-		current_chunk = create_chunk()
-	var this_tile:MapTileData = current_chunk.pop_front()
-	return this_tile
 
 func choose_rare_or_common_combat() -> MapTileData:
 	var rare_chance:int = 15

@@ -8,5 +8,5 @@ func _init() -> void:
 
 func pick_animation() -> SpriteFrames:
 	var possible_animations:Array[SpriteFrames]
-	possible_animations.append(load("res://z individual pieces/map tiles/animations/forest_plains.tres"))
+	possible_animations.append(load("res://z individual pieces/map tiles/animations/forest_basic.tres"))
 	return possible_animations.pick_random()
