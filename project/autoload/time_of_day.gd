@@ -6,7 +6,7 @@ signal new_day
 var current_time_step:int
 var current_day:int
 
-var steps_per_day:int = 4
+var steps_per_day:int = 6
 var starting_time_step:int = 1
 var starting_day:int = 1
 

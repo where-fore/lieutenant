@@ -4,7 +4,7 @@ extends Node2D
 @export var combat_entire_scene:PackedScene
 @onready var combat_container:Control = $MainGame/MarginContainer/CombatContainer
 @export var map_creation_scene:PackedScene
-@onready var map_container:Control = $MainGame/MarginContainer/MapContainer
+@onready var map_container:Control = $MainGame/MarginContainer/Map/MapContainer
 @export var text_blurb_scene:PackedScene
 @onready var text_blurb_container:Control = $MainGame/MarginContainer/TextBlurbContainer
 @onready var combat_log_container:Control = $MainGame/MarginContainer/CombatLogContainer
@@ -121,7 +121,7 @@ func update_time_of_day_ui() -> void:
 	if time_button.visible == false:
 		time_button.visible = true
 	var day:String = "Day " + str(TimeOfDay.current_day)
-	var time:String = str(TimeOfDay.current_time_step * 4) + "h"
+	var time:String = str( 6 + TimeOfDay.current_time_step * 2) + "h"
 	time_button.tooltip_text = day + " " + time
 
 func _on_time_button_pressed() -> void:

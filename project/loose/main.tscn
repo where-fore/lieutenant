@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=35 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://systems/ui states/main.gd" id="1_bbldx"]
 [ext_resource type="PackedScene" uid="uid://dsbt6u8ma1cpc" path="res://systems/map system/managers/map_tile_system.tscn" id="2_16p2t"]
@@ -32,6 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="20_1fc2u"]
 [ext_resource type="PackedScene" uid="uid://clrl0tbbkcowa" path="res://ui resources/reusable ui pieces/frame_recessed.tscn" id="22_u46kj"]
 [ext_resource type="PackedScene" uid="uid://carnrr8rlj0uw" path="res://systems/ui states/stats ui/stats ui pieces/stats_ui.tscn" id="29_1j0u7"]
+[ext_resource type="Script" uid="uid://bnn132ee6xb33" path="res://systems/light_filter.gd" id="30_cuuk2"]
 [ext_resource type="PackedScene" uid="uid://0lhcbhnwyj1j" path="res://ui resources/reusable ui pieces/frame_protruding.tscn" id="31_rjmfi"]
 
 [node name="Main" type="Node2D"]
@@ -536,34 +537,55 @@ theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
-[node name="Background" type="Node2D" parent="MainGame/MarginContainer"]
+[node name="Map" type="Control" parent="MainGame/MarginContainer"]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Background" type="Node2D" parent="MainGame/MarginContainer/Map"]
 position = Vector2(240, 135)
 
-[node name="SkyBackground" type="Sprite2D" parent="MainGame/MarginContainer/Background"]
+[node name="SkyBackground" type="Sprite2D" parent="MainGame/MarginContainer/Map/Background"]
 texture = ExtResource("12_bbldx")
 
-[node name="SkyForeground" type="Sprite2D" parent="MainGame/MarginContainer/Background"]
+[node name="SkyForeground" type="Sprite2D" parent="MainGame/MarginContainer/Map/Background"]
 texture = ExtResource("13_uaqc7")
 
-[node name="SkyStars" type="AnimatedSprite2D" parent="MainGame/MarginContainer/Background"]
+[node name="SkyStars" type="AnimatedSprite2D" parent="MainGame/MarginContainer/Map/Background"]
 sprite_frames = ExtResource("14_g13l7")
 autoplay = "default"
 
-[node name="MapGridBase" type="Sprite2D" parent="MainGame/MarginContainer"]
+[node name="MapGridBase" type="Sprite2D" parent="MainGame/MarginContainer/Map"]
 position = Vector2(240, 135)
 texture = ExtResource("14_wcgmp")
 
-[node name="SidebarBack" type="AnimatedSprite2D" parent="MainGame/MarginContainer"]
+[node name="SidebarBack" type="AnimatedSprite2D" parent="MainGame/MarginContainer/Map"]
 position = Vector2(240, 135)
 sprite_frames = ExtResource("12_g13l7")
 
-[node name="MapContainer" type="Control" parent="MainGame/MarginContainer"]
-layout_mode = 2
+[node name="MapContainer" type="Control" parent="MainGame/MarginContainer/Map"]
+anchors_preset = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 477.0
+offset_bottom = 267.0
 mouse_filter = 2
 
-[node name="SidebarFront" type="AnimatedSprite2D" parent="MainGame/MarginContainer"]
+[node name="SidebarFront" type="AnimatedSprite2D" parent="MainGame/MarginContainer/Map"]
 position = Vector2(240, 135)
 sprite_frames = ExtResource("13_npwt7")
+
+[node name="LightFilter" type="ColorRect" parent="MainGame/MarginContainer/Map"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+script = ExtResource("30_cuuk2")
+day_colour = Color(0.29, 0.22919668, 0.075399995, 0.19607843)
+night_colour = Color(0.16450001, 0.20014173, 0.47, 0.19607843)
 
 [node name="RightSideUI" type="Control" parent="MainGame/MarginContainer"]
 layout_mode = 2
