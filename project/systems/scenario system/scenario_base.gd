@@ -34,7 +34,7 @@ func basic_scale_enemy_stats_by_day() -> void:
 	if enemies:
 		for enemy:Combatant in enemies:
 			if is_instance_valid(enemy):
-				enemy.scale_stats_basic_exponential(TimeOfDay.current_day)
+				enemy.scale_stats_to_day()
 			else:
 				#let's clear it out
 				#there's probably better places to do this,

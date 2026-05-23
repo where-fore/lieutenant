@@ -2,21 +2,14 @@
 working notes
 --------------------------------------------------------
 
-create prefab buttons and ui frames
-change buttons and ui frames to those prefabs
-
-list out prefabs i need
-make them
-
-main game start large button
-pause menu large text buttons?
-
-large frames
-top ui small square buttons have a texture, and maybe a border, and maybe text overlayed like in pause menu
-small ui rectangle buttons that match text length - "full log" on combat log, "continue", "next page" on text blurb screen
+aseprite change all icons to no border, and save old copies of them with borders?
+make image-with-border scene, not sure how to make it scaleable
 
 
+first unique reward enemy too strong
+after routing i have to go back to an old tile, go through the old ground screen. would be nice if it was instant, or it instantly moved me backto last tile, or something
 
+hm not sure how i want the opener, i want a bit more tutorial/time before making a build defining choice. this would solve the first enemy being too strong
 
 
 --------------------------------------------------------
@@ -29,6 +22,7 @@ assorted:
 	scenario step system or similar, for re-treading
 	combat failsafe
 	tiles holding variable table rewards (like tutorial fetch atm assigned old and special rings, would rather that be in tiles themselves not the spawner)
+	balance/fun pass
 
 
 
@@ -460,6 +454,9 @@ flappy cameo, balloon in the distance
 ----------------------------------------------------------------------------------------------------------------
 things i know are hacky and should be cleaned up (or super duper back burner changes):
 ----------------------------------------------------------------------------------------------------------------
+enemy tooltips on map panel (or elsewhere) show all their stats, even benign things like default crit multi with no crit chance
+	would be nice to have some sort of importance filtering? maybe custom tooltips for enemies only?
+
 thresholdBehaviour requires you to create_threshold, then on a second line check_threshold, to account for a race condition
 	 i don't really like this, it'd be nice if it was built in
 

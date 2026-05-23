@@ -32,7 +32,6 @@ func assign_player_to_ui(player:Combatant) -> void:
 	for uiCombatant:UiCombatant in player_ui_combatants:
 		if not uiCombatant.my_combatant:
 			uiCombatant.assign_combatant(player)
-			uiCombatant.show_actives()
 			assigned = true
 			return #breaks the for loop, ie. stopping at this uicombatant
 	

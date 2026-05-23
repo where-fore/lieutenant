@@ -1,13 +1,13 @@
 extends Control
 
-@onready var combat_button:TextureButton = $CombatControls/VBoxContainer/CombatButton
+@onready var combat_button:Button = $CombatControls/VBoxContainer/CombatButton
 @onready var edit_border:TextureRect = $EditBorder
 
 @onready var turn_button_container:Container = $CombatControls/VBoxContainer/TurnButtons
-@onready var pause_button_border:TextureRect = $CombatControls/VBoxContainer/TurnButtons/PauseButton/TextureRect
-@onready var step_button_border:TextureRect = $CombatControls/VBoxContainer/TurnButtons/StepButton/TextureRect
-@onready var play_button_border:TextureRect = $CombatControls/VBoxContainer/TurnButtons/PlayButton/TextureRect
-@onready var play_fast_button_border:TextureRect = $CombatControls/VBoxContainer/TurnButtons/PlayFastButton/TextureRect
+@onready var pause_button:Button = $CombatControls/VBoxContainer/TurnButtons/PauseButton
+@onready var step_button:Button = $CombatControls/VBoxContainer/TurnButtons/StepButton
+@onready var play_button:Button = $CombatControls/VBoxContainer/TurnButtons/PlayButton
+@onready var play_fast_button:Button = $CombatControls/VBoxContainer/TurnButtons/PlayFastButton
 
 @onready var enemy1_ui_combatant:UiCombatant = $Panel/EnemyCombatants/Enemy
 @onready var enemy2_ui_combatant:UiCombatant = $Panel/EnemyCombatants/Enemy2
@@ -78,8 +78,7 @@ func change_to(enemies:Array[Combatant]) -> void:
 	turn_button_container.visible = true
 	fade_buttons_out()
 	
-	hide_all_button_borders()
-	set_last_chosen_speed_border()
+	set_last_chosen_speed()
 	
 	HudEvents.load_portrait_ui.emit()
 	visible = true
@@ -90,11 +89,12 @@ func change_from() -> void:
 	HudEvents.unload_portrait_ui.emit()
 	visible = false
 
-func set_last_chosen_speed_border() -> void:
+func set_last_chosen_speed() -> void:
+	untoggle_all_buttons()
 	match HudEvents.last_combat_speed_chosen:
-		HudEvents.CombatSpeedNames.STEP: pause_button_border.visible = true
-		HudEvents.CombatSpeedNames.PLAY: play_button_border.visible = true
-		HudEvents.CombatSpeedNames.PLAY_FAST: play_fast_button_border.visible = true
+		HudEvents.CombatSpeedNames.STEP: pause_button.set_pressed_no_signal(true)
+		HudEvents.CombatSpeedNames.PLAY: play_button.set_pressed_no_signal(true)
+		HudEvents.CombatSpeedNames.PLAY_FAST: play_fast_button.set_pressed_no_signal(true)
 		_: push_error("not sure what last combat speed was")
 
 func _on_combat_button_pressed() -> void:
@@ -104,40 +104,34 @@ func _on_combat_button_pressed() -> void:
 	fade_buttons_in()
 
 func _on_pause_button_pressed() -> void:
-	hide_all_button_borders()
-	pause_button_border.visible = true
+	untoggle_all_buttons()
 	HudEvents.last_combat_speed_chosen = HudEvents.CombatSpeedNames.STEP
 	
 	CombatEvents.pause_button_pressed.emit()
 
 func _on_step_button_pressed() -> void:
-	hide_all_button_borders()
-	#step_button_border.visible = true
-	#i don't like the step button lighting up, i want it to feel like a one shot button
-	pause_button_border.visible = true
+	untoggle_all_buttons()
 	HudEvents.last_combat_speed_chosen = HudEvents.CombatSpeedNames.STEP
 	
 	CombatEvents.step_button_pressed.emit()
 
 func _on_play_button_pressed() -> void:
-	hide_all_button_borders()
-	play_button_border.visible = true
+	untoggle_all_buttons()
 	HudEvents.last_combat_speed_chosen = HudEvents.CombatSpeedNames.PLAY
 	
 	CombatEvents.play_button_pressed.emit()
 
 func _on_play_fast_button_pressed() -> void:
-	hide_all_button_borders()
-	play_fast_button_border.visible = true
+	untoggle_all_buttons()
 	HudEvents.last_combat_speed_chosen = HudEvents.CombatSpeedNames.PLAY_FAST
 	
 	CombatEvents.play_fast_button_pressed.emit()
 
-func hide_all_button_borders() -> void:
-	step_button_border.visible = false
-	pause_button_border.visible = false
-	play_button_border.visible = false
-	play_fast_button_border.visible = false
+func untoggle_all_buttons() -> void:
+	pause_button.set_pressed_no_signal(false)
+	step_button.set_pressed_no_signal(false)
+	play_button.set_pressed_no_signal(false)
+	play_fast_button.set_pressed_no_signal(false)
 
 func fade_buttons_out() -> void:
 	turn_button_container.modulate = Color(0.35,0.35,0.35,1)

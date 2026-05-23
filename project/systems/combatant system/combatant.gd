@@ -108,8 +108,8 @@ func remove_shield(value:int) -> void:
 	if shield < 0: shield = 0
 
 func reset_current_stats_to_base() -> void:
-	if not starting_stats.has(Stats.crit_multi):
-		starting_stats[Stats.crit_multi] = Stats.base_crit_multi
+	#if not starting_stats.has(Stats.crit_multi):
+		#starting_stats[Stats.crit_multi] = Stats.base_crit_multi
 		
 	current_stats = starting_stats.duplicate()
 
@@ -132,11 +132,11 @@ func take_turn() -> void:
 	if not dead:
 		var amount_to_attack_for:int = current_stats[Stats.attack]
 		
-		if current_stats.has(Stats.crit_chance):
-			var roll:int = randi_range(1, 100)
-			if roll <= current_stats[Stats.crit_chance]:
-				var multiplier:float = float(current_stats[Stats.crit_multi]) / 100.0
-				amount_to_attack_for = int(amount_to_attack_for * multiplier)
+		#if current_stats.has(Stats.crit_chance):
+			#var roll:int = randi_range(1, 100)
+			#if roll <= current_stats[Stats.crit_chance]:
+				#var multiplier:float = float(current_stats[Stats.crit_multi]) / 100.0
+				#amount_to_attack_for = int(amount_to_attack_for * multiplier)
 		
 		CombatEvents.attack_launched.emit(self, amount_to_attack_for, current_target)
 		on_after_attack_functions(current_target)
@@ -248,9 +248,15 @@ func get_tooltip() -> String:
 func emit_stat_update() -> void:
 	stats_updated.emit()
 
-func scale_stats_basic_exponential(tile_scaling_factor:int) -> void:
-	var base:float = 1.18
-	var scaling_factor:float = base ** tile_scaling_factor
+func scale_stats_to_day() -> void:
+	#var base:float = 1.18
+	#var scaling_factor:float = base ** TimeOfDay.current_day
+	
+	var scaling_factor:float = 1.20
+	
+	scale_starting_stats_to_factor(scaling_factor)
+
+func scale_starting_stats_to_factor(scaling_factor:float) -> void:
 	var stats_to_scale:Array[StringName] = [
 		Stats.strength,
 		Stats.dexterity,
@@ -260,13 +266,12 @@ func scale_stats_basic_exponential(tile_scaling_factor:int) -> void:
 	]
 	for stat:StringName in stats_to_scale:
 		if starting_stats.has(stat):
-			#print("stat ", stat, " was ", starting_stats[stat])
+			#print(combatant_name, ": , ", stat, " was: ", starting_stats[stat])
 			starting_stats[stat] = int(scaling_factor * starting_stats[stat])
-			#print("stat ", stat, " is now ", starting_stats[stat])
+			#print(combatant_name, ": , ", stat, " is now: ", starting_stats[stat])
 	
 	#starting_stats[Stats.health] = starting_stats[Stats.health] * BalanceData.enemy_beginning_health_scaling / 100 + (power * starting_stats[Stats.health] * BalanceData.enemy_health_scaling_per_power)/100
 	#starting_stats[Stats.attack] = starting_stats[Stats.attack] + (power * starting_stats[Stats.attack] * BalanceData.enemy_attack_scaling_per_power)/100
-
 
 #calling functions on other things
 func on_start_combat_functions() -> void:

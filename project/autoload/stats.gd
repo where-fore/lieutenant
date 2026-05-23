@@ -16,6 +16,6 @@ const dexterity_per_health:int = 2
 const intelligence_per_shield_per_turn:int = 10
 
 #make sure to check entropy system implementation before using
-const crit_chance:StringName = &"Crit Chance"
-const crit_multi:StringName = &"Crit Multiplier"
-const base_crit_multi:int = 200
+#const crit_chance:StringName = &"Crit Chance"
+#const crit_multi:StringName = &"Crit Multiplier"
+#const base_crit_multi:int = 200

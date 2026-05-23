@@ -5,7 +5,7 @@ var my_stat_add:int = BalanceData.basic_stat
 var my_stat:StringName = Stats.strength
 
 var starting_hp:int = BalanceData.player_base_strength / Stats.strength_per_health + BalanceData.player_base_dexterity / Stats.dexterity_per_health
-var my_health_threshold:int = starting_hp# * 20
+var my_health_threshold:int = starting_hp * 20
 var my_threshold_stat:StringName = Stats.health
 var my_threshold_attack_factor:int = 25
 

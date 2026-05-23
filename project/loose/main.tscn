@@ -1,9 +1,8 @@
-[gd_scene load_steps=34 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=33 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://systems/ui states/main.gd" id="1_bbldx"]
 [ext_resource type="PackedScene" uid="uid://dsbt6u8ma1cpc" path="res://systems/map system/managers/map_tile_system.tscn" id="2_16p2t"]
 [ext_resource type="PackedScene" uid="uid://djmb1odrj7pil" path="res://systems/ui states/main combat/combat_main.tscn" id="2_qmb71"]
-[ext_resource type="Texture2D" uid="uid://dpjjrf7ekiuwc" path="res://sprites/box_outer.png" id="4_npwt7"]
 [ext_resource type="Material" uid="uid://db4ka5skbpxq4" path="res://loose/crt_major.tres" id="5_bbldx"]
 [ext_resource type="Material" uid="uid://cd0t2uxtmvr0l" path="res://loose/crt_minor.tres" id="6_uaqc7"]
 [ext_resource type="Script" uid="uid://dvk6chwr5wrj4" path="res://loose/pause_menu.gd" id="7_yqr2s"]
@@ -71,7 +70,6 @@ mouse_filter = 2
 layer = 50
 
 [node name="GameStarter" type="Control" parent="MainUI"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -92,13 +90,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="NewGameButton" type="TextureButton" parent="MainUI/GameStarter/GameStartButtons"]
+[node name="NewGameButton" type="Button" parent="MainUI/GameStarter/GameStartButtons"]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 size_flags_vertical = 4
 mouse_filter = 1
-texture_normal = ExtResource("4_npwt7")
-stretch_mode = 0
 
 [node name="Label" type="Label" parent="MainUI/GameStarter/GameStartButtons/NewGameButton"]
 layout_mode = 1
@@ -148,7 +144,6 @@ tooltip_text = "Inventory"
 texture = ExtResource("10_1j0u7")
 
 [node name="PauseMenu" type="Control" parent="MainUI"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -157,14 +152,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("7_yqr2s")
 
-[node name="TextureRect" type="TextureRect" parent="MainUI/PauseMenu"]
+[node name="FrameRecessed" parent="MainUI/PauseMenu" instance=ExtResource("22_u46kj")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("10_qmb71")
 
 [node name="MenuButtonCanvas" type="Control" parent="MainUI/PauseMenu"]
 layout_mode = 1
@@ -199,12 +188,25 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VolumeIcon" type="TextureButton" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer"]
+[node name="VolumeIcon" type="Button" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 tooltip_text = "Swap Genres"
-texture_normal = ExtResource("11_f4q0r")
-stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer/VolumeIcon"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_f4q0r")
 
 [node name="VolumeSlider" type="HSlider" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer"]
 layout_mode = 2
@@ -213,12 +215,25 @@ size_flags_vertical = 4
 tooltip_text = "Music Volume"
 value = 60.0
 
-[node name="ShuffleIcon" type="TextureButton" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer"]
+[node name="ShuffleIcon" type="Button" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 tooltip_text = "Shuffle Playlist"
-texture_normal = ExtResource("12_yqr2s")
-stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer/ShuffleIcon"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("12_yqr2s")
 
 [node name="Spacer2" type="Control" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons"]
 layout_mode = 2
@@ -235,11 +250,9 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="RestartButton" type="TextureButton" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow"]
+[node name="RestartButton" type="Button" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-texture_normal = ExtResource("4_npwt7")
-stretch_mode = 5
 
 [node name="Label" type="Label" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow/RestartButton"]
 layout_mode = 1
@@ -266,11 +279,9 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="ResumeButton" type="TextureButton" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow"]
+[node name="ResumeButton" type="Button" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow"]
 custom_minimum_size = Vector2(64, 48)
 layout_mode = 2
-texture_normal = ExtResource("4_npwt7")
-stretch_mode = 5
 
 [node name="Label" type="Label" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow/ResumeButton"]
 layout_mode = 1
@@ -304,11 +315,9 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
-[node name="InfoButton" type="TextureButton" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/BottomRow"]
+[node name="InfoButton" type="Button" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/BottomRow"]
 custom_minimum_size = Vector2(64, 48)
 layout_mode = 2
-texture_normal = ExtResource("11_obmf6")
-stretch_mode = 5
 
 [node name="Label" type="Label" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/BottomRow/InfoButton"]
 layout_mode = 1
@@ -334,14 +343,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="DebugButton" type="TextureButton" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/BottomRow"]
+[node name="DebugButton" type="Button" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/BottomRow"]
 custom_minimum_size = Vector2(64, 48)
 layout_mode = 2
 tooltip_text = "F10: Toggle Godmode
 F11: Toggle CRT Filter
 F12: Toggle Full Vision"
-texture_normal = ExtResource("11_obmf6")
-stretch_mode = 5
 
 [node name="Label" type="Label" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/BottomRow/DebugButton"]
 layout_mode = 1
@@ -363,30 +370,24 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="MathInfoPanel" type="Panel" parent="MainUI/PauseMenu"]
-visible = false
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = -10.0
-offset_bottom = -10.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -125.0
+offset_right = 230.0
+offset_bottom = 125.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="TextureRect" type="TextureRect" parent="MainUI/PauseMenu/MathInfoPanel"]
+[node name="FrameProtruding" parent="MainUI/PauseMenu/MathInfoPanel" instance=ExtResource("31_rjmfi")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("10_qmb71")
-expand_mode = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="MainUI/PauseMenu/MathInfoPanel/TextureRect"]
+[node name="MarginContainer" type="MarginContainer" parent="MainUI/PauseMenu/MathInfoPanel/FrameProtruding"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -394,15 +395,15 @@ anchor_bottom = 1.0
 offset_bottom = -36.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 6
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MainUI/PauseMenu/MathInfoPanel/TextureRect/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MainUI/PauseMenu/MathInfoPanel/FrameProtruding/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MainUI/PauseMenu/MathInfoPanel/TextureRect/MarginContainer/ScrollContainer"]
+[node name="Label" type="Label" parent="MainUI/PauseMenu/MathInfoPanel/FrameProtruding/MarginContainer/ScrollContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -442,7 +443,7 @@ Eg.
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="CloseButton" type="TextureButton" parent="MainUI/PauseMenu/MathInfoPanel/TextureRect"]
+[node name="CloseButton" type="Button" parent="MainUI/PauseMenu/MathInfoPanel/FrameProtruding"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -451,14 +452,12 @@ anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -25.0
 offset_top = -28.0
-offset_right = 25.0
-offset_bottom = -10.0
+offset_right = 29.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 0
-texture_normal = ExtResource("18_nf78q")
-stretch_mode = 0
 
-[node name="Label" type="Label" parent="MainUI/PauseMenu/MathInfoPanel/TextureRect/CloseButton"]
+[node name="Label" type="Label" parent="MainUI/PauseMenu/MathInfoPanel/FrameProtruding/CloseButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -682,7 +681,7 @@ texture = ExtResource("20_1fc2u")
 [connection signal="pressed" from="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/BottomRow/InfoButton" to="MainUI/PauseMenu" method="_on_info_button_pressed"]
-[connection signal="pressed" from="MainUI/PauseMenu/MathInfoPanel/TextureRect/CloseButton" to="MainUI/PauseMenu" method="_on_close_button_pressed"]
+[connection signal="pressed" from="MainUI/PauseMenu/MathInfoPanel/FrameProtruding/CloseButton" to="MainUI/PauseMenu" method="_on_close_button_pressed"]
 [connection signal="pressed" from="MainGame/MarginContainer/CombatLogContainer/Frame/MarginContainer/VBoxContainer/TitleBar/Spacer 2/FullLogButton" to="." method="_on_full_log_button_pressed"]
 
 [editable path="MainUI/TopButtons/PauseMenuButton"]
