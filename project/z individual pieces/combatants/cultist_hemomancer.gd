@@ -11,7 +11,7 @@ var debuff_reward_name:String = "The Thirst"
 func _init() -> void:
 	combatant_name = "The Thirst" # "Generic Combatant"
 	combatant_texture = load("res://sprites/magic_cultist.png")
-	extra_tooltip = "Siphons {val}% of enemies attack to their will".format({"val":attack_percentage_to_steal}) # "Generic flavourful description"
+	extra_tooltip = "Siphons {val}% of enemies attack to their will, leaving enemies drained.".format({"val":attack_percentage_to_steal}) # "Generic flavourful description"
 	combatant_categories = {
 		Categories.enemy_rarity: Categories.Rarity.MYTHIC,
 	}
@@ -28,17 +28,16 @@ func create_auras() -> void:
 	
 	for enemy:Combatant in possible_targets:
 		var attack_to_steal:int = enemy.current_stats[Stats.attack] * attack_percentage_to_steal/100
-			#note this steals 50% of current attack, and applies that amount as a flat -attack debuff
-			#which means a character with say +100% attack, will get a very large portion stolen
-			#since it steals current attack, not pre-multiplication attack
+		total_attack_to_steal += attack_to_steal
 		
 		debuff_aura = Aura.new().create_aura(debuff_reward_name, true)
 		debuff_aura.duration_type = AuraNames.DurationType.THIS_COMBAT
-		debuff_aura.additive_stat_dictionary[Stats.attack] = -1 * attack_to_steal
-		debuff_aura.visible = false #this stops it from displays event log text, for now. hacky
+		debuff_aura.multiplicative_stat_dictionary[Stats.attack] = -1 * attack_percentage_to_steal
 		enemy.apply_aura_or_item(debuff_aura)
 		
-		total_attack_to_steal += attack_to_steal
+		#note applying a 50% additive debuff is much more impactful if you have a lower multiplier. going from 350% -> 300% attack is much less impactful than 100% -> 50%
+		#but the cultist gains much more attack if you have a higher atack value
+		#overall ideally it incentivizes non-attack-stacking
 	
 	buff_aura = Aura.new().create_aura(buff_reward_name, true)
 	buff_aura.duration_type = AuraNames.DurationType.THIS_COMBAT

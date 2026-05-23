@@ -2,14 +2,23 @@
 working notes
 --------------------------------------------------------
 
+generally things die way too fast, would like 2-3x hp but same attack or so
 
-first unique reward enemy too strong
+
+
+
+
+
+
+
+i'm never adding a new party member, i'd like to do that
+
+rest rewards are still hp/attack, not sure what i want to do there. apply rest aura of +2 all stats to all party members?
+
 after routing i have to go back to an old tile, go through the old ground screen. would be nice if it was instant, or it instantly moved me backto last tile, or something
 
 hm not sure how i want the opener, i want a bit more tutorial/time before making a build defining choice. this would solve the first enemy being too strong
 
-2x ring of the vitruvian
-guy who steals half your attack means with +100% attack you lose all your attack, since his steal is buffed by it
 
 --------------------------------------------------------
 work to do
@@ -21,12 +30,12 @@ assorted:
 	scenario step system or similar, for re-treading
 	combat failsafe
 	tiles holding variable table rewards (like tutorial fetch atm assigned old and special rings, would rather that be in tiles themselves not the spawner)
-	balance/fun pass
+	balance/fun pass (consider multiple combatants)
 
 
 day and night cycle changing textures and etc
-	change textures
-	have a overlay somewhere that doesn't go over ui
+	change textures (can probably wait for the shill)
+	have a overlay somewhere that doesn't go over ui (should probably get ready before the shill)
 	
 
 

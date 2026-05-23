@@ -252,9 +252,7 @@ func scale_stats_to_day() -> void:
 	#var base:float = 1.18
 	#var scaling_factor:float = base ** TimeOfDay.current_day
 	
-	var scaling_factor:float = 1.20
-	
-	scale_starting_stats_to_factor(scaling_factor)
+	scale_starting_stats_to_factor(BalanceData.enemy_stat_scaling_per_day)
 
 func scale_starting_stats_to_factor(scaling_factor:float) -> void:
 	var stats_to_scale:Array[StringName] = [

@@ -10,8 +10,8 @@ var my_stat_bonus:int = BalanceData.basic_stat
 
 
 func setup_basic_item_data() -> void:
-	reward_name = "Ring of the Vitruvian" # "Generic Item"
-	reward_sprite = load("res://sprites/gaudy_ruby_ring.png")
+	reward_name = "Necklace of the Vitruvian" # "Generic Item"
+	reward_sprite = load("res://sprites/adorned_ruby_necklace.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	item_categories = {
 		Categories.item_rarity : Categories.Rarity.RARE,

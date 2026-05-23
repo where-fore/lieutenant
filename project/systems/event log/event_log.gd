@@ -115,7 +115,7 @@ func report_aura_removed(aura:Aura, combatant:Combatant) -> void:
 			var aura_color:String = Color.GOLDENROD.to_html()
 			var combatant_color:String = Color.MEDIUM_VIOLET_RED.to_html()
 			
-			var text_to_add:String = "{aura} bolsters the spirit of {combatant}."
+			var text_to_add:String = "The aura of {aura} loosens from {combatant}."
 			
 			var aura_fancy:String = "[color=#%s]%s[/color]" % [aura_color, aura.reward_name]
 			var combatant_fancy:String = "[color=#%s]%s[/color]" % [combatant_color, combatant.combatant_name]
@@ -127,7 +127,7 @@ func report_aura_applied(aura:Aura, combatant:Combatant) -> void:
 	var aura_color:String = Color.GOLDENROD.to_html()
 	var combatant_color:String = Color.MEDIUM_VIOLET_RED.to_html()
 	
-	var text_to_add:String = "{aura} bolsters the spirit of {combatant}."
+	var text_to_add:String = "The aura of {aura} encircles {combatant}."
 	
 	var aura_fancy:String = "[color=#%s]%s[/color]" % [aura_color, aura.reward_name]
 	var combatant_fancy:String = "[color=#%s]%s[/color]" % [combatant_color, combatant.combatant_name]

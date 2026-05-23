@@ -13,7 +13,7 @@ func _init() -> void:
 		Categories.enemy_rarity: Categories.Rarity.MYTHIC,
 	}
 	
-	starting_stats[Stats.strength] = BalanceData.enemy_mythic_stat_budget
+	starting_stats[Stats.strength] = BalanceData.enemy_mythic_stat_budget / 2
 
 #called by Combatant
 func on_start_combat() -> void:
