@@ -1,15 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://cftv6xngx4kbv"]
 
-[ext_resource type="Texture2D" uid="uid://b806345r0gqph" path="res://sprites/strength.png" id="1_ti1uk"]
 [ext_resource type="Script" uid="uid://bkv8mcd0ccajy" path="res://systems/ui states/stats ui/stats ui pieces/display_stat.gd" id="1_xntwk"]
+[ext_resource type="PackedScene" uid="uid://grafexed8282" path="res://ui resources/reusable ui pieces/icon_with_border.tscn" id="2_4jsjt"]
 
 [node name="DisplayStat" type="HBoxContainer"]
 script = ExtResource("1_xntwk")
 
-[node name="Icon" type="TextureRect" parent="."]
+[node name="IconBorder" parent="." instance=ExtResource("2_4jsjt")]
 layout_mode = 2
-texture = ExtResource("1_ti1uk")
-expand_mode = 2
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2

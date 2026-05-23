@@ -6,9 +6,8 @@ var my_multiplier:int = 50
 
 
 func setup_basic_item_data() -> void:
-	item_id = "iron_sword" # "generic_item"
 	reward_name = "Iron Sword" # "Generic Item"
-	reward_sprite = load("res://sprites/sword.png")
+	reward_sprite = load("res://sprites/sword_basic.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	item_categories = {
 		Categories.item_rarity : Categories.Rarity.COMMON,

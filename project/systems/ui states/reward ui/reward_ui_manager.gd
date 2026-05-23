@@ -4,11 +4,11 @@ extends Control
 
 @onready var edit_border:TextureRect = $EditBorder
 
-@onready var reward_button_icon:TextureRect = $Panel/VBoxContainer/RewardButtons/RewardButton/VBoxContainer/RewardButton/MarginContainer/RewardBorder/MarginContainer/RewardIcon
+@onready var reward_button_icon:IconWithBorder = $Panel/VBoxContainer/RewardButtons/RewardButton/VBoxContainer/RewardButton/MarginContainer/RewardIcon
 @onready var reward_button_container:Control = $Panel/VBoxContainer/RewardButtons/RewardButton/VBoxContainer/RewardButton
 @onready var reward_button_label:Label = $Panel/VBoxContainer/RewardButtons/RewardButton/VBoxContainer/Label
 
-@onready var basic_reward_button_icon:TextureRect = $Panel/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/BasicRewardButton/MarginContainer/RewardBorder/MarginContainer/RewardIcon
+@onready var basic_reward_button_icon:IconWithBorder = $Panel/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/BasicRewardButton/MarginContainer/BasicRewardIcon
 @onready var basic_reward_button_container:Control = $Panel/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/BasicRewardButton
 @onready var basic_reward_button_label:Label = $Panel/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/Label
 
@@ -81,11 +81,11 @@ func prepare_reward() -> void:
 	reward_button_container.visible = true
 	
 	if current_reward:
-		reward_button_icon.texture = current_reward.reward_sprite
+		reward_button_icon.set_icon(current_reward.reward_sprite)
 		reward_button_container.tooltip_text = current_reward.get_tooltip()
 	elif not current_reward:
 		current_reward_text_blurb = "Found nothing..."
-		reward_button_icon.texture = reward_empty_texture
+		reward_button_icon.set_icon(reward_empty_texture)
 		reward_button_container.tooltip_text = "Continue..."
 	
 	update_reward_text_blurb()
@@ -95,7 +95,7 @@ func prepare_basic_reward() -> void:
 	
 	var basic_aura_array:Array[Aura] = setup_basic_rewards()
 	current_basic_reward = basic_aura_array.pick_random()
-	basic_reward_button_icon.texture = current_basic_reward.reward_sprite
+	basic_reward_button_icon.set_icon(current_basic_reward.reward_sprite)
 	basic_reward_button_container.tooltip_text = current_basic_reward.get_tooltip()
 	basic_reward_button_label.text = "Rest"
 
@@ -139,12 +139,12 @@ func all_done() -> void:
 
 func clear_reward() -> void:
 	reward_button_label.text = ""
-	reward_button_icon.texture = reward_empty_texture
+	reward_button_icon.set_icon(reward_empty_texture)
 	reward_button_container.tooltip_text = ""
 	reward_button_container.visible = false
 	
 	basic_reward_button_label.text = ""
-	basic_reward_button_icon.texture = reward_empty_texture
+	basic_reward_button_icon.set_icon(reward_empty_texture)
 	basic_reward_button_container.tooltip_text = ""
 	basic_reward_button_container.visible = false
 	

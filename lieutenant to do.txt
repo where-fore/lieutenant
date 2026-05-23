@@ -2,9 +2,6 @@
 working notes
 --------------------------------------------------------
 
-aseprite change all icons to no border, and save old copies of them with borders?
-make image-with-border scene, not sure how to make it scaleable
-
 
 first unique reward enemy too strong
 after routing i have to go back to an old tile, go through the old ground screen. would be nice if it was instant, or it instantly moved me backto last tile, or something

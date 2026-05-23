@@ -8,7 +8,7 @@ var my_stat:StringName = Stats.dexterity
 
 func setup_basic_item_data() -> void:
 	reward_name = "Iron Sword" # "Generic Item"
-	reward_sprite = load("res://sprites/sword.png")
+	reward_sprite = load("res://sprites/sword_basic.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	item_categories = {
 		Categories.item_rarity : Categories.Rarity.COMMON,

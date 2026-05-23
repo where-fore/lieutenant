@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ckmvwnsn3a6og"]
 
 [ext_resource type="Script" uid="uid://dbb0cjreqxq1v" path="res://systems/ui states/stats ui/stats ui pieces/stat_individual.gd" id="1_7dy54"]
-[ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="1_mk4mn"]
+[ext_resource type="PackedScene" uid="uid://grafexed8282" path="res://ui resources/reusable ui pieces/icon_with_border.tscn" id="2_ccq1d"]
 
 [node name="IndividualStat" type="Panel"]
 custom_minimum_size = Vector2(72, 18)
@@ -24,11 +24,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 2
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
-custom_minimum_size = Vector2(18, 18)
+[node name="IconBorder" parent="HBoxContainer" instance=ExtResource("2_ccq1d")]
 layout_mode = 2
-texture = ExtResource("1_mk4mn")
-stretch_mode = 5
 
 [node name="Label" type="Label" parent="HBoxContainer"]
 layout_mode = 2

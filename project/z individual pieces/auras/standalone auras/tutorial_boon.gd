@@ -7,7 +7,7 @@ var attack_increase:int = BalanceData.sharpen_attack
 func setup_basic_aura_data() -> void:
 	aura_id = "tutorial_boon" # "generic_aura"
 	reward_name = "Old Master's Teachings and Courage" # "Generic aura"
-	reward_sprite = load("res://sprites/heart_purple.png")
+	reward_sprite = load("res://sprites/heart.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	aura_categories = [] # [auraCategories.common_aura]
 

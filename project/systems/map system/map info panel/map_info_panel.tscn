@@ -1,11 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cplxpgrp4s0m8"]
+[gd_scene load_steps=5 format=3 uid="uid://cplxpgrp4s0m8"]
 
 [ext_resource type="Script" uid="uid://cuho5ligd5mhl" path="res://systems/map system/map info panel/map_info_panel.gd" id="1_ub2a6"]
 [ext_resource type="PackedScene" uid="uid://0lhcbhnwyj1j" path="res://ui resources/reusable ui pieces/frame_protruding.tscn" id="2_okqip"]
-[ext_resource type="Texture2D" uid="uid://dth6v53udeute" path="res://sprites/enemy_boss.png" id="3_vmp6v"]
+[ext_resource type="PackedScene" uid="uid://grafexed8282" path="res://ui resources/reusable ui pieces/icon_with_border.tscn" id="3_062vk"]
 [ext_resource type="Texture2D" uid="uid://c1hufcoxbyamt" path="res://sprites/cross_swords.png" id="4_7cdnt"]
-[ext_resource type="Texture2D" uid="uid://5l7smxrm882m" path="res://sprites/question.png" id="4_okqip"]
-[ext_resource type="Texture2D" uid="uid://he7jxdjo8v12" path="res://sprites/hook_sword.png" id="5_oo1bc"]
 
 [node name="MapInfo" type="MarginContainer"]
 anchors_preset = 6
@@ -43,12 +41,11 @@ layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/separation = -2
 
-[node name="EnemySprite" type="TextureRect" parent="MarginContainer/VBoxContainer/EnemyInfo"]
-custom_minimum_size = Vector2(32, 32)
+[node name="EnemySprite" parent="MarginContainer/VBoxContainer/EnemyInfo" instance=ExtResource("3_062vk")]
+custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("3_vmp6v")
 
 [node name="EnemyBlurb" type="RichTextLabel" parent="MarginContainer/VBoxContainer/EnemyInfo"]
 custom_minimum_size = Vector2(16, 16)
@@ -67,12 +64,11 @@ layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/separation = -2
 
-[node name="ScenarioSprite" type="TextureRect" parent="MarginContainer/VBoxContainer/ScenarioBlurb"]
-custom_minimum_size = Vector2(32, 32)
+[node name="ScenarioSprite" parent="MarginContainer/VBoxContainer/ScenarioBlurb" instance=ExtResource("3_062vk")]
+custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("4_okqip")
 
 [node name="ScenarioBlurb" type="RichTextLabel" parent="MarginContainer/VBoxContainer/ScenarioBlurb"]
 custom_minimum_size = Vector2(16, 16)
@@ -94,11 +90,11 @@ layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/separation = -2
 
-[node name="RewardSprite" type="TextureRect" parent="MarginContainer/VBoxContainer/RewardInfo"]
-custom_minimum_size = Vector2(32, 32)
+[node name="RewardSprite" parent="MarginContainer/VBoxContainer/RewardInfo" instance=ExtResource("3_062vk")]
+custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 size_flags_horizontal = 4
-texture = ExtResource("5_oo1bc")
+size_flags_vertical = 4
 
 [node name="RewardBlurb" type="RichTextLabel" parent="MarginContainer/VBoxContainer/RewardInfo"]
 custom_minimum_size = Vector2(16, 16)
@@ -128,21 +124,26 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/CenterContainer/TextureButton/MarginContainer"]
+[node name="IconBorder" parent="MarginContainer/CenterContainer/TextureButton/MarginContainer" instance=ExtResource("3_062vk")]
 layout_mode = 2
+
+[node name="Icon" parent="MarginContainer/CenterContainer/TextureButton/MarginContainer/IconBorder" index="1"]
 texture = ExtResource("4_7cdnt")
 
 [node name="Top" type="Label" parent="MarginContainer/CenterContainer/TextureButton"]
 layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = -4.0
-offset_bottom = 8.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -14.0
+offset_top = -10.0
+offset_right = 14.0
+offset_bottom = 2.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 4
 text = "Venture"
@@ -150,20 +151,24 @@ horizontal_alignment = 1
 
 [node name="Bottom" type="Label" parent="MarginContainer/CenterContainer/TextureButton"]
 layout_mode = 1
-anchors_preset = 12
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_top = -8.0
-offset_bottom = 4.0
+offset_left = -10.0
+offset_top = -3.0
+offset_right = 10.0
+offset_bottom = 9.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 4
 text = "Forth"
 horizontal_alignment = 1
-vertical_alignment = 1
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="timeout" from="CloseTimer" to="." method="_on_close_timer_timeout"]
 [connection signal="pressed" from="MarginContainer/CenterContainer/TextureButton" to="." method="_on_combat_button_pressed"]
+
+[editable path="MarginContainer/CenterContainer/TextureButton/MarginContainer/IconBorder"]

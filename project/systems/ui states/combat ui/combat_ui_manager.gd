@@ -105,24 +105,32 @@ func _on_combat_button_pressed() -> void:
 
 func _on_pause_button_pressed() -> void:
 	untoggle_all_buttons()
+	pause_button.set_pressed_no_signal(true)
+	
 	HudEvents.last_combat_speed_chosen = HudEvents.CombatSpeedNames.STEP
 	
 	CombatEvents.pause_button_pressed.emit()
 
 func _on_step_button_pressed() -> void:
 	untoggle_all_buttons()
+	pause_button.set_pressed_no_signal(true)
+	
 	HudEvents.last_combat_speed_chosen = HudEvents.CombatSpeedNames.STEP
 	
 	CombatEvents.step_button_pressed.emit()
 
 func _on_play_button_pressed() -> void:
 	untoggle_all_buttons()
+	play_button.set_pressed_no_signal(true)
+	
 	HudEvents.last_combat_speed_chosen = HudEvents.CombatSpeedNames.PLAY
 	
 	CombatEvents.play_button_pressed.emit()
 
 func _on_play_fast_button_pressed() -> void:
 	untoggle_all_buttons()
+	play_fast_button.set_pressed_no_signal(true)
+	
 	HudEvents.last_combat_speed_chosen = HudEvents.CombatSpeedNames.PLAY_FAST
 	
 	CombatEvents.play_fast_button_pressed.emit()

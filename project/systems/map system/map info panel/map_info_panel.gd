@@ -1,17 +1,17 @@
 extends MarginContainer
 
 @onready var enemy_info_container:Control = $MarginContainer/VBoxContainer/EnemyInfo
-@onready var enemy_sprite:TextureRect = $MarginContainer/VBoxContainer/EnemyInfo/EnemySprite
+@onready var enemy_sprite:IconWithBorder = $MarginContainer/VBoxContainer/EnemyInfo/EnemySprite
 @onready var enemy_blurb:RichTextLabel = $MarginContainer/VBoxContainer/EnemyInfo/EnemyBlurb
-@onready var reward_sprite:TextureRect = $MarginContainer/VBoxContainer/RewardInfo/RewardSprite
+@onready var reward_sprite:IconWithBorder = $MarginContainer/VBoxContainer/RewardInfo/RewardSprite
 @onready var reward_blurb:RichTextLabel = $MarginContainer/VBoxContainer/RewardInfo/RewardBlurb
 @onready var scenario_blurb_container:Control = $MarginContainer/VBoxContainer/ScenarioBlurb
-@onready var scenario_sprite:TextureRect = $MarginContainer/VBoxContainer/ScenarioBlurb/ScenarioSprite
+@onready var scenario_sprite:IconWithBorder = $MarginContainer/VBoxContainer/ScenarioBlurb/ScenarioSprite
 @onready var scenario_blurb:RichTextLabel = $MarginContainer/VBoxContainer/ScenarioBlurb/ScenarioBlurb
 const enemy_blurb_base:String = "Your scouts spot a {enemy_name} in this land."
 const scenario_blurb_base:String = "Your scouts spot nothing. You expect a surprise."
 var scenario_sprite_base:Texture2D = load("res://sprites/question.png")
-const item_reward_text_blurb:String = "They also noticed what looked to be a {reward_name}, ripe for the taking."
+const item_reward_text_blurb:String = "Treasure spotted: {reward_name}, ripe for the taking."
 const aura_reward_text_blurb:String = "A protected spot to resupply."
 @onready var venture_button:Button = $MarginContainer/CenterContainer/TextureButton
 
@@ -51,8 +51,8 @@ func update_map_tile_info(tile:MapTile) -> void:
 		else: scenario_blurb.text = scenario_blurb_base
 		
 		if tile_info.scenario.display_sprite:
-			scenario_sprite.texture = tile_info.scenario.display_sprite
-		else: scenario_sprite.texture = scenario_sprite_base
+			scenario_sprite.set_icon(tile_info.scenario.display_sprite)
+		else: scenario_sprite.set_icon(scenario_sprite_base)
 		
 	else:
 		scenario_blurb_container.visible = false
@@ -60,14 +60,14 @@ func update_map_tile_info(tile:MapTile) -> void:
 		
 		if tile_info.enemies:
 			var display_enemy:Combatant = tile_info.enemies[0]
-			enemy_sprite.texture = display_enemy.combatant_texture
+			enemy_sprite.set_icon(display_enemy.combatant_texture)
 			enemy_sprite.tooltip_text = display_enemy.get_tooltip()
 			var enemy_name_color:String = Color.ORANGE_RED.to_html()
 			var enemy_name_fancy:String = "[color=#%s]%s[/color]" % [enemy_name_color, display_enemy.combatant_name]
 			enemy_blurb.text = enemy_blurb_base.format({"enemy_name": enemy_name_fancy})
 		
 		if tile_info.reward:
-			reward_sprite.texture = tile_info.reward.reward_sprite
+			reward_sprite.set_icon(tile_info.reward.reward_sprite)
 			reward_sprite.tooltip_text = tile_info.reward.get_tooltip()
 		if tile_info.reward is Aura:
 			reward_blurb.text = aura_reward_text_blurb
@@ -109,11 +109,12 @@ func _on_mouse_exited() -> void:
 	begin_to_hide()
 
 func clear_info() -> void:
-	enemy_sprite.texture = null
+	enemy_sprite.set_icon(null)
 	enemy_blurb.text = ""
-	reward_sprite.texture = null
+	reward_sprite.set_icon(null)
 	reward_blurb.text = ""
 	current_tile = null
+	scenario_sprite.set_icon(null)
 	scenario_blurb_container.visible = false
 	enemy_info_container.visible = false
 

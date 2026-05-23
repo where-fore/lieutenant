@@ -1,9 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://drmvwdj1lrerg"]
+[gd_scene load_steps=9 format=3 uid="uid://drmvwdj1lrerg"]
 
 [ext_resource type="Script" uid="uid://goyvs82tifpv" path="res://systems/ui states/combat ui/ui_combatant.gd" id="1_7msyj"]
-[ext_resource type="Theme" uid="uid://8g0oubdd3ix7" path="res://ui resources/marginTheme.tres" id="2_0x77s"]
-[ext_resource type="Texture2D" uid="uid://jm7ccvlf38y4" path="res://sprites/sword.png" id="3_uc5xc"]
-[ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="4_84yi5"]
 [ext_resource type="Texture2D" uid="uid://ubmjcik0bgn7" path="res://sprites/knight.png" id="5_4pj4e"]
 [ext_resource type="PackedScene" uid="uid://b8lotu6wx3eem" path="res://ui resources/reusable ui pieces/frame_console.tscn" id="5_7msyj"]
 [ext_resource type="Texture2D" uid="uid://ict2euu6g4jy" path="res://sprites/hover_border.png" id="6_voin1"]
@@ -29,64 +26,6 @@ health_bar = NodePath("Portrait/FrameConsole/MarginContainer/HBoxContainer/Healt
 shield_bar = NodePath("Portrait/FrameConsole/MarginContainer/HBoxContainer/HealthBarContainer/ShieldBar")
 turn_indicator = NodePath("Portrait/FrameConsole/MarginContainer/HBoxContainer/Portrait/TurnIndicator")
 placeholder_attack = NodePath("Portrait/Actives/Skill")
-
-[node name="Stats" type="VBoxContainer" parent="."]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_constants/separation = 0
-
-[node name="Attack" type="MarginContainer" parent="Stats"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme = ExtResource("2_0x77s")
-theme_override_constants/margin_left = 2
-theme_override_constants/margin_top = 2
-theme_override_constants/margin_right = 2
-theme_override_constants/margin_bottom = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Stats/Attack"]
-layout_mode = 2
-theme_override_constants/separation = 2
-
-[node name="Icon" type="TextureRect" parent="Stats/Attack/HBoxContainer"]
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("3_uc5xc")
-expand_mode = 1
-
-[node name="Label" type="Label" parent="Stats/Attack/HBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
-text = "???"
-
-[node name="Health" type="MarginContainer" parent="Stats"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme = ExtResource("2_0x77s")
-theme_override_constants/margin_left = 2
-theme_override_constants/margin_top = 2
-theme_override_constants/margin_right = 2
-theme_override_constants/margin_bottom = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Stats/Health"]
-layout_mode = 2
-theme_override_constants/separation = 2
-
-[node name="Icon" type="TextureRect" parent="Stats/Health/HBoxContainer"]
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-texture = ExtResource("4_84yi5")
-expand_mode = 1
-
-[node name="Label" type="Label" parent="Stats/Health/HBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
-text = "???"
 
 [node name="Portrait" type="HBoxContainer" parent="."]
 layout_mode = 2

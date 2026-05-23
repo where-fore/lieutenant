@@ -1,12 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://bcp8cmhkfnrrs"]
+[gd_scene load_steps=12 format=3 uid="uid://bcp8cmhkfnrrs"]
 
 [ext_resource type="Script" uid="uid://cqu36mhe1wslh" path="res://systems/ui states/stats ui/stats ui pieces/info_panel.gd" id="1_lufp6"]
 [ext_resource type="Texture2D" uid="uid://ubmjcik0bgn7" path="res://sprites/knight.png" id="2_lufp6"]
 [ext_resource type="PackedScene" uid="uid://clrl0tbbkcowa" path="res://ui resources/reusable ui pieces/frame_recessed.tscn" id="3_k7a4f"]
+[ext_resource type="PackedScene" uid="uid://grafexed8282" path="res://ui resources/reusable ui pieces/icon_with_border.tscn" id="4_827qd"]
 [ext_resource type="PackedScene" uid="uid://dk7qdyba0te4d" path="res://systems/ui states/stats ui/stats ui pieces/stat_panel.tscn" id="4_mknp8"]
 [ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="5_mknp8"]
-[ext_resource type="Texture2D" uid="uid://jm7ccvlf38y4" path="res://sprites/sword.png" id="6_5pvru"]
+[ext_resource type="Texture2D" uid="uid://cndegwmgs0boq" path="res://sprites/sword_basic.png" id="6_827qd"]
 [ext_resource type="PackedScene" uid="uid://cftv6xngx4kbv" path="res://systems/ui states/stats ui/stats ui pieces/display_stat.tscn" id="7_eiq13"]
+[ext_resource type="Texture2D" uid="uid://b806345r0gqph" path="res://sprites/strength.png" id="8_flbes"]
 [ext_resource type="Texture2D" uid="uid://dpviso477bmgk" path="res://sprites/dexterity.png" id="8_h3ji0"]
 [ext_resource type="Texture2D" uid="uid://bfhhvwqv0gx0" path="res://sprites/intelligence.png" id="9_o2rrx"]
 
@@ -84,10 +86,11 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HealthImage" type="TextureRect" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="HealthImage" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_827qd")]
 layout_mode = 2
+
+[node name="Icon" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/HealthImage" index="1"]
 texture = ExtResource("5_mknp8")
-expand_mode = 2
 
 [node name="HealthLabel" type="Label" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -98,10 +101,11 @@ text = "132"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="AttackImage" type="TextureRect" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="AttackImage" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_827qd")]
 layout_mode = 2
-texture = ExtResource("6_5pvru")
-expand_mode = 2
+
+[node name="Icon" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/AttackImage" index="1"]
+texture = ExtResource("6_827qd")
 
 [node name="AttackLabel" type="Label" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -115,6 +119,9 @@ size_flags_horizontal = 3
 [node name="Strength" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("7_eiq13")]
 layout_mode = 2
 
+[node name="Icon" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Strength/IconBorder" index="1"]
+texture = ExtResource("8_flbes")
+
 [node name="Spacer4" type="Control" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -122,7 +129,7 @@ size_flags_horizontal = 3
 [node name="Dexterity" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("7_eiq13")]
 layout_mode = 2
 
-[node name="Icon" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Dexterity" index="0"]
+[node name="Icon" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Dexterity/IconBorder" index="1"]
 texture = ExtResource("8_h3ji0")
 
 [node name="Spacer5" type="Control" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
@@ -132,7 +139,7 @@ size_flags_horizontal = 3
 [node name="Intelligence" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("7_eiq13")]
 layout_mode = 2
 
-[node name="Icon" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Intelligence" index="0"]
+[node name="Icon" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Intelligence/IconBorder" index="1"]
 texture = ExtResource("9_o2rrx")
 
 [node name="Spacer6" type="Control" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
@@ -208,6 +215,11 @@ layout_mode = 2
 [node name="Auras" parent="VBoxContainer/Body/MarginContainer/VBoxContainer/Contents" instance=ExtResource("4_mknp8")]
 layout_mode = 2
 
+[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/HealthImage"]
+[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/AttackImage"]
 [editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Strength"]
+[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Strength/IconBorder"]
 [editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Dexterity"]
+[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Dexterity/IconBorder"]
 [editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Intelligence"]
+[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Intelligence/IconBorder"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=34 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://systems/ui states/main.gd" id="1_bbldx"]
 [ext_resource type="PackedScene" uid="uid://dsbt6u8ma1cpc" path="res://systems/map system/managers/map_tile_system.tscn" id="2_16p2t"]
@@ -7,6 +7,7 @@
 [ext_resource type="Material" uid="uid://cd0t2uxtmvr0l" path="res://loose/crt_minor.tres" id="6_uaqc7"]
 [ext_resource type="Script" uid="uid://dvk6chwr5wrj4" path="res://loose/pause_menu.gd" id="7_yqr2s"]
 [ext_resource type="PackedScene" uid="uid://7pts57ml03o3" path="res://ui resources/reusable ui pieces/top_menu_button.tscn" id="8_rjmfi"]
+[ext_resource type="Texture2D" uid="uid://dhv5u72sffxlx" path="res://sprites/menu.png" id="8_u46kj"]
 [ext_resource type="Script" uid="uid://c83t3y7en3pq0" path="res://loose/cursor_manager.gd" id="8_xalbe"]
 [ext_resource type="Texture2D" uid="uid://xr6idafv8gpe" path="res://sprites/cursor.png" id="9_nf78q"]
 [ext_resource type="Texture2D" uid="uid://cy48iap8gerbw" path="res://sprites/bag.png" id="10_1j0u7"]
@@ -122,28 +123,32 @@ offset_bottom = 19.0
 [node name="PauseMenuButton" parent="MainUI/TopButtons" instance=ExtResource("8_rjmfi")]
 layout_mode = 2
 
+[node name="TextureRect" parent="MainUI/TopButtons/PauseMenuButton/MarginContainer" index="0"]
+texture = ExtResource("8_u46kj")
+
 [node name="TimeButton" parent="MainUI/TopButtons" instance=ExtResource("8_rjmfi")]
 layout_mode = 2
 tooltip_text = "Time of Day"
 
-[node name="TextureRect" parent="MainUI/TopButtons/TimeButton" index="0"]
+[node name="TextureRect" parent="MainUI/TopButtons/TimeButton/MarginContainer" index="0"]
 texture = ExtResource("12_ireyf")
 
 [node name="CombatLogButton" parent="MainUI/TopButtons" instance=ExtResource("8_rjmfi")]
 layout_mode = 2
 tooltip_text = "Combat Log"
 
-[node name="TextureRect" parent="MainUI/TopButtons/CombatLogButton" index="0"]
+[node name="TextureRect" parent="MainUI/TopButtons/CombatLogButton/MarginContainer" index="0"]
 texture = ExtResource("11_obmf6")
 
 [node name="InventoryMenuButton" parent="MainUI/TopButtons" instance=ExtResource("8_rjmfi")]
 layout_mode = 2
 tooltip_text = "Inventory"
 
-[node name="TextureRect" parent="MainUI/TopButtons/InventoryMenuButton" index="0"]
+[node name="TextureRect" parent="MainUI/TopButtons/InventoryMenuButton/MarginContainer" index="0"]
 texture = ExtResource("10_1j0u7")
 
 [node name="PauseMenu" type="Control" parent="MainUI"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -370,6 +375,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="MathInfoPanel" type="Panel" parent="MainUI/PauseMenu"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

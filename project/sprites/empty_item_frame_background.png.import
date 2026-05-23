@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bs8ra8lxevw6t"
-path="res://.godot/imported/heart_purple.png-3df112cb12be89d171a15d6a575d5288.ctex"
+uid="uid://c2oivt3dyw7ub"
+path="res://.godot/imported/empty_item_frame_background.png-98d947586cd0887b1ffa026f23d953da.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/heart_purple.png"
-dest_files=["res://.godot/imported/heart_purple.png-3df112cb12be89d171a15d6a575d5288.ctex"]
+source_file="res://sprites/empty_item_frame_background.png"
+dest_files=["res://.godot/imported/empty_item_frame_background.png-98d947586cd0887b1ffa026f23d953da.ctex"]
 
 [params]
 
