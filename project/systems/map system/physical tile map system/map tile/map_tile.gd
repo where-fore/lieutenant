@@ -113,7 +113,7 @@ func disable() -> void:
 			animated_sprite_component.modulate = Color(0.3,0.3,0.3,1)
 
 func enable() -> void:
-	if currently_disabled and not permanently_disabled:
+	if not permanently_disabled:
 		currently_disabled = false
 		animated_sprite_component.modulate = Color(1,1,1,1)
 

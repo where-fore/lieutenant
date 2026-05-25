@@ -33,6 +33,7 @@ func _ready() -> void:
 	ScenarioEvents.setup_reward.connect(prepare_from_scenario)
 	ScenarioEvents.present_rewards.connect(change_to)
 	CursorManager.clear_hovered_reward.connect(reward_selected)
+	HudEvents.rout_chosen.connect(clear_reward)
 	
 	edit_border.visible = false
 	
@@ -71,7 +72,7 @@ func prepare_from_map_tile(map_tile:MapTile) -> void:
 		prepare_reward()
 
 func prepare_from_scenario(reward:Reward) -> void:
-	if (not reward is Reward):
+	if not (reward is Reward):
 		push_error("tried to prepare reward from scenario, but was given class: " + reward.get_class())
 	clear_reward()
 	current_reward = reward
@@ -91,13 +92,14 @@ func prepare_reward() -> void:
 	update_reward_text_blurb()
 
 func prepare_basic_reward() -> void:
-	basic_reward_button_container.visible = true
-	
-	var basic_aura_array:Array[Aura] = setup_basic_rewards()
-	current_basic_reward = basic_aura_array.pick_random()
-	basic_reward_button_icon.set_icon(current_basic_reward.reward_sprite)
-	basic_reward_button_container.tooltip_text = current_basic_reward.get_tooltip()
-	basic_reward_button_label.text = "Rest"
+	pass
+	#basic_reward_button_container.visible = true
+	#
+	#var basic_aura_array:Array[Aura] = setup_basic_rewards()
+	#current_basic_reward = basic_aura_array.pick_random()
+	#basic_reward_button_icon.set_icon(current_basic_reward.reward_sprite)
+	#basic_reward_button_container.tooltip_text = current_basic_reward.get_tooltip()
+	#basic_reward_button_label.text = "Rest"
 
 func setup_basic_rewards() -> Array[Aura]:
 	var basic_reward_array:Array[Aura]

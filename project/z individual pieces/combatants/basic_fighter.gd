@@ -1,7 +1,7 @@
 extends Combatant
 
 func _init() -> void:
-	combatant_name = "John the Fighter" # "Generic Combatant"
+	combatant_name = "Enil" # "Generic Combatant"
 	combatant_texture = load("res://sprites/knight.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	

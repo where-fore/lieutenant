@@ -72,14 +72,8 @@ func populate_tile_data(tile:MapTile) -> void:
 	#var this_tile_power:int = tile.x_coordinate - columns_to_disable_at_start
 	#tile.power = this_tile_power - 1 #ignoring 1 tile, for the tutorial is the first tile
 	
-	#maybe spawn a testing tile
-	if spawn_developer_target_dummy and tile.x_coordinate == columns_to_disable_at_start and tile.y_coordinate == 0:
-		tile.apply_data(developer_testing_ground.new())
-		tile.permanently_enable()
-		spawn_developer_target_dummy = false
-	
 	#final boss stretch
-	elif tile.x_coordinate == columns - columns_to_disable_at_end - 1: #the last column
+	if tile.x_coordinate == columns - columns_to_disable_at_end - 1: #the last column
 		if tile.y_coordinate == 0 or tile.y_coordinate == 2:
 			tile.apply_data(generic_border_data.new())
 			tile.permanently_disable()
@@ -92,12 +86,15 @@ func populate_tile_data(tile:MapTile) -> void:
 		tile.apply_data(generic_border_data.new())
 		tile.permanently_disable()
 	
-	#tutorial: first encounter (fetch quest)
+	#tutorial: first encounter (first combat)
 	elif tile.x_coordinate == columns_to_disable_at_start:
-		tile.apply_data(tutorial_fetch_tile.new())
-		tile.tile_data.reward = tutorial_fetch_rewards.pop_front()
+		if tile.y_coordinate == 0 or tile.y_coordinate == 2:
+			tile.apply_data(generic_border_data.new())
+			tile.permanently_disable()
+		elif tile.y_coordinate == 1:
+			tile.apply_data(tutorial_fetch_tile.new())
 	
-	#tutorial: first encounter (unique)
+	#tutorial: first encounter (first loss)
 	elif tile.x_coordinate == columns_to_disable_at_start + 1:
 		tile.apply_data(tutorial_unique_tile.new())
 		
@@ -106,13 +103,15 @@ func populate_tile_data(tile:MapTile) -> void:
 			populate_first_rewards()
 		tile.tile_data.reward = first_rewards.pop_front()
 	
-	#scaling bandaid: first fight is common reward
-	#elif tile.x_coordinate == columns_to_disable_at_start + 2:
-		#tile.apply_data(tutorial_first_common_tile.new())
-	
 	#everything else
 	else:
 		tile.apply_data(choose_filler_tile())
+	
+	#maybe spawn a testing tile
+	if spawn_developer_target_dummy and tile.x_coordinate == columns_to_disable_at_start and tile.y_coordinate == 0:
+		tile.apply_data(developer_testing_ground.new())
+		tile.permanently_enable()
+		spawn_developer_target_dummy = false
 
 func create_edge_notifier(is_left_edge:bool) -> void:
 	var new_map_edge_notifier:MapEdgeNotifier = map_edge_notifier.instantiate() as MapEdgeNotifier

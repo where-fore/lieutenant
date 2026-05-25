@@ -3,11 +3,15 @@ extends MarginContainer
 @onready var enemy_info_container:Control = $MarginContainer/VBoxContainer/EnemyInfo
 @onready var enemy_sprite:IconWithBorder = $MarginContainer/VBoxContainer/EnemyInfo/EnemySprite
 @onready var enemy_blurb:RichTextLabel = $MarginContainer/VBoxContainer/EnemyInfo/EnemyBlurb
+
+@onready var reward_info_container:Control = $MarginContainer/VBoxContainer/RewardInfo
 @onready var reward_sprite:IconWithBorder = $MarginContainer/VBoxContainer/RewardInfo/RewardSprite
 @onready var reward_blurb:RichTextLabel = $MarginContainer/VBoxContainer/RewardInfo/RewardBlurb
+
 @onready var scenario_blurb_container:Control = $MarginContainer/VBoxContainer/ScenarioBlurb
 @onready var scenario_sprite:IconWithBorder = $MarginContainer/VBoxContainer/ScenarioBlurb/ScenarioSprite
 @onready var scenario_blurb:RichTextLabel = $MarginContainer/VBoxContainer/ScenarioBlurb/ScenarioBlurb
+
 const enemy_blurb_base:String = "Your scouts spot a {enemy_name} in this land."
 const scenario_blurb_base:String = "Your scouts spot nothing. You expect a surprise."
 var scenario_sprite_base:Texture2D = load("res://sprites/question.png")
@@ -56,17 +60,22 @@ func update_map_tile_info(tile:MapTile) -> void:
 		
 	else:
 		scenario_blurb_container.visible = false
-		enemy_info_container.visible = true
 		
 		if tile_info.enemies:
+			enemy_info_container.visible = true
+			
 			var display_enemy:Combatant = tile_info.enemies[0]
+			
 			enemy_sprite.set_icon(display_enemy.combatant_texture)
 			enemy_sprite.tooltip_text = display_enemy.get_tooltip()
+			
 			var enemy_name_color:String = Color.ORANGE_RED.to_html()
 			var enemy_name_fancy:String = "[color=#%s]%s[/color]" % [enemy_name_color, display_enemy.combatant_name]
 			enemy_blurb.text = enemy_blurb_base.format({"enemy_name": enemy_name_fancy})
 		
 		if tile_info.reward:
+			reward_info_container.visible = true
+			
 			reward_sprite.set_icon(tile_info.reward.reward_sprite)
 			reward_sprite.tooltip_text = tile_info.reward.get_tooltip()
 		if tile_info.reward is Aura:
@@ -110,13 +119,20 @@ func _on_mouse_exited() -> void:
 
 func clear_info() -> void:
 	enemy_sprite.set_icon(null)
+	enemy_sprite.tooltip_text = ""
 	enemy_blurb.text = ""
+	
 	reward_sprite.set_icon(null)
+	reward_sprite.tooltip_text = ""
 	reward_blurb.text = ""
+	
 	current_tile = null
 	scenario_sprite.set_icon(null)
+	scenario_sprite.tooltip_text = ""
+	
 	scenario_blurb_container.visible = false
 	enemy_info_container.visible = false
+	reward_info_container.visible = false
 
 func _on_combat_button_pressed() -> void:
 	if not current_tile.currently_disabled:

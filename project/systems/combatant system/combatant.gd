@@ -42,6 +42,9 @@ func get_damaged_health() -> int:
 var starting_stats:Dictionary[StringName, int] = {}
 var current_stats:Dictionary[StringName, int] = {}
 
+var starting_items:Array[Item]
+var starting_auras:Array[Aura]
+
 var aura_manager:AuraManager
 var item_manager:ItemManager
 
@@ -64,10 +67,16 @@ func prepare_aura_manager() -> void:
 	aura_manager = AuraManager.new()
 	aura_manager.setup(self)
 	aura_manager.send_auras_to_parent.connect(recalculate_stats)
+	
+	for aura:Aura in starting_auras:
+		aura_manager.apply_new_aura(aura, false)
 
 func prepare_item_manager() -> void:
 	item_manager = ItemManager.new()
 	item_manager.setup(self)
+	
+	for item:Item in starting_items:
+		item_manager.equip_item(item, false)
 
 func unsetup() -> void:
 	active = false

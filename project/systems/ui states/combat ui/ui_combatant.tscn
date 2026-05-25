@@ -32,7 +32,7 @@ layout_mode = 2
 theme_override_constants/separation = 0
 
 [node name="FrameConsole" parent="Portrait" instance=ExtResource("5_7msyj")]
-custom_minimum_size = Vector2(72, 85)
+custom_minimum_size = Vector2(76, 89)
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Portrait/FrameConsole"]
@@ -44,10 +44,10 @@ offset_top = -42.5
 offset_right = 62.0
 offset_bottom = 42.5
 grow_vertical = 2
-theme_override_constants/margin_left = 2
-theme_override_constants/margin_top = 2
-theme_override_constants/margin_right = 2
-theme_override_constants/margin_bottom = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Portrait/FrameConsole/MarginContainer"]
 layout_mode = 2

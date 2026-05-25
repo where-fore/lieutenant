@@ -14,7 +14,7 @@ func setup(new_parent:Combatant) -> void:
 	parent_combatant = new_parent
 	update_stats()
 
-func apply_new_aura(new_aura:Aura) -> void:
+func apply_new_aura(new_aura:Aura, display_in_combat_log:bool = true) -> void:
 	if new_aura.resource_path != "":
 		#if the aura sent in is a file on the disk (ie. is a template, not an already instanced aura)
 		#then instance a new aura
@@ -27,7 +27,7 @@ func apply_new_aura(new_aura:Aura) -> void:
 	update_stats()
 	
 	if new_aura.visible:
-		CombatLogEvents.aura_applied.emit(new_aura, parent_combatant)
+		if display_in_combat_log: CombatLogEvents.aura_applied.emit(new_aura, parent_combatant)
 		if parent_combatant.is_a_player: HudEvents.reward_added.emit(parent_combatant, new_aura)
 	
 	new_aura.expired.connect(remove_aura, CONNECT_ONE_SHOT)

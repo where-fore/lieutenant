@@ -51,6 +51,7 @@ func _ready() -> void:
 	CombatEvents.step_button_pressed.connect(step_button_pressed)
 	CombatEvents.play_button_pressed.connect(play_button_pressed)
 	CombatEvents.play_fast_button_pressed.connect(play_fast_button_pressed)
+	CombatEvents.party_member_added.connect(create_player_combatant)
 	HudEvents.game_paused.connect(pause_button_pressed)
 	CombatEvents.combat_ongoing = false
 	

@@ -8,7 +8,7 @@ extends ColorRect
 func _ready() -> void:
 	TimeOfDay.time_moved_forward.connect(step_light_forward)
 	
-	color = day_colour
+	step_light_forward()
 
 func step_light_forward() -> void:
 	var gradient_steps:Array[Color] = generate_color_steps(day_colour, night_colour, TimeOfDay.steps_per_day)
@@ -16,7 +16,6 @@ func step_light_forward() -> void:
 	var new_color:Color = gradient_steps[TimeOfDay.current_time_step - 1] #0 vs 1 indexed array
 	
 	transition_my_color(new_color)
-
 
 var color_tween:Tween #hold reference
 func transition_my_color(target_color:Color) -> void:

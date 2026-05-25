@@ -2,14 +2,21 @@
 working notes
 --------------------------------------------------------
 
+map scroll still fucked, easy fix
+enemies much too squishy now that we're stronger
 
 
-i'm never adding a new party member, i'd like to do that
 
-rest rewards are still hp/attack, not sure what i want to do there. apply rest aura of +2 all stats to all party members?
-	if the idea is i have 3 combatants, then no items get wasted, so i don't need a generic bonus
 
-after routing i have to go back to an old tile, go through the old ground screen. would be nice if it was instant, or it instantly moved me back to last tile, or something
+i dont really like the re-treading ground to be a camp now, seems weird why didn't you notice it before, why did it change etc
+	probably too early to introduce things changing per day cycle?
+	maybe a lower area unlocks when you lose the first fight?
+
+
+would be nice to show a character portrait in this intro scenario
+
+would be nice to have scrolling text
+
 
 map movement wise i dont really get it
 	going to the top or bottom feels bad because then i only see 2 choices, and i don't immediately understand the issue with taking my time
@@ -20,16 +27,16 @@ map movement wise i dont really get it
 	moving vertically down one row and the camera slides back feels bad, increase the tolerances for scrolling
 	map panel still poses problems to the right
 
-ui-wise, maybe set the main button to "focus" on opening panels, and bind "focus" to spacebar or something. i want to be able to move faster through things
+a lil "new dawn and new monsters rise" text popup would be great
 
-
-hm not sure how i want the opener, i want a bit more tutorial/time before making a build defining choice. this would solve the first enemy being too strong
+scenarios only have "next page", no choices
 
 
 balance-wise:
 	too lethal, fights end too fast. want more hp and less attack proportionally, 2-8x as much hp
+		although notably with multiple combatants, i do want one of them to die soon and the other to last longer. if currently you live for 3 turns, that means one char gets 3 and other gets 6 turns, which feels closer to right
 	rares generally too strong
-	first enemy generally too strong
+	first real enemy generally too strong
 	boss generally too weak
 	there are lots of multiplicative scalings, when you get them all you get out of control
 		can have enemies match, or scale back the multiplicative scalings
@@ -38,7 +45,8 @@ balance-wise:
 		either have fewer, more meaningful tiles with decisions
 		more things to do on the tiles
 		or more options to pick between
-	
+
+current "empty" textures (map info panel no reward) don't look good, they are the a border container with nothing in it
 
 --------------------------------------------------------
 work to do
@@ -73,9 +81,6 @@ assorted features:
 	delete items, give them to party members
 	everything below:
 	
-	
-
-
 
 tile/scenario feature: check something, and present scenario accordingly. eg. if you've visited before, do second step of scenario (if you've visited before BUT NOT completed quest, do third step of scenario which is "come back later nerd")
 	could do elder scrolls journal step system?
@@ -200,6 +205,10 @@ also: first combat log message isn't getting a space
 some sfx soon
 
 inventory ui doesn't update unless you re-open it, unlike the combat log
+
+ui-wise, maybe set the main button to "focus" on opening panels, and bind "focus" to spacebar or something. i want to be able to move faster through things
+
+after routing i have to go back to an old tile, go through the old ground screen. would be nice if it was instant, or it instantly moved me back to last tile, or something
 
 --------------------------------------------------------
 playtest notes

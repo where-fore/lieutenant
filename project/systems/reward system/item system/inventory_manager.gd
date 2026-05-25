@@ -3,33 +3,22 @@ class_name ItemManager
 
 var parent_combatant:Combatant
 
-#this is magically referencing the item ids i want. be wary
-#also note this is global
-var starting_inventory:Array[String] = [
-	#"rock",
-]
-
 var inventory:Array[Item]
 
 func setup(new_parent:Combatant) -> void:
 	parent_combatant = new_parent
-	populate_starter_items()
 
 func clear_inventory() -> void:
 	for item:Item in inventory:
 		item.unequip_item()
 
-func populate_starter_items() -> void:
-	for item_id:String in starting_inventory:
-		equip_item(Database.get_item_by_id(item_id))
-
 func get_all_equipped_items() -> Array[Item]:
 	return inventory
 
-func equip_item(new_item:Item) -> void:
+func equip_item(new_item:Item, display_in_combat_log:bool = true) -> void:
 	if parent_combatant.is_a_player:
 		HudEvents.reward_added.emit(parent_combatant, new_item)
-		CombatLogEvents.item_equipped.emit(new_item, parent_combatant)
+		if display_in_combat_log: CombatLogEvents.item_equipped.emit(new_item, parent_combatant)
 	interpret_new_item(new_item)
 
 func unequip_item(old_item:Item) -> void:

@@ -59,7 +59,8 @@ func add_new_info_panel(new_combatant:Combatant) -> void:
 		for item:Item in new_combatant.get_all_items():
 			new_info_panel.my_item_panel.add_stat(item)
 		for aura:Aura in new_combatant.get_all_auras():
-			new_info_panel.my_aura_panel.add_stat(aura)
+			if aura.visible:
+				new_info_panel.my_aura_panel.add_stat(aura)
 		
 	else:
 		push_error("tried to overwrite stat info tab containing: ", new_combatant.combatant_name)

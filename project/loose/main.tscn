@@ -32,7 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="20_1fc2u"]
 [ext_resource type="PackedScene" uid="uid://clrl0tbbkcowa" path="res://ui resources/reusable ui pieces/frame_recessed.tscn" id="22_u46kj"]
 [ext_resource type="PackedScene" uid="uid://carnrr8rlj0uw" path="res://systems/ui states/stats ui/stats ui pieces/stats_ui.tscn" id="29_1j0u7"]
-[ext_resource type="Script" uid="uid://bnn132ee6xb33" path="res://systems/light_filter.gd" id="30_cuuk2"]
+[ext_resource type="Script" uid="uid://bnn132ee6xb33" path="res://systems/time of day system/light_filter.gd" id="30_cuuk2"]
 [ext_resource type="PackedScene" uid="uid://0lhcbhnwyj1j" path="res://ui resources/reusable ui pieces/frame_protruding.tscn" id="31_rjmfi"]
 
 [node name="Main" type="Node2D"]

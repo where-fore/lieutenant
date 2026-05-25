@@ -17,7 +17,7 @@ func _init() -> void:
 		Database.get_item_by_id("sword_of_breath"),
 	]
 	
-	display_blurb = "testing dummy"
+	display_blurb = "developer testing dummy"
 	display_sprite = load("res://sprites/cross_swords.png")
 
 func next_page() -> void:
