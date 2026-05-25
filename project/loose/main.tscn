@@ -588,8 +588,8 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="MapInfo" parent="MainGame/MarginContainer/RightSideUI" instance=ExtResource("19_w1snj")]
+custom_minimum_size = Vector2(88, 216)
 layout_mode = 1
-anchors_preset = -1
 
 [node name="CombatContainer" type="Control" parent="MainGame/MarginContainer"]
 layout_mode = 2

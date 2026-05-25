@@ -13,10 +13,6 @@ i dont really like the re-treading ground to be a camp now, seems weird why didn
 	maybe a lower area unlocks when you lose the first fight?
 
 
-would be nice to show a character portrait in this intro scenario
-
-would be nice to have scrolling text
-
 
 map movement wise i dont really get it
 	going to the top or bottom feels bad because then i only see 2 choices, and i don't immediately understand the issue with taking my time
@@ -26,10 +22,6 @@ map movement wise i dont really get it
 	moving to old ground with the pop ups feels a bit lame
 	moving vertically down one row and the camera slides back feels bad, increase the tolerances for scrolling
 	map panel still poses problems to the right
-
-a lil "new dawn and new monsters rise" text popup would be great
-
-scenarios only have "next page", no choices
 
 
 balance-wise:
@@ -46,19 +38,20 @@ balance-wise:
 		more things to do on the tiles
 		or more options to pick between
 
-current "empty" textures (map info panel no reward) don't look good, they are the a border container with nothing in it
-
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
 
+would be nice to show a character portrait in this intro scenario
+
+would be nice to have scrolling text
+
+a lil "new dawn and new monsters rise" text popup would be great
+
+scenarios only have "next page", no choices
+
 
 balance / content
-	new combatants - figure out how and when to add them, what roles they fill in the gameplay
-		thinking one fairly early, so you can have a str and dex stacker and so no items feel wasted
-			maybe also get a super strong one temporarily for a cinematic fight
-		maybe need to have the item swapping ready by then
-
 	intelligence items/builds in
 		needs to combat failsafe in
 		nows a good time to check pool balance
@@ -77,6 +70,7 @@ assorted features:
 		probably just a function of give_custom_aura_to
 			hm the problem is i want the aura to be "attached" to the flanking sword, so if it gets unequipped the others go away
 			start of combat is a good bandaid, just give them a temporary aura
+			also i think i want the sword to drain your strength too, seems more balanced and works better for its theme instead of mostly being a powerful buffer
 	combat targeting; many enemies etc
 	delete items, give them to party members
 	everything below:

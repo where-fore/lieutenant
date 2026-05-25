@@ -28,6 +28,8 @@ var current_tile:MapTile
 func _ready() -> void:
 	HudEvents.map_tile_hovered.connect(update_map_tile_info)
 	HudEvents.map_tile_updated.connect(refresh_current_selection)
+	MapEvents.map_scrolled_right.connect(swap_to_left_side_of_screen)
+	MapEvents.map_scrolled_left.connect(swap_to_right_side_of_screen)
 	
 	visible = false
 	clear_info()
@@ -93,7 +95,15 @@ func update_map_tile_info(tile:MapTile) -> void:
 	else:
 		venture_button.modulate = Color(1,1,1)
 		venture_button.tooltip_text = "Begin Combat"
-		
+
+func swap_to_right_side_of_screen() -> void:
+	swap_to_side_of_screen(Control.PRESET_CENTER_RIGHT)
+
+func swap_to_left_side_of_screen() -> void:
+	swap_to_side_of_screen(Control.PRESET_CENTER_LEFT)
+
+func swap_to_side_of_screen(preset:LayoutPreset) -> void:
+	set_anchors_and_offsets_preset(preset, Control.PRESET_MODE_KEEP_SIZE)
 
 func begin_to_hide() -> void:
 	close_timer.stop() #restart the timer

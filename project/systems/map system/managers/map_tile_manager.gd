@@ -41,8 +41,8 @@ func handle_map_transition(map_tile:MapTile) -> void:
 	map_tile.encounter_this_tile()
 
 func scroll_map_check(map_tile:MapTile) -> void:
-	var right_scroll_threshold:float = get_viewport_rect().size.x * 0.5
-	var left_scroll_threshold:float = get_viewport_rect().size.x * 0.5
+	var right_scroll_threshold:float = get_viewport_rect().size.x * 0.6
+	var left_scroll_threshold:float = get_viewport_rect().size.x * 0.4
 	var tile_pos:float = map_tile.global_position.x
 		#this checks the global position, and all tiles in a column have different x positions,
 		#due to isometric offset
@@ -51,9 +51,11 @@ func scroll_map_check(map_tile:MapTile) -> void:
 	if map_should_scroll_right:
 		if tile_pos > right_scroll_threshold:
 			await scroll_map(-1 * map_tile.width) #negative because i want the map to go to the left
+			MapEvents.map_scrolled_right.emit()
 	if map_should_scroll_left:
 		if tile_pos < left_scroll_threshold:
 			await scroll_map(1 * map_tile.width) #positive because i want the map to go to the right
+			MapEvents.map_scrolled_left.emit()
 
 func scroll_map(delta_to_scroll:int) -> void:
 	var tween:Tween = create_tween()

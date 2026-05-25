@@ -15,6 +15,8 @@ signal maptile_created(map_tile:MapTile)
 signal map_grid_ready
 signal map_grid_right_edge_visible(visible:bool)
 signal map_grid_left_edge_visible(visible:bool)
+signal map_scrolled_right
+signal map_scrolled_left
 
 signal tutorial_camp_encounter_complete
 @warning_ignore_restore("unused_signal")
