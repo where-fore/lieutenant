@@ -2,44 +2,82 @@
 working notes
 --------------------------------------------------------
 
-generally things die way too fast, would like 2-3x hp but same attack or so
-
-
-
-
-
-
 
 
 i'm never adding a new party member, i'd like to do that
 
 rest rewards are still hp/attack, not sure what i want to do there. apply rest aura of +2 all stats to all party members?
+	if the idea is i have 3 combatants, then no items get wasted, so i don't need a generic bonus
 
-after routing i have to go back to an old tile, go through the old ground screen. would be nice if it was instant, or it instantly moved me backto last tile, or something
+after routing i have to go back to an old tile, go through the old ground screen. would be nice if it was instant, or it instantly moved me back to last tile, or something
+
+map movement wise i dont really get it
+	going to the top or bottom feels bad because then i only see 2 choices, and i don't immediately understand the issue with taking my time
+		maybe something about monsters growing scarier, crows ominously calling, etc, every morning
+		also having more dudes to benefit from things could be nice here
+		i do sorta like the choose from 3 angle though, this feels like a step back? for what?
+	moving to old ground with the pop ups feels a bit lame
+	moving vertically down one row and the camera slides back feels bad, increase the tolerances for scrolling
+	map panel still poses problems to the right
+
+ui-wise, maybe set the main button to "focus" on opening panels, and bind "focus" to spacebar or something. i want to be able to move faster through things
+
 
 hm not sure how i want the opener, i want a bit more tutorial/time before making a build defining choice. this would solve the first enemy being too strong
 
+
+balance-wise:
+	too lethal, fights end too fast. want more hp and less attack proportionally, 2-8x as much hp
+	rares generally too strong
+	first enemy generally too strong
+	boss generally too weak
+	there are lots of multiplicative scalings, when you get them all you get out of control
+		can have enemies match, or scale back the multiplicative scalings
+			the could do 10% stat gain per day, ie 10%, 20%, 30%, 40%, 50% etc
+	not enough interesting items or basic rewards or things to do in the tiles, saw the same axe/shield/buckler like 12 times, and it's all i cared about
+		either have fewer, more meaningful tiles with decisions
+		more things to do on the tiles
+		or more options to pick between
+	
 
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
 
 
+balance / content
+	new combatants - figure out how and when to add them, what roles they fill in the gameplay
+		thinking one fairly early, so you can have a str and dex stacker and so no items feel wasted
+			maybe also get a super strong one temporarily for a cinematic fight
+		maybe need to have the item swapping ready by then
 
-assorted:
-	scenario step system or similar, for re-treading
-	combat failsafe
-	tiles holding variable table rewards (like tutorial fetch atm assigned old and special rings, would rather that be in tiles themselves not the spawner)
-	balance/fun pass (consider multiple combatants)
+	intelligence items/builds in
+		needs to combat failsafe in
+		nows a good time to check pool balance
+			maybe i could have a pool frequency multiplier system?
+
+	active effects / attuned items, mayhaps
+	
+	now we can do some balance
+		check what curve i want with big set pieces
+		balance around fitting those
 
 
-day and night cycle changing textures and etc
-	change textures (can probably wait for the shill)
-	have a overlay somewhere that doesn't go over ui (should probably get ready before the shill)
+assorted features:
+	re-treadable scenarios/tiles
+	flanking sword - aura to allies
+		probably just a function of give_custom_aura_to
+			hm the problem is i want the aura to be "attached" to the flanking sword, so if it gets unequipped the others go away
+			start of combat is a good bandaid, just give them a temporary aura
+	combat targeting; many enemies etc
+	delete items, give them to party members
+	everything below:
+	
 	
 
 
-tile/scenario feature: check something, and present scenario accordingly. eg. if you've visited before, do second step of scenario (if you've visited before BUT NOT complete quest, do third step of scenario which is "come back later nerd")
+
+tile/scenario feature: check something, and present scenario accordingly. eg. if you've visited before, do second step of scenario (if you've visited before BUT NOT completed quest, do third step of scenario which is "come back later nerd")
 	could do elder scrolls journal step system?
 		maybe a scenario_step function on the scenario, and a selection of pages[] arrays. when entering, do a function to check what page array to actually load, then do that
 		or maybe have different literal scenario scripts, and a master_scenario holds a selection of them, and when doing the check it loads a certain one
@@ -80,6 +118,12 @@ probably should get that infinite-combat-breakpoint somewhere
 -
 
 
+stats:
+	i kinda want health and damage to be separate, so i can have temporary damage boosts without affecting health, and can tweak enemy hp more easily
+	str = big hit, dex = per 10 dex do a second hit for 10 damage?
+		things can trigger off hits (maybe dex would trigger wayy too many times though)
+		things can increase your dex hit damage
+
 would be nice to find a way for the tile_tutorial_fetch rewards to be on the tile, not in the spawner script
 	not sure how, but i do want to do this regularly - have an array of something on the tile, that the spawner can draw from
 		instead of currently the spawner assigns rewards to be something in the spawner logic
@@ -115,6 +159,8 @@ would be nice to find a way for the tile_tutorial_fetch rewards to be on the til
 		make a lil-question mark item/aura as a dev placeholder for these kinds of tiles
 -
 
+day and night cycle	change textures (can probably wait for the shill)
+	
 targeting
 	let players choose targets somehow
 	have enemies target somehow
@@ -150,6 +196,8 @@ combat log race conditions - equipping a new item that pushes you past an existi
 also: first combat log message isn't getting a space
 	why am i putting a space lmao, just make a margin container?
 -
+
+some sfx soon
 
 inventory ui doesn't update unless you re-open it, unlike the combat log
 

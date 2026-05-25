@@ -34,12 +34,15 @@ func update_stats() -> void:
 	health_bar.value = my_combatant.get_damaged_health()
 	health_bar.tooltip_text = str(int(health_bar.value))
 	
-	if my_combatant.shield > 0:		
+	if my_combatant.shield > 0:
 		shield_bar.max_value = my_combatant.current_stats[Stats.health]
 		shield_bar.value = my_combatant.shield
 		
 		health_bar.tooltip_text += " + " + str(my_combatant.shield)
 		shield_bar.visible = true
+		
+	elif my_combatant.shield <= 0:
+		shield_bar.visible = false
 
 func perish() -> void:
 	self.modulate = Color(0.6, 0.3, 0.3)
@@ -59,6 +62,12 @@ func force_show_turn_indicator() -> void:
 func force_hide_turn_indicator() -> void:
 	turn_indicator.visible = false
 
+func force_show_selection_indicator() -> void:
+	force_show_turn_indicator()
+
+func force_hide_selection_indicator() -> void:
+	force_hide_turn_indicator()
+
 func clear_combatant() -> void:
 	if my_combatant:
 		my_combatant.stats_updated.disconnect(update_stats)
@@ -72,15 +81,15 @@ func clear_combatant() -> void:
 
 func _on_portrait_mouse_entered() -> void:
 	if CursorManager.hovering_reward:
-		force_show_turn_indicator()
+		force_show_selection_indicator()
 
 func _on_portrait_mouse_exited() -> void:
 	if CursorManager.hovering_reward:
-		force_hide_turn_indicator()
+		force_hide_selection_indicator()
 
 func apply_reward(reward:Reward) -> void:
 	my_combatant.apply_aura_or_item(reward)
-	force_hide_turn_indicator()
+	force_hide_selection_indicator()
 
 func _on_portrait_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
