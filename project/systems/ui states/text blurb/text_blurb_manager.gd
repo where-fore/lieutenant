@@ -35,11 +35,11 @@ func lose_chapter() -> void:
 func start_chapter() -> void:
 	show_screen()
 	continue_button.visible = true
-	main_body_text.text = "Your adventure begins!\n\nThe source of evil lies to the east.\n\nGather antique relics to grow strong enough to save the lands!"
+	main_body_text.text = "Your adventure begins!\n\nThe source of evil lies to the east. You are tasked to gather strength enough to save the lands."
 
-func start_scenario(enetered_map_tile:MapTile) -> void:
+func start_scenario(entered_map_tile:MapTile) -> void:
 	next_page_button.visible = true
-	ScenarioEvents.load_scenario(enetered_map_tile.tile_data.scenario)
+	ScenarioEvents.load_scenario(entered_map_tile.tile_data.scenario)
 	show_screen()
 
 func update_blurb_to_event() -> void:

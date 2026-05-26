@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dsbt6u8ma1cpc"]
+[gd_scene load_steps=16 format=3 uid="uid://dsbt6u8ma1cpc"]
 
 [ext_resource type="Script" uid="uid://ok2ot6yb1xi8" path="res://systems/map system/managers/map_tile_manager.gd" id="1_rwx8k"]
 [ext_resource type="Script" uid="uid://bkfbtklwaviuu" path="res://systems/map system/managers/map_tile_spawner.gd" id="2_yr7fr"]
@@ -10,7 +10,9 @@
 [ext_resource type="Script" uid="uid://cpopoj80l101w" path="res://z individual pieces/map tiles/tutorial_first_unique.gd" id="7_8q2kk"]
 [ext_resource type="Script" uid="uid://dthivn1tqcdoy" path="res://z individual pieces/map tiles/first_common_enemy.gd" id="7_w2u1g"]
 [ext_resource type="PackedScene" uid="uid://dxldisnu3aaoo" path="res://systems/map system/physical tile map system/map tile/map_tile.tscn" id="8_12ac2"]
-[ext_resource type="Script" uid="uid://b5jh05pbevcd7" path="res://z individual pieces/map tiles/tutorial_fetch.gd" id="8_w2u1g"]
+[ext_resource type="Script" uid="uid://bhprwsm6mi8gk" path="res://z individual pieces/map tiles/tutorial_first_combat.gd" id="9_8w8vh"]
+[ext_resource type="Script" uid="uid://ckjfratnv0uj2" path="res://z individual pieces/map tiles/tutorial_second_combat.gd" id="10_rbqej"]
+[ext_resource type="Script" uid="uid://diqdk102v13x0" path="res://z individual pieces/map tiles/tutorial_camp.gd" id="11_ascpf"]
 [ext_resource type="Script" uid="uid://cn8isa87nqfjd" path="res://z individual pieces/map tiles/developer_testing_grounds.gd" id="11_ws6a8"]
 [ext_resource type="PackedScene" uid="uid://c7fq3wa0qjn8m" path="res://systems/map system/physical tile map system/map_edge_notifier.tscn" id="12_qol6c"]
 
@@ -26,7 +28,9 @@ common_combat_tile = ExtResource("3_w2u1g")
 uncommon_combat_tile = ExtResource("6_evd6y")
 rare_combat_tile = ExtResource("6_apyin")
 tutorial_first_common_tile = ExtResource("7_w2u1g")
-tutorial_fetch_tile = ExtResource("8_w2u1g")
+tutorial_first_combat_tile = ExtResource("9_8w8vh")
+tutorial_second_combat_tile = ExtResource("10_rbqej")
+tutorial_camp_tile = ExtResource("11_ascpf")
 tutorial_unique_tile = ExtResource("7_8q2kk")
 developer_testing_ground = ExtResource("11_ws6a8")
 mapTileBase = ExtResource("8_12ac2")

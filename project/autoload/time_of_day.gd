@@ -7,7 +7,7 @@ var current_time_step:int
 var current_day:int
 
 var steps_per_day:int = 6
-var starting_time_step:int = steps_per_day - 1 #magic number corresponding with the tutorial
+var starting_time_step:int = steps_per_day - 2 #magic number corresponding with the tutorial
 var starting_day:int = 1
 
 func step_time_forward() -> void:

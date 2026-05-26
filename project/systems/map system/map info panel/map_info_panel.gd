@@ -17,7 +17,7 @@ const scenario_blurb_base:String = "Your scouts spot nothing. You expect a surpr
 var scenario_sprite_base:Texture2D = load("res://sprites/question.png")
 const item_reward_text_blurb:String = "Treasure spotted: {reward_name}, ripe for the taking."
 const aura_reward_text_blurb:String = "A protected spot to resupply."
-@onready var venture_button:Button = $MarginContainer/CenterContainer/TextureButton
+@onready var venture_button:Button = $MarginContainer/CenterContainer/Button
 
 @onready var close_timer:Timer = $CloseTimer
 var time_to_close_panel:float = 5
@@ -94,7 +94,7 @@ func update_map_tile_info(tile:MapTile) -> void:
 		#but currently the only things disabled but visible are pemanently visible
 	else:
 		venture_button.modulate = Color(1,1,1)
-		venture_button.tooltip_text = "Begin Combat"
+		venture_button.tooltip_text = ""
 
 func swap_to_right_side_of_screen() -> void:
 	swap_to_side_of_screen(Control.PRESET_CENTER_RIGHT)

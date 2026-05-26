@@ -2,7 +2,6 @@
 working notes
 --------------------------------------------------------
 
-map scroll still fucked, easy fix
 enemies much too squishy now that we're stronger
 
 

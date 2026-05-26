@@ -111,13 +111,13 @@ vertical_alignment = 1
 layout_mode = 2
 mouse_filter = 2
 
-[node name="TextureButton" type="Button" parent="MarginContainer/CenterContainer"]
+[node name="Button" type="Button" parent="MarginContainer/CenterContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/TextureButton"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/Button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -129,13 +129,13 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="IconBorder" parent="MarginContainer/CenterContainer/TextureButton/MarginContainer" instance=ExtResource("3_062vk")]
+[node name="IconBorder" parent="MarginContainer/CenterContainer/Button/MarginContainer" instance=ExtResource("3_062vk")]
 layout_mode = 2
 
-[node name="Icon" parent="MarginContainer/CenterContainer/TextureButton/MarginContainer/IconBorder" index="1"]
+[node name="Icon" parent="MarginContainer/CenterContainer/Button/MarginContainer/IconBorder" index="1"]
 texture = ExtResource("4_7cdnt")
 
-[node name="Top" type="Label" parent="MarginContainer/CenterContainer/TextureButton"]
+[node name="Top" type="Label" parent="MarginContainer/CenterContainer/Button"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -149,7 +149,7 @@ theme_override_font_sizes/font_size = 4
 text = "Venture"
 horizontal_alignment = 1
 
-[node name="Bottom" type="Label" parent="MarginContainer/CenterContainer/TextureButton"]
+[node name="Bottom" type="Label" parent="MarginContainer/CenterContainer/Button"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -169,6 +169,6 @@ horizontal_alignment = 1
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="timeout" from="CloseTimer" to="." method="_on_close_timer_timeout"]
-[connection signal="pressed" from="MarginContainer/CenterContainer/TextureButton" to="." method="_on_combat_button_pressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/Button" to="." method="_on_combat_button_pressed"]
 
-[editable path="MarginContainer/CenterContainer/TextureButton/MarginContainer/IconBorder"]
+[editable path="MarginContainer/CenterContainer/Button/MarginContainer/IconBorder"]
