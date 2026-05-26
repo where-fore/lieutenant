@@ -24,6 +24,10 @@ extends Node2D
 
 func _ready() -> void:
 	HudEvents.chapter_completed.connect(_on_restart_button_pressed)
+	HudEvents.hide_combat_screen_master.connect(hide_combat_screen)
+	HudEvents.hide_text_blurb_screen_master.connect(hide_text_blurb_screen)
+	HudEvents.show_combat_screen_master.connect(show_combat_screen)
+	HudEvents.show_text_blurb_screen_master.connect(show_text_blurb_screen)
 	TimeOfDay.time_moved_forward.connect(update_time_of_day_ui)
 	
 	game_start_button_container.visible = true
@@ -32,11 +36,12 @@ func _ready() -> void:
 	time_button.visible = false
 	
 	text_blurb_container.visible = true
-	pause_menu_container.visible = false
-	
-	right_side_ui_container.visible = true
+	combat_container.visible = false
 	stats_ui_container.visible = false
 	combat_log_container.visible = false
+	
+	right_side_ui_container.visible = true
+	pause_menu_container.visible = false
 	
 	volume_slider.value = BackgroundMusicPlayer.get_current_volume() * 100
 
@@ -116,6 +121,18 @@ func _on_combat_log_button_pressed() -> void:
 
 func _on_full_log_button_pressed() -> void:
 	combat_log_object.show_full_log()
+
+func show_combat_screen() -> void:
+	combat_container.visible = true
+
+func hide_combat_screen() -> void:
+	combat_container.visible = false
+
+func show_text_blurb_screen() -> void:
+	text_blurb_container.visible = true
+
+func hide_text_blurb_screen() -> void:
+	text_blurb_container.visible = false
 
 func update_time_of_day_ui() -> void:
 	if time_button.visible == false:

@@ -20,7 +20,7 @@ offset_top = -254.0
 offset_right = 456.0
 offset_bottom = -24.0
 grow_vertical = 0
-mouse_filter = 2
+mouse_filter = 1
 script = ExtResource("1_sf58t")
 
 [node name="EditBorder" type="TextureRect" parent="."]

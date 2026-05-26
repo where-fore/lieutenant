@@ -535,7 +535,7 @@ grow_vertical = 2
 
 [node name="Map" type="Control" parent="MainGame/MarginContainer"]
 layout_mode = 2
-mouse_filter = 1
+mouse_filter = 2
 
 [node name="Background" type="Node2D" parent="MainGame/MarginContainer/Map"]
 position = Vector2(240, 135)
@@ -593,11 +593,9 @@ layout_mode = 1
 
 [node name="CombatContainer" type="Control" parent="MainGame/MarginContainer"]
 layout_mode = 2
-mouse_filter = 2
 
 [node name="TextBlurbContainer" type="Control" parent="MainGame/MarginContainer"]
 layout_mode = 2
-mouse_filter = 2
 
 [node name="StatsUIContainer" type="Control" parent="MainGame/MarginContainer"]
 visible = false

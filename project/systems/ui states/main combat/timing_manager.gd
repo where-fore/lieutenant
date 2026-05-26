@@ -19,7 +19,7 @@ func _ready() -> void:
 
 
 func show() -> void:
-	self.visible = true
+	HudEvents.show_combat_screen_master.emit()
 
 func hide() -> void:
-	self.visible = false
+	HudEvents.hide_combat_screen_master.emit()

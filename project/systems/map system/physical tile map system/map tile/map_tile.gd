@@ -23,6 +23,7 @@ var hover_animation_speed:float = 0.8
 @onready var selection_sprite:Sprite2D = $SelectionAnimation
 @onready var selection_effect_timer:Timer = $SelectionAnimation/Timer
 @onready var player_indicator:AnimatedSprite2D = $PlayerIndicator
+@onready var clickbox_polygon:CollisionPolygon2D = $Clickbox/CollisionPolygon2D
 
 var scenario_for_retreading:Scenario = load("res://z individual pieces/scenarios/retreading_base.gd").new()
 
@@ -143,22 +144,17 @@ func when_clicked() -> void:
 		start_hover_animation()
 		show_selection_effect()
 
+func when_hovered() -> void:
+	if currently_disabled and not permanently_disabled:
+		tooltip_holder.visible = true
+
+func when_unhovered() -> void:
+	tooltip_holder.visible = false
+
 func if_not_me_stop_hovering(maptile:MapTile) -> void:
 	if maptile != self:
 		hide_selection_effect()
 		stop_hover_animation()
-
-func _on_area_2d_mouse_entered() -> void:
-	if currently_disabled and not permanently_disabled:
-		tooltip_holder.visible = true
-
-func _on_area_2d_mouse_exited() -> void:
-	tooltip_holder.visible = false
-
-func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			when_clicked()
 
 func show_selection_effect() -> void:
 	selection_sprite.visible = true
@@ -169,3 +165,16 @@ func hide_selection_effect() -> void:
 
 func _on_timer_timeout() -> void:
 	hide_selection_effect()
+
+func _unhandled_input(event: InputEvent) -> void:
+		if event is InputEventMouseButton:
+			if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+				var polygon_points:PackedVector2Array = clickbox_polygon.polygon
+				if Geometry2D.is_point_in_polygon(to_local(event.global_position), polygon_points):
+					when_clicked()
+
+func _on_clickbox_mouse_entered() -> void:
+	when_hovered()
+
+func _on_clickbox_mouse_exited() -> void:
+	when_unhovered()

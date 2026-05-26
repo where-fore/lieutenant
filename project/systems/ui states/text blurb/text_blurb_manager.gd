@@ -63,14 +63,14 @@ func change_to_combat() -> void:
 	hide_screen()
 
 func show_screen() -> void:
-	visible = true
+	HudEvents.show_text_blurb_screen_master.emit()
 
 func hide_screen() -> void:
-	visible = false
 	continue_button.visible = false
 	next_page_button.visible = false
 	complete_chapter_button.visible = false
 	lost_game_button.visible = false
+	HudEvents.hide_text_blurb_screen_master.emit()
 
 func _on_next_page_button_pressed() -> void:
 	if not ScenarioEvents.current_scenario: push_error("pressed next page with no scenario loaded")

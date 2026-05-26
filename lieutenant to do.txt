@@ -2,15 +2,18 @@
 working notes
 --------------------------------------------------------
 
+map still interactable under rest of ui. i think it's because it's not-control-screen space, it's 2d, so the mouse isn't being absorbed by the other ui pieces
+	should the map just be ui as well?
+	maybe i can stop this somehow
+
+
+
+
+
+
+
+
 enemies much too squishy now that we're stronger
-
-
-
-
-i dont really like the re-treading ground to be a camp now, seems weird why didn't you notice it before, why did it change etc
-	probably too early to introduce things changing per day cycle?
-	maybe a lower area unlocks when you lose the first fight?
-
 
 
 map movement wise i dont really get it

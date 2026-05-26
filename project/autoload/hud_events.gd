@@ -4,6 +4,11 @@ enum CombatSpeedNames {STEP, PLAY, PLAY_FAST}
 var last_combat_speed_chosen:int = CombatSpeedNames.PLAY
 
 @warning_ignore_start("unused_signal")
+signal hide_combat_screen_master
+signal show_combat_screen_master
+signal hide_text_blurb_screen_master
+signal show_text_blurb_screen_master
+
 signal send_player_combatant_to_ui(player:Combatant)
 signal send_enemy_combatants_to_ui(enemies:Array[Combatant])
 signal load_portrait_ui

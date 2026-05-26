@@ -41,10 +41,10 @@ texture = ExtResource("4_mrii7")
 [node name="Clickbox" type="Area2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Clickbox"]
-scale = Vector2(0.5, 0.5)
-polygon = PackedVector2Array(-48, 46, -36, 14, 22, 14, 10, 46, -48, 46)
+polygon = PackedVector2Array(-23, 23, -18, 7, 10, 7, 5, 23, -24, 23)
 
 [node name="Tooltip" type="PanelContainer" parent="Clickbox"]
+visible = false
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = -22.0
@@ -68,6 +68,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="PlayerIndicator" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(-8, 8)
 sprite_frames = SubResource("SpriteFrames_8o1ix")
 
@@ -76,5 +77,5 @@ texture = ExtResource("7_efpam")
 
 [connection signal="timeout" from="SelectionAnimation/Timer" to="." method="_on_timer_timeout"]
 [connection signal="input_event" from="Clickbox" to="." method="_on_area_2d_input_event"]
-[connection signal="mouse_entered" from="Clickbox" to="." method="_on_area_2d_mouse_entered"]
-[connection signal="mouse_exited" from="Clickbox" to="." method="_on_area_2d_mouse_exited"]
+[connection signal="mouse_entered" from="Clickbox" to="." method="_on_clickbox_mouse_entered"]
+[connection signal="mouse_exited" from="Clickbox" to="." method="_on_clickbox_mouse_exited"]

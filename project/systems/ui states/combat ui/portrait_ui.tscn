@@ -16,7 +16,7 @@ offset_top = -254.0
 offset_right = 456.0
 offset_bottom = -24.0
 grow_vertical = 0
-mouse_filter = 2
+mouse_filter = 1
 script = ExtResource("1_vx1xx")
 player_ui_combatant_container = NodePath("Panel/HBoxContainer/PlayerCombatants")
 
