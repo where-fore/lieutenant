@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [audio]
 
-buses/default_bus_layout="res://audio resources/default_bus_layout.tres"
+buses/default_bus_layout="res://audio/default_bus_layout.tres"
 driver/mix_rate.web=48000
 
 [autoload]
@@ -38,7 +38,7 @@ BalanceData="*res://autoload/balance_data.gd"
 MapEvents="*res://autoload/map_events.gd"
 TextStrings="*res://autoload/text_strings.gd"
 ScenarioEvents="*res://autoload/scenario_events.gd"
-BackgroundMusicPlayer="*res://audio resources/background_music_player.tscn"
+BackgroundMusicPlayer="*res://audio/background_music_player.tscn"
 TestingCommands="*res://autoload/testing_commands.gd"
 CursorManager="*res://autoload/cursor_manager.gd"
 TimeOfDay="*res://autoload/time_of_day.gd"
