@@ -13,13 +13,13 @@ var rest_hp:int = 20
 var sharpen_attack:int = 5
 
 var enemy_stat_scaling_per_day:float = 1.30
-var enemy_normal_stat_budget:int = 40
-var enemy_rare_stat_budget:int = enemy_normal_stat_budget * 2
-var enemy_mythic_stat_budget:int = enemy_normal_stat_budget * 5 / 2
+var enemy_normal_stat_budget:int = 80
+var enemy_rare_stat_budget:int = enemy_normal_stat_budget * 3 / 2 
+var enemy_mythic_stat_budget:int = enemy_normal_stat_budget * 2
 var enemy_boss_stat_budget:int = enemy_normal_stat_budget * 3
 
-var enemy_tutorial_easy_stat_budget:int = enemy_normal_stat_budget * 1 / 4
-var enemy_tutorial_hard_stat_budget:int = enemy_normal_stat_budget * 2 / 3
+var enemy_tutorial_easy_stat_budget:int = enemy_normal_stat_budget * 1 / 5
+var enemy_tutorial_hard_stat_budget:int = enemy_normal_stat_budget * 1 / 2
 
 #var enemy_health_scaling_per_power:int = 100 #percentage points
 #var enemy_attack_scaling_per_power:int = 50 #percentage points
