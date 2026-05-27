@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=36 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://systems/ui states/main.gd" id="1_bbldx"]
 [ext_resource type="PackedScene" uid="uid://dsbt6u8ma1cpc" path="res://systems/map system/managers/map_tile_system.tscn" id="2_16p2t"]
@@ -34,6 +34,7 @@
 [ext_resource type="PackedScene" uid="uid://carnrr8rlj0uw" path="res://systems/ui states/stats ui/stats ui pieces/stats_ui.tscn" id="29_1j0u7"]
 [ext_resource type="Script" uid="uid://bnn132ee6xb33" path="res://systems/time of day system/light_filter.gd" id="30_cuuk2"]
 [ext_resource type="PackedScene" uid="uid://0lhcbhnwyj1j" path="res://ui resources/reusable ui pieces/frame_protruding.tscn" id="31_rjmfi"]
+[ext_resource type="Script" uid="uid://ceiuhgrrtjav4" path="res://systems/time of day system/text_scroll.gd" id="34_80hqw"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_bbldx")
@@ -681,6 +682,39 @@ vertical_alignment = 1
 [node name="EventLog" parent="MainGame/MarginContainer/CombatLogContainer/Frame/MarginContainer/VBoxContainer" instance=ExtResource("18_h0uu6")]
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="TextPopUpContainer" type="Control" parent="MainGame/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TextPopUpPanel" type="Panel" parent="MainGame/MarginContainer/TextPopUpContainer"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -125.0
+offset_top = 10.0
+offset_right = 125.0
+offset_bottom = 80.0
+grow_horizontal = 2
+script = ExtResource("34_80hqw")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainGame/MarginContainer/TextPopUpContainer/TextPopUpPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/line_separation = 2
+theme_override_constants/paragraph_separation = 2
+theme_override_font_sizes/normal_font_size = 12
+text = "A new dawn rises..."
+scroll_active = false
+scroll_following = true
+scroll_following_visible_characters = true
+horizontal_alignment = 1
 
 [node name="UIBorder" type="TextureRect" parent="MainGame"]
 visible = false

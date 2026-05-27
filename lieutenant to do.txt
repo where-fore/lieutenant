@@ -2,11 +2,6 @@
 working notes
 --------------------------------------------------------
 
-map still interactable under rest of ui. i think it's because it's not-control-screen space, it's 2d, so the mouse isn't being absorbed by the other ui pieces
-	should the map just be ui as well?
-	maybe i can stop this somehow
-
-
 
 
 
