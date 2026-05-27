@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=38 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://systems/ui states/main.gd" id="1_bbldx"]
 [ext_resource type="PackedScene" uid="uid://dsbt6u8ma1cpc" path="res://systems/map system/managers/map_tile_system.tscn" id="2_16p2t"]
@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://dicmyh0qbtnav" path="res://sprites/cursor/cursor_particle.png" id="14_npwt7"]
 [ext_resource type="Texture2D" uid="uid://bmxnkkwdbmxdt" path="res://sprites/animations/backdrop/map_grid_base_1.png" id="14_wcgmp"]
 [ext_resource type="Material" uid="uid://densi0a6br74i" path="res://sprites/cursor/cursor_trail.tres" id="15_obmf6"]
+[ext_resource type="Script" uid="uid://g03atvbm4brx" path="res://systems/SFX system/sfx_manager.gd" id="17_q5k8v"]
 [ext_resource type="PackedScene" uid="uid://b13o5cfslg2uj" path="res://systems/event log/event_log.tscn" id="18_h0uu6"]
 [ext_resource type="Texture2D" uid="uid://cwjj6wggwg4n3" path="res://sprites/18px_border.png" id="18_nf78q"]
 [ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="18_xalbe"]
@@ -35,6 +36,7 @@
 [ext_resource type="Script" uid="uid://bnn132ee6xb33" path="res://systems/time of day system/light_filter.gd" id="30_cuuk2"]
 [ext_resource type="PackedScene" uid="uid://0lhcbhnwyj1j" path="res://ui resources/reusable ui pieces/frame_protruding.tscn" id="31_rjmfi"]
 [ext_resource type="Script" uid="uid://ceiuhgrrtjav4" path="res://systems/time of day system/text_scroll.gd" id="34_80hqw"]
+[ext_resource type="AudioStream" uid="uid://dgj2bte2ylbaw" path="res://audio/sound effects/crow.ogg" id="37_h0uu6"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_bbldx")
@@ -477,21 +479,21 @@ text = "Close"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CursorManager" type="Node2D" parent="."]
+[node name="CursorManager" type="Node2D" parent="MainUI"]
 script = ExtResource("8_xalbe")
 normal_cursor = ExtResource("9_nf78q")
 clicked_cursor = ExtResource("9_nf78q")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="CursorManager"]
+[node name="CanvasLayer" type="CanvasLayer" parent="MainUI/CursorManager"]
 layer = 128
 
-[node name="Sprite2D" type="Sprite2D" parent="CursorManager/CanvasLayer"]
+[node name="Sprite2D" type="Sprite2D" parent="MainUI/CursorManager/CanvasLayer"]
 position = Vector2(-100, -100)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("9_nf78q")
 offset = Vector2(16, 16)
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="CursorManager/CanvasLayer/Sprite2D"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="MainUI/CursorManager/CanvasLayer/Sprite2D"]
 visible = false
 position = Vector2(16, 16)
 amount = 3
@@ -501,7 +503,7 @@ speed_scale = 0.25
 randomness = 1.0
 process_material = ExtResource("15_obmf6")
 
-[node name="SelectionBorder" type="Sprite2D" parent="CursorManager/CanvasLayer/Sprite2D"]
+[node name="SelectionBorder" type="Sprite2D" parent="MainUI/CursorManager/CanvasLayer/Sprite2D"]
 visible = false
 position = Vector2(-2, -2)
 scale = Vector2(2, 2)
@@ -509,7 +511,7 @@ texture = ExtResource("18_nf78q")
 centered = false
 offset = Vector2(-8, -18)
 
-[node name="Selection" type="Sprite2D" parent="CursorManager/CanvasLayer/Sprite2D"]
+[node name="Selection" type="Sprite2D" parent="MainUI/CursorManager/CanvasLayer/Sprite2D"]
 visible = false
 scale = Vector2(2, 2)
 texture = ExtResource("18_xalbe")
@@ -688,7 +690,6 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="TextPopUpPanel" type="Panel" parent="MainGame/MarginContainer/TextPopUpContainer"]
-visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -698,6 +699,7 @@ offset_top = 10.0
 offset_right = 125.0
 offset_bottom = 80.0
 grow_horizontal = 2
+mouse_filter = 2
 script = ExtResource("34_80hqw")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="MainGame/MarginContainer/TextPopUpContainer/TextPopUpPanel"]
@@ -707,6 +709,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/line_separation = 2
 theme_override_constants/paragraph_separation = 2
 theme_override_font_sizes/normal_font_size = 12
@@ -725,6 +728,14 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("20_1fc2u")
+
+[node name="SFXManager" type="Node2D" parent="."]
+script = ExtResource("17_q5k8v")
+
+[node name="NewDayCrow" type="AudioStreamPlayer" parent="SFXManager"]
+stream = ExtResource("37_h0uu6")
+volume_db = -10.0
+bus = &"SFX"
 
 [connection signal="pressed" from="MainUI/GameStarter/GameStartButtons/NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="MainUI/TopButtons/PauseMenuButton" to="." method="_on_pause_menu_button_pressed"]
