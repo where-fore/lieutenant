@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://brj5adq126pu5"]
+
+[ext_resource type="Script" uid="uid://g03atvbm4brx" path="res://audio/managers/sfx_manager.gd" id="1_xfybu"]
+[ext_resource type="PackedScene" uid="uid://v7njvv6s0s" path="res://audio/one shot sfx/button_click_subtle.tscn" id="2_2l83d"]
+[ext_resource type="AudioStream" uid="uid://dgj2bte2ylbaw" path="res://audio/resources/sound effects/crow.ogg" id="2_3kyq5"]
+
+[node name="SFXManager" type="Node2D"]
+script = ExtResource("1_xfybu")
+button_click = ExtResource("2_2l83d")
+
+[node name="NewDayCrow" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_3kyq5")
+volume_db = -10.0
+bus = &"SFX"

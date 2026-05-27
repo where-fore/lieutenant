@@ -19,8 +19,6 @@ extends Node2D
 @onready var right_side_ui_container:Control = $MainGame/MarginContainer/RightSideUI
 @onready var stats_ui_container:Control = $MainGame/MarginContainer/StatsUIContainer
 
-@onready var volume_slider:HSlider = $MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer/VolumeSlider
-
 
 func _ready() -> void:
 	HudEvents.chapter_completed.connect(_on_restart_button_pressed)
@@ -42,8 +40,6 @@ func _ready() -> void:
 	
 	right_side_ui_container.visible = true
 	pause_menu_container.visible = false
-	
-	volume_slider.value = BackgroundMusicPlayer.get_current_volume() * 100
 
 func start_game() -> void:
 	clear_and_create_scene(map_creation_scene, map_container)
@@ -100,18 +96,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_F11:
 			crt_filter_container.visible = !crt_filter_container.visible
-
-func _on_volume_slider_value_changed(new_slider_value: float) -> void:
-	BackgroundMusicPlayer.change_volume(new_slider_value/100)
-
-func _on_volume_icon_pressed() -> void:
-	BackgroundMusicPlayer.flip_genre()
-	#volume_slider.value = 0
-	#should mute music, but atm using it to flip genre
-	#probably should make flipping genre its own button
-
-func _on_shuffle_icon_pressed() -> void:
-	BackgroundMusicPlayer.shuffle_playlist()
 
 func _on_inventory_menu_button_pressed() -> void:
 	stats_ui_container.visible = !stats_ui_container.visible

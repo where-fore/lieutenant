@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=36 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://systems/ui states/main.gd" id="1_bbldx"]
 [ext_resource type="PackedScene" uid="uid://dsbt6u8ma1cpc" path="res://systems/map system/managers/map_tile_system.tscn" id="2_16p2t"]
@@ -12,19 +12,17 @@
 [ext_resource type="Texture2D" uid="uid://xr6idafv8gpe" path="res://sprites/cursor.png" id="9_nf78q"]
 [ext_resource type="Texture2D" uid="uid://cy48iap8gerbw" path="res://sprites/bag.png" id="10_1j0u7"]
 [ext_resource type="Texture2D" uid="uid://c7a1jxvk522q2" path="res://sprites/border_background.png" id="10_qmb71"]
-[ext_resource type="Texture2D" uid="uid://cqrq7atbyo80a" path="res://sprites/speaker.png" id="11_f4q0r"]
 [ext_resource type="Texture2D" uid="uid://cqhb4p4tf4jbg" path="res://sprites/paper.png" id="11_obmf6"]
 [ext_resource type="Texture2D" uid="uid://dngm38c2cqh5o" path="res://sprites/animations/backdrop/sky background.png" id="12_bbldx"]
 [ext_resource type="SpriteFrames" uid="uid://dbriv3a7topvw" path="res://sprites/animations/backdrop/background edge/background_edge.tres" id="12_g13l7"]
 [ext_resource type="Texture2D" uid="uid://dtf7pc3ra7qf5" path="res://sprites/moon.png" id="12_ireyf"]
-[ext_resource type="Texture2D" uid="uid://cq6dr4bnpi0wp" path="res://sprites/shuffle.png" id="12_yqr2s"]
 [ext_resource type="SpriteFrames" uid="uid://c3xi07klbwfxm" path="res://sprites/animations/backdrop/foreground edge/foreground_edge.tres" id="13_npwt7"]
 [ext_resource type="Texture2D" uid="uid://0pkmth45mucx" path="res://sprites/animations/backdrop/sky foreground.png" id="13_uaqc7"]
+[ext_resource type="PackedScene" uid="uid://ca2ocpb1uxw4n" path="res://ui resources/reusable ui pieces/volume_control.tscn" id="14_80hqw"]
 [ext_resource type="SpriteFrames" uid="uid://b6sdmhy2c02x3" path="res://sprites/animations/backdrop/stars and moon frames/stars_and_moon.tres" id="14_g13l7"]
 [ext_resource type="Texture2D" uid="uid://dicmyh0qbtnav" path="res://sprites/cursor/cursor_particle.png" id="14_npwt7"]
 [ext_resource type="Texture2D" uid="uid://bmxnkkwdbmxdt" path="res://sprites/animations/backdrop/map_grid_base_1.png" id="14_wcgmp"]
 [ext_resource type="Material" uid="uid://densi0a6br74i" path="res://sprites/cursor/cursor_trail.tres" id="15_obmf6"]
-[ext_resource type="Script" uid="uid://g03atvbm4brx" path="res://systems/SFX system/sfx_manager.gd" id="17_q5k8v"]
 [ext_resource type="PackedScene" uid="uid://b13o5cfslg2uj" path="res://systems/event log/event_log.tscn" id="18_h0uu6"]
 [ext_resource type="Texture2D" uid="uid://cwjj6wggwg4n3" path="res://sprites/18px_border.png" id="18_nf78q"]
 [ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="18_xalbe"]
@@ -36,7 +34,7 @@
 [ext_resource type="Script" uid="uid://bnn132ee6xb33" path="res://systems/time of day system/light_filter.gd" id="30_cuuk2"]
 [ext_resource type="PackedScene" uid="uid://0lhcbhnwyj1j" path="res://ui resources/reusable ui pieces/frame_protruding.tscn" id="31_rjmfi"]
 [ext_resource type="Script" uid="uid://ceiuhgrrtjav4" path="res://systems/time of day system/text_scroll.gd" id="34_80hqw"]
-[ext_resource type="AudioStream" uid="uid://dgj2bte2ylbaw" path="res://audio/sound effects/crow.ogg" id="37_h0uu6"]
+[ext_resource type="PackedScene" uid="uid://brj5adq126pu5" path="res://audio/managers/sfx_manager.tscn" id="36_q5k8v"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_bbldx")
@@ -152,7 +150,6 @@ tooltip_text = "Inventory"
 texture = ExtResource("10_1j0u7")
 
 [node name="PauseMenu" type="Control" parent="MainUI"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -185,64 +182,22 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="VolumeSlider" type="Control" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons"]
-custom_minimum_size = Vector2(32, 32)
+[node name="MusicVolumeSlider" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons" instance=ExtResource("14_80hqw")]
 layout_mode = 2
+music_controller = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VolumeIcon" type="Button" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer"]
-custom_minimum_size = Vector2(32, 32)
+[node name="SFXVolumeSlider" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons" instance=ExtResource("14_80hqw")]
 layout_mode = 2
-tooltip_text = "Swap Genres"
+sounds_controller = true
 
-[node name="TextureRect" type="TextureRect" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer/VolumeIcon"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -10.0
-offset_top = -10.0
-offset_right = 10.0
-offset_bottom = 10.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("11_f4q0r")
+[node name="LabelMuteButton" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/SFXVolumeSlider" index="0"]
+text = "Sounds"
 
-[node name="VolumeSlider" type="HSlider" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-tooltip_text = "Music Volume"
-value = 60.0
+[node name="GenreButton" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/SFXVolumeSlider" index="2"]
+visible = false
 
-[node name="ShuffleIcon" type="Button" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-tooltip_text = "Shuffle Playlist"
-
-[node name="TextureRect" type="TextureRect" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer/ShuffleIcon"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -10.0
-offset_top = -10.0
-offset_right = 10.0
-offset_bottom = 10.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("12_yqr2s")
+[node name="ShuffleIcon" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/SFXVolumeSlider" index="3"]
+visible = false
 
 [node name="Spacer2" type="Control" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons"]
 layout_mode = 2
@@ -730,22 +685,13 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("20_1fc2u")
 
-[node name="SFXManager" type="Node2D" parent="."]
-script = ExtResource("17_q5k8v")
-
-[node name="NewDayCrow" type="AudioStreamPlayer" parent="SFXManager"]
-stream = ExtResource("37_h0uu6")
-volume_db = -10.0
-bus = &"SFX"
+[node name="SFXManager" parent="." instance=ExtResource("36_q5k8v")]
 
 [connection signal="pressed" from="MainUI/GameStarter/GameStartButtons/NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="MainUI/TopButtons/PauseMenuButton" to="." method="_on_pause_menu_button_pressed"]
 [connection signal="pressed" from="MainUI/TopButtons/TimeButton" to="." method="_on_time_button_pressed"]
 [connection signal="pressed" from="MainUI/TopButtons/CombatLogButton" to="." method="_on_combat_log_button_pressed"]
 [connection signal="pressed" from="MainUI/TopButtons/InventoryMenuButton" to="." method="_on_inventory_menu_button_pressed"]
-[connection signal="pressed" from="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer/VolumeIcon" to="." method="_on_volume_icon_pressed"]
-[connection signal="value_changed" from="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
-[connection signal="pressed" from="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer/ShuffleIcon" to="." method="_on_shuffle_icon_pressed"]
 [connection signal="pressed" from="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/BottomRow/InfoButton" to="MainUI/PauseMenu" method="_on_info_button_pressed"]
@@ -756,3 +702,5 @@ bus = &"SFX"
 [editable path="MainUI/TopButtons/TimeButton"]
 [editable path="MainUI/TopButtons/CombatLogButton"]
 [editable path="MainUI/TopButtons/InventoryMenuButton"]
+[editable path="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/MusicVolumeSlider"]
+[editable path="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/SFXVolumeSlider"]

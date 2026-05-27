@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://v7njvv6s0s"]
+
+[ext_resource type="AudioStream" uid="uid://gqyup2ep34vb" path="res://audio/resources/sound effects/click_subtle.ogg" id="1_iyj50"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer"]
+stream = ExtResource("1_iyj50")
+volume_db = -6.0
+bus = &"SFX"

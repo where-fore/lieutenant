@@ -38,10 +38,11 @@ BalanceData="*res://autoload/balance_data.gd"
 MapEvents="*res://autoload/map_events.gd"
 TextStrings="*res://autoload/text_strings.gd"
 ScenarioEvents="*res://autoload/scenario_events.gd"
-BackgroundMusicPlayer="*res://audio/background_music_player.tscn"
+BackgroundMusicPlayer="*res://audio/managers/background_music_player.tscn"
 TestingCommands="*res://autoload/testing_commands.gd"
 CursorManager="*res://autoload/cursor_manager.gd"
 TimeOfDay="*res://autoload/time_of_day.gd"
+AudioEvents="*res://autoload/audio_events.gd"
 
 [debug]
 

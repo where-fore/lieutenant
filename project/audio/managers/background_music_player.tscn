@@ -1,0 +1,20 @@
+[gd_scene load_steps=9 format=3 uid="uid://dyrr2v7bw8iga"]
+
+[ext_resource type="Script" uid="uid://qj0cfqpx7qoe" path="res://audio/managers/background_music_player.gd" id="1_ipim4"]
+[ext_resource type="AudioStream" uid="uid://nrbdwpo2edaq" path="res://audio/resources/music/Alkakrab Fantasy RPG Music Pack/ogg/Ambient 5.ogg" id="2_hqccv"]
+[ext_resource type="AudioStream" uid="uid://b00qpxxww6n42" path="res://audio/resources/music/Alkakrab Fantasy RPG Music Pack/ogg/Ambient 1.ogg" id="3_53x3k"]
+[ext_resource type="AudioStream" uid="uid://v4m13ktxn12t" path="res://audio/resources/music/Alkakrab Fantasy RPG Music Pack/ogg/Ambient 3.ogg" id="5_yhd8d"]
+[ext_resource type="AudioStream" uid="uid://btvpndspihb0u" path="res://audio/resources/music/Alkakrab Pixel RPG Music Pack/Pixel 1.ogg" id="12_hqccv"]
+[ext_resource type="AudioStream" uid="uid://c8x3pjus0jnl8" path="res://audio/resources/music/Alkakrab Pixel RPG Music Pack/Pixel 3.ogg" id="14_noe0j"]
+[ext_resource type="AudioStream" uid="uid://benn0iems3p3o" path="res://audio/resources/music/Alkakrab Pixel RPG Music Pack/Pixel 10.ogg" id="21_11217"]
+[ext_resource type="AudioStream" uid="uid://xprp5qpkbtjn" path="res://audio/resources/music/Alkakrab Pixel RPG Music Pack/Pixel 12.ogg" id="23_mmfdd"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer"]
+bus = &"BackgroundMusic"
+script = ExtResource("1_ipim4")
+starting_classical_track = ExtResource("2_hqccv")
+classical_tracks = Array[AudioStream]([ExtResource("3_53x3k"), ExtResource("5_yhd8d")])
+starting_pixel_track = ExtResource("12_hqccv")
+pixel_tracks = Array[AudioStream]([ExtResource("14_noe0j"), ExtResource("21_11217"), ExtResource("23_mmfdd")])
+
+[connection signal="finished" from="." to="." method="_on_finished"]

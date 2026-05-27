@@ -10,7 +10,8 @@ var current_genre:int
 var current_track_index:int
 var current_playlist:Array[AudioStream]
 
-var default_volume:float = 0.75
+var default_volume:float = 0.60
+var muted:bool = false
 
 func _ready() -> void:
 	#preload this stuff, so no hiccups in game
