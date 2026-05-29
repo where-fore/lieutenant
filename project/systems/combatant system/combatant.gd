@@ -62,6 +62,12 @@ func setup(should_be_a_player:bool = false) -> void:
 		HudEvents.send_player_combatant_to_ui.emit(self)
 		
 		is_an_enemy = false
+	
+	CombatEvents.combatant_died.connect(on_other_combatant_dying_functions)
+
+func unsetup() -> void:
+	active = false
+	CombatEvents.combatant_died.disconnect(on_other_combatant_dying_functions)
 
 func prepare_aura_manager() -> void:
 	aura_manager = AuraManager.new()
@@ -78,8 +84,6 @@ func prepare_item_manager() -> void:
 	for item:Item in starting_items:
 		item_manager.equip_item(item, false)
 
-func unsetup() -> void:
-	active = false
 
 func take_damage(value:int) -> void:
 	if not dead:
@@ -276,6 +280,23 @@ func scale_starting_stats_to_factor(scaling_factor:float) -> void:
 			#print(combatant_name, ": , ", stat, " is now: ", starting_stats[stat])
 
 #calling functions on other things
+
+#specific events
+func on_damage_taken_functions(amount_taken:int) -> void:
+	on_damage_taken(amount_taken)
+	item_manager.on_damage_taken(amount_taken)
+	aura_manager.on_damage_taken(amount_taken)
+	CombatEvents.combatant_damaged.emit(self, amount_taken)
+
+func on_other_combatant_dying_functions(newly_dead_combatant:Combatant) -> void:
+	#if not dead:
+	#maybe all triggers should check this? maybe not?
+	if newly_dead_combatant != self:
+		on_other_combatant_dying(newly_dead_combatant)
+		item_manager.on_other_combatant_dying(newly_dead_combatant)
+		aura_manager.on_other_combatant_dying(newly_dead_combatant)
+
+#timing events
 func on_start_combat_functions() -> void:
 	on_start_combat()
 	item_manager.on_start_combat()
@@ -298,12 +319,6 @@ func on_after_attack_functions(chosen_target:Combatant) -> void:
 	aura_manager.on_after_attack(chosen_target)
 	CombatEvents.combatant_finished_attack.emit(self, chosen_target)
 
-func on_damage_taken_functions(amount_taken:int) -> void:
-	on_damage_taken(amount_taken)
-	item_manager.on_damage_taken(amount_taken)
-	aura_manager.on_damage_taken(amount_taken)
-	CombatEvents.combatant_damaged.emit(self, amount_taken)
-
 func on_end_turn_functions() -> void:
 	on_end_turn()
 	item_manager.on_end_turn()
@@ -318,6 +333,15 @@ func on_end_combat_functions() -> void:
 
 
 #derived subclasses hook onto these functions
+
+#specific events
+func on_damage_taken(_amount_taken:int) -> void:
+	pass
+
+func on_other_combatant_dying(_newly_dead_combatant:Combatant) -> void:
+	pass
+
+#timing events
 func on_start_combat() -> void:
 	pass
 
@@ -327,14 +351,12 @@ func on_start_turn() -> void:
 func on_after_attack() -> void:
 	pass
 
-func on_damage_taken(_amount_taken:int) -> void:
-	pass
-
 func on_end_turn() -> void:
 	pass
 
 func on_combat_end() -> void:
 	pass
 
+#setup events
 func setup_stats() -> void:
 	pass

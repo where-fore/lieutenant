@@ -3,11 +3,6 @@ working notes
 --------------------------------------------------------
 
 
-
-	lady_1 starts with moon kris (and maybe some flowers or weapons for stats)
-		make sure starting items also supports starting auras
-	knights start with enrage sword
-
 items:		
 	basic stat flowers (str, str/dex, str/fort, dex, dex/fort, mind, mind/fort)
 		maybe draw a flower with four petals, and colour two petals one for the stat - red/green/blue/brown?
@@ -17,11 +12,12 @@ items:
 		basic attack items (no stats just attack)
 		stat spread rewards - heal allies for lowest stat; on turn 5 (if alive) deal damage equal to total stat sum; buff allies for your lowest stat; 
 
-re-enable basic rewards, and have it pull those basic stat flowers
+	lady_1 starts with moon kris (and maybe some flowers or weapons for stats)
+		make sure starting items also supports starting auras
+	knights start with enrage sword
 
-for now at least, yeet the combatants taking turns while dead
-	or at least speed it up?
-	yeet if no "on death trigger"? maybe a bool flag triggered by items?
+
+re-enable basic rewards, and have it pull those basic stat flowers
 
 event:
 	knights are fighting beast, just beat it after one going down and other enraging. Arlaeus and Aribald

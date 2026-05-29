@@ -106,6 +106,9 @@ func remove_from_custom_auras(old_aura:Aura) -> void:
 func setup_item_stats() -> void:
 	push_error("item tried to instantiate without overriding setup_item_stats(): ", get_script().resource_path)
 
+func on_other_combatant_dying(_newly_dead_combatant:Combatant) -> void:
+	pass
+
 func on_equip() -> void:
 	pass
 

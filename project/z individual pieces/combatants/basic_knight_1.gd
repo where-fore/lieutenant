@@ -1,12 +1,12 @@
 extends Combatant
 
 func _init() -> void:
-	combatant_name = "Shara" # "Generic Combatant"
-	combatant_texture = load("res://sprites/portraits/lady_1.png")
+	combatant_name = "Arlaeus" # "Generic Combatant"
+	combatant_texture = load("res://sprites/knight.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	
 	starting_stats[Stats.strength] = BalanceData.player_base_strength / 2
-	starting_stats[Stats.agility] = BalanceData.player_base_agility * 2
+	starting_stats[Stats.agility] = BalanceData.player_base_agility
 	starting_stats[Stats.fortitude] = BalanceData.player_base_fortitude
 
-	starting_items = [Database.get_item_by_id("moon_kris")]
+	starting_items = [Database.get_item_by_id("enrage_sword")]

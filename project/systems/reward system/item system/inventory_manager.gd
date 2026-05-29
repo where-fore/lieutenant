@@ -56,6 +56,17 @@ func interpret_removed_item(item:Item) -> void:
 	item.custom_aura_added.disconnect(parent_combatant.apply_aura_or_item)
 	item.custom_aura_removed.disconnect(parent_combatant.remove_aura_or_item)
 
+
+#specific events
+func on_damage_taken(amount_taken:int) -> void:
+	for item:Item in inventory:
+		item.on_damage_taken(parent_combatant, amount_taken)
+
+func on_other_combatant_dying(newly_dead_combatant:Combatant) -> void:
+	for item:Item in inventory:
+		item.on_other_combatant_dying(newly_dead_combatant)
+
+#timing events
 func on_start_combat() -> void:
 	for item:Item in inventory:
 		item.on_combat_start()
@@ -67,10 +78,6 @@ func on_start_turn() -> void:
 func on_after_attack(target:Combatant) -> void:
 	for item:Item in inventory:
 		item.on_attack(parent_combatant, target)
-
-func on_damage_taken(amount_taken:int) -> void:
-	for item:Item in inventory:
-		item.on_damage_taken(parent_combatant, amount_taken)
 
 func on_end_turn() -> void:
 	for item:Item in inventory:

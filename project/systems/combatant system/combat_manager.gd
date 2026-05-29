@@ -126,8 +126,8 @@ func next_turn(finished_combatant:Combatant = null) -> void:
 		push_error("combat manager thought it was the turn of: " + current_combatant_turn.combatant_name + ", but heard the turn finished signal for: " + finished_combatant.combatant_name)
 		current_combatant_turn = finished_combatant
 	
-	var player_turn:bool = player_combatants.find(current_combatant_turn) != -1
-	var enemy_turn:bool = enemy_combatants.find(current_combatant_turn) != -1
+	var player_turn:bool = player_combatants.find(current_combatant_turn) != -1 #-1 is .find()'s null return
+	var enemy_turn:bool = enemy_combatants.find(current_combatant_turn) != -1 #-1 is .find()'s null return
 	
 	if player_turn:
 		var finished_index:int = player_combatants.find(current_combatant_turn)

@@ -77,6 +77,16 @@ func add_to_aura_dictionary(dictionary_to_update:Dictionary[StringName,int], sta
 	else:
 		dictionary_to_update[statName] = value
 
+#specific events
+func on_damage_taken(damage_taken:int) -> void:
+	for aura:Aura in aura_dictionary.values(): 
+		aura.on_damage_taken(damage_taken)
+
+func on_other_combatant_dying(newly_dead_combatant:Combatant) -> void:
+	for aura:Aura in aura_dictionary.values(): 
+		aura.on_other_combatant_dying(newly_dead_combatant)
+
+#timing events
 func on_start_combat() -> void:
 	for aura:Aura in aura_dictionary.values(): 
 		aura.on_combat_start()
@@ -88,9 +98,6 @@ func on_start_turn() -> void:
 func on_after_attack(target:Combatant) -> void:
 	for aura:Aura in aura_dictionary.values(): 
 		aura.on_attack(parent_combatant, target)
-
-func on_damage_taken(_damage_taken:int) -> void:
-	pass #maybe do something here later
 
 func on_end_turn() -> void:
 	for aura:Aura in aura_dictionary.values():
