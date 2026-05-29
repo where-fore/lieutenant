@@ -9,7 +9,7 @@ func setup_item_stats() -> void:
 		Categories.item_rarity : Categories.Rarity.COMMON,
 	}
 	
-	additive_stat_dictionary[Stats.health] = BalanceData.basic_health
+	additive_stat_dictionary[Stats.fortitude] = BalanceData.player_base_fortitude
 
 
 #custom stuff
