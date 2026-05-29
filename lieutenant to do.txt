@@ -4,12 +4,12 @@ working notes
 
 cannot mouse over player portaits in combat
 	probably combat mouse filter
-	
+
+flowers dont show up in stat ui - they do work though
+
 	
 
 items:
-	basic stat scaling items (axe %str no flat stat, etc)
-		fortitude
 	enrage items for the brothers
 		extra credit:
 		basic attack items (no stats just attack)
@@ -18,6 +18,9 @@ items:
 	lady_1 starts with moon kris (and maybe some flowers or weapons for stats)
 		make sure starting items also supports starting auras
 	knights start with enrage sword
+
+	maybe some more fortitude items, like bear's defence or similar. brainstorm
+		probaly copy current stat threshold paradigm
 
 
 re-enable basic rewards, and have it pull those basic stat flowers

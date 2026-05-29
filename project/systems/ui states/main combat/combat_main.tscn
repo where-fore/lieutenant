@@ -63,6 +63,7 @@ offset_right = 0.0
 offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="CombatUI" parent="FullGame/GameMain/Control/MainUI" instance=ExtResource("7_8s366")]
 layout_mode = 1
@@ -75,6 +76,7 @@ offset_right = 0.0
 offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="RewardUI" parent="FullGame/GameMain/Control/MainUI" instance=ExtResource("14_hfile")]
 visible = false

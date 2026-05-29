@@ -34,7 +34,11 @@ func get_rewards_by_category(category_title:StringName, category_names:Array[int
 		if reward.reward_categories.has(category_title):
 			for category_header:int in category_names:
 				if reward.reward_categories[category_title] == category_header:
-					rewards_to_return.append(reward.duplicate())
+					if reward is Item: 
+						rewards_to_return.append(reward.duplicate())
+					elif reward is Aura:
+						rewards_to_return.append(reward.create_aura())
+					else: push_error("not handling non-item-and-non-aura rewards")
 	return rewards_to_return
 
 func get_combatants_by_category(category_title:StringName, category_names:Array[int]) -> Array[Combatant]:
