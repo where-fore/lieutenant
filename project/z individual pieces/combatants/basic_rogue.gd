@@ -6,6 +6,7 @@ func _init() -> void:
 	extra_tooltip = "" # "Generic flavourful description"
 	
 	starting_stats[Stats.strength] = BalanceData.player_base_strength / 2
-	starting_stats[Stats.dexterity] = BalanceData.player_base_dexterity * 2
+	starting_stats[Stats.agility] = BalanceData.player_base_agility * 2
+	starting_stats[Stats.fortitude] = BalanceData.player_base_fortitude
 
 	starting_items = [Database.get_item_by_id("iron_dirk"), Database.get_item_by_id("iron_sword")]

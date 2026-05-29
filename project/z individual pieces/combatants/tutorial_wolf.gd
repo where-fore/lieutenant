@@ -8,4 +8,4 @@ func _init() -> void:
 	}
 
 	starting_stats[Stats.strength] = BalanceData.enemy_tutorial_easy_stat_budget / 2
-	starting_stats[Stats.dexterity] = BalanceData.enemy_tutorial_easy_stat_budget / 2
+	starting_stats[Stats.agility] = BalanceData.enemy_tutorial_easy_stat_budget / 2

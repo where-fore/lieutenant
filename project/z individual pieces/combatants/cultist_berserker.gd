@@ -14,7 +14,7 @@ func _init() -> void:
 	}
 	
 	starting_stats[Stats.strength] = BalanceData.enemy_mythic_stat_budget
-	starting_stats[Stats.dexterity] = BalanceData.enemy_mythic_stat_budget * 2 / 3
+	starting_stats[Stats.agility] = BalanceData.enemy_mythic_stat_budget * 2 / 3
 
 #called by Combatant
 func on_start_combat() -> void:

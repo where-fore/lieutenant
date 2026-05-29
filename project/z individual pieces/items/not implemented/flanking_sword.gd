@@ -2,7 +2,7 @@ extends Item
 
 #whatever the item does, doesn't do anything until you do something with it
 var my_stat_add:int = BalanceData.basic_stat * 2
-var my_stat:StringName = Stats.dexterity
+var my_stat:StringName = Stats.agility
 
 var stat_to_allies:StringName = Stats.strength
 var stat_to_add_to_allies:int = BalanceData.basic_stat * 2

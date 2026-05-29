@@ -8,13 +8,13 @@ func setup_item_stats() -> void:
 	item_categories = {
 		Categories.item_rarity : Categories.Rarity.MYTHIC,
 	}
-	additive_stat_dictionary[Stats.dexterity] = BalanceData.basic_stat
+	additive_stat_dictionary[Stats.agility] = BalanceData.basic_stat
 
 
 #custom stuff
-var stat_to_check:StringName = Stats.dexterity
+var stat_to_check:StringName = Stats.agility
 var threshold_per_hit:int = BalanceData.basic_stat * 10
-var percent_of_stat_already_used_for_attack:int = int((1.0 / Stats.dexterity_per_attack) * 100)
+var percent_of_stat_already_used_for_attack:int = int((1.0 / Stats.agility_per_attack) * 100)
 var percent_stat_to_deal:int = percent_of_stat_already_used_for_attack / 2
 
 func on_attack(source:Combatant, target:Combatant) -> void:

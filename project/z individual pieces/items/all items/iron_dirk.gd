@@ -8,7 +8,7 @@ func setup_item_stats() -> void:
 	item_categories = {
 		Categories.item_rarity : Categories.Rarity.COMMON,
 	}
-	additive_stat_dictionary[Stats.dexterity] = BalanceData.basic_stat
+	additive_stat_dictionary[Stats.agility] = BalanceData.basic_stat
 
 
 #custom stuff

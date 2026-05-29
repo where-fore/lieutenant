@@ -9,8 +9,8 @@ class_name InfoPanel
 @export var my_health_label:Label
 @export var my_attack_label:Label
 @export var my_strength:DisplayStat
-@export var my_dexterity:DisplayStat
-@export var my_intelligence:DisplayStat
+@export var my_agility:DisplayStat
+@export var my_mind:DisplayStat
 
 var my_combatant:Combatant
 
@@ -26,9 +26,10 @@ func update_title_stats() -> void:
 	
 	my_strength.my_label.text = str(my_combatant.current_stats.get(Stats.strength, 0))
 	my_strength.tooltip_text = str(Stats.strength_per_attack) + " strength = 1 attack" + "\n" + str(Stats.strength_per_health) + " strength = 1 health"
+	my_strength.tooltip_text = str(Stats.strength_per_attack, " ", Stats.strength, " = 1 attack", "\n", + Stats.strength_per_health, " ", Stats.strength, " = 1 health")
 	
-	my_dexterity.my_label.text = str(my_combatant.current_stats.get(Stats.dexterity, 0))
-	my_dexterity.tooltip_text = str(Stats.dexterity_per_attack) + " dexterity = 1 attack" + "\n" + str(Stats.dexterity_per_health) + " dexterity = 1 health"
+	my_agility.my_label.text = str(my_combatant.current_stats.get(Stats.agility, 0))
+	my_agility.tooltip_text = str(Stats.agility_per_attack, " ", Stats.agility, " = 1 attack", "\n", + Stats.agility_per_health, " ", Stats.agility, " = 1 health")
 	
-	my_intelligence.my_label.text = str(my_combatant.current_stats.get(Stats.intelligence, 0))
-	my_intelligence.tooltip_text = str(Stats.intelligence_per_shield_per_turn) + " intelligence = 1 shield per turn"
+	my_mind.my_label.text = str(my_combatant.current_stats.get(Stats.mind, 0))
+	my_mind.tooltip_text = str(Stats.mind_per_shield_per_turn, " ", Stats.mind, " = 1 shield per turn")

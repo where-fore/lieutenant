@@ -4,20 +4,11 @@ working notes
 
 
 
+	lady_1 starts with moon kris (and maybe some flowers or weapons for stats)
+		make sure starting items also supports starting auras
+	knights start with enrage sword
 
-
-
-
-stats: add fortitude, rename int/dex
-	strength/agility/mind/fortitude
-	
-	re-adjust stats:
-		look through monsters and adjust fort accordingly
-		lady_1 starts with moon kris (and maybe some flowers or weapons for stats)
-			make sure starting items also supports starting auras
-		knights start with enrage sword
-
-items:
+items:		
 	basic stat flowers (str, str/dex, str/fort, dex, dex/fort, mind, mind/fort)
 		maybe draw a flower with four petals, and colour two petals one for the stat - red/green/blue/brown?
 	basic stat scaling items (axe %str no flat stat, etc)
@@ -45,7 +36,14 @@ can put Stats.Attributes as a shortcut - it's just an array of [Stats.strength, 
 	for stat in Stats.Attributes ...
 
 
-
+update stat panel tooltip - to show what you are currently getting from the stat.
+----------------------------
+35 str
++1 attack, +17 health
+----
+20 str = 1 attack
+2 str = 1 health
+----------------------------
 
 
 --------------------------------------------------------

@@ -15,8 +15,7 @@ func _init() -> void:
 	}
 	
 	starting_stats[Stats.strength] = BalanceData.enemy_tutorial_hard_stat_budget
-	starting_stats[Stats.health] = starting_stats[Stats.strength] / Stats.strength_per_health
-		#ie. double scaling from strength for hp only
+	starting_stats[Stats.fortitude] = BalanceData.enemy_tutorial_hard_stat_budget
 	attack_per_turn = starting_stats[Stats.strength] / Stats.strength_per_attack / turns_to_double_stats
 	attack_per_turn = max(1, attack_per_turn)
 

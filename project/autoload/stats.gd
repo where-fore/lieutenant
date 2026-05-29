@@ -4,22 +4,26 @@ const health:StringName = &"Health"
 const attack:StringName = &"Attack"
 
 const strength:StringName = &"Strength"
-const dexterity:StringName = &"Dexterity"
-const intelligence:StringName = &"Intelligence"
+const agility:StringName = &"Agility"
+const mind:StringName = &"Mind"
+const fortitude:StringName = &"Fortitude"
 
 const attributes:Array[StringName] = [
 	strength,
-	dexterity,
-	intelligence,
+	agility,
+	mind,
+	fortitude
 ]
 
-const strength_per_attack:int = 10
-const strength_per_health:int = 1
+const strength_per_attack:int = 20
+const strength_per_health:int = 2
 
-const dexterity_per_attack:int = 5
-const dexterity_per_health:int = 2
+const agility_per_attack:int = 10
+const agility_per_health:int = 4
 
-const intelligence_per_shield_per_turn:int = 10
+const mind_per_shield_per_turn:int = 20
+
+const fortitude_per_health:int = 1
 
 #make sure to check entropy system implementation before using
 #const crit_chance:StringName = &"Crit Chance"

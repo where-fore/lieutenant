@@ -1,10 +1,6 @@
 extends Combatant
 
-var stats_to_buff:Array[StringName] = [
-	Stats.strength,
-	Stats.dexterity,
-	Stats.intelligence,
-]
+var stats_to_buff:Array[StringName] = Stats.attributes
 var turns_to_double_stats:int = 4
 	#note this isn't literally doubling in 6 turns, due to truncation for players intuitions sake
 
@@ -20,8 +16,9 @@ func _init() -> void:
 	}
 	
 	starting_stats[Stats.strength] = BalanceData.enemy_boss_stat_budget * 1/3
-	starting_stats[Stats.dexterity] = BalanceData.enemy_boss_stat_budget * 1/3
-	starting_stats[Stats.intelligence] = BalanceData.enemy_boss_stat_budget * 1/3
+	starting_stats[Stats.agility] = BalanceData.enemy_boss_stat_budget * 1/3
+	starting_stats[Stats.mind] = BalanceData.enemy_boss_stat_budget * 1/3
+	starting_stats[Stats.fortitude] = BalanceData.enemy_boss_stat_budget
 	
 	stat_growth_per_turn = BalanceData.enemy_boss_stat_budget / stats_to_buff.size() / turns_to_double_stats
 	stat_growth_per_turn = max(1, stat_growth_per_turn)

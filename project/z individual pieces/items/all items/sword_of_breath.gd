@@ -9,13 +9,13 @@ func setup_item_stats() -> void:
 		Categories.item_rarity : Categories.Rarity.RARE,
 	}
 	
-	additive_stat_dictionary[Stats.dexterity] = BalanceData.basic_stat
+	additive_stat_dictionary[Stats.agility] = BalanceData.basic_stat
 
 
 #custom stuff
 var my_buff_aura:Aura
 
-var my_stat:StringName = Stats.dexterity
+var my_stat:StringName = Stats.agility
 var my_stat_per_attack:int = BalanceData.basic_stat
 
 func on_combat_start() -> void:

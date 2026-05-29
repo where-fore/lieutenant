@@ -6,5 +6,6 @@ func _init() -> void:
 	extra_tooltip = "" # "Generic flavourful description"
 	
 	starting_stats[Stats.strength] = BalanceData.player_base_strength
-	starting_stats[Stats.dexterity] = BalanceData.player_base_dexterity
-	starting_stats[Stats.intelligence] = BalanceData.player_base_intelligence
+	starting_stats[Stats.agility] = BalanceData.player_base_agility
+	starting_stats[Stats.mind] = BalanceData.player_base_mind
+	starting_stats[Stats.fortitude] = BalanceData.player_base_fortitude

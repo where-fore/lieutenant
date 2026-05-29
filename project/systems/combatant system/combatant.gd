@@ -172,7 +172,7 @@ func recalculate_stats(additive_aura_dictionary:Dictionary[StringName, int], mul
 	reset_current_stats_to_base()
 	
 	#cut primaries out, so i can work them separately
-	var primary_stats:Array[StringName] = [Stats.strength, Stats.dexterity, Stats.intelligence]
+	var primary_stats:Array[StringName] = [Stats.strength, Stats.agility, Stats.mind]
 	var primary_stat_additive_dictionary:Dictionary[StringName, int]
 	var primary_stat_multiplicative_dictionary:Dictionary[StringName, int]
 	for stat:StringName in additive_aura_dictionary.keys():
@@ -198,11 +198,12 @@ func recalculate_stats(additive_aura_dictionary:Dictionary[StringName, int], mul
 
 func derive_stats() -> void:
 	var strength:int = current_stats.get(Stats.strength, 0)
-	var dexterity:int = current_stats.get(Stats.dexterity, 0)
-	#var intelligence:int = current_stats.get(Stats.intelligence, 0)
+	var agility:int = current_stats.get(Stats.agility, 0)
+	#var mind:int = current_stats.get(Stats.mind, 0) #currently doesn't derive anything
+	var fortitude:int = current_stats.get(Stats.fortitude, 0)
 	
-	var attack_to_add:int = strength/Stats.strength_per_attack + dexterity/Stats.dexterity_per_attack
-	var health_to_add:int = strength/Stats.strength_per_health + dexterity/Stats.dexterity_per_health
+	var attack_to_add:int = strength/Stats.strength_per_attack + agility/Stats.agility_per_attack
+	var health_to_add:int = strength/Stats.strength_per_health + agility/Stats.agility_per_health + fortitude/Stats.fortitude_per_health
 	
 	current_stats[Stats.attack] = current_stats.get(Stats.attack, 0) + attack_to_add
 	current_stats[Stats.health] = current_stats.get(Stats.health, 0) + health_to_add
@@ -239,7 +240,7 @@ func get_all_auras() -> Array[Aura]:
 	return aura_manager.get_all_auras()
 
 func get_shield_from_int() -> void:
-	var shield_to_add:int = current_stats.get(Stats.intelligence, 0) / Stats.intelligence_per_shield_per_turn
+	var shield_to_add:int = current_stats.get(Stats.mind, 0) / Stats.mind_per_shield_per_turn
 	shield += shield_to_add
 
 #this is copied from aura_base.gd
@@ -264,21 +265,15 @@ func scale_stats_to_day() -> void:
 	scale_starting_stats_to_factor(BalanceData.enemy_stat_scaling_per_day)
 
 func scale_starting_stats_to_factor(scaling_factor:float) -> void:
-	var stats_to_scale:Array[StringName] = [
-		Stats.strength,
-		Stats.dexterity,
-		Stats.intelligence,
-		Stats.health,
-		Stats.attack,
-	]
+	var stats_to_scale:Array[StringName] = Stats.attributes.duplicate()
+	stats_to_scale.append(Stats.health)
+	stats_to_scale.append(Stats.attack)
+	
 	for stat:StringName in stats_to_scale:
 		if starting_stats.has(stat):
 			#print(combatant_name, ": , ", stat, " was: ", starting_stats[stat])
 			starting_stats[stat] = int(scaling_factor * starting_stats[stat])
 			#print(combatant_name, ": , ", stat, " is now: ", starting_stats[stat])
-	
-	#starting_stats[Stats.health] = starting_stats[Stats.health] * BalanceData.enemy_beginning_health_scaling / 100 + (power * starting_stats[Stats.health] * BalanceData.enemy_health_scaling_per_power)/100
-	#starting_stats[Stats.attack] = starting_stats[Stats.attack] + (power * starting_stats[Stats.attack] * BalanceData.enemy_attack_scaling_per_power)/100
 
 #calling functions on other things
 func on_start_combat_functions() -> void:

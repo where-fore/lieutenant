@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://dpviso477bmgk" path="res://sprites/dexterity.png" id="8_h3ji0"]
 [ext_resource type="Texture2D" uid="uid://bfhhvwqv0gx0" path="res://sprites/intelligence.png" id="9_o2rrx"]
 
-[node name="InfoPanel" type="Panel" node_paths=PackedStringArray("my_item_panel", "my_aura_panel", "my_title_label", "my_portrait", "my_health_label", "my_attack_label", "my_strength", "my_dexterity", "my_intelligence")]
+[node name="InfoPanel" type="Panel" node_paths=PackedStringArray("my_item_panel", "my_aura_panel", "my_title_label", "my_portrait", "my_health_label", "my_attack_label", "my_strength", "my_agility", "my_mind")]
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 464.0
@@ -25,8 +25,8 @@ my_portrait = NodePath("VBoxContainer/Portrait/MarginContainer/HBoxContainer/Por
 my_health_label = NodePath("VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/HealthLabel")
 my_attack_label = NodePath("VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/AttackLabel")
 my_strength = NodePath("VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Strength")
-my_dexterity = NodePath("VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Dexterity")
-my_intelligence = NodePath("VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Intelligence")
+my_agility = NodePath("VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Agility")
+my_mind = NodePath("VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Mind")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -126,20 +126,20 @@ texture = ExtResource("8_flbes")
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Dexterity" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("7_eiq13")]
+[node name="Agility" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("7_eiq13")]
 layout_mode = 2
 
-[node name="Icon" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Dexterity/IconBorder" index="1"]
+[node name="Icon" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Agility/IconBorder" index="1"]
 texture = ExtResource("8_h3ji0")
 
 [node name="Spacer5" type="Control" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Intelligence" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("7_eiq13")]
+[node name="Mind" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("7_eiq13")]
 layout_mode = 2
 
-[node name="Icon" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Intelligence/IconBorder" index="1"]
+[node name="Icon" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Mind/IconBorder" index="1"]
 texture = ExtResource("9_o2rrx")
 
 [node name="Spacer6" type="Control" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
@@ -219,7 +219,7 @@ layout_mode = 2
 [editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/AttackImage"]
 [editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Strength"]
 [editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Strength/IconBorder"]
-[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Dexterity"]
-[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Dexterity/IconBorder"]
-[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Intelligence"]
-[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Intelligence/IconBorder"]
+[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Agility"]
+[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Agility/IconBorder"]
+[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Mind"]
+[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Mind/IconBorder"]

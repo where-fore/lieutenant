@@ -13,7 +13,7 @@ func setup_item_stats() -> void:
 
 
 #custom stuff
-var starting_hp:int = BalanceData.player_base_strength / Stats.strength_per_health + BalanceData.player_base_dexterity / Stats.dexterity_per_health
+var starting_hp:int = BalanceData.player_base_strength / Stats.strength_per_health + BalanceData.player_base_agility / Stats.agility_per_health
 var my_health_threshold:int = starting_hp * 20
 var my_threshold_stat:StringName = Stats.health
 
