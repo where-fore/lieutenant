@@ -8,7 +8,7 @@ func setup_basic_item_data() -> void:
 	reward_name = "Giant Slayer" # "Generic Item"
 	reward_sprite = load("res://sprites/single_spiked_axe.png")
 	extra_tooltip = "Deal an extra {val}% of victims current health".format({"val": current_hp_percent_damage}) # "Generic flavourful description"
-	item_categories = {
+	reward_categories = {
 		Categories.item_rarity : Categories.Rarity.RARE,
 	}
 

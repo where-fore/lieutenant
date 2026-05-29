@@ -4,7 +4,6 @@ extends Aura
 var multiplier:int = 200
 
 func setup_basic_aura_data() -> void:
-	aura_id = "striking" # "generic_aura"
 	reward_name = "Striking" # "Generic aura"
 	reward_sprite = load("res://sprites/sword_basic.png")
 	extra_tooltip = "" # "Generic flavourful description"

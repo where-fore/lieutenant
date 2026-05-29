@@ -14,7 +14,7 @@ func _init() -> void:
 	rewards = [ #note this is 0-indexed
 		load("res://z individual pieces/auras/standalone auras/sharpen.gd").new().create_aura(),
 		load("res://z individual pieces/auras/standalone auras/rested.gd").new().create_aura(),
-		Database.get_item_by_id("iron_sword"),
+		Database.get_reward_by_id("iron_sword"),
 	]
 	
 	#display_blurb = "testing"

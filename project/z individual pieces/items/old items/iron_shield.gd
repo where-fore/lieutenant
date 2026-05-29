@@ -10,7 +10,7 @@ func setup_basic_item_data() -> void:
 	reward_name = "Iron Shield" # "Generic Item"
 	reward_sprite = load("res://sprites/small_shield.png")
 	extra_tooltip = "" # "Generic flavourful description"
-	item_categories = {
+	reward_categories = {
 		Categories.item_rarity : Categories.Rarity.COMMON,
 	}
 

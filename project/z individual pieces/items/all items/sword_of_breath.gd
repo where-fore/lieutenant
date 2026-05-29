@@ -5,7 +5,7 @@ func setup_item_stats() -> void:
 	reward_name = "Lungfiller" # "Generic Item"
 	reward_sprite = load("res://sprites/items/nature_sword.png")
 	extra_tooltip = "Fills you with endurance as you fight,\nadding {amount} {stat} per turn".format({"amount": my_stat_per_attack, "stat": my_stat}) # "Generic flavourful description"
-	item_categories = {
+	reward_categories = {
 		Categories.item_rarity : Categories.Rarity.RARE,
 	}
 	

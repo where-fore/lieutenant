@@ -103,7 +103,7 @@ func populate_starter_items() -> void:
 		if InventoryEvents.inventory_is_full:
 			push_error("starting inventory tried to equip more items than slots available")
 		
-		equip_to_first_available_slot(Database.get_item_by_id(item_id))
+		equip_to_first_available_slot(Database.get_reward_by_id(item_id))
 
 func update_inventory_full_status() -> void:
 	if find_first_empty_slot() == null: InventoryEvents.inventory_is_full = true

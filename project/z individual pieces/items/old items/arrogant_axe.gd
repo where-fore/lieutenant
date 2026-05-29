@@ -14,7 +14,7 @@ func setup_basic_item_data() -> void:
 	reward_sprite = load("res://sprites/double_sided_axe.png")
 	extra_tooltip = "Only grants true power if you have {val} or more attack".format({"val": attack_threshold}) # "Generic flavourful description"
 	extra_tooltip += "\nTrue power: attack grows by {val}% of itself every swing".format({"val":super_attack_growth_percent})
-	item_categories = {
+	reward_categories = {
 		Categories.item_rarity : Categories.Rarity.MYTHIC,
 	}
 

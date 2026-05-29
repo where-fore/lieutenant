@@ -11,7 +11,7 @@ func setup_basic_item_data() -> void:
 	reward_sprite = load("res://sprites/curved_dagger.png")
 	extra_tooltip = "Increase attack by {val}% of damage taken every time you bleed".format({"val": percent_of_damage_taken_gained_as_attack}) # "Generic flavourful description"
 	extra_tooltip += "\nHeal for {val}% of attack when tasting blood".format({"val": healing_per_attack_multiplier}) # "Generic flavourful description"
-	item_categories = {
+	reward_categories = {
 		Categories.item_rarity : Categories.Rarity.MYTHIC,
 	}
 

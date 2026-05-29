@@ -1,7 +1,6 @@
 extends Aura
 
 func setup_basic_aura_data() -> void:
-	aura_id = "debug_godmode" # "generic_aura"
 	reward_name = "Ascended beyond Binary" # "Generic aura"
 	reward_sprite = load("res://sprites/heart.png")
 	extra_tooltip = "Debug mode activated!" # "Generic flavourful description"

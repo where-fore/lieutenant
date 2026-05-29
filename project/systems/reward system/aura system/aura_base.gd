@@ -1,7 +1,6 @@
 extends Reward
 class_name Aura
 
-var aura_id:String
 var extra_tooltip:String
 var aura_categories:Array[StringName]
 var visible:bool

@@ -2,11 +2,14 @@
 working notes
 --------------------------------------------------------
 
+cannot mouse over player portaits in combat
+	probably combat mouse filter
+	
+	
 
-items:		
-	basic stat flowers (str, str/dex, str/fort, dex, dex/fort, mind, mind/fort)
-		maybe draw a flower with four petals, and colour two petals one for the stat - red/green/blue/brown?
+items:
 	basic stat scaling items (axe %str no flat stat, etc)
+		fortitude
 	enrage items for the brothers
 		extra credit:
 		basic attack items (no stats just attack)
@@ -28,9 +31,6 @@ stat panel support for fourth stat:
 		KNIGHT     | 200 str 100 dex
 		200hp 5atk | 75 int  200 end
 
-can put Stats.Attributes as a shortcut - it's just an array of [Stats.strength, Stats.dexterity] etc
-	for stat in Stats.Attributes ...
-
 
 update stat panel tooltip - to show what you are currently getting from the stat.
 ----------------------------
@@ -41,6 +41,7 @@ update stat panel tooltip - to show what you are currently getting from the stat
 2 str = 1 health
 ----------------------------
 
+sfx manager errors on restart button - race condition
 
 --------------------------------------------------------
 work to do
@@ -532,6 +533,9 @@ flappy cameo, balloon in the distance
 ----------------------------------------------------------------------------------------------------------------
 things i know are hacky and should be cleaned up (or super duper back burner changes):
 ----------------------------------------------------------------------------------------------------------------
+adding a new triggered event is crazy - combatant adds a function, to check its own function + item managers function + aura managers function - and those managers need a function to check every child's function - and those children all need a function
+im copy pasting the same function, slightly different arguments, 8 times!
+
 the BackgroundMusicManager is its own audio player global object, but SFX are on Audio_Events? seems inconsistent. the two should probably have a parent class too, instead of copying behaviour
 
 enemy tooltips on map panel (or elsewhere) show all their stats, even benign things like default crit multi with no crit chance

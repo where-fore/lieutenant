@@ -92,23 +92,18 @@ func prepare_reward() -> void:
 	update_reward_text_blurb()
 
 func prepare_basic_reward() -> void:
-	pass
-	#basic_reward_button_container.visible = true
-	#
-	#var basic_aura_array:Array[Aura] = setup_basic_rewards()
-	#current_basic_reward = basic_aura_array.pick_random()
-	#basic_reward_button_icon.set_icon(current_basic_reward.reward_sprite)
-	#basic_reward_button_container.tooltip_text = current_basic_reward.get_tooltip()
-	#basic_reward_button_label.text = "Rest"
+	basic_reward_button_container.visible = true
+	
+	var basic_aura_array:Array[Aura] = setup_basic_rewards()
+	current_basic_reward = basic_aura_array.pick_random()
+	basic_reward_button_icon.set_icon(current_basic_reward.reward_sprite)
+	basic_reward_button_container.tooltip_text = current_basic_reward.get_tooltip()
+	basic_reward_button_label.text = "Gather\nHerbs"
 
 func setup_basic_rewards() -> Array[Aura]:
 	var basic_reward_array:Array[Aura]
-	
-	var rest_aura:Aura = load("res://z individual pieces/auras/standalone auras/rested.gd").new() as Aura
-	basic_reward_array.append(rest_aura.create_aura())
-	var sharpen_aura:Aura = load("res://z individual pieces/auras/standalone auras/sharpen.gd").new() as Aura
-	basic_reward_array.append(sharpen_aura.create_aura())
-	
+	basic_reward_array.assign(Database.get_rewards_by_category(Categories.aura_rarity, [Categories.AuraRarity.BASIC_STAT]))
+
 	return basic_reward_array
 
 func update_reward_text_blurb() -> void:

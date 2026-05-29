@@ -9,4 +9,4 @@ func _init() -> void:
 	starting_stats[Stats.agility] = BalanceData.player_base_agility * 2
 	starting_stats[Stats.fortitude] = BalanceData.player_base_fortitude
 
-	starting_items = [Database.get_item_by_id("moon_kris")]
+	starting_items = [Database.get_reward_by_id("moon_kris")]

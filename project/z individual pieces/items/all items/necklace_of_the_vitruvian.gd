@@ -1,11 +1,11 @@
 extends Item
 
-#basic item setup
+#basic setup
 func setup_item_stats() -> void:
 	reward_name = "Necklace of the Vitruvian" # "Generic Item"
 	reward_sprite = load("res://sprites/adorned_ruby_necklace.png")
 	extra_tooltip = "" # "Generic flavourful description"
-	item_categories = {
+	reward_categories = {
 		Categories.item_rarity : Categories.Rarity.RARE,
 	}
 	

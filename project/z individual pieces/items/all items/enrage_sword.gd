@@ -5,7 +5,7 @@ func setup_item_stats() -> void:
 	reward_name = "Holy Revenger" # "Generic Item"
 	reward_sprite = load("res://sprites/sword_basic.png")
 	extra_tooltip = "When your first ally falls in combat, scream into a fury,\ngaining {amount} {stat}".format({"amount": my_enrage_stat_bonus, "stat": my_enrage_stat}) # "Generic flavourful description"
-	item_categories = {
+	reward_categories = {
 		Categories.item_rarity : Categories.Rarity.RARE,
 	}
 	

@@ -8,7 +8,7 @@ func setup_basic_item_data() -> void:
 	reward_name = "Crashing Waves" # "Generic Item"
 	reward_sprite = load("res://sprites/hook_sword.png")
 	extra_tooltip = "Power surges by %s every attack" % aura_template.attack_per_turn # "Generic flavourful description"
-	item_categories = {
+	reward_categories = {
 		Categories.item_rarity : Categories.Rarity.COMMON,
 	}
 

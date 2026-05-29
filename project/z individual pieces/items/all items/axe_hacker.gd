@@ -1,11 +1,11 @@
 extends Item
 
-#basic item setup
+#basic setup
 func setup_item_stats() -> void:
 	reward_name = "Iron Hacker" # "Generic Item"
 	reward_sprite = load("res://sprites/single_sided_axe.png")
 	extra_tooltip = "Smash through armor and bone successively, adding {amount} {stat} per turn".format({"amount": my_stat_per_attack, "stat": my_stat_per_turn}) # "Generic flavourful description"
-	item_categories = {
+	reward_categories = {
 		Categories.item_rarity : Categories.Rarity.RARE,
 	}
 	

@@ -1,11 +1,11 @@
 extends Item
 
-#basic item setup
+#basic setup
 func setup_item_stats() -> void:
 	reward_name = "Iron Kite Shield" # "Generic Item"
 	reward_sprite = load("res://sprites/small_shield.png")
 	extra_tooltip = "" # "Generic flavourful description"
-	item_categories = {
+	reward_categories = {
 		Categories.item_rarity : Categories.Rarity.COMMON,
 	}
 	

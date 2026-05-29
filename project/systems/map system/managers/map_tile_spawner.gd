@@ -27,8 +27,8 @@ extends Node2D
 @export_category("Other")
 @export var map_edge_notifier:PackedScene
 
-var first_rewards:Array[Item]
-var tutorial_fetch_rewards:Array[Item]
+var first_rewards:Array[Reward]
+var tutorial_fetch_rewards:Array[Reward]
 
 var rare_roll_entropy:int
 
@@ -143,14 +143,14 @@ func create_edge_notifier(is_left_edge:bool) -> void:
 	add_child(new_map_edge_notifier)
 
 func populate_first_rewards() -> void:
-	var all_of_rarity:Array[Item] = Database.get_items_by_category(Categories.item_rarity, [Categories.Rarity.MYTHIC])
+	var all_of_rarity:Array[Reward] = Database.get_rewards_by_category(Categories.item_rarity, [Categories.Rarity.MYTHIC])
 	all_of_rarity.shuffle()
 	first_rewards = all_of_rarity
 
 func populate_tutorial_fetch_rewards() -> void:
 	var choice:int = randi_range(1,2)
 	
-	var possible_big_reward:Array[Item] = [Database.get_item_by_id("iron_sword"), Database.get_item_by_id("iron_axe")]
+	var possible_big_reward:Array[Item] = [Database.get_reward_by_id("iron_sword"), Database.get_reward_by_id("iron_axe")]
 	var big_reward:Item
 	if choice == 1:
 		big_reward = possible_big_reward[0]
@@ -159,7 +159,7 @@ func populate_tutorial_fetch_rewards() -> void:
 		
 	tutorial_fetch_rewards.append(big_reward)
 	
-	var possible_small_reward:Array[Item] = [Database.get_item_by_id("iron_dirk"), Database.get_item_by_id("iron_handaxe")]
+	var possible_small_reward:Array[Item] = [Database.get_reward_by_id("iron_dirk"), Database.get_reward_by_id("iron_handaxe")]
 	var small_reward:Item
 	if choice == 1:
 		small_reward = possible_small_reward[0]

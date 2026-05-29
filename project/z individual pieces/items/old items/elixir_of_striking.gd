@@ -7,7 +7,7 @@ func setup_basic_item_data() -> void:
 	reward_name = "Elixir of Striking" # "Generic Item"
 	reward_sprite = load("res://sprites/potion.png")
 	extra_tooltip = "You strike with frightening vigour for {multiplier}% attack, briefly".format({"multiplier":  str(striking_aura_template.multiplier)}) # "Generic flavourful description"
-	item_categories = {
+	reward_categories = {
 		Categories.item_rarity : Categories.Rarity.RARE,
 	}
 

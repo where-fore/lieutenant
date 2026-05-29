@@ -25,4 +25,4 @@ func pick_item() -> Item:
 	if randi_range(1,100) < rare_chance:
 		rarity = [Categories.Rarity.RARE]
 	else: rarity = [Categories.Rarity.COMMON]
-	return  Database.get_items_by_category(Categories.item_rarity, rarity).pick_random()
+	return  Database.get_rewards_by_category(Categories.item_rarity, rarity).pick_random()

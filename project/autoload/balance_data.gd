@@ -11,6 +11,8 @@ var player_base_agility:int = basic_stat
 var player_base_mind:int = 0
 var player_base_fortitude:int = basic_stat
 
+var flower_basic_stat:int = basic_stat
+var flower_basic_split_stat:int = flower_basic_stat * 1 / 2
 var rest_hp:int = 20
 var sharpen_attack:int = 5
 

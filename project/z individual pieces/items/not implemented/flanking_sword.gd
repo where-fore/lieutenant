@@ -12,7 +12,7 @@ func setup_basic_item_data() -> void:
 	reward_name = "Flank Slicer" # "Generic Item"
 	reward_sprite = load("res://sprites/hook_sword.png")
 	extra_tooltip = "Bolsters your allies for {amount} {stat}, feinting enemy focus into them".format({"amount": stat_to_add_to_allies, "stat": stat_to_allies}) # "Generic flavourful description"
-	item_categories = {
+	reward_categories = {
 		Categories.item_rarity : Categories.Rarity.RARE,
 	}
 

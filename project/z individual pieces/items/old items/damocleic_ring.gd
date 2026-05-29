@@ -11,7 +11,7 @@ func setup_basic_item_data() -> void:
 	reward_name = "Damocleic Ring" # "Generic Item"
 	reward_sprite = load("res://sprites/gaudy_ruby_ring.png")
 	extra_tooltip = "Every {turns} turns, explode in a brief fury for {damage} damage".format({"turns": activate_every_turns, "damage": damage_on_activation}) # "Generic flavourful description"
-	item_categories = {
+	reward_categories = {
 		Categories.item_rarity : Categories.Rarity.COMMON,
 	}
 	

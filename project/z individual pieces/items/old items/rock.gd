@@ -9,7 +9,7 @@ func setup_basic_item_data() -> void:
 	reward_name = "Rock" # "Generic Item"
 	reward_sprite = load("res://sprites/rock.png")
 	extra_tooltip = "At least you feel prepared" # "Generic flavourful description"
-	item_categories = {
+	reward_categories = {
 	}
 
 

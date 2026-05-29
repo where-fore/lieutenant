@@ -13,7 +13,7 @@ func setup_basic_item_data() -> void:
 	reward_name = "Defence of the Bear" # "Generic Item"
 	reward_sprite = load("res://sprites/cross_necklace.png")
 	extra_tooltip = "On your turn {turns}, violently swipe for damage equal to your maximum health".format({"turns": activate_on_turn,}) # "Generic flavourful description"
-	item_categories = {
+	reward_categories = {
 		Categories.item_rarity : Categories.Rarity.MYTHIC,
 	}
 	

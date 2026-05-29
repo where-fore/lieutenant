@@ -1,11 +1,11 @@
 extends Item
 
-#basic item setup
+#basic setup
 func setup_item_stats() -> void:
 	reward_name = "Brute's Arrogance" # "Generic Item"
 	reward_sprite = load("res://sprites/double_sided_axe.png")
 	extra_tooltip = "While above {health}% health, bolsters your {stat} by {percent_gain}%".format({"health": my_health_threshold_percent, "percent_gain": my_threshold_attack_multi, "stat": my_threshold_stat}) # "Generic flavourful description"
-	item_categories = {
+	reward_categories = {
 		Categories.item_rarity : Categories.Rarity.MYTHIC,
 	}
 	

@@ -8,7 +8,7 @@ func setup_basic_item_data() -> void:
 	reward_name = "Fallen Paladin's Armor" # "Generic Item"
 	reward_sprite = load("res://sprites/armor.png")
 	extra_tooltip = "" # "Generic flavourful description"
-	item_categories = {
+	reward_categories = {
 		Categories.item_rarity : Categories.Rarity.RARE,
 	}
 

@@ -5,7 +5,7 @@ func setup_item_stats() -> void:
 	reward_name = "Warding Pike" # "Generic Item"
 	reward_sprite = load("res://sprites/pike.png")
 	extra_tooltip = "If you have {treshold} or more {threshold_stat}, gain {benefit}% {stat}".format({"treshold": stat_threshold, "threshold_stat": stat_to_check_for_threshold, "benefit": threshold_reward_value, "stat": threshold_reward_stat}) # "Generic flavourful description"
-	item_categories = {
+	reward_categories = {
 		Categories.item_rarity : Categories.Rarity.RARE,
 	}
 	
