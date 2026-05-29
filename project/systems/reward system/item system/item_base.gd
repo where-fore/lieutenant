@@ -104,7 +104,7 @@ func remove_from_custom_auras(old_aura:Aura) -> void:
 
 #derived subclasses hook onto and override these functions
 func setup_item_stats() -> void:
-	push_error("item tried to instantiate without overriding setup_item_stats()")
+	push_error("item tried to instantiate without overriding setup_item_stats(): ", get_script().resource_path)
 
 func on_equip() -> void:
 	pass

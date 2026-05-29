@@ -7,6 +7,12 @@ const strength:StringName = &"Strength"
 const dexterity:StringName = &"Dexterity"
 const intelligence:StringName = &"Intelligence"
 
+const attributes:Array[StringName] = [
+	strength,
+	dexterity,
+	intelligence,
+]
+
 const strength_per_attack:int = 10
 const strength_per_health:int = 1
 

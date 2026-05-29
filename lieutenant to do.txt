@@ -2,8 +2,49 @@
 working notes
 --------------------------------------------------------
 
-button click sfx
-	probably clone a packedscene of just the audio player
+
+
+
+
+
+
+stats: add fortitude, rename int/dex
+	strength/agility/mind/fortitude
+	
+	re-adjust stats:
+		look through monsters and adjust fort accordingly
+		lady_1 starts with moon kris (and maybe some flowers or weapons for stats)
+			make sure starting items also supports starting auras
+		knights start with enrage sword
+
+items:
+	basic stat flowers (str, str/dex, str/fort, dex, dex/fort, mind, mind/fort)
+		maybe draw a flower with four petals, and colour two petals one for the stat - red/green/blue/brown?
+	basic stat scaling items (axe %str no flat stat, etc)
+	enrage items for the brothers
+		extra credit:
+		basic attack items (no stats just attack)
+		stat spread rewards - heal allies for lowest stat; on turn 5 (if alive) deal damage equal to total stat sum; buff allies for your lowest stat; 
+
+re-enable basic rewards, and have it pull those basic stat flowers
+
+for now at least, yeet the combatants taking turns while dead
+	or at least speed it up?
+	yeet if no "on death trigger"? maybe a bool flag triggered by items?
+
+event:
+	knights are fighting beast, just beat it after one going down and other enraging. Arlaeus and Aribald
+
+stat panel support for fourth stat:
+	probably explain the keyword "attribute" somewhere - it's strength/dex/int - maybe on the stat panel? attributes title line of str/dex/int?
+		JOHN THE   | attributes
+		KNIGHT     | 200 str 100 dex
+		200hp 5atk | 75 int  200 end
+
+can put Stats.Attributes as a shortcut - it's just an array of [Stats.strength, Stats.dexterity] etc
+	for stat in Stats.Attributes ...
+
+
 
 
 
@@ -13,32 +54,42 @@ work to do
 
 need to do for release:
 	balance pass
-		ideally put in intelligence items
-			check item pool balance (could use an item pool multiplier?)
 		put in combat failsafe
 		ideally a few more items too (can look at available sprites for inspiration), especially common ones
 			consider that stat change from str+dex = attack and health; to just attack and have an endurance or just health stat
 				not sure what dex would be, for every 10 attack for 5? crit chance/%damage, while str is flat damage (dex needs to find flat damage)? look at the brainstorm again
 		tune game length according to interest and balance curves
+		ideally put in intelligence items
+			check item pool balance (could use an item pool multiplier?)
 		
 	enemy targeting
+		combat log - enemy locks eyes on Character
+		on tooltip
 	
-	pass at text - rename enemies to slightly more generic (the marrow -> marrow behemoth), info panel says "your scouts" etc
-		maybe put all the text in the ol strings global but seems like a large rewrite for little gain
-		
-		
+	two rewards per location
+		maybe rewards be
+			one random stat flower, plus 1 - 2 random items?
+	
 	--
 	would be good:
 	
+	pass at text - rename enemies to slightly more generic (the marrow -> marrow behemoth), info panel says "your scouts" etc
+		maybe put all the text in the ol strings global but seems like a large rewrite for little gain
+	
 	third character in?
 		maybe that happens later, at a halfway point? when you get bored of your current builds?
+		
 	maybe player can target enemies?
 		not sure on the ui for this
+		
 	enemy tooltips in combat
+	
 	inventory - trade/delete/unequip items?
 		give rewards the "deleteable" property, false for cursed items? important character items?
 		probably a drop down with each party member, and delete at the bottom with a confirmation? the label text changes from delete to you sure?
+	
 	mountainslide doesn't provide an aura, so no visual feedback on character screen, like other threshold items?
+	
 	have nice tooltips set up, can still use placeholder art
 
 	all of the below:
@@ -60,13 +111,12 @@ balance-wise:
 		or more options to pick between
 -
 
+have a few of the crow sounds and randomize them, instead of the same single one
+
 would be nice to show a character portrait in this intro scenario
 
-would be nice to have scrolling text
-
-a lil "new dawn and new monsters rise" text popup would be great
-
 scenarios only have "next page", no choices
+	would be nice to have scrolling text for blurb, not probably implement once i know how i want them to look/work with choices
 
 active effects / attuned items, mayhaps
 
@@ -100,6 +150,8 @@ tile/scenario feature: check something, and present scenario accordingly. eg. if
 	also note currently the page step system is a bit fucked - the item_test_scenario.gd skips page 2 for the reward, but not page 4 for the combat??
 		not sure exactly how i want this, but i should streamline it
 -
+
+some sort of sidequest system, specifically for companions? not sure how this should look or feel
 
 probably should get that infinite-combat-breakpoint somewhere
 	could quickly have a main menu -> forfeit combat option
@@ -486,6 +538,8 @@ flappy cameo, balloon in the distance
 ----------------------------------------------------------------------------------------------------------------
 things i know are hacky and should be cleaned up (or super duper back burner changes):
 ----------------------------------------------------------------------------------------------------------------
+the BackgroundMusicManager is its own audio player global object, but SFX are on Audio_Events? seems inconsistent. the two should probably have a parent class too, instead of copying behaviour
+
 enemy tooltips on map panel (or elsewhere) show all their stats, even benign things like default crit multi with no crit chance
 	would be nice to have some sort of importance filtering? maybe custom tooltips for enemies only?
 

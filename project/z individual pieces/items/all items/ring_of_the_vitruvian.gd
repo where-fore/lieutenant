@@ -1,25 +1,16 @@
 extends Item
 
-#whatever the item does, doesn't do anything until you do something with it
-var my_stats:Array[StringName] = [
-	Stats.strength,
-	Stats.dexterity,
-	Stats.intelligence,
-]
-var my_stat_multi:int = BalanceData.basic_stat_scaling
-
-
-func setup_basic_item_data() -> void:
+#basic item setup
+func setup_item_stats() -> void:
 	reward_name = "Ring of the Vitruvian" # "Generic Item"
 	reward_sprite = load("res://sprites/gaudy_ruby_ring.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	item_categories = {
 		Categories.item_rarity : Categories.Rarity.MYTHIC,
 	}
-
-#--functions called by item_base.gd--
-func setup_item_stats() -> void:
-	setup_basic_item_data()
 	
-	for stat:StringName in my_stats:
-		multiplicative_stat_dictionary[stat] = my_stat_multi
+	for stat:StringName in Stats.attributes:
+		multiplicative_stat_dictionary[stat] = BalanceData.basic_stat_scaling
+
+
+#custom stuff

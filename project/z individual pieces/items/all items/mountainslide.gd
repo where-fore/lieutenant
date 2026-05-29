@@ -1,30 +1,26 @@
 extends Item
 
-#whatever the item does, doesn't do anything until you do something with it
-var my_stat_add:int = BalanceData.basic_stat
-var my_stat:StringName = Stats.strength
-
-var starting_hp:int = BalanceData.player_base_strength / Stats.strength_per_health + BalanceData.player_base_dexterity / Stats.dexterity_per_health
-var my_health_threshold:int = starting_hp * 20
-var my_threshold_stat:StringName = Stats.health
-var my_threshold_attack_factor:int = 25
-
-var my_threshold:ThresholdBehaviour
-
-func setup_basic_item_data() -> void:
+#basic item setup
+func setup_item_stats() -> void:
 	reward_name = "Mountainslide" # "Generic Item"
 	reward_sprite = load("res://sprites/single_spiked_axe.png")
-	extra_tooltip = "If you are mighty as a mountain with more than {health_threshold} {threshold_stat},\nsmash for an extra {percent}% of your {stat} when attacking".format({"health_threshold": my_health_threshold, "threshold_stat": my_threshold_stat ,"percent": my_threshold_attack_factor, "stat": my_stat}) # "Generic flavourful description"
+	extra_tooltip = "If you are mighty as a mountain with more than {health_threshold} {threshold_stat},\nsmash for an extra {percent}% of your {stat} when attacking".format({"health_threshold": my_health_threshold, "threshold_stat": my_threshold_stat ,"percent": my_threshold_attack_factor, "stat": my_threshold_attack_stat}) # "Generic flavourful description"
 	item_categories = {
 		Categories.item_rarity : Categories.Rarity.MYTHIC,
 	}
-
-#--functions called by item_base.gd--
-func setup_item_stats() -> void:
-	setup_basic_item_data()
 	
-	#whatever the item does
-	additive_stat_dictionary[my_stat] = my_stat_add
+	additive_stat_dictionary[Stats.strength] = BalanceData.basic_stat * 2
+
+
+#custom stuff
+var starting_hp:int = BalanceData.player_base_strength / Stats.strength_per_health + BalanceData.player_base_dexterity / Stats.dexterity_per_health
+var my_health_threshold:int = starting_hp * 20
+var my_threshold_stat:StringName = Stats.health
+
+var my_threshold_attack_factor:int = 25
+var my_threshold_attack_stat:StringName = Stats.strength
+
+var my_threshold:ThresholdBehaviour
 
 func on_equip() -> void:
 	my_threshold = create_new_threshold({my_threshold_stat: my_health_threshold})
@@ -32,5 +28,5 @@ func on_equip() -> void:
 
 func on_attack(source:Combatant, target:Combatant) -> void:
 	if my_threshold.active:
-		var damage_to_deal:int = source.current_stats[my_stat] * my_threshold_attack_factor / 100
+		var damage_to_deal:int = source.current_stats[my_threshold_attack_stat] * my_threshold_attack_factor / 100
 		target.take_damage(damage_to_deal)
