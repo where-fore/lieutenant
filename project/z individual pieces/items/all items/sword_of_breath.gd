@@ -19,7 +19,7 @@ var my_stat:StringName = Stats.agility
 var my_stat_per_attack:int = BalanceData.basic_stat
 
 func on_combat_start() -> void:
-	my_buff_aura = create_new_custom_aura(AuraNames.DurationType.THIS_COMBAT)
+	my_buff_aura = create_new_custom_aura()
 
 func on_turn_start(_source:Combatant) -> void:
 	my_buff_aura.change_additive_aura(my_stat, my_stat_per_attack, true)

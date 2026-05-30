@@ -2,31 +2,26 @@
 working notes
 --------------------------------------------------------
 
-cannot mouse over player portaits in combat
-	probably combat mouse filter
+so i could have _prep_new_aura() do everything but send it
+and create_and_send and create_ both call _prep_new and then do something different with it
 
-flowers dont show up in stat ui - they do work though
-
+i could have create_new with a billion custom arguments for destination:Combatant and the like
+	seems bad with godots optional argument syntax
 	
+
+20 * 1.25 = 25
+send 20
+my str goes to 0, shara from 10 to 30
+
 
 items:
 	enrage items for the brothers
-		extra credit:
-		basic attack items (no stats just attack)
-		stat spread rewards - heal allies for lowest stat; on turn 5 (if alive) deal damage equal to total stat sum; buff allies for your lowest stat; 
+		this is the ally-wide auras for flanking sword - probably going with just combat auras, makes the most sense
 
-	lady_1 starts with moon kris (and maybe some flowers or weapons for stats)
-		make sure starting items also supports starting auras
-	knights start with enrage sword
-
-	maybe some more fortitude items, like bear's defence or similar. brainstorm
-		probaly copy current stat threshold paradigm
-
-
-re-enable basic rewards, and have it pull those basic stat flowers
-
-event:
+event: write knight encounter
 	knights are fighting beast, just beat it after one going down and other enraging. Arlaeus and Aribald
+	
+	
 
 stat panel support for fourth stat:
 	probably explain the keyword "attribute" somewhere - it's strength/dex/int - maybe on the stat panel? attributes title line of str/dex/int?
@@ -44,7 +39,8 @@ update stat panel tooltip - to show what you are currently getting from the stat
 2 str = 1 health
 ----------------------------
 
-sfx manager errors on restart button - race condition
+
+make sure starting items also supports starting auras
 
 --------------------------------------------------------
 work to do
@@ -53,20 +49,21 @@ work to do
 need to do for release:
 	balance pass
 		put in combat failsafe
-		ideally a few more items too (can look at available sprites for inspiration), especially common ones
-			consider that stat change from str+dex = attack and health; to just attack and have an endurance or just health stat
-				not sure what dex would be, for every 10 attack for 5? crit chance/%damage, while str is flat damage (dex needs to find flat damage)? look at the brainstorm again
 		tune game length according to interest and balance curves
-		ideally put in intelligence items
-			check item pool balance (could use an item pool multiplier?)
 		
 	enemy targeting
 		combat log - enemy locks eyes on Character
 		on tooltip
-	
-	two rewards per location
-		maybe rewards be
-			one random stat flower, plus 1 - 2 random items?
+
+	items to add:
+		intelligence items
+		fortitude items
+		stat spread rewards - heal allies for lowest stat; on turn 5 (if alive) deal damage equal to total stat sum; buff allies for your lowest stat;
+		basic attack items (no stats just attack)
+		enrages and stuff from the inspiration page
+		
+		focus change stuff - the flanking sword seems like it does nothing aggro related, since it's mega agility you'll never have highest str? or maybe it's for sending you from 2nd str to 3rd/4th str?
+		maybe items should have more split stats? instead of agility or str, be 3:1, 2:2, 1:3 splits?
 	
 	--
 	would be good:
@@ -109,6 +106,10 @@ balance-wise:
 		or more options to pick between
 -
 
+sfx restructure - currently my SFX manager is inside the scene tree, so when i reload scene (pressing the restart button), it cuts all playing sfx out
+	the SFX manager should be an auto load as well, like the background music manager
+	and those two managers should probably be very similar, the same if not inherited
+
 have a few of the crow sounds and randomize them, instead of the same single one
 
 would be nice to show a character portrait in this intro scenario
@@ -117,13 +118,6 @@ scenarios only have "next page", no choices
 	would be nice to have scrolling text for blurb, not probably implement once i know how i want them to look/work with choices
 
 active effects / attuned items, mayhaps
-
-flanking sword - aura to allies
-	probably just a function of give_custom_aura_to
-		hm the problem is i want the aura to be "attached" to the flanking sword, so if it gets unequipped the others go away
-		start of combat is a good bandaid, just give them a temporary aura
-		also i think i want the sword to drain your strength too, seems more balanced and works better for its theme instead of mostly being a powerful buffer
-
 
 tile/scenario feature: check something, and present scenario accordingly. eg. if you've visited before, do second step of scenario (if you've visited before BUT NOT completed quest, do third step of scenario which is "come back later nerd")
 	could do elder scrolls journal step system?
