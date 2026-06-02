@@ -10,3 +10,4 @@ func _init() -> void:
 	starting_stats[Stats.fortitude] = BalanceData.player_base_fortitude
 
 	starting_items = [Database.get_reward_by_id("enrage_sword")]
+	starting_auras = [Database.get_reward_by_id("flower_red")]

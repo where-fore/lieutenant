@@ -8,12 +8,6 @@ event: write knight encounter
 
 
 
-make sure starting items also supports starting auras
-
-
-
-
-
 
 --------------------------------------------------------
 work to do

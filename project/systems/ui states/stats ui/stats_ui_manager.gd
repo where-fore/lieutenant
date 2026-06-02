@@ -76,9 +76,6 @@ func remove_info_panel(old_combatant:Combatant) -> void:
 	old_panel.queue_free()
 	info_panels.erase(old_combatant)
 
-func populate_stat_panels() -> void:
-	pass
-
 func add_to_stat_panels(combatant:Combatant, new_reward:Reward) -> void:
 	if new_reward is Item:
 		info_panels[combatant].my_item_panel.add_stat(new_reward)

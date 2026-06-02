@@ -14,7 +14,15 @@ func _ready() -> void:
 func get_reward_by_id(reward_id:String) -> Reward:
 	var reward:Reward = all_rewards.get(reward_id)
 	if not reward: push_error("no reward found with id: " + reward_id)
-	return reward.duplicate()
+	
+	var reward_to_return:Reward
+	if reward is Item:
+		reward_to_return = reward.duplicate()
+	elif reward is Aura:
+		reward_to_return = reward.create_aura()
+	else: push_error("not handling non-item-and-non-aura rewards for: ", reward_id)
+		
+	return reward_to_return
 
 func get_combatant_by_id(combatant_id:String) -> Combatant:
 	var data:Combatant = all_combatants.get(combatant_id)
@@ -39,6 +47,7 @@ func get_rewards_by_category(category_title:StringName, category_names:Array[int
 					elif reward is Aura:
 						rewards_to_return.append(reward.create_aura())
 					else: push_error("not handling non-item-and-non-aura rewards")
+
 	return rewards_to_return
 
 func get_combatants_by_category(category_title:StringName, category_names:Array[int]) -> Array[Combatant]:
