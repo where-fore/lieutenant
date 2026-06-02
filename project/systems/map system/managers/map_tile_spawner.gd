@@ -10,6 +10,7 @@ extends Node2D
 @export var tutorial_first_combat_tile:GDScript
 @export var tutorial_second_combat_tile:GDScript
 @export var tutorial_camp_tile:GDScript
+@export var knight_join_tile:GDScript
 @export var tutorial_unique_tile:GDScript
 @export var developer_testing_ground:GDScript
 
@@ -99,8 +100,7 @@ func populate_tile_data(tile:MapTile) -> void:
 	#tutorial: second row (wolves, camp)
 	elif tile.x_coordinate == columns_to_disable_at_start + 1:
 		if tile.y_coordinate == 0:
-			tile.apply_data(generic_border_data.new())
-			tile.permanently_disable()
+			tile.apply_data(knight_join_tile.new())
 		elif tile.y_coordinate == 1:
 			tile.apply_data(tutorial_second_combat_tile.new())
 		elif tile.y_coordinate == 2:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dsbt6u8ma1cpc"]
+[gd_scene load_steps=17 format=3 uid="uid://dsbt6u8ma1cpc"]
 
 [ext_resource type="Script" uid="uid://ok2ot6yb1xi8" path="res://systems/map system/managers/map_tile_manager.gd" id="1_rwx8k"]
 [ext_resource type="Script" uid="uid://bkfbtklwaviuu" path="res://systems/map system/managers/map_tile_spawner.gd" id="2_yr7fr"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://diqdk102v13x0" path="res://z individual pieces/map tiles/tutorial_camp.gd" id="11_ascpf"]
 [ext_resource type="Script" uid="uid://cn8isa87nqfjd" path="res://z individual pieces/map tiles/developer_testing_grounds.gd" id="11_ws6a8"]
 [ext_resource type="PackedScene" uid="uid://c7fq3wa0qjn8m" path="res://systems/map system/physical tile map system/map_edge_notifier.tscn" id="12_qol6c"]
+[ext_resource type="Script" uid="uid://b6a4o6ukdbfms" path="res://z individual pieces/map tiles/knights_join.gd" id="12_rbqej"]
 
 [node name="MapTileManager" type="Node2D"]
 script = ExtResource("1_rwx8k")
@@ -31,6 +32,7 @@ tutorial_first_common_tile = ExtResource("7_w2u1g")
 tutorial_first_combat_tile = ExtResource("9_8w8vh")
 tutorial_second_combat_tile = ExtResource("10_rbqej")
 tutorial_camp_tile = ExtResource("11_ascpf")
+knight_join_tile = ExtResource("12_rbqej")
 tutorial_unique_tile = ExtResource("7_8q2kk")
 developer_testing_ground = ExtResource("11_ws6a8")
 mapTileBase = ExtResource("8_12ac2")

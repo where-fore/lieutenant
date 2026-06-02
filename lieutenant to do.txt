@@ -3,10 +3,8 @@ working notes
 --------------------------------------------------------
 
 
-event: write knight encounter
-	knights are fighting beast, just beat it after one going down and other enraging. Arlaeus and Aribald
 
-
+border_trees apply_to_tile - permanently disable()
 
 
 --------------------------------------------------------
@@ -507,6 +505,10 @@ flappy cameo, balloon in the distance
 ----------------------------------------------------------------------------------------------------------------
 things i know are hacky and should be cleaned up (or super duper back burner changes):
 ----------------------------------------------------------------------------------------------------------------
+map_spawner.gd loads map tiles with an @export, where everything else in the game loads path names from Database. wonder if i should change either to match?
+	having the database with @exports sounds dank and too much manual work
+	having the map tiles all have id's also sounds dank
+
 adding a new triggered event is crazy - combatant adds a function, to check its own function + item managers function + aura managers function - and those managers need a function to check every child's function - and those children all need a function
 im copy pasting the same function, slightly different arguments, 8 times!
 

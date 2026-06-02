@@ -8,8 +8,6 @@ func setup_item_stats() -> void:
 	reward_categories = {
 		Categories.item_rarity : Categories.Rarity.RARE,
 	}
-	
-	additive_stat_dictionary[Stats.strength] = BalanceData.basic_stat
 
 
 #custom stuff
