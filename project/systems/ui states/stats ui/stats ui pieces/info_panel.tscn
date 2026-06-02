@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bcp8cmhkfnrrs"]
+[gd_scene load_steps=13 format=3 uid="uid://bcp8cmhkfnrrs"]
 
 [ext_resource type="Script" uid="uid://cqu36mhe1wslh" path="res://systems/ui states/stats ui/stats ui pieces/info_panel.gd" id="1_lufp6"]
 [ext_resource type="Texture2D" uid="uid://ubmjcik0bgn7" path="res://sprites/knight.png" id="2_lufp6"]
@@ -7,12 +7,13 @@
 [ext_resource type="PackedScene" uid="uid://dk7qdyba0te4d" path="res://systems/ui states/stats ui/stats ui pieces/stat_panel.tscn" id="4_mknp8"]
 [ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="5_mknp8"]
 [ext_resource type="Texture2D" uid="uid://cndegwmgs0boq" path="res://sprites/sword_basic.png" id="6_827qd"]
-[ext_resource type="PackedScene" uid="uid://cftv6xngx4kbv" path="res://systems/ui states/stats ui/stats ui pieces/display_stat.tscn" id="7_eiq13"]
+[ext_resource type="PackedScene" uid="uid://cftv6xngx4kbv" path="res://z individual pieces/combatants/display_stat.tscn" id="7_eiq13"]
+[ext_resource type="Texture2D" uid="uid://navrntgc8woy" path="res://sprites/fortitude.png" id="8_bktrq"]
 [ext_resource type="Texture2D" uid="uid://b806345r0gqph" path="res://sprites/strength.png" id="8_flbes"]
 [ext_resource type="Texture2D" uid="uid://dpviso477bmgk" path="res://sprites/dexterity.png" id="8_h3ji0"]
 [ext_resource type="Texture2D" uid="uid://bfhhvwqv0gx0" path="res://sprites/intelligence.png" id="9_o2rrx"]
 
-[node name="InfoPanel" type="Panel" node_paths=PackedStringArray("my_item_panel", "my_aura_panel", "my_title_label", "my_portrait", "my_health_label", "my_attack_label", "my_strength", "my_agility", "my_mind")]
+[node name="InfoPanel" type="Panel" node_paths=PackedStringArray("my_item_panel", "my_aura_panel", "my_title_label", "my_portrait", "my_health_label", "my_attack_label", "my_strength", "my_agility", "my_mind", "my_fortitude")]
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 464.0
@@ -20,13 +21,14 @@ offset_bottom = 218.0
 script = ExtResource("1_lufp6")
 my_item_panel = NodePath("VBoxContainer/Body/MarginContainer/VBoxContainer/Contents/Items")
 my_aura_panel = NodePath("VBoxContainer/Body/MarginContainer/VBoxContainer/Contents/Auras")
-my_title_label = NodePath("VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/Label")
+my_title_label = NodePath("VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer/LargeStats/Label")
 my_portrait = NodePath("VBoxContainer/Portrait/MarginContainer/HBoxContainer/Portrait")
-my_health_label = NodePath("VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/HealthLabel")
-my_attack_label = NodePath("VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/AttackLabel")
-my_strength = NodePath("VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Strength")
-my_agility = NodePath("VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Agility")
-my_mind = NodePath("VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Mind")
+my_health_label = NodePath("VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer/LargeStats/HBoxContainer/HealthLabel")
+my_attack_label = NodePath("VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer/LargeStats/HBoxContainer/AttackLabel")
+my_strength = NodePath("VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer2/SmallStats/GridContainer/Strength")
+my_agility = NodePath("VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer2/SmallStats/GridContainer/Agility")
+my_mind = NodePath("VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer2/SmallStats/GridContainer/Mind")
+my_fortitude = NodePath("VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer2/SmallStats/GridContainer/Fortitude")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -62,89 +64,123 @@ texture = ExtResource("2_lufp6")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="LargeStats" type="VBoxContainer" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer/LargeStats"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 20
 text = "John the Figher"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 text_overrun_behavior = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer/LargeStats"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 
-[node name="Spacer" type="Control" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Spacer" type="Control" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer/LargeStats/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HealthImage" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_827qd")]
+[node name="HealthImage" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer/LargeStats/HBoxContainer" instance=ExtResource("4_827qd")]
 layout_mode = 2
 
-[node name="Icon" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/HealthImage" index="1"]
+[node name="Icon" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer/LargeStats/HBoxContainer/HealthImage" index="1"]
 texture = ExtResource("5_mknp8")
 
-[node name="HealthLabel" type="Label" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="HealthLabel" type="Label" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer/LargeStats/HBoxContainer"]
 layout_mode = 2
 mouse_filter = 1
 text = "132"
 
-[node name="Spacer2" type="Control" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Spacer2" type="Control" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer/LargeStats/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="AttackImage" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_827qd")]
+[node name="AttackImage" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer/LargeStats/HBoxContainer" instance=ExtResource("4_827qd")]
 layout_mode = 2
 
-[node name="Icon" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/AttackImage" index="1"]
+[node name="Icon" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer/LargeStats/HBoxContainer/AttackImage" index="1"]
 texture = ExtResource("6_827qd")
 
-[node name="AttackLabel" type="Label" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="AttackLabel" type="Label" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer/LargeStats/HBoxContainer"]
 layout_mode = 2
 mouse_filter = 1
 text = "132"
 
-[node name="Spacer3" type="Control" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Spacer3" type="Control" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer/LargeStats/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Strength" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("7_eiq13")]
+[node name="Spacer6" type="Control" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer/LargeStats/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="SmallStats" type="VBoxContainer" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer2/SmallStats"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 8
+text = "Attributes"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+text_overrun_behavior = 3
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer2/SmallStats"]
+layout_mode = 2
+size_flags_horizontal = 8
+columns = 2
+
+[node name="Strength" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer2/SmallStats/GridContainer" instance=ExtResource("7_eiq13")]
 layout_mode = 2
 
-[node name="Icon" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Strength/IconBorder" index="1"]
+[node name="Icon" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer2/SmallStats/GridContainer/Strength/IconBorder" index="1"]
 texture = ExtResource("8_flbes")
 
-[node name="Spacer4" type="Control" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Agility" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("7_eiq13")]
+[node name="Agility" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer2/SmallStats/GridContainer" instance=ExtResource("7_eiq13")]
 layout_mode = 2
 
-[node name="Icon" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Agility/IconBorder" index="1"]
+[node name="Icon" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer2/SmallStats/GridContainer/Agility/IconBorder" index="1"]
 texture = ExtResource("8_h3ji0")
 
-[node name="Spacer5" type="Control" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Mind" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("7_eiq13")]
+[node name="Mind" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer2/SmallStats/GridContainer" instance=ExtResource("7_eiq13")]
 layout_mode = 2
 
-[node name="Icon" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Mind/IconBorder" index="1"]
+[node name="Icon" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer2/SmallStats/GridContainer/Mind/IconBorder" index="1"]
 texture = ExtResource("9_o2rrx")
 
-[node name="Spacer6" type="Control" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Fortitude" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer2/SmallStats/GridContainer" instance=ExtResource("7_eiq13")]
 layout_mode = 2
-size_flags_horizontal = 3
+
+[node name="Icon" parent="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer2/SmallStats/GridContainer/Fortitude/IconBorder" index="1"]
+texture = ExtResource("8_bktrq")
 
 [node name="Body" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -215,11 +251,13 @@ layout_mode = 2
 [node name="Auras" parent="VBoxContainer/Body/MarginContainer/VBoxContainer/Contents" instance=ExtResource("4_mknp8")]
 layout_mode = 2
 
-[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/HealthImage"]
-[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/AttackImage"]
-[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Strength"]
-[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Strength/IconBorder"]
-[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Agility"]
-[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Agility/IconBorder"]
-[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Mind"]
-[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Mind/IconBorder"]
+[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer/LargeStats/HBoxContainer/HealthImage"]
+[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer/LargeStats/HBoxContainer/AttackImage"]
+[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer2/SmallStats/GridContainer/Strength"]
+[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer2/SmallStats/GridContainer/Strength/IconBorder"]
+[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer2/SmallStats/GridContainer/Agility"]
+[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer2/SmallStats/GridContainer/Agility/IconBorder"]
+[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer2/SmallStats/GridContainer/Mind"]
+[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer2/SmallStats/GridContainer/Mind/IconBorder"]
+[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer2/SmallStats/GridContainer/Fortitude"]
+[editable path="VBoxContainer/Portrait/MarginContainer/HBoxContainer/MarginContainer2/SmallStats/GridContainer/Fortitude/IconBorder"]

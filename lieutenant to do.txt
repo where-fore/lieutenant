@@ -2,58 +2,35 @@
 working notes
 --------------------------------------------------------
 
-so i could have _prep_new_aura() do everything but send it
-and create_and_send and create_ both call _prep_new and then do something different with it
-
-i could have create_new with a billion custom arguments for destination:Combatant and the like
-	seems bad with godots optional argument syntax
-	
-
-20 * 1.25 = 25
-send 20
-my str goes to 0, shara from 10 to 30
-
-
-items:
-	enrage items for the brothers
-		this is the ally-wide auras for flanking sword - probably going with just combat auras, makes the most sense
 
 event: write knight encounter
 	knights are fighting beast, just beat it after one going down and other enraging. Arlaeus and Aribald
-	
-	
 
-stat panel support for fourth stat:
-	probably explain the keyword "attribute" somewhere - it's strength/dex/int - maybe on the stat panel? attributes title line of str/dex/int?
-		JOHN THE   | attributes
-		KNIGHT     | 200 str 100 dex
-		200hp 5atk | 75 int  200 end
-
-
-update stat panel tooltip - to show what you are currently getting from the stat.
-----------------------------
-35 str
-+1 attack, +17 health
-----
-20 str = 1 attack
-2 str = 1 health
-----------------------------
 
 
 make sure starting items also supports starting auras
+
+
+
+
+
 
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
 
 need to do for release:
-	balance pass
-		put in combat failsafe
-		tune game length according to interest and balance curves
+	put in combat failsafe
+	tune game length according to interest and balance curves
+	
+	test items:
+		enrage sword, that the aura falls off correctly and re-applies the next combat
 		
 	enemy targeting
 		combat log - enemy locks eyes on Character
 		on tooltip
+			maybe there's an Enum of basic algorithms (highest/lowest of each stat?)
+			maybe there's just arguments for highest/lowest, and for stat? and tooltip populates from those? and has a targets:Special override? like aura duration
 
 	items to add:
 		intelligence items
@@ -63,25 +40,28 @@ need to do for release:
 		enrages and stuff from the inspiration page
 		
 		focus change stuff - the flanking sword seems like it does nothing aggro related, since it's mega agility you'll never have highest str? or maybe it's for sending you from 2nd str to 3rd/4th str?
-		maybe items should have more split stats? instead of agility or str, be 3:1, 2:2, 1:3 splits?
+			maybe it should be -agi but +attack?
+		maybe items should have more split stats? instead of agility or str, be 3:1, 2:2, 1:3 splits? so instead of having a mega str and mega dex characters, you have stat spreads across your whole party
+	
+	try hiding rewards on map? streamlining that part?
 	
 	--
 	would be good:
 	
 	pass at text - rename enemies to slightly more generic (the marrow -> marrow behemoth), info panel says "your scouts" etc
 		maybe put all the text in the ol strings global but seems like a large rewrite for little gain
-	
-	third character in?
-		maybe that happens later, at a halfway point? when you get bored of your current builds?
-		
+
 	maybe player can target enemies?
 		not sure on the ui for this
+		for now prob just target stats as well
 		
 	enemy tooltips in combat
+		can prob just make ui combatants grab the get_tooltip() on update_stats()
 	
 	inventory - trade/delete/unequip items?
 		give rewards the "deleteable" property, false for cursed items? important character items?
 		probably a drop down with each party member, and delete at the bottom with a confirmation? the label text changes from delete to you sure?
+			how do i access who is in your party? allied combatants? surely not, that can be temporary. maybe i do want a global Party.gd?
 	
 	mountainslide doesn't provide an aura, so no visual feedback on character screen, like other threshold items?
 	
@@ -144,6 +124,7 @@ tile/scenario feature: check something, and present scenario accordingly. eg. if
 -
 
 some sort of sidequest system, specifically for companions? not sure how this should look or feel
+	maybe trigger dialogue pop up, on quest flag changing? maybe every day transition dialogue pops up at camp/after resting, quest-related if something happened? so it doesn't feel as "you did the thing that checked my box so here's my story"
 
 probably should get that infinite-combat-breakpoint somewhere
 	could quickly have a main menu -> forfeit combat option
@@ -158,9 +139,17 @@ probably should get that infinite-combat-breakpoint somewhere
 
 stats:
 	i kinda want health and damage to be separate, so i can have temporary damage boosts without affecting health, and can tweak enemy hp more easily
-	str = big hit, dex = per 10 dex do a second hit for 10 damage?
+	str = big hit, %damage?; dex = per 10 dex do a second hit for 10 damage?
 		things can trigger off hits (maybe dex would trigger wayy too many times though)
 		things can increase your dex hit damage
+		
+	currently my int idea probably doesn't work - the current idea was "use awkward mechanics to trivialize certain countered enemies", ie. enough shield ends the fight and stuff. if the idea is enemies are so strong they kill a party member or two asap, and die to the chips from the rest, one character will basically never get strong enough to counter an enemy? not sure what int does here? it's also purely defensive?
+	
+	maybe i should type damages more quickly, and str is %physical, %force damage; dex is %precision, %wind damage; int is %fire %lightning %shadow
+		and different items provide different stats and different damage types somehow?
+		not sure what determines what damage you do, i guess that's what main attuned weapons are for? they have a unique effect and damage type?
+			you're able to change a weapons damage type at some point?
+			some items proc a certain damage type eg. moon kris does wind damage procs?
 -
 
 would be nice to find a way for the tile_tutorial_fetch rewards to be on the tile, not in the spawner script
@@ -214,10 +203,8 @@ have a "pre-turn" turn for combat start effects
 
 have a proper mechanism to check if it's fine to pass time forward by pressing the button
 	probably related to save games - have a "somethings happening" value, and whenver that is set to about to be changed, save the game?
-		i may want to save the game before the choice is made, so you can go back and pick the other choice
+		i may want to autosave the game before the choice is made, so you can go back and pick the other choice ala slay the spire
 
-
-have combatants be able to start with an inventory of items and/or auras
 
 combat log race conditions - equipping a new item that pushes you past an existing threshold, barks the threshold active first, then the new equip second - when i want the new equip to be first, because that's what actually happened
 	i think this was intentional - in the equip script i run the functions before the combat log (because i figured i'd only say something once it's done), but i think i probably should combat log first, then do consequences
@@ -226,13 +213,13 @@ also: first combat log message isn't getting a space
 	why am i putting a space lmao, just make a margin container?
 -
 
-some sfx soon
-
 inventory ui doesn't update unless you re-open it, unlike the combat log
 
-ui-wise, maybe set the main button to "focus" on opening panels, and bind "focus" to spacebar or something. i want to be able to move faster through things
+ui-wise, maybe set the main button to "focus" on opening panels, and bind "focus" to spacebar or something. i want to be able to move faster through things, using spacebar maybe
 
-after routing i have to go back to an old tile, go through the old ground screen. would be nice if it was instant, or it instantly moved me back to last tile, or something
+after routing/dying i have to go back to an old tile, go through the old ground screen. would be nice if it was instant, or it instantly moved me back to last tile, or something that feels better
+	maybe just add the old ground popup to the tooltip of the scenario?
+
 
 --------------------------------------------------------
 playtest notes
@@ -321,7 +308,7 @@ map overhaul:
 	not sure about map tooltips, the map info panel. it popping up over the map sounds terrible, and it popping up over the right hand side also sounds bad
 		what do i need this info for? what do i want to show? if we're doing ftl-like exploration, no need to plan ahead
 		in my playtests it seems more fun to build your character up, than to counter specific enemies, so no need for map info (except for rewards)
-			so designate tiles as "magic/chest/event/etc" rewards? cofidy types of rewards between active items, passive stat items, rare defining items, etc
+			so designate tiles as "magic/chest/event/etc" rewards? codify types of rewards between active items, passive stat items, rare defining items, etc
 
 	add in parallax
 	
@@ -330,6 +317,7 @@ map overhaul:
 	
 	have the spawner take a ChapterMapData object
 		has fields for columns, special things to put in special locations (like wall at end or start) etc
+		would be nice to not have this spaghetti function as the spawner, it is a bit unwieldy. not sure what i'd replace it with
 -
 
 
@@ -438,9 +426,6 @@ big ui overhaul
 		currently can't see my crit chance or crit multiplier, or any other stats i add
 -
 
-
-when you click a reward it bleeds into clicking the map and feels bad
-
 turn animation, i removed the end of turn slow down
 	not sure how to see into the future right now, but it would be nice to slow down near the end
 
@@ -467,8 +452,6 @@ a button on the map info panel to hide it immediately would feel good
 
 random seed system, so you can replay a certain combination etc
 	print seed to console, or show in debug window in main menu
-
-make some map movement/traversal/exploration
 	
 make the tooltip nice and good and cool
 	would be nice if tooltips showed on click too, esp for touch devices
@@ -542,6 +525,7 @@ thresholdBehaviour requires you to create_threshold, then on a second line check
 	 i don't really like this, it'd be nice if it was built in
 
 time of day is a global script, not tied to the game instance
+
 the ui is currently being managed by main.gd, which i don't want main.gd to do. i want the time of day actor to be indepedent
 	but i couldn't figure out who to parent it to - not the combat, since you care outside combat
 	not the map, since it's not map related
@@ -551,7 +535,9 @@ the ui is currently being managed by main.gd, which i don't want main.gd to do. 
 	
 	i want anyone to just be able to check what time it is easily, so global made sense
 		like the maptiles want to scale/spawn enemies based on time of day, i don't need every map tile to hear updates about the time changing
-		
+			i guess now that i think about it, a tile hearing the new_day_event is what is happening right now, can just add the day_number to the payload?
+			i guess if i want items and enemies and stuff that change based on time of day, they need to know?
+				still can just be a signal sent out on daytime change, and on hearing that you change states? no need to check daytime any other time right?
 
 check out orphan nodes periodicially for memory leaks
 
@@ -564,31 +550,13 @@ combat manager -> ui manager is not respecting combat order, which you will want
 
 combat log should probably have the print functions (eg aura applied and removed) as a function, that takes a string + colors + variables, or something. DRY
 
-currently swapping back to scenarios after combat is handled in ui_manager.gd end_rewards_screen()... which means if you have a scenario combat with no reward it just never returns..?
-
 could break the whole map tile system into events - instead of map tiles with specific enemies and rewards and functions, those can be in events. map tile is just an animation and an event. can pick from many events. doesn't really change functionality right now, but it is more continuous
 
 clicking on two tiles that have the same enemy and reward looks really bad
 	the panel doesn't update at all, looks like a bug
 
-cultist berseker - dormant enemy. currently overwriting combatant scale_stats with its own post_buff_attack
-	bad if i ever change that formula in combatant - it won't propogate
-	also maybe this should be codified
-
-so threshold auras:
-	should be held on the combatant
-	should have a "check stat threshold" function, which takes in a stat and a threshold
-		and should disable itself if under that threshold
-
-	auras need to have a "temporarily disable" field for this
-
 combat manager array of combatants - do i want a separate living_combatants array? do i need to know which creatures are there, but dead? should i just use the one array, but put not dead checks in everything?
 	currently i just have the one array, and yeet combatants from it. i probably want to keep them at some point, for corpse related shennanigans when fighting multiple enemies
-
-something about generating rewards on tiles is off
-	currently i'm manually generating rewards in the map spawner?
-		i have a tile i want to generate better rewards based on tile power, and that isn't handled in the tileData.gd?
-		not sure when i should call it. have a tileData.on_applied_to_tile()?
 
 maybe auras should have x combats, or until end of act, designations. good event rewards
 
@@ -607,6 +575,7 @@ clean up the item "on_attack" timings - currently crashing waves +attack applies
 	not sure if this is still true with new inventory system - but something similar is still a problem. you'll want different triggers at different times, and you can't control that (or even really see which order) right now
 
 z-indexes for ui are hardcoded into scene tree hierarchy
+canvaslayer layers are not codified - i just put the pause menu as 99
 
 tooltip esp for items
 	would be great to have flavour text smaller/grey and italicized
@@ -618,10 +587,9 @@ aura folder structure is flexible, item folder structure is rigid. would like it
 
 take a pass at my instiated var's - some should probably be consts
 
-canvaslayer layers are not codified - i just put the pause menu as 99
-
 writing strings in the code, instead of a spreadsheet for localization etc
 	even as dank as button tooltips on control nodes hidden in the scene tree
+	plus some tooltips get updated in code, some in editor, nightmare to change a specific one i don't know about
 
 using pick_random(), but no random seed management
 
