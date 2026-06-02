@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://drubnkihyub3w" path="res://sprites/items/basic_axe.png" id="10_37cry"]
 [ext_resource type="Texture2D" uid="uid://bw8ct2x2ju746" path="res://sprites/items/basic_potion.png" id="11_u2x64"]
 
-[node name="Player" type="VBoxContainer" node_paths=PackedStringArray("portrait", "health_bar", "shield_bar", "turn_indicator", "placeholder_attack")]
+[node name="Player" type="VBoxContainer" node_paths=PackedStringArray("portrait", "health_bar", "shield_bar", "turn_indicator", "placeholder_attack", "main_tooltip_control")]
 custom_minimum_size = Vector2(40, 0)
 anchors_preset = 2
 anchor_top = 1.0
@@ -26,6 +26,7 @@ health_bar = NodePath("Portrait/FrameConsole/MarginContainer/HBoxContainer/Healt
 shield_bar = NodePath("Portrait/FrameConsole/MarginContainer/HBoxContainer/HealthBarContainer/ShieldBar")
 turn_indicator = NodePath("Portrait/FrameConsole/MarginContainer/HBoxContainer/Portrait/TurnIndicator")
 placeholder_attack = NodePath("Portrait/Actives/Skill")
+main_tooltip_control = NodePath("Portrait/FrameConsole")
 
 [node name="Portrait" type="HBoxContainer" parent="."]
 layout_mode = 2

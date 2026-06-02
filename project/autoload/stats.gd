@@ -1,6 +1,6 @@
 extends Node
 
-const health:StringName = &"Health"
+const health:StringName = &"Max Health"
 const attack:StringName = &"Attack"
 
 const strength:StringName = &"Strength"

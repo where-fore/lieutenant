@@ -6,6 +6,7 @@ class_name UiCombatant
 @export var shield_bar:TextureProgressBar
 @export var turn_indicator:TextureRect
 @export var placeholder_attack:Control
+@export var main_tooltip_control:Control
 var my_combatant:Combatant
 
 func _ready() -> void:
@@ -43,6 +44,16 @@ func update_stats() -> void:
 		
 	elif my_combatant.shield <= 0:
 		shield_bar.visible = false
+	
+	main_tooltip_control.tooltip_text = my_combatant.get_tooltip()
+	hacky_tooltip_refresh()
+
+func hacky_tooltip_refresh() -> void:
+	#cringe
+	var mouse_pos:Vector2 = get_viewport().get_mouse_position()
+	
+	get_viewport().warp_mouse(mouse_pos + Vector2.ONE)
+	get_viewport().warp_mouse(mouse_pos)
 
 func perish() -> void:
 	self.modulate = Color(0.6, 0.3, 0.3)

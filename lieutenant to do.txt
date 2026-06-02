@@ -2,10 +2,27 @@
 working notes
 --------------------------------------------------------
 
+so i want to choose a new target on turn start
+but i sometimes want a combatant to have a special ability to do something to its current target, maybe on combat start, which means i need to choose a target before that
+
+i could choose a target on combat start, but i need to recheck on turn start, and would be overwriting the result on the first turn which feels wrong
+
+so if i want to be able to see what my target will be before my turn, i need to decide it before my turn, and if i want no backsies then i won't be checking again on turn start (after this function), which also feels wrong
+
+i guess the combatant does target on turn start before any other functions, so a combatant doing special things could just do it on turn start
+what about some sort of gimmick boss that turns one combatants attack negative?
+	well that can use a special targetting algorithm? where it doesn't override?
+	yeah that makes sense
 
 
 
 
+
+
+
+
+make first row of unique enemies too strong for any less than 3, need all 4
+then balance past that for 4
 
 
 --------------------------------------------------------
@@ -13,7 +30,6 @@ work to do
 --------------------------------------------------------
 
 need to do for release:
-	put in combat failsafe
 	tune game length according to interest and balance curves
 	
 	test items:
