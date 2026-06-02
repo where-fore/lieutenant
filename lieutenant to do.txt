@@ -4,7 +4,8 @@ working notes
 
 
 
-border_trees apply_to_tile - permanently disable()
+
+
 
 
 --------------------------------------------------------

@@ -36,6 +36,9 @@ var shield:int = 0:
 		shield = value
 		emit_stat_update()
 
+var base_rounds_can_fight:int = 50
+var current_rounds_can_fight:int
+
 func get_damaged_health() -> int:
 	return current_stats[Stats.health] - damage_taken
 
@@ -123,12 +126,17 @@ func remove_shield(value:int) -> void:
 func reset_current_stats_to_base() -> void:
 	#if not starting_stats.has(Stats.crit_multi):
 		#starting_stats[Stats.crit_multi] = Stats.base_crit_multi
-		
+	
 	current_stats = starting_stats.duplicate()
+	current_rounds_can_fight = base_rounds_can_fight
 
 func check_if_dead_now() -> void:
 	if get_damaged_health() <= 0 and CombatEvents.combat_ongoing:
 		perish()
+
+func perish_from_exhaustion() -> void:
+	CombatLogEvents.custom_message.emit(str(combatant_name, " has fought too long, and succumbs to the exhaustion of combat."))
+	perish()
 
 func perish() -> void:
 	dead = true
@@ -153,6 +161,10 @@ func take_turn() -> void:
 		
 		CombatEvents.attack_launched.emit(self, amount_to_attack_for, current_target)
 		on_after_attack_functions(current_target)
+	
+	if current_rounds_can_fight <= 0:
+		perish_from_exhaustion()
+	else: current_rounds_can_fight -= 1
 	
 	on_end_turn_functions()
 
