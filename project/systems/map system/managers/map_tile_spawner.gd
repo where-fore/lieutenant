@@ -79,21 +79,17 @@ func populate_tile_data(tile:MapTile) -> void:
 	if tile.x_coordinate == columns - columns_to_disable_at_end - 1: #the last column
 		if tile.y_coordinate == 0 or tile.y_coordinate == 2:
 			tile.apply_data(generic_border_data.new())
-			tile.permanently_disable()
 		elif tile.y_coordinate == 1:
 			tile.apply_data(boss_special_tile.new())
-			tile.mark_as_boss()
 	
 	#first and last rows, the borders
 	elif tile.x_coordinate == (columns_to_disable_at_start - 1) or tile.x_coordinate >= columns - columns_to_disable_at_end:
 		tile.apply_data(generic_border_data.new())
-		tile.permanently_disable()
 	
 	#tutorial: first encounter (first combat)
 	elif tile.x_coordinate == columns_to_disable_at_start:
 		if tile.y_coordinate == 0 or tile.y_coordinate == 2:
 			tile.apply_data(generic_border_data.new())
-			tile.permanently_disable()
 		elif tile.y_coordinate == 1:
 			tile.apply_data(tutorial_first_combat_tile.new())
 	
