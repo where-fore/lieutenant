@@ -3,6 +3,8 @@ extends Scenario
 var new_companion1:Combatant = Database.get_combatant_by_id("basic_knight_1")
 var new_companion2:Combatant = Database.get_combatant_by_id("basic_knight_2")
 
+#i could have this be a combat too - have you rush in and help the knights
+#i think the timing with the enrage mechanic probably wouldn't land?
 func _init() -> void:
 	text_pages = [
 		"You come upon a waterfall and its basin, and you realize not all the sounds you are hearing are water smashing rock - there's bone smashing metal.\n\nYou navigate through the underbrush and come upon a skeleton behemoth brutally impale the back of an overextended knight.",
@@ -17,3 +19,6 @@ func _init() -> void:
 func on_finish_scenario() -> void:
 	CombatEvents.party_member_added.emit(new_companion1)
 	CombatEvents.party_member_added.emit(new_companion2)
+
+#old draft, probably too much exposition
+#...A towering skeletal behemoth is being flanked by two similarly clad knights. They work in beautiful harmony, diving under swips while the other hacks at exposed legs. A skeletal overhead bash is parried, the knights whole body twisting to deflect the savagery - leaving their back exposed for a brutal thrust, which hits its mark. The flanking knight screams in fury and batters the impaled arm, making quick work of the dusty joints. Pommel strikes into ribcages leave the beast stunned enough for hands to grab and crush the skull. You finally ford the stream and come upon an exhausted combatant...
