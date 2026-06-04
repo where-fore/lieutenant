@@ -139,7 +139,7 @@ func create_edge_notifier(is_left_edge:bool) -> void:
 	add_child(new_map_edge_notifier)
 
 func populate_first_rewards() -> void:
-	var all_of_rarity:Array[Reward] = Database.get_rewards_by_category(Categories.item_rarity, [Categories.Rarity.MYTHIC])
+	var all_of_rarity:Array[Reward] = Database.get_rewards_by_category(Categories.item_rarity, [Categories.Rarity.RARE])
 	all_of_rarity.shuffle()
 	first_rewards = all_of_rarity
 

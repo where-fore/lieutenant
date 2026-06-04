@@ -9,12 +9,13 @@ func setup_item_stats() -> void:
 		Categories.item_rarity : Categories.Rarity.RARE,
 	}
 	
-	additive_stat_dictionary[Stats.strength] = BalanceData.basic_stat
+	additive_stat_dictionary[Stats.strength] = BalanceData.rare_stat_budget / 2
+	additive_stat_dictionary[Stats.agility] = BalanceData.rare_stat_budget / 2
 
 
 #custom stuff
 var stat_to_check_for_threshold:StringName = Stats.strength
-var stat_threshold:int = BalanceData.basic_stat * 10
+var stat_threshold:int = BalanceData.common_stat_budget * 10
 var threshold_reward_stat:StringName = Stats.health
 var threshold_reward_value:int = 200
 

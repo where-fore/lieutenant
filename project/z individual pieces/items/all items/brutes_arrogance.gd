@@ -6,16 +6,16 @@ func setup_item_stats() -> void:
 	reward_sprite = load("res://sprites/double_sided_axe.png")
 	extra_tooltip = "While above {health}% health, bolsters your {stat} by {percent_gain}%".format({"health": my_health_threshold_percent, "percent_gain": my_threshold_attack_multi, "stat": my_threshold_stat}) # "Generic flavourful description"
 	reward_categories = {
-		Categories.item_rarity : Categories.Rarity.MYTHIC,
+		Categories.item_rarity : Categories.Rarity.RARE,
 	}
 	
-	additive_stat_dictionary[Stats.strength] = BalanceData.basic_stat
+	additive_stat_dictionary[Stats.strength] = BalanceData.rare_stat_budget
 
 
 #custom stuff
 var my_health_threshold_percent:int = 65
 var my_threshold_stat:StringName = Stats.attack
-var my_threshold_attack_multi:int = BalanceData.basic_stat_scaling * 4
+var my_threshold_attack_multi:int = BalanceData.common_multiplicative_stat_budget * 4
 var my_threshold:ThresholdBehaviour
 var my_aura:Aura
 

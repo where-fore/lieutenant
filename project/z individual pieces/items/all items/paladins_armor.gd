@@ -6,10 +6,11 @@ func setup_item_stats() -> void:
 	reward_sprite = load("res://sprites/items/shining_armour.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	reward_categories = {
-		Categories.item_rarity : Categories.Rarity.RARE,
+		Categories.item_rarity : Categories.Rarity.COMMON,
 	}
 	
-	multiplicative_stat_dictionary[Stats.health] = BalanceData.basic_stat_scaling * 4
+	multiplicative_stat_dictionary[Stats.fortitude] = BalanceData.common_multiplicative_stat_budget
+	multiplicative_stat_dictionary[Stats.health] = BalanceData.common_multiplicative_stat_budget
 
 
 #custom stuff

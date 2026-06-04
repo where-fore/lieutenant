@@ -9,14 +9,14 @@ func setup_item_stats() -> void:
 		Categories.item_rarity : Categories.Rarity.RARE,
 	}
 	
-	additive_stat_dictionary[Stats.agility] = BalanceData.basic_stat
+	additive_stat_dictionary[Stats.agility] = BalanceData.rare_stat_budget
 
 
 #custom stuff
 var my_buff_aura:Aura
 
 var my_stat:StringName = Stats.agility
-var my_stat_per_attack:int = BalanceData.basic_stat
+var my_stat_per_attack:int = BalanceData.common_stat_budget
 
 func on_combat_start() -> void:
 	my_buff_aura = create_new_custom_aura()

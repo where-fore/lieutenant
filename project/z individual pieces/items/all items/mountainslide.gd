@@ -6,15 +6,15 @@ func setup_item_stats() -> void:
 	reward_sprite = load("res://sprites/single_spiked_axe.png")
 	extra_tooltip = "If you are mighty as a mountain with more than {health_threshold} {threshold_stat},\nsmash for an extra {percent}% of your {stat} when attacking".format({"health_threshold": my_health_threshold, "threshold_stat": my_threshold_stat ,"percent": my_threshold_attack_factor, "stat": my_threshold_attack_stat}) # "Generic flavourful description"
 	reward_categories = {
-		Categories.item_rarity : Categories.Rarity.MYTHIC,
+		Categories.item_rarity : Categories.Rarity.RARE,
 	}
 	
-	additive_stat_dictionary[Stats.strength] = BalanceData.basic_stat * 2
+	additive_stat_dictionary[Stats.strength] = BalanceData.rare_stat_budget
 
 
 #custom stuff
 var starting_hp:int = BalanceData.player_base_strength / Stats.strength_per_health + BalanceData.player_base_agility / Stats.agility_per_health
-var my_health_threshold:int = starting_hp * 20
+var my_health_threshold:int = starting_hp * 10
 var my_threshold_stat:StringName = Stats.health
 
 var my_threshold_attack_factor:int = 25

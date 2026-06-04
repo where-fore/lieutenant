@@ -1,22 +1,17 @@
 extends Aura
 
-#whatever the aura does, doesn't do anything until you do something with it
-var multiplier:int = 200
-
-func setup_basic_aura_data() -> void:
+#basic setup
+func setup_aura_stats() -> void:
 	reward_name = "Striking" # "Generic aura"
 	reward_sprite = load("res://sprites/sword_basic.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	aura_categories = [] # [auraCategories.common_aura]
 
 	duration_type = AuraNames.DurationType.TURNS
-	base_duration = 3
-
-#--functions called by aura_base.gd--
-func setup_aura_stats() -> void:
-	setup_basic_aura_data()
+	base_duration = 2
 	
-	#whatever the aura does
-	multiplicative_stat_dictionary[Stats.attack] = multiplier
+	multiplicative_stat_dictionary[Stats.attack] = my_public_multiplier
 
-#--end of functions called by aura_base.gd--
+
+#custom stuff
+var my_public_multiplier:int = BalanceData.rare_multiplicative_stat_budget * 3

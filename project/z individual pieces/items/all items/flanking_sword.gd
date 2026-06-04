@@ -10,12 +10,12 @@ func setup_item_stats() -> void:
 		Categories.item_rarity : Categories.Rarity.RARE,
 	}
 	
-	additive_stat_dictionary[Stats.agility] = BalanceData.basic_stat * 2
+	additive_stat_dictionary[Stats.agility] = BalanceData.rare_stat_budget
 
 
 #custom stuff
 var stat_to_allies:StringName = Stats.strength
-var stat_to_add_to_allies:int = BalanceData.basic_stat
+var stat_to_add_to_allies:int = BalanceData.common_stat_budget
 
 var debuff_on_me:Aura
 

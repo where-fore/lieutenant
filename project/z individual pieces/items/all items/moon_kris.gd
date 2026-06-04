@@ -6,14 +6,15 @@ func setup_item_stats() -> void:
 	reward_sprite = load("res://sprites/items/wavy_dagger.png")
 	extra_tooltip = "After attacking, for every {threshold} {stat},\ndeal damage equal to {percent}% of your {stat}".format({"threshold": threshold_per_hit, "stat": stat_to_check,  "percent": percent_stat_to_deal}) # "Generic flavourful description"
 	reward_categories = {
-		Categories.item_rarity : Categories.Rarity.MYTHIC,
+		Categories.item_rarity : Categories.Rarity.RARE,
 	}
-	additive_stat_dictionary[Stats.agility] = BalanceData.basic_stat
+	
+	additive_stat_dictionary[Stats.agility] = BalanceData.rare_stat_budget
 
 
 #custom stuff
 var stat_to_check:StringName = Stats.agility
-var threshold_per_hit:int = BalanceData.basic_stat * 10
+var threshold_per_hit:int = BalanceData.common_stat_budget * 10
 var percent_of_stat_already_used_for_attack:int = int((1.0 / Stats.agility_per_attack) * 100)
 var percent_stat_to_deal:int = percent_of_stat_already_used_for_attack / 2
 

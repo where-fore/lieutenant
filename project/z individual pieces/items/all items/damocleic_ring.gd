@@ -1,13 +1,7 @@
 extends Item
 
-var turn_counter:int
-var activate_every_turns:int = 2
-var damage_on_activation:int = BalanceData.sword_damage * 5
-var activation_message:String = "The time has come, your ring glows brightly."
-
-
-func setup_basic_item_data() -> void:
-	item_id = "damocleic_ring" # "generic_item"
+#basic setup
+func setup_item_stats() -> void:
 	reward_name = "Damocleic Ring" # "Generic Item"
 	reward_sprite = load("res://sprites/gaudy_ruby_ring.png")
 	extra_tooltip = "Every {turns} turns, explode in a brief fury for {damage} damage".format({"turns": activate_every_turns, "damage": damage_on_activation}) # "Generic flavourful description"
@@ -16,9 +10,13 @@ func setup_basic_item_data() -> void:
 	}
 	
 
-#--functions called by parents--
-func setup_item_stats() -> void:
-	setup_basic_item_data()
+
+#custom stuff
+var activate_every_turns:int = 2
+var damage_on_activation:int = BalanceData.basic_attack * activate_every_turns * 2
+
+var turn_counter:int
+var activation_message:String = "The time has come, your ring glows brightly."
 
 func on_combat_start() -> void:
 	turn_counter = 0

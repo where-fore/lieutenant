@@ -9,7 +9,7 @@ func setup_item_stats() -> void:
 		Categories.item_rarity : Categories.Rarity.COMMON,
 	}
 	
-	multiplicative_stat_dictionary[Stats.agility] = BalanceData.basic_stat_scaling
+	multiplicative_stat_dictionary[Stats.agility] = BalanceData.common_multiplicative_stat_budget
 
 
 #custom stuff

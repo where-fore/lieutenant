@@ -9,7 +9,7 @@ func setup_item_stats() -> void:
 		Categories.item_rarity : Categories.Rarity.RARE,
 	}
 	
-	additive_stat_dictionary[Stats.strength] = BalanceData.basic_stat
+	additive_stat_dictionary[Stats.strength] = BalanceData.rare_stat_budget
 
 #custom stuff
 var my_stat_per_turn:StringName = Stats.attack

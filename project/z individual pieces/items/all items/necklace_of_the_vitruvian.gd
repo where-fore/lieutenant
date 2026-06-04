@@ -6,11 +6,11 @@ func setup_item_stats() -> void:
 	reward_sprite = load("res://sprites/adorned_ruby_necklace.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	reward_categories = {
-		Categories.item_rarity : Categories.Rarity.RARE,
+		Categories.item_rarity : Categories.Rarity.COMMON,
 	}
 	
 	for stat:StringName in Stats.attributes:
-		additive_stat_dictionary[stat] = BalanceData.basic_stat
+		additive_stat_dictionary[stat] = BalanceData.common_stat_budget
 
 
 #custom stuff

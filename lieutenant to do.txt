@@ -2,27 +2,13 @@
 working notes
 --------------------------------------------------------
 
-so i want to choose a new target on turn start
-but i sometimes want a combatant to have a special ability to do something to its current target, maybe on combat start, which means i need to choose a target before that
-
-i could choose a target on combat start, but i need to recheck on turn start, and would be overwriting the result on the first turn which feels wrong
-
-so if i want to be able to see what my target will be before my turn, i need to decide it before my turn, and if i want no backsies then i won't be checking again on turn start (after this function), which also feels wrong
-
-i guess the combatant does target on turn start before any other functions, so a combatant doing special things could just do it on turn start
-what about some sort of gimmick boss that turns one combatants attack negative?
-	well that can use a special targetting algorithm? where it doesn't override?
-	yeah that makes sense
 
 
+4 combatants dont fit on ui properly
+maybe add 4 enemy combatants at the same time
 
-
-
-
-
-
-make first row of unique enemies too strong for any less than 3, need all 4
-then balance past that for 4
+losing a fight feels bad movement wise - it's confusing why all the map is disabled
+	if you only have 1 option, why not just automatically send you there?
 
 
 --------------------------------------------------------
@@ -30,53 +16,61 @@ work to do
 --------------------------------------------------------
 
 need to do for release:
-	tune game length according to interest and balance curves
-	
-	test items:
-		enrage sword, that the aura falls off correctly and re-applies the next combat
+	tune game length according to interest curves, tutorials etc
+		have an early combat scenario where you fail, and res with your necklace
 		
-	enemy targeting
-		combat log - enemy locks eyes on Character
-		on tooltip
-			maybe there's an Enum of basic algorithms (highest/lowest of each stat?)
-			maybe there's just arguments for highest/lowest, and for stat? and tooltip populates from those? and has a targets:Special override? like aura duration
-
+		make first row of unique enemies too strong for any less than 3, need all 4
+		then balance past that for 4
+	
+	
+	test all items added in last commit:
+		enrage sword, that the aura falls off correctly and re-applies the next combat
+		mountainslide doesn't provide an aura, so no visual feedback on character screen, like other threshold items?
+	
 	items to add:
 		intelligence items
 		fortitude items
-		stat spread rewards - heal allies for lowest stat; on turn 5 (if alive) deal damage equal to total stat sum; buff allies for your lowest stat;
+		stat spread rewards - buff allies for your lowest stat;
 		basic attack items (no stats just attack)
 		enrages and stuff from the inspiration page
+			on death, explode for stats
+			on death, give away dex
+			on death, revive other member?
 		
 		focus change stuff - the flanking sword seems like it does nothing aggro related, since it's mega agility you'll never have highest str? or maybe it's for sending you from 2nd str to 3rd/4th str?
 			maybe it should be -agi but +attack?
 		maybe items should have more split stats? instead of agility or str, be 3:1, 2:2, 1:3 splits? so instead of having a mega str and mega dex characters, you have stat spreads across your whole party
+			flowers currently do this?
+		
+		item features to codify
+			"on turn x" like bear's defense, stat_sum_burst
+			on_attack probably doesn't need _source:Combatant? can always just access parent_combatant, and usually want to?
+			
 	
+	items vs flowers feels bad atm, currently i'm just always taking the items? and only looking at items on the map?
+		maybe 50% no item, 30% common, 20% rare?
 	try hiding rewards on map? streamlining that part?
+	
 	
 	--
 	would be good:
 	
 	pass at text - rename enemies to slightly more generic (the marrow -> marrow behemoth), info panel says "your scouts" etc
 		maybe put all the text in the ol strings global but seems like a large rewrite for little gain
+		look at knight scenario - it mentions the amulet that hasn't been mentioned yet
+		"iron" items? what's the deal with metals?
 
-	maybe player can target enemies?
-		not sure on the ui for this
-		for now prob just target stats as well
-		
-	enemy tooltips in combat
-		can prob just make ui combatants grab the get_tooltip() on update_stats()
-	
 	inventory - trade/delete/unequip items?
 		give rewards the "deleteable" property, false for cursed items? important character items?
 		probably a drop down with each party member, and delete at the bottom with a confirmation? the label text changes from delete to you sure?
 			how do i access who is in your party? allied combatants? surely not, that can be temporary. maybe i do want a global Party.gd?
 	
-	mountainslide doesn't provide an aura, so no visual feedback on character screen, like other threshold items?
-	
 	have nice tooltips set up, can still use placeholder art
 
+
 	all of the below:
+
+how to check if sprite is already in use? i don't want to re-use a sprite right now
 
 balance-wise:
 	enemies much too squishy now that we're stronger
@@ -290,6 +284,9 @@ func _unhandled_input(event: InputEvent) -> void:
 ---------------------------
 not right now, maybe:
 ---------------------------
+
+maybe player can target enemies?
+	not sure on the ui for this
 
 entropy roll system:
 	entropy:Dictionary[StringName, int] = {Stats.crit_chance = 20}
@@ -522,6 +519,12 @@ flappy cameo, balloon in the distance
 ----------------------------------------------------------------------------------------------------------------
 things i know are hacky and should be cleaned up (or super duper back burner changes):
 ----------------------------------------------------------------------------------------------------------------
+
+target.take_damage() feels hacky, probably should be parent_combatant.deal_non-attack_damage(), which reads the target?
+	maybe not, i want these target.take_damage to be like damage riders? maybe i should make it more like that then - pass in the Damage object, and modify it, before sending it off?
+	the combatant creates an AttackDamage object, and passes that by reference into each inventory function, and those modify it in order?
+	sounds like an expensive rewrite for little gain right now
+
 map_spawner.gd loads map tiles with an @export, where everything else in the game loads path names from Database. wonder if i should change either to match?
 	having the database with @exports sounds dank and too much manual work
 	having the map tiles all have id's also sounds dank
