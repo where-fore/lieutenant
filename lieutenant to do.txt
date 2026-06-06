@@ -2,10 +2,6 @@
 working notes
 --------------------------------------------------------
 
-test all items added in this commit: https://github.com/where-fore/lieutenant/commit/0cf45e3a9d5fd800e64b55916542081a14ef8152
-just quickly to make sure they function as intended
-	enrage sword, that the aura falls off correctly and re-applies the next combat
-
 
 4 combatants dont fit on ui properly
 maybe add 4 enemy combatants at the same time

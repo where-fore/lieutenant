@@ -54,6 +54,7 @@ grow_vertical = 0
 
 [node name="PlayerCombatants" type="HBoxContainer" parent="Panel/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/separation = 2
 
 [node name="SpacerLeft" type="Control" parent="Panel/HBoxContainer/PlayerCombatants"]
@@ -88,11 +89,8 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Spacer" type="Control" parent="Panel/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
 [node name="FrameConsole" parent="Panel/HBoxContainer" instance=ExtResource("4_rojik")]
+visible = false
 custom_minimum_size = Vector2(70, 0)
 layout_mode = 2
 
