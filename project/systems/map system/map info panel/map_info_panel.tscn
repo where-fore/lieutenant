@@ -86,6 +86,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="RewardInfo" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/separation = -2

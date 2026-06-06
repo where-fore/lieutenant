@@ -19,7 +19,7 @@ func _ready() -> void:
 	@warning_ignore("untyped_declaration")
 	MapEvents.enter_without_combat_in.connect(func(_unused_data) -> void: end_combat_as_victory())
 
-func end_combat_as_victory() -> void:	
+func end_combat_as_victory() -> void:
 	combat_ui_manager.change_from()
 	reward_ui_manager.change_to()
 

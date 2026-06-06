@@ -7,6 +7,7 @@ extends MarginContainer
 @onready var reward_info_container:Control = $MarginContainer/VBoxContainer/RewardInfo
 @onready var reward_sprite:IconWithBorder = $MarginContainer/VBoxContainer/RewardInfo/RewardSprite
 @onready var reward_blurb:RichTextLabel = $MarginContainer/VBoxContainer/RewardInfo/RewardBlurb
+var enable_reward_info:bool = false
 
 @onready var scenario_blurb_container:Control = $MarginContainer/VBoxContainer/ScenarioBlurb
 @onready var scenario_sprite:IconWithBorder = $MarginContainer/VBoxContainer/ScenarioBlurb/ScenarioSprite
@@ -75,7 +76,7 @@ func update_map_tile_info(tile:MapTile) -> void:
 			var enemy_name_fancy:String = "[color=#%s]%s[/color]" % [enemy_name_color, display_enemy.combatant_name]
 			enemy_blurb.text = enemy_blurb_base.format({"enemy_name": enemy_name_fancy})
 		
-		if tile_info.reward:
+		if tile_info.reward and enable_reward_info:
 			reward_info_container.visible = true
 			
 			reward_sprite.set_icon(tile_info.reward.reward_sprite)

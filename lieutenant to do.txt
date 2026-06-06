@@ -3,8 +3,22 @@ working notes
 --------------------------------------------------------
 
 
-4 combatants dont fit on ui properly
-maybe add 4 enemy combatants at the same time
+
+right now i'm
+	prepare_reward starts null
+	at some point calling prepare_reward, which sets current_reward to something
+		or i don't, and current_reward is null, like in my scenario that's combat with no reward
+	when i change to the reward screen, i check if current_reward is null - if so, skip to the end; otherwise load up the reward screen with that current_reward
+	then when i'm done, clear current_reward
+
+	so i want that behaviour still there - but i want to be able to "prep" a reward which is just a basic reward, no current_reward
+	so either i change the check from loading literally current_reward to reward_prepped:bool
+	or i set the current_reward to the basic_reward?
+
+
+
+
+
 
 
 --------------------------------------------------------
@@ -18,8 +32,6 @@ need to do for release:
 		make first row of unique enemies too strong for any less than 3, need all 4
 		then balance past that for 4
 	
-	
-	test all items added in last commit:
 	
 	items to add:
 		intelligence items
@@ -40,11 +52,6 @@ need to do for release:
 			"on turn x" like bear's defense, stat_sum_burst
 			on_attack probably doesn't need _source:Combatant? can always just access parent_combatant, and usually want to?
 	-
-	
-	items vs flowers feels bad atm, currently i'm just always taking the items? and only looking at items on the map?
-		maybe 50% no item, 30% common, 20% rare?
-	try hiding rewards on map? streamlining that part?
-	
 	
 	losing a fight feels bad movement wise - it's confusing why all the map is disabled
 		if you only have 1 option, why not just automatically send you there?
@@ -284,6 +291,8 @@ func _unhandled_input(event: InputEvent) -> void:
 ---------------------------
 not right now, maybe:
 ---------------------------
+getting offered a 20 stat flower and a basic 30 stat common item, especially both same stat after first combat, is confusing
+	not sure how to handle that, only show flowers for a while?
 
 maybe player can target enemies?
 	not sure on the ui for this

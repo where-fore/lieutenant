@@ -4,6 +4,7 @@ func _init() -> void:
 	tile_animation = pick_animation()
 	enemies = pick_enemies()
 	reward = pick_item()
+	chance_to_have_no_item(70)
 
 func pick_animation() -> SpriteFrames:
 	var possible_animations:Array[SpriteFrames]

@@ -28,6 +28,15 @@ func basic_scale_stats_by_day() -> void:
 				#but it's a failsafe?
 				enemies.erase(enemy)
 
+func chance_to_have_no_item(chance:int) -> void:
+	if not chance or chance < 1 or chance > 100:
+		push_error("expected a 1 to 100 chance, was given: ", chance)
+		return
+	
+	var roll:int = randi_range(1, 100)
+	if roll <= chance:
+		reward = null
+
 #derived subclasses hook onto this function
 @warning_ignore("unused_parameter")
 func apply_to_tile(parent_tile:MapTile) -> void:

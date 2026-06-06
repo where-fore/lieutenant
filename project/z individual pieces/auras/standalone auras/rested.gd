@@ -7,7 +7,7 @@ func setup_aura_stats() -> void:
 	extra_tooltip = "" # "Generic flavourful description"
 	aura_categories = [] # [auraCategories.common_aura]
 	
-	additive_stat_dictionary[Stats.health] = BalanceData.rest_hp
+	additive_stat_dictionary[Stats.health] = BalanceData.basic_health
 
 
 #custom stuff

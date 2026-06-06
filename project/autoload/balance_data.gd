@@ -2,9 +2,9 @@ extends Node
 
 
 var common_stat_budget:int = 20
-var rare_stat_budget:int = common_stat_budget * 2
+var rare_stat_budget:int = common_stat_budget * 3 / 2
 var common_multiplicative_stat_budget:int = 25
-var rare_multiplicative_stat_budget:int = common_multiplicative_stat_budget * 2
+var rare_multiplicative_stat_budget:int = common_multiplicative_stat_budget * 3 / 2
 var basic_health:int = 20
 var basic_attack:int = 5
 
@@ -15,8 +15,6 @@ var player_base_fortitude:int = common_stat_budget
 
 var flower_basic_stat:int = common_stat_budget
 var flower_basic_split_stat:int = flower_basic_stat * 1 / 2
-var rest_hp:int = 20
-var sharpen_attack:int = 5
 
 var enemy_stat_scaling_per_day:float = 1.50
 var enemy_normal_stat_budget:int = common_stat_budget * 10
