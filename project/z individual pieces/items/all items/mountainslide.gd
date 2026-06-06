@@ -14,13 +14,14 @@ func setup_item_stats() -> void:
 
 #custom stuff
 var starting_hp:int = BalanceData.player_base_strength / Stats.strength_per_health + BalanceData.player_base_agility / Stats.agility_per_health
-var my_health_threshold:int = starting_hp * 10
+var my_health_threshold:int = starting_hp * 15
 var my_threshold_stat:StringName = Stats.health
 
 var my_threshold_attack_factor:int = 25
 var my_threshold_attack_stat:StringName = Stats.strength
 
 var my_threshold:ThresholdBehaviour
+var my_visual_aura:Aura
 
 func on_equip() -> void:
 	my_threshold = create_new_threshold({my_threshold_stat: my_health_threshold})
@@ -30,3 +31,10 @@ func on_attack(source:Combatant, target:Combatant) -> void:
 	if my_threshold.active:
 		var damage_to_deal:int = source.current_stats[my_threshold_attack_stat] * my_threshold_attack_factor / 100
 		target.take_damage(damage_to_deal)
+
+func threshold_state_changed(threshold:ThresholdBehaviour) -> void:
+	if threshold == my_threshold:
+		if threshold.active:
+			my_visual_aura = create_new_custom_aura(AuraNames.DurationType.SPECIAL)
+		if not threshold.active:
+			remove_from_custom_auras(my_visual_aura)

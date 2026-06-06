@@ -240,7 +240,7 @@ func recalculate_stats(additive_aura_dictionary:Dictionary[StringName, int], mul
 	reset_current_stats_to_base()
 	
 	#cut primaries out, so i can work them separately
-	var primary_stats:Array[StringName] = [Stats.strength, Stats.agility, Stats.mind]
+	var primary_stats:Array[StringName] = Stats.attributes
 	var primary_stat_additive_dictionary:Dictionary[StringName, int]
 	var primary_stat_multiplicative_dictionary:Dictionary[StringName, int]
 	for stat:StringName in additive_aura_dictionary.keys():

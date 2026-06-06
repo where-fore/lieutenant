@@ -20,6 +20,9 @@ var my_enrage_stat:StringName = Stats.attack
 var my_enrage_stat_bonus:int = BalanceData.basic_attack * 4
 
 func on_other_combatant_dying(newly_dead_combatant:Combatant) -> void:
-	if not my_buff_aura and newly_dead_combatant in parent_combatant.allies:
-		my_buff_aura = create_new_custom_aura()
-		my_buff_aura.change_additive_aura(my_enrage_stat, my_enrage_stat_bonus)
+	if not my_buff_aura:
+		if newly_dead_combatant in parent_combatant.allies:
+			my_buff_aura = create_new_custom_aura()
+			my_buff_aura.expired.connect(func(_aura:Aura) -> void: my_buff_aura = null)
+			
+			my_buff_aura.change_additive_aura(my_enrage_stat, my_enrage_stat_bonus)

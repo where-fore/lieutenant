@@ -18,7 +18,7 @@ func on_attack(_source:Combatant, _target:Combatant) -> void:
 	amount_to_heal = (parent_combatant.current_stats[find_lowest_attribute()] * percent_of_stat_to_heal / 100)
 	
 	for ally:Combatant in parent_combatant.allies:
-		parent_combatant.heal(amount_to_heal)
+		ally.heal(amount_to_heal)
 
 func find_lowest_attribute() -> StringName:
 	var current_lowest:StringName

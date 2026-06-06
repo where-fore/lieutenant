@@ -2,13 +2,13 @@
 working notes
 --------------------------------------------------------
 
+test all items added in this commit: https://github.com/where-fore/lieutenant/commit/0cf45e3a9d5fd800e64b55916542081a14ef8152
+just quickly to make sure they function as intended
+	enrage sword, that the aura falls off correctly and re-applies the next combat
 
 
 4 combatants dont fit on ui properly
 maybe add 4 enemy combatants at the same time
-
-losing a fight feels bad movement wise - it's confusing why all the map is disabled
-	if you only have 1 option, why not just automatically send you there?
 
 
 --------------------------------------------------------
@@ -24,8 +24,6 @@ need to do for release:
 	
 	
 	test all items added in last commit:
-		enrage sword, that the aura falls off correctly and re-applies the next combat
-		mountainslide doesn't provide an aura, so no visual feedback on character screen, like other threshold items?
 	
 	items to add:
 		intelligence items
@@ -45,11 +43,17 @@ need to do for release:
 		item features to codify
 			"on turn x" like bear's defense, stat_sum_burst
 			on_attack probably doesn't need _source:Combatant? can always just access parent_combatant, and usually want to?
-			
+	-
 	
 	items vs flowers feels bad atm, currently i'm just always taking the items? and only looking at items on the map?
 		maybe 50% no item, 30% common, 20% rare?
 	try hiding rewards on map? streamlining that part?
+	
+	
+	losing a fight feels bad movement wise - it's confusing why all the map is disabled
+		if you only have 1 option, why not just automatically send you there?
+	
+	
 	
 	
 	--
@@ -519,6 +523,7 @@ flappy cameo, balloon in the distance
 ----------------------------------------------------------------------------------------------------------------
 things i know are hacky and should be cleaned up (or super duper back burner changes):
 ----------------------------------------------------------------------------------------------------------------
+item custom auras (like enrage_sword) currently hook onto expiration signals, maybe they should be a weakref?
 
 target.take_damage() feels hacky, probably should be parent_combatant.deal_non-attack_damage(), which reads the target?
 	maybe not, i want these target.take_damage to be like damage riders? maybe i should make it more like that then - pass in the Damage object, and modify it, before sending it off?

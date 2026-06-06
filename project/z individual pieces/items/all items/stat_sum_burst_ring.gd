@@ -42,5 +42,6 @@ func calc_stat_sum_damage() -> int:
 	var damage_to_deal:int = 0
 	for attribute:StringName in Stats.attributes:
 		damage_to_deal += parent_combatant.current_stats[attribute] * percent_of_stats_to_deal / 100
+			#note this rounds down aggressively, 25 str 25 dex is 2 + 2, not 50 * 0.1 = 5
 	
 	return damage_to_deal
