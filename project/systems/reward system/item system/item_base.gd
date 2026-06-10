@@ -35,15 +35,15 @@ func get_tooltip() -> String:
 	setup_item_stats()
 	
 	var tooltip_text:String = reward_name
-	for stat_change:StringName in additive_stat_dictionary:
-		var change:String = " increased by "
-		if additive_stat_dictionary[stat_change] < 0: change = " reduced by "
-		var to_add:String = str(stat_change, change , abs(additive_stat_dictionary[stat_change]))
+	for stat_name:StringName in additive_stat_dictionary:
+		var change:String = "+"
+		if additive_stat_dictionary[stat_name] < 0: change = "-"
+		var to_add:String = str(change, abs(additive_stat_dictionary[stat_name]), " ", stat_name)
 		tooltip_text += "\n" + to_add
-	for stat_change:StringName in multiplicative_stat_dictionary:
-		var change:String = " increased by "
-		if additive_stat_dictionary[stat_change] < 0: change = " reduced by "
-		var to_add:String = str(stat_change, change , abs(multiplicative_stat_dictionary[stat_change]), "%")
+	for stat_name:StringName in multiplicative_stat_dictionary:
+		var change:String = "+"
+		if additive_stat_dictionary[stat_name] < 0: change = "-"
+		var to_add:String = str(change, abs(multiplicative_stat_dictionary[stat_name]), "% ", stat_name)
 		tooltip_text += "\n" + to_add
 		
 	if extra_tooltip: tooltip_text += "\n" + extra_tooltip
