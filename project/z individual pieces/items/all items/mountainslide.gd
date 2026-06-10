@@ -30,7 +30,7 @@ func on_equip() -> void:
 func on_attack(source:Combatant, target:Combatant) -> void:
 	if my_threshold.active:
 		var damage_to_deal:int = source.current_stats[my_threshold_attack_stat] * my_threshold_attack_factor / 100
-		target.take_damage(damage_to_deal)
+		target.take_damage(damage_to_deal, parent_combatant)
 
 func threshold_state_changed(threshold:ThresholdBehaviour) -> void:
 	if threshold == my_threshold:

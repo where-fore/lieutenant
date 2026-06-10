@@ -21,4 +21,4 @@ func setup_item_stats() -> void:
 
 func on_attack(_source:Combatant, target:Combatant) -> void:
 	var damage_to_deal:int = target.current_stats[Stats.health] * max_hp_percent_damage / 100
-	target.take_damage(damage_to_deal)
+	target.take_damage(damage_to_deal, parent_combatant)

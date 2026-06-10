@@ -47,12 +47,12 @@ func on_attack(source:Combatant, target:Combatant) -> void:
 			if slot.item_in_slot:
 				slot.item_in_slot.on_attack(source, target)
 
-func on_damage_taken(source:Combatant, amount_taken:int) -> void:
+func on_damage_taken(amount_taken:int, source:Combatant) -> void:
 	if source.is_a_player:
 		for slot:InventorySlot in inventory_slots: 
 			if slot.is_empty(): continue
 			if slot.item_in_slot:
-				slot.item_in_slot.on_damage_taken(source, amount_taken)
+				slot.item_in_slot.on_damage_taken(amount_taken, source)
 
 func on_turn_end(source:Combatant) -> void:
 	if source.is_a_player:

@@ -132,7 +132,7 @@ func on_turn_start(_source:Combatant) -> void:
 func on_attack(_source:Combatant, _target:Combatant) -> void:
 	pass
 
-func on_damage_taken(_source:Combatant, _amount_taken:int) -> void:
+func on_damage_taken(_amount_taken:int, _source_of_damage:Combatant) -> void:
 	pass
 
 func on_turn_end(_source:Combatant) -> void:

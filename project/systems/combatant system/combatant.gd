@@ -94,7 +94,7 @@ func prepare_item_manager() -> void:
 		item_manager.equip_item(item, false)
 
 
-func take_damage(value:int) -> void:
+func take_damage(value:int, source:Combatant) -> void:
 	if not dead:
 		if value < 0: push_error("tried to take negative damage on: " + combatant_name)
 		elif value == 0: pass
@@ -111,7 +111,7 @@ func take_damage(value:int) -> void:
 			CombatEvents.damage_applied.emit(self, value)
 			check_if_dead_now()
 		
-		on_damage_taken_functions(value)
+		on_damage_taken_functions(value, source)
 
 func heal(value:int) -> void:
 	if not dead:
@@ -261,6 +261,9 @@ func recalculate_stats(additive_aura_dictionary:Dictionary[StringName, int], mul
 	sum_aura_and_current_stats(additive_aura_dictionary)
 	multiply_aura_and_current_stats(multiplicative_aura_dictionary)
 	
+	#make sure nothing's negative
+	floor_stats_to_zero()
+	
 	emit_stat_update()
 	check_if_dead_now()
 
@@ -290,6 +293,10 @@ func multiply_aura_and_current_stats(auraDictionary:Dictionary[StringName,int]) 
 				#note that int() truncates, as i want
 			current_stats[stat] = int(current_stats[stat] * multiplier)
 		#else do nothing, no stat to multiply so all good
+
+func floor_stats_to_zero() -> void:
+	for stat:StringName in current_stats:
+		if current_stats[stat] < 0: current_stats[stat] = 0
 
 func apply_aura_or_item(reward:Reward) -> void:
 	if reward is Item: item_manager.equip_item(reward)
@@ -368,10 +375,10 @@ func scale_starting_stats_to_factor(scaling_factor:float) -> void:
 #calling functions on other things
 
 #specific events
-func on_damage_taken_functions(amount_taken:int) -> void:
-	on_damage_taken(amount_taken)
-	item_manager.on_damage_taken(amount_taken)
-	aura_manager.on_damage_taken(amount_taken)
+func on_damage_taken_functions(amount_taken:int, source:Combatant) -> void:
+	on_damage_taken(amount_taken, source)
+	item_manager.on_damage_taken(amount_taken, source)
+	aura_manager.on_damage_taken(amount_taken, source)
 	CombatEvents.combatant_damaged.emit(self, amount_taken)
 
 func on_other_combatant_dying_functions(newly_dead_combatant:Combatant) -> void:
@@ -425,7 +432,7 @@ func on_end_combat_functions() -> void:
 #derived subclasses hook onto these functions
 
 #specific events
-func on_damage_taken(_amount_taken:int) -> void:
+func on_damage_taken(_amount_taken:int, _source:Combatant) -> void:
 	pass
 
 func on_other_combatant_dying(_newly_dead_combatant:Combatant) -> void:

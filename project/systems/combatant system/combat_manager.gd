@@ -104,8 +104,8 @@ func set_speed(speed:StringName) -> void:
 	else:
 		push_error("tried to set combat speed to unrecognized speed: " + str(speed))
 
-func handle_attack(_attacker:Combatant, amount:int, target:Combatant) -> void:
-	target.take_damage(amount)
+func handle_attack(attacker:Combatant, amount:int, target:Combatant) -> void:
+	target.take_damage(amount, attacker)
 
 func finish_turn(source:Combatant) -> void:
 	if CombatEvents.combat_ongoing:

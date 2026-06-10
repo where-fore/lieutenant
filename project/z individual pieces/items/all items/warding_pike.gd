@@ -17,7 +17,7 @@ func setup_item_stats() -> void:
 var stat_to_check_for_threshold:StringName = Stats.strength
 var stat_threshold:int = BalanceData.common_stat_budget * 10
 var threshold_reward_stat:StringName = Stats.health
-var threshold_reward_value:int = 200
+var threshold_reward_value:int = 100
 
 var my_threshold_mega_health:ThresholdBehaviour
 var buff_aura:Aura
@@ -38,7 +38,7 @@ func threshold_state_changed(threshold:ThresholdBehaviour) -> void:
 
 func apply_my_aura() -> void:
 	buff_aura = create_new_custom_aura(AuraNames.DurationType.SPECIAL, buff_reward_name)
-	buff_aura.change_multiplicative_aura(threshold_reward_stat, threshold_reward_value)
+	buff_aura.change_multiplicative_aura(threshold_reward_stat, threshold_reward_value, false)
 
 func clear_my_aura() -> void:
 	if buff_aura:

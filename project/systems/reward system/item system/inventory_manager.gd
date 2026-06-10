@@ -58,9 +58,9 @@ func interpret_removed_item(item:Item) -> void:
 
 
 #specific events
-func on_damage_taken(amount_taken:int) -> void:
+func on_damage_taken(amount_taken:int, source:Combatant) -> void:
 	for item:Item in inventory:
-		item.on_damage_taken(parent_combatant, amount_taken)
+		item.on_damage_taken(amount_taken, source)
 
 func on_other_combatant_dying(newly_dead_combatant:Combatant) -> void:
 	for item:Item in inventory:

@@ -4,21 +4,6 @@ working notes
 
 
 
-right now i'm
-	prepare_reward starts null
-	at some point calling prepare_reward, which sets current_reward to something
-		or i don't, and current_reward is null, like in my scenario that's combat with no reward
-	when i change to the reward screen, i check if current_reward is null - if so, skip to the end; otherwise load up the reward screen with that current_reward
-	then when i'm done, clear current_reward
-
-	so i want that behaviour still there - but i want to be able to "prep" a reward which is just a basic reward, no current_reward
-	so either i change the check from loading literally current_reward to reward_prepped:bool
-	or i set the current_reward to the basic_reward?
-
-
-
-
-
 
 
 --------------------------------------------------------
@@ -27,10 +12,39 @@ work to do
 
 need to do for release:
 	tune game length according to interest curves, tutorials etc
-		have an early combat scenario where you fail, and res with your necklace
+		probably do
+			easy combat (basic tutorial)
+				could fit a bit more game in here too, some stat building or something
+			hard combat (losing game tutorial, build up companion power spike)
+				want to make sure this doesn't feel too defeating - and that it is actually impossible. easiest to do this with fewest variables before it, so no random item rolls etc
+			first companion (scenarios and companions)
+			hard combat again but stronger (interesting items on which character)
+			something here, some small goals or open exploration?
+			knights (death triggers, aggro mechanics)
+				maybe these guys are funneled - there's the open exploration part, which narrows into one possible tile
+			The Game
+	
+	get the lethality working about right - enemies kill 2ish combatants, then perish. 2-3 turns for dying and 3-6 turns for living guys
+		can wait for items to be in to balance
+			not sure if items should give stats - while i do generally dislike the asi vs feat distinction, stats interact with the aggro system. also seeing an item with +40 str and a flower with +10 dex feels dumb?
+	
+	damage_taken triggers on taking 0 damage
+		not sure if i want this, i suppose not? based on wording
+		i may want on_attacked as a similar trigger, that doesn't go crazy?
 		
-		make first row of unique enemies too strong for any less than 3, need all 4
-		then balance past that for 4
+	i worry about on_damage_taken loops - if something does something that makes you take damage with this function, it loops infinitely
+		maybe each item has a "cooldown" that clears on turn end, and "on_damage_taken" functions use that cooldown
+			can probably put in the item manager
+		
+	negative stats on item tooltips says "attack increased by -10" eg thornmail
+	
+	grab some sprites for items: sprites/question.png
+	
+	would really like a char sheet printout on game end, at least for playtesting
+		can compare feelings/experience to the item rewards, and track trends
+		ideally also shows rewards offered, elites fought
+		spire, data driven balancing
+	
 	
 	
 	items to add:
@@ -38,29 +52,61 @@ need to do for release:
 		fortitude items
 		stat spread rewards - buff allies for your lowest stat;
 		basic attack items (no stats just attack)
-		enrages and stuff from the inspiration page
-			on death, explode for stats
-			on death, give away dex
-			on death, revive other member?
 		
 		focus change stuff - the flanking sword seems like it does nothing aggro related, since it's mega agility you'll never have highest str? or maybe it's for sending you from 2nd str to 3rd/4th str?
 			maybe it should be -agi but +attack?
 		maybe items should have more split stats? instead of agility or str, be 3:1, 2:2, 1:3 splits? so instead of having a mega str and mega dex characters, you have stat spreads across your whole party
 			flowers currently do this?
+		more items that have no stats, but a powerful effect? so you can swap aggro around by loading items up differently
 		
 		item features to codify
 			"on turn x" like bear's defense, stat_sum_burst
-			on_attack probably doesn't need _source:Combatant? can always just access parent_combatant, and usually want to?
+				this is probably a TurnCounterBehaviour to match ThresholdBehaviour item: TurnCounterBehaviour.new().setup(activate_on_turn=5, function_to_call)
+					pass in a turn to activate, a callable function or a signal, and 
 	-
 	
 	losing a fight feels bad movement wise - it's confusing why all the map is disabled
 		if you only have 1 option, why not just automatically send you there?
+		maybe just let you pass despite losing? i don't have anything walled behind beating an enemy? it's all exploration
 	
 	
+
+recent playtest:
+
+	i liked the day-night cycle, if a strong enemy is there i want to try to path to a few rewards before it
+		it isn't really explained that well
+
+	i didn't like the map info panel swapping sides, i was just getting used to the controls and it swapped
+		probably doesn't really need to exist, just a tooltip popup on the map tile with the enemy?
+			click away to dismiss it
+
+	i like the spear threshold - it felt cool to try to go for, and great to achieve
+
+	boss was super anticlimactic stat check, and instantly killed my dudes
+		maybe bosses force to slower turn speed, and also have much higher hp and lower attack?
+			maybe that means i should change the scaling items, i have lots of powerful scalers that dont get time to activate on regular fights
+		i like the hydra idea too, have to beat some amount in sequence
+
+	i liked the aggro swapping in theory, there wasn't quite enough meat there. also not explained well
+		wanting to put the scaling damage on my lower stat guys was cool
+
+	mind felt completely worthless
+		didn't really put any items in for it i suppose
+		also don't have a companion for it?
+
+	not enough cool items, mostly stat flowers
+		that was my intention, but it didn't really feel that great. maybe rare item rewards are just as sparse, but provide a selection of a few? i felt like i wasn't really making tons of choices or seeing many
+
+	i completely skipped one companion
+		wasn't required for balance or story
 	
+	i didn't really get to do any of the death effect stuff
+		there isn't really any in the game right now anyways
+		but enemies were too lethal and low hp for that - maybe one character dies and the monster immediately dies
+			maybe the knights both starting with a revenger is too much? maybe one should have a healing thing?
 	
 	--
-	would be good:
+would be good:
 	
 	pass at text - rename enemies to slightly more generic (the marrow -> marrow behemoth), info panel says "your scouts" etc
 		maybe put all the text in the ol strings global but seems like a large rewrite for little gain
@@ -73,28 +119,11 @@ need to do for release:
 			how do i access who is in your party? allied combatants? surely not, that can be temporary. maybe i do want a global Party.gd?
 	
 	have nice tooltips set up, can still use placeholder art
-
-
-	all of the below:
-
-how to check if sprite is already in use? i don't want to re-use a sprite right now
-
-balance-wise:
-	enemies much too squishy now that we're stronger
-
-	too lethal, fights end too fast. want more hp and less attack proportionally, 2-8x as much hp
-		although notably with multiple combatants, i do want one of them to die soon and the other to last longer. if currently you live for 3 turns, that means one char gets 3 and other gets 6 turns, which feels closer to right
-	rares generally too strong
-	first real enemy generally too strong
-	boss generally too weak
-	there are lots of multiplicative scalings, when you get them all you get out of control
-		can have enemies match, or scale back the multiplicative scalings
-			the could do 10% stat gain per day, ie 10%, 20%, 30%, 40%, 50% etc
-	not enough interesting items or basic rewards or things to do in the tiles, saw the same axe/shield/buckler like 12 times, and it's all i cared about
-		either have fewer, more meaningful tiles with decisions
-		more things to do on the tiles
-		or more options to pick between
 -
+
+database printing for ease of pool viewing: have a lil script in the database autoload which can print which items are in which category. maybe even categorize items as "dex build" or "str build" manually for my own sorting system, or maybe sort by additive dictionary has Stats.strength?
+
+how to check if sprite is already in use? i don't want to re-use a sprite right now, plus knowing what unused sprites i have right now would be cool
 
 sfx restructure - currently my SFX manager is inside the scene tree, so when i reload scene (pressing the restart button), it cuts all playing sfx out
 	the SFX manager should be an auto load as well, like the background music manager
@@ -108,6 +137,8 @@ scenarios only have "next page", no choices
 	would be nice to have scrolling text for blurb, not probably implement once i know how i want them to look/work with choices
 
 active effects / attuned items, mayhaps
+
+little dark fade background for text pop up?
 
 tile/scenario feature: check something, and present scenario accordingly. eg. if you've visited before, do second step of scenario (if you've visited before BUT NOT completed quest, do third step of scenario which is "come back later nerd")
 	could do elder scrolls journal step system?
@@ -846,7 +877,7 @@ meaningful choices: re: showing the bow options to a player who already picked t
 
 random notess
 --------------------
-He is Watching suffered from negative choice progression by diluting the ability to make a build with cool new archetypes. maybe instead use "characters" with different drop templates? playing the mage guy lets you see the "core set" items, and "wizard" items
+He is Coming suffered from negative choice progression by diluting the ability to make a build with cool new archetypes. maybe instead use "characters" with different drop templates? playing the mage guy lets you see the "core set" items, and "wizard" items
 have the little map curve like horizon's gate water globe :D to avoid weird fog of war
 one-row map, instead of a slay-the-spire style? looks cool. the shorter side could be more difficult (fewer spaces for campfires, all combat?), but i think that'd be unintuitive - a player would easily think the shorter path is easier
 16px black background style sounds cool
@@ -861,7 +892,7 @@ one event: witch's hut with riddles?
 
 this can be paper prototyped to figure out fun events/levers to work with
 
-big specific risks (spade invaders shoot the saucer or stay locked in): have the boss/opponent start stronger than you, and you can challenge them whenever. both of you are growing in power, them exponentially and you linearly. they are strong, then you, then them. you have to choose when to risk it all (also works to self select difficulty, opposite of bullet heavens where you live longer if better) (this can also let veteran players compete on speedruns AND high scores, because both are impressive)
+big specific risks (space invaders shoot the saucer or stay locked in): have the boss/opponent start stronger than you, and you can challenge them whenever. both of you are growing in power, them exponentially and you linearly. they are strong, then you, then them. you have to choose when to risk it all (also works to self select difficulty, opposite of bullet heavens where you live longer if better) (this can also let veteran players compete on speedruns AND high scores, because both are impressive)
 
 slay the spire map mechanic, but diegetic:
 	tavern / rumourmonger gives boss tips (i heard the terrible beast has a thorny hide)

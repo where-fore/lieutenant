@@ -25,4 +25,4 @@ func on_other_combatant_dying(newly_dead_combatant:Combatant) -> void:
 			my_buff_aura = create_new_custom_aura()
 			my_buff_aura.expired.connect(func(_aura:Aura) -> void: my_buff_aura = null)
 			
-			my_buff_aura.change_additive_aura(my_enrage_stat, my_enrage_stat_bonus)
+			my_buff_aura.change_additive_aura(my_enrage_stat, my_enrage_stat_bonus, false)

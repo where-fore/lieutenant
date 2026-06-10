@@ -36,5 +36,5 @@ func on_attack(_source:Combatant, target:Combatant) -> void:
 		
 		var damage:int = parent_combatant.current_stats[Stats.health]
 			#note this is max health, could do current with source.get_damaged_health()
-		target.take_damage(damage)
+		target.take_damage(damage, parent_combatant)
 		has_activated = true

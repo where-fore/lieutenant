@@ -34,7 +34,7 @@ func on_attack(_source:Combatant, target:Combatant) -> void:
 		
 		CombatLogEvents.custom_message.emit(activation_message.format({"parent_combatant": parent_combatant.combatant_name}))
 		
-		target.take_damage(calc_stat_sum_damage())
+		target.take_damage(calc_stat_sum_damage(), parent_combatant)
 		
 		has_activated = true
 

@@ -22,14 +22,14 @@ var multiplicative_stat_dictionary:Dictionary[StringName, int] = {}
 func _init() -> void:
 	setup_aura_stats()
 
-func change_additive_aura(stat:StringName, value:int, add_to_existing:bool = false) -> void:
-	change_aura(additive_stat_dictionary, stat, value, add_to_existing)
+func change_additive_aura(stat:StringName, value:int, sum_with_existing:bool) -> void:
+	change_aura(additive_stat_dictionary, stat, value, sum_with_existing)
 
-func change_multiplicative_aura(stat:StringName, value:int, add_to_existing:bool = false) -> void:
-	change_aura(multiplicative_stat_dictionary, stat, value, add_to_existing)
+func change_multiplicative_aura(stat:StringName, value:int, sum_with_existing:bool) -> void:
+	change_aura(multiplicative_stat_dictionary, stat, value, sum_with_existing)
 
-func change_aura(aura_dict:Dictionary[StringName, int], stat:StringName, value:int, add_to_existing:bool = false) -> void:
-	if add_to_existing:
+func change_aura(aura_dict:Dictionary[StringName, int], stat:StringName, value:int, sum_with_existing:bool = false) -> void:
+	if sum_with_existing:
 		aura_dict[stat] = aura_dict.get(stat, 0) + value
 	else:
 		aura_dict[stat] = value
@@ -102,7 +102,7 @@ func expire_aura() -> void:
 func on_other_combatant_dying(_newly_dead_combatant:Combatant) -> void:
 	pass
 
-func on_damage_taken(_damage_taken:int) -> void:
+func on_damage_taken(_damage_taken:int, _source_of_damage:Combatant) -> void:
 	pass
 
 func on_attack(_source:Combatant, _target:Combatant) -> void:

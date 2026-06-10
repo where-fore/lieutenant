@@ -28,6 +28,6 @@ func threshold_state_changed(threshold:ThresholdBehaviour) -> void:
 	if threshold == my_threshold:
 		if threshold.active:
 			my_aura = create_new_custom_aura(AuraNames.DurationType.SPECIAL)
-			my_aura.change_multiplicative_aura(my_threshold_stat, my_threshold_attack_multi)
+			my_aura.change_multiplicative_aura(my_threshold_stat, my_threshold_attack_multi, false)
 		if not threshold.active:
 			remove_from_custom_auras(my_aura)

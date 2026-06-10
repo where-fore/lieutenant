@@ -21,4 +21,4 @@ func on_start_combat() -> void:
 	
 	for enemy:Combatant in possible_targets:
 		var damage_to_deal:int = enemy.get_damaged_health() * health_cut_on_start/100
-		enemy.take_damage(damage_to_deal)
+		enemy.take_damage(damage_to_deal, self)

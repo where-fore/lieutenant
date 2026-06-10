@@ -78,9 +78,9 @@ func add_to_aura_dictionary(dictionary_to_update:Dictionary[StringName,int], sta
 		dictionary_to_update[statName] = value
 
 #specific events
-func on_damage_taken(damage_taken:int) -> void:
+func on_damage_taken(damage_taken:int, source_of_damage:Combatant) -> void:
 	for aura:Aura in aura_dictionary.values(): 
-		aura.on_damage_taken(damage_taken)
+		aura.on_damage_taken(damage_taken, source_of_damage)
 
 func on_other_combatant_dying(newly_dead_combatant:Combatant) -> void:
 	for aura:Aura in aura_dictionary.values(): 

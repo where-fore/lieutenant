@@ -16,7 +16,7 @@ func setup_item_stats() -> void:
 var my_buff_aura:Aura
 
 var my_stat:StringName = Stats.agility
-var my_stat_per_attack:int = BalanceData.common_stat_budget
+var my_stat_per_attack:int = BalanceData.common_stat_budget / 2
 
 func on_combat_start() -> void:
 	my_buff_aura = create_new_custom_aura()

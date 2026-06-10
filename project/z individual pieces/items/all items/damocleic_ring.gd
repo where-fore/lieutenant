@@ -29,6 +29,6 @@ func on_attack(_source:Combatant, target:Combatant) -> void:
 		CombatLogEvents.custom_message.emit(activation_message)
 		
 		var damage:int = damage_on_activation
-		target.take_damage(damage)
+		target.take_damage(damage, parent_combatant)
 
 #--end of functions called by parents--

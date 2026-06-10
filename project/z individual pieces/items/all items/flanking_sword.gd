@@ -24,5 +24,5 @@ func on_combat_start() -> void:
 	
 	for ally:Combatant in parent_combatant.allies:
 		var aura_given:Aura = create_and_send_new_aura(ally)
-		aura_given.change_additive_aura(stat_to_allies, stat_to_add_to_allies)
-		debuff_on_me.change_additive_aura(stat_to_allies, -1 * stat_to_add_to_allies)
+		aura_given.change_additive_aura(stat_to_allies, stat_to_add_to_allies, false)
+		debuff_on_me.change_additive_aura(stat_to_allies, -1 * stat_to_add_to_allies, false)
