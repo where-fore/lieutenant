@@ -42,7 +42,7 @@ func get_tooltip() -> String:
 		tooltip_text += "\n" + to_add
 	for stat_name:StringName in multiplicative_stat_dictionary:
 		var change:String = "+"
-		if additive_stat_dictionary[stat_name] < 0: change = "-"
+		if multiplicative_stat_dictionary[stat_name] < 0: change = "-"
 		var to_add:String = str(change, abs(multiplicative_stat_dictionary[stat_name]), "% ", stat_name)
 		tooltip_text += "\n" + to_add
 		
