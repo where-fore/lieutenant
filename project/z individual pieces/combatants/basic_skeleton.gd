@@ -9,3 +9,4 @@ func _init() -> void:
 	}
 
 	starting_stats[Stats.strength] = BalanceData.enemy_normal_stat_budget
+	starting_stats[Stats.fortitude] = BalanceData.enemy_normal_health_stat_budget

@@ -16,7 +16,7 @@ func _init() -> void:
 	}
 	
 	starting_stats[Stats.strength] = BalanceData.enemy_mythic_stat_budget
-	starting_stats[Stats.fortitude] = BalanceData.enemy_mythic_stat_budget
+	starting_stats[Stats.fortitude] = BalanceData.enemy_mythic_health_stat_budget * 2
 	attack_per_turn = starting_stats[Stats.strength] / Stats.strength_per_attack / turns_to_double_stats
 	attack_per_turn = max(1, attack_per_turn)
 

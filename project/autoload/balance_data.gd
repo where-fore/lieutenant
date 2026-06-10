@@ -17,10 +17,16 @@ var flower_basic_stat:int = common_stat_budget
 var flower_basic_split_stat:int = flower_basic_stat * 1 / 2
 
 var enemy_stat_scaling_per_day:float = 1.50
-var enemy_normal_stat_budget:int = common_stat_budget * 10
+
+var enemy_normal_stat_budget:int = common_stat_budget * 6
 var enemy_rare_stat_budget:int = enemy_normal_stat_budget
 var enemy_mythic_stat_budget:int = enemy_normal_stat_budget
-var enemy_boss_stat_budget:int = enemy_normal_stat_budget * 3
+var enemy_boss_stat_budget:int = enemy_normal_stat_budget * 2
+
+var enemy_normal_health_stat_budget:int = common_stat_budget * 8
+var enemy_rare_health_stat_budget:int = enemy_normal_stat_budget
+var enemy_mythic_health_stat_budget:int = enemy_normal_stat_budget
+var enemy_boss_health_stat_budget:int = enemy_normal_stat_budget * 2
 
 var enemy_tutorial_easy_stat_budget:int = enemy_normal_stat_budget * 1 / 5
 var enemy_tutorial_hard_stat_budget:int = enemy_normal_stat_budget * 1 / 2

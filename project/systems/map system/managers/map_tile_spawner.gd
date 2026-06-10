@@ -173,9 +173,9 @@ func choose_filler_tile() -> MapTileData:
 	return choose_randomly()
 
 func choose_randomly() -> MapTileData:
-	var common_chance:int = 50
-	var uncommon_chance:int = 30
-	var rare_chance:int = 20
+	var common_chance:int = 40
+	var uncommon_chance:int = 20
+	var rare_chance:int = 40
 	
 	if common_chance + uncommon_chance + rare_chance != 100:
 		push_error("map tile chances not summing to 100% chance!")

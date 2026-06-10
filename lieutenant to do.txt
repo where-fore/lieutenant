@@ -31,11 +31,7 @@ need to do for release:
 	damage_taken triggers on taking 0 damage
 		not sure if i want this, i suppose not? based on wording
 		i may want on_attacked as a similar trigger, that doesn't go crazy?
-		
-	i worry about on_damage_taken loops - if something does something that makes you take damage with this function, it loops infinitely
-		maybe each item has a "cooldown" that clears on turn end, and "on_damage_taken" functions use that cooldown
-			can probably put in the item manager
-		
+
 	negative stats on item tooltips says "attack increased by -10" eg thornmail
 	
 	grab some sprites for items: sprites/question.png
@@ -45,6 +41,13 @@ need to do for release:
 		ideally also shows rewards offered, elites fought
 		spire, data driven balancing
 	
+	maybe slap some more combat log barks into items
+	
+	reward:
+		have a basic_reward:bool flag that i can toggle or not as i desire
+		have an array of reward:Array[Item] for other rewards
+		consider a large array of rewards instead of picking a fresh random one every time - in database have Grab_Rare_Items(number_to_grab) which pop_fronts front an array of all rare items (if empty, regenerate)
+			want to avoid getting the same rare twice back to back, and worse twice in the same reward screen
 	
 	
 	items to add:
@@ -558,7 +561,13 @@ flappy cameo, balloon in the distance
 
 ----------------------------------------------------------------------------------------------------------------
 things i know are hacky and should be cleaned up (or super duper back burner changes):
-----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------		
+i worry about on_damage_taken loops - if something does something that makes you take damage with this function, it loops infinitely
+	maybe each item has a "cooldown" that clears on turn end, and "on_damage_taken" functions use that cooldown
+		can probably put in the item manager
+	currently i have it so most things check if source != self, which should prevent loops?
+		but prevents cool interactions, and cool interactions i allow will fall into this loop trap
+			
 item custom auras (like enrage_sword) currently hook onto expiration signals, maybe they should be a weakref?
 
 target.take_damage() feels hacky, probably should be parent_combatant.deal_non-attack_damage(), which reads the target?

@@ -2,8 +2,8 @@ extends Item
 
 #basic setup
 func setup_item_stats() -> void:
-	reward_name = "Berserker's Mail" # "Generic Item"
-	reward_sprite = load("res://sprites/question.png")
+	reward_name = "Berserker's Fury" # "Generic Item"
+	reward_sprite = load("res://sprites/dual_ruby_ring.png")
 	extra_tooltip = "When taking damage, gain {value} {stat}".format({"value": stat_gain_per_hit, "stat": stat_to_gain}) # "Generic flavourful description"
 	reward_categories = {
 		Categories.item_rarity : Categories.Rarity.RARE,
@@ -22,5 +22,6 @@ var my_buff_aura:Aura
 func on_combat_start() -> void:
 	my_buff_aura = create_new_custom_aura()
 
-func on_damage_taken(_amount_taken:int, _source_of_damage:Combatant) -> void:
-	my_buff_aura.change_additive_aura(stat_to_gain, stat_gain_per_hit, true)
+func on_damage_taken(_amount_taken:int, source_of_damage:Combatant) -> void:
+	if source_of_damage != parent_combatant:
+		my_buff_aura.change_additive_aura(stat_to_gain, stat_gain_per_hit, true)

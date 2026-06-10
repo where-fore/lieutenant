@@ -134,7 +134,6 @@ func reset_current_stats_to_base() -> void:
 		#starting_stats[Stats.crit_multi] = Stats.base_crit_multi
 	
 	current_stats = starting_stats.duplicate()
-	current_rounds_can_fight = base_rounds_can_fight
 
 func check_if_dead_now() -> void:
 	if get_damaged_health() <= 0 and CombatEvents.combat_ongoing:
@@ -155,7 +154,7 @@ func unperish() -> void:
 
 func take_turn() -> void:
 	on_start_turn_functions()
-	
+
 	if not dead:
 		var amount_to_attack_for:int = current_stats[Stats.attack]
 		
@@ -391,6 +390,8 @@ func on_other_combatant_dying_functions(newly_dead_combatant:Combatant) -> void:
 
 #timing events
 func on_start_combat_functions() -> void:
+	current_rounds_can_fight = base_rounds_can_fight
+	
 	on_start_combat()
 	item_manager.on_start_combat()
 	aura_manager.on_start_combat()

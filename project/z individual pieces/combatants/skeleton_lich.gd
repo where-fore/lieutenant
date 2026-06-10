@@ -10,3 +10,4 @@ func _init() -> void:
 	
 	starting_stats[Stats.mind] = BalanceData.enemy_rare_stat_budget * 2 / 3
 	starting_stats[Stats.strength] = BalanceData.enemy_rare_stat_budget * 1 / 3
+	starting_stats[Stats.fortitude] = BalanceData.enemy_rare_health_stat_budget * 2
