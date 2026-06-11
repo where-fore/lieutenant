@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://ctvt2g0gq4f60"]
 
 [ext_resource type="Script" uid="uid://dytvg3vigehc7" path="res://systems/ui states/reward ui/reward_ui_manager.gd" id="1_tb2ic"]
+[ext_resource type="PackedScene" uid="uid://drif5r3pwy5w8" path="res://systems/ui states/reward ui/reward_button.tscn" id="2_13bmp"]
 [ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="2_mquhj"]
-[ext_resource type="PackedScene" uid="uid://grafexed8282" path="res://ui resources/reusable ui pieces/icon_with_border.tscn" id="3_mquhj"]
 
-[node name="RewardUI" type="Control"]
+[node name="RewardUI" type="Control" node_paths=PackedStringArray("reward_buttons_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,6 +17,8 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_tb2ic")
+reward_button_template = ExtResource("2_13bmp")
+reward_buttons_container = NodePath("Panel/VBoxContainer/RewardRow/RewardButtons")
 
 [node name="EditBorder" type="TextureRect" parent="."]
 visible = false
@@ -62,124 +64,49 @@ mouse_filter = 2
 [node name="Title" type="Label" parent="Panel/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
-text = "Victory.
-Claim your boon."
+text = "Placeholder.
+Placeholder Text."
 horizontal_alignment = 1
 
-[node name="RewardButtons" type="HBoxContainer" parent="Panel/VBoxContainer"]
+[node name="RewardRow" type="HBoxContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
+
+[node name="RewardButtons" type="HBoxContainer" parent="Panel/VBoxContainer/RewardRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 24
 alignment = 1
 
-[node name="BasicRewardButton" type="MarginContainer" parent="Panel/VBoxContainer/RewardButtons"]
-layout_mode = 2
-theme_override_constants/margin_left = 6
-theme_override_constants/margin_top = 6
-theme_override_constants/margin_right = 6
-theme_override_constants/margin_bottom = 6
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/RewardButtons/BasicRewardButton"]
+[node name="RewardButton" parent="Panel/VBoxContainer/RewardRow/RewardButtons" instance=ExtResource("2_13bmp")]
 layout_mode = 2
 
-[node name="BasicRewardButton" type="Button" parent="Panel/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/BasicRewardButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 6
-theme_override_constants/margin_top = 6
-theme_override_constants/margin_right = 6
-theme_override_constants/margin_bottom = 6
-
-[node name="BasicRewardIcon" parent="Panel/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/BasicRewardButton/MarginContainer" instance=ExtResource("3_mquhj")]
+[node name="RewardButton4" parent="Panel/VBoxContainer/RewardRow/RewardButtons" instance=ExtResource("2_13bmp")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "You found:
-Cool Item"
-horizontal_alignment = 1
-
-[node name="OrLabel" type="Label" parent="Panel/VBoxContainer/RewardButtons"]
-layout_mode = 2
-text = "or.."
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="RewardButton" type="MarginContainer" parent="Panel/VBoxContainer/RewardButtons"]
-layout_mode = 2
-theme_override_constants/margin_left = 6
-theme_override_constants/margin_top = 6
-theme_override_constants/margin_right = 6
-theme_override_constants/margin_bottom = 6
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/RewardButtons/RewardButton"]
+[node name="RewardButton5" parent="Panel/VBoxContainer/RewardRow/RewardButtons" instance=ExtResource("2_13bmp")]
 layout_mode = 2
 
-[node name="RewardButton" type="Button" parent="Panel/VBoxContainer/RewardButtons/RewardButton/VBoxContainer"]
-custom_minimum_size = Vector2(48, 48)
+[node name="RewardButton6" parent="Panel/VBoxContainer/RewardRow/RewardButtons" instance=ExtResource("2_13bmp")]
+layout_mode = 2
+
+[node name="RewardButton2" parent="Panel/VBoxContainer/RewardRow/RewardButtons" instance=ExtResource("2_13bmp")]
+layout_mode = 2
+
+[node name="SkipRewardButton" type="MarginContainer" parent="Panel/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/RewardButtons/RewardButton/VBoxContainer/RewardButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 6
-theme_override_constants/margin_top = 6
-theme_override_constants/margin_right = 6
-theme_override_constants/margin_bottom = 6
-
-[node name="RewardIcon" parent="Panel/VBoxContainer/RewardButtons/RewardButton/VBoxContainer/RewardButton/MarginContainer" instance=ExtResource("3_mquhj")]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Panel/VBoxContainer/RewardButtons/RewardButton/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "You found:
-Cool Item"
-horizontal_alignment = 1
-
-[node name="SpacerBottom" type="Control" parent="Panel/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-mouse_filter = 2
-
-[node name="SkipRewardButton" type="MarginContainer" parent="Panel"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -60.0
-offset_top = -13.0
-offset_bottom = 13.0
-grow_horizontal = 0
-grow_vertical = 2
 size_flags_vertical = 4
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="TextureButton" type="Button" parent="Panel/SkipRewardButton"]
+[node name="TextureButton" type="Button" parent="Panel/VBoxContainer/SkipRewardButton"]
 custom_minimum_size = Vector2(44, 18)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Panel/SkipRewardButton/TextureButton"]
+[node name="Label" type="Label" parent="Panel/VBoxContainer/SkipRewardButton/TextureButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -192,6 +119,9 @@ text = "Skip"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="pressed" from="Panel/VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/BasicRewardButton" to="." method="_on_basic_reward_button_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/RewardButtons/RewardButton/VBoxContainer/RewardButton" to="." method="_on_reward_button_pressed"]
-[connection signal="pressed" from="Panel/SkipRewardButton/TextureButton" to="." method="_on_skip_button_pressed"]
+[node name="SpacerBottom" type="Control" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[connection signal="pressed" from="Panel/VBoxContainer/SkipRewardButton/TextureButton" to="." method="_on_skip_button_pressed"]
