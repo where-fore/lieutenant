@@ -1,27 +1,23 @@
 [gd_scene load_steps=5 format=3 uid="uid://cplxpgrp4s0m8"]
 
 [ext_resource type="Script" uid="uid://cuho5ligd5mhl" path="res://systems/map system/map info panel/map_info_panel.gd" id="1_ub2a6"]
-[ext_resource type="PackedScene" uid="uid://0lhcbhnwyj1j" path="res://ui resources/reusable ui pieces/frame_protruding.tscn" id="2_okqip"]
+[ext_resource type="PackedScene" uid="uid://b8lotu6wx3eem" path="res://ui resources/reusable ui pieces/frame_console.tscn" id="2_oqkmt"]
 [ext_resource type="PackedScene" uid="uid://grafexed8282" path="res://ui resources/reusable ui pieces/icon_with_border.tscn" id="3_062vk"]
 [ext_resource type="Texture2D" uid="uid://c1hufcoxbyamt" path="res://sprites/cross_swords.png" id="4_7cdnt"]
 
-[node name="MapInfo" type="MarginContainer"]
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -88.0
-offset_top = -108.0
-offset_bottom = 108.0
-grow_horizontal = 0
-grow_vertical = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_bottom = 4
+[node name="MapInfo" type="PanelContainer" node_paths=PackedStringArray("venture_button")]
+z_index = 1
+custom_minimum_size = Vector2(52, 86)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -86.0
+offset_right = 52.0
+grow_vertical = 0
 script = ExtResource("1_ub2a6")
+venture_button = NodePath("MarginContainer/VBoxContainer/Panel/VentureButton")
 
-[node name="FrameProtruding" parent="." instance=ExtResource("2_okqip")]
+[node name="FrameConsole" parent="." instance=ExtResource("2_oqkmt")]
 layout_mode = 2
 
 [node name="CloseTimer" type="Timer" parent="."]
@@ -35,6 +31,7 @@ theme_override_constants/margin_bottom = 8
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 4
 
 [node name="EnemyInfo" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -48,6 +45,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="EnemyBlurb" type="RichTextLabel" parent="MarginContainer/VBoxContainer/EnemyInfo"]
+visible = false
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 mouse_filter = 2
@@ -81,44 +79,28 @@ scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CenterSpacer" type="Control" parent="MarginContainer/VBoxContainer"]
+[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(32, 48)
 layout_mode = 2
-size_flags_vertical = 3
 
-[node name="RewardInfo" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_vertical = 8
-theme_override_constants/separation = -2
-
-[node name="RewardSprite" parent="MarginContainer/VBoxContainer/RewardInfo" instance=ExtResource("3_062vk")]
-custom_minimum_size = Vector2(36, 36)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="RewardBlurb" type="RichTextLabel" parent="MarginContainer/VBoxContainer/RewardInfo"]
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-mouse_filter = 1
-bbcode_enabled = true
-text = "Your scouts report sightings of a Vampiric Blade"
-fit_content = true
-scroll_active = false
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="Button" type="Button" parent="MarginContainer/CenterContainer"]
+[node name="VentureButton" type="Button" parent="MarginContainer/VBoxContainer/Panel"]
 custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/Button"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Panel/VentureButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -130,13 +112,13 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="IconBorder" parent="MarginContainer/CenterContainer/Button/MarginContainer" instance=ExtResource("3_062vk")]
+[node name="IconBorder" parent="MarginContainer/VBoxContainer/Panel/VentureButton/MarginContainer" instance=ExtResource("3_062vk")]
 layout_mode = 2
 
-[node name="Icon" parent="MarginContainer/CenterContainer/Button/MarginContainer/IconBorder" index="1"]
+[node name="Icon" parent="MarginContainer/VBoxContainer/Panel/VentureButton/MarginContainer/IconBorder" index="1"]
 texture = ExtResource("4_7cdnt")
 
-[node name="Top" type="Label" parent="MarginContainer/CenterContainer/Button"]
+[node name="Top" type="Label" parent="MarginContainer/VBoxContainer/Panel/VentureButton"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -150,7 +132,7 @@ theme_override_font_sizes/font_size = 4
 text = "Venture"
 horizontal_alignment = 1
 
-[node name="Bottom" type="Label" parent="MarginContainer/CenterContainer/Button"]
+[node name="Bottom" type="Label" parent="MarginContainer/VBoxContainer/Panel/VentureButton"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -170,6 +152,6 @@ horizontal_alignment = 1
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="timeout" from="CloseTimer" to="." method="_on_close_timer_timeout"]
-[connection signal="pressed" from="MarginContainer/CenterContainer/Button" to="." method="_on_combat_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Panel/VentureButton" to="." method="_on_combat_button_pressed"]
 
-[editable path="MarginContainer/CenterContainer/Button/MarginContainer/IconBorder"]
+[editable path="MarginContainer/VBoxContainer/Panel/VentureButton/MarginContainer/IconBorder"]

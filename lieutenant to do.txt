@@ -39,10 +39,6 @@ need to do for release:
 	
 	maybe having the player start in a little home, with the little player icon, is enough of an anchor
 	
-	gets soft locked by rare enemies spawning too much sounds lame
-		can be avoided by explicitly requiring a path, maybe the bottom is always basic trees & basic enemies
-		can be avoided by not locking when you rout a fight, just let you continue from that tile
-	
 	
 	items to add:
 		intelligence items
@@ -62,11 +58,6 @@ need to do for release:
 					pass in a turn to activate, a callable function or a signal, and 
 	-
 	
-	losing a fight feels bad movement wise - it's confusing why all the map is disabled
-		if you only have 1 option, why not just automatically send you there?
-		maybe just let you pass despite losing? i don't have anything walled behind beating an enemy? it's all exploration
-	
-	
 
 recent playtest:
 
@@ -76,6 +67,7 @@ recent playtest:
 	i didn't like the map info panel swapping sides, i was just getting used to the controls and it swapped
 		probably doesn't really need to exist, just a tooltip popup on the map tile with the enemy?
 			click away to dismiss it
+	-> put the map info as a tooltip over the tiles themselves, instead of edge anchored
 
 	i like the spear threshold - it felt cool to try to go for, and great to achieve
 		maybe i should more "miniquest" items at the start, like my original 3-rare-choice
@@ -97,11 +89,11 @@ recent playtest:
 
 	not enough cool items, mostly stat flowers
 		that was my intention, but it didn't really feel that great. maybe rare item rewards are just as sparse, but provide a selection of a few? i felt like i wasn't really making tons of choices or seeing many
-		-> added multiple rewards, and bumped up spawn rate of rare enemies
+	-> added multiple rewards, and bumped up spawn rate of rare enemies
 
 	i completely skipped one companion
 		wasn't required for balance or story
-		-> adjusted enemies tougher. story wise should be solved when reorganizing the first path
+	-> adjusted enemies tougher. story wise should be solved when reorganizing the first path
 	
 	i didn't really get to do any of the death effect stuff
 		there isn't really any in the game right now anyways
@@ -113,13 +105,17 @@ recent playtest:
 	my instinct for the knights is to get them to tank and str focus, but their revengers benefit from someone else dying first? doesn't feel very knightly to let others die first?
 		maybe it should one knight who has giga strength and one non-knight (brother?) who enrages on knight death?
 	
+	rares all feels the same, just high stat balls
+		get them to target different stats, have more effects which interact with the death/aggro mechanic
+	
 	--
 would be good:
 	
 	pass at text - rename enemies to slightly more generic (the marrow -> marrow behemoth), info panel says "your scouts" etc
-		maybe put all the text in the ol strings global but seems like a large rewrite for little gain
+		maybe put all the text in the ol strings global, but seems like a large rewrite for little gain
 		look at knight scenario - it mentions the amulet that hasn't been mentioned yet
 		"iron" items? what's the deal with metals?
+		everything is a bit too wordy atm i think, needs editing
 
 	inventory - trade/delete/unequip items?
 		give rewards the "deleteable" property, false for cursed items? important character items?

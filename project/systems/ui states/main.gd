@@ -16,7 +16,6 @@ extends Node2D
 @onready var inventory_menu_button:Control = $MainUI/TopButtons/InventoryMenuButton
 @onready var time_button:Control = $MainUI/TopButtons/TimeButton
 @onready var pause_menu_container:Control = $MainUI/PauseMenu
-@onready var right_side_ui_container:Control = $MainGame/MarginContainer/RightSideUI
 @onready var stats_ui_container:Control = $MainGame/MarginContainer/StatsUIContainer
 
 
@@ -38,7 +37,6 @@ func _ready() -> void:
 	stats_ui_container.visible = false
 	combat_log_container.visible = false
 	
-	right_side_ui_container.visible = true
 	pause_menu_container.visible = false
 
 func start_game() -> void:

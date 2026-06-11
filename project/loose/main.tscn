@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://m6cv5sqf20gx"]
+[gd_scene load_steps=35 format=3 uid="uid://m6cv5sqf20gx"]
 
 [ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://systems/ui states/main.gd" id="1_bbldx"]
 [ext_resource type="PackedScene" uid="uid://dsbt6u8ma1cpc" path="res://systems/map system/managers/map_tile_system.tscn" id="2_16p2t"]
@@ -27,7 +27,6 @@
 [ext_resource type="Texture2D" uid="uid://cwjj6wggwg4n3" path="res://sprites/18px_border.png" id="18_nf78q"]
 [ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="18_xalbe"]
 [ext_resource type="PackedScene" uid="uid://l4er4w6epgd5" path="res://systems/ui states/text blurb/text_blurb_screen.tscn" id="19_bbldx"]
-[ext_resource type="PackedScene" uid="uid://cplxpgrp4s0m8" path="res://systems/map system/map info panel/map_info_panel.tscn" id="19_w1snj"]
 [ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="20_1fc2u"]
 [ext_resource type="PackedScene" uid="uid://clrl0tbbkcowa" path="res://ui resources/reusable ui pieces/frame_recessed.tscn" id="22_u46kj"]
 [ext_resource type="PackedScene" uid="uid://carnrr8rlj0uw" path="res://systems/ui states/stats ui/stats ui pieces/stats_ui.tscn" id="29_1j0u7"]
@@ -541,14 +540,6 @@ color = Color(1, 1, 1, 0)
 script = ExtResource("30_cuuk2")
 day_colour = Color(0.29, 0.22919668, 0.075399995, 0.19607843)
 night_colour = Color(0.16450001, 0.20014173, 0.47, 0.19607843)
-
-[node name="RightSideUI" type="Control" parent="MainGame/MarginContainer"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="MapInfo" parent="MainGame/MarginContainer/RightSideUI" instance=ExtResource("19_w1snj")]
-custom_minimum_size = Vector2(88, 216)
-layout_mode = 1
 
 [node name="CombatContainer" type="Control" parent="MainGame/MarginContainer"]
 layout_mode = 2

@@ -15,7 +15,8 @@ var x_coordinate:int
 var y_coordinate:int
 var width:int
 
-@onready var tooltip_holder:Control = $Clickbox/Tooltip
+@export var tooltip_holder:Control
+@export var info_panel_container:Control
 @onready var animated_sprite_component:AnimatedSprite2D = $BaseAnimation
 var idle_animation_speed:float = 0.2
 @onready var hover_animation_component:AnimatedSprite2D = $HoverAnimation
@@ -43,6 +44,7 @@ func _ready() -> void:
 	HudEvents.map_tile_hovered.connect(if_not_me_stop_hovering)
 	MapEvents.venture_to.connect(show_player_indicator_if_match)
 	
+	info_panel_container.visible = false
 	hover_animation_component.visible = false
 	selection_sprite.visible = false
 	tooltip_holder.visible = false
@@ -143,6 +145,7 @@ func when_clicked() -> void:
 		HudEvents.map_tile_hovered.emit(self)
 		start_hover_animation()
 		show_selection_effect()
+		show_info_panel()
 
 func when_hovered() -> void:
 	if currently_disabled and not permanently_disabled:
@@ -155,6 +158,14 @@ func if_not_me_stop_hovering(maptile:MapTile) -> void:
 	if maptile != self:
 		hide_selection_effect()
 		stop_hover_animation()
+		hide_info_panel()
+
+func show_info_panel() -> void:
+	info_panel_container.update_map_tile_info(self)
+	info_panel_container.visible = true
+
+func hide_info_panel() -> void:
+	info_panel_container.visible = false
 
 func show_selection_effect() -> void:
 	selection_sprite.visible = true

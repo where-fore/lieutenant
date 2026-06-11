@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dxldisnu3aaoo"]
+[gd_scene load_steps=10 format=3 uid="uid://dxldisnu3aaoo"]
 
 [ext_resource type="Script" uid="uid://wrg8ncrbysqw" path="res://systems/map system/physical tile map system/map tile/map_tile.gd" id="1_eader"]
 [ext_resource type="SpriteFrames" uid="uid://b77jkv0h1kj7x" path="res://z individual pieces/map tiles/animations/forest_basic.tres" id="2_eader"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://sx580844syvk" path="res://sprites/tile_selection.png" id="4_mrii7"]
 [ext_resource type="Theme" uid="uid://wymfijcko1gs" path="res://ui resources/basic_ui_theme.tres" id="5_etpom"]
 [ext_resource type="Texture2D" uid="uid://cwjj6wggwg4n3" path="res://sprites/18px_border.png" id="6_3q300"]
+[ext_resource type="PackedScene" uid="uid://cplxpgrp4s0m8" path="res://systems/map system/map info panel/map_info_panel.tscn" id="6_qfjoo"]
 [ext_resource type="Texture2D" uid="uid://cbp6sg330uwef" path="res://sprites/player.png" id="7_efpam"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8o1ix"]
@@ -19,8 +20,10 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="MapTile" type="Node2D"]
+[node name="MapTile" type="Node2D" node_paths=PackedStringArray("tooltip_holder", "info_panel_container")]
 script = ExtResource("1_eader")
+tooltip_holder = NodePath("Clickbox/Tooltip")
+info_panel_container = NodePath("Clickbox/MapInfo")
 
 [node name="BaseAnimation" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
@@ -66,6 +69,10 @@ theme_override_font_sizes/font_size = 4
 text = "too far"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="MapInfo" parent="Clickbox" instance=ExtResource("6_qfjoo")]
+offset_top = -70.0
+offset_bottom = 16.0
 
 [node name="PlayerIndicator" type="AnimatedSprite2D" parent="."]
 visible = false
