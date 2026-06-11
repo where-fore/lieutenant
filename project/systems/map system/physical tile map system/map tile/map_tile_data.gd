@@ -4,10 +4,8 @@ class_name MapTileData
 var tile_animation:SpriteFrames
 var scenario:Scenario
 var enemies:Array[Combatant]
-var reward:Reward
+var rewards:Array[Reward]
 var basic_reward:bool = false
-var item_reward:Item
-var aura_reward:Aura
 var script_path:String
 
 var stops_vision:bool = false
@@ -36,7 +34,7 @@ func chance_to_have_no_item(chance:int) -> void:
 	
 	var roll:int = randi_range(1, 100)
 	if roll <= chance:
-		reward = null
+		rewards = []
 
 #derived subclasses hook onto this function
 @warning_ignore("unused_parameter")

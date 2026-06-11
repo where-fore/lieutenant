@@ -3,14 +3,16 @@ extends MapTileData
 func _init() -> void:
 	tile_animation = load("res://z individual pieces/map tiles/animations/forest_plains.tres")
 	enemies = [Database.get_combatants_by_category(Categories.enemy_rarity, [Categories.Rarity.MYTHIC]).pick_random()]
-	reward = Database.get_rewards_by_category(Categories.item_rarity, [Categories.Rarity.RARE]).pick_random()
+	rewards = pick_rare_rewards(3)
 	stops_vision = true
 	basic_reward = true
 
-#func choose_item_reward() -> Item:
-	#var mythic_chance:int = 2
-	#var random_roll:int = randi_range(1,100)
-	#if random_roll <= mythic_chance:
-		#return Database.get_rewards_by_category(Categories.item_rarity, [Categories.Rarity.MYTHIC]).pick_random()
-	#else:
-		#return Database.get_rewards_by_category(Categories.item_rarity, [Categories.Rarity.RARE]).pick_random()
+func pick_rare_rewards(number_to_pick:int) -> Array[Reward]:
+	var rewards_to_return:Array[Reward]
+	
+	var rare_items_list:Array[Reward] = Database.get_rewards_by_category(Categories.item_rarity, [Categories.Rarity.RARE])
+	rare_items_list.shuffle()
+	for i:int in number_to_pick:
+		rewards_to_return.append(rare_items_list.pop_front())
+
+	return rewards_to_return

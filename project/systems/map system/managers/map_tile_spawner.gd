@@ -109,7 +109,7 @@ func populate_tile_data(tile:MapTile) -> void:
 		if first_rewards.size() == 0:
 			push_error("reached end of items of this rarity before reached end of special tiles")
 			populate_first_rewards()
-		tile.tile_data.reward = first_rewards.pop_front()
+		tile.tile_data.rewards = [first_rewards.pop_front()]
 	
 	#everything else
 	else:

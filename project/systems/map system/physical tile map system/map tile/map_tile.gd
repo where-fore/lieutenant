@@ -78,7 +78,7 @@ func mark_as_boss() -> void:
 
 func clear_objects_of_interest() -> void:
 	tile_data.enemies = []
-	tile_data.reward = null
+	tile_data.rewards = []
 	tile_data.scenario = scenario_for_retreading
 
 func make_permanently_visible() -> void:

@@ -57,8 +57,9 @@ func prepare_from_map_tile(map_tile:MapTile) -> void:
 	if current_map_tile.tile_data.basic_reward:
 		create_reward_button(grab_a_basic_reward())
 		
-	if current_map_tile.tile_data.reward:
-		create_reward_button(current_map_tile.tile_data.reward)
+	if current_map_tile.tile_data.rewards:
+		for reward:Reward in current_map_tile.tile_data.rewards:
+			create_reward_button(reward)
 
 func prepare_from_scenario(reward:Reward) -> void:
 	if not (reward is Reward):

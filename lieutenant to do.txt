@@ -2,6 +2,9 @@
 working notes
 --------------------------------------------------------
 
+hover to darken other buttons
+so the choice part is more obvious
+maybe even a lil weakaura glow animation when hovering
 
 
 
@@ -23,6 +26,8 @@ need to do for release:
 			knights (death triggers, aggro mechanics)
 				maybe these guys are funneled - there's the open exploration part, which narrows into one possible tile
 			The Game
+			
+	im not sure why common items exist, seems like i want "cool unique powerful items" or flat stats, which are the flowers. why do common items exist? more powerful flowers maybe? why?
 	
 	get the lethality working about right - enemies kill 2ish combatants, then perish. 2-3 turns for dying and 3-6 turns for living guys
 		can wait for items to be in to balance
