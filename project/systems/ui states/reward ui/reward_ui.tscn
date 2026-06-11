@@ -18,7 +18,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_tb2ic")
 reward_button_template = ExtResource("2_13bmp")
-reward_buttons_container = NodePath("Panel/VBoxContainer/RewardRow/RewardButtons")
+reward_buttons_container = NodePath("Panel/VBoxContainer/RewardButtons")
 
 [node name="EditBorder" type="TextureRect" parent="."]
 visible = false
@@ -68,28 +68,25 @@ text = "Placeholder.
 Placeholder Text."
 horizontal_alignment = 1
 
-[node name="RewardRow" type="HBoxContainer" parent="Panel/VBoxContainer"]
-layout_mode = 2
-
-[node name="RewardButtons" type="HBoxContainer" parent="Panel/VBoxContainer/RewardRow"]
+[node name="RewardButtons" type="HBoxContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="RewardButton" parent="Panel/VBoxContainer/RewardRow/RewardButtons" instance=ExtResource("2_13bmp")]
+[node name="RewardButton" parent="Panel/VBoxContainer/RewardButtons" instance=ExtResource("2_13bmp")]
 layout_mode = 2
 
-[node name="RewardButton4" parent="Panel/VBoxContainer/RewardRow/RewardButtons" instance=ExtResource("2_13bmp")]
+[node name="RewardButton4" parent="Panel/VBoxContainer/RewardButtons" instance=ExtResource("2_13bmp")]
 layout_mode = 2
 
-[node name="RewardButton5" parent="Panel/VBoxContainer/RewardRow/RewardButtons" instance=ExtResource("2_13bmp")]
+[node name="RewardButton5" parent="Panel/VBoxContainer/RewardButtons" instance=ExtResource("2_13bmp")]
 layout_mode = 2
 
-[node name="RewardButton6" parent="Panel/VBoxContainer/RewardRow/RewardButtons" instance=ExtResource("2_13bmp")]
+[node name="RewardButton6" parent="Panel/VBoxContainer/RewardButtons" instance=ExtResource("2_13bmp")]
 layout_mode = 2
 
-[node name="RewardButton2" parent="Panel/VBoxContainer/RewardRow/RewardButtons" instance=ExtResource("2_13bmp")]
+[node name="RewardButton2" parent="Panel/VBoxContainer/RewardButtons" instance=ExtResource("2_13bmp")]
 layout_mode = 2
 
 [node name="SkipRewardButton" type="MarginContainer" parent="Panel/VBoxContainer"]

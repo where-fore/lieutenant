@@ -38,7 +38,8 @@ func finish_tile_as_defeat_if_no_scenario() -> void:
 	if current_scenario:
 		pass
 	else:
-		MapEvents.tile_completed_no_new_ground.emit()
+		MapEvents.tile_completed_new_ground.emit()
+		#MapEvents.tile_completed_no_new_ground.emit()
 		MapEvents.tile_all_done.emit()
 
 func _ready() -> void:

@@ -2,11 +2,6 @@
 working notes
 --------------------------------------------------------
 
-hover to darken other buttons
-so the choice part is more obvious
-maybe even a lil weakaura glow animation when hovering
-
-
 
 
 --------------------------------------------------------
@@ -32,6 +27,8 @@ need to do for release:
 	get the lethality working about right - enemies kill 2ish combatants, then perish. 2-3 turns for dying and 3-6 turns for living guys
 		can wait for items to be in to balance
 			not sure if items should give stats - while i do generally dislike the asi vs feat distinction, stats interact with the aggro system. also seeing an item with +40 str and a flower with +10 dex feels dumb?
+		items seem very hard to balance atm, there's no "stat budget", they give fairly unique abilities
+			which is great, but "wait to balance till later" doesn't need to happen, since once i have an idea of balance, when making new items, i can tune them with that balance heuristic in mind
 	
 	would really like a char sheet printout on game end, at least for playtesting
 		can compare feelings/experience to the item rewards, and track trends
@@ -39,6 +36,12 @@ need to do for release:
 		spire, data driven balancing
 	
 	maybe slap some more combat log barks into items
+	
+	maybe having the player start in a little home, with the little player icon, is enough of an anchor
+	
+	gets soft locked by rare enemies spawning too much sounds lame
+		can be avoided by explicitly requiring a path, maybe the bottom is always basic trees & basic enemies
+		can be avoided by not locking when you rout a fight, just let you continue from that tile
 	
 	
 	items to add:
@@ -75,14 +78,18 @@ recent playtest:
 			click away to dismiss it
 
 	i like the spear threshold - it felt cool to try to go for, and great to achieve
+		maybe i should more "miniquest" items at the start, like my original 3-rare-choice
+			not sure how to not put all these on the same character
+				not sure why that's a problem actually, the idea is just to have some meta-goals to give more direction and meaning to choices. no need for it to be one-per-character, or even 4 at all
 
-	boss was super anticlimactic stat check, and instantly killed my dudes
+	boss was super anticlimactic stat check, and instantly killed my dudes (despite getting the mega spear buff)
 		maybe bosses force to slower turn speed, and also have much higher hp and lower attack?
 			maybe that means i should change the scaling items, i have lots of powerful scalers that dont get time to activate on regular fights
 		i like the hydra idea too, have to beat some amount in sequence
 
 	i liked the aggro swapping in theory, there wasn't quite enough meat there. also not explained well
 		wanting to put the scaling damage on my lower stat guys was cool
+		high damage meaning dying fast feels counterproductive - i want to stack the multiplicative damage on my dude with high attack, but he dies super fast. fortitude feels like a trap because it stems the bleeding but doesn't help enough
 
 	mind felt completely worthless
 		didn't really put any items in for it i suppose
@@ -100,6 +107,11 @@ recent playtest:
 		there isn't really any in the game right now anyways
 		but enemies were too lethal and low hp for that - maybe one character dies and the monster immediately dies
 			maybe the knights both starting with a revenger is too much? maybe one should have a healing thing?
+	
+	map at start is still overwhelming, especially as i start with fewer available tiles. i would love a little fog of war or camera zoom at the start of the game
+	
+	my instinct for the knights is to get them to tank and str focus, but their revengers benefit from someone else dying first? doesn't feel very knightly to let others die first?
+		maybe it should one knight who has giga strength and one non-knight (brother?) who enrages on knight death?
 	
 	--
 would be good:

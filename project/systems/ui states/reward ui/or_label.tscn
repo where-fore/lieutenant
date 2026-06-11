@@ -1,7 +1,0 @@
-[gd_scene format=3 uid="uid://bjrhdq0cmp0wy"]
-
-[node name="OrLabel" type="Label"]
-theme_override_font_sizes/font_size = 12
-text = "or.."
-horizontal_alignment = 1
-vertical_alignment = 1

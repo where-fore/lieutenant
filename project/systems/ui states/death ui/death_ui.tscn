@@ -60,8 +60,10 @@ theme_override_constants/margin_bottom = 5
 
 [node name="Title" type="Label" parent="Panel/VBoxContainer/MarginContainer"]
 layout_mode = 2
-text = "You were
-defeated..."
+theme_override_font_sizes/font_size = 12
+text = "You were defeated.
+
+Your foe keeps their treasure"
 horizontal_alignment = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="Panel/VBoxContainer"]
@@ -85,7 +87,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 8
-text = "Rout!"
+text = "Escape!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
