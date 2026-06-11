@@ -28,14 +28,6 @@ need to do for release:
 		can wait for items to be in to balance
 			not sure if items should give stats - while i do generally dislike the asi vs feat distinction, stats interact with the aggro system. also seeing an item with +40 str and a flower with +10 dex feels dumb?
 	
-	damage_taken triggers on taking 0 damage
-		not sure if i want this, i suppose not? based on wording
-		i may want on_attacked as a similar trigger, that doesn't go crazy?
-
-	negative stats on item tooltips says "attack increased by -10" eg thornmail
-	
-	grab some sprites for items: sprites/question.png
-	
 	would really like a char sheet printout on game end, at least for playtesting
 		can compare feelings/experience to the item rewards, and track trends
 		ideally also shows rewards offered, elites fought
@@ -469,8 +461,6 @@ big ui overhaul
 	
 	make sure labels won't overflow with long numbers. set their clipping to true, and maybe if clipped add a tooltip?
 	
-	combatant ui stat health + shield, not sure how to show. at least have the tooltip have a blue hue for shield text? maybe cover some portion of the red bar with blue ala poe?
-	
 	would be nice if i just had a "all stats" dump on a ui page, which was just current_stats.values : current_stats.keys
 		currently can't see my crit chance or crit multiplier, or any other stats i add
 -
@@ -562,11 +552,16 @@ flappy cameo, balloon in the distance
 ----------------------------------------------------------------------------------------------------------------
 things i know are hacky and should be cleaned up (or super duper back burner changes):
 ----------------------------------------------------------------------------------------------------------------		
-i worry about on_damage_taken loops - if something does something that makes you take damage with this function, it loops infinitely
-	maybe each item has a "cooldown" that clears on turn end, and "on_damage_taken" functions use that cooldown
-		can probably put in the item manager
-	currently i have it so most things check if source != self, which should prevent loops?
-		but prevents cool interactions, and cool interactions i allow will fall into this loop trap
+i worry about on_damage_taken loops
+	if something does something that makes you take damage with this function, it loops infinitely
+		maybe each item has a "cooldown" that clears on turn end, and "on_damage_taken" functions use that cooldown
+			can probably put in the item manager
+		currently i have it so most things check if source != self, which should prevent loops?
+			but prevents cool interactions, and cool interactions i allow will fall into this loop trap	
+		
+	damage_taken triggers on taking 0 damage
+		not sure if i want this, i suppose not? based on wording
+		i may want on_attacked as a similar trigger, that doesn't go crazy?
 			
 item custom auras (like enrage_sword) currently hook onto expiration signals, maybe they should be a weakref?
 
@@ -740,9 +735,6 @@ disorganized brainstorm - will have weird overlaps with design doc and discord
 eunuch-inspired: maybe magic requires spoken word, so mute people are in high demand as assisstants/librarians to old knowledge? the only ones who can be trusted with its safekeeping?
 	maybe skeletons melt in the presence of gold/mithral, so gold/mithral is used as currency and skeletons are bankers?
 
-
-
-
 ftl like combat - auto battler but you choose where your attacks will go
 	fencing, attack certain body parts?
 	mount & blade commander - choose what part of the battle to send your troops?
@@ -776,74 +768,6 @@ all of the above:
 	pick new island to travel to
 	
 	
-	
-	
-	
-	
-mythology themes:
-	
-https://en.wikipedia.org/wiki/Goetia
-
-note these are llm chatbot summaries, they could be completely made up
-
-The Lost Lands of Lyonesse: a massive archipelago mysteriously swallowed by the sea in a single night. Some versions blame the sins of the inhabitants; others imply a supernatural tide.
-The Kumulipo and Namaka: an archipelago born from Kumulipo's fire, but Namaka is a sea goddess who constantly tries to flood the lava islands away.
-The Wave Curse of Teonimanu: Teonimanu was a high volcanic island, when eight massive waves struck the island one by one until it slid off its underwater shelf and vanished into the abyss.
-The Tide Jewels of Ryūjin: Ryūjin possesses the Kanju (Ebb-Tide Jewel) and the Manju (Flood-Tide Jewel). By dropping these gems into the ocean, he can instantly cause the sea to surge over the islands or retreat.
-
-
-1. The Lost Lands of Lyonesse (Cornish/Arthurian)
-
-In British folklore, Lyonesse was a massive archipelago or peninsula off the coast of Cornwall. According to legend, it was a land of 140 churches and fertile plains.
-
-    The Cataclysm: It was swallowed by the sea in a single night.
-
-    The Cause: Some versions blame the sins of the inhabitants; others imply a supernatural tide.
-
-    Artistic Hook: The bells of the "drowned churches" are said to still ring under the water during storms. You could play with the contrast of ecclesiastical architecture and kelp forests.
-
-
-2. The Kumulipo and Namaka (Hawaiian)
-
-Hawaiian mythology is centered on an archipelago born from fire, but it has a powerful deity of the sea, Nāmakaokahaʻi (Namaka), who is the elder sister of Pelé.
-
-    The Conflict: Namaka is a sea goddess who constantly tries to flood the lands her sister creates with lava.
-
-    The Cataclysm: The myth cycle represents a constant battle between the rising land and the encroaching, angry ocean.
-
-    Artistic Hook: The meeting of steam, obsidian, and deep blue water. You could depict a goddess whose "skirt" is the entire ocean rising to swallow the peaks.
-
-
-3. The Wave Curse of Teonimanu (Solomon Islands)
-
-This is a "lost island" legend that scientists believe actually happened. Teonimanu was a high volcanic island in the Solomon archipelago that vanished entirely.
-
-    The Cause: Legend says a man named Roraimenu was cuckolded by his wife, who fled back to Teonimanu. In a fit of rage, he purchased a "wave curse" and planted a magical branch on the island.
-
-    The Cataclysm: As soon as he paddled away, eight massive, sentient waves (The "Wave-Children") struck the island one by one until it slid off its underwater shelf and vanished into the abyss.
-
-    Artistic Hook: Depicting the eight distinct waves as having personality or faces, systematically dismantling a lush island while the vengeful husband watches from a distant peak.
-
-
-4. The Tide Jewels of Ryūjin (Japanese)
-
-Japanese mythology is inherently an archipelago story, and the sea is ruled by the Dragon King, Ryūjin, from his underwater palace, Ryūgū-jō.
-
-    The Mechanism: Ryūjin possesses the Kanju (Ebb-Tide Jewel) and the Manju (Flood-Tide Jewel). By dropping these gems into the ocean, he can instantly cause the sea to surge over the islands or retreat.
-
-    The Irate God: In several stories, Ryūjin uses the Jewels to wipe out invading fleets or punish those who steal from his palace.
-
-    Artistic Hook: The physical jewels as the source of the flood. You could draw a literal "wall of water" frozen in place by a glowing gem, with the Dragon King’s serpent-like body silhouetted within the wave.
-
-
-
-
-
-
-
-
-
-
 he-is-watching-like autobattling roguelike project
 stats and builds: different build patterns that get tested against different enemies
 adventure and challenge: uncovering new enemies and not knowing how long you'll survive

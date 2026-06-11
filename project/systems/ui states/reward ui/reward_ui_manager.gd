@@ -70,10 +70,13 @@ func prepare_from_map_tile(map_tile:MapTile) -> void:
 	if current_map_tile.tile_data.scenario:
 		return #stop this function here
 	
+	if current_map_tile.tile_data.basic_reward:
+		prepare_basic_reward()
+		
 	if current_map_tile.tile_data.reward:
 		current_reward = current_map_tile.tile_data.reward
 	prepare_reward()
-	prepare_basic_reward()
+	
 	if reward_button_container.visible == true and basic_reward_button_container.visible == true:
 		or_label.visible = true
 

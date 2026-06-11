@@ -6,6 +6,7 @@ func _init() -> void:
 	enemies = [Database.get_combatants_by_category(Categories.enemy_rarity, [Categories.Rarity.COMMON]).pick_random()]
 	reward = Database.get_rewards_by_category(Categories.item_rarity, [Categories.Rarity.COMMON]).pick_random()
 	chance_to_have_no_item(80)
+	basic_reward = true
 
 func pick_animation() -> SpriteFrames:
 	var possible_animations:Array[SpriteFrames]

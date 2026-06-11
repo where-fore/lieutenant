@@ -5,6 +5,7 @@ var tile_animation:SpriteFrames
 var scenario:Scenario
 var enemies:Array[Combatant]
 var reward:Reward
+var basic_reward:bool = false
 var item_reward:Item
 var aura_reward:Aura
 var script_path:String
