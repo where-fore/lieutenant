@@ -40,12 +40,6 @@ need to do for release:
 	
 	maybe slap some more combat log barks into items
 	
-	reward:
-		have a basic_reward:bool flag that i can toggle or not as i desire
-		have an array of reward:Array[Item] for other rewards
-		consider a large array of rewards instead of picking a fresh random one every time - in database have Grab_Rare_Items(number_to_grab) which pop_fronts front an array of all rare items (if empty, regenerate)
-			want to avoid getting the same rare twice back to back, and worse twice in the same reward screen
-	
 	
 	items to add:
 		intelligence items
@@ -96,9 +90,11 @@ recent playtest:
 
 	not enough cool items, mostly stat flowers
 		that was my intention, but it didn't really feel that great. maybe rare item rewards are just as sparse, but provide a selection of a few? i felt like i wasn't really making tons of choices or seeing many
+		-> added multiple rewards, and bumped up spawn rate of rare enemies
 
 	i completely skipped one companion
 		wasn't required for balance or story
+		-> adjusted enemies tougher. story wise should be solved when reorganizing the first path
 	
 	i didn't really get to do any of the death effect stuff
 		there isn't really any in the game right now anyways

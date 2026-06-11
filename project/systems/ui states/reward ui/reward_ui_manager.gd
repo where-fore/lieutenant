@@ -80,9 +80,20 @@ func create_reward_button(reward_to_assign:Reward) -> void:
 	reward_buttons_container.add_child(new_reward_button)
 	new_reward_button.assign_reward(reward_to_assign)
 	new_reward_button.reward_button_pressed.connect(_on_reward_button_pressed)
+	new_reward_button.reward_button_hovered.connect(_on_reward_button_hovered)
+	new_reward_button.reward_button_unhovered.connect(_on_reward_button_unhovered)
 
 func _on_reward_button_pressed(button:RewardButton) -> void:
 	accept_reward(button.reward_assigned)
+
+func _on_reward_button_hovered(button:RewardButton) -> void:
+	for button_child:RewardButton in reward_buttons_container.get_children():
+		button_child.darken()
+	button.undarken()
+
+func _on_reward_button_unhovered(_button:RewardButton) -> void:
+	for button_child:RewardButton in reward_buttons_container.get_children():
+		button_child.undarken()
 
 func accept_reward(reward:Reward) -> void:
 	HudEvents.reward_aiming.emit(reward)
