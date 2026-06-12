@@ -6,6 +6,7 @@ extends Node2D
 @export var common_combat_tile:GDScript
 @export var uncommon_combat_tile:GDScript
 @export var rare_combat_tile:GDScript
+@export var tutorial_house_tile:GDScript
 @export var tutorial_first_common_tile:GDScript
 @export var tutorial_first_combat_tile:GDScript
 @export var tutorial_second_combat_tile:GDScript
@@ -35,7 +36,7 @@ var rare_roll_entropy:int
 
 var current_chunk:Array[MapTileData]
 
-var spawn_developer_target_dummy:bool = true
+var spawn_developer_target_dummy:bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -86,30 +87,64 @@ func populate_tile_data(tile:MapTile) -> void:
 	elif tile.x_coordinate == (columns_to_disable_at_start - 1) or tile.x_coordinate >= columns - columns_to_disable_at_end:
 		tile.apply_data(generic_border_data.new())
 	
-	#tutorial: first encounter (first combat)
+	#tutorial: home sweet home
 	elif tile.x_coordinate == columns_to_disable_at_start:
 		if tile.y_coordinate == 0 or tile.y_coordinate == 2:
 			tile.apply_data(generic_border_data.new())
 		elif tile.y_coordinate == 1:
-			tile.apply_data(tutorial_first_combat_tile.new())
+			tile.apply_data(tutorial_house_tile.new())
 	
-	#tutorial: second row (wolves, camp)
+	#tutorial: second row (first combat)
 	elif tile.x_coordinate == columns_to_disable_at_start + 1:
 		if tile.y_coordinate == 0:
-			tile.apply_data(knight_join_tile.new())
+			tile.apply_data(generic_border_data.new())
+			#tile.apply_data(knight_join_tile.new())
+		elif tile.y_coordinate == 1:
+			tile.apply_data(tutorial_first_combat_tile.new())
+		elif tile.y_coordinate == 2:
+			tile.apply_data(generic_border_data.new())
+			#tile.apply_data(tutorial_camp_tile.new())
+	
+	#tutorial: third row (first loss)
+	elif tile.x_coordinate == columns_to_disable_at_start + 2:
+		if tile.y_coordinate == 0:
+			tile.apply_data(generic_border_data.new())
 		elif tile.y_coordinate == 1:
 			tile.apply_data(tutorial_second_combat_tile.new())
 		elif tile.y_coordinate == 2:
-			tile.apply_data(tutorial_camp_tile.new())
+			tile.apply_data(generic_border_data.new())
 	
-	#tutorial: first encounter (first loss)
-	elif tile.x_coordinate == columns_to_disable_at_start + 2:
-		tile.apply_data(tutorial_unique_tile.new())
-		
-		if first_rewards.size() == 0:
-			push_error("reached end of items of this rarity before reached end of special tiles")
-			populate_first_rewards()
-		tile.tile_data.rewards = [first_rewards.pop_front()]
+	#tutorial: fourth row (first companion)
+	elif tile.x_coordinate == columns_to_disable_at_start + 3:
+		if tile.y_coordinate == 0:
+			tile.apply_data(generic_border_data.new())
+		elif tile.y_coordinate == 1:
+			tile.apply_data(tutorial_camp_tile.new())
+		elif tile.y_coordinate == 2:
+			tile.apply_data(generic_border_data.new())
+	
+	#tutorial: freeform section
+	elif tile.x_coordinate == columns_to_disable_at_start + 4 or tile.x_coordinate == columns_to_disable_at_start + 5:
+		tile.apply_data(choose_filler_tile(true))
+	elif tile.x_coordinate == columns_to_disable_at_start + 6 or tile.x_coordinate == columns_to_disable_at_start + 7:
+		tile.apply_data(choose_filler_tile())
+	
+	#tutorial: second set of companions
+	elif tile.x_coordinate == columns_to_disable_at_start + 8:
+		if tile.y_coordinate == 0:
+			tile.apply_data(generic_border_data.new())
+		elif tile.y_coordinate == 1:
+			tile.apply_data(rare_combat_tile.new())
+		elif tile.y_coordinate == 2:
+			tile.apply_data(generic_border_data.new())
+	
+	elif tile.x_coordinate == columns_to_disable_at_start + 9:
+		if tile.y_coordinate == 0:
+			tile.apply_data(generic_border_data.new())
+		elif tile.y_coordinate == 1:
+			tile.apply_data(knight_join_tile.new())
+		elif tile.y_coordinate == 2:
+			tile.apply_data(generic_border_data.new())
 	
 	#everything else
 	else:
@@ -169,13 +204,11 @@ func populate_tutorial_fetch_rewards() -> void:
 	tutorial_fetch_rewards.shuffle()
 
 
-func choose_filler_tile() -> MapTileData:
-	return choose_randomly()
+func choose_filler_tile(set_easy:bool = false) -> MapTileData:
+	if set_easy: return choose_randomly(70, 30, 0)
+	return choose_randomly(40, 20, 40)
 
-func choose_randomly() -> MapTileData:
-	var common_chance:int = 40
-	var uncommon_chance:int = 20
-	var rare_chance:int = 40
+func choose_randomly(common_chance:int, uncommon_chance:int, rare_chance:int) -> MapTileData:
 	
 	if common_chance + uncommon_chance + rare_chance != 100:
 		push_error("map tile chances not summing to 100% chance!")

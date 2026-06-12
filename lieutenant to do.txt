@@ -4,24 +4,14 @@ working notes
 
 
 
+
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
 
 need to do for release:
 	tune game length according to interest curves, tutorials etc
-		probably do
-			easy combat (basic tutorial)
-				could fit a bit more game in here too, some stat building or something
-			hard combat (losing game tutorial, build up companion power spike)
-				want to make sure this doesn't feel too defeating - and that it is actually impossible. easiest to do this with fewest variables before it, so no random item rolls etc
-			first companion (scenarios and companions)
-			hard combat again but stronger (interesting items on which character)
-			something here, some small goals or open exploration?
-			knights (death triggers, aggro mechanics)
-				maybe these guys are funneled - there's the open exploration part, which narrows into one possible tile
-			The Game
-			
+		
 	im not sure why common items exist, seems like i want "cool unique powerful items" or flat stats, which are the flowers. why do common items exist? more powerful flowers maybe? why?
 	
 	get the lethality working about right - enemies kill 2ish combatants, then perish. 2-3 turns for dying and 3-6 turns for living guys
@@ -37,8 +27,11 @@ need to do for release:
 	
 	maybe slap some more combat log barks into items
 	
-	maybe having the player start in a little home, with the little player icon, is enough of an anchor
+	map info popups are z-index 1, means they pop up over everything - notably the inventory/combat log menu being opened
+		this was done so other map tiles don't render over them
+		this makes me think i should have specific layers or z-indexes for every ui piece. lots of manual work?
 	
+	ui panels (inventory, combat log) can have a close button in the top right
 	
 	items to add:
 		intelligence items
@@ -108,6 +101,16 @@ recent playtest:
 	rares all feels the same, just high stat balls
 		get them to target different stats, have more effects which interact with the death/aggro mechanic
 	
+	mind shield isn't in combat log, no indication in game of why the lich was invulnerable
+		maybe in the damage taken, show damage absorbed by shield
+	
+	dead characters can die from exhaustion
+		probably remove the stamina check from dead characters? maybe just the combat log part?
+		
+	sometimes you can lose the first "hard" fight, or win so handily you don't even need the companion
+		ideally add a little stun to the enemy? when they kill an enemy, they stun for a bit? but are extra lethal? that's a rare i want anyways
+		and ideally i refactor that tile to affect the enemy, instead of having a copy pasted enemy with lower stats
+	
 	--
 would be good:
 	
@@ -123,6 +126,8 @@ would be good:
 			how do i access who is in your party? allied combatants? surely not, that can be temporary. maybe i do want a global Party.gd?
 	
 	have nice tooltips set up, can still use placeholder art
+	
+	backgrounds for combat - normal, elite, boss, event
 -
 
 database printing for ease of pool viewing: have a lil script in the database autoload which can print which items are in which category. maybe even categorize items as "dex build" or "str build" manually for my own sorting system, or maybe sort by additive dictionary has Stats.strength?
@@ -258,6 +263,8 @@ also: first combat log message isn't getting a space
 	why am i putting a space lmao, just make a margin container?
 -
 
+maybe having the player start in a little home, with the little player icon, is enough of an anchor, for game start
+	
 inventory ui doesn't update unless you re-open it, unlike the combat log
 
 ui-wise, maybe set the main button to "focus" on opening panels, and bind "focus" to spacebar or something. i want to be able to move faster through things, using spacebar maybe
@@ -560,7 +567,28 @@ flappy cameo, balloon in the distance
 
 ----------------------------------------------------------------------------------------------------------------
 things i know are hacky and should be cleaned up (or super duper back burner changes):
-----------------------------------------------------------------------------------------------------------------		
+----------------------------------------------------------------------------------------------------------------
+
+intro section
+	easy combat (basic tutorial)
+		could fit a bit more game in here too, some stat building or something
+	hard combat (losing game tutorial, build up companion power spike)
+		want to make sure this doesn't feel too defeating - and that it is actually impossible. easiest to do this with fewest variables before it, so no random item rolls etc
+	first companion (scenarios and companions)
+	hard combat again but stronger (interesting items on which character)
+	something here, some small goals or open exploration?
+	knights (death triggers, aggro mechanics)
+		maybe these guys are funneled - there's the open exploration part, which narrows into one possible tile
+	The Game
+		
+	general balance guideline:
+		normal enemies, elite enemies, boss finale
+		normal enemies are non-lethal, but provide medium rewards
+		rare enemies are lethal, but provide better rewards
+		enemies/boss scale enough that you need some elite fight rewards
+		rare enemies have 2 fights where you can retreat in the middle, bosses are final.	
+-
+
 i worry about on_damage_taken loops
 	if something does something that makes you take damage with this function, it loops infinitely
 		maybe each item has a "cooldown" that clears on turn end, and "on_damage_taken" functions use that cooldown
