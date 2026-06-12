@@ -27,12 +27,12 @@ func increase_enemy_stat_budget() -> void:
 
 var enemy_rare_stat_budget:int = enemy_normal_stat_budget * 2
 var enemy_mythic_stat_budget:int = enemy_normal_stat_budget * 2
-var enemy_boss_stat_budget:int = enemy_normal_stat_budget * 3
+var enemy_boss_stat_budget:int = enemy_normal_stat_budget * 4
 
-var enemy_normal_health_stat_budget:int = common_stat_budget * 8
+var enemy_normal_health_stat_budget:int = common_stat_budget * 6
 var enemy_rare_health_stat_budget:int = enemy_normal_stat_budget * 2
 var enemy_mythic_health_stat_budget:int = enemy_normal_stat_budget * 2
-var enemy_boss_health_stat_budget:int = enemy_normal_stat_budget * 3
+var enemy_boss_health_stat_budget:int = enemy_normal_stat_budget * 4
 
 var enemy_tutorial_easy_stat_budget:int = enemy_normal_stat_budget
 var enemy_tutorial_hard_stat_budget:int = enemy_normal_stat_budget * 4 / 3

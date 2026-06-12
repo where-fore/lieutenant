@@ -19,11 +19,11 @@ extends Node2D
 @export var mapTileBase:PackedScene
 @export var rows:int = 3
 @export var vertical_spacing:int = 17
-@export var columns:int = 25
+@export var columns:int = 28
 @export var horizontal_spacing:int = 31
 @export var isometric_offset:int = 6
 @export_enum("Top Left", "Bottom Left") var this_spawner_is_placed_at:int = 0
-@export var columns_to_disable_at_end:int = 1
+@export var columns_to_disable_at_end:int = 2
 @export var columns_to_disable_at_start:int = 1
 
 @export_category("Other")

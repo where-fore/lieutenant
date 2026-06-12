@@ -8,7 +8,7 @@ var debug_vision:bool = false
 var map_should_scroll_right:bool = true
 var map_should_scroll_left:bool = true
 @onready var maptile_spawner_parent:Node2D = $MapTileSpawner
-var scroll_animation_delay:float = 1.5
+var scroll_animation_delay:float = 1.3
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
