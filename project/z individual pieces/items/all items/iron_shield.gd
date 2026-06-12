@@ -1,29 +1,16 @@
 extends Item
 
-#whatever the item does, doesn't do anything until you do something with it
-var my_health:int = BalanceData.shield_health
-var health_multi:int = 50
-
-
-func setup_basic_item_data() -> void:
-	item_id = "iron_shield" # "generic_item"
-	item_name = "Iron Shield" # "Generic Item"
-	item_sprite = load("res://sprites/small_shield.png")
+#basic setup
+func setup_item_stats() -> void:
+	reward_name = "Iron Kite Shield" # "Generic Item"
+	reward_sprite = load("res://sprites/small_shield.png")
 	extra_tooltip = "" # "Generic flavourful description"
-	item_categories = {
+	reward_categories = {
 		Categories.item_rarity : Categories.Rarity.COMMON,
 	}
 	
-	
-	#optional special visible aura
-	custom_aura_template = null # load("res://z individual pieces/items/all items/paladin's armor/paladins_might.tres")
-	aura_application_time = ApplyType.ON_EQUIP
+	additive_stat_dictionary[Stats.fortitude] = BalanceData.common_multiplicative_stat_budget / 2
+	additive_stat_dictionary[Stats.strength] = BalanceData.common_multiplicative_stat_budget / 2
 
 
-#--functions called by item_base.gd--
-func setup_item_stats() -> void:
-	setup_basic_item_data()
-	
-	#whatever the item does
-	additive_stat_dictionary[Stats.health] = my_health
-	multiplicative_stat_dictionary[Stats.health] = health_multi
+#custom stuff

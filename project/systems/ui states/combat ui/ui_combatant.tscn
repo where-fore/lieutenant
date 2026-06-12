@@ -1,0 +1,166 @@
+[gd_scene load_steps=9 format=3 uid="uid://drmvwdj1lrerg"]
+
+[ext_resource type="Script" uid="uid://goyvs82tifpv" path="res://systems/ui states/combat ui/ui_combatant.gd" id="1_7msyj"]
+[ext_resource type="Texture2D" uid="uid://ubmjcik0bgn7" path="res://sprites/knight.png" id="5_4pj4e"]
+[ext_resource type="PackedScene" uid="uid://b8lotu6wx3eem" path="res://ui resources/reusable ui pieces/frame_console.tscn" id="5_7msyj"]
+[ext_resource type="Texture2D" uid="uid://ict2euu6g4jy" path="res://sprites/hover_border.png" id="6_voin1"]
+[ext_resource type="Texture2D" uid="uid://ddj75cjrj64yg" path="res://sprites/health_bar_progress.png" id="8_x5yq3"]
+[ext_resource type="Texture2D" uid="uid://cv5ut6hntccyt" path="res://sprites/shield_progress.png" id="9_0x77s"]
+[ext_resource type="Texture2D" uid="uid://drubnkihyub3w" path="res://sprites/items/basic_axe.png" id="10_37cry"]
+[ext_resource type="Texture2D" uid="uid://bw8ct2x2ju746" path="res://sprites/items/basic_potion.png" id="11_u2x64"]
+
+[node name="Player" type="VBoxContainer" node_paths=PackedStringArray("portrait", "health_bar", "shield_bar", "turn_indicator", "placeholder_attack", "main_tooltip_control")]
+custom_minimum_size = Vector2(40, 0)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -81.0
+offset_right = 70.0
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 0
+script = ExtResource("1_7msyj")
+portrait = NodePath("Portrait/FrameConsole/MarginContainer/HBoxContainer/Portrait")
+health_bar = NodePath("Portrait/FrameConsole/MarginContainer/HBoxContainer/HealthBarContainer/HealthBar")
+shield_bar = NodePath("Portrait/FrameConsole/MarginContainer/HBoxContainer/HealthBarContainer/ShieldBar")
+turn_indicator = NodePath("Portrait/FrameConsole/MarginContainer/HBoxContainer/Portrait/TurnIndicator")
+placeholder_attack = NodePath("Portrait/Actives/Skill")
+main_tooltip_control = NodePath("Portrait/FrameConsole")
+
+[node name="Portrait" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="FrameConsole" parent="Portrait" instance=ExtResource("5_7msyj")]
+custom_minimum_size = Vector2(76, 89)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Portrait/FrameConsole"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -42.5
+offset_right = 62.0
+offset_bottom = 42.5
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Portrait/FrameConsole/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Portrait" type="TextureRect" parent="Portrait/FrameConsole/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(58, 81)
+layout_mode = 2
+size_flags_horizontal = 2
+texture = ExtResource("5_4pj4e")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="TurnIndicator" type="TextureRect" parent="Portrait/FrameConsole/MarginContainer/HBoxContainer/Portrait"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("6_voin1")
+expand_mode = 5
+
+[node name="HealthBarContainer" type="Control" parent="Portrait/FrameConsole/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="HealthBar" type="TextureProgressBar" parent="Portrait/FrameConsole/MarginContainer/HBoxContainer/HealthBarContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = 1.0
+offset_right = 11.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 60.0
+fill_mode = 3
+nine_patch_stretch = true
+texture_progress = ExtResource("8_x5yq3")
+
+[node name="ShieldBar" type="TextureProgressBar" parent="Portrait/FrameConsole/MarginContainer/HBoxContainer/HealthBarContainer"]
+modulate = Color(1, 1, 1, 0.49019608)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = 26.0
+offset_right = 11.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+value = 100.0
+fill_mode = 3
+nine_patch_stretch = true
+texture_progress = ExtResource("9_0x77s")
+
+[node name="Actives" type="VBoxContainer" parent="Portrait"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Skill" type="Button" parent="Portrait/Actives"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+tooltip_text = "Placeholder
+Text"
+
+[node name="TextureRect" type="TextureRect" parent="Portrait/Actives/Skill"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_37cry")
+expand_mode = 4
+
+[node name="Item" type="Button" parent="Portrait/Actives"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+tooltip_text = "Placeholder
+Text"
+
+[node name="TextureRect" type="TextureRect" parent="Portrait/Actives/Item"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_u2x64")
+expand_mode = 4
+
+[connection signal="gui_input" from="Portrait/FrameConsole/MarginContainer/HBoxContainer/Portrait" to="." method="_on_portrait_gui_input"]
+[connection signal="mouse_entered" from="Portrait/FrameConsole/MarginContainer/HBoxContainer/Portrait" to="." method="_on_portrait_mouse_entered"]
+[connection signal="mouse_exited" from="Portrait/FrameConsole/MarginContainer/HBoxContainer/Portrait" to="." method="_on_portrait_mouse_exited"]

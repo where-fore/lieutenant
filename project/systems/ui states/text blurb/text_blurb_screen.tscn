@@ -1,27 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://l4er4w6epgd5"]
+[gd_scene load_steps=3 format=3 uid="uid://l4er4w6epgd5"]
 
-[ext_resource type="Texture2D" uid="uid://c7a1jxvk522q2" path="res://sprites/border_background.png" id="1_2pje7"]
 [ext_resource type="Script" uid="uid://bqrraxfyuo8ot" path="res://systems/ui states/text blurb/text_blurb_manager.gd" id="1_wivpn"]
-[ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="2_wivpn"]
-[ext_resource type="Texture2D" uid="uid://dpjjrf7ekiuwc" path="res://sprites/box_outer.png" id="3_nto7w"]
+[ext_resource type="PackedScene" uid="uid://0lhcbhnwyj1j" path="res://ui resources/reusable ui pieces/frame_protruding.tscn" id="2_wivpn"]
 
 [node name="TextBlurbScreen" type="PanelContainer"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
 offset_left = 16.0
-offset_top = -254.0
+offset_top = 16.0
 offset_right = 464.0
-offset_bottom = -16.0
-grow_vertical = 0
+offset_bottom = 254.0
 mouse_filter = 1
 script = ExtResource("1_wivpn")
 
-[node name="UIBackground" type="TextureRect" parent="."]
+[node name="FrameProtruding" parent="." instance=ExtResource("2_wivpn")]
 layout_mode = 2
-mouse_filter = 0
-texture = ExtResource("1_2pje7")
-expand_mode = 1
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 2
@@ -71,13 +62,11 @@ layout_mode = 2
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="ContinueButton" type="TextureButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(72, 24)
+[node name="ContinueButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 24)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture_normal = ExtResource("3_nto7w")
-stretch_mode = 0
 
 [node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/ContinueButton"]
 layout_mode = 1
@@ -97,13 +86,11 @@ text = "Continue"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="NextPageButton" type="TextureButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(72, 24)
+[node name="NextPageButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(92, 24)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture_normal = ExtResource("3_nto7w")
-stretch_mode = 0
 
 [node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/NextPageButton"]
 layout_mode = 1
@@ -123,13 +110,11 @@ text = "Next Page"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CompleteChapterButton" type="TextureButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(96, 24)
+[node name="CompleteChapterButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(96, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture_normal = ExtResource("3_nto7w")
-stretch_mode = 0
 
 [node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/CompleteChapterButton"]
 layout_mode = 1
@@ -150,13 +135,11 @@ playing!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LostGameButton" type="TextureButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="LostGameButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(96, 24)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture_normal = ExtResource("3_nto7w")
-stretch_mode = 0
 
 [node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/LostGameButton"]
 layout_mode = 1
@@ -175,12 +158,6 @@ theme_override_font_sizes/font_size = 8
 text = "Try again!"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="UIBorder" type="TextureRect" parent="."]
-layout_mode = 2
-mouse_filter = 2
-texture = ExtResource("2_wivpn")
-expand_mode = 1
 
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/NextPageButton" to="." method="_on_next_page_button_pressed"]

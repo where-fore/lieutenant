@@ -1,104 +1,100 @@
 extends Control
 
-@onready var player_health_label:Label = $Panel/Combatants/Player/Stats/Health/HBoxContainer/Label
-@onready var enemy_health_label:Label  = $Panel/Combatants/Enemy/Stats/Health/HBoxContainer/Label
+@onready var combat_button:Button = $CombatControls/VBoxContainer/CombatButton
+@onready var edit_border:TextureRect = $EditBorder
 
-@onready var player_attack_label:Label  = $Panel/Combatants/Player/Stats/Attack/HBoxContainer/Label
-@onready var enemy_attack_label:Label  = $Panel/Combatants/Enemy/Stats/Attack/HBoxContainer/Label
+@onready var turn_button_container:Container = $CombatControls/VBoxContainer/TurnButtons
+@onready var pause_button:Button = $CombatControls/VBoxContainer/TurnButtons/PauseButton
+@onready var step_button:Button = $CombatControls/VBoxContainer/TurnButtons/StepButton
+@onready var play_button:Button = $CombatControls/VBoxContainer/TurnButtons/PlayButton
+@onready var play_fast_button:Button = $CombatControls/VBoxContainer/TurnButtons/PlayFastButton
 
-@onready var combat_button:TextureButton = $Panel/CombatButton
+@onready var enemy1_ui_combatant:UiCombatant = $Panel/EnemyCombatants/Enemy
+@onready var enemy2_ui_combatant:UiCombatant = $Panel/EnemyCombatants/Enemy2
 
-@onready var turn_button_container:Container = $TurnButtons
-@onready var pause_button_border:TextureRect = $TurnButtons/PauseButton/TextureRect
-@onready var step_button_border:TextureRect = $TurnButtons/StepButton/TextureRect
-@onready var play_button_border:TextureRect = $TurnButtons/PlayButton/TextureRect
-@onready var play_fast_button_border:TextureRect = $TurnButtons/PlayFastButton/TextureRect
+var enemy_ui_combatants:Array[UiCombatant]
 
-
-@onready var player_sprite_display:TextureRect = $Panel/Combatants/Player/MarginContainer/Sprite
-@onready var enemy_sprite_display:TextureRect = $Panel/Combatants/Enemy/MarginContainer/Sprite
-@onready var player_turn_sprite:TextureRect = $Panel/Combatants/Player/MarginContainer/Sprite/TurnIndicator
-@onready var enemy_turn_sprite:TextureRect = $Panel/Combatants/Enemy/MarginContainer/Sprite/TurnIndicator
+var temporary_map_tile:MapTile
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	HudEvents.player_health_update.connect(update_player_health)
-	HudEvents.player_attack_update.connect(update_player_attack)
-	HudEvents.enemy_health_update.connect(update_enemy_health)
-	HudEvents.enemy_attack_update.connect(update_enemy_attack)
-	CombatEvents.combatant_turn_ended.connect(update_turn_indicator)
-	HudEvents.combat_button_pressed.connect(set_first_turn_indicator)
-	HudEvents.send_enemy_sprite.connect(update_enemy_sprite)
+	HudEvents.send_enemy_combatants_to_ui.connect(assign_enemies_to_ui)
+	MapEvents.venture_to.connect(save_potential_map_tile)
 	MapEvents.enter_combat_in.connect(load_map_combat)
 	ScenarioEvents.begin_combat_with.connect(load_scenario_combat)
+	ScenarioEvents.begin_combat_with_map_enemy.connect(load_scenario_combat_from_tile)
 	TimingEvents.everythings_ready.connect(on_scene_ready)
 	
 	turn_button_container.visible = false
-	player_turn_sprite.visible = false
-	enemy_turn_sprite.visible = false
+	edit_border.visible = false
+	
+	enemy_ui_combatants = [enemy1_ui_combatant, enemy2_ui_combatant]
 
 func on_scene_ready() -> void:
 	pass
 
-func set_first_turn_indicator() -> void:
-	player_turn_sprite.visible = true
-	enemy_turn_sprite.visible = false
-
-func clear_turn_indicator() -> void:
-	player_turn_sprite.visible = false
-	enemy_turn_sprite.visible = false
-
-func update_turn_indicator(source:Combatant) -> void:
-	if source.is_the_player:
-		player_turn_sprite.visible = false
-		enemy_turn_sprite.visible = true
-	elif not source.is_the_player:
-		player_turn_sprite.visible = true
-		enemy_turn_sprite.visible = false
-
-func update_enemy_sprite(new_sprite:Texture2D) -> void:
-	enemy_sprite_display.texture = new_sprite
-
-func update_player_health(value:int) -> void:
-	player_health_label.text = str(int(value))
-
-func update_enemy_health(value:int) -> void:
-	enemy_health_label.text = str(int(value))
-
-func update_player_attack(value:int) -> void:
-	player_attack_label.text = str(int(value))
-
-func update_enemy_attack(value:int) -> void:
-	enemy_attack_label.text = str(int(value))
+func assign_enemies_to_ui(enemies:Array[Combatant]) -> void:
+	if enemies.size() > enemy_ui_combatants.size():
+		push_error("was given ", enemies.size(), " enemies, but only have ", enemy_ui_combatants.size(), " enemy ui spots. eradicating extraneous enemies.")
+		
+		var extra_enemies:int = enemies.size() - enemy_ui_combatants.size()
+		var to_eradicate:Array[Combatant] = enemies.slice(-1 * extra_enemies)
+		
+		enemies.resize(enemy_ui_combatants.size())
+		
+		#signal to the tile to shape up its enemies array
+		#currently the map tile will continue to have ghost references in the array, and probably crash
+		
+		for enemy:Combatant in to_eradicate:
+			if is_instance_valid(enemy):
+				enemy.queue_free()
+	
+	var index_count:int = 0
+	for enemy:Combatant in enemies:
+		enemy_ui_combatants[index_count].assign_combatant(enemy)
+		enemy_ui_combatants[index_count].visible = true
+		index_count += 1
 
 func load_map_combat(map_tile:MapTile) -> void:
-	change_to(map_tile.tile_data.enemy)
+	change_to(map_tile.tile_data.enemies)
 
-func load_scenario_combat(enemy:Combatant) -> void:
-	change_to(enemy)
+func save_potential_map_tile(map_tile:MapTile) -> void:
+	temporary_map_tile = map_tile
 
-func change_to(enemy:Combatant) -> void:
-	CombatEvents.prepare_combat_with_enemy.emit(enemy)
+func load_scenario_combat_from_tile() -> void:
+	if not temporary_map_tile:
+		push_error("tried to load combatant from map tile because event told me to, but a combatant was never saved")
+	if not temporary_map_tile.tile_data.enemies:
+		push_error("tried to load a map tile combat, but there's no enemy on this tile: " + temporary_map_tile.tile_data.script_path)
+	ScenarioEvents.begin_combat_with.emit(temporary_map_tile.tile_data.enemies)
+
+func load_scenario_combat(enemies:Array[Combatant]) -> void:
+	change_to(enemies)
+
+func change_to(enemies:Array[Combatant]) -> void:
+	CombatEvents.prepare_combat_with_enemy.emit(enemies)
 	
-	clear_turn_indicator()
 	combat_button.visible = true
 	turn_button_container.visible = true
 	fade_buttons_out()
 	
-	hide_all_button_borders()
-	set_last_chosen_speed_border()
+	set_last_chosen_speed()
 	
+	HudEvents.load_portrait_ui.emit()
 	visible = true
 
 func change_from() -> void:
-	clear_turn_indicator()
+	for ui_combatant:UiCombatant in enemy_ui_combatants:
+		ui_combatant.clear_combatant()
+	HudEvents.unload_portrait_ui.emit()
 	visible = false
 
-func set_last_chosen_speed_border() -> void:
+func set_last_chosen_speed() -> void:
+	untoggle_all_buttons()
 	match HudEvents.last_combat_speed_chosen:
-		HudEvents.CombatSpeedNames.STEP: pause_button_border.visible = true
-		HudEvents.CombatSpeedNames.PLAY: play_button_border.visible = true
-		HudEvents.CombatSpeedNames.PLAY_FAST: play_fast_button_border.visible = true
+		HudEvents.CombatSpeedNames.STEP: pause_button.set_pressed_no_signal(true)
+		HudEvents.CombatSpeedNames.PLAY: play_button.set_pressed_no_signal(true)
+		HudEvents.CombatSpeedNames.PLAY_FAST: play_fast_button.set_pressed_no_signal(true)
 		_: push_error("not sure what last combat speed was")
 
 func _on_combat_button_pressed() -> void:
@@ -108,40 +104,42 @@ func _on_combat_button_pressed() -> void:
 	fade_buttons_in()
 
 func _on_pause_button_pressed() -> void:
-	hide_all_button_borders()
-	pause_button_border.visible = true
+	untoggle_all_buttons()
+	pause_button.set_pressed_no_signal(true)
+	
 	HudEvents.last_combat_speed_chosen = HudEvents.CombatSpeedNames.STEP
 	
 	CombatEvents.pause_button_pressed.emit()
 
 func _on_step_button_pressed() -> void:
-	hide_all_button_borders()
-	#step_button_border.visible = true
-	#i don't like the step button lighting up, i want it to feel like a one shot button
-	pause_button_border.visible = true
+	untoggle_all_buttons()
+	pause_button.set_pressed_no_signal(true)
+	
 	HudEvents.last_combat_speed_chosen = HudEvents.CombatSpeedNames.STEP
 	
 	CombatEvents.step_button_pressed.emit()
 
 func _on_play_button_pressed() -> void:
-	hide_all_button_borders()
-	play_button_border.visible = true
+	untoggle_all_buttons()
+	play_button.set_pressed_no_signal(true)
+	
 	HudEvents.last_combat_speed_chosen = HudEvents.CombatSpeedNames.PLAY
 	
 	CombatEvents.play_button_pressed.emit()
 
 func _on_play_fast_button_pressed() -> void:
-	hide_all_button_borders()
-	play_fast_button_border.visible = true
+	untoggle_all_buttons()
+	play_fast_button.set_pressed_no_signal(true)
+	
 	HudEvents.last_combat_speed_chosen = HudEvents.CombatSpeedNames.PLAY_FAST
 	
 	CombatEvents.play_fast_button_pressed.emit()
 
-func hide_all_button_borders() -> void:
-	step_button_border.visible = false
-	pause_button_border.visible = false
-	play_button_border.visible = false
-	play_fast_button_border.visible = false
+func untoggle_all_buttons() -> void:
+	pause_button.set_pressed_no_signal(false)
+	step_button.set_pressed_no_signal(false)
+	play_button.set_pressed_no_signal(false)
+	play_fast_button.set_pressed_no_signal(false)
 
 func fade_buttons_out() -> void:
 	turn_button_container.modulate = Color(0.35,0.35,0.35,1)

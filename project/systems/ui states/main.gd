@@ -4,31 +4,40 @@ extends Node2D
 @export var combat_entire_scene:PackedScene
 @onready var combat_container:Control = $MainGame/MarginContainer/CombatContainer
 @export var map_creation_scene:PackedScene
-@onready var map_container:Control = $MainGame/MarginContainer/MapContainer
+@onready var map_container:Control = $MainGame/MarginContainer/Map/MapContainer
 @export var text_blurb_scene:PackedScene
 @onready var text_blurb_container:Control = $MainGame/MarginContainer/TextBlurbContainer
+@onready var combat_log_container:Control = $MainGame/MarginContainer/CombatLogContainer
+@onready var combat_log_object:Control = $MainGame/MarginContainer/CombatLogContainer/Frame/MarginContainer/VBoxContainer/EventLog
 
 @onready var crt_filter_container:CanvasLayer = $CRTFilter
 @onready var game_start_button_container:Control = $MainUI/GameStarter
-@onready var pause_menu_button_container:Control = $MainUI/PauseMenuButton
+@onready var pause_menu_button:Control = $MainUI/TopButtons/PauseMenuButton
+@onready var inventory_menu_button:Control = $MainUI/TopButtons/InventoryMenuButton
+@onready var time_button:Control = $MainUI/TopButtons/TimeButton
 @onready var pause_menu_container:Control = $MainUI/PauseMenu
-@onready var scrolling_log_container:Control = $MainGame/MarginContainer/RightSideUI/EventLog
-@onready var right_side_ui_container:Control = $MainGame/MarginContainer/RightSideUI
-
-@onready var volume_slider:HSlider = $MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/VolumeSlider/HBoxContainer/VolumeSlider
+@onready var stats_ui_container:Control = $MainGame/MarginContainer/StatsUIContainer
 
 
 func _ready() -> void:
 	HudEvents.chapter_completed.connect(_on_restart_button_pressed)
+	HudEvents.hide_combat_screen_master.connect(hide_combat_screen)
+	HudEvents.hide_text_blurb_screen_master.connect(hide_text_blurb_screen)
+	HudEvents.show_combat_screen_master.connect(show_combat_screen)
+	HudEvents.show_text_blurb_screen_master.connect(show_text_blurb_screen)
+	TimeOfDay.time_moved_forward.connect(update_time_of_day_ui)
 	
 	game_start_button_container.visible = true
-	pause_menu_button_container.visible = true
-	text_blurb_container.visible = true
-	pause_menu_container.visible = false
-	scrolling_log_container.visible = true
-	right_side_ui_container.visible = true
+	pause_menu_button.visible = true
+	inventory_menu_button.visible = false
+	time_button.visible = false
 	
-	volume_slider.value = BackgroundMusicPlayer.get_current_volume() * 100
+	text_blurb_container.visible = true
+	combat_container.visible = false
+	stats_ui_container.visible = false
+	combat_log_container.visible = false
+	
+	pause_menu_container.visible = false
 
 func start_game() -> void:
 	clear_and_create_scene(map_creation_scene, map_container)
@@ -38,6 +47,7 @@ func start_game() -> void:
 	#wait for the above to finish
 	await get_tree().process_frame
 	HudEvents.chapter_started.emit()
+	show_inventory_button()
 
 func clear_scene(node_parent:Control) -> void:
 	for child:Node in node_parent.get_children():
@@ -67,10 +77,16 @@ func _on_new_game_button_pressed() -> void:
 	start_game()
 
 func _on_restart_button_pressed() -> void:
+	TimingEvents.restarting_game.emit()
+	
 	get_tree().reload_current_scene()
+
 
 func _on_resume_button_pressed() -> void:
 	close_pause_menu()
+
+func show_inventory_button() -> void:
+	inventory_menu_button.visible = true
 
 func close_pause_menu() -> void:
 	if pause_menu_container.visible:
@@ -81,14 +97,34 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.keycode == KEY_F11:
 			crt_filter_container.visible = !crt_filter_container.visible
 
-func _on_volume_slider_value_changed(new_slider_value: float) -> void:
-	BackgroundMusicPlayer.change_volume(new_slider_value/100)
+func _on_inventory_menu_button_pressed() -> void:
+	stats_ui_container.visible = !stats_ui_container.visible
 
-func _on_volume_icon_pressed() -> void:
-	BackgroundMusicPlayer.flip_genre()
-	#volume_slider.value = 0
-	#should mute music, but atm using it to flip genre
-	#probably should make flipping genre its own button
+func _on_combat_log_button_pressed() -> void:
+	combat_log_container.visible = !combat_log_container.visible
 
-func _on_shuffle_icon_pressed() -> void:
-	BackgroundMusicPlayer.shuffle_playlist()
+func _on_full_log_button_pressed() -> void:
+	combat_log_object.show_full_log()
+
+func show_combat_screen() -> void:
+	combat_container.visible = true
+
+func hide_combat_screen() -> void:
+	combat_container.visible = false
+
+func show_text_blurb_screen() -> void:
+	text_blurb_container.visible = true
+
+func hide_text_blurb_screen() -> void:
+	text_blurb_container.visible = false
+
+func update_time_of_day_ui() -> void:
+	if time_button.visible == false:
+		time_button.visible = true
+	var day:String = "Day " + str(TimeOfDay.current_day)
+	var time:String = str( 6 + TimeOfDay.current_time_step * 2) + "h"
+	time_button.tooltip_text = day + " " + time
+
+func _on_time_button_pressed() -> void:
+	if not CombatEvents.combat_ongoing and not ScenarioEvents.current_scenario:
+		TimeOfDay.step_time_forward()

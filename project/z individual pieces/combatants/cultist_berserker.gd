@@ -1,14 +1,11 @@
 extends Combatant
 
 var turns_dormant:int = 3
-var current_turns_elapsed:int
-var dormant:bool
-var post_buff_attack:int
-var buff_aura_name:String = "Bloodthirsty"
-var buff_message:String = "The cultist's pupils dilate as they enter a fury."
+
+var debuff_name:String = "Dormant"
+#var buff_message:String = "The cultist's pupils dilate as they enter a fury."
 
 func _init() -> void:
-	combatant_id = "cultist_berserker" # "generic_enemy"
 	combatant_name = "The Vein" # "Generic Combatant"
 	combatant_texture = load("res://sprites/transformed_cultist.png")
 	extra_tooltip = "Gathering power..." # "Generic flavourful description"
@@ -16,31 +13,21 @@ func _init() -> void:
 		Categories.enemy_rarity: Categories.Rarity.MYTHIC,
 	}
 	
-	base_health = BalanceData.enemy_base_health * 3/2
-	base_attack = 0
-	post_buff_attack = BalanceData.enemy_base_attack * 7
+	targeting_behaviour_preset = TargetingPreset.RANDOM
+	
+	starting_stats[Stats.strength] = BalanceData.enemy_mythic_stat_budget
+	starting_stats[Stats.agility] = BalanceData.enemy_mythic_stat_budget * 2 / 3
+	starting_stats[Stats.fortitude] = BalanceData.enemy_mythic_health_stat_budget
 
 #called by Combatant
 func on_start_combat() -> void:
-	current_turns_elapsed = 0
-	dormant = true
+	go_dormant()
 
-func on_start_turn() -> void:
-	if dormant and current_turns_elapsed >= turns_dormant:
-		dormant = false
-		buff_attack()
-
-func on_end_turn() -> void:
-	current_turns_elapsed += 1
-
-func buff_attack() -> void:
-	var buff_aura:Aura = Aura.new().create_aura(buff_aura_name, true)
-	buff_aura.duration_type = AuraNames.DurationType.THIS_COMBAT
-	buff_aura.additive_stat_dictionary[Stats.attack] = post_buff_attack
-	AuraEvents.give_aura_to_enemy.emit(buff_aura)
-	CombatLogEvents.custom_message.emit(buff_message)
-
-#copied from combatant.gd
-func scale_stats(power:int) -> void:
-	scaled_health = base_health * BalanceData.enemy_beginning_health_scaling / 100 + (power * base_health * BalanceData.enemy_health_scaling_per_power)/100
-	post_buff_attack = post_buff_attack + (power * post_buff_attack * BalanceData.enemy_attack_scaling_per_power)/100
+func go_dormant() -> void:
+	var buff_aura:Aura = Aura.new().create_aura(debuff_name)
+	
+	buff_aura.duration_type = AuraNames.DurationType.TURNS
+	buff_aura.base_duration = turns_dormant
+	buff_aura.additive_stat_dictionary[Stats.attack] = -1 * current_stats[Stats.attack]
+	
+	apply_aura_or_item(buff_aura)

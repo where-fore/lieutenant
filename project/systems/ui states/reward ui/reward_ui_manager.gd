@@ -1,147 +1,104 @@
 extends Control
 
-@export var reward_empty_texture:Texture2D
+@onready var edit_border:TextureRect = $EditBorder
 
-@onready var reward_button:TextureButton = $VBoxContainer/RewardButtons/RewardButton/VBoxContainer/TextureButton
-@onready var reward_button_container:MarginContainer = $VBoxContainer/RewardButtons/RewardButton
-@onready var reward_button_label:Label = $VBoxContainer/RewardButtons/RewardButton/VBoxContainer/Label
+@export var reward_button_template:PackedScene
+@export var reward_buttons_container:Control
 
-@onready var basic_reward_button:TextureButton = $VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/TextureButton
-@onready var basic_reward_button_container:MarginContainer = $VBoxContainer/RewardButtons/BasicRewardButton
-@onready var basic_reward_button_label:Label = $VBoxContainer/RewardButtons/BasicRewardButton/VBoxContainer/Label
+@onready var title_text_label:Label = $Panel/VBoxContainer/Title
 
-@onready var or_label:Label = $VBoxContainer/RewardButtons/OrLabel
-
-@onready var title_text_label:Label = $VBoxContainer/Title/Title
-@onready var skip_button_container:MarginContainer = $SkipRewardButton
-
-var basic_title_text_blurb:String = "Victory.\nClaim your boon."
+var basic_title_text_blurb:String = "Victory.\nClaim a boon."
+var basic_waiting_to_apply_text_blurb:String = "Choose the hero to favour."
 var current_title_text_blurb:String
-var basic_reward_text_blurb:String = "Gather\nyour prize"
-var current_reward_text_blurb:String
 
-var current_reward:Variant
-var current_basic_reward:Variant
 var current_map_tile:MapTile
+
+var is_a_reward_prepped:bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	InventoryEvents.full_status_updated.connect(update_text_blurb_and_inventory_full_indicator)
 	MapEvents.venture_to.connect(prepare_from_map_tile)
 	ScenarioEvents.setup_reward.connect(prepare_from_scenario)
 	ScenarioEvents.present_rewards.connect(change_to)
+	CursorManager.clear_hovered_reward.connect(reward_selected)
+	HudEvents.rout_chosen.connect(clear_reward)
 	
-	setup_basic_rewards()
+	edit_border.visible = false
+	
 	clear_reward()
 
 func change_to() -> void:
 	if current_map_tile:
 		if current_map_tile.end_of_chapter:
 			HudEvents.chapter_won.emit()
+				#this shit should not be in the reward ui
+				#the map tile should probably emit a signal when defeated if end_of_chapter
 			return #closes this whole function
 	
-	if current_reward:
+	if is_a_reward_prepped:
 		visible = true
-		if reward_button_container.visible == true and basic_reward_button_container.visible == true:
-			or_label.visible = true
+		HudEvents.load_portrait_ui.emit()
 	else:
-		#print_debug("skipping rewards, since none was prepped")
 		all_done()
 
 func change_from() -> void:
 	clear_reward()
+	HudEvents.unload_portrait_ui.emit()
 	visible = false
 
 func prepare_from_map_tile(map_tile:MapTile) -> void:
 	current_map_tile = map_tile
 	
 	if current_map_tile.end_of_chapter:
-		pass
-	else:
-		if current_map_tile.tile_data.aura_reward:
-			current_reward = current_map_tile.tile_data.aura_reward as Aura
-		elif current_map_tile.tile_data.item_reward:
-			current_reward = current_map_tile.tile_data.item_reward as Item
-		if not ScenarioEvents.tutorial_stage: prepare_basic_reward()
-		prepare_reward()
+		return #stop this function here
+	if current_map_tile.tile_data.scenario:
+		return #stop this function here
+	
+	if current_map_tile.tile_data.basic_reward:
+		create_reward_button(grab_a_basic_reward())
+		
+	if current_map_tile.tile_data.rewards:
+		for reward:Reward in current_map_tile.tile_data.rewards:
+			create_reward_button(reward)
 
-func prepare_from_scenario(reward:Variant) -> void:
-	if (not reward is Item) and (not reward is Aura):
+func prepare_from_scenario(reward:Reward) -> void:
+	if not (reward is Reward):
 		push_error("tried to prepare reward from scenario, but was given class: " + reward.get_class())
-	current_reward = reward
-	prepare_reward()
+	clear_reward()
+	create_reward_button(reward)
 
-func prepare_reward() -> void:
-	reward_button_container.visible = true
-	
-	if current_reward is Aura:
-		reward_button.texture_normal = current_reward.aura_sprite
-		reward_button.tooltip_text = current_reward.get_tooltip()
-	elif current_reward is Item:
-		reward_button.texture_normal = current_reward.item_sprite
-		reward_button.tooltip_text = current_reward.get_tooltip()
-	elif not current_reward:
-		current_reward_text_blurb = "Found nothing..."
-		reward_button.texture_normal = reward_empty_texture
-		reward_button.tooltip_text = "Continue..."
-	
-	update_text_blurb_and_inventory_full_indicator()
-
-func prepare_basic_reward() -> void:
-	basic_reward_button_container.visible = true
-	
-	var basic_aura_array:Array[Aura] = setup_basic_rewards()
-	current_basic_reward = basic_aura_array.pick_random()
-	basic_reward_button.texture_normal = current_basic_reward.aura_sprite
-	basic_reward_button.tooltip_text = current_basic_reward.get_tooltip()
-	basic_reward_button_label.text = "Rest"
-
-func update_text_blurb_and_inventory_full_indicator() -> void:
-	reward_button.modulate = Color(1,1,1)
-	if current_reward is Item:
-		if InventoryEvents.inventory_is_full:
-			reward_button.modulate = Color(0.3,0.3,0.3)
-			reward_button_label.text = "Inventory Full"
-		else:
-			update_reward_text_blurb()
-	else:
-		update_reward_text_blurb()
-
-func setup_basic_rewards() -> Array[Aura]:
+func grab_a_basic_reward() -> Aura:
 	var basic_reward_array:Array[Aura]
+	basic_reward_array.assign(Database.get_rewards_by_category(Categories.aura_rarity, [Categories.AuraRarity.BASIC_STAT]))
+
+	return basic_reward_array.pick_random()
+
+func create_reward_button(reward_to_assign:Reward) -> void:
+	is_a_reward_prepped = true
 	
-	var rest_aura:Aura = load("res://z individual pieces/auras/standalone auras/rested.gd").new() as Aura
-	basic_reward_array.append(rest_aura.create_aura())
-	var sharpen_aura:Aura = load("res://z individual pieces/auras/standalone auras/sharpen.gd").new() as Aura
-	basic_reward_array.append(sharpen_aura.create_aura())
-	
-	return basic_reward_array
+	var new_reward_button:RewardButton = reward_button_template.instantiate()
+	reward_buttons_container.add_child(new_reward_button)
+	new_reward_button.assign_reward(reward_to_assign)
+	new_reward_button.reward_button_pressed.connect(_on_reward_button_pressed)
+	new_reward_button.reward_button_hovered.connect(_on_reward_button_hovered)
+	new_reward_button.reward_button_unhovered.connect(_on_reward_button_unhovered)
 
-func update_reward_text_blurb() -> void:
-	if not current_reward_text_blurb:
-		current_reward_text_blurb = basic_reward_text_blurb
-	if not current_title_text_blurb:
-		current_title_text_blurb = basic_title_text_blurb
-	
-	reward_button_label.text = current_reward_text_blurb
-	title_text_label.text = current_title_text_blurb
+func _on_reward_button_pressed(button:RewardButton) -> void:
+	accept_reward(button.reward_assigned)
 
-func _on_reward_button_pressed() -> void:
-	accept_reward(current_reward)
+func _on_reward_button_hovered(button:RewardButton) -> void:
+	for button_child:RewardButton in reward_buttons_container.get_children():
+		button_child.darken()
+	button.undarken()
 
-func _on_basic_reward_button_pressed() -> void:
-	accept_reward(current_basic_reward)
+func _on_reward_button_unhovered(_button:RewardButton) -> void:
+	for button_child:RewardButton in reward_buttons_container.get_children():
+		button_child.undarken()
 
-func accept_reward(reward:Variant) -> void:
-	if reward is Aura:
-		AuraEvents.give_aura_to_player.emit(reward)
-		reward_selected()
-	elif reward is Item:
-		if not InventoryEvents.inventory_is_full:
-			InventoryEvents.send_item_to_inventory.emit(reward)
-			reward_selected()
-	else:
-		push_error("tried to accept a non-aura/item reward: " + reward)
+func accept_reward(reward:Reward) -> void:
+	HudEvents.reward_aiming.emit(reward)
+	clear_reward()
+	title_text_label.text = basic_waiting_to_apply_text_blurb
 
 func _on_skip_button_pressed() -> void:
 	all_done()
@@ -150,26 +107,15 @@ func reward_selected() -> void:
 	all_done()
 
 func all_done() -> void:
-	HudEvents.reward_chosen.emit()
+	HudEvents.reward_choosing_complete.emit()
 
 func clear_reward() -> void:
-	reward_button_label.text = ""
-	reward_button.texture_normal = reward_empty_texture
-	reward_button.tooltip_text = ""
-	reward_button_container.visible = false
+	title_text_label.text = basic_title_text_blurb
 	
-	basic_reward_button_label.text = ""
-	basic_reward_button.texture_normal = reward_empty_texture
-	basic_reward_button.tooltip_text = ""
-	basic_reward_button_container.visible = false
-	
-	or_label.visible = false
-	
-	current_reward_text_blurb = ""
-	current_title_text_blurb = ""
-	
-	skip_button_container.visible = true
-	
-	current_reward = null
-	current_basic_reward = null
 	current_map_tile = null
+	
+	is_a_reward_prepped = false
+	
+	for child:Node in reward_buttons_container.get_children():
+		if child is RewardButton:
+			child.clean_up()

@@ -1,29 +1,26 @@
 extends Item
 
-var has_activated:bool
-var turn_counter:int
-var activate_on_turn:int = 5
-var activation_message:String = "You bellow a terrifying bear's roar, and swipe feverishly."
 
-#var base_health:int = BalanceData.shield_health /2
-var base_health_multiplier:int = 150
-
-func setup_basic_item_data() -> void:
-	item_id = "bears_defence" # "generic_item"
-	item_name = "Defence of the Bear" # "Generic Item"
-	item_sprite = load("res://sprites/cross_necklace.png")
-	extra_tooltip = "On your turn {turns}, violently swipe for your current health total".format({"turns": activate_on_turn,}) # "Generic flavourful description"
-	item_categories = {
-		Categories.item_rarity : Categories.Rarity.MYTHIC,
+#basic setup
+func setup_item_stats() -> void:
+	reward_name = "Defence of the Bear" # "Generic Item"
+	reward_sprite = load("res://sprites/cross_necklace.png")
+	extra_tooltip = "On your turn {turns}, violently swipe for {percent}% of your maximum health".format({"turns": activate_on_turn, "percent": percent_of_hp_to_deal}) # "Generic flavourful description"
+	reward_categories = {
+		Categories.item_rarity : Categories.Rarity.RARE,
 	}
 	
+	multiplicative_stat_dictionary[Stats.fortitude] = BalanceData.rare_multiplicative_stat_budget / 2
+	multiplicative_stat_dictionary[Stats.strength] = BalanceData.rare_multiplicative_stat_budget / 2
 
-#--functions called by parents--
-func setup_item_stats() -> void:
-	setup_basic_item_data()
-	
-	#additive_stat_dictionary[Stats.health] = base_health
-	multiplicative_stat_dictionary[Stats.health] = base_health_multiplier
+
+#custom stuff
+var percent_of_hp_to_deal:int = 100
+var activate_on_turn:int = 4
+var activation_message:String = "{parent_combatant} bellows a terrifying bear's roar, and swipes feverishly."
+
+var has_activated:bool
+var turn_counter:int
 
 func on_combat_start() -> void:
 	has_activated = false
@@ -32,12 +29,12 @@ func on_combat_start() -> void:
 func on_turn_start(_source:Combatant) -> void:
 	turn_counter += 1
 
-func on_attack(source:Combatant, target:Combatant) -> void:
+func on_attack(_source:Combatant, target:Combatant) -> void:
 	if turn_counter >= activate_on_turn and not has_activated:
-		CombatLogEvents.custom_message.emit(activation_message)
 		
-		var damage:int = source.get_damaged_health()
-		target.take_damage(damage)
+		CombatLogEvents.custom_message.emit(activation_message.format({"parent_combatant": parent_combatant.combatant_name}))
+		
+		var damage:int = parent_combatant.current_stats[Stats.health]
+			#note this is max health, could do current with source.get_damaged_health()
+		target.take_damage(damage, parent_combatant)
 		has_activated = true
-
-#--end of functions called by parents--

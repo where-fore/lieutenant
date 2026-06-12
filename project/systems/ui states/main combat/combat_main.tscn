@@ -1,50 +1,30 @@
-[gd_scene load_steps=19 format=3 uid="uid://d4ng5rexbupxm"]
+[gd_scene load_steps=10 format=3 uid="uid://djmb1odrj7pil"]
 
 [ext_resource type="Script" uid="uid://b6t3c758hkbxo" path="res://systems/ui states/main combat/timing_manager.gd" id="1_uqbt6"]
-[ext_resource type="Texture2D" uid="uid://c7a1jxvk522q2" path="res://sprites/border_background.png" id="2_257w6"]
 [ext_resource type="Script" uid="uid://cknq3emhm8aah" path="res://systems/ui states/ui_manager.gd" id="2_ak8mu"]
+[ext_resource type="PackedScene" uid="uid://clrl0tbbkcowa" path="res://ui resources/reusable ui pieces/frame_recessed.tscn" id="2_ee10m"]
 [ext_resource type="PackedScene" uid="uid://c23wtu7mtmkqh" path="res://systems/ui states/death ui/death_ui.tscn" id="4_gx7f6"]
-[ext_resource type="Texture2D" uid="uid://dukmtqmjs4v7y" path="res://sprites/ui_left_bar.png" id="4_lavsf"]
 [ext_resource type="PackedScene" uid="uid://8xcmye81t4or" path="res://systems/ui states/combat ui/combat_ui.tscn" id="7_8s366"]
+[ext_resource type="PackedScene" uid="uid://13a5ybo5k041" path="res://systems/ui states/combat ui/portrait_ui.tscn" id="9_d51yo"]
 [ext_resource type="Texture2D" uid="uid://dpjjrf7ekiuwc" path="res://sprites/box_outer.png" id="9_msc0u"]
 [ext_resource type="PackedScene" uid="uid://ctvt2g0gq4f60" path="res://systems/ui states/reward ui/reward_ui.tscn" id="14_hfile"]
-[ext_resource type="PackedScene" uid="uid://cto8ggdg8cw8x" path="res://systems/item system/inventory_slot.tscn" id="19_i3ysi"]
-[ext_resource type="Script" uid="uid://dfj0skb38br" path="res://systems/item system/inventory_manager.gd" id="20_brhm6"]
-[ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="20_wceja"]
-[ext_resource type="Script" uid="uid://blwvxt1yxrwwk" path="res://z individual pieces/combatants/basic_skeleton.gd" id="23_uqbt6"]
-[ext_resource type="Script" uid="uid://ceied867nmx1x" path="res://z individual pieces/combatants/skeleton_berserker.gd" id="24_ak8mu"]
-[ext_resource type="Script" uid="uid://drid3rj23mqkf" path="res://systems/aura system/aura_manager.gd" id="24_om5vj"]
-[ext_resource type="Script" uid="uid://dst7yxmyesv8f" path="res://z individual pieces/combatants/skeleton_boss.gd" id="25_0vlpx"]
 [ext_resource type="Script" uid="uid://c4226uk3kd0at" path="res://systems/combatant system/combat_manager.gd" id="25_388va"]
-[ext_resource type="Script" uid="uid://dsu5vvri1tu8g" path="res://z individual pieces/combatants/skeleton_lich.gd" id="26_u507o"]
-[ext_resource type="Script" uid="uid://cabr6ntdehdcd" path="res://z individual pieces/combatants/basic_fighter.gd" id="27_s8cxq"]
 
 [node name="TimingManager" type="PanelContainer"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 32.0
-offset_top = -238.0
-offset_right = 384.0
-offset_bottom = -32.0
-grow_vertical = 0
-mouse_filter = 2
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 464.0
+offset_bottom = 254.0
+mouse_filter = 1
 script = ExtResource("1_uqbt6")
 
 [node name="FullGame" type="Panel" parent="."]
 layout_mode = 2
-mouse_filter = 2
+mouse_filter = 1
 
-[node name="UIBackground" type="TextureRect" parent="FullGame"]
+[node name="FrameRecessed" parent="FullGame" instance=ExtResource("2_ee10m")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("2_257w6")
-expand_mode = 1
+mouse_filter = 0
 
 [node name="GameMain" type="MarginContainer" parent="FullGame"]
 layout_mode = 1
@@ -53,118 +33,67 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 script = ExtResource("2_ak8mu")
 
 [node name="Control" type="Control" parent="FullGame/GameMain"]
 layout_mode = 2
-mouse_filter = 2
+mouse_filter = 1
 
 [node name="MainUI" type="Panel" parent="FullGame/GameMain/Control"]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -100.0
-offset_right = 306.0
-offset_bottom = 100.0
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="DeathUI" parent="FullGame/GameMain/Control/MainUI" instance=ExtResource("4_gx7f6")]
-layout_mode = 1
-
-[node name="InventoryManager" type="Node2D" parent="FullGame/GameMain/Control/MainUI"]
-position = Vector2(-304, -79)
-script = ExtResource("20_brhm6")
-
-[node name="CombatUI" parent="FullGame/GameMain/Control/MainUI" instance=ExtResource("7_8s366")]
-visible = false
-layout_mode = 1
-
-[node name="RewardUI" parent="FullGame/GameMain/Control/MainUI" instance=ExtResource("14_hfile")]
-visible = false
-layout_mode = 1
-reward_empty_texture = ExtResource("9_msc0u")
-
-[node name="SideUI" type="Panel" parent="FullGame/GameMain/Control"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -40.0
-offset_top = -100.0
-offset_bottom = 100.0
-grow_horizontal = 0
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="SideBar" type="TextureRect" parent="FullGame/GameMain/Control/SideUI"]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 16.0
-grow_vertical = 2
-texture = ExtResource("4_lavsf")
-stretch_mode = 1
-
-[node name="SideMain" type="MarginContainer" parent="FullGame/GameMain/Control/SideUI"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -32.0
-offset_top = -88.0
-offset_bottom = 88.0
-grow_horizontal = 0
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 2
-theme_override_constants/margin_top = 2
-theme_override_constants/margin_right = 2
-theme_override_constants/margin_bottom = 2
-
-[node name="Inventory" type="GridContainer" parent="FullGame/GameMain/Control/SideUI/SideMain"]
-layout_mode = 2
-
-[node name="Inventory Slot1" parent="FullGame/GameMain/Control/SideUI/SideMain/Inventory" instance=ExtResource("19_i3ysi")]
-layout_mode = 2
-
-[node name="Inventory Slot2" parent="FullGame/GameMain/Control/SideUI/SideMain/Inventory" instance=ExtResource("19_i3ysi")]
-layout_mode = 2
-
-[node name="Inventory Slot3" parent="FullGame/GameMain/Control/SideUI/SideMain/Inventory" instance=ExtResource("19_i3ysi")]
-layout_mode = 2
-
-[node name="Inventory Slot4" parent="FullGame/GameMain/Control/SideUI/SideMain/Inventory" instance=ExtResource("19_i3ysi")]
-layout_mode = 2
-
-[node name="Inventory Slot5" parent="FullGame/GameMain/Control/SideUI/SideMain/Inventory" instance=ExtResource("19_i3ysi")]
-layout_mode = 2
-
-[node name="UIBorder" type="TextureRect" parent="FullGame"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("20_wceja")
-expand_mode = 1
+mouse_filter = 1
 
-[node name="AuraManager" type="Node2D" parent="."]
-script = ExtResource("24_om5vj")
+[node name="PortraitUI" parent="FullGame/GameMain/Control/MainUI" instance=ExtResource("9_d51yo")]
+layout_mode = 1
+anchors_preset = 15
+anchor_top = 0.0
+anchor_right = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CombatUI" parent="FullGame/GameMain/Control/MainUI" instance=ExtResource("7_8s366")]
+layout_mode = 1
+anchors_preset = 15
+anchor_top = 0.0
+anchor_right = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="RewardUI" parent="FullGame/GameMain/Control/MainUI" instance=ExtResource("14_hfile")]
+visible = false
+layout_mode = 1
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+reward_empty_texture = ExtResource("9_msc0u")
+
+[node name="DeathUI" parent="FullGame/GameMain/Control/MainUI" instance=ExtResource("4_gx7f6")]
+visible = false
+layout_mode = 1
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
 
 [node name="CombatManager" type="Node2D" parent="."]
 script = ExtResource("25_388va")
-random_enemy_selection = Array[GDScript]([ExtResource("23_uqbt6"), ExtResource("24_ak8mu"), ExtResource("25_0vlpx"), ExtResource("26_u507o")])
-player_base_script = ExtResource("27_s8cxq")

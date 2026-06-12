@@ -1,48 +1,46 @@
 extends Item
 
-var my_attack:int = BalanceData.sword_damage * 2
 
-var attack_threshold:int = BalanceData.sword_damage * 7
-var buff_aura:Aura
-var buff_aura_name:String = "The Best Defence"
-
-var super_health_multiplier:int = 200
-
-func setup_basic_item_data() -> void:
-	item_id = "warding_pike" # "generic_item"
-	item_name = "Warding Pike" # "Generic Item"
-	item_sprite = load("res://sprites/pike.png")
-	extra_tooltip = "If you have {treshold} or more attack, gain {benefit}% health".format({"treshold": attack_threshold, "benefit": super_health_multiplier}) # "Generic flavourful description"
-	item_categories = {
+func setup_item_stats() -> void:
+	reward_name = "Warding Pike" # "Generic Item"
+	reward_sprite = load("res://sprites/pike.png")
+	extra_tooltip = "If you have {treshold} or more {threshold_stat}, gain {benefit}% {stat}".format({"treshold": stat_threshold, "threshold_stat": stat_to_check_for_threshold, "benefit": threshold_reward_value, "stat": threshold_reward_stat}) # "Generic flavourful description"
+	reward_categories = {
 		Categories.item_rarity : Categories.Rarity.RARE,
 	}
 	
+	additive_stat_dictionary[Stats.strength] = BalanceData.rare_stat_budget / 2
+	additive_stat_dictionary[Stats.agility] = BalanceData.rare_stat_budget / 2
 
-#--functions called by parents--
-func setup_item_stats() -> void:
-	setup_basic_item_data()
-	additive_stat_dictionary[Stats.attack] = my_attack
 
-func on_turn_start(source:Combatant) -> void:
-	if source.current_stats[Stats.attack] >= attack_threshold:
-		if not buff_aura:
+#custom stuff
+var stat_to_check_for_threshold:StringName = Stats.strength
+var stat_threshold:int = BalanceData.common_stat_budget * 10
+var threshold_reward_stat:StringName = Stats.health
+var threshold_reward_value:int = 100
+
+var my_threshold_mega_health:ThresholdBehaviour
+var buff_aura:Aura
+var buff_reward_name:String = "The Best Defence"
+
+func on_equip() -> void:
+	my_threshold_mega_health = create_new_threshold({stat_to_check_for_threshold: stat_threshold})
+	my_threshold_mega_health.check_thresholds()
+
+func threshold_state_changed(threshold:ThresholdBehaviour) -> void:
+	if threshold == my_threshold_mega_health:
+		if threshold.active:
 			apply_my_aura()
-	else: 
-		if buff_aura:
+		elif not threshold.active:
 			clear_my_aura()
 
-func on_combat_end() -> void:
-	if buff_aura: clear_my_aura()
 #--end of functions called by parents--
 
 func apply_my_aura() -> void:
-	buff_aura = Aura.new().create_aura(buff_aura_name, true)
-	buff_aura.duration_type = AuraNames.DurationType.THIS_COMBAT
-	
-	buff_aura.multiplicative_stat_dictionary[Stats.health] = super_health_multiplier
-	
-	AuraEvents.give_aura_to_player.emit(buff_aura)
+	buff_aura = create_new_custom_aura(AuraNames.DurationType.SPECIAL, buff_reward_name)
+	buff_aura.change_multiplicative_aura(threshold_reward_stat, threshold_reward_value, false)
 
 func clear_my_aura() -> void:
-	AuraEvents.remove_aura_from_player.emit(buff_aura)
-	buff_aura = null
+	if buff_aura:
+		remove_from_custom_auras(buff_aura)
+		buff_aura = null

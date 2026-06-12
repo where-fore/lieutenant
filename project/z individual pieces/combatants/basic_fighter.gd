@@ -1,15 +1,13 @@
 extends Combatant
 
 func _init() -> void:
-	combatant_id = "basic_player_fighter" # "generic_enemy"
-	combatant_name = "Our Hero" # "Generic Combatant"
-	combatant_texture = load("res://sprites/player.png")
+	combatant_name = "Enil" # "Generic Combatant"
+	combatant_texture = load("res://sprites/portraits/man_1.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	
-	base_health = BalanceData.player_base_health
-	base_attack = BalanceData.player_base_attack
-
-#you probably want to call this when instantiating it, to scale to something
-func scale_stats(power:int) -> void:
-	scaled_health = base_health + (power * 0) #change 0 to whatever you want
-	scaled_attack = base_attack + (power * 0)
+	starting_stats[Stats.strength] = BalanceData.player_base_strength
+	starting_stats[Stats.agility] = BalanceData.player_base_agility
+	starting_stats[Stats.mind] = BalanceData.player_base_mind
+	starting_stats[Stats.fortitude] = BalanceData.player_base_fortitude
+	
+	#starting_items = [Database.get_reward_by_id("thornmail")]

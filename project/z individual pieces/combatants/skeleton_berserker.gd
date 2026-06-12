@@ -1,7 +1,6 @@
 extends Combatant
 
 func _init() -> void:
-	combatant_id = "skeleton_berserker" # "generic_enemy"
 	combatant_name = "Skeleton Berserker" # "Generic Combatant"
 	combatant_texture = load("res://sprites/enemy_berserker.png")
 	extra_tooltip = "A quick and lethal monster" # "Generic flavourful description"
@@ -9,5 +8,7 @@ func _init() -> void:
 		Categories.enemy_rarity: Categories.Rarity.RARE,
 	}
 	
-	base_health = BalanceData.enemy_base_health / 2
-	base_attack = BalanceData.enemy_base_attack * 3
+	target_attribute = Stats.agility
+	
+	starting_stats[Stats.agility] = BalanceData.enemy_rare_stat_budget
+	starting_stats[Stats.fortitude] = BalanceData.enemy_rare_health_stat_budget

@@ -1,19 +1,18 @@
 extends Node2D
 
-var current_enemy:Combatant
-@export var random_enemy_selection:Array[GDScript]
-
-var current_player:Combatant
 var player_combatant:Combatant
-var player_template_id:String = "basic_player_fighter"
+var player_template_id:String = "basic_fighter"
 
-var combatants:Array[Combatant]
+var player_combatants:Array[Combatant]
+var enemy_combatants:Array[Combatant]
 
-var player_turn:StringName = &"Player"
-var enemy_turn:StringName = &"Enemy"
-var precombat:StringName = &"Precombat"
-var turn:StringName = precombat
-var turn_number:int = 0
+var current_combatant_turn:Combatant:
+	set(value):
+		current_combatant_turn = value
+		if current_combatant_turn:
+			HudEvents.combatant_turn_next.emit(current_combatant_turn)
+
+var round_number:int = 0
 var turn_finished:bool = false
 var player_victorious:bool = false
 var player_lost:bool = false
@@ -31,8 +30,8 @@ var normal_opener_turn_delay:float = 0.8
 var normal_middle_turn_delay:float = 0.8
 var normal_near_end_delay:float = 1.2
 
-var fast_opener_turn_delay:float = 0.3
-var fast_middle_turn_delay:float = 0.15
+var fast_opener_turn_delay:float = 0.15
+var fast_middle_turn_delay:float = 0.05
 var fast_near_end_delay:float = 0.4
 
 
@@ -52,11 +51,19 @@ func _ready() -> void:
 	CombatEvents.step_button_pressed.connect(step_button_pressed)
 	CombatEvents.play_button_pressed.connect(play_button_pressed)
 	CombatEvents.play_fast_button_pressed.connect(play_fast_button_pressed)
+	CombatEvents.party_member_added.connect(create_player_combatant)
 	HudEvents.game_paused.connect(pause_button_pressed)
 	CombatEvents.combat_ongoing = false
+	
+	create_player_combatant(Database.get_combatant_by_id(player_template_id))
+	var add_test_characters:int = 0
+	while add_test_characters > 0:
+		create_player_combatant(Database.get_combatant_by_id("basic_rogue"))
+		add_test_characters -= 1
 
-func create_player_combatant() -> Combatant:
-	return Database.get_combatant_by_id(player_template_id)
+func create_player_combatant(combatant_template:Combatant) -> void:
+	var new_player:Combatant = setup_combatant(combatant_template, true)
+	player_combatants.append(new_player)
 
 func pause_button_pressed() -> void:
 	if CombatEvents.combat_ongoing:
@@ -80,9 +87,7 @@ func play_fast_button_pressed() -> void:
 		proceed()
 
 func proceed() -> void:
-	if turn == precombat:
-		start_turn()
-	elif turn_finished == true:
+	if not current_combatant_turn or turn_finished == true:
 		next_turn()
 
 func set_speed(speed:StringName) -> void:
@@ -99,10 +104,10 @@ func set_speed(speed:StringName) -> void:
 	else:
 		push_error("tried to set combat speed to unrecognized speed: " + str(speed))
 
-func handle_attack(_attacker:Combatant, amount:int, target:Combatant) -> void:
-	target.take_damage(amount)
+func handle_attack(attacker:Combatant, amount:int, target:Combatant) -> void:
+	target.take_damage(amount, attacker)
 
-func finish_turn(_source:Combatant) -> void:
+func finish_turn(source:Combatant) -> void:
 	if CombatEvents.combat_ongoing:
 		
 		if turn_mode != step_mode:
@@ -111,28 +116,46 @@ func finish_turn(_source:Combatant) -> void:
 		turn_finished = true
 		
 		if turn_mode == play_mode:
-			next_turn()
+			next_turn(source)
 	else:
 		turn_finished = true
 		stop_combat()
 
-func next_turn() -> void:
-	if turn == player_turn: turn = enemy_turn
-	elif turn == enemy_turn: turn = player_turn
-	elif turn == precombat: push_error("somehow tried to take the next turn when it's still precombat")
+func next_turn(finished_combatant:Combatant = null) -> void:
+	if finished_combatant and not (finished_combatant == current_combatant_turn):
+		push_error("combat manager thought it was the turn of: " + current_combatant_turn.combatant_name + ", but heard the turn finished signal for: " + finished_combatant.combatant_name)
+		current_combatant_turn = finished_combatant
+	
+	var player_turn:bool = player_combatants.find(current_combatant_turn) != -1 #-1 is .find()'s null return
+	var enemy_turn:bool = enemy_combatants.find(current_combatant_turn) != -1 #-1 is .find()'s null return
+	
+	if player_turn:
+		var finished_index:int = player_combatants.find(current_combatant_turn)
+		if finished_index >= player_combatants.size() - 1:
+			current_combatant_turn = enemy_combatants[0]
+		else:
+			current_combatant_turn = player_combatants[finished_index + 1]
+		
+	elif enemy_turn:
+		var finished_index:int = enemy_combatants.find(current_combatant_turn)
+		if finished_index >= enemy_combatants.size() - 1:
+			round_number += 1
+			current_combatant_turn = player_combatants[0]
+		else:
+			current_combatant_turn = enemy_combatants[finished_index + 1]
+		
+	else:
+		current_combatant_turn = player_combatants[0]
 	
 	if CombatEvents.combat_ongoing:
-		start_turn()
+		turn_finished = false
+		current_combatant_turn.take_turn()
 
 func turn_animation() -> void:
 	if not play_speed:
 		set_speed(speed_normal)
-	
-	var player_near_death:bool = current_player.get_damaged_health() <= 1* current_enemy.current_stats[Stats.attack]
-	var enemy_near_death:bool = current_enemy.get_damaged_health() <= 1* current_player.current_stats[Stats.attack]
-	var near_end:bool = player_near_death or enemy_near_death
-	
-	var slow_opener:bool = turn_number <= 2
+
+	var slow_opener:bool = round_number <= 1
 	var failsafe:float = 0.2
 	
 	var animation_timer:Timer = Timer.new()
@@ -144,11 +167,8 @@ func turn_animation() -> void:
 	if slow_opener:
 		timer_duration = opener_turn_delay
 		
-	elif not slow_opener and not near_end:
+	elif not slow_opener:
 		timer_duration = middle_turn_delay
-	
-	elif near_end:
-		timer_duration = near_end_delay
 	
 	else:
 		push_warning("no turn animation state chosen; using failsafe")
@@ -158,79 +178,73 @@ func turn_animation() -> void:
 	await animation_timer.timeout
 	animation_timer.queue_free()
 
-func handle_perishing_combatant(combatant_who_died:Combatant) -> void:
-	combatant_who_died.on_end_combat_functions()
-	
-	if combatant_who_died.is_the_player:
-		CombatEvents.combat_ongoing = false
+func handle_perishing_combatant(combatant_who_died:Combatant) -> void:	
+	if combatant_who_died.is_a_player:
+		var living_players:int = 0
+		for player:Combatant in player_combatants:
+			if not player.dead: living_players += 1
+		if living_players == 0:
+			CombatEvents.combat_ongoing = false
+			player_victorious = false
 	
 	elif combatant_who_died.is_an_enemy:
-		combatants.erase(combatant_who_died)
-		combatant_who_died.queue_free()
-		
-		var remaining_enemies:int = 0
-		for combatant:Combatant in combatants:
-			if combatant.is_an_enemy: remaining_enemies += 1
-		if remaining_enemies == 0:
+		var living_enemies:int = 0
+		for enemy:Combatant in enemy_combatants:
+			if not enemy.dead: living_enemies += 1
+		if living_enemies == 0:
 			CombatEvents.combat_ongoing = false
 			player_victorious = true
-			
 
 func stop_combat() -> void:
 	CombatEvents.combat_ongoing = false
 	
-	for combatant:Combatant in combatants:
+	for combatant:Combatant in player_combatants + enemy_combatants:
 		combatant.on_end_combat_functions()
 	
-	CombatEvents.combat_finished.emit(combatants)
+	CombatEvents.combat_finished.emit(player_combatants + enemy_combatants)
+	
+	for combatant:Combatant in enemy_combatants:
+		combatant.unsetup()
 	
 	if player_victorious:
 		HudEvents.combat_won.emit()
-	else:
+	elif not player_victorious:
 		HudEvents.combat_lost.emit()
+	else:
+		push_error("combat finished but nobody won?")
+		print_stack()
+	
+	enemy_combatants.clear()
 	
 	player_victorious = false
-	
-	for combatant:Combatant in combatants:
-		if combatant.dead:
-			combatant.queue_free()
-		else:
-			combatant.unsetup()
-	combatants.clear()
 
-func pre_combat(enemy:Combatant) -> void:
-	if not current_player:
-		current_player = setup_combatant(create_player_combatant(), true)
-		add_child(current_player)
-	else:
-		current_player = setup_combatant(current_player, true)
-	combatants.append(current_player)
+func pre_combat(enemies:Array[Combatant]) -> void:
+	HudEvents.combatant_turn_next.emit(player_combatants[0])
 	
-	current_enemy = setup_combatant(enemy)
-	combatants.append(current_enemy)
+	for enemy:Combatant in enemies:
+		enemy = setup_combatant(enemy)
+		enemy_combatants.append(enemy)
+	HudEvents.send_enemy_combatants_to_ui.emit(enemy_combatants)
 	
-	current_player.current_target = current_enemy
-	current_enemy.current_target = current_player
-
-	AuraEvents.initalize_combat_stats.emit()
-	turn = precombat
+	for ally:Combatant in player_combatants:
+		ally.possible_targets = enemy_combatants.duplicate()
+		ally.allies = player_combatants.duplicate()
+		ally.allies.erase(ally)
+	for enemy:Combatant in enemy_combatants:
+		enemy.possible_targets = player_combatants.duplicate()
+		enemy.allies = enemy_combatants.duplicate()
+		enemy.allies.erase(enemy)
+	
+	current_combatant_turn = null
 	CombatEvents.combat_ongoing = false
 	turn_finished = true
 	reset_turn_counter()
 	
-	var players:Array[Combatant] = []
-	var enemies:Array[Combatant] = []
-	for combatant:Combatant in combatants:
-		if combatant.is_the_player:
-			players.append(combatant)
-		if not combatant.is_the_player:
-			enemies.append(combatant)
-	
 	can_start_combat = true
 
-func setup_combatant(new_combatant:Combatant, is_the_player:bool = false) -> Combatant:	
-	if is_the_player: new_combatant.setup(true)
-	else: new_combatant.setup(false)
+func setup_combatant(new_combatant:Combatant, is_a_player:bool = false) -> Combatant:
+	if is_a_player: new_combatant.setup(true)
+	elif not is_a_player: new_combatant.setup(false)
 	
 	return new_combatant
 
@@ -239,31 +253,18 @@ func start_combat() -> void:
 		can_start_combat = false
 		CombatEvents.combat_ongoing = true
 		
-		for combatant:Combatant in combatants:
+		for combatant:Combatant in player_combatants + enemy_combatants:
 			combatant.on_start_combat_functions()
 		
-		CombatEvents.combat_started.emit(combatants)
+		CombatEvents.combat_started.emit(player_combatants + enemy_combatants)
 	
 		#auto start, with last chosen speed
 		match HudEvents.last_combat_speed_chosen:
 			HudEvents.CombatSpeedNames.STEP: step_button_pressed()
 			HudEvents.CombatSpeedNames.PLAY: play_button_pressed()
 			HudEvents.CombatSpeedNames.PLAY_FAST: play_fast_button_pressed()
-			_: push_error("not sure what last combat speed was")
+			_: push_error("not sure what last combat speed was: " + str(HudEvents.last_combat_speed_chosen))
 
-func start_turn() -> void:
-	turn_finished = false
-	turn_number += 1
-	
-	if turn == precombat:
-		turn = player_turn
-		current_player.take_turn()
-		
-	elif turn == player_turn:
-		current_player.take_turn()
-		
-	elif turn == enemy_turn:
-		current_enemy.take_turn()
 
 func reset_turn_counter() -> void:
-	turn_number = 0
+	round_number = 0

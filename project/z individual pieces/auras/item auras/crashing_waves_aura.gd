@@ -6,9 +6,8 @@ var base_attack:int = 0
 var combat_log_message:String = "The tide ebbs."
 
 func setup_basic_aura_data() -> void:
-	aura_id = "crashing_waves_aura" # "generic_aura"
-	aura_name = "Surging Waves" # "Generic aura"
-	aura_sprite = load("res://sprites/hook_sword.png")
+	reward_name = "Surging Waves" # "Generic aura"
+	reward_sprite = load("res://sprites/hook_sword.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	aura_categories = [] # [auraCategories.common_aura]
 
@@ -21,15 +20,8 @@ func setup_aura_stats() -> void:
 	#whatever the aura does
 	additive_stat_dictionary[Stats.attack] = base_attack
 
-func on_attack(_source:Combatant) -> void:
-	additive_stat_dictionary[Stats.attack] += attack_per_turn
-	update_aura()
+func on_attack(_source:Combatant, _target:Combatant) -> void:
+	change_additive_aura(Stats.attack, attack_per_turn, true)
 	CombatLogEvents.custom_message.emit(combat_log_message)
-
-func on_combat_start() -> void:
-	pass
-
-func on_combat_end() -> void:
-	pass
 
 #--end of functions called by aura_base.gd--

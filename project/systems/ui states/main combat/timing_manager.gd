@@ -19,12 +19,7 @@ func _ready() -> void:
 
 
 func show() -> void:
-	self.visible = true
+	HudEvents.show_combat_screen_master.emit()
 
 func hide() -> void:
-	self.visible = false
-
-func on_game_loss() -> void:
-	InventoryEvents.clear_all_to_restart.emit()
-	AuraEvents.restart_game.emit()
-	InventoryEvents.rebuild_all_to_restart.emit()
+	HudEvents.hide_combat_screen_master.emit()

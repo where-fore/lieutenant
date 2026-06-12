@@ -1,226 +1,236 @@
-[gd_scene load_steps=9 format=3 uid="uid://8xcmye81t4or"]
+[gd_scene load_steps=10 format=3 uid="uid://8xcmye81t4or"]
 
 [ext_resource type="Script" uid="uid://df5yy5wtfly3o" path="res://systems/ui states/combat ui/combat_ui_manager.gd" id="1_sf58t"]
-[ext_resource type="PackedScene" uid="uid://drmvwdj1lrerg" path="res://systems/ui states/combat ui/combatant.tscn" id="2_l2vlf"]
-[ext_resource type="Texture2D" uid="uid://jm7ccvlf38y4" path="res://sprites/sword.png" id="3_lj3ej"]
+[ext_resource type="PackedScene" uid="uid://drmvwdj1lrerg" path="res://systems/ui states/combat ui/ui_combatant.tscn" id="2_l2vlf"]
+[ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="2_smlmr"]
 [ext_resource type="Texture2D" uid="uid://ciouurklba10y" path="res://sprites/pause.png" id="4_5g8i8"]
-[ext_resource type="Texture2D" uid="uid://dpjjrf7ekiuwc" path="res://sprites/box_outer.png" id="5_vmh3g"]
 [ext_resource type="Texture2D" uid="uid://dqnu3pxst2rni" path="res://sprites/step.png" id="6_tn4br"]
 [ext_resource type="Texture2D" uid="uid://c428mv3lvximd" path="res://sprites/play.png" id="7_0xnnb"]
+[ext_resource type="PackedScene" uid="uid://grafexed8282" path="res://ui resources/reusable ui pieces/icon_with_border.tscn" id="8_6m8jo"]
 [ext_resource type="Texture2D" uid="uid://r3x8xog6y74m" path="res://sprites/play_fast.png" id="8_k8ebh"]
+[ext_resource type="Texture2D" uid="uid://c1hufcoxbyamt" path="res://sprites/cross_swords.png" id="8_smlmr"]
 
 [node name="CombatUI" type="Control"]
 layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -254.0
+offset_right = 456.0
+offset_bottom = -24.0
+grow_vertical = 0
+mouse_filter = 1
+script = ExtResource("1_sf58t")
+
+[node name="EditBorder" type="TextureRect" parent="."]
+visible = false
+custom_minimum_size = Vector2(448, 238)
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("1_sf58t")
+texture = ExtResource("2_smlmr")
+expand_mode = 2
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
-grow_vertical = 2
 mouse_filter = 2
 
-[node name="Combatants" type="HBoxContainer" parent="Panel"]
+[node name="EnemyCombatants" type="HBoxContainer" parent="Panel"]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 32.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 364.0
+offset_bottom = 81.0
+theme_override_constants/separation = 4
 
-[node name="SpacerLeft" type="Control" parent="Panel/Combatants"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Player" parent="Panel/Combatants" instance=ExtResource("2_l2vlf")]
-custom_minimum_size = Vector2(70, 0)
+[node name="Enemy" parent="Panel/EnemyCombatants" instance=ExtResource("2_l2vlf")]
 layout_mode = 2
 
-[node name="SpacerCenter" type="Control" parent="Panel/Combatants"]
-custom_minimum_size = Vector2(32, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Enemy" parent="Panel/Combatants" instance=ExtResource("2_l2vlf")]
-custom_minimum_size = Vector2(70, 0)
+[node name="Enemy2" parent="Panel/EnemyCombatants" instance=ExtResource("2_l2vlf")]
 layout_mode = 2
 
-[node name="SpacerRight" type="Control" parent="Panel/Combatants"]
+[node name="Enemy3" parent="Panel/EnemyCombatants" instance=ExtResource("2_l2vlf")]
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="CombatButton" type="TextureButton" parent="Panel"]
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -24.0
-offset_top = 16.0
-offset_right = 24.0
-offset_bottom = 64.0
-grow_horizontal = 2
-texture_normal = ExtResource("3_lj3ej")
-stretch_mode = 0
+[node name="Enemy4" parent="Panel/EnemyCombatants" instance=ExtResource("2_l2vlf")]
+layout_mode = 2
 
-[node name="Label2" type="Label" parent="Panel/CombatButton"]
+[node name="CombatControls" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -15.0
-offset_right = 15.0
-offset_bottom = 14.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 6
-text = "begin"
-horizontal_alignment = 1
-
-[node name="Label" type="Label" parent="Panel/CombatButton"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -18.0
-offset_top = -14.0
-offset_right = 18.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 6
-text = "combat"
-horizontal_alignment = 1
-vertical_alignment = 2
-
-[node name="TurnButtons" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 3
+anchors_preset = 1
 anchor_left = 1.0
-anchor_top = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -160.0
-offset_top = -32.0
+offset_left = -56.0
+offset_bottom = 116.0
 grow_horizontal = 0
-grow_vertical = 0
-alignment = 1
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
 
-[node name="Spacer" type="Control" parent="TurnButtons"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CombatControls"]
 layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
 
-[node name="PauseButton" type="TextureButton" parent="TurnButtons"]
+[node name="TurnButtons" type="GridContainer" parent="CombatControls/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="PauseButton" type="Button" parent="CombatControls/VBoxContainer/TurnButtons"]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Pause Combat"
 toggle_mode = true
-texture_normal = ExtResource("4_5g8i8")
-stretch_mode = 5
 
-[node name="TextureRect" type="TextureRect" parent="TurnButtons/PauseButton"]
-visible = false
+[node name="TextureRect" type="TextureRect" parent="CombatControls/VBoxContainer/TurnButtons/PauseButton"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("5_vmh3g")
+texture = ExtResource("4_5g8i8")
 
-[node name="Spacer2" type="Control" parent="TurnButtons"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-
-[node name="StepButton" type="TextureButton" parent="TurnButtons"]
+[node name="StepButton" type="Button" parent="CombatControls/VBoxContainer/TurnButtons"]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Advance 1 Turn"
-texture_normal = ExtResource("6_tn4br")
-stretch_mode = 5
 
-[node name="TextureRect" type="TextureRect" parent="TurnButtons/StepButton"]
-visible = false
+[node name="TextureRect" type="TextureRect" parent="CombatControls/VBoxContainer/TurnButtons/StepButton"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("5_vmh3g")
+texture = ExtResource("6_tn4br")
 
-[node name="Spacer3" type="Control" parent="TurnButtons"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-
-[node name="PlayButton" type="TextureButton" parent="TurnButtons"]
+[node name="PlayButton" type="Button" parent="CombatControls/VBoxContainer/TurnButtons"]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Play Combat"
 toggle_mode = true
-texture_normal = ExtResource("7_0xnnb")
-stretch_mode = 5
 
-[node name="TextureRect" type="TextureRect" parent="TurnButtons/PlayButton"]
-visible = false
+[node name="TextureRect" type="TextureRect" parent="CombatControls/VBoxContainer/TurnButtons/PlayButton"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("5_vmh3g")
+texture = ExtResource("7_0xnnb")
 
-[node name="Spacer4" type="Control" parent="TurnButtons"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-
-[node name="PlayFastButton" type="TextureButton" parent="TurnButtons"]
+[node name="PlayFastButton" type="Button" parent="CombatControls/VBoxContainer/TurnButtons"]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Play Combat, faster!"
 toggle_mode = true
-texture_normal = ExtResource("8_k8ebh")
-stretch_mode = 5
 
-[node name="TextureRect" type="TextureRect" parent="TurnButtons/PlayFastButton"]
-visible = false
+[node name="TextureRect" type="TextureRect" parent="CombatControls/VBoxContainer/TurnButtons/PlayFastButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_k8ebh")
+
+[node name="CombatButton" type="Button" parent="CombatControls/VBoxContainer"]
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CombatControls/VBoxContainer/CombatButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("5_vmh3g")
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
 
-[node name="Spacer5" type="Control" parent="TurnButtons"]
+[node name="IconBorder" parent="CombatControls/VBoxContainer/CombatButton/MarginContainer" instance=ExtResource("8_6m8jo")]
 layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
 
-[connection signal="pressed" from="Panel/CombatButton" to="." method="_on_combat_button_pressed"]
-[connection signal="pressed" from="TurnButtons/PauseButton" to="." method="_on_pause_button_pressed"]
-[connection signal="pressed" from="TurnButtons/StepButton" to="." method="_on_step_button_pressed"]
-[connection signal="pressed" from="TurnButtons/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="TurnButtons/PlayFastButton" to="." method="_on_play_fast_button_pressed"]
+[node name="Icon" parent="CombatControls/VBoxContainer/CombatButton/MarginContainer/IconBorder" index="1"]
+texture = ExtResource("8_smlmr")
+
+[node name="Label2" type="Label" parent="CombatControls/VBoxContainer/CombatButton"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -30.0
+offset_top = 2.0
+offset_right = 30.0
+offset_bottom = 18.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 8
+text = "begin"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="CombatControls/VBoxContainer/CombatButton"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -30.0
+offset_top = -18.0
+offset_right = 30.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 8
+text = "combat"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[connection signal="pressed" from="CombatControls/VBoxContainer/TurnButtons/PauseButton" to="." method="_on_pause_button_pressed"]
+[connection signal="pressed" from="CombatControls/VBoxContainer/TurnButtons/StepButton" to="." method="_on_step_button_pressed"]
+[connection signal="pressed" from="CombatControls/VBoxContainer/TurnButtons/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="CombatControls/VBoxContainer/TurnButtons/PlayFastButton" to="." method="_on_play_fast_button_pressed"]
+[connection signal="pressed" from="CombatControls/VBoxContainer/CombatButton" to="." method="_on_combat_button_pressed"]
+
+[editable path="CombatControls/VBoxContainer/CombatButton/MarginContainer/IconBorder"]

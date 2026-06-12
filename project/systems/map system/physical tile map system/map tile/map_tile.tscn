@@ -1,0 +1,93 @@
+[gd_scene load_steps=10 format=3 uid="uid://dxldisnu3aaoo"]
+
+[ext_resource type="Script" uid="uid://wrg8ncrbysqw" path="res://systems/map system/physical tile map system/map tile/map_tile.gd" id="1_eader"]
+[ext_resource type="SpriteFrames" uid="uid://b77jkv0h1kj7x" path="res://z individual pieces/map tiles/animations/forest_basic.tres" id="2_eader"]
+[ext_resource type="SpriteFrames" uid="uid://bk27qe7w4wwaf" path="res://systems/map system/physical tile map system/hovered.tres" id="3_7cb8i"]
+[ext_resource type="Texture2D" uid="uid://sx580844syvk" path="res://sprites/tile_selection.png" id="4_mrii7"]
+[ext_resource type="Theme" uid="uid://wymfijcko1gs" path="res://ui resources/basic_ui_theme.tres" id="5_etpom"]
+[ext_resource type="Texture2D" uid="uid://cwjj6wggwg4n3" path="res://sprites/18px_border.png" id="6_3q300"]
+[ext_resource type="PackedScene" uid="uid://cplxpgrp4s0m8" path="res://systems/map system/map info panel/map_info_panel.tscn" id="6_qfjoo"]
+[ext_resource type="Texture2D" uid="uid://cbp6sg330uwef" path="res://sprites/player.png" id="7_efpam"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8o1ix"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_3q300")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="MapTile" type="Node2D" node_paths=PackedStringArray("tooltip_holder", "info_panel_container")]
+script = ExtResource("1_eader")
+tooltip_holder = NodePath("Clickbox/Tooltip")
+info_panel_container = NodePath("Clickbox/MapInfo")
+
+[node name="BaseAnimation" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = ExtResource("2_eader")
+frame_progress = 0.490562
+
+[node name="HoverAnimation" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = ExtResource("3_7cb8i")
+frame_progress = 0.6266568
+
+[node name="SelectionAnimation" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_mrii7")
+
+[node name="Timer" type="Timer" parent="SelectionAnimation"]
+
+[node name="Clickbox" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Clickbox"]
+polygon = PackedVector2Array(-23, 23, -18, 7, 10, 7, 5, 23, -24, 23)
+
+[node name="Tooltip" type="PanelContainer" parent="Clickbox"]
+visible = false
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -22.0
+offset_top = -4.0
+offset_right = 10.0
+offset_bottom = 12.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("5_etpom")
+theme_type_variation = &"TooltipPanel"
+
+[node name="Label" type="Label" parent="Clickbox/Tooltip"]
+layout_mode = 2
+theme = ExtResource("5_etpom")
+theme_type_variation = &"TooltipLabel"
+theme_override_font_sizes/font_size = 4
+text = "too far"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MapInfo" parent="Clickbox" instance=ExtResource("6_qfjoo")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -32.0
+offset_top = -104.0
+offset_right = 20.0
+grow_horizontal = 2
+
+[node name="PlayerIndicator" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(-8, 8)
+sprite_frames = SubResource("SpriteFrames_8o1ix")
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerIndicator"]
+texture = ExtResource("7_efpam")
+
+[connection signal="timeout" from="SelectionAnimation/Timer" to="." method="_on_timer_timeout"]
+[connection signal="input_event" from="Clickbox" to="." method="_on_area_2d_input_event"]
+[connection signal="mouse_entered" from="Clickbox" to="." method="_on_clickbox_mouse_entered"]
+[connection signal="mouse_exited" from="Clickbox" to="." method="_on_clickbox_mouse_exited"]

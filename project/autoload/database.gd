@@ -1,17 +1,28 @@
 extends Node
 
-var all_items:Dictionary[String, Item]
+var all_rewards:Dictionary[String, Reward]
 var all_combatants:Dictionary[String, Combatant]
 const ITEMS_PATH:String = "res://z individual pieces/items/all items/"
+const AURAS_PATH:String = "res://z individual pieces/auras/standalone auras/"
 const COMBATANTS_PATH:String = "res://z individual pieces/combatants/"
 
 func _ready() -> void:
-	populate_item_database(read_database_from_folder(ITEMS_PATH))
+	populate_reward_database(read_database_from_folder(ITEMS_PATH))
+	populate_reward_database(read_database_from_folder(AURAS_PATH))
 	populate_combatant_database(read_database_from_folder(COMBATANTS_PATH))
 
-func get_item_by_id(item_id:String) -> Item:
-	var item:Item = all_items.get(item_id)
-	return item.duplicate()
+func get_reward_by_id(reward_id:String) -> Reward:
+	var reward:Reward = all_rewards.get(reward_id)
+	if not reward: push_error("no reward found with id: " + reward_id)
+	
+	var reward_to_return:Reward
+	if reward is Item:
+		reward_to_return = reward.duplicate()
+	elif reward is Aura:
+		reward_to_return = reward.create_aura()
+	else: push_error("not handling non-item-and-non-aura rewards for: ", reward_id)
+		
+	return reward_to_return
 
 func get_combatant_by_id(combatant_id:String) -> Combatant:
 	var data:Combatant = all_combatants.get(combatant_id)
@@ -25,14 +36,19 @@ func get_combatant_by_id(combatant_id:String) -> Combatant:
 #but then the dictionaries are static on game start, can't do something like adjusting the rarity
 #on the fly when you see the oracle or something
 #also, note they are creating duplicates of every item whenever you ask for any item of the same rarity
-func get_items_by_category(category_title:StringName, category_names:Array[int]) -> Array[Item]:
-	var items_to_return:Array[Item]
-	for item:Item in all_items.values():
-		if item.item_categories.has(category_title):
+func get_rewards_by_category(category_title:StringName, category_names:Array[int]) -> Array[Reward]:
+	var rewards_to_return:Array[Reward]
+	for reward:Reward in all_rewards.values():
+		if reward.reward_categories.has(category_title):
 			for category_header:int in category_names:
-				if item.item_categories[category_title] == category_header:
-					items_to_return.append(item.duplicate())
-	return items_to_return
+				if reward.reward_categories[category_title] == category_header:
+					if reward is Item: 
+						rewards_to_return.append(reward.duplicate())
+					elif reward is Aura:
+						rewards_to_return.append(reward.create_aura())
+					else: push_error("not handling non-item-and-non-aura rewards")
+
+	return rewards_to_return
 
 func get_combatants_by_category(category_title:StringName, category_names:Array[int]) -> Array[Combatant]:
 	var combatants_to_return:Array[Combatant]
@@ -43,16 +59,17 @@ func get_combatants_by_category(category_title:StringName, category_names:Array[
 					combatants_to_return.append(data.duplicate())
 	return combatants_to_return
 
-func populate_item_database(resource_array:Array[Resource]) -> void:
+func populate_reward_database(resource_array:Array[Resource]) -> void:
 	for instantiated_script:Resource in resource_array:
-		var item_instance:Item = instantiated_script.new()
-		all_items[item_instance.item_id] = item_instance
-		#print_debug("Loaded item: ", item_instance.item_id)
+		var reward_instance:Reward = instantiated_script.new()
+		reward_instance.resource_path_id = instantiated_script.resource_path.get_file().get_basename()
+		all_rewards[reward_instance.resource_path_id] = reward_instance
 
 func populate_combatant_database(resource_array:Array[Resource]) -> void:
 	for instantiated_script:Resource in resource_array:
 		var combatant_data_instance:Combatant = instantiated_script.new()
-		all_combatants[combatant_data_instance.combatant_id] = combatant_data_instance
+		combatant_data_instance.resource_path_id = instantiated_script.resource_path.get_file().get_basename()
+		all_combatants[combatant_data_instance.resource_path_id] = combatant_data_instance
 		#print_debug("read and created combatant to database: " + combatant_data_instance.combatant_id)
 
 func read_database_from_folder(folder_path:String) -> Array[Resource]:

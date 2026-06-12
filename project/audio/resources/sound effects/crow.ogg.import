@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dgj2bte2ylbaw"
+path="res://.godot/imported/crow.ogg-1a36753df6220deb731f2d69b9f5f693.oggvorbisstr"
+
+[deps]
+
+source_file="res://audio/resources/sound effects/crow.ogg"
+dest_files=["res://.godot/imported/crow.ogg-1a36753df6220deb731f2d69b9f5f693.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

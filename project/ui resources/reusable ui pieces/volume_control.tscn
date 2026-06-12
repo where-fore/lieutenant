@@ -1,0 +1,90 @@
+[gd_scene load_steps=5 format=3 uid="uid://ca2ocpb1uxw4n"]
+
+[ext_resource type="Script" uid="uid://dl6qavawyrb44" path="res://ui resources/reusable ui pieces/volume_control.gd" id="1_33hdb"]
+[ext_resource type="Texture2D" uid="uid://bd2qhbcgr5aaq" path="res://sprites/casette.png" id="1_egfm0"]
+[ext_resource type="Texture2D" uid="uid://bdevnym35h2yd" path="res://sprites/red_x.png" id="1_pku32"]
+[ext_resource type="Texture2D" uid="uid://cq6dr4bnpi0wp" path="res://sprites/shuffle.png" id="2_pku32"]
+
+[node name="VolumeControl" type="HBoxContainer" node_paths=PackedStringArray("red_x", "slider")]
+custom_minimum_size = Vector2(32, 32)
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -16.0
+offset_right = 242.0
+offset_bottom = 16.0
+grow_vertical = 2
+size_flags_horizontal = 0
+script = ExtResource("1_33hdb")
+red_x = NodePath("LabelMuteButton/TextureRect")
+slider = NodePath("VolumeSlider")
+
+[node name="LabelMuteButton" type="Button" parent="."]
+custom_minimum_size = Vector2(56, 32)
+layout_mode = 2
+theme_override_font_sizes/font_size = 6
+toggle_mode = true
+text = "Music"
+
+[node name="TextureRect" type="TextureRect" parent="LabelMuteButton"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+tooltip_text = "Muted"
+texture = ExtResource("1_pku32")
+
+[node name="VolumeSlider" type="HSlider" parent="."]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "Music Volume"
+value = 60.0
+
+[node name="GenreButton" type="Button" parent="."]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "Swap Genres"
+
+[node name="TextureRect" type="TextureRect" parent="GenreButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_egfm0")
+
+[node name="ShuffleIcon" type="Button" parent="."]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "Shuffle Playlist"
+
+[node name="TextureRect" type="TextureRect" parent="ShuffleIcon"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_pku32")
+
+[connection signal="pressed" from="LabelMuteButton" to="." method="_on_label_mute_button_pressed"]
+[connection signal="value_changed" from="VolumeSlider" to="." method="_on_volume_slider_value_changed"]
+[connection signal="pressed" from="GenreButton" to="." method="_on_genre_icon_pressed"]
+[connection signal="pressed" from="ShuffleIcon" to="." method="_on_shuffle_icon_pressed"]

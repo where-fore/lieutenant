@@ -1,7 +1,6 @@
 extends Combatant
 
 func _init() -> void:
-	combatant_id = "skeleton_lich" # "generic_enemy"
 	combatant_name = "Skeleton Lich" # "Generic Combatant"
 	combatant_texture = load("res://sprites/enemy_lich.png")
 	extra_tooltip = "A hardy pile of bones" # "Generic flavourful description"
@@ -9,5 +8,8 @@ func _init() -> void:
 		Categories.enemy_rarity: Categories.Rarity.RARE,
 	}
 	
-	base_health = BalanceData.enemy_base_health * 3
-	base_attack = BalanceData.enemy_base_attack * 1/2
+	target_attribute = Stats.mind
+	
+	starting_stats[Stats.mind] = BalanceData.enemy_rare_stat_budget * 2 / 3
+	starting_stats[Stats.strength] = BalanceData.enemy_rare_stat_budget * 1 / 3
+	starting_stats[Stats.fortitude] = BalanceData.enemy_rare_health_stat_budget * 2
