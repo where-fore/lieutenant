@@ -13,6 +13,8 @@ func _init() -> void:
 		Categories.enemy_rarity: Categories.Rarity.MYTHIC,
 	}
 	
+	target_attribute = Stats.strength
+	
 	starting_stats[Stats.strength] = BalanceData.enemy_mythic_stat_budget / 2
 	starting_stats[Stats.fortitude] = BalanceData.enemy_mythic_health_stat_budget
 

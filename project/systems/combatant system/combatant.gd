@@ -333,13 +333,15 @@ func get_tooltip() -> String:
 	if is_an_enemy:
 		var to_add_target:String
 		if targeting_behaviour_function or targeting_behaviour_preset:
-			to_add_target = "Targets: Special"
+			if targeting_behaviour_preset == TargetingPreset.RANDOM:
+				to_add_target = "Targets: Randomly"
+			else:
+				to_add_target = "Targets: Special"
 		else:
 			var to_add_targeting:Array[String] = ["Targets:"]
 			
 			if target_highest_of_attribute: to_add_targeting.append("Highest")
 			else: to_add_targeting.append("Lowest")
-			
 			to_add_targeting.append(target_attribute)
 			
 			to_add_target = " ".join(to_add_targeting)

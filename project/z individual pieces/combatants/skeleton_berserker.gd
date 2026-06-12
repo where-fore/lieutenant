@@ -8,5 +8,7 @@ func _init() -> void:
 		Categories.enemy_rarity: Categories.Rarity.RARE,
 	}
 	
+	target_attribute = Stats.agility
+	
 	starting_stats[Stats.agility] = BalanceData.enemy_rare_stat_budget
 	starting_stats[Stats.fortitude] = BalanceData.enemy_rare_health_stat_budget

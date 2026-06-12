@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dk7qdyba0te4d" path="res://systems/ui states/stats ui/stats ui pieces/stat_panel.tscn" id="4_mknp8"]
 [ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="5_mknp8"]
 [ext_resource type="Texture2D" uid="uid://cndegwmgs0boq" path="res://sprites/sword_basic.png" id="6_827qd"]
-[ext_resource type="PackedScene" uid="uid://cftv6xngx4kbv" path="res://z individual pieces/combatants/display_stat.tscn" id="7_eiq13"]
+[ext_resource type="PackedScene" uid="uid://cftv6xngx4kbv" path="res://systems/ui states/stats ui/display_stat.tscn" id="7_eiq13"]
 [ext_resource type="Texture2D" uid="uid://navrntgc8woy" path="res://sprites/fortitude.png" id="8_bktrq"]
 [ext_resource type="Texture2D" uid="uid://b806345r0gqph" path="res://sprites/strength.png" id="8_flbes"]
 [ext_resource type="Texture2D" uid="uid://dpviso477bmgk" path="res://sprites/dexterity.png" id="8_h3ji0"]

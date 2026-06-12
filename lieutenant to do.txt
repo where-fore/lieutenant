@@ -33,6 +33,8 @@ need to do for release:
 	
 	ui panels (inventory, combat log) can have a close button in the top right
 	
+	some more interesting enemies - have some multi combats with weak adds, enrage effects, necromancer who benefits when anyone dies; enemies who have double damage first two turns; enemies who deal damage to all; enemies who take certain stats or percents etc
+	
 	items to add:
 		intelligence items
 		fortitude items
