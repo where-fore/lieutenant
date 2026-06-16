@@ -3,6 +3,7 @@ extends Node
 func _ready() -> void:
 	@warning_ignore("untyped_declaration") #programmer short hand for yeeting all the arguments
 	CombatEvents.party_member_added.connect(func(_unused_data) -> void: increase_enemy_stat_budget())
+	TimingEvents.restarting_game.connect(reset_enemy_stat_budget)
 
 var common_stat_budget:int = 40
 var rare_stat_budget:int = common_stat_budget * 3 / 2
@@ -19,11 +20,16 @@ var player_base_fortitude:int = common_stat_budget
 var flower_basic_stat:int = common_stat_budget
 var flower_basic_split_stat:int = flower_basic_stat / 2
 
-var enemy_stat_scaling_per_day:float = 1.20
-var enemy_normal_stat_budget:int = common_stat_budget * 3 / 2
+var _base_enemy_stat_scaling_per_day_base:float = 1.20
+var _base_enemy_normal_stat_budget:int = common_stat_budget * 3 / 2
+var enemy_stat_scaling_per_day:float = _base_enemy_stat_scaling_per_day_base
+var enemy_normal_stat_budget:int = _base_enemy_normal_stat_budget
 func increase_enemy_stat_budget() -> void:
 	enemy_normal_stat_budget *= 2
 	enemy_stat_scaling_per_day += 0.15
+func reset_enemy_stat_budget() -> void:
+	enemy_stat_scaling_per_day = _base_enemy_stat_scaling_per_day_base
+	enemy_normal_stat_budget = _base_enemy_normal_stat_budget
 
 var enemy_rare_stat_budget:int = enemy_normal_stat_budget * 2
 var enemy_mythic_stat_budget:int = enemy_normal_stat_budget * 2

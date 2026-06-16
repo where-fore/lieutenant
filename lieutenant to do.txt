@@ -388,14 +388,14 @@ entropy roll system:
 	entropy:Dictionary[StringName, int] = {Stats.crit_chance = 20}
 	maybe Random.Entropy as a dictionary of variant, dictionary  - a reference to a source and its entropy dictionary. when an entity wants a random value, it calls Random.roll(self, roll_name, 20) and to roll a 20% chance under roll_name
 
-add combat failsafe
-	if both combatants can't kill each other, it goes forever
-	(like oaken tower/battle royales, hp damage if no winner)
-	maybe a rout/concede button
-	maybe a trigger on turn X that calls a stalemate
+combat failsafe overhaul
 	depending on story event, it maybe shouldn't be a loss
 		when plundering a castle for loot, stalemate = loss
 		when defening a town from monsters, stalemate = victory, for now?
+	currently it's fairly dumb and just 150 turns, would be nice if it noticed hp bars weren't moving
+		or maybe there's just a concede button, but feels undiegetic
+	maybe you lose 10% stats every 100 turns, but enemies don't?
+		make sure this is a global stat multiplier so you die at 1000 turns, instead of being outscaled
 
 map overhaul:	
 	some sort of fog of war type thing, instead of the darkened tiles
@@ -406,11 +406,6 @@ map overhaul:
 	
 	how to do the wall? big tile? actual gap in MapTiles?
 		feeling a gap in tiles. spawner just creates a sprite thing with width = 2x tile_width
-	
-	not sure about map tooltips, the map info panel. it popping up over the map sounds terrible, and it popping up over the right hand side also sounds bad
-		what do i need this info for? what do i want to show? if we're doing ftl-like exploration, no need to plan ahead
-		in my playtests it seems more fun to build your character up, than to counter specific enemies, so no need for map info (except for rewards)
-			so designate tiles as "magic/chest/event/etc" rewards? codify types of rewards between active items, passive stat items, rare defining items, etc
 
 	add in parallax
 	
@@ -419,7 +414,8 @@ map overhaul:
 	
 	have the spawner take a ChapterMapData object
 		has fields for columns, special things to put in special locations (like wall at end or start) etc
-		would be nice to not have this spaghetti function as the spawner, it is a bit unwieldy. not sure what i'd replace it with
+		would be nice to not have this spaghetti function as the spawner, it is a bit unwieldy. not sure how to replace it
+			just individual spaghetti code files, for each ChapterMapData? at least it's contained?
 -
 
 
@@ -518,8 +514,6 @@ big ui overhaul
 		
 		stat screen showing the math to get your current stats?
 	
-	add mouse blocks or something, so you can't interact with the map while in combat
-	
 	make sure labels won't overflow with long numbers. set their clipping to true, and maybe if clipped add a tooltip?
 	
 	would be nice if i just had a "all stats" dump on a ui page, which was just current_stats.values : current_stats.keys
@@ -538,14 +532,14 @@ https://alkakrab.itch.io/snowfall-ambient-music-pack
 put the endless battler back in after the boss is beaten?
 	at least for now?
 
-could put a +-10% in the scale stats to power function
+could put a +-10% in the scale stats to power function, so enemies have a bit of variety (don't know you're going to beat a berserker before you fight it)
+	probably should just have more enemies for variety
 
 combat log could have a collection of colours, and can pull from that when emitting a custom message
 	instead of hard coding into functions
 	maybe like StatNames, TextColours.Enemy is red
 
 a debug console: spawn items, enable whole map, dump item database of rarity, increase stats. maybe even hotkey some of these
-	can also just do lil bandaids, like "should start with" in item fields
 
 a button on the map info panel to hide it immediately would feel good
 	maybe a slide bar handle?
@@ -643,7 +637,7 @@ i worry about on_damage_taken loops
 		
 	damage_taken triggers on taking 0 damage
 		not sure if i want this, i suppose not? based on wording
-		i may want on_attacked as a similar trigger, that doesn't go crazy?
+		i may want on_i_am_attacked as a similar trigger, that doesn't go crazy?
 			
 item custom auras (like enrage_sword) currently hook onto expiration signals, maybe they should be a weakref?
 
@@ -667,7 +661,7 @@ enemy tooltips on map panel (or elsewhere) show all their stats, even benign thi
 thresholdBehaviour requires you to create_threshold, then on a second line check_threshold, to account for a race condition
 	 i don't really like this, it'd be nice if it was built in
 
-time of day is a global script, not tied to the game instance
+time of day is a global script, not tied to the game instance. i like it being able to be referenced by anything, but it really does belong in the game world codespace, not the global space
 
 the ui is currently being managed by main.gd, which i don't want main.gd to do. i want the time of day actor to be indepedent
 	but i couldn't figure out who to parent it to - not the combat, since you care outside combat
