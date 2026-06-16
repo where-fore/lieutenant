@@ -149,8 +149,9 @@ func check_if_dead_now() -> void:
 		perish()
 
 func perish_from_exhaustion() -> void:
-	CombatLogEvents.custom_message.emit(str(combatant_name, " has fought too long, and succumbs to the exhaustion of combat."))
-	perish()
+	if not dead:
+		CombatLogEvents.custom_message.emit(str(combatant_name, " has fought too long, and succumbs to the exhaustion of combat."))
+		perish()
 
 func perish() -> void:
 	dead = true
@@ -414,7 +415,8 @@ func on_start_turn_functions() -> void:
 	item_manager.on_start_turn()
 	aura_manager.on_start_turn()
 	
-	get_shield_from_int()
+	if not dead:
+		get_shield_from_int()
 	
 	CombatEvents.combatant_turn_started.emit(self)
 

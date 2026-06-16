@@ -11,22 +11,8 @@ some sort of stat splitting function in BalanceData
 	
 	actually this function probably has to be in ItemBase, since it's called by the items and sets their properties, but can reference multipliers/factors in BalanceData
 
-maybe uncommon enemies should give multiple choices of basic rewards, or multiple rounds of basic rewards?
-
-aura tooltips weren't updated like item tooltips were
-	maybe they should call the same function? or mostly the same?
-	probably deal with that when i clean up tooltips for real
-
 dead characters pile up shield, looks weird and isn't correct
 
-flowers say duration:permanent for some reason
-	not clear they are an aura, or what that means
-
-aribald is attacking first, then enemy, then enil
-
-"full log" lags the hell out of the game. give it some upper limit
-
-i think arlaeus somehow never died, not sure why
 
 --------------------------------------------------------
 work to do
@@ -81,6 +67,13 @@ need to do for release:
 	
 
 recent playtest:
+
+	stats are still weird, strength dex and attack? why does enrage sword give attack? why does strength and fortitude give hp?
+		strength = damage, dex = damage, fortitude = hp
+		for now strength and dex can be identical, later add a secondary scaling to them? but no hp
+			so enrage sword can give str, which is either synergistic with your str scaler, or maybe shifts aggro with your mind build? more flexible, instead of basic +attack
+			also decouples hp and damage
+		need a way to have hp generally increase, more fortitude items? fortitude increases every day? all char fortitude increases every reward screen?
 
 	maybe some sort of mind tutorial is in order? at least get an item with +mind before encountering an enemy with mind?
 	
@@ -172,7 +165,16 @@ recent playtest:
 	-> doubled it for now
 	
 	
+	--
+	couldn't recreate
+	--
 	
+	playtest after changing all rare stats to 0. mega healing enil build
+	
+		aribald is attacking first, then enemy, then enil. no idea here
+
+		i think arlaeus somehow never died, not sure why - maybe mega healing ring carried over? maybe enil was healing while dead?
+		
 	
 	--
 would be good:
@@ -192,6 +194,8 @@ would be good:
 	
 	backgrounds for combat - normal, elite, boss, event
 -
+
+reward screen can have a few rounds of rewards? you see 3 basics, then 3 rares?
 
 database printing for ease of pool viewing: have a lil script in the database autoload which can print which items are in which category. maybe even categorize items as "dex build" or "str build" manually for my own sorting system, or maybe sort by additive dictionary has Stats.strength?
 
