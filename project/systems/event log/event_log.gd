@@ -2,9 +2,10 @@ extends ScrollContainer
 
 @onready var label:RichTextLabel = $MarginContainer/Label
 var linebreak:String = "\n"
-var full_log_history:Array[String]
 var short_log_history:Array[String]
 var short_log_max_size:int = 100
+var longer_log_history:Array[String]
+var longer_log_max_size:int = 2000
 
 #these probably should have a space at the start, and a period at the end
 var death_messages:Array[String] = [
@@ -176,15 +177,18 @@ func print_custom_message(message:String) -> void:
 	append_to_label(message)
 
 func show_full_log() -> void:
-	create_text_paragraph(full_log_history)
+	create_text_paragraph(longer_log_history)
 	_scroll_to_the_bottom()
 
 func append_to_label(text_to_append:String) -> void:
-	full_log_history.append(text_to_append)
+	longer_log_history.append(text_to_append)
 	short_log_history.append(text_to_append)
 	
-	while short_log_history.size() > short_log_max_size:
-		short_log_history.remove_at(0)
+	if short_log_history.size() > short_log_max_size:
+		short_log_history = short_log_history.slice(-short_log_max_size)
+	
+	if longer_log_history.size() > longer_log_max_size:
+		longer_log_history = longer_log_history.slice(-longer_log_max_size)
 	
 	create_text_paragraph(short_log_history)
 	
