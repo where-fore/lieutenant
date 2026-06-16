@@ -118,7 +118,3 @@ func swap_to_info_panel(tab_pressed:StatTab) -> void:
 func swap_to_party_panel(_unused_arg:Variant) -> void:
 	for panel:InfoPanel in info_panels.values():
 		panel.visible = false
-
-
-func _on_close_button_pressed() -> void:
-	visible = false

@@ -99,9 +99,11 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_inventory_menu_button_pressed() -> void:
 	stats_ui_container.visible = !stats_ui_container.visible
+	combat_log_container.visible = false
 
 func _on_combat_log_button_pressed() -> void:
 	combat_log_container.visible = !combat_log_container.visible
+	stats_ui_container.visible = false
 
 func _on_full_log_button_pressed() -> void:
 	combat_log_object.show_full_log()
@@ -131,7 +133,7 @@ func _on_time_button_pressed() -> void:
 
 
 func _on_stats_ui_close_button_pressed() -> void:
-	_on_inventory_menu_button_pressed()
+	stats_ui_container.visible = false
 
 func _on_combat_log_close_button_pressed() -> void:
-	_on_combat_log_button_pressed()
+	combat_log_container.visible = false

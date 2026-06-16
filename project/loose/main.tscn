@@ -561,6 +561,7 @@ offset_left = -18.0
 offset_bottom = 18.0
 
 [node name="CombatLogContainer" type="Control" parent="MainGame/MarginContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Frame" parent="MainGame/MarginContainer/CombatLogContainer" instance=ExtResource("31_rjmfi")]

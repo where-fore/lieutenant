@@ -3,13 +3,8 @@ working notes
 --------------------------------------------------------
 
 
-ui panels (inventory, combat log) need a close button in the top right
 
 
-multiple necklaces of retribution dont stack
-
-probably should pull rare item stat budget down to near 0, and buff flower stats, and offer rare rewards everywhere
-	want you to get some cool interesting items (even if they aren't good, like warding pike threshold) early, something to bite into - and then you have to make stat choices too
 
 
 --------------------------------------------------------
@@ -22,6 +17,9 @@ need to do for release:
 	im not sure why common items exist, seems like i want "cool unique powerful items" or flat stats, which are the flowers. why do common items exist? more powerful flowers maybe? why?
 		if i remove them, i can put percent scaling on the rares that want percent scaling
 		is that too much for a one-size-fits-all solution? maybe some rares just give pog percent scaling, some reward high stats, and flowers give flat stats...
+		
+		can pull rare item stat budget down to near 0, and buff flower stats, and offer rare rewards everywhere
+			want you to get some cool interesting items early (even if they aren't good, like warding pike threshold), something to bite into - and then you have to make stat choices too
 	
 	get the lethality working about right - enemies kill 2ish combatants, then perish. 2-3 turns for dying and 3-6 turns for living guys
 		can wait for items to be in to balance
