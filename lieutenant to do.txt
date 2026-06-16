@@ -3,6 +3,7 @@ working notes
 --------------------------------------------------------
 
 
+ui panels (inventory, combat log) need a close button in the top right
 
 
 multiple necklaces of retribution dont stack
@@ -19,6 +20,8 @@ need to do for release:
 	tune game length according to interest curves, tutorials etc
 		
 	im not sure why common items exist, seems like i want "cool unique powerful items" or flat stats, which are the flowers. why do common items exist? more powerful flowers maybe? why?
+		if i remove them, i can put percent scaling on the rares that want percent scaling
+		is that too much for a one-size-fits-all solution? maybe some rares just give pog percent scaling, some reward high stats, and flowers give flat stats...
 	
 	get the lethality working about right - enemies kill 2ish combatants, then perish. 2-3 turns for dying and 3-6 turns for living guys
 		can wait for items to be in to balance
@@ -36,8 +39,6 @@ need to do for release:
 	map info popups are z-index 1, means they pop up over everything - notably the inventory/combat log menu being opened
 		this was done so other map tiles don't render over them
 		this makes me think i should have specific layers or z-indexes for every ui piece. lots of manual work?
-	
-	ui panels (inventory, combat log) can have a close button in the top right
 	
 	some more interesting enemies - have some multi combats with weak adds, enrage effects, necromancer who benefits when anyone dies; enemies who have double damage first two turns; enemies who deal damage to all; enemies who take certain stats or percents etc
 	
@@ -62,13 +63,23 @@ need to do for release:
 
 recent playtest:
 
+	maybe some sort of mind tutorial is in order? at least get an item with +mind before encountering an enemy with mind?
+	
+	dead characters can die from exhaustion, barking to combat log
+		probably remove the stamina check from dead characters? maybe just the combat log bark?
+		
+	sometimes you can lose the first "hard" fight, or win so handily you don't even need the companion
+		ideally add a little stun to the enemy? when they kill an enemy, they stun for a bit? but are extra lethal? that's a rare i want anyways
+		and ideally i refactor that tile to affect the enemy, instead of having a copy pasted enemy with lower stats
+	
+	scenarios are a bit dry - too much text, too little going on
+		would be nice to get portraits in? or at least a background
+		type writer effect, with sound?
+		pare down the text, they are a bit too wordy
+	
 	i liked the day-night cycle, if a strong enemy is there i want to try to path to a few rewards before it
 		it isn't really explained that well
-
-	i didn't like the map info panel swapping sides, i was just getting used to the controls and it swapped
-		probably doesn't really need to exist, just a tooltip popup on the map tile with the enemy?
-			click away to dismiss it
-	-> put the map info as a tooltip over the tiles themselves, instead of edge anchored
+		maybe we need map chunks again, so there's some rares and some non-rares, instead of full randomness.. or maybe just an entropy randomness solves this problem without needing chunks?
 
 	i like the spear threshold - it felt cool to try to go for, and great to achieve
 		maybe i should more "miniquest" items at the start, like my original 3-rare-choice
@@ -84,10 +95,19 @@ recent playtest:
 		wanting to put the scaling damage on my lower stat guys was cool
 		high damage meaning dying fast feels counterproductive - i want to stack the multiplicative damage on my dude with high attack, but he dies super fast. fortitude feels like a trap because it stems the bleeding but doesn't help enough
 
-	mind felt completely worthless
+	mind felt completely worthless as a player
 		didn't really put any items in for it i suppose
 		also don't have a companion for it?
-
+	
+	i didn't really get to do any of the death effect stuff
+		there isn't really any in the game right now anyways
+		but enemies were too lethal and low hp for that - maybe one character dies and the monster immediately dies
+			maybe the knights both starting with a revenger is too much? maybe one should have a healing thing?
+	
+	---
+	--addressed--
+	---
+	
 	not enough cool items, mostly stat flowers
 		that was my intention, but it didn't really feel that great. maybe rare item rewards are just as sparse, but provide a selection of a few? i felt like i wasn't really making tons of choices or seeing many
 	-> added multiple rewards, and bumped up spawn rate of rare enemies
@@ -95,11 +115,11 @@ recent playtest:
 	i completely skipped one companion
 		wasn't required for balance or story
 	-> adjusted enemies tougher. story wise should be solved when reorganizing the first path
-	
-	i didn't really get to do any of the death effect stuff
-		there isn't really any in the game right now anyways
-		but enemies were too lethal and low hp for that - maybe one character dies and the monster immediately dies
-			maybe the knights both starting with a revenger is too much? maybe one should have a healing thing?
+
+	i didn't like the map info panel swapping sides, i was just getting used to the controls and it swapped
+		probably doesn't really need to exist, just a tooltip popup on the map tile with the enemy?
+			click away to dismiss it
+	-> put the map info as a tooltip over the tiles themselves, instead of edge anchored
 	
 	map at start is still overwhelming, especially as i start with fewer available tiles. i would love a little fog of war or camera zoom at the start of the game
 	-> made the intro a lil tunnel with a house and stuff, it's a bit nicer for now
@@ -115,20 +135,6 @@ recent playtest:
 	mind shield isn't in combat log, no indication in game of why the lich was invulnerable
 		maybe in the damage taken, show damage absorbed by shield
 	-> added shield bark for damage shielded. no indication of why shield was gained
-	
-	maybe some sort of mind tutorial is in order? at least get an item with +mind before encountering an enemy with mind?
-	
-	dead characters can die from exhaustion, barking to combat log
-		probably remove the stamina check from dead characters? maybe just the combat log bark?
-		
-	sometimes you can lose the first "hard" fight, or win so handily you don't even need the companion
-		ideally add a little stun to the enemy? when they kill an enemy, they stun for a bit? but are extra lethal? that's a rare i want anyways
-		and ideally i refactor that tile to affect the enemy, instead of having a copy pasted enemy with lower stats
-	
-	scenarios are a bit dry - too much text, too little going on
-		would be nice to get portraits in? or at least a background
-		type writer effect, with sound?
-		pare down the text, they are a bit too wordy
 	
 	if you walk back and forth and explore the tutorial a bit, getting used to the controls - the tutorial wolves can scale and outscale you
 		tutorial wolves maybe shouldn't scale, or time shouldn't pass for a bit? not sure. don't want to break the rules, but want the rules to be flexible while you're learning the controls?
@@ -178,7 +184,7 @@ sfx restructure - currently my SFX manager is inside the scene tree, so when i r
 
 have a few of the crow sounds and randomize them, instead of the same single one
 
-would be nice to show a character portrait in this intro scenario
+would be nice to show a character portrait in this intro scenarios
 
 scenarios only have "next page", no choices
 	would be nice to have scrolling text for blurb, not probably implement once i know how i want them to look/work with choices

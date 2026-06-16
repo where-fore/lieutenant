@@ -128,3 +128,10 @@ func update_time_of_day_ui() -> void:
 func _on_time_button_pressed() -> void:
 	if not CombatEvents.combat_ongoing and not ScenarioEvents.current_scenario:
 		TimeOfDay.step_time_forward()
+
+
+func _on_stats_ui_close_button_pressed() -> void:
+	_on_inventory_menu_button_pressed()
+
+func _on_combat_log_close_button_pressed() -> void:
+	_on_combat_log_button_pressed()
