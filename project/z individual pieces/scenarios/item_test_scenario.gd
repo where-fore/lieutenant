@@ -14,7 +14,7 @@ func _init() -> void:
 	]
 	
 	rewards = [ #note this is 0-indexed
-		Database.get_reward_by_id("reflect_basic"),
+		Database.get_reward_by_id("iron_dirk"),
 	]
 	
 	display_blurb = "developer testing dummy"

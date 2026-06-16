@@ -19,11 +19,12 @@ var player_base_fortitude:int = common_stat_budget
 var flower_basic_stat:int = common_stat_budget
 var flower_basic_split_stat:int = flower_basic_stat * 1 / 2
 
-var enemy_stat_scaling_per_day:float = 1.50
+var enemy_stat_scaling_per_day:float = 1.10
 
 var enemy_normal_stat_budget:int = common_stat_budget * 2
 func increase_enemy_stat_budget() -> void:
 	enemy_normal_stat_budget *= 2
+	enemy_stat_scaling_per_day += 0.15
 
 var enemy_rare_stat_budget:int = enemy_normal_stat_budget * 2
 var enemy_mythic_stat_budget:int = enemy_normal_stat_budget * 2

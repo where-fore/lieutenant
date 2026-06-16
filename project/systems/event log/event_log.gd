@@ -27,6 +27,7 @@ func _ready() -> void:
 	CombatEvents.attack_launched.connect(interpret_attack)
 	CombatEvents.damage_applied.connect(interpret_damage_taken)
 	CombatEvents.healing_applied.connect(interpret_healing)
+	CombatLogEvents.shield_absorbed.connect(interpret_damage_shielded)
 	CombatLogEvents.aura_removed.connect(report_aura_removed)
 	CombatLogEvents.aura_applied.connect(report_aura_applied)
 	CombatLogEvents.item_equipped.connect(report_item_equipped)
@@ -89,6 +90,16 @@ func interpret_damage_taken(source_object:Combatant, amount:int) -> void:
 	var text_to_add:String = source_name + " suffers " + "{amount}" + " damage."
 	
 	var damage_color:String = Color.ORANGE_RED.to_html()
+	var damage_fancy:String = "[color=#%s]%s[/color]" % [damage_color, str(amount)]
+	text_to_add = text_to_add.format({"amount": damage_fancy})
+	
+	append_to_label(text_to_add)
+
+func interpret_damage_shielded(source_object:Combatant, amount:int) -> void:
+	var source_name:String = source_object.combatant_name
+	var text_to_add:String = source_name + " shields " + "{amount}" + " damage."
+	
+	var damage_color:String = Color.DODGER_BLUE.to_html()
 	var damage_fancy:String = "[color=#%s]%s[/color]" % [damage_color, str(amount)]
 	text_to_add = text_to_add.format({"amount": damage_fancy})
 	

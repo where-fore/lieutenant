@@ -9,3 +9,4 @@ func _init() -> void:
 
 	starting_stats[Stats.health] = BalanceData.basic_health * 100
 	starting_stats[Stats.attack] = 0
+	starting_stats[Stats.mind] = 20

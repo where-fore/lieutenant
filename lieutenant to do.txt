@@ -5,6 +5,12 @@ working notes
 
 
 
+multiple necklaces of retribution dont stack
+
+probably should pull rare item stat budget down to near 0, and buff flower stats, and offer rare rewards everywhere
+	want you to get some cool interesting items (even if they aren't good, like warding pike threshold) early, something to bite into - and then you have to make stat choices too
+
+
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
@@ -96,22 +102,52 @@ recent playtest:
 			maybe the knights both starting with a revenger is too much? maybe one should have a healing thing?
 	
 	map at start is still overwhelming, especially as i start with fewer available tiles. i would love a little fog of war or camera zoom at the start of the game
+	-> made the intro a lil tunnel with a house and stuff, it's a bit nicer for now
 	
 	my instinct for the knights is to get them to tank and str focus, but their revengers benefit from someone else dying first? doesn't feel very knightly to let others die first?
 		maybe it should one knight who has giga strength and one non-knight (brother?) who enrages on knight death?
+	-> removed sword from their inventory for now, can give to whoever you want
 	
 	rares all feels the same, just high stat balls
-		get them to target different stats, have more effects which interact with the death/aggro mechanic
+		get them to target different stats, have more effects which interact with the death/aggro mechanic, have multi combat encounters (one targeting each stat? scary)
+		get them to interact with different stats, instead of cutting hp by 75%, cut str? absorb str but not dex? etc
 	
 	mind shield isn't in combat log, no indication in game of why the lich was invulnerable
 		maybe in the damage taken, show damage absorbed by shield
+	-> added shield bark for damage shielded. no indication of why shield was gained
 	
-	dead characters can die from exhaustion
-		probably remove the stamina check from dead characters? maybe just the combat log part?
+	maybe some sort of mind tutorial is in order? at least get an item with +mind before encountering an enemy with mind?
+	
+	dead characters can die from exhaustion, barking to combat log
+		probably remove the stamina check from dead characters? maybe just the combat log bark?
 		
 	sometimes you can lose the first "hard" fight, or win so handily you don't even need the companion
 		ideally add a little stun to the enemy? when they kill an enemy, they stun for a bit? but are extra lethal? that's a rare i want anyways
 		and ideally i refactor that tile to affect the enemy, instead of having a copy pasted enemy with lower stats
+	
+	scenarios are a bit dry - too much text, too little going on
+		would be nice to get portraits in? or at least a background
+		type writer effect, with sound?
+		pare down the text, they are a bit too wordy
+	
+	if you walk back and forth and explore the tutorial a bit, getting used to the controls - the tutorial wolves can scale and outscale you
+		tutorial wolves maybe shouldn't scale, or time shouldn't pass for a bit? not sure. don't want to break the rules, but want the rules to be flexible while you're learning the controls?
+	-> reduced daily scaling until you filled your party
+	
+	lich pretty easily trigger exhaustion, and it was very hard to tell what happened
+	-> increased exhaustion limit, not sure on the exhaustion visibility
+	
+	if you fall behind the daily scaling, it becomes impossible very very quickly, and you have no choices you can make
+	-> reduced daily scaling until you filled your party
+	
+	knight event feels like it did nothing, maybe it should have a nice combat after too
+	-> removed swords from knights starter inventory, and added as a reward for the scenario. that way there's something to do, you see them in your party, and you notice the sword (easy to add knights to party and never notice their sword)
+	
+	mind should do like 2-3x as much, it was balanced around single combat
+	-> doubled it for now
+	
+	
+	
 	
 	--
 would be good:

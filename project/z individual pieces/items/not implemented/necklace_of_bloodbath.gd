@@ -9,7 +9,6 @@ var buff_aura:Aura
 var buff_reward_name:String = "Safe Haven"
 
 func setup_basic_item_data() -> void:
-	item_id = "necklace_of_bloodbath" # "generic_item"
 	reward_name = "Necklace of Bloodbath" # "Generic Item"
 	reward_sprite = load("res://sprites/ruby_gorget.png")
 	extra_tooltip = "For your first {turns} turns, shrug damage off with a powerful shield.".format({"turns": turns_active,}) # "Generic flavourful description"

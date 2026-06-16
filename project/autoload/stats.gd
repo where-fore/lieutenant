@@ -21,7 +21,7 @@ const strength_per_health:int = 2
 const agility_per_attack:int = 10
 const agility_per_health:int = 4
 
-const mind_per_shield_per_turn:int = 20
+const mind_per_shield_per_turn:int = 10
 
 const fortitude_per_health:int = 1
 

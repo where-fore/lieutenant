@@ -42,7 +42,7 @@ var shield:int = 0:
 		shield = value
 		emit_stat_update()
 
-var base_rounds_can_fight:int = 50
+var base_rounds_can_fight:int = 150
 var current_rounds_can_fight:int
 
 func get_damaged_health() -> int:
@@ -94,32 +94,41 @@ func prepare_item_manager() -> void:
 		item_manager.equip_item(item, false)
 
 
-func take_damage(value:int, source:Combatant) -> void:
-	if not dead:
-		if value < 0: push_error("tried to take negative damage on: " + combatant_name)
-		elif value == 0: pass
+func take_damage(damage_to_take:int, source:Combatant) -> void:
+	if dead:
+		return
+	
+	if damage_to_take < 0:
+		push_error("tried to take negative damage on: " + combatant_name)
+		return
+	elif damage_to_take == 0:
+		return
+	
+	if shield:
+		var shield_absorbed:int
+		if shield > damage_to_take:
+			shield_absorbed = damage_to_take
+			damage_to_take = 0
 		else:
-			if shield:
-				shield -= value
-				if shield < 0: #ie. shield was overpierced
-					var damage_to_take:int = shield * -1 #take damage equal to the overkill
-					shield = 0 #remove vestigial negative shield
-					self.damage_taken += damage_to_take
-			else:
-				self.damage_taken += value
-			
-			CombatEvents.damage_applied.emit(self, value)
-			check_if_dead_now()
+			shield_absorbed = shield
+			damage_to_take -= shield_absorbed
 		
-		on_damage_taken_functions(value, source)
+		shield -= shield_absorbed
+		CombatLogEvents.shield_absorbed.emit(self, shield_absorbed)
 
-func heal(value:int) -> void:
+	self.damage_taken += damage_to_take
+	CombatEvents.damage_applied.emit(self, damage_to_take)
+	check_if_dead_now()
+	
+	on_damage_taken_functions(damage_to_take, source)
+
+func heal(amount_healed:int) -> void:
 	if not dead:
-		if value < 0: push_error("tried to heal for less than 0 on: " + combatant_name)
-		elif value == 0: pass
+		if amount_healed < 0: push_error("tried to heal for less than 0 on: " + combatant_name)
+		elif amount_healed == 0: pass
 		else:
-			self.damage_taken -= value
-			CombatEvents.healing_applied.emit(self, value)
+			self.damage_taken -= amount_healed
+			CombatEvents.healing_applied.emit(self, amount_healed)
 
 func apply_shield(value:int) -> void:
 	shield += value

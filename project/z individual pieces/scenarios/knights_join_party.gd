@@ -15,10 +15,17 @@ func _init() -> void:
 	
 	display_blurb = "Waterfall Basin"
 	display_sprite = load("res://sprites/question.png")
+	
+	rewards = [Database.get_reward_by_id("enrage_sword")]
 
-func on_finish_scenario() -> void:
-	CombatEvents.party_member_added.emit(new_companion1)
-	CombatEvents.party_member_added.emit(new_companion2)
+func next_page() -> void:
+	if current_page == text_pages.size() - 1:
+		CombatEvents.party_member_added.emit(new_companion1)
+		CombatEvents.party_member_added.emit(new_companion2)
+	
+		ScenarioEvents.setup_reward.emit(rewards[0])
+		ScenarioEvents.present_rewards.emit()
+	next_page_base()
 
 #old draft, probably too much exposition
 #...A towering skeletal behemoth is being flanked by two similarly clad knights. They work in beautiful harmony, diving under swips while the other hacks at exposed legs. A skeletal overhead bash is parried, the knights whole body twisting to deflect the savagery - leaving their back exposed for a brutal thrust, which hits its mark. The flanking knight screams in fury and batters the impaled arm, making quick work of the dusty joints. Pommel strikes into ribcages leave the beast stunned enough for hands to grab and crush the skull. You finally ford the stream and come upon an exhausted combatant...
