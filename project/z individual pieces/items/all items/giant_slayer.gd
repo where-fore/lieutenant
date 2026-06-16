@@ -9,8 +9,8 @@ func setup_basic_item_data() -> void:
 		Categories.item_rarity : Categories.Rarity.RARE,
 	}
 	
-	additive_stat_dictionary[Stats.strength] = BalanceData.rare_stat_budget / 2
-	additive_stat_dictionary[Stats.agility] = BalanceData.rare_stat_budget / 2
+	#additive_stat_dictionary[Stats.strength] = BalanceData.rare_stat_budget / 2
+	#additive_stat_dictionary[Stats.agility] = BalanceData.rare_stat_budget / 2
 
 
 #custom stuff

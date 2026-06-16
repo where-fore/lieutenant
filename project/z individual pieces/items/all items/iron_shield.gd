@@ -6,11 +6,11 @@ func setup_item_stats() -> void:
 	reward_sprite = load("res://sprites/small_shield.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	reward_categories = {
-		Categories.item_rarity : Categories.Rarity.COMMON,
+		Categories.item_rarity : Categories.Rarity.RARE,
 	}
 	
-	additive_stat_dictionary[Stats.fortitude] = BalanceData.common_multiplicative_stat_budget / 2
-	additive_stat_dictionary[Stats.strength] = BalanceData.common_multiplicative_stat_budget / 2
+	multiplicative_stat_dictionary[Stats.fortitude] = BalanceData.rare_multiplicative_stat_budget / 2
+	multiplicative_stat_dictionary[Stats.strength] = BalanceData.rare_multiplicative_stat_budget / 2
 
 
 #custom stuff

@@ -6,10 +6,10 @@ func setup_item_stats() -> void:
 	reward_sprite = load("res://sprites/curved_dagger.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	reward_categories = {
-		Categories.item_rarity : Categories.Rarity.COMMON,
+		Categories.item_rarity : Categories.Rarity.RARE,
 	}
 	
-	multiplicative_stat_dictionary[Stats.attack] = BalanceData.common_multiplicative_stat_budget
+	multiplicative_stat_dictionary[Stats.attack] = BalanceData.rare_multiplicative_stat_budget
 
 
 #custom stuff

@@ -8,12 +8,11 @@ func setup_item_stats() -> void:
 	reward_categories = {
 		Categories.item_rarity : Categories.Rarity.COMMON,
 	}
-	
 
 
 #custom stuff
 var activate_every_turns:int = 2
-var damage_on_activation:int = BalanceData.basic_attack * activate_every_turns * 2
+var damage_on_activation:int = BalanceData.basic_attack * activate_every_turns * 3 / 2
 
 var turn_counter:int
 var activation_message:String = "The time has come, your ring glows brightly."

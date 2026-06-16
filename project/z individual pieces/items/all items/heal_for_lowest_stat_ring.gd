@@ -12,7 +12,7 @@ func setup_item_stats() -> void:
 
 #custom stuff
 var amount_to_heal:int
-var percent_of_stat_to_heal:int = 25
+var percent_of_stat_to_heal:int = 10
 
 func on_attack(_source:Combatant, _target:Combatant) -> void:
 	amount_to_heal = (parent_combatant.current_stats[find_lowest_attribute()] * percent_of_stat_to_heal / 100)

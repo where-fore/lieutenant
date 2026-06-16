@@ -9,8 +9,8 @@ func setup_item_stats() -> void:
 		Categories.item_rarity : Categories.Rarity.RARE,
 	}
 	
-	additive_stat_dictionary[Stats.fortitude] = BalanceData.common_stat_budget
-	multiplicative_stat_dictionary[Stats.fortitude] = BalanceData.common_multiplicative_stat_budget
+	#additive_stat_dictionary[Stats.fortitude] = BalanceData.common_stat_budget
+	multiplicative_stat_dictionary[Stats.fortitude] = BalanceData.rare_multiplicative_stat_budget
 
 
 #custom stuff

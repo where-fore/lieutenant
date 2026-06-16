@@ -26,7 +26,7 @@ func pick_rewards() -> Array[Reward]:
 	var common_item:Reward = Database.get_rewards_by_category(Categories.item_rarity, [Categories.Rarity.COMMON]).pick_random()
 	rewards_to_return.append(common_item)
 	
-	var rare_chance:int = 20
+	var rare_chance:int = 100
 	if randi_range(1,100) < rare_chance:
 		rewards_to_return.append(Database.get_rewards_by_category(Categories.item_rarity, [Categories.Rarity.RARE]).pick_random())
 	

@@ -11,7 +11,7 @@ func setup_item_stats() -> void:
 	}
 	
 	for stat:StringName in Stats.attributes:
-		multiplicative_stat_dictionary[stat] = BalanceData.common_multiplicative_stat_budget * 2 / 5 #magic number
+		multiplicative_stat_dictionary[stat] = BalanceData.rare_multiplicative_stat_budget * 2 / 5 #magic number
 
 
 #custom stuff

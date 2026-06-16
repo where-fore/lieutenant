@@ -2,10 +2,31 @@
 working notes
 --------------------------------------------------------
 
+what does flanking sword do when negative? not clear on tooltip at least. does it send them full 80 and you lose your 10, or do you only send your 10?
 
+some sort of stat splitting function in BalanceData
+ put in two stats, and multiplicative or additive (probably two different functions that mostly call the same subfunction)
+ get out either 100% of one stat, 120%/2 = 60% of two stats, etc
+	currently i'm just doing / 2 in the item stats, but i want that to 1. not be repeated, prone to typos; and 2. be tweakable so split items can be more rewarding for total stats
+	
+	actually this function probably has to be in ItemBase, since it's called by the items and sets their properties, but can reference multipliers/factors in BalanceData
 
+maybe uncommon enemies should give multiple choices of basic rewards, or multiple rounds of basic rewards?
 
+aura tooltips weren't updated like item tooltips were
+	maybe they should call the same function? or mostly the same?
+	probably deal with that when i clean up tooltips for real
 
+dead characters pile up shield, looks weird and isn't correct
+
+flowers say duration:permanent for some reason
+	not clear they are an aura, or what that means
+
+aribald is attacking first, then enemy, then enil
+
+"full log" lags the hell out of the game. give it some upper limit
+
+i think arlaeus somehow never died, not sure why
 
 --------------------------------------------------------
 work to do
