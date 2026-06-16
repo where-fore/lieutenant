@@ -57,24 +57,26 @@ func get_id() -> String:
 
 #this is copied from item_base.gd
 func get_tooltip() -> String:
-	var to_add:String
-	
 	var tooltip_text:String = reward_name
 	
+	var to_add:String
 	if duration_type == AuraNames.DurationType.TURNS:
-		to_add = "\n" + "Duration: " + str(current_duration) + " " + AuraNames.DurationType_Labels[duration_type]
+		to_add = "\n" + "Aura, " + "Duration: " + str(current_duration) + " " + AuraNames.DurationType_Labels[duration_type]
 	else:
-		to_add = "\n" + "Duration: " + AuraNames.DurationType_Labels[duration_type]
+		to_add = "\n" + "Aura, " + "Duration: " + AuraNames.DurationType_Labels[duration_type]
 	tooltip_text += to_add
-	to_add = ""
 	
-	for stat_change:StringName in additive_stat_dictionary:
-		to_add = str(stat_change) + " increased by " + str(additive_stat_dictionary[stat_change])
+	for stat_name:StringName in additive_stat_dictionary:
+		var change:String = "+"
+		if additive_stat_dictionary[stat_name] < 0: change = "-"
+		to_add = str(change, abs(additive_stat_dictionary[stat_name]), " ", stat_name)
 		tooltip_text += "\n" + to_add
-	for stat_change:StringName in multiplicative_stat_dictionary:
-		to_add = str(stat_change) + " increased by " + str(multiplicative_stat_dictionary[stat_change]) + "%"
+	for stat_name:StringName in multiplicative_stat_dictionary:
+		var change:String = "+"
+		if multiplicative_stat_dictionary[stat_name] < 0: change = "-"
+		to_add = str(change, abs(multiplicative_stat_dictionary[stat_name]), "% ", stat_name)
 		tooltip_text += "\n" + to_add
-		
+	
 	if extra_tooltip: tooltip_text += "\n" + extra_tooltip
 	return tooltip_text
 
