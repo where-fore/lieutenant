@@ -2,6 +2,13 @@
 working notes
 --------------------------------------------------------
 
+
+
+
+
+
+
+
 what does flanking sword do when negative? not clear on tooltip at least. does it send them full 80 and you lose your 10, or do you only send your 10?
 
 some sort of stat splitting function in BalanceData
@@ -11,26 +18,12 @@ some sort of stat splitting function in BalanceData
 	
 	actually this function probably has to be in ItemBase, since it's called by the items and sets their properties, but can reference multipliers/factors in BalanceData
 
-dead characters pile up shield, looks weird and isn't correct
-
-
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
 
-need to do for release:
-	tune game length according to interest curves, tutorials etc
-		
-	im not sure why common items exist, seems like i want "cool unique powerful items" or flat stats, which are the flowers. why do common items exist? more powerful flowers maybe? why?
-		if i remove them, i can put percent scaling on the rares that want percent scaling
-		is that too much for a one-size-fits-all solution? maybe some rares just give pog percent scaling, some reward high stats, and flowers give flat stats...
-		
-		can pull rare item stat budget down to near 0, and buff flower stats, and offer rare rewards everywhere
-			want you to get some cool interesting items early (even if they aren't good, like warding pike threshold), something to bite into - and then you have to make stat choices too
-	
 	get the lethality working about right - enemies kill 2ish combatants, then perish. 2-3 turns for dying and 3-6 turns for living guys
 		can wait for items to be in to balance
-			not sure if items should give stats - while i do generally dislike the asi vs feat distinction, stats interact with the aggro system. also seeing an item with +40 str and a flower with +10 dex feels dumb?
 		items seem very hard to balance atm, there's no "stat budget", they give fairly unique abilities
 			which is great, but "wait to balance till later" doesn't need to happen, since once i have an idea of balance, when making new items, i can tune them with that balance heuristic in mind
 	
@@ -39,13 +32,15 @@ need to do for release:
 		ideally also shows rewards offered, elites fought
 		spire, data driven balancing
 	
-	maybe slap some more combat log barks into items
-	
 	map info popups are z-index 1, means they pop up over everything - notably the inventory/combat log menu being opened
 		this was done so other map tiles don't render over them
 		this makes me think i should have specific layers or z-indexes for every ui piece. lots of manual work?
 	
 	some more interesting enemies - have some multi combats with weak adds, enrage effects, necromancer who benefits when anyone dies; enemies who have double damage first two turns; enemies who deal damage to all; enemies who take certain stats or percents etc
+	
+	pass at debug keybinds - fix or remove, at least update the menu tooltip
+	
+	popup ui tutorial would be nice - when seeing the stats for the first time, glow the inventory ui button and say "check out what stats do here"
 	
 	items to add:
 		intelligence items
@@ -55,9 +50,8 @@ need to do for release:
 		
 		focus change stuff - the flanking sword seems like it does nothing aggro related, since it's mega agility you'll never have highest str? or maybe it's for sending you from 2nd str to 3rd/4th str?
 			maybe it should be -agi but +attack?
-		maybe items should have more split stats? instead of agility or str, be 3:1, 2:2, 1:3 splits? so instead of having a mega str and mega dex characters, you have stat spreads across your whole party
-			flowers currently do this?
-		more items that have no stats, but a powerful effect? so you can swap aggro around by loading items up differently
+			add more of these
+		death stuff - enrages, buff on death, buff when anything dies, damage per dead combatant, etc
 		
 		item features to codify
 			"on turn x" like bear's defense, stat_sum_burst
@@ -65,8 +59,13 @@ need to do for release:
 					pass in a turn to activate, a callable function or a signal, and 
 	-
 	
+	fix stats - str +damage, dex +damage in a different way. regular hp increases somehow
+	
 
-recent playtest:
+
+--------------------------------------------------------
+playtest notes
+--------------------------------------------------------
 
 	stats are still weird, strength dex and attack? why does enrage sword give attack? why does strength and fortitude give hp?
 		strength = damage, dex = damage, fortitude = hp
@@ -75,14 +74,15 @@ recent playtest:
 			also decouples hp and damage
 		need a way to have hp generally increase, more fortitude items? fortitude increases every day? all char fortitude increases every reward screen?
 
-	maybe some sort of mind tutorial is in order? at least get an item with +mind before encountering an enemy with mind?
-	
-	dead characters can die from exhaustion, barking to combat log
-		probably remove the stamina check from dead characters? maybe just the combat log bark?
-		
+	maybe some sort of mind tutorial is in order? at least get an item with +mind before encountering an enemy with mind?'
+		i do like mind being a weird rare strange stat, maybe leave it as it is
+		maybe flowers shouldnt give mind? just events and strange items?
+			dont want mind to be so rare you can't play with it
+
 	sometimes you can lose the first "hard" fight, or win so handily you don't even need the companion
 		ideally add a little stun to the enemy? when they kill an enemy, they stun for a bit? but are extra lethal? that's a rare i want anyways
 		and ideally i refactor that tile to affect the enemy, instead of having a copy pasted enemy with lower stats
+			i want the tile to be a weaker version of a regular enemy, not a unique enemy, probably
 	
 	scenarios are a bit dry - too much text, too little going on
 		would be nice to get portraits in? or at least a background
@@ -99,7 +99,7 @@ recent playtest:
 				not sure why that's a problem actually, the idea is just to have some meta-goals to give more direction and meaning to choices. no need for it to be one-per-character, or even 4 at all
 
 	boss was super anticlimactic stat check, and instantly killed my dudes (despite getting the mega spear buff)
-		maybe bosses force to slower turn speed, and also have much higher hp and lower attack?
+		maybe bosses force to slower turn speed; and also have much higher hp and lower attack?
 			maybe that means i should change the scaling items, i have lots of powerful scalers that dont get time to activate on regular fights
 		i like the hydra idea too, have to beat some amount in sequence
 
@@ -116,9 +116,17 @@ recent playtest:
 		but enemies were too lethal and low hp for that - maybe one character dies and the monster immediately dies
 			maybe the knights both starting with a revenger is too much? maybe one should have a healing thing?
 	
+	getting offered a 20 stat flower and a basic 30 stat common item, especially both same stat after first combat, is confusing
+		why do common items exist again
+	-> changed second reward to a handful of flowers
+	
 	---
 	--addressed--
 	---
+	
+	dead characters can die from exhaustion, barking to combat log
+		probably remove the stamina check from dead characters? maybe just the combat log bark?
+	-> add a "if not dead" check to the dying from exhaustion function
 	
 	not enough cool items, mostly stat flowers
 		that was my intention, but it didn't really feel that great. maybe rare item rewards are just as sparse, but provide a selection of a few? i felt like i wasn't really making tons of choices or seeing many
@@ -177,23 +185,29 @@ recent playtest:
 		
 	
 	--
-would be good:
-	
-	pass at text - rename enemies to slightly more generic (the marrow -> marrow behemoth), info panel says "your scouts" etc
-		maybe put all the text in the ol strings global, but seems like a large rewrite for little gain
-		look at knight scenario - it mentions the amulet that hasn't been mentioned yet
-		"iron" items? what's the deal with metals?
-		everything is a bit too wordy atm i think, needs editing
 
-	inventory - trade/delete/unequip items?
-		give rewards the "deleteable" property, false for cursed items? important character items?
-		probably a drop down with each party member, and delete at the bottom with a confirmation? the label text changes from delete to you sure?
-			how do i access who is in your party? allied combatants? surely not, that can be temporary. maybe i do want a global Party.gd?
+
+
+--------------------------------------------------------
+would be good
+--------------------------------------------------------
 	
-	have nice tooltips set up, can still use placeholder art
-	
-	backgrounds for combat - normal, elite, boss, event
--
+maybe slap some more combat log barks into items
+
+pass at text - rename enemies to slightly more generic (the marrow -> marrow behemoth), info panel says "your scouts" etc
+	maybe put all the text in the ol strings global, but seems like a large rewrite for little gain
+	look at knight scenario - it mentions the amulet that hasn't been mentioned yet
+	"iron" items? what's the deal with metals?
+	everything is a bit too wordy atm i think, needs editing
+
+inventory - trade/delete/unequip items?
+	give rewards the "deleteable" property, false for cursed items? important character items?
+	probably a drop down with each party member, and delete at the bottom with a confirmation? the label text changes from delete to you sure?
+		how do i access who is in your party? allied combatants? surely not, that can be temporary. maybe i do want a global Party.gd?
+
+have nice tooltips set up, can still use placeholder art
+
+backgrounds for combat - normal, elite, boss, event
 
 reward screen can have a few rounds of rewards? you see 3 basics, then 3 rares?
 
@@ -339,34 +353,6 @@ ui-wise, maybe set the main button to "focus" on opening panels, and bind "focus
 after routing/dying i have to go back to an old tile, go through the old ground screen. would be nice if it was instant, or it instantly moved me back to last tile, or something that feels better
 	maybe just add the old ground popup to the tooltip of the scenario?
 
-
---------------------------------------------------------
-playtest notes
---------------------------------------------------------
-
-people keep pressing the skip button for the treasure
-	- the reward doesn't look like a button, it's too flat and unresponsive. have it stick out, change when hovered over, have a particle glow, etc
-	- maybe given you know what the reward is, it's obvious you get it - why would you ever skip it?
-	- maybe given all the unimportant text (three full lines top and bottom that don't actually convey any meaning), it looks like exposition?
-		changed text to "skip reward"
-	- maybe have an animation - as the player reads "collect your boon", the boon fades in, tying them together
-	- maybe people don't feel like they "need" the reward, and are just going wandering through the game? no challenge at the start / problem to solve? no hook?
-
-people keep having no idea how the map/map info panel works
-	- the info panel is so far away from what you clicked, it's not natural to hover over the info
-	- the info panel is also quite verbose, so why would you search for more info
-	- the whole map looks cool and inviting, why show it all if it's all nothing
-	- have the map slide in, and then the player icon thing pops up on a side. should be more clear?
-
-richard passed on that their friends mentioned being "locked in" to a build at the start
-	note too sure on this feedback - it was given while the map balance was too light on rare rewards, so all rewards were indeed common stat sticks. could simply be solved with more items and stats, which we already plan to do
-	- have more avenues that can change per run?
-	- have a "flexible" unique at the start, not a build definer? a strong immediate stat stick, or something that increases found rarity, or the like
-		find build definers mid run?
-	- could also be avoided by choosing a class at start, instead of an item; feels less like random chance is locking you into a build?
-
-
-
 --------------------------------------------------------
 concepts i know i should tutorialize:
 --------------------------------------------------------
@@ -389,19 +375,11 @@ how-to-understand-the-game:
 --------------------------------------------------------
 debug keybinds:
 --------------------------------------------------------
-	KEY_F11 = crt filter on/off, main.gd 73
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed:
-		if event.keycode == KEY_F11:
-			crt_filter_container.visible = !crt_filter_container.visible
 
 
 ---------------------------
 not right now, maybe:
 ---------------------------
-getting offered a 20 stat flower and a basic 30 stat common item, especially both same stat after first combat, is confusing
-	not sure how to handle that, only show flowers for a while?
 
 maybe player can target enemies?
 	not sure on the ui for this
