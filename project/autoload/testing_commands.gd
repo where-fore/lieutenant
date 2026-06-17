@@ -12,9 +12,9 @@ func remove_godmode() -> void:
 	godmode_active = false
 
 #debug command catcher
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed:
-		if event.keycode == KEY_F10:
-			if godmode_active: remove_godmode()
-			elif not godmode_active: apply_godmode()
-			else: push_error("got confused trying to apply godmode")
+#func _unhandled_input(event: InputEvent) -> void:
+	#if event is InputEventKey and event.pressed:
+		#if event.keycode == KEY_F10:
+			#if godmode_active: remove_godmode()
+			#elif not godmode_active: apply_godmode()
+			#else: push_error("got confused trying to apply godmode")

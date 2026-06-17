@@ -8,7 +8,7 @@ working notes
 work to do
 --------------------------------------------------------
 
-	get the lethality working about right - enemies kill 2ish combatants, then perish. 2-3 turns for dying and 3-6 turns for living guys
+	get the lethality working about right - enemies kill 2ish combatants, then perish
 		can wait for items to be in to balance
 		items seem very hard to balance atm, there's no "stat budget", they give fairly unique abilities
 			which is great, but "wait to balance till later" doesn't need to happen, since once i have an idea of balance, when making new items, i can tune them with that balance heuristic in mind
@@ -24,9 +24,14 @@ work to do
 	
 	some more interesting enemies - have some multi combats with weak adds, enrage effects, necromancer who benefits when anyone dies; enemies who have double damage first two turns; enemies who deal damage to all; enemies who take certain stats or percents etc
 	
+	visually better combat - damage fx, damage numbers, combatants shake on hit/getting hit? scale these animations to play_speed (maybe throttle them so if speed <0.1 then don't play, or something)
+	
+	that random entropy system - would be great for map spawning. also semiunrelatedly, the items spawning from a list instead of true random, look at music shuffle algorithms (want last 3 items to not show up for 2 sets of 3? or so)
+	
 	pass at debug keybinds - fix or remove, at least update the menu tooltip
 	
 	popup ui tutorial would be nice - when seeing the stats for the first time, glow the inventory ui button and say "check out what stats do here"
+	something with combat log too, "check out what hurt you so bad" or something
 	
 	let user define speed for each speed setting. currently they are hardcoded, but having a little text box in the settings menu would be rad
 	
@@ -54,6 +59,8 @@ work to do
 --------------------------------------------------------
 playtest notes
 --------------------------------------------------------
+
+	dead characters getting the turn indicator looks buggy
 
 	stats are still weird, strength dex and attack? why does enrage sword give attack? why does strength and fortitude give hp?
 		strength = damage, dex = damage, fortitude = hp
@@ -112,6 +119,12 @@ playtest notes
 	---
 	--addressed--
 	---
+	
+	current scaling feels pretty alright - you get one or two crazy shennanigans going by the end of the game right now
+		endless mode would be cool
+		enemies don't scale as fast as you - they are a bit strong in the early/mid but once you get a synergy going they are left in the dust
+		could be a handful of tiles longer
+	-> did those second adjustments, endless mode on the nice-to-do list
 	
 	dead characters can die from exhaustion, barking to combat log
 		probably remove the stamina check from dead characters? maybe just the combat log bark?

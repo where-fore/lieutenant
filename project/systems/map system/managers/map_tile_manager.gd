@@ -189,13 +189,13 @@ func check_to_clamp_left_edge_scrolling(saw_edge:bool) -> void:
 		map_should_scroll_left = true
 
 #debug command catcher
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed:
-		if event.keycode == KEY_F12:
-			if debug_vision:
-				debug_vision = false
-				hide_rows()
-			elif not debug_vision:
-				debug_vision = true
-				show_rows()
-			else: push_error("got confused trying to show/hide rows")
+#func _unhandled_input(event: InputEvent) -> void:
+	#if event is InputEventKey and event.pressed:
+		#if event.keycode == KEY_F12:
+			#if debug_vision:
+				#debug_vision = false
+				#hide_rows()
+			#elif not debug_vision:
+				#debug_vision = true
+				#show_rows()
+			#else: push_error("got confused trying to show/hide rows")

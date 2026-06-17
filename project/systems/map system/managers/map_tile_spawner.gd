@@ -19,7 +19,7 @@ extends Node2D
 @export var mapTileBase:PackedScene
 @export var rows:int = 3
 @export var vertical_spacing:int = 17
-@export var columns:int = 28
+@export var columns:int = 32
 @export var horizontal_spacing:int = 31
 @export var isometric_offset:int = 6
 @export_enum("Top Left", "Bottom Left") var this_spawner_is_placed_at:int = 0
@@ -126,11 +126,11 @@ func populate_tile_data(tile:MapTile) -> void:
 	#tutorial: freeform section
 	elif tile.x_coordinate == columns_to_disable_at_start + 4 or tile.x_coordinate == columns_to_disable_at_start + 5:
 		tile.apply_data(choose_filler_tile(true))
-	elif tile.x_coordinate == columns_to_disable_at_start + 6 or tile.x_coordinate == columns_to_disable_at_start + 7:
+	elif tile.x_coordinate == columns_to_disable_at_start + 6:
 		tile.apply_data(choose_filler_tile())
 	
 	#tutorial: second set of companions
-	elif tile.x_coordinate == columns_to_disable_at_start + 8:
+	elif tile.x_coordinate == columns_to_disable_at_start + 7:
 		if tile.y_coordinate == 0:
 			tile.apply_data(generic_border_data.new())
 		elif tile.y_coordinate == 1:
@@ -138,7 +138,7 @@ func populate_tile_data(tile:MapTile) -> void:
 		elif tile.y_coordinate == 2:
 			tile.apply_data(generic_border_data.new())
 	
-	elif tile.x_coordinate == columns_to_disable_at_start + 9:
+	elif tile.x_coordinate == columns_to_disable_at_start + 8:
 		if tile.y_coordinate == 0:
 			tile.apply_data(generic_border_data.new())
 		elif tile.y_coordinate == 1:
@@ -205,7 +205,7 @@ func populate_tutorial_fetch_rewards() -> void:
 
 
 func choose_filler_tile(set_easy:bool = false) -> MapTileData:
-	if set_easy: return choose_randomly(70, 30, 0)
+	if set_easy: return choose_randomly(60, 40, 0)
 	return choose_randomly(40, 20, 40)
 
 func choose_randomly(common_chance:int, uncommon_chance:int, rare_chance:int) -> MapTileData:

@@ -150,7 +150,6 @@ tooltip_text = "Inventory"
 texture = ExtResource("10_1j0u7")
 
 [node name="PauseMenu" type="Control" parent="MainUI"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -311,9 +310,7 @@ mouse_filter = 2
 [node name="DebugButton" type="Button" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/BottomRow"]
 custom_minimum_size = Vector2(64, 48)
 layout_mode = 2
-tooltip_text = "F10: Toggle Godmode
-F11: Toggle CRT Filter
-F12: Toggle Full Vision"
+tooltip_text = "F11: Toggle CRT Filter"
 
 [node name="Label" type="Label" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/BottomRow/DebugButton"]
 layout_mode = 1
