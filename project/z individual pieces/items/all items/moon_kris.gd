@@ -14,7 +14,7 @@ func setup_item_stats() -> void:
 
 #custom stuff
 var stat_to_check:StringName = Stats.agility
-var threshold_per_hit:int = BalanceData.common_stat_budget * 10
+var threshold_per_hit:int = BalanceData.common_stat_budget * 5
 var percent_of_stat_already_used_for_attack:int = int((1.0 / Stats.agility_per_attack) * 100)
 var percent_stat_to_deal:int = percent_of_stat_already_used_for_attack / 2
 

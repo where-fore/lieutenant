@@ -14,7 +14,7 @@ func setup_basic_item_data() -> void:
 
 
 #custom stuff
-var max_hp_percent_damage:int = 6
+var max_hp_percent_damage:int = 4
 func setup_item_stats() -> void:
 	setup_basic_item_data()
 	

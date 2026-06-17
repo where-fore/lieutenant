@@ -4,20 +4,6 @@ working notes
 
 
 
-
-
-
-
-
-what does flanking sword do when negative? not clear on tooltip at least. does it send them full 80 and you lose your 10, or do you only send your 10?
-
-some sort of stat splitting function in BalanceData
- put in two stats, and multiplicative or additive (probably two different functions that mostly call the same subfunction)
- get out either 100% of one stat, 120%/2 = 60% of two stats, etc
-	currently i'm just doing / 2 in the item stats, but i want that to 1. not be repeated, prone to typos; and 2. be tweakable so split items can be more rewarding for total stats
-	
-	actually this function probably has to be in ItemBase, since it's called by the items and sets their properties, but can reference multipliers/factors in BalanceData
-
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
@@ -41,6 +27,8 @@ work to do
 	pass at debug keybinds - fix or remove, at least update the menu tooltip
 	
 	popup ui tutorial would be nice - when seeing the stats for the first time, glow the inventory ui button and say "check out what stats do here"
+	
+	let user define speed for each speed setting. currently they are hardcoded, but having a little text box in the settings menu would be rad
 	
 	items to add:
 		intelligence items
@@ -89,6 +77,7 @@ playtest notes
 		type writer effect, with sound?
 		pare down the text, they are a bit too wordy
 	
+	i liked the day-night cycle, if a strong enemy is there i want to try to path to a few rewards before it
 	i liked the day-night cycle, if a strong enemy is there i want to try to path to a few rewards before it
 		it isn't really explained that well
 		maybe we need map chunks again, so there's some rares and some non-rares, instead of full randomness.. or maybe just an entropy randomness solves this problem without needing chunks?
@@ -192,6 +181,17 @@ playtest notes
 would be good
 --------------------------------------------------------
 	
+take a pass at my instiated var's - some should probably be consts
+	all globals should probably be consts, to prevent me from changing something that doesn't reset on game restart
+	or at least give me a speedbump to remind me to add a reset function
+
+some sort of stat splitting function in BalanceData
+ put in two stats, and multiplicative or additive (probably two different functions that mostly call the same subfunction)
+ get out either 100% of one stat, 120%/2 = 60% of two stats, etc
+	currently i'm just doing / 2 in the item stats, but i want that to 1. not be repeated, prone to typos; and 2. be tweakable so split items can be more rewarding for total stats
+	
+	actually this function probably has to be in ItemBase, since it's called by the items and sets their properties, but can reference multipliers/factors in BalanceData
+
 maybe slap some more combat log barks into items
 
 pass at text - rename enemies to slightly more generic (the marrow -> marrow behemoth), info panel says "your scouts" etc
@@ -199,6 +199,7 @@ pass at text - rename enemies to slightly more generic (the marrow -> marrow beh
 	look at knight scenario - it mentions the amulet that hasn't been mentioned yet
 	"iron" items? what's the deal with metals?
 	everything is a bit too wordy atm i think, needs editing
+	"you can't trust anyone in this wilderness" and then proceed to trust everyone you meet, feels off
 
 inventory - trade/delete/unequip items?
 	give rewards the "deleteable" property, false for cursed items? important character items?
@@ -662,8 +663,7 @@ thresholdBehaviour requires you to create_threshold, then on a second line check
 	 i don't really like this, it'd be nice if it was built in
 
 time of day is a global script, not tied to the game instance. i like it being able to be referenced by anything, but it really does belong in the game world codespace, not the global space
-
-the ui is currently being managed by main.gd, which i don't want main.gd to do. i want the time of day actor to be indepedent
+the time of day ui is currently being managed by main.gd, which i don't want main.gd to do. i want the time of day actor to be indepedent
 	but i couldn't figure out who to parent it to - not the combat, since you care outside combat
 	not the map, since it's not map related
 	it is a ui button
@@ -675,11 +675,9 @@ the ui is currently being managed by main.gd, which i don't want main.gd to do. 
 			i guess now that i think about it, a tile hearing the new_day_event is what is happening right now, can just add the day_number to the payload?
 			i guess if i want items and enemies and stuff that change based on time of day, they need to know?
 				still can just be a signal sent out on daytime change, and on hearing that you change states? no need to check daytime any other time right?
+-
 
 check out orphan nodes periodicially for memory leaks
-
-settings menu (save to json?)
-	speed for each speed setting, default speed?
 
 no error checking at all for > 4 combatants on either side
 
@@ -688,9 +686,6 @@ combat manager -> ui manager is not respecting combat order, which you will want
 combat log should probably have the print functions (eg aura applied and removed) as a function, that takes a string + colors + variables, or something. DRY
 
 could break the whole map tile system into events - instead of map tiles with specific enemies and rewards and functions, those can be in events. map tile is just an animation and an event. can pick from many events. doesn't really change functionality right now, but it is more continuous
-
-clicking on two tiles that have the same enemy and reward looks really bad
-	the panel doesn't update at all, looks like a bug
 
 combat manager array of combatants - do i want a separate living_combatants array? do i need to know which creatures are there, but dead? should i just use the one array, but put not dead checks in everything?
 	currently i just have the one array, and yeet combatants from it. i probably want to keep them at some point, for corpse related shennanigans when fighting multiple enemies
@@ -720,9 +715,7 @@ tooltip esp for items
 
 aura folder structure is flexible, item folder structure is rigid. would like item to be flexible too, so i can randomly categorize things
 	there is thought to NOT categorizing by folder structure - so i have to categorize by code....
-	can always just search in godot file structure search bar
-
-take a pass at my instiated var's - some should probably be consts
+	can always just search in godot file structure search bar, or control shift f
 
 writing strings in the code, instead of a spreadsheet for localization etc
 	even as dank as button tooltips on control nodes hidden in the scene tree
@@ -730,11 +723,7 @@ writing strings in the code, instead of a spreadsheet for localization etc
 
 using pick_random(), but no random seed management
 
-"inventory is full" greying out items is case by case basis - should probably be in the item tooltip? when that comes. or maybe when hovering over, it turns the custom cursor into an X?
-
 ui has a bunch of minimum pixel sizes - this is probably a fine practice, but things like the combatants numbers getting fucked over 3 digits is not good
-
-hmmmm something is fishy about combatant damage - the combat manager calls for the combatants to take damage based on their attack, which seems bad cause the stat manager might care about custom auras reducing damage from goblins or something. also maybe damage taken should be saved on the player aura thing?
 
 the unique id thing is instance_id + current clock time? sounds super fucked. does it even work on all clocks? what the hell is an instance id, and am i sure you can't create two instance_ids at the same second?
 	should probably deal with this when learning how to save the game

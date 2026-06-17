@@ -1,6 +1,6 @@
 extends Combatant
 
-var turns_dormant:int = 3
+var turns_dormant:int = 4
 
 var debuff_name:String = "Dormant"
 #var buff_message:String = "The cultist's pupils dilate as they enter a fury."
@@ -15,9 +15,9 @@ func _init() -> void:
 	
 	targeting_behaviour_preset = TargetingPreset.RANDOM
 	
-	starting_stats[Stats.strength] = BalanceData.enemy_mythic_stat_budget
-	starting_stats[Stats.agility] = BalanceData.enemy_mythic_stat_budget * 2 / 3
-	starting_stats[Stats.fortitude] = BalanceData.enemy_mythic_health_stat_budget
+	starting_stats[Stats.strength] = BalanceData.enemy_mythic_stat_budget * 2
+	starting_stats[Stats.agility] = BalanceData.enemy_mythic_stat_budget * 3
+	starting_stats[Stats.fortitude] = BalanceData.enemy_mythic_health_stat_budget * 1 / 2
 
 #called by Combatant
 func on_start_combat() -> void:

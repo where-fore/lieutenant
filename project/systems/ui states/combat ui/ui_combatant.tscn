@@ -114,6 +114,7 @@ nine_patch_stretch = true
 texture_progress = ExtResource("9_0x77s")
 
 [node name="Actives" type="VBoxContainer" parent="Portrait"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 0
 
