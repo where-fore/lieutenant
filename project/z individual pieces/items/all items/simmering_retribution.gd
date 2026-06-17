@@ -14,11 +14,10 @@ func setup_item_stats() -> void:
 
 
 #custom stuff
-var times_hit_required:int = 4
+var times_hit_required:int = 6
 
 var stat_to_gain:StringName = Stats.strength
-var stat_gain_on_enrage:int = BalanceData.common_stat_budget * times_hit_required * 4
-	# ie. give the stats you'd have by a regular item, multiplied by the number of turns you'd have benefitted from it already, multiplied by a value as a reward for going through the hoops
+var stat_gain_on_enrage:int = BalanceData.common_stat_budget * times_hit_required * 1
 
 var times_hit_so_far:int
 

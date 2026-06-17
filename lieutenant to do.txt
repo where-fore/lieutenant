@@ -4,196 +4,199 @@ working notes
 
 
 
+
+
+
+not sure what happens when shield goes below 0 - say i want that bloodbath necklace again, it'd be +1000 shield, -1000 shield - what happens when you go from 700 to -300 shield
+
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
 
-	get the lethality working about right - enemies kill 2ish combatants, then perish
-		can wait for items to be in to balance
-		items seem very hard to balance atm, there's no "stat budget", they give fairly unique abilities
-			which is great, but "wait to balance till later" doesn't need to happen, since once i have an idea of balance, when making new items, i can tune them with that balance heuristic in mind
+get the lethality working about right - enemies kill 2ish combatants, then perish
+	can wait for items to be in to balance
+	items seem very hard to balance atm, there's no "stat budget", they give fairly unique abilities
+		which is great, but "wait to balance till later" doesn't need to happen, since once i have an idea of balance, when making new items, i can tune them with that balance heuristic in mind
+
+map info popups are z-index 1, means they pop up over everything - notably the inventory/combat log menu being opened
+	this was done so other map tiles don't render over them
+	this makes me think i should have specific layers or z-indexes for every ui piece. lots of manual work?
+
+some more interesting enemies - have some multi combats with weak adds, enrage effects, necromancer who benefits when anyone dies; enemies who have double damage first two turns; enemies who deal damage to all; enemies who take certain stats or percents etc
+
+visually better combat - damage fx, damage numbers, combatants shake on hit/getting hit? scale these animations to play_speed (maybe throttle them so if speed <0.1 then don't play, or something)
+
+that random entropy system - would be great for map spawning. also semiunrelatedly, the items spawning from a list instead of true random, look at music shuffle algorithms (want last 3 items to not show up for 2 sets of 3? or so)
+
+popup ui tutorial would be nice - when seeing the stats for the first time, glow the inventory ui button and say "check out what stats do here"
+something with combat log too, "check out what hurt you so bad" or something
+
+
+items to add:
+	intelligence items
+	fortitude items
+	stat spread rewards - buff allies for your lowest stat;
+	focus change stuff - delayed bursts of stats, esp +20% agi item with +200 str sorta deal
+	death stuff - enrages, buff on death, buff when anything dies, damage per dead combatant, etc
 	
-	would really like a char sheet printout on game end, at least for playtesting
-		can compare feelings/experience to the item rewards, and track trends
-		ideally also shows rewards offered, elites fought
-		spire, data driven balancing
-	
-	map info popups are z-index 1, means they pop up over everything - notably the inventory/combat log menu being opened
-		this was done so other map tiles don't render over them
-		this makes me think i should have specific layers or z-indexes for every ui piece. lots of manual work?
-	
-	some more interesting enemies - have some multi combats with weak adds, enrage effects, necromancer who benefits when anyone dies; enemies who have double damage first two turns; enemies who deal damage to all; enemies who take certain stats or percents etc
-	
-	visually better combat - damage fx, damage numbers, combatants shake on hit/getting hit? scale these animations to play_speed (maybe throttle them so if speed <0.1 then don't play, or something)
-	
-	that random entropy system - would be great for map spawning. also semiunrelatedly, the items spawning from a list instead of true random, look at music shuffle algorithms (want last 3 items to not show up for 2 sets of 3? or so)
-	
-	pass at debug keybinds - fix or remove, at least update the menu tooltip
-	
-	popup ui tutorial would be nice - when seeing the stats for the first time, glow the inventory ui button and say "check out what stats do here"
-	something with combat log too, "check out what hurt you so bad" or something
-	
-	let user define speed for each speed setting. currently they are hardcoded, but having a little text box in the settings menu would be rad
-	
-	items to add:
-		intelligence items
-		fortitude items
-		stat spread rewards - buff allies for your lowest stat;
-		basic attack items (no stats just attack)
-		
-		focus change stuff - the flanking sword seems like it does nothing aggro related, since it's mega agility you'll never have highest str? or maybe it's for sending you from 2nd str to 3rd/4th str?
-			maybe it should be -agi but +attack?
-			add more of these
-		death stuff - enrages, buff on death, buff when anything dies, damage per dead combatant, etc
-		
-		item features to codify
-			"on turn x" like bear's defense, stat_sum_burst
-				this is probably a TurnCounterBehaviour to match ThresholdBehaviour item: TurnCounterBehaviour.new().setup(activate_on_turn=5, function_to_call)
-					pass in a turn to activate, a callable function or a signal, and 
-	-
-	
-	fix stats - str +damage, dex +damage in a different way. regular hp increases somehow
-	
+	item code features to codify
+		"on turn x" like bear's defense, stat_sum_burst
+			this is probably a TurnCounterBehaviour to match ThresholdBehaviour item: TurnCounterBehaviour.new().setup(activate_on_turn=5, function_to_call)
+				pass in a turn to activate, a callable function or a signal 
+-
+
+fix stats - str +damage, dex +damage in a different way. regular hp increases somehow (maybe just lots of good items with fortitude? basic reward = fortitude flower, stat flower) (can do two rows of rewards if too much)
+	is %damage str and %crit dex really that bad? if crit is entropy based? both are %scaling, dex is more multiplicative with multi and chance. there are enough turns in the game to smooth randomness, right?
+	unless item procs can crit - should these stats affect item procs? what category of items, say mountainslide +25% str as damage, or moon kris dex damage?
 
 
 --------------------------------------------------------
 playtest notes
 --------------------------------------------------------
 
-	dead characters getting the turn indicator looks buggy
+moon kris looks really disappointing - maybe rewrite to "dexterity provides 50% more attack"? sounds more powerful
 
-	stats are still weird, strength dex and attack? why does enrage sword give attack? why does strength and fortitude give hp?
-		strength = damage, dex = damage, fortitude = hp
-		for now strength and dex can be identical, later add a secondary scaling to them? but no hp
-			so enrage sword can give str, which is either synergistic with your str scaler, or maybe shifts aggro with your mind build? more flexible, instead of basic +attack
-			also decouples hp and damage
-		need a way to have hp generally increase, more fortitude items? fortitude increases every day? all char fortitude increases every reward screen?
+dead characters getting the turn indicator looks buggy
 
-	maybe some sort of mind tutorial is in order? at least get an item with +mind before encountering an enemy with mind?'
-		i do like mind being a weird rare strange stat, maybe leave it as it is
-		maybe flowers shouldnt give mind? just events and strange items?
-			dont want mind to be so rare you can't play with it
+stats are still weird, strength dex and attack? why does enrage sword give attack? why does strength and fortitude give hp?
+	strength = damage, dex = damage, fortitude = hp
+	for now strength and dex can be identical, later add a secondary scaling to them? but no hp
+		so enrage sword can give str, which is either synergistic with your str scaler, or maybe shifts aggro with your mind build? more flexible, instead of basic +attack
+		also decouples hp and damage
+	need a way to have hp generally increase, more fortitude items? fortitude increases every day? all char fortitude increases every reward screen?
 
-	sometimes you can lose the first "hard" fight, or win so handily you don't even need the companion
-		ideally add a little stun to the enemy? when they kill an enemy, they stun for a bit? but are extra lethal? that's a rare i want anyways
-		and ideally i refactor that tile to affect the enemy, instead of having a copy pasted enemy with lower stats
-			i want the tile to be a weaker version of a regular enemy, not a unique enemy, probably
-	
-	scenarios are a bit dry - too much text, too little going on
-		would be nice to get portraits in? or at least a background
-		type writer effect, with sound?
-		pare down the text, they are a bit too wordy
-	
-	i liked the day-night cycle, if a strong enemy is there i want to try to path to a few rewards before it
-	i liked the day-night cycle, if a strong enemy is there i want to try to path to a few rewards before it
-		it isn't really explained that well
-		maybe we need map chunks again, so there's some rares and some non-rares, instead of full randomness.. or maybe just an entropy randomness solves this problem without needing chunks?
+maybe some sort of mind tutorial is in order? at least get an item with +mind before encountering an enemy with mind?'
+	i do like mind being a weird rare strange stat, maybe leave it as it is
+	maybe flowers shouldnt give mind? just events and strange items?
+		dont want mind to be so rare you can't play with it
 
-	i like the spear threshold - it felt cool to try to go for, and great to achieve
-		maybe i should more "miniquest" items at the start, like my original 3-rare-choice
-			not sure how to not put all these on the same character
-				not sure why that's a problem actually, the idea is just to have some meta-goals to give more direction and meaning to choices. no need for it to be one-per-character, or even 4 at all
+sometimes you can lose the first "hard" fight, or win so handily you don't even need the companion
+	ideally add a little stun to the enemy? when they kill an enemy, they stun for a bit? but are extra lethal? that's a rare i want anyways
+	and ideally i refactor that tile to affect the enemy, instead of having a copy pasted enemy with lower stats
+		i want the tile to be a weaker version of a regular enemy, not a unique enemy, probably
 
-	boss was super anticlimactic stat check, and instantly killed my dudes (despite getting the mega spear buff)
-		maybe bosses force to slower turn speed; and also have much higher hp and lower attack?
-			maybe that means i should change the scaling items, i have lots of powerful scalers that dont get time to activate on regular fights
-		i like the hydra idea too, have to beat some amount in sequence
+scenarios are a bit dry - too much text, too little going on
+	would be nice to get portraits in? or at least a background
+	type writer effect, with sound?
+	pare down the text, they are a bit too wordy
 
-	i liked the aggro swapping in theory, there wasn't quite enough meat there. also not explained well
-		wanting to put the scaling damage on my lower stat guys was cool
-		high damage meaning dying fast feels counterproductive - i want to stack the multiplicative damage on my dude with high attack, but he dies super fast. fortitude feels like a trap because it stems the bleeding but doesn't help enough
+i liked the day-night cycle, if a strong enemy is there i want to try to path to a few rewards before it
+i liked the day-night cycle, if a strong enemy is there i want to try to path to a few rewards before it
+	it isn't really explained that well
+	maybe we need map chunks again, so there's some rares and some non-rares, instead of full randomness.. or maybe just an entropy randomness solves this problem without needing chunks?
 
-	mind felt completely worthless as a player
-		didn't really put any items in for it i suppose
-		also don't have a companion for it?
-	
-	i didn't really get to do any of the death effect stuff
-		there isn't really any in the game right now anyways
-		but enemies were too lethal and low hp for that - maybe one character dies and the monster immediately dies
-			maybe the knights both starting with a revenger is too much? maybe one should have a healing thing?
-	
-	getting offered a 20 stat flower and a basic 30 stat common item, especially both same stat after first combat, is confusing
-		why do common items exist again
-	-> changed second reward to a handful of flowers
-	
-	---
-	--addressed--
-	---
-	
-	current scaling feels pretty alright - you get one or two crazy shennanigans going by the end of the game right now
-		endless mode would be cool
-		enemies don't scale as fast as you - they are a bit strong in the early/mid but once you get a synergy going they are left in the dust
-		could be a handful of tiles longer
-	-> did those second adjustments, endless mode on the nice-to-do list
-	
-	dead characters can die from exhaustion, barking to combat log
-		probably remove the stamina check from dead characters? maybe just the combat log bark?
-	-> add a "if not dead" check to the dying from exhaustion function
-	
-	not enough cool items, mostly stat flowers
-		that was my intention, but it didn't really feel that great. maybe rare item rewards are just as sparse, but provide a selection of a few? i felt like i wasn't really making tons of choices or seeing many
-	-> added multiple rewards, and bumped up spawn rate of rare enemies
+i like the spear threshold - it felt cool to try to go for, and great to achieve
+	maybe i should more "miniquest" items at the start, like my original 3-rare-choice
+		not sure how to not put all these on the same character
+			not sure why that's a problem actually, the idea is just to have some meta-goals to give more direction and meaning to choices. no need for it to be one-per-character, or even 4 at all
 
-	i completely skipped one companion
-		wasn't required for balance or story
-	-> adjusted enemies tougher. story wise should be solved when reorganizing the first path
+boss was super anticlimactic stat check, and instantly killed my dudes (despite getting the mega spear buff)
+	maybe bosses force to slower turn speed; and also have much higher hp and lower attack?
+		maybe that means i should change the scaling items, i have lots of powerful scalers that dont get time to activate on regular fights
+	i like the hydra idea too, have to beat some amount in sequence
 
-	i didn't like the map info panel swapping sides, i was just getting used to the controls and it swapped
-		probably doesn't really need to exist, just a tooltip popup on the map tile with the enemy?
-			click away to dismiss it
-	-> put the map info as a tooltip over the tiles themselves, instead of edge anchored
-	
-	map at start is still overwhelming, especially as i start with fewer available tiles. i would love a little fog of war or camera zoom at the start of the game
-	-> made the intro a lil tunnel with a house and stuff, it's a bit nicer for now
-	
-	my instinct for the knights is to get them to tank and str focus, but their revengers benefit from someone else dying first? doesn't feel very knightly to let others die first?
-		maybe it should one knight who has giga strength and one non-knight (brother?) who enrages on knight death?
-	-> removed sword from their inventory for now, can give to whoever you want
-	
-	rares all feels the same, just high stat balls
-		get them to target different stats, have more effects which interact with the death/aggro mechanic, have multi combat encounters (one targeting each stat? scary)
-		get them to interact with different stats, instead of cutting hp by 75%, cut str? absorb str but not dex? etc
-	
-	mind shield isn't in combat log, no indication in game of why the lich was invulnerable
-		maybe in the damage taken, show damage absorbed by shield
-	-> added shield bark for damage shielded. no indication of why shield was gained
-	
-	if you walk back and forth and explore the tutorial a bit, getting used to the controls - the tutorial wolves can scale and outscale you
-		tutorial wolves maybe shouldn't scale, or time shouldn't pass for a bit? not sure. don't want to break the rules, but want the rules to be flexible while you're learning the controls?
-	-> reduced daily scaling until you filled your party
-	
-	lich pretty easily trigger exhaustion, and it was very hard to tell what happened
-	-> increased exhaustion limit, not sure on the exhaustion visibility
-	
-	if you fall behind the daily scaling, it becomes impossible very very quickly, and you have no choices you can make
-	-> reduced daily scaling until you filled your party
-	
-	knight event feels like it did nothing, maybe it should have a nice combat after too
-	-> removed swords from knights starter inventory, and added as a reward for the scenario. that way there's something to do, you see them in your party, and you notice the sword (easy to add knights to party and never notice their sword)
-	
-	mind should do like 2-3x as much, it was balanced around single combat
-	-> doubled it for now
-	
-	
-	--
-	couldn't recreate
-	--
-	
-	playtest after changing all rare stats to 0. mega healing enil build
-	
-		aribald is attacking first, then enemy, then enil. no idea here
+i liked the aggro swapping in theory, there wasn't quite enough meat there. also not explained well
+	wanting to put the scaling damage on my lower stat guys was cool
+	high damage meaning dying fast feels counterproductive - i want to stack the multiplicative damage on my dude with high attack, but he dies super fast. fortitude feels like a trap because it stems the bleeding but doesn't help enough
 
-		i think arlaeus somehow never died, not sure why - maybe mega healing ring carried over? maybe enil was healing while dead?
-		
+mind felt completely worthless as a player
+	didn't really put any items in for it i suppose
+	also don't have a companion for it?
+
+i didn't really get to do any of the death effect stuff
+	there isn't really any in the game right now anyways
+	but enemies were too lethal and low hp for that - maybe one character dies and the monster immediately dies
+		maybe the knights both starting with a revenger is too much? maybe one should have a healing thing?
+
+getting offered a 20 stat flower and a basic 30 stat common item, especially both same stat after first combat, is confusing
+	why do common items exist again
+-> changed second reward to a handful of flowers
+
+---
+--addressed--
+---
+
+current scaling feels pretty alright - you get one or two crazy shennanigans going by the end of the game right now
+	endless mode would be cool
+	enemies don't scale as fast as you - they are a bit strong in the early/mid but once you get a synergy going they are left in the dust
+	could be a handful of tiles longer
+-> did those second adjustments, endless mode on the nice-to-do list
+
+dead characters can die from exhaustion, barking to combat log
+	probably remove the stamina check from dead characters? maybe just the combat log bark?
+-> add a "if not dead" check to the dying from exhaustion function
+
+not enough cool items, mostly stat flowers
+	that was my intention, but it didn't really feel that great. maybe rare item rewards are just as sparse, but provide a selection of a few? i felt like i wasn't really making tons of choices or seeing many
+-> added multiple rewards, and bumped up spawn rate of rare enemies
+
+i completely skipped one companion
+	wasn't required for balance or story
+-> adjusted enemies tougher. story wise should be solved when reorganizing the first path
+
+i didn't like the map info panel swapping sides, i was just getting used to the controls and it swapped
+	probably doesn't really need to exist, just a tooltip popup on the map tile with the enemy?
+		click away to dismiss it
+-> put the map info as a tooltip over the tiles themselves, instead of edge anchored
+
+map at start is still overwhelming, especially as i start with fewer available tiles. i would love a little fog of war or camera zoom at the start of the game
+-> made the intro a lil tunnel with a house and stuff, it's a bit nicer for now
+
+my instinct for the knights is to get them to tank and str focus, but their revengers benefit from someone else dying first? doesn't feel very knightly to let others die first?
+	maybe it should one knight who has giga strength and one non-knight (brother?) who enrages on knight death?
+-> removed sword from their inventory for now, can give to whoever you want
+
+rares all feels the same, just high stat balls
+	get them to target different stats, have more effects which interact with the death/aggro mechanic, have multi combat encounters (one targeting each stat? scary)
+	get them to interact with different stats, instead of cutting hp by 75%, cut str? absorb str but not dex? etc
+
+mind shield isn't in combat log, no indication in game of why the lich was invulnerable
+	maybe in the damage taken, show damage absorbed by shield
+-> added shield bark for damage shielded. no indication of why shield was gained
+
+if you walk back and forth and explore the tutorial a bit, getting used to the controls - the tutorial wolves can scale and outscale you
+	tutorial wolves maybe shouldn't scale, or time shouldn't pass for a bit? not sure. don't want to break the rules, but want the rules to be flexible while you're learning the controls?
+-> reduced daily scaling until you filled your party
+
+lich pretty easily trigger exhaustion, and it was very hard to tell what happened
+-> increased exhaustion limit, not sure on the exhaustion visibility
+
+if you fall behind the daily scaling, it becomes impossible very very quickly, and you have no choices you can make
+-> reduced daily scaling until you filled your party
+
+knight event feels like it did nothing, maybe it should have a nice combat after too
+-> removed swords from knights starter inventory, and added as a reward for the scenario. that way there's something to do, you see them in your party, and you notice the sword (easy to add knights to party and never notice their sword)
+
+mind should do like 2-3x as much, it was balanced around single combat
+-> doubled it for now
+
+
+--
+couldn't recreate
+--
+
+playtest after changing all rare stats to 0. mega healing enil build
+
+	aribald is attacking first, then enemy, then enil. no idea here
+
+	i think arlaeus somehow never died, not sure why - maybe mega healing ring carried over? maybe enil was healing while dead?
 	
-	--
+
+--
 
 
 
 --------------------------------------------------------
 would be good
 --------------------------------------------------------
-	
+
+let user define speed for each speed setting. currently they are hardcoded, but having a little text box in the settings menu would be rad
+
+would really like a char sheet printout on game end, at least for playtesting
+	can compare feelings/experience to the item rewards, and track trends
+	ideally also shows rewards offered, elites fought
+	spire, data driven balancing
+		
 take a pass at my instiated var's - some should probably be consts
 	all globals should probably be consts, to prevent me from changing something that doesn't reset on game restart
 	or at least give me a speedbump to remind me to add a reset function

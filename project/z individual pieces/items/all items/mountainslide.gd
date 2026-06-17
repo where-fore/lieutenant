@@ -17,7 +17,7 @@ var starting_hp:int = BalanceData.player_base_strength / Stats.strength_per_heal
 var my_health_threshold:int = starting_hp * 15
 var my_threshold_stat:StringName = Stats.health
 
-var my_threshold_attack_factor:int = 25
+var my_threshold_attack_factor:int = 20
 var my_threshold_attack_stat:StringName = Stats.strength
 
 var my_threshold:ThresholdBehaviour
