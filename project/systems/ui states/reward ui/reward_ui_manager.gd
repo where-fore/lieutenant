@@ -1,4 +1,5 @@
 extends Control
+class_name RewardUIManager
 
 @onready var edit_border:TextureRect = $EditBorder
 
@@ -14,6 +15,7 @@ var current_title_text_blurb:String
 var current_map_tile:MapTile
 
 var is_a_reward_prepped:bool = false
+var currently_a_one_shot:bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -27,7 +29,9 @@ func _ready() -> void:
 	
 	clear_reward()
 
-func change_to() -> void:
+func change_to(one_shot:bool = false) -> void:
+	if one_shot: currently_a_one_shot = true
+	
 	if current_map_tile:
 		if current_map_tile.end_of_chapter:
 			HudEvents.chapter_won.emit()

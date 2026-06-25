@@ -5,9 +5,9 @@ func _init() -> void:
 	combatant_texture = load("res://sprites/portraits/man_1.png")
 	extra_tooltip = "" # "Generic flavourful description"
 	
-	starting_stats[Stats.strength] = BalanceData.player_base_strength
-	starting_stats[Stats.agility] = BalanceData.player_base_agility
-	starting_stats[Stats.mind] = BalanceData.player_base_mind
-	starting_stats[Stats.fortitude] = BalanceData.player_base_fortitude
+	starting_stats[Stats.strength] = 0
+	starting_stats[Stats.agility] = 0
+	starting_stats[Stats.mind] = 0
+	starting_stats[Stats.fortitude] = 0
 	
 	#starting_items = [Database.get_reward_by_id("necklace_of_bloodbath")]

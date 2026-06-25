@@ -23,7 +23,7 @@ func _init() -> void:
 func next_page() -> void:
 	if current_page == 1:
 		ScenarioEvents.setup_reward.emit(rewards[0])
-		ScenarioEvents.present_rewards.emit()
+		ScenarioEvents.present_rewards.emit(false)
 	if current_page == 3:
 		ScenarioEvents.begin_combat_with.emit(enemies)
 	else: next_page_base()

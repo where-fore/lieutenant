@@ -3,13 +3,16 @@ working notes
 --------------------------------------------------------
 
 
+not sure how to make keepsake amulet increase its own max hp conferrance, updating its own tooltip and all - i know how for auras of course
+	i could always have the amulet confer an aura "sunlight energy" or something, and update that
 
-
-
-
-not sure what happens when shield goes below 0 - say i want that bloodbath necklace again, it'd be +1000 shield, -1000 shield - what happens when you go from 700 to -300 shield
-	ideally it floors to zero, like other stats
-
+add a hp-per-day keepsake you get from home. also tutorializes the inventory ui button, and the stats? have it give a max health and 10 of every stat maybe? also then i can have stats start at 0, max hp starting at value of amulet?
+	notably companions start at non-0: maybe i can just have them at 0 but with an aura "Prior Training" that you can read the tooltip on
+	
+	figure out a good hp per day
+	figure out on_new_day item triggers
+	get menu ui buttons tweenin
+	
 --------------------------------------------------------
 work to do
 --------------------------------------------------------

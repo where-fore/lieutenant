@@ -16,7 +16,8 @@ func _ready() -> void:
 	ScenarioEvents.on_last_page.connect(change_next_button_to_continue)
 	@warning_ignore("untyped_declaration") #programmer short hand for yeeting all the arguments
 	ScenarioEvents.begin_combat_with.connect(func(_unused_data) -> void: change_to_combat())
-	ScenarioEvents.present_rewards.connect(hide_screen)
+	@warning_ignore("untyped_declaration") #programmer short hand for yeeting all the arguments
+	ScenarioEvents.present_rewards.connect(func(_unused_data) -> void: hide_screen())
 	ScenarioEvents.completed_combat_as_victory.connect(resume_scenario_as_victory)
 	ScenarioEvents.completed_combat_as_loss.connect(resume_scenario_as_loss)
 	

@@ -24,7 +24,7 @@ func next_page() -> void:
 		CombatEvents.party_member_added.emit(new_companion2)
 	
 		ScenarioEvents.setup_reward.emit(rewards[0])
-		ScenarioEvents.present_rewards.emit()
+		ScenarioEvents.present_rewards.emit(false)
 	next_page_base()
 
 #old draft, probably too much exposition

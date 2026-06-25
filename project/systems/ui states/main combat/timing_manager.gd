@@ -7,7 +7,8 @@ func _ready() -> void:
 	MapEvents.enter_combat_in.connect(func(_unused_data) -> void: show())
 	@warning_ignore("untyped_declaration") #programmer short hand for yeeting all the arguments
 	ScenarioEvents.begin_combat_with.connect(func(_unused_data) -> void: show())
-	ScenarioEvents.present_rewards.connect(show)
+	@warning_ignore("untyped_declaration") #programmer short hand for yeeting all the arguments
+	ScenarioEvents.present_rewards.connect(func(_unused_data) -> void: show())
 	MapEvents.enter_without_combat_in.connect(show)
 	MapEvents.combat_all_done.connect(hide)
 	

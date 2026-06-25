@@ -1,7 +1,7 @@
 extends Control
 
 @onready var combat_ui_manager:Node = $Control/MainUI/CombatUI
-@onready var reward_ui_manager:Node = $Control/MainUI/RewardUI
+@onready var reward_ui_manager:RewardUIManager = $Control/MainUI/RewardUI
 @onready var portrait_ui_manager:Node = $Control/MainUI/PortraitUI
 @onready var death_ui:Node = $Control/MainUI/DeathUI
 
@@ -29,6 +29,12 @@ func end_combat_as_failure() -> void:
 
 func end_rewards_screen() -> void:
 	reward_ui_manager.change_from()
+	
+	if reward_ui_manager.currently_a_one_shot:
+		reward_ui_manager.currently_a_one_shot = false
+		MapEvents.combat_all_done.emit()
+		return #end whole function here
+	
 	if ScenarioEvents.current_scenario:
 		ScenarioEvents.completed_combat_as_victory.emit()
 	MapEvents.combat_finished_as_victory.emit()

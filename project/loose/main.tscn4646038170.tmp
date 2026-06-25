@@ -1,0 +1,705 @@
+[gd_scene load_steps=36 format=3 uid="uid://m6cv5sqf20gx"]
+
+[ext_resource type="Script" uid="uid://bill8ywvivwyp" path="res://systems/ui states/main.gd" id="1_bbldx"]
+[ext_resource type="PackedScene" uid="uid://dsbt6u8ma1cpc" path="res://systems/map system/managers/map_tile_system.tscn" id="2_16p2t"]
+[ext_resource type="PackedScene" uid="uid://djmb1odrj7pil" path="res://systems/ui states/main combat/combat_main.tscn" id="2_qmb71"]
+[ext_resource type="Material" uid="uid://db4ka5skbpxq4" path="res://loose/crt_major.tres" id="5_bbldx"]
+[ext_resource type="Material" uid="uid://cd0t2uxtmvr0l" path="res://loose/crt_minor.tres" id="6_uaqc7"]
+[ext_resource type="Script" uid="uid://dvk6chwr5wrj4" path="res://loose/pause_menu.gd" id="7_yqr2s"]
+[ext_resource type="PackedScene" uid="uid://7pts57ml03o3" path="res://ui resources/reusable ui pieces/top_menu_button.tscn" id="8_rjmfi"]
+[ext_resource type="Texture2D" uid="uid://dhv5u72sffxlx" path="res://sprites/menu.png" id="8_u46kj"]
+[ext_resource type="Script" uid="uid://c83t3y7en3pq0" path="res://loose/cursor_manager.gd" id="8_xalbe"]
+[ext_resource type="Texture2D" uid="uid://xr6idafv8gpe" path="res://sprites/cursor.png" id="9_nf78q"]
+[ext_resource type="Texture2D" uid="uid://cy48iap8gerbw" path="res://sprites/bag.png" id="10_1j0u7"]
+[ext_resource type="Texture2D" uid="uid://c7a1jxvk522q2" path="res://sprites/border_background.png" id="10_qmb71"]
+[ext_resource type="Texture2D" uid="uid://cqhb4p4tf4jbg" path="res://sprites/paper.png" id="11_obmf6"]
+[ext_resource type="Texture2D" uid="uid://dngm38c2cqh5o" path="res://sprites/animations/backdrop/sky background.png" id="12_bbldx"]
+[ext_resource type="SpriteFrames" uid="uid://dbriv3a7topvw" path="res://sprites/animations/backdrop/background edge/background_edge.tres" id="12_g13l7"]
+[ext_resource type="Texture2D" uid="uid://dtf7pc3ra7qf5" path="res://sprites/moon.png" id="12_ireyf"]
+[ext_resource type="SpriteFrames" uid="uid://c3xi07klbwfxm" path="res://sprites/animations/backdrop/foreground edge/foreground_edge.tres" id="13_npwt7"]
+[ext_resource type="Texture2D" uid="uid://0pkmth45mucx" path="res://sprites/animations/backdrop/sky foreground.png" id="13_uaqc7"]
+[ext_resource type="PackedScene" uid="uid://ca2ocpb1uxw4n" path="res://ui resources/reusable ui pieces/volume_control.tscn" id="14_80hqw"]
+[ext_resource type="SpriteFrames" uid="uid://b6sdmhy2c02x3" path="res://sprites/animations/backdrop/stars and moon frames/stars_and_moon.tres" id="14_g13l7"]
+[ext_resource type="Texture2D" uid="uid://dicmyh0qbtnav" path="res://sprites/cursor/cursor_particle.png" id="14_npwt7"]
+[ext_resource type="Texture2D" uid="uid://bmxnkkwdbmxdt" path="res://sprites/animations/backdrop/map_grid_base_1.png" id="14_wcgmp"]
+[ext_resource type="Material" uid="uid://densi0a6br74i" path="res://sprites/cursor/cursor_trail.tres" id="15_obmf6"]
+[ext_resource type="PackedScene" uid="uid://b13o5cfslg2uj" path="res://systems/event log/event_log.tscn" id="18_h0uu6"]
+[ext_resource type="Texture2D" uid="uid://cwjj6wggwg4n3" path="res://sprites/18px_border.png" id="18_nf78q"]
+[ext_resource type="Texture2D" uid="uid://cpw82trinj1rj" path="res://sprites/heart.png" id="18_xalbe"]
+[ext_resource type="PackedScene" uid="uid://l4er4w6epgd5" path="res://systems/ui states/text blurb/text_blurb_screen.tscn" id="19_bbldx"]
+[ext_resource type="Texture2D" uid="uid://2y8ag60vnkxb" path="res://sprites/border.png" id="20_1fc2u"]
+[ext_resource type="PackedScene" uid="uid://clrl0tbbkcowa" path="res://ui resources/reusable ui pieces/frame_recessed.tscn" id="22_u46kj"]
+[ext_resource type="PackedScene" uid="uid://carnrr8rlj0uw" path="res://systems/ui states/stats ui/stats_ui.tscn" id="29_1j0u7"]
+[ext_resource type="Script" uid="uid://bnn132ee6xb33" path="res://systems/time of day system/light_filter.gd" id="30_cuuk2"]
+[ext_resource type="PackedScene" uid="uid://db2xycj73eq00" path="res://ui resources/reusable ui pieces/close_button.tscn" id="31_80hqw"]
+[ext_resource type="PackedScene" uid="uid://0lhcbhnwyj1j" path="res://ui resources/reusable ui pieces/frame_protruding.tscn" id="31_rjmfi"]
+[ext_resource type="Script" uid="uid://ceiuhgrrtjav4" path="res://systems/time of day system/text_scroll.gd" id="34_80hqw"]
+[ext_resource type="PackedScene" uid="uid://brj5adq126pu5" path="res://audio/managers/sfx_manager.tscn" id="36_q5k8v"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_bbldx")
+combat_entire_scene = ExtResource("2_qmb71")
+map_creation_scene = ExtResource("2_16p2t")
+text_blurb_scene = ExtResource("19_bbldx")
+
+[node name="CRTFilter" type="CanvasLayer" parent="."]
+layer = 1000
+visible = false
+
+[node name="CRTMajor" type="ColorRect" parent="CRTFilter"]
+visible = false
+material = ExtResource("5_bbldx")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="CRTMinor" type="ColorRect" parent="CRTFilter"]
+material = ExtResource("6_uaqc7")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="MainUI" type="CanvasLayer" parent="."]
+layer = 50
+
+[node name="GameStarter" type="Control" parent="MainUI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameStartButtons" type="HBoxContainer" parent="MainUI/GameStarter"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SpacerLeft" type="Control" parent="MainUI/GameStarter/GameStartButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="NewGameButton" type="Button" parent="MainUI/GameStarter/GameStartButtons"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="MainUI/GameStarter/GameStartButtons/NewGameButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "New
+Game"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SpacerRight" type="Control" parent="MainUI/GameStarter/GameStartButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="TopButtons" type="HBoxContainer" parent="MainUI"]
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 79.0
+offset_bottom = 19.0
+
+[node name="PauseMenuButton" parent="MainUI/TopButtons" instance=ExtResource("8_rjmfi")]
+layout_mode = 2
+
+[node name="TextureRect" parent="MainUI/TopButtons/PauseMenuButton/MarginContainer" index="0"]
+texture = ExtResource("8_u46kj")
+
+[node name="TimeButton" parent="MainUI/TopButtons" instance=ExtResource("8_rjmfi")]
+layout_mode = 2
+tooltip_text = "Time of Day"
+
+[node name="TextureRect" parent="MainUI/TopButtons/TimeButton/MarginContainer" index="0"]
+texture = ExtResource("12_ireyf")
+
+[node name="CombatLogButton" parent="MainUI/TopButtons" instance=ExtResource("8_rjmfi")]
+layout_mode = 2
+tooltip_text = "Combat Log"
+
+[node name="TextureRect" parent="MainUI/TopButtons/CombatLogButton/MarginContainer" index="0"]
+texture = ExtResource("11_obmf6")
+
+[node name="InventoryMenuButton" parent="MainUI/TopButtons" instance=ExtResource("8_rjmfi")]
+layout_mode = 2
+tooltip_text = "Inventory"
+
+[node name="TextureRect" parent="MainUI/TopButtons/InventoryMenuButton/MarginContainer" index="0"]
+texture = ExtResource("10_1j0u7")
+
+[node name="PauseMenu" type="Control" parent="MainUI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_yqr2s")
+
+[node name="FrameRecessed" parent="MainUI/PauseMenu" instance=ExtResource("22_u46kj")]
+layout_mode = 1
+
+[node name="MenuButtonCanvas" type="Control" parent="MainUI/PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = -64.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuButtons" type="VBoxContainer" parent="MainUI/PauseMenu/MenuButtonCanvas"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="MusicVolumeSlider" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons" instance=ExtResource("14_80hqw")]
+layout_mode = 2
+music_controller = true
+
+[node name="SFXVolumeSlider" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons" instance=ExtResource("14_80hqw")]
+layout_mode = 2
+sounds_controller = true
+
+[node name="LabelMuteButton" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/SFXVolumeSlider" index="0"]
+text = "Sounds"
+
+[node name="GenreButton" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/SFXVolumeSlider" index="2"]
+visible = false
+
+[node name="ShuffleIcon" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/SFXVolumeSlider" index="3"]
+visible = false
+
+[node name="Spacer2" type="Control" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TopRow" type="HBoxContainer" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Spacer" type="Control" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="RestartButton" type="Button" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow/RestartButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+text = "Retire
+and
+Restart"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacer2" type="Control" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="ResumeButton" type="Button" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow"]
+custom_minimum_size = Vector2(64, 48)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow/ResumeButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+text = "Resume
+"
+
+[node name="Spacer3" type="Control" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Spacer" type="Control" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BottomRow" type="HBoxContainer" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="InfoButton" type="Button" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/BottomRow"]
+custom_minimum_size = Vector2(64, 48)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/BottomRow/InfoButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+text = "Math
+Info"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CenterSpacer" type="Control" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/BottomRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="DebugButton" type="Button" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/BottomRow"]
+custom_minimum_size = Vector2(64, 48)
+layout_mode = 2
+tooltip_text = "F11: Toggle CRT Filter"
+
+[node name="Label" type="Label" parent="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/BottomRow/DebugButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+text = "Debug
+Keys"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MathInfoPanel" type="Panel" parent="MainUI/PauseMenu"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -125.0
+offset_right = 230.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="FrameProtruding" parent="MainUI/PauseMenu/MathInfoPanel" instance=ExtResource("31_rjmfi")]
+layout_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MainUI/PauseMenu/MathInfoPanel/FrameProtruding"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 6
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MainUI/PauseMenu/MathInfoPanel/FrameProtruding/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainUI/PauseMenu/MathInfoPanel/FrameProtruding/MarginContainer/ScrollContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 6
+text = "How the game does math:
+------------------------
+
+Everything is rounded down to whole numbers, at most steps of calculation.
+
+------------------------------------------------
+
+Percentage multipliers are all summed together first, then applied as a single multiplication to your total base.
+
+Eg.
+50% increased health, 100% increased health
+20 base health, item with +35 health, have taken 5 damage this combat
+
+20 + 35 = 55 base health. 100% base + 50% + 100% = 250% health
+
+55 * 250/100 = 137.5 -> 137 health
+-5 damage taken this combat -> 132 health
+
+------------------------------------------------
+
+Primary Stats are summed and multiplied first, then their derived secondary stats are summed and then multiplied second.
+Note the \"strength per attack\" value below is made up, confirm in your character stat screen.
+
+Eg.
+10 Strength, 50% Strength, 10 non-Strength Attack, 50% Attack
+
+10 Strength * 150/100 -> 15 Strength. 5 Strength per Attack -> +3 attack
+
+10 non-Strength Attack + 3 Attack from Strength = 13 Attack * 150/100 -> 19.5 -> 19 Attack
+
+------------------------------------------------"
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="CloseButton" type="Button" parent="MainUI/PauseMenu/MathInfoPanel/FrameProtruding"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -28.0
+offset_right = 29.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="MainUI/PauseMenu/MathInfoPanel/FrameProtruding/CloseButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+text = "Close"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CursorManager" type="Node2D" parent="MainUI"]
+script = ExtResource("8_xalbe")
+normal_cursor = ExtResource("9_nf78q")
+clicked_cursor = ExtResource("9_nf78q")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="MainUI/CursorManager"]
+layer = 128
+
+[node name="Sprite2D" type="Sprite2D" parent="MainUI/CursorManager/CanvasLayer"]
+position = Vector2(-100, -100)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_nf78q")
+offset = Vector2(16, 16)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="MainUI/CursorManager/CanvasLayer/Sprite2D"]
+visible = false
+position = Vector2(16, 16)
+amount = 3
+texture = ExtResource("14_npwt7")
+lifetime = 0.25
+speed_scale = 0.25
+randomness = 1.0
+process_material = ExtResource("15_obmf6")
+
+[node name="SelectionBorder" type="Sprite2D" parent="MainUI/CursorManager/CanvasLayer/Sprite2D"]
+visible = false
+position = Vector2(-2, -2)
+scale = Vector2(2, 2)
+texture = ExtResource("18_nf78q")
+centered = false
+offset = Vector2(-8, -18)
+
+[node name="Selection" type="Sprite2D" parent="MainUI/CursorManager/CanvasLayer/Sprite2D"]
+visible = false
+scale = Vector2(2, 2)
+texture = ExtResource("18_xalbe")
+centered = false
+offset = Vector2(-8, -18)
+
+[node name="MainGame" type="CanvasLayer" parent="."]
+
+[node name="FrameRecessed" parent="MainGame" instance=ExtResource("22_u46kj")]
+
+[node name="UIBackground" type="TextureRect" parent="MainGame"]
+visible = false
+offset_right = 480.0
+offset_bottom = 270.0
+mouse_filter = 2
+texture = ExtResource("10_qmb71")
+
+[node name="MarginContainer" type="MarginContainer" parent="MainGame"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Map" type="Control" parent="MainGame/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Background" type="Node2D" parent="MainGame/MarginContainer/Map"]
+position = Vector2(240, 135)
+
+[node name="SkyBackground" type="Sprite2D" parent="MainGame/MarginContainer/Map/Background"]
+texture = ExtResource("12_bbldx")
+
+[node name="SkyForeground" type="Sprite2D" parent="MainGame/MarginContainer/Map/Background"]
+texture = ExtResource("13_uaqc7")
+
+[node name="SkyStars" type="AnimatedSprite2D" parent="MainGame/MarginContainer/Map/Background"]
+sprite_frames = ExtResource("14_g13l7")
+autoplay = "default"
+
+[node name="MapGridBase" type="Sprite2D" parent="MainGame/MarginContainer/Map"]
+position = Vector2(240, 135)
+texture = ExtResource("14_wcgmp")
+
+[node name="SidebarBack" type="AnimatedSprite2D" parent="MainGame/MarginContainer/Map"]
+position = Vector2(240, 135)
+sprite_frames = ExtResource("12_g13l7")
+
+[node name="MapContainer" type="Control" parent="MainGame/MarginContainer/Map"]
+anchors_preset = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 477.0
+offset_bottom = 267.0
+mouse_filter = 2
+
+[node name="SidebarFront" type="AnimatedSprite2D" parent="MainGame/MarginContainer/Map"]
+position = Vector2(240, 135)
+sprite_frames = ExtResource("13_npwt7")
+
+[node name="LightFilter" type="ColorRect" parent="MainGame/MarginContainer/Map"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+script = ExtResource("30_cuuk2")
+day_colour = Color(0.29, 0.22919668, 0.075399995, 0.19607843)
+night_colour = Color(0.16450001, 0.20014173, 0.47, 0.19607843)
+
+[node name="CombatContainer" type="Control" parent="MainGame/MarginContainer"]
+layout_mode = 2
+
+[node name="TextBlurbContainer" type="Control" parent="MainGame/MarginContainer"]
+layout_mode = 2
+
+[node name="StatsUIContainer" type="Control" parent="MainGame/MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="StatsUI" parent="MainGame/MarginContainer/StatsUIContainer" instance=ExtResource("29_1j0u7")]
+layout_mode = 1
+
+[node name="CloseButton" parent="MainGame/MarginContainer/StatsUIContainer/StatsUI" instance=ExtResource("31_80hqw")]
+layout_mode = 1
+offset_left = -18.0
+offset_bottom = 18.0
+
+[node name="CombatLogContainer" type="Control" parent="MainGame/MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Frame" parent="MainGame/MarginContainer/CombatLogContainer" instance=ExtResource("31_rjmfi")]
+layout_mode = 1
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 464.0
+offset_bottom = 254.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MainGame/MarginContainer/CombatLogContainer/Frame"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainGame/MarginContainer/CombatLogContainer/Frame/MarginContainer"]
+layout_mode = 2
+
+[node name="TitleBar" type="HBoxContainer" parent="MainGame/MarginContainer/CombatLogContainer/Frame/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="MainGame/MarginContainer/CombatLogContainer/Frame/MarginContainer/VBoxContainer/TitleBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FullLogButton" type="Button" parent="MainGame/MarginContainer/CombatLogContainer/Frame/MarginContainer/VBoxContainer/TitleBar/Spacer"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -11.0
+offset_right = 44.0
+offset_bottom = 11.0
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="MainGame/MarginContainer/CombatLogContainer/Frame/MarginContainer/VBoxContainer/TitleBar/Spacer/FullLogButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 4
+text = "More Log"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="MainGame/MarginContainer/CombatLogContainer/Frame/MarginContainer/VBoxContainer/TitleBar"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Combat Log"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacer 2" type="Control" parent="MainGame/MarginContainer/CombatLogContainer/Frame/MarginContainer/VBoxContainer/TitleBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="EventLog" parent="MainGame/MarginContainer/CombatLogContainer/Frame/MarginContainer/VBoxContainer" instance=ExtResource("18_h0uu6")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CloseButton" parent="MainGame/MarginContainer/CombatLogContainer/Frame" instance=ExtResource("31_80hqw")]
+layout_mode = 1
+offset_left = -18.0
+offset_bottom = 18.0
+
+[node name="TextPopUpContainer" type="Control" parent="MainGame/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TextPopUpPanel" type="Panel" parent="MainGame/MarginContainer/TextPopUpContainer"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -125.0
+offset_top = 10.0
+offset_right = 125.0
+offset_bottom = 80.0
+grow_horizontal = 2
+mouse_filter = 2
+script = ExtResource("34_80hqw")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainGame/MarginContainer/TextPopUpContainer/TextPopUpPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/line_separation = 2
+theme_override_constants/paragraph_separation = 2
+theme_override_font_sizes/normal_font_size = 12
+text = "A new dawn rises..."
+scroll_active = false
+scroll_following = true
+scroll_following_visible_characters = true
+horizontal_alignment = 1
+
+[node name="UIBorder" type="TextureRect" parent="MainGame"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("20_1fc2u")
+
+[node name="SFXManager" parent="." instance=ExtResource("36_q5k8v")]
+
+[connection signal="pressed" from="MainUI/GameStarter/GameStartButtons/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="MainUI/TopButtons/PauseMenuButton" to="." method="_on_pause_menu_button_pressed"]
+[connection signal="pressed" from="MainUI/TopButtons/TimeButton" to="." method="_on_time_button_pressed"]
+[connection signal="pressed" from="MainUI/TopButtons/CombatLogButton" to="." method="_on_combat_log_button_pressed"]
+[connection signal="pressed" from="MainUI/TopButtons/InventoryMenuButton" to="." method="_on_inventory_menu_button_pressed"]
+[connection signal="pressed" from="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/TopRow/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/BottomRow/InfoButton" to="MainUI/PauseMenu" method="_on_info_button_pressed"]
+[connection signal="pressed" from="MainUI/PauseMenu/MathInfoPanel/FrameProtruding/CloseButton" to="MainUI/PauseMenu" method="_on_close_button_pressed"]
+[connection signal="pressed" from="MainGame/MarginContainer/StatsUIContainer/StatsUI/CloseButton" to="." method="_on_stats_ui_close_button_pressed"]
+[connection signal="pressed" from="MainGame/MarginContainer/CombatLogContainer/Frame/MarginContainer/VBoxContainer/TitleBar/Spacer/FullLogButton" to="." method="_on_full_log_button_pressed"]
+[connection signal="pressed" from="MainGame/MarginContainer/CombatLogContainer/Frame/CloseButton" to="." method="_on_combat_log_close_button_pressed"]
+
+[editable path="MainUI/TopButtons/PauseMenuButton"]
+[editable path="MainUI/TopButtons/TimeButton"]
+[editable path="MainUI/TopButtons/CombatLogButton"]
+[editable path="MainUI/TopButtons/InventoryMenuButton"]
+[editable path="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/MusicVolumeSlider"]
+[editable path="MainUI/PauseMenu/MenuButtonCanvas/MenuButtons/SFXVolumeSlider"]

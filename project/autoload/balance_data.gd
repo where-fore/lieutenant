@@ -14,8 +14,9 @@ var basic_attack:int = 5
 
 var player_base_strength:int = common_stat_budget
 var player_base_agility:int = common_stat_budget
-var player_base_mind:int = 0
+var player_base_mind:int = common_stat_budget
 var player_base_fortitude:int = common_stat_budget
+var player_base_hp_per_day:int = 40
 
 var flower_basic_stat:int = common_stat_budget
 var flower_basic_split_stat:int = flower_basic_stat / 2

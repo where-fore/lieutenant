@@ -14,7 +14,7 @@ func _init() -> void:
 func next_page() -> void:
 	if current_page == 1:
 		ScenarioEvents.setup_reward.emit(rewards[0])
-		ScenarioEvents.present_rewards.emit()
+		ScenarioEvents.present_rewards.emit(false)
 	else: next_page_base()
 
 func on_finish_scenario() -> void:

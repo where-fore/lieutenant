@@ -7,7 +7,7 @@ signal updated
 signal on_last_page
 signal begin_combat_with(combatant:Combatant)
 signal begin_combat_with_map_enemy
-signal present_rewards
+signal present_rewards(one_shot:bool)
 signal completed_combat_as_victory
 signal completed_combat_as_loss
 signal setup_reward(reward:Reward)
