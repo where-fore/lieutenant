@@ -12,8 +12,8 @@ var rare_multiplicative_stat_budget:int = common_multiplicative_stat_budget * 3 
 var basic_health:int = 20
 var basic_attack:int = 5
 
-var player_base_strength:int = common_stat_budget
-var player_base_agility:int = common_stat_budget
+var player_base_strength:int = common_stat_budget / 2
+var player_base_agility:int = common_stat_budget / 2
 var player_base_mind:int = 0
 var player_base_fortitude:int = common_stat_budget
 var player_base_hp_per_day:int = 40
@@ -42,7 +42,7 @@ var enemy_mythic_health_stat_budget:int = enemy_normal_stat_budget * 2
 var enemy_boss_health_stat_budget:int = enemy_normal_stat_budget * 10
 
 var enemy_tutorial_easy_stat_budget:int = enemy_normal_stat_budget / 2
-var enemy_tutorial_hard_stat_budget:int = enemy_normal_stat_budget
+var enemy_tutorial_hard_stat_budget:int = enemy_normal_stat_budget / 2
 
 #note this probably doesn't work like you think - control-shift-f
 var max_party_size:int = 4

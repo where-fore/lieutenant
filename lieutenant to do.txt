@@ -9,13 +9,13 @@ not sure how to make keepsake amulet increase its own max hp conferrance, updati
 add a hp-per-day keepsake you get from home. also tutorializes the inventory ui button, and the stats? have it give a max health and 10 of every stat maybe? also then i can have stats start at 0, max hp starting at value of amulet?
 	notably companions start at non-0: maybe i can just have them at 0 but with an aura "Prior Training" that you can read the tooltip on
 	
-	figure out a good hp per day
-	figure out on_new_day item triggers
 	get menu ui buttons tweenin
 	
 --------------------------------------------------------
 work to do
 --------------------------------------------------------
+
+inventory/stats ui isn't updating when stats change - for example the starting necklace that now gives stats every sunrise, stat panel doesn't update with that. needs to hook onto combatant.stat_update signal or something similar
 
 get the lethality working about right - enemies kill 2ish combatants, then perish
 	can wait for items to be in to balance
@@ -54,6 +54,10 @@ items to add:
 fix stats - str +damage, dex +damage in a different way. regular hp increases somehow (maybe just lots of good items with fortitude? basic reward = fortitude flower, stat flower) (can do two rows of rewards if too much)
 	is %damage str and %crit dex really that bad? if crit is entropy based? both are %scaling, dex is more multiplicative with multi and chance. there are enough turns in the game to smooth randomness, right?
 	unless item procs can crit - should these stats affect item procs? what category of items, say mountainslide +25% str as damage, or moon kris dex damage?
+		combatant.gd:
+		attack_target_for_turn
+		deal_auxiliary_damage
+		deal_auxiliary_damage_to_specific_target
 
 
 --------------------------------------------------------

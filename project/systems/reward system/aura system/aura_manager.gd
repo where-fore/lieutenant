@@ -106,3 +106,7 @@ func on_end_turn() -> void:
 func on_combat_end() -> void:
 	for aura:Aura in aura_dictionary.values():
 		aura.check_if_aura_expired_at_end_of_combat()
+
+func on_new_day() -> void:
+	for aura:Aura in aura_dictionary.values():
+		aura.on_new_day()

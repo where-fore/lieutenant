@@ -66,6 +66,10 @@ func on_other_combatant_dying(newly_dead_combatant:Combatant) -> void:
 	for item:Item in inventory:
 		item.on_other_combatant_dying(newly_dead_combatant)
 
+func on_new_day() -> void:
+	for item:Item in inventory:
+		item.on_new_day()
+
 #timing events
 func on_start_combat() -> void:
 	for item:Item in inventory:

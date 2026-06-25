@@ -18,4 +18,8 @@ func setup_item_stats() -> void:
 
 #custom stuff
 func on_new_day() -> void:
-	pass
+	if not additive_stat_dictionary.get(Stats.health):
+		additive_stat_dictionary[Stats.health] = health_per_day
+	else: additive_stat_dictionary[Stats.health] += health_per_day
+	
+	_runtime_aura.change_additive_aura(Stats.health, health_per_day, true)

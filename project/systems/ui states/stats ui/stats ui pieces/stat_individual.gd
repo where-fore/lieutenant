@@ -15,4 +15,5 @@ func _on_gui_input(_event: InputEvent) -> void:
 	pass # Replace with function body.
 
 func _on_mouse_entered() -> void:
+	tooltip_text = "" #reset the cache
 	tooltip_text = saved_reward.get_tooltip()

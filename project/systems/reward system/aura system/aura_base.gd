@@ -103,20 +103,5 @@ func expire_aura() -> void:
 	expired.emit(self)
 
 #derived subclasses hook onto and override these functions
-func on_other_combatant_dying(_newly_dead_combatant:Combatant) -> void:
-	pass
-
-func on_damage_taken(_damage_taken:int, _source_of_damage:Combatant) -> void:
-	pass
-
-func on_attack(_source:Combatant, _target:Combatant) -> void:
-	pass
-
-func on_combat_start() -> void:
-	pass
-
-func on_combat_end() -> void:
-	pass
-
 func setup_aura_stats() -> void:
 	pass

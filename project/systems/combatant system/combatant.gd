@@ -75,6 +75,7 @@ func setup(should_be_a_player:bool = false) -> void:
 		is_an_enemy = false
 	
 	CombatEvents.combatant_died.connect(on_other_combatant_dying_functions)
+	TimeOfDay.new_day.connect(on_new_day_functions)
 
 func unsetup() -> void:
 	active = false
@@ -436,6 +437,10 @@ func on_end_combat_functions() -> void:
 	aura_manager.on_combat_end()
 	reset_for_next_combat()
 
+func on_new_day_functions() -> void:
+	on_new_day()
+	item_manager.on_new_day()
+	aura_manager.on_new_day()
 
 #derived subclasses hook onto these functions
 
@@ -447,6 +452,9 @@ func on_other_combatant_dying(_newly_dead_combatant:Combatant) -> void:
 	pass
 
 func choose_targets_override() -> void:
+	pass
+
+func on_new_day() -> void:
 	pass
 
 #timing events

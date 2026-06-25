@@ -123,29 +123,5 @@ func remove_from_custom_auras(old_aura:Aura) -> void:
 func setup_item_stats() -> void:
 	push_error("item tried to instantiate without overriding setup_item_stats(): ", get_script().resource_path)
 
-func on_other_combatant_dying(_newly_dead_combatant:Combatant) -> void:
-	pass
-
 func on_equip() -> void:
-	pass
-
-func on_combat_start() -> void:
-	pass
-
-func on_turn_start(_source:Combatant) -> void:
-	pass
-
-func on_attack(_source:Combatant, _target:Combatant) -> void:
-	pass
-
-func on_damage_taken(_amount_taken:int, _source_of_damage:Combatant) -> void:
-	pass
-
-func on_turn_end(_source:Combatant) -> void:
-	pass
-
-func on_combat_end() -> void:
-	pass
-
-func threshold_state_changed(_threshold:ThresholdBehaviour) -> void:
 	pass
