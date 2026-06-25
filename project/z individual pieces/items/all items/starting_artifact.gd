@@ -6,7 +6,7 @@ var health_per_day:int = BalanceData.player_base_hp_per_day
 func setup_item_stats() -> void:
 	reward_name = "Mother's Locket" # "Generic Item"
 	reward_sprite = load("res://sprites/mothers_necklace.png")
-	extra_tooltip = "Keepsake from home.\nFilled with vital energy.\nCan bring intact bodies back from death.\nRaises Max Health by {amount} every sunrise.".format({"amount": health_per_day,}) # "Generic flavourful description"
+	extra_tooltip = "Keepsake from home, filled with vital energy.\nCan bring intact bodies back from death.\nRaises Max Health by {amount} every sunrise.".format({"amount": health_per_day,}) # "Generic flavourful description"
 	reward_categories = {
 	}
 	
