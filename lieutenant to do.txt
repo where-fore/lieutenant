@@ -8,6 +8,7 @@ working notes
 
 
 not sure what happens when shield goes below 0 - say i want that bloodbath necklace again, it'd be +1000 shield, -1000 shield - what happens when you go from 700 to -300 shield
+	ideally it floors to zero, like other stats
 
 --------------------------------------------------------
 work to do
@@ -17,6 +18,7 @@ get the lethality working about right - enemies kill 2ish combatants, then peris
 	can wait for items to be in to balance
 	items seem very hard to balance atm, there's no "stat budget", they give fairly unique abilities
 		which is great, but "wait to balance till later" doesn't need to happen, since once i have an idea of balance, when making new items, i can tune them with that balance heuristic in mind
+	heroes hp is way too variable, i think i should have it grow very predictably, and have damage vary by build
 
 map info popups are z-index 1, means they pop up over everything - notably the inventory/combat log menu being opened
 	this was done so other map tiles don't render over them
@@ -30,6 +32,7 @@ that random entropy system - would be great for map spawning. also semiunrelated
 
 popup ui tutorial would be nice - when seeing the stats for the first time, glow the inventory ui button and say "check out what stats do here"
 something with combat log too, "check out what hurt you so bad" or something
+	"menu ui button" class, with flash and tween methods
 
 
 items to add:
@@ -55,8 +58,10 @@ playtest notes
 --------------------------------------------------------
 
 moon kris looks really disappointing - maybe rewrite to "dexterity provides 50% more attack"? sounds more powerful
+	when i remake dexterity to only damage, it will probably be closer to 1 dex = 1 damage, so it will sound more powerful
 
 dead characters getting the turn indicator looks buggy
+	maybe make them have ghost portraits
 
 stats are still weird, strength dex and attack? why does enrage sword give attack? why does strength and fortitude give hp?
 	strength = damage, dex = damage, fortitude = hp
@@ -64,6 +69,11 @@ stats are still weird, strength dex and attack? why does enrage sword give attac
 		so enrage sword can give str, which is either synergistic with your str scaler, or maybe shifts aggro with your mind build? more flexible, instead of basic +attack
 		also decouples hp and damage
 	need a way to have hp generally increase, more fortitude items? fortitude increases every day? all char fortitude increases every reward screen?
+	"all creatures gather energy from the sun" - you included. enemies scale up, you get extra hp - note somewhere on a tooltip "hp from gathered sunlight"
+		maybe get a magic item early in a tutorial or something that gives max health every day
+			that way i can have different "classes" or "builds" which change that paradigm
+			add a "new day" trigger the item manager listens to - i'll want that for changing weapons anyways
+-
 
 maybe some sort of mind tutorial is in order? at least get an item with +mind before encountering an enemy with mind?'
 	i do like mind being a weird rare strange stat, maybe leave it as it is
@@ -81,7 +91,6 @@ scenarios are a bit dry - too much text, too little going on
 	pare down the text, they are a bit too wordy
 
 i liked the day-night cycle, if a strong enemy is there i want to try to path to a few rewards before it
-i liked the day-night cycle, if a strong enemy is there i want to try to path to a few rewards before it
 	it isn't really explained that well
 	maybe we need map chunks again, so there's some rares and some non-rares, instead of full randomness.. or maybe just an entropy randomness solves this problem without needing chunks?
 
@@ -89,6 +98,7 @@ i like the spear threshold - it felt cool to try to go for, and great to achieve
 	maybe i should more "miniquest" items at the start, like my original 3-rare-choice
 		not sure how to not put all these on the same character
 			not sure why that's a problem actually, the idea is just to have some meta-goals to give more direction and meaning to choices. no need for it to be one-per-character, or even 4 at all
+		i used to have a rare vs unique distinction - uniques being miniquest type items, build-arounds,; not necessarily incredibly powerful insta picks, like rares
 
 boss was super anticlimactic stat check, and instantly killed my dudes (despite getting the mega spear buff)
 	maybe bosses force to slower turn speed; and also have much higher hp and lower attack?
@@ -108,13 +118,13 @@ i didn't really get to do any of the death effect stuff
 	but enemies were too lethal and low hp for that - maybe one character dies and the monster immediately dies
 		maybe the knights both starting with a revenger is too much? maybe one should have a healing thing?
 
-getting offered a 20 stat flower and a basic 30 stat common item, especially both same stat after first combat, is confusing
-	why do common items exist again
--> changed second reward to a handful of flowers
-
 ---
 --addressed--
 ---
+
+getting offered a 20 stat flower and a basic 30 stat common item, especially both same stat after first combat, is confusing
+	why do common items exist again
+-> changed second reward to a handful of flowers
 
 current scaling feels pretty alright - you get one or two crazy shennanigans going by the end of the game right now
 	endless mode would be cool

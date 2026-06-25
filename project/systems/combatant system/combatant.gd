@@ -39,7 +39,9 @@ var damage_taken:int = 0:
 
 var shield:int = 0:
 	set(value):
-		shield = value
+		if value < 0: shield = 0
+		else: shield = value
+		
 		emit_stat_update()
 
 var base_rounds_can_fight:int = 150
@@ -129,14 +131,6 @@ func heal(amount_healed:int) -> void:
 		else:
 			self.damage_taken -= amount_healed
 			CombatEvents.healing_applied.emit(self, amount_healed)
-
-func apply_shield(value:int) -> void:
-	shield += value
-	if shield < 0: shield = 0
-
-func remove_shield(value:int) -> void:
-	shield -= value
-	if shield < 0: shield = 0
 
 func reset_current_stats_to_base() -> void:
 	#if not starting_stats.has(Stats.crit_multi):
@@ -323,7 +317,7 @@ func get_all_items() -> Array[Item]:
 func get_all_auras() -> Array[Aura]:
 	return aura_manager.get_all_auras()
 
-func get_shield_from_int() -> void:
+func get_shield_from_mind() -> void:
 	var shield_to_add:int = current_stats.get(Stats.mind, 0) / Stats.mind_per_shield_per_turn
 	shield += shield_to_add
 
@@ -416,7 +410,7 @@ func on_start_turn_functions() -> void:
 	aura_manager.on_start_turn()
 	
 	if not dead:
-		get_shield_from_int()
+		get_shield_from_mind()
 	
 	CombatEvents.combatant_turn_started.emit(self)
 

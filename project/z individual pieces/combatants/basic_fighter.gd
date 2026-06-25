@@ -10,4 +10,4 @@ func _init() -> void:
 	starting_stats[Stats.mind] = BalanceData.player_base_mind
 	starting_stats[Stats.fortitude] = BalanceData.player_base_fortitude
 	
-	#starting_items = [Database.get_reward_by_id("heal_for_lowest_stat_ring")]
+	#starting_items = [Database.get_reward_by_id("necklace_of_bloodbath")]
